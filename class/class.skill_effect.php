@@ -3,36 +3,36 @@
 //	extended class.battle.php
 class ClassSkillEffect{
 //////////////////////////////////////////////////
-//	¥¹¥­¥ë¤òÂĞ¾İ¤Ë»ÈÍÑ¤¹¤ë
+//	ã‚¹ã‚­ãƒ«ã‚’å¯¾è±¡ã«ä½¿ç”¨ã™ã‚‹
 /*
 
-¥¹¥­¥ë»ÈÍÑÂĞ¾İ¼Ô(ÈïÂ¦)¤Ï´ğËÜÅª¤Ë
-¢£Á´°÷
-¢£¥é¥ó¥À¥à(¤ËÊ£¿ô²ó)
-¢£(Ì£Êı¤Î)HP¤¬Äã¤¤½ç¤«¤é²ó¿ô=¿Í¿ôÊ¬
-¢£¤·¤Ü¡¼¼Ô(¤Ç¥é¥ó¥À¥à)
-¤Î4¼ïÎà?
-¢¨Å¨¤ÎHP¤¬Äã¤¤½ç¤«¤éÁÀ¤¨¤ë¤ÈÌÌÇò¤¯¤Ê¤¤¤·¡£
+ã‚¹ã‚­ãƒ«ä½¿ç”¨å¯¾è±¡è€…(è¢«å´)ã¯åŸºæœ¬çš„ã«
+â– å…¨å“¡
+â– ãƒ©ãƒ³ãƒ€ãƒ (ã«è¤‡æ•°å›)
+â– (å‘³æ–¹ã®)HPãŒä½ã„é †ã‹ã‚‰å›æ•°=äººæ•°åˆ†
+â– ã—ã¼ãƒ¼è€…(ã§ãƒ©ãƒ³ãƒ€ãƒ )
+ã®4ç¨®é¡?
+â€»æ•µã®HPãŒä½ã„é †ã‹ã‚‰ç‹™ãˆã‚‹ã¨é¢ç™½ããªã„ã—ã€‚
 
-¤Ş¤º¡¢Àè¤Ë¥¿¡¼¥²¥Ã¥È¤ò·è¤á¤ë¡£
-¸õÊä(Ì£Êı,Å¨,¼«Ê¬,Ì£Êı+Å¨)
-¸õÊä¤è¤ê Ã±ÂÎ,Ê£¿ô,Á´ÂÎ ¤ò Í¥Àè½ç°Ì¤Ë½¾¤Ã¤Æ(Ã±ÂÎ,Ê£¿ô¤Î¤ß)·è¤á¤ë
+ã¾ãšã€å…ˆã«ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’æ±ºã‚ã‚‹ã€‚
+å€™è£œ(å‘³æ–¹,æ•µ,è‡ªåˆ†,å‘³æ–¹+æ•µ)
+å€™è£œã‚ˆã‚Š å˜ä½“,è¤‡æ•°,å…¨ä½“ ã‚’ å„ªå…ˆé †ä½ã«å¾“ã£ã¦(å˜ä½“,è¤‡æ•°ã®ã¿)æ±ºã‚ã‚‹
 
-¹¶·â¤Ê¤é¡¢¥¬¡¼¥É¤¬Æş¤ë¤«¤É¤¦¤«È½Äê¡£
-¹¶·â¡£
+æ”»æ’ƒãªã‚‰ã€ã‚¬ãƒ¼ãƒ‰ãŒå…¥ã‚‹ã‹ã©ã†ã‹åˆ¤å®šã€‚
+æ”»æ’ƒã€‚
 
-»Ù±ç¢ª¤½¤Î¤Ş¤Ş»Ù±ç
+æ”¯æ´â†’ãã®ã¾ã¾æ”¯æ´
 
 */
 //////////////////////////////////////////////////
-//	»ÈÍÑ¼Ô¤¬ÂĞ¾İ¼Ô¤Ë¥¹¥­¥ë¤ò»È¤¦
+//	ä½¿ç”¨è€…ãŒå¯¾è±¡è€…ã«ã‚¹ã‚­ãƒ«ã‚’ä½¿ã†
 	function SkillEffect($skill,$skill_no,&$user,&$target) {
 		if($target === false) {
 			print("No target.Failed!<br />\n");
 			return false;
 		}
 
-		//¥¹¥­¥ë¤ò¼Âºİ¤Ë»ÈÍÑ¤¹¤ë
+		//ã‚¹ã‚­ãƒ«ã‚’å®Ÿéš›ã«ä½¿ç”¨ã™ã‚‹
 		switch($skill_no):
 
 			case 1020:// ManaBreak
@@ -63,10 +63,10 @@ class ClassSkillEffect{
 				break;
 
 			case 1024://LifeDivision
-				$value	= round(abs($target->HP - $user->HP)*0.5);// º¹Ê¬
+				$value	= round(abs($target->HP - $user->HP)*0.5);// å·®åˆ†
 				if($user->HP <= $target->HP) {
 					if(1000 <= $value) {
-						print("¢¨ÃÍ¤¬Âç¤­¤¹¤®¤ÆÊäÀµ¤µ¤ì¤Ş¤·¤¿¡£<br />\n");
+						print("â€»å€¤ãŒå¤§ãã™ãã¦è£œæ­£ã•ã‚Œã¾ã—ãŸã€‚<br />\n");
 						$value	= 500;
 					}
 					DamageHP($target,$value);
@@ -78,10 +78,10 @@ class ClassSkillEffect{
 				break;
 
 			case 1025://ManaDivision
-				$value	= round(abs($target->SP - $user->SP)*0.5);// º¹Ê¬
+				$value	= round(abs($target->SP - $user->SP)*0.5);// å·®åˆ†
 				if($user->SP <= $target->SP) {
 					if(1000 <= $value) {
-						print("¢¨ÃÍ¤¬Âç¤­¤¹¤®¤ÆÊäÀµ¤µ¤ì¤Ş¤·¤¿¡£<br />\n");
+						print("â€»å€¤ãŒå¤§ãã™ãã¦è£œæ­£ã•ã‚Œã¾ã—ãŸã€‚<br />\n");
 						$value	= 500;
 					}
 					DamageSP($target,$value);
@@ -129,7 +129,7 @@ class ClassSkillEffect{
 
 			case 2030: // LifeDrain
 			case 2031: // LifeSqueeze
-				if($user == $target) return false;//¼«Ê¬¤«¤é¼«Ê¬¤ÏµÛ¼ı¤·¤Ê¤¤¡£
+				if($user == $target) return false;//è‡ªåˆ†ã‹ã‚‰è‡ªåˆ†ã¯å¸åã—ãªã„ã€‚
 				$dmg	= CalcBasicDamage($skill,$user,$target);
 				AbsorbHP($target,$dmg,$user,$dmg);
 				break;
@@ -162,22 +162,22 @@ class ClassSkillEffect{
 				}
 				print($target->GetSpecial("Metamo",true));
 				if($target->gender == 0)
-					$target->img	= "mon_110r.gif";//¡é
+					$target->img	= "mon_110r.gif";//â™‚
 				else
-					$target->img	= "mon_149r.gif";//¡ê
+					$target->img	= "mon_149r.gif";//â™€
 				$this->StatusChanges($skill,$target);
 				RecoverHP($target,round($target->MAXHP/2));
 				break;
 
-			// SPµÛ¼ı·Ï
+			// SPå¸åç³»
 			case 2090://EneryRob
 			case 2091://EneryCollect
-				if($user == $target) return false;//¼«Ê¬¤«¤é¼«Ê¬¤ÏµÛ¼ı¤·¤Ê¤¤¡£
+				if($user == $target) return false;//è‡ªåˆ†ã‹ã‚‰è‡ªåˆ†ã¯å¸åã—ãªã„ã€‚
 				$dmg	= CalcBasicDamage($skill,$user,$target,array("pierce"=>1));
 				AbsorbSP($target,$dmg,$user,$dmg);
 				break;
 
-			// ¥Á¥ã¡¼¥¸(±Ó¾§)Ãæ¤Î¥­¥ã¥é¤Î¤ß¤òÂĞ¾İ¤Ë¤¹¤ë
+			// ãƒãƒ£ãƒ¼ã‚¸(è© å”±)ä¸­ã®ã‚­ãƒ£ãƒ©ã®ã¿ã‚’å¯¾è±¡ã«ã™ã‚‹
 			case 2110:
 			case 2111:
 				if($target->expect === false) break;
@@ -185,7 +185,7 @@ class ClassSkillEffect{
 				break;
 
 /*
-			// HP²óÉü·Ï
+			// HPå›å¾©ç³»
 			case 3000:// Healing
 			case 3001:// PowerHeal
 			case 3002:// PartyHeal
@@ -210,7 +210,7 @@ class ClassSkillEffect{
 				RecoverHP($target,$heal);
 				break;
 
-			case 3010: // ManaRecharge(¼«¸ÊSP²óÉü)
+			case 3010: // ManaRecharge(è‡ªå·±SPå›å¾©)
 				$SpRec	= ceil($target->MAXSP * 3/10);
 				RecoverSP($target,$SpRec);
 				break;
@@ -252,7 +252,7 @@ class ClassSkillEffect{
 				RecoverHP($target,$heal);
 				break;
 */
-			//	ÁÉÀ¸·Ï¤Îµ»¡£
+			//	è˜‡ç”Ÿç³»ã®æŠ€ã€‚
 			case 3040:// Resurrection
 			case 5030:// SoulRestor
 			case 5063:// WakeUp
@@ -287,7 +287,7 @@ class ClassSkillEffect{
 				}
 				break;
 /*
-			case 3101: // Blessing(Ì£ÊıSP²óÉü)
+			case 3101: // Blessing(å‘³æ–¹SPå›å¾©)
 				$RATE	= 3;
 				$SpRec	= ceil(sqrt($target->MAXSP) * $RATE);
 				RecoverSP($target,$SpRec);
@@ -326,7 +326,7 @@ break;
 				RecoverHP($target,$heal);
 				break;
 
-			// ¾¤´­¥­¥ã¥é¤Î¤ß¤ËÅ¬±ş¤¹¤ëµ»
+			// å¬å–šã‚­ãƒ£ãƒ©ã®ã¿ã«é©å¿œã™ã‚‹æŠ€
 			case 3300:// PowerTrain
 			case 3301:// MindTrain
 			case 3302:// SpeedTrain
@@ -349,13 +349,13 @@ break;
 				DamageHP($user,9999);
 				break;
 
-			case 4000: // StanceRestore(Î×ÀïÂÖÀª)
+			case 4000: // StanceRestore(è‡¨æˆ¦æ…‹å‹¢)
 				if($target->position != $target->POSITION) {
 					$target->Move($target->position);
 				}
 				break;
 
-			// Å¨¥¹¥­¥ë
+			// æ•µã‚¹ã‚­ãƒ«
 			case 5002: // BloodSuck
 				$dmg	= CalcBasicDamage($skill,$user,$target,array("pierce"=>1));
 				AbsorbHP($target,$dmg,$user,$dmg);
@@ -364,7 +364,7 @@ break;
 			case 5006: // Charge!!!
 				if($user == $target) {
 					$user->POSITION = "back";
-					return false;//¼«Ê¬¤ÏÂĞ¾İ³°
+					return false;//è‡ªåˆ†ã¯å¯¾è±¡å¤–
 				}
 				if($target->POSITION == "back") {
 					$target->POSITION = "front";
@@ -380,9 +380,9 @@ break;
 				$user->UpMDEF(30);
 				break;
 
-			// ¥¹¥Æ¡¼¥¿¥¹ÊÑ²½·Á¤Îµ»
+			// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹å¤‰åŒ–å½¢ã®æŠ€
 			case 5022://Fortune
-				if($user == $target) break;//¼«Ê¬¤Ë¤Ï»È¤ï¤Ê¤¤¡£
+				if($user == $target) break;//è‡ªåˆ†ã«ã¯ä½¿ã‚ãªã„ã€‚
 				$heal	= CalcRecoveryValue($skill,$user,$target);
 				RecoverHP($target,$heal);
 				$this->StatusChanges($skill,$target);
@@ -398,45 +398,45 @@ break;
 				break;
 
 			//---------------------------------------------//
-			// ¤½¤ì°Ê³°¤Îµ»(¤³¤³¤¬ºÇ¤âÂ¿¤¯Ê¬Îà¤µ¤ì¤ë)
-			// ¤á¤ó¤É¤¯¤µ¤¤¤Î¤Ç½èÍı¤¬Áı¤¨¤¿
+			// ãã‚Œä»¥å¤–ã®æŠ€(ã“ã“ãŒæœ€ã‚‚å¤šãåˆ†é¡ã•ã‚Œã‚‹)
+			// ã‚ã‚“ã©ãã•ã„ã®ã§å‡¦ç†ãŒå¢—ãˆãŸ
 			//---------------------------------------------//
 			default:
-				// ËâÊı¿ØÉÁ¤¯
+				// é­”æ–¹é™£æã
 				if($skill["MagicCircleAdd"]) {
 					$this->MagicCircleAdd($user->team,$skill["MagicCircleAdd"]);
 					print($user->Name(bold).'<span class="support"> draw MagicCircle x'.$skill["MagicCircleAdd"].'</span><br />'."\n");
 				}
-				// ËâÊı¿Ø¾Ã¤¹(Å¨)
+				// é­”æ–¹é™£æ¶ˆã™(æ•µ)
 				if($skill["MagicCircleDeleteEnemy"]) {
-					$EnemyTeam	= ($user->team == TEAM_0)?TEAM_1:TEAM_0;//Áê¼ê¥Á¡¼¥à¤ò»ØÄê
+					$EnemyTeam	= ($user->team == TEAM_0)?TEAM_1:TEAM_0;//ç›¸æ‰‹ãƒãƒ¼ãƒ ã‚’æŒ‡å®š
 					$this->MagicCircleDelete($EnemyTeam,$skill["MagicCircleDeleteEnemy"]);
 					print($user->Name(bold).'<span class="dmg"> erased enemy MagicCircle x'.$skill["MagicCircleDeleteEnemy"].'</span><br />'."\n");
 				}
-				// HP»ıÂ³²óÉü
+				// HPæŒç¶šå›å¾©
 				if($skill["HpRegen"]) {
 					$target->GetSpecial("HpRegen",$skill["HpRegen"]);
 					print($target->Name(bold).'<span class="recover"> gained HP regeneration +'.$skill["HpRegen"]."%</span><br />\n");
 				}
-				// SP»ıÂ³²óÉü
+				// SPæŒç¶šå›å¾©
 				if($skill["SpRegen"]) {
 					$target->GetSpecial("SpRegen",$skill["SpRegen"]);
 					print($target->Name(bold).'<span class="support"> gained SP regeneration +'.$skill["SpRegen"]."%</span><br />\n");
 				}
-				// ¥Á¥ã¡¼¥¸(±Ó¾§)Ãæ¤Î¥­¥ã¥é¤Î¤ß¤ËÅ¬±ş¤¹¤ëµ»¡£
+				// ãƒãƒ£ãƒ¼ã‚¸(è© å”±)ä¸­ã®ã‚­ãƒ£ãƒ©ã®ã¿ã«é©å¿œã™ã‚‹æŠ€ã€‚
 				if($skill["priority"] == "Charge" && !$target->expect)
 					break;
-				// ¾¤´­·Ï¤Î½èÍı
+				// å¬å–šç³»ã®å‡¦ç†
 				if($skill["summon"]) {
-					// ÇÛÎó¤¸¤ã¤Ê¤«¤Ã¤¿¤éÍ×ÁÇ1¸Ä¤ÎÇÛÎó¤Ë¤·¤Á¤ã¤¦¡£
+					// é…åˆ—ã˜ã‚ƒãªã‹ã£ãŸã‚‰è¦ç´ 1å€‹ã®é…åˆ—ã«ã—ã¡ã‚ƒã†ã€‚
 					if(!is_array($skill["summon"]))
 						$skill["summon"]	= array($skill["summon"]);
 					foreach($skill["summon"] as $SummonNo) {
-						$Strength	= $user->SUmmonPower();//¾¤´­ÎÏ?
+						$Strength	= $user->SUmmonPower();//å¬å–šåŠ›?
 						$add	= CreateSummon($SummonNo,$Strength);
-						if($skill["quick"])// Â®¹¶
+						if($skill["quick"])// é€Ÿæ”»
 							$add->Quick($this->delay * 2);
-						//break;//¤³¤³¼è¤ë¤È¥¨¥é¡¼Ìµ¤¯¤Ê¤ë(?)¡£
+						//break;//ã“ã“å–ã‚‹ã¨ã‚¨ãƒ©ãƒ¼ç„¡ããªã‚‹(?)ã€‚
 						$this->JoinCharacter($user,$add);
 						$add->ShowImage(vcent);
 						print($add->Name(bold)." joined to the team.<br />\n");
@@ -444,30 +444,30 @@ break;
 					return true;
 				}
 
-				// ÆÇ¤Î¼£ÎÅ
+				// æ¯’ã®æ²»ç™‚
 				if($skill["CurePoison"]) {
 					if($target->STATE == POISON)
 						$target->GetNormal(true);
 				}
-				// ´ğËÜÅª¤Ê¥À¥á¡¼¥¸¤Î·×»»
+				// åŸºæœ¬çš„ãªãƒ€ãƒ¡ãƒ¼ã‚¸ã®è¨ˆç®—
 				if($skill["pow"]) {
 					if($skill["support"]) {
 						$heal	= CalcRecoveryValue($skill,$user,$target);
 						RecoverHP($target,$heal);
 						$this->StatusChanges($skill,$target);
 					} else {
-						if($skill["pierce"])//?? ¤³¤³¤ÇÀßÄê¤¹¤ëÉ¬Í×¤¢¤ë¡©
+						if($skill["pierce"])//?? ã“ã“ã§è¨­å®šã™ã‚‹å¿…è¦ã‚ã‚‹ï¼Ÿ
 							$option["pierce"] = true;
 						$dmg	= CalcBasicDamage($skill,$user,$target,$option);
 						DamageHP($target,$dmg);
 					}
 				}
-				// SP²óÉü(¥ì¡¼¥È)
+				// SPå›å¾©(ãƒ¬ãƒ¼ãƒˆ)
 				if($skill["SpRecoveryRate"]) {
 					$SpRec	= ceil(sqrt($target->MAXSP) * $skill["SpRecoveryRate"]);
 					RecoverSP($target,$SpRec);
 				}
-				// ÆÇ²½
+				// æ¯’åŒ–
 				if($skill["poison"]) {
 					$result	= $target->GetPoison($skill["poison"]);
 					if($result === true)
@@ -475,21 +475,21 @@ break;
 					else if($result === "BLOCK")
 						print($target->Name(bold)." blocked poison.<br />\n");
 				}
-				// ¥Î¥Ã¥¯¥Ğ¥Ã¥¯(¸å±Ò²½)
+				// ãƒãƒƒã‚¯ãƒãƒƒã‚¯(å¾Œè¡›åŒ–)
 				if($skill["knockback"])
 					$target->KnockBack($skill["knockback"]);
-				// ¥¹¥Æ¡¼¥¿¥¹ÊÑ²½
+				// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹å¤‰åŒ–
 				$this->StatusChanges($skill,$target);
-				// ÂâÎó¤Î°ÜÆ°
+				// éšŠåˆ—ã®ç§»å‹•
 				if($skill["move"])
 					$target->Move($skill["move"]);
-				// ¹ÔÆ°¤òÃÙ¤é¤»¤ë(DELAY)
+				// è¡Œå‹•ã‚’é…ã‚‰ã›ã‚‹(DELAY)
 				$this->DelayChar($target,$skill);
 				return $dmg;
 		endswitch;
 	}
 //////////////////////////////////////////////////
-//	¹ÔÆ°¤òÃÙ¤é¤»¤ë
+//	è¡Œå‹•ã‚’é…ã‚‰ã›ã‚‹
 	function DelayChar(&$target,$skill) {
 		if(!$skill["delay"])
 			return false;
@@ -499,8 +499,8 @@ break;
 		print(".<br />\n");
 	}
 //////////////////////////////////////////////////
-//	¥¹¥Æ¡¼¥¿¥¹¤òÊÑ²½¤µ¤»¤ë
-//	ClassÆâ¤Ë¤Ê¤¤¤ÈÂÌÌÜ¡£
+//	ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’å¤‰åŒ–ã•ã›ã‚‹
+//	Classå†…ã«ãªã„ã¨é§„ç›®ã€‚
 	function StatusChanges($skill,&$target) {
 		if($skill["PlusSTR"])
 			$target->PlusSTR($skill["PlusSTR"]);
@@ -564,42 +564,42 @@ break;
 
 }
 //////////////////////////////////////////////////
-//	HP¤Ø¥À¥á¡¼¥¸
+//	HPã¸ãƒ€ãƒ¡ãƒ¼ã‚¸
 function DamageHP(&$target,$value) {
 	print('<span class="dmg"><span class="bold">'.$value.'</span> Damage</span> to '.$target->Name("bold"));
 	$target->HpDamage($value);
 	print("<br />\n");
 }
 //////////////////////////////////////////////////
-//	HP¤Ø¥À¥á¡¼¥¸(1°Ê²¼¤Ë¤Ê¤é¤Ê¤¤)
+//	HPã¸ãƒ€ãƒ¡ãƒ¼ã‚¸(1ä»¥ä¸‹ã«ãªã‚‰ãªã„)
 function DamageHP2(&$target,$value) {
 	print('<span class="dmg"><span class="bold">'.$value.'</span> Damage</span> to '.$target->Name("bold"));
 	$target->HpDamage2($value);
 	print("<br />\n");
 }
 //////////////////////////////////////////////////
-//	SP¤Ø¥À¥á¡¼¥¸
+//	SPã¸ãƒ€ãƒ¡ãƒ¼ã‚¸
 function DamageSP(&$target,$value) {
 	print('<span class="spdmg"><span class="bold">'.$value.'</span>SP Damage</span> to '.$target->Name("bold"));
 	$target->SpDamage($value);
 	print("<br />\n");
 }
 //////////////////////////////////////////////////
-//	HP¤Î²óÉü
+//	HPã®å›å¾©
 function RecoverHP(&$target,$value) {
 	print($target->Name("bold").' <span class="recover">Recovered <span class="bold">'.$value.' HP</span></span>');
 	$target->HpRecover($value);
 	print("<br />\n");
 }
 //////////////////////////////////////////////////
-//	SP¤Î²óÉü
+//	SPã®å›å¾©
 function RecoverSP(&$target,$value) {
 	print($target->Name("bold").' <span class="support">Recovered <span class="bold">'.$value.' SP</span></span>');
 	$target->SpRecover($value);
 	print("<br />\n");
 }
 //////////////////////////////////////////////////
-//	HP¤ÎµÛ¼ı
+//	HPã®å¸å
 function AbsorbHP(&$target,$value,&$user,$value2) {
 	print('Drained <span class="recover"><span class="bold">'.$value.'</span> HP</span>');
 	$user->HpRecover($value);
@@ -608,7 +608,7 @@ function AbsorbHP(&$target,$value,&$user,$value2) {
 	print("<br />\n");
 }
 //////////////////////////////////////////////////
-//	SP¤Î²óÉü
+//	SPã®å›å¾©
 function AbsorbSP(&$target,$value,&$user,$value2) {
 	print('Drained <span class="support"><span class="bold">'.$value.'</span> SP</span>');
 	$user->SpRecover($value);
@@ -617,27 +617,27 @@ function AbsorbSP(&$target,$value,&$user,$value2) {
 	print("<br />\n");
 }
 //////////////////////////////////////////////////
-//	´ğËÜÅª¤Ê¥À¥á¡¼¥¸·×»»¼°¤Ç¥À¥á¡¼¥¸¤À¤±ÊÖ¤¹¡£
+//	åŸºæœ¬çš„ãªãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—å¼ã§ãƒ€ãƒ¡ãƒ¼ã‚¸ã ã‘è¿”ã™ã€‚
 function CalcBasicDamage($skill,$user,&$target,$option=null) {
-	//´ğËÜÅª¤Ê¥À¥á¡¼¥¸·×»»(ÊªÍıorËâË¡)
-	if($skill["type"] == 0) {//ÊªÍı
-		if($skill["inf"] == "dex")//°ÒÎÏ¤òDEX°ÍÂ¸¤Ë¤¹¤ë
+	//åŸºæœ¬çš„ãªãƒ€ãƒ¡ãƒ¼ã‚¸è¨ˆç®—(ç‰©ç†oré­”æ³•)
+	if($skill["type"] == 0) {//ç‰©ç†
+		if($skill["inf"] == "dex")//å¨åŠ›ã‚’DEXä¾å­˜ã«ã™ã‚‹
 			$str	= $user->DEX;
 		else
 			$str	= $user->STR;
 		$dmg	= sqrt($str)*10;
-		$dmg	+= $user->atk[0];//ÁõÈ÷¤ÎÊª¹¶
+		$dmg	+= $user->atk[0];//è£…å‚™ã®ç‰©æ”»
 		$dmg	*= $skill["pow"]/100;
-		// ÄÉ²ÃËÉ¸æÌµ»ë¥À¥á¡¼¥¸
+		// è¿½åŠ é˜²å¾¡ç„¡è¦–ãƒ€ãƒ¡ãƒ¼ã‚¸
 		if($user->SPECIAL["Pierce"]["0"]) {
 			$Pierce	= $user->SPECIAL["Pierce"]["0"] * $skill["pow"]/100;
 		}
-	} else {//ËâË¡
+	} else {//é­”æ³•
 		$int	= $user->INT;
 		$dmg	= sqrt($int)*10;
-		$dmg	+= $user->atk[1];//ÁõÈ÷¤ÎËâ¹¶
+		$dmg	+= $user->atk[1];//è£…å‚™ã®é­”æ”»
 		$dmg	*= $skill["pow"]/100;
-		// ÄÉ²ÃËÉ¸æÌµ»ë¥À¥á¡¼¥¸
+		// è¿½åŠ é˜²å¾¡ç„¡è¦–ãƒ€ãƒ¡ãƒ¼ã‚¸
 		if($user->SPECIAL["Pierce"]["1"]) {
 			$Pierce	= $user->SPECIAL["Pierce"]["1"] * $skill["pow"]/100;
 		}
@@ -646,47 +646,47 @@ function CalcBasicDamage($skill,$user,&$target,$option=null) {
 	if($option["multiply"])
 		$dmg	*= $option["multiply"];
 
-	// 1²ó¹¶·â¤òËÉ¤¤¤Ç0¤Ë¤¹¤ë¡£
+	// 1å›æ”»æ’ƒã‚’é˜²ã„ã§0ã«ã™ã‚‹ã€‚
 	if($target->SPECIAL["Barrier"]) {
 		$target->GetSpecial("Barrier",false);
 		print("Attack has disappeared.<br />\n");
 		$dmg	= 0;
 	}
 
-	$min	= $dmg*(1/10);//ºÇÄãÊİ¾Ú¥À¥á¥¸
+	$min	= $dmg*(1/10);//æœ€ä½ä¿è¨¼ãƒ€ãƒ¡ã‚¸
 
-	//Áê¼ê¤ÎËÉ¸æÎÏ¤Ë¤è¤ë·Ú¸º
+	//ç›¸æ‰‹ã®é˜²å¾¡åŠ›ã«ã‚ˆã‚‹è»½æ¸›
 	if(!$option["pierce"]) {
-		if($skill["type"] == 0) {//ÊªÍı
+		if($skill["type"] == 0) {//ç‰©ç†
 			$dmg	*= 1 - $target->def["0"]/100;
 			$dmg	-= $target->def["1"];
-		} else {//ËâË¡
+		} else {//é­”æ³•
 			$dmg	*= 1 - $target->def["2"]/100;
 			$dmg	-= $target->def["3"];
 		}
 	}
 	$dmg	+=	$Pierce;
-	//¥À¥á¡¼¥¸¤Î¤Ğ¤é¤Ä¤­
+	//ãƒ€ãƒ¡ãƒ¼ã‚¸ã®ã°ã‚‰ã¤ã
 	//$dmg	*= mt_rand(90,110)/100;
 	//$dmg	*= mt_rand(90,110)/100;
-	//ºÇÄã¥À¥á¡¼¥¸¤«¤É¤¦¤«
+	//æœ€ä½ãƒ€ãƒ¡ãƒ¼ã‚¸ã‹ã©ã†ã‹
 	if($dmg < $min)
 		$dmg	= $min;
 
-	return ceil($dmg);//ºÇ½ª¥À¥á¡¼¥¸
+	return ceil($dmg);//æœ€çµ‚ãƒ€ãƒ¡ãƒ¼ã‚¸
 }
 //////////////////////////////////////////////////
-//	²óÉüÎÌ¤Î·×»»
+//	å›å¾©é‡ã®è¨ˆç®—
 	function CalcRecoveryValue($skill,$user,$target) {
 		$int	= $user->INT;
 		$heal	= sqrt($int)*10;
-		$heal	+= $user->atk["1"];//ÁõÈ÷¤ÎËâ¹¶
+		$heal	+= $user->atk["1"];//è£…å‚™ã®é­”æ”»
 		$heal	*= $skill["pow"]/100;
 		$heal	= ceil($heal);
 
-		// ²óÉüÎÌÁı²Ã·Ï¥Ñ¥Ã¥·¥Ö
+		// å›å¾©é‡å¢—åŠ ç³»ãƒ‘ãƒƒã‚·ãƒ–
 
-		// ¼õ¤±¤ëÂ¦¤¬²óÉüÎÌÁı²Ã·Ï¤Î¥Ñ¥Ã¥·¥Ö¥¹¥­¥ë¤ò»ı¤Ã¤Æ¤¤¤¿¤éÁı¤¹
+		// å—ã‘ã‚‹å´ãŒå›å¾©é‡å¢—åŠ ç³»ã®ãƒ‘ãƒƒã‚·ãƒ–ã‚¹ã‚­ãƒ«ã‚’æŒã£ã¦ã„ãŸã‚‰å¢—ã™
 		//if($user->special["?"])
 		//	
 

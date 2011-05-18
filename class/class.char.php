@@ -4,59 +4,59 @@ include(DATA_JOB);
 
 class char{
 
-	// ¥Õ¥¡¥¤¥ë¥İ¥¤¥ó¥¿
+	// ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿
 	var $fp;
 	var $file;
 	var $Number;
 
-	// Ã¯¤Î¥­¥ã¥é¤«?
+	// èª°ã®ã‚­ãƒ£ãƒ©ã‹?
 	var $user;
 
 	/*
-		´ğËÜÅª¤Ê¾ğÊó
+		åŸºæœ¬çš„ãªæƒ…å ±
 		$gender	= (0=male 1=female)
 	*/
 	var $name, $gender, $job, $job_name, $img, $birth, $level, $exp;
-	// ¥¹¥Æ¡¼¥¿¥¹
+	// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹
 	var $maxhp, $hp, $maxsp, $sp, $str, $int, $dex, $spd, $luk;
-	// ¥¹¥Æ¡¼¥¿¥¹¥İ¥¤¥ó¥È¤È¤«
+	// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒã‚¤ãƒ³ãƒˆã¨ã‹
 	var $statuspoint;
 	var $skillpoint;
-	// ÁõÈ÷
+	// è£…å‚™
 	var $weapon, $shield, $armor, $item;
-	// ÀïÆ®¤½¤ÎÂ¾
+	// æˆ¦é—˜ãã®ä»–
 	var $position, $guard;
-	// ¥¹¥­¥ë
+	// ã‚¹ã‚­ãƒ«
 	var $skill;
-	// ¹ÔÆ°(È½Äê¡¢»È¤¦¥¹¥­¥ë)
+	// è¡Œå‹•(åˆ¤å®šã€ä½¿ã†ã‚¹ã‚­ãƒ«)
 	var $Pattern;
 	var $PatternMemo;
 	var $judge, $quantity, $action;
 
-	// ÀïÆ®ÍÑÊÑ¿ô(BattleVariable) ¥Ç¡¼¥¿¤Ë¤ÏÊİÂ¸¤µ¤ì¤Ê¤¤¡£
+	// æˆ¦é—˜ç”¨å¤‰æ•°(BattleVariable) ãƒ‡ãƒ¼ã‚¿ã«ã¯ä¿å­˜ã•ã‚Œãªã„ã€‚
 	var $team;
 	var $IMG;
 	var $MAXHP, $HP, $MAXSP, $SP, $STR, $INT, $DEX, $SPD, $LUK;
-	var $STATE;//¾õÂÖ(0=À¸Â¸ 1=¤·¤Ü¡¼ 2=ÆÇ¾õÂÖ)
+	var $STATE;//çŠ¶æ…‹(0=ç”Ÿå­˜ 1=ã—ã¼ãƒ¼ 2=æ¯’çŠ¶æ…‹)
 	var $POSITION;
-	var $P_MAXHP, $P_MAXSP, $P_STR, $P_INT, $P_DEX, $P_SPD,$P_LUK;//Ã±½ã¤Ê¥¹¥Æ¡¼¥¿¥¹ÊäÀµ(plus)
-	var $M_MAXHP, $M_MAXSP;//Ã±½ã¤Ê¥¹¥Æ¡¼¥¿¥¹ÊäÀµ(multipication)
-	var $SPECIAL;// ÆÃ¼ìµ»Ç½
+	var $P_MAXHP, $P_MAXSP, $P_STR, $P_INT, $P_DEX, $P_SPD,$P_LUK;//å˜ç´”ãªã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹è£œæ­£(plus)
+	var $M_MAXHP, $M_MAXSP;//å˜ç´”ãªã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹è£œæ­£(multipication)
+	var $SPECIAL;// ç‰¹æ®ŠæŠ€èƒ½
 	/*
-		PoisonResist ÆÇÄñ¹³
+		PoisonResist æ¯’æŠµæŠ—
 		HealBonus .
 		Barrier
 		Undead
 	*/
-	var $WEAPON;//Éğ´ï¥¿¥¤¥×
-	var $atk, $def;// $atk=array(ÊªÍı,ËâË¡); $def=array(ÊªÍı/,ÊªÍı-,ËâË¡/,ËâË¡-);
-	var $delay;//¹ÔÆ°¤Ş¤Ç¤Î»ş´Ö
-	var $expect = false;//±Ó¾§´°Î»»ş¤Ë»È¤¦¥¹¥­¥ë
-	var $expect_type;//±Ó¾§´°Î»»ş¤Ë»È¤¦¥¹¥­¥ë¤Î¥¿¥¤¥×(ÊªÍı/ËâË¡)
-	var $expect_target;//¢¬¤Î¥¿¡¼¥²¥Ã¥È
+	var $WEAPON;//æ­¦å™¨ã‚¿ã‚¤ãƒ—
+	var $atk, $def;// $atk=array(ç‰©ç†,é­”æ³•); $def=array(ç‰©ç†/,ç‰©ç†-,é­”æ³•/,é­”æ³•-);
+	var $delay;//è¡Œå‹•ã¾ã§ã®æ™‚é–“
+	var $expect = false;//è© å”±å®Œäº†æ™‚ã«ä½¿ã†ã‚¹ã‚­ãƒ«
+	var $expect_type;//è© å”±å®Œäº†æ™‚ã«ä½¿ã†ã‚¹ã‚­ãƒ«ã®ã‚¿ã‚¤ãƒ—(ç‰©ç†/é­”æ³•)
+	var $expect_target;//â†‘ã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
 
-	var $ActCount;//¹ç·×¹ÔÆ°²ó¿ô
-	var $JdgCount;//·èÄê¤·¤¿È½ÃÇ¤Î²ó¿ô=array()
+	var $ActCount;//åˆè¨ˆè¡Œå‹•å›æ•°
+	var $JdgCount;//æ±ºå®šã—ãŸåˆ¤æ–­ã®å›æ•°=array()
 //////////////////////////////////////////////////
 	function char($file=false) {
 
@@ -71,26 +71,26 @@ class char{
 		$this->SetCharData($data);
 	}
 //////////////////////////////////////////////////
-//	¥Õ¥¡¥¤¥ë¥İ¥¤¥ó¥¿¤¬³«¤«¤ì¤Æ¤¤¤ì¤ĞÊÄ¤¸¤ë
+//	ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ãŒé–‹ã‹ã‚Œã¦ã„ã‚Œã°é–‰ã˜ã‚‹
 	function fpclose() {
 		if(is_resource($this->fp)) {
 			//print("who?.".$this->Name()."<br />\n");
-			//print("FPÊÄ¤¸¤¿");
+			//print("FPé–‰ã˜ãŸ");
 			fclose($this->fp);
 			unset($this->fp);
 		}
 	}
 //////////////////////////////////////////////////
-//	¾¤´­ÎÏ?¾¤´­¤·¤¿»ş¤Î¾¤´­¥â¥ó¥¹¥¿¡¼¤Î¶¯¤µ
+//	å¬å–šåŠ›?å¬å–šã—ãŸæ™‚ã®å¬å–šãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã®å¼·ã•
 	function SummonPower() {
-		$DEX_PART	= sqrt($this->DEX) * 5;// DEXÊ¬¤Î¶¯²½Ê¬
+		$DEX_PART	= sqrt($this->DEX) * 5;// DEXåˆ†ã®å¼·åŒ–åˆ†
 		$Strength	= 1 + ($DEX_PART + $this->LUK)/250;
 		if($this->SPECIAL["Summon"])
 			$Strength	*= (100+$this->SPECIAL["Summon"])/100;
 		return $Strength;
 	}
 //////////////////////////////////////////////////
-//	HP¤Îµ¾À·
+//	HPã®çŠ ç‰²
 	function SacrificeHp($rate) {
 		if(!$rate) return false;
 
@@ -103,7 +103,7 @@ class char{
 		print("</span><br />\n");
 	}
 //////////////////////////////////////////////////
-//	ÆÃ¼ìµ»Ç½?¤ÎÄÉ²Ã
+//	ç‰¹æ®ŠæŠ€èƒ½?ã®è¿½åŠ 
 	function GetSpecial($name,$value) {
 		if(is_bool($value)) {
 			$this->SPECIAL["$name"]	= $value;
@@ -116,16 +116,16 @@ class char{
 		}
 	}
 //////////////////////////////////////////////////
-//	HPSP»ıÂ³²óÉü
+//	HPSPæŒç¶šå›å¾©
 	function AutoRegeneration() {
-		// HP²óÉü
+		// HPå›å¾©
 		if($this->SPECIAL["HpRegen"]) {
 			$Regen	= round($this->MAXHP * $this->SPECIAL["HpRegen"]/100);
 			print('<span class="recover">* </span>'.$this->Name(bold)."<span class=\"recover\"> Auto Regenerate <span class=\"bold\">".$Regen." HP</span></span> ");
 			$this->HpRecover($Regen);
 			print("<br />\n");
 		}
-		// SP²óÉü
+		// SPå›å¾©
 		if($this->SPECIAL["SpRegen"]) {
 			$Regen	= round($this->MAXSP * $this->SPECIAL["SpRegen"]/100);
 			print('<span class="support">* </span>'.$this->Name(bold)."<span class=\"support\"> Auto Regenerate <span class=\"bold\">".$Regen." SP</span></span> ");
@@ -134,7 +134,7 @@ class char{
 		}
 	}
 //////////////////////////////////////////////////
-//	¥­¥ã¥é¥¹¥Æ¡¼¥¿¥¹¤Î°ìÈÖ¾å¤Î¤ä¤Ä¡£
+//	ã‚­ãƒ£ãƒ©ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã®ä¸€ç•ªä¸Šã®ã‚„ã¤ã€‚
 	function ShowCharDetail() {
 		$P_MAXHP	= round($this->maxhp * $this->M_MAXHP/100) + $this->P_MAXHP;
 		$P_MAXSP	= round($this->maxsp * $this->M_MAXSP/100) + $this->P_MAXSP;
@@ -155,31 +155,31 @@ class char{
 </td><td valign="top">
 <?
 	if($this->SPECIAL["PoisonResist"])
-		print("ÆÇÄñ¹³ +".$this->SPECIAL["PoisonResist"]."%<br />\n");
+		print("æ¯’æŠµæŠ— +".$this->SPECIAL["PoisonResist"]."%<br />\n");
 	if($this->SPECIAL["Pierce"]["0"])
-		print("ÊªÍıËÉ¸æÌµ»ë¥À¥á¡¼¥¸ +".$this->SPECIAL["Pierce"]["0"]."<br />\n");
+		print("ç‰©ç†é˜²å¾¡ç„¡è¦–ãƒ€ãƒ¡ãƒ¼ã‚¸ +".$this->SPECIAL["Pierce"]["0"]."<br />\n");
 	if($this->SPECIAL["Pierce"]["1"])
-		print("ËâË¡ËÉ¸æÌµ»ë¥À¥á¡¼¥¸ +".$this->SPECIAL["Pierce"]["1"]."<br />\n");
+		print("é­”æ³•é˜²å¾¡ç„¡è¦–ãƒ€ãƒ¡ãƒ¼ã‚¸ +".$this->SPECIAL["Pierce"]["1"]."<br />\n");
 	if($this->SPECIAL["Summon"])
-		print("¾¤´­ÎÏ +".$this->SPECIAL["Summon"]."%<br />\n");
+		print("å¬å–šåŠ› +".$this->SPECIAL["Summon"]."%<br />\n");
 ?>
 </td></tr></table>
 <?
 	}
 //////////////////////////////////////////////////
-//	Ã¯¤Î¥­¥ã¥é¤«ÀßÄê¤¹¤ë
+//	èª°ã®ã‚­ãƒ£ãƒ©ã‹è¨­å®šã™ã‚‹
 	function SetUser($user) {
 		$this->user	= $user;
 	}
 //////////////////////////////////////////////////
-//	¥Á¥ã¡¼¥¸(±Ó¾§)Ãæ¤Î²ò½ü
+//	ãƒãƒ£ãƒ¼ã‚¸(è© å”±)ä¸­ã®è§£é™¤
 	function ResetExpect() {
 		$this->expect	= false;
 		$this->expect_type	= false;
 		$this->expect_target	= false;
 	}
 //////////////////////////////////////////////////
-//	Á°Îó¸åÎó¤Î°ÜÆ°
+//	å‰åˆ—å¾Œåˆ—ã®ç§»å‹•
 	function Move($posi) {
 		//print($this->POSITION."->".$posi."<br />\n");
 		if($posi == "front") {
@@ -196,7 +196,7 @@ class char{
 	}
 
 //////////////////////////////////////////////////
-//	¹ÔÆ°¤Ş¤Ç¤Îµ÷Î¥Â¬Äê
+//	è¡Œå‹•ã¾ã§ã®è·é›¢æ¸¬å®š
 	function nextDis() {
 		if($this->STATE === DEAD)
 			return 100;
@@ -204,7 +204,7 @@ class char{
 		return $distance;
 	}
 //////////////////////////////////////////////////
-//	¹ÔÆ°½ç¥ê¥»¥Ã¥È
+//	è¡Œå‹•é †ãƒªã‚»ãƒƒãƒˆ
 	function DelayReset() {
 		if(DELAY_TYPE === 0) {
 			$this->delay	= $this->SPD;
@@ -213,9 +213,9 @@ class char{
 		}
 	}
 //////////////////////////////////////////////////
-//	¹ÔÆ°¤ò¶á¤Å¤«¤»¤ë¡£
+//	è¡Œå‹•ã‚’è¿‘ã¥ã‹ã›ã‚‹ã€‚
 	function Delay($no) {
-		// »àË´Ãæ¤ÏÁı¤¨¤Ê¤¤¤è¤¦¤Ë¤¹¤ë
+		// æ­»äº¡ä¸­ã¯å¢—ãˆãªã„ã‚ˆã†ã«ã™ã‚‹
 		if($this->STATE === DEAD)
 			return false;
 
@@ -232,14 +232,14 @@ class char{
 		return sqrt($this->SPD) + DELAY_BASE;
 	}
 //////////////////////////////////////////////////
-//	¹ÔÆ°¤òÃÙ¤é¤»¤ë(Rate)
+//	è¡Œå‹•ã‚’é…ã‚‰ã›ã‚‹(Rate)
 	function DelayByRate($No,$BaseDelay,$Show=false) {
 		if(DELAY_TYPE === 0) {
 			if($Show) {
 				print("(".sprintf("%0.1f",$this->delay));
 				print('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
 			}
-			$Delay	= ($BaseDelay - $this->SPD) * ($No/100);//ÃÙ¤é¤»¤ë´Ö³Ö
+			$Delay	= ($BaseDelay - $this->SPD) * ($No/100);//é…ã‚‰ã›ã‚‹é–“éš”
 			$this->delay	-= $Delay;
 			if($Show) {
 				print(sprintf("%0.1f",$this->delay)."/".sprintf("%0.1f",$BaseDelay).")");
@@ -249,7 +249,7 @@ class char{
 				print("(".sprintf("%0.0f",$this->delay));
 				print('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
 			}
-			$Delay	= $No;//ÃÙ¤é¤»¤ë´Ö³Ö
+			$Delay	= $No;//é…ã‚‰ã›ã‚‹é–“éš”
 			$this->delay	-= $Delay;
 			if($Show) {
 				print(sprintf("%0.0f",floor($this->delay))."/".sprintf("%d",100).")");
@@ -257,10 +257,10 @@ class char{
 		}
 	}
 //////////////////////////////////////////////////
-//	¹ÔÆ°¤òÁáÁ÷¤ê¤¹¤ë(%)
+//	è¡Œå‹•ã‚’æ—©é€ã‚Šã™ã‚‹(%)
 	function DelayCut($No,$BaseDelay,$Show=false) {
 		if(DELAY_TYPE === 0) {
-			$Delay	= ($BaseDelay - $this->delay) * ($No/100);//Áá¤Ş¤é¤»¤ë´Ö³Ö
+			$Delay	= ($BaseDelay - $this->delay) * ($No/100);//æ—©ã¾ã‚‰ã›ã‚‹é–“éš”
 			if($Show) {
 				print("(".sprintf("%0.1f",$this->delay));
 				print('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
@@ -270,7 +270,7 @@ class char{
 				print(sprintf("%0.1f",$this->delay)."/".sprintf("%0.1f",$BaseDelay).")");
 			}
 		} else if(DELAY_TYPE === 1) {
-			$Delay	= (100 - $this->delay) * ($No/100);//Áá¤Ş¤é¤»¤ë´Ö³Ö
+			$Delay	= (100 - $this->delay) * ($No/100);//æ—©ã¾ã‚‰ã›ã‚‹é–“éš”
 			if($Show) {
 				print("(".sprintf("%0.1f",$this->delay));
 				print('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
@@ -282,7 +282,7 @@ class char{
 		}
 	}
 //////////////////////////////////////////////////
-//	Â¨»ş¹ÔÆ°¤µ¤»¤ë¡£
+//	å³æ™‚è¡Œå‹•ã•ã›ã‚‹ã€‚
 	function Quick($delay) {
 		if(DELAY_TYPE === 0)
 			$this->delay	= $delay;
@@ -290,12 +290,12 @@ class char{
 			$this->delay	= 100.1;
 	}
 //////////////////////////////////////////////////
-//	Ì¾Á°¤òÊÑ¤¨¤ë¡£
+//	åå‰ã‚’å¤‰ãˆã‚‹ã€‚
 	function ChangeName($new) {
 		$this->name	= $new;
 	}
 //////////////////////////////////////////////////
-//	¹ÔÆ°¥Ñ¥¿¡¼¥ó¤ËÄÉ²Ã¤¹¤ë¡£
+//	è¡Œå‹•ãƒ‘ã‚¿ãƒ¼ãƒ³ã«è¿½åŠ ã™ã‚‹ã€‚
 	function AddPattern($no) {
 		if(!is_int($no) && $no < 0) return false;
 
@@ -311,7 +311,7 @@ class char{
 		return true;
 	}
 //////////////////////////////////////////////////
-//	¹ÔÆ°¥Ñ¥¿¡¼¥ó¤òºï½ü¡£
+//	è¡Œå‹•ãƒ‘ã‚¿ãƒ¼ãƒ³ã‚’å‰Šé™¤ã€‚
 	function DeletePattern($no) {
 		if(!is_int($no) && $no < 0) return false;
 
@@ -327,7 +327,7 @@ class char{
 		return true;
 	}
 //////////////////////////////////////////////////
-//	¸Â³¦ÀßÄê¿ô¤òÄ¶¤¨¤Æ¤¤¤Ê¤¤¤«¿´ÇÛ¤Ê¤Î¤Çºî¤Ã¤¿¡£¡£
+//	é™ç•Œè¨­å®šæ•°ã‚’è¶…ãˆã¦ã„ãªã„ã‹å¿ƒé…ãªã®ã§ä½œã£ãŸã€‚ã€‚
 	function CutPatterns() {
 		$No	= $this->MaxPatterns();
 		while($No < count($this->judge)) {
@@ -341,7 +341,7 @@ class char{
 		}
 	}
 //////////////////////////////////////////////////
-//	¥á¥â¤Ã¤Æ¤¢¤ë¥Ñ¥¿¡¼¥ó¤È¸ò´¹
+//	ãƒ¡ãƒ¢ã£ã¦ã‚ã‚‹ãƒ‘ã‚¿ãƒ¼ãƒ³ã¨äº¤æ›
 	function ChangePatternMemo() {
 		$temp	= $this->Pattern;
 		$this->Pattern	= $this->PatternMemo;
@@ -366,7 +366,7 @@ class char{
 		return true;
 	}
 //////////////////////////////////////////////////
-//	¥­¥ã¥é¤ò¸å±Ò²½¤µ¤»¤ë¡£
+//	ã‚­ãƒ£ãƒ©ã‚’å¾Œè¡›åŒ–ã•ã›ã‚‹ã€‚
 	function KnockBack($no=1) {
 		if($this->POSITION == "front") {
 			$this->POSITION = "back";
@@ -375,7 +375,7 @@ class char{
 	}
 //////////////////////////////////////////////////
 //	
-//	¥¹¥Æ¡¼¥¿¥¹¶¯²½(+)
+//	ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹å¼·åŒ–(+)
 	function PlusSTR($no) {
 		$this->STR	+= $no;
 		print($this->Name(bold)." STR rise {$no}<br />\n");
@@ -397,7 +397,7 @@ class char{
 		print($this->Name(bold)." LUK rise {$no}<br />\n");
 	}
 //////////////////////////////////////////////////
-//	¥¹¥Æ¡¼¥¿¥¹¶¯²½(%)
+//	ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹å¼·åŒ–(%)
 	function UpMAXHP($no) {
 		print($this->Name(bold)." MAXHP({$this->MAXHP}) extended to ");
 		$this->MAXHP	= round($this->MAXHP * (1 + $no/100));
@@ -462,7 +462,7 @@ class char{
 		print($this->Name(bold)." MDEF rise {$no}%<br />\n");
 		$this->def["2"]	+= $up;
 	}
-//	¥¹¥Æ¡¼¥¿¥¹¼åÂÎ²½(%)
+//	ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹å¼±ä½“åŒ–(%)
 	function DownMAXHP($no) {
 		print($this->Name(bold)." MAXHP({$this->MAXHP}) down to ");
 		$this->MAXHP	= round($this->MAXHP * (1 - $no/100));
@@ -510,7 +510,7 @@ class char{
 		print($this->Name(bold)." MDEF down {$no}%<br />\n");
 	}
 //////////////////////////////////////////////////
-//	¥­¥ã¥é¤Î»Ø¼¨¤Î¿ô
+//	ã‚­ãƒ£ãƒ©ã®æŒ‡ç¤ºã®æ•°
 	function MaxPatterns() {
 		if($this->int < 10)//1-9
 			$no	= 2;
@@ -537,14 +537,14 @@ class char{
 	}
 
 //////////////////////////////////////////////////
-//	¹ÔÆ°¥Ñ¥¿¡¼¥ó¤ÎÊÑ¹¹¡£
+//	è¡Œå‹•ãƒ‘ã‚¿ãƒ¼ãƒ³ã®å¤‰æ›´ã€‚
 	function ChangePattern($judge,$action) {
 		$this->judge	= array();
 		$this->action	= array();
-		$max	= $this->MaxPatterns();//ºÇÄãÈ½ÃÇ¿ô
+		$max	= $this->MaxPatterns();//æœ€ä½åˆ¤æ–­æ•°
 		$judge_list	= array_flip(JudgeList());
 		$skill_list	= array_flip($this->skill);
-		for($i=0; $i<$max; $i++) {//È½ÃÇ½ç¤Ëµ­²±
+		for($i=0; $i<$max; $i++) {//åˆ¤æ–­é †ã«è¨˜æ†¶
 			if(!$judge["$i"])	$this->judge[$i]	= 1000;
 			if(!$action["$i"])	$this->action[$i]	= 1000;
 
@@ -558,7 +558,7 @@ class char{
 		return true;
 	}
 //////////////////////////////////////////////////
-//	ÆÇ¥À¥á¡¼¥¸
+//	æ¯’ãƒ€ãƒ¡ãƒ¼ã‚¸
 	function PoisonDamage($multiply=1) {
 		if($this->STATE !== 2) return false;
 
@@ -569,14 +569,14 @@ class char{
 		print("</span><br />\n");
 	}
 //////////////////////////////////////////////////
-//	ÆÇ¥À¥á¡¼¥¸¤Î¸ø¼°
+//	æ¯’ãƒ€ãƒ¡ãƒ¼ã‚¸ã®å…¬å¼
 	function PoisonDamageFormula($multiply=1) {
 		$damage	= round($this->MAXHP * 0.10) + ceil($this->level/2);
 		$damage	*= $multiply;
 		return round($damage);
 	}
 //////////////////////////////////////////////////
-//	ÆÇ¤Î¾õÂÖ °Û¾ï²½ ½èÍı
+//	æ¯’ã®çŠ¶æ…‹ ç•°å¸¸åŒ– å‡¦ç†
 	function GetPoison($BePoison) {
 		if($this->STATE === 2)
 			return false;
@@ -594,7 +594,7 @@ class char{
 		return true;
 	}
 //////////////////////////////////////////////////
-//	ÆÇÂÑÀ­¤òÆÀ¤ë
+//	æ¯’è€æ€§ã‚’å¾—ã‚‹
 	function GetPoisonResist($no) {
 		$Add	= (100 - $this->SPECIAL["PoisonResist"]) * ($no/100);
 		$Add	= round($Add);
@@ -604,7 +604,7 @@ class char{
 		print("</span><br />\n");
 	}
 //////////////////////////////////////////////////
-//	Ì¾Á°¤òÊÖ¤¹
+//	åå‰ã‚’è¿”ã™
 	function Name($string=false) {
 		if($string)
 			return "<span class=\"{$string}\">{$this->name}</span>";
@@ -612,7 +612,7 @@ class char{
 			return $this->name;
 	}
 //////////////////////////////////////////////////
-//	É¬Í×·Ğ¸³ÃÍ
+//	å¿…è¦çµŒé¨“å€¤
 	function CalcExpNeed() {
 		switch($this->level) {
 			case 40:	$no	= 30000; break;
@@ -641,91 +641,91 @@ class char{
 		return $no;
 	}
 //////////////////////////////////////////////////
-//	·Ğ¸³ÃÍ¤òÆÀ¤ë
+//	çµŒé¨“å€¤ã‚’å¾—ã‚‹
 	function GetExp($exp) {
-		if($this->monster) return false;//¥â¥ó¥¹¥¿¡¼¤Ï·Ğ¸³ÃÍ¤òÆÀ¤Ê¤¤
-		if(MAX_LEVEL <= $this->level) return false;//ºÇÂç¥ì¥Ù¥ë¤Î¾ì¹ç·Ğ¸³ÃÍ¤òÆÀ¤Ê¤¤
+		if($this->monster) return false;//ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã¯çµŒé¨“å€¤ã‚’å¾—ãªã„
+		if(MAX_LEVEL <= $this->level) return false;//æœ€å¤§ãƒ¬ãƒ™ãƒ«ã®å ´åˆçµŒé¨“å€¤ã‚’å¾—ãªã„
 
 		$this->exp	+= $exp;
-		$need	= $this->CalcExpNeed($this->level);// É¬Í×¤Ê·Ğ¸³ÃÍ
+		$need	= $this->CalcExpNeed($this->level);// å¿…è¦ãªçµŒé¨“å€¤
 		if($need <= $this->exp) {
 			$this->LevelUp();
 			return true;
 		}
 	}
 //////////////////////////////////////////////////
-//	¥ì¥Ù¥ë¤¢¤²¤ë»ş¤Î½èÍı
+//	ãƒ¬ãƒ™ãƒ«ã‚ã’ã‚‹æ™‚ã®å‡¦ç†
 	function LevelUp() {
 		$this->exp	= 0;
 		$this->level++;
-		$this->statuspoint	+= GET_STATUS_POINT;//¥¹¥Æ¥İ¤ò¤â¤é¤¨¤ë¡£
+		$this->statuspoint	+= GET_STATUS_POINT;//ã‚¹ãƒ†ãƒã‚’ã‚‚ã‚‰ãˆã‚‹ã€‚
 		$this->skillpoint	+= GET_SKILL_POINT;
 	}
 //////////////////////////////////////////////////
-//	¥¯¥é¥¹¥Á¥§¥ó¥¸(Å¾¿¦)
-//	ÁõÈ÷¤ò¤Ï¤º¤¹¡£
+//	ã‚¯ãƒ©ã‚¹ãƒã‚§ãƒ³ã‚¸(è»¢è·)
+//	è£…å‚™ã‚’ã¯ãšã™ã€‚
 	function ClassChange($job) {
 		include_once(DATA_CLASSCHANGE);
 		if(CanClassChange($this,$job)) {
 			$this->job = $job;
 			$this->SetJobData();
 			$this->SetHpSp();
-			//ÁõÈ÷¤ò²ò½ü
+			//è£…å‚™ã‚’è§£é™¤
 			return true;
 		}
 		return false;
 	}
 //////////////////////////////////////////////////
-//	¥¢¥¤¥Æ¥à¤òÁõÈ÷¤¹¤ë(¿¦¤¬ÁõÈ÷²ÄÇ½¤ÊÊª¤«¤É¤¦¤«¤ÏÄ´¤Ù¤Ê¤¤)
+//	ã‚¢ã‚¤ãƒ†ãƒ ã‚’è£…å‚™ã™ã‚‹(è·ãŒè£…å‚™å¯èƒ½ãªç‰©ã‹ã©ã†ã‹ã¯èª¿ã¹ãªã„)
 	function Equip($item) {
-		$old	= array(//¸½ºß¤ÎÁõÈ÷¤ò²¾¤ËÊİÂ¸¤·¤Æ¤ª¤¯¡£
+		$old	= array(//ç¾åœ¨ã®è£…å‚™ã‚’ä»®ã«ä¿å­˜ã—ã¦ãŠãã€‚
 			"weapon"=> $this->weapon,
 			"shield"=> $this->shield,
 			"armor"	=> $this->armor,
 			"item"	=> $this->item
 			);
 
-		$return	= array();//¤Ï¤º¤·¤¿ÁõÈ÷¡£
+		$return	= array();//ã¯ãšã—ãŸè£…å‚™ã€‚
 
-		switch($item["type"]) {//¼ïÎàÊÌ
-			case "Sword"://ÊÒ¼êÉğ´ï
+		switch($item["type"]) {//ç¨®é¡åˆ¥
+			case "Sword"://ç‰‡æ‰‹æ­¦å™¨
 			case "Dagger":
 			case "Pike":
 			case "Hatchet":
 			case "Wand":
 			case "Mace":
-			case "TwoHandSword"://Î¾¼êÉğ´ï
+			case "TwoHandSword"://ä¸¡æ‰‹æ­¦å™¨
 			case "Spear":
 			case "Axe":
 			case "Staff":
 			case "Bow":
 			case "CrossBow":
 			case "Whip":
-				// ´û¤ËÁõÈ÷¤·¤Æ¤¢¤ëÉğ´ï¤Ï¤Ï¤º¤¹¡£
+				// æ—¢ã«è£…å‚™ã—ã¦ã‚ã‚‹æ­¦å™¨ã¯ã¯ãšã™ã€‚
 				if($this->weapon)
 					$return[]	= $this->weapon;
-				if($item["dh"] && $this->shield) {//Î¾¼ê»ı¤Á¤ÎÉğ´ï¤Î¾ì¹ç¡£
-					//½â¤òÁõÈ÷¤·¤Æ¤¤¤¿¤é¤Ï¤º¤¹¡£
+				if($item["dh"] && $this->shield) {//ä¸¡æ‰‹æŒã¡ã®æ­¦å™¨ã®å ´åˆã€‚
+					//ç›¾ã‚’è£…å‚™ã—ã¦ã„ãŸã‚‰ã¯ãšã™ã€‚
 					$return[]	= $this->shield;
 					$this->shield	= NULL;
 				}
 				$this->weapon	= $item["no"];
 				break;
-			case "Shield"://½â
+			case "Shield"://ç›¾
 			case "MainGauche":
 			case "Book":
-				if($this->weapon) {//Î¾¼êÉğ´ï¤Ê¤é¤½¤ì¤Ï¤Ï¤º¤¹
+				if($this->weapon) {//ä¸¡æ‰‹æ­¦å™¨ãªã‚‰ãã‚Œã¯ã¯ãšã™
 					$weapon	= LoadItemData($this->weapon);
 					if($weapon["dh"]) {
 						$return[]	= $this->weapon;
 						$this->weapon	= NULL;
 					}
 				}
-				if($this->shield)//½âÁõÈ÷¤·¤Æ¤¤¤ì¤Ğ»ı¤ÁÊª¤Ë²Ã¤¨¤ë
+				if($this->shield)//ç›¾è£…å‚™ã—ã¦ã„ã‚Œã°æŒã¡ç‰©ã«åŠ ãˆã‚‹
 					$return[]	= $this->shield;
 				$this->shield	= $item["no"];
 				break;
-			case "Armor"://³»
+			case "Armor"://é§
 			case "Cloth":
 			case "Robe":
 				if($this->armor)
@@ -740,7 +740,7 @@ class char{
 			default: return false;
 		}
 
-		// handle¤Î·×»»¡£
+		// handleã®è¨ˆç®—ã€‚
 		$weapon	= LoadItemData($this->weapon);
 		$shield	= LoadItemData($this->shield);
 		$armor	= LoadItemData($this->armor);
@@ -749,7 +749,7 @@ class char{
 		$handle	= 0;
 		$handle	= $weapon["handle"] + $shield["handle"] + $armor["handle"] + $item2["handle"];
 		if($this->GetHandle() < $handle) {//handle over
-			foreach($old as $key => $val)//¸µ¤ËÌá¤¹¡£
+			foreach($old as $key => $val)//å…ƒã«æˆ»ã™ã€‚
 				$this->{$key}	= $val;
 			return false;
 		}
@@ -757,9 +757,9 @@ class char{
 		return $return;
 	}
 //////////////////////////////////////////////////
-//	¤·¤Ü¡¼¤·¤Æ¤ë¤«¤É¤¦¤«³ÎÇ§¤¹¤ë¡£
+//	ã—ã¼ãƒ¼ã—ã¦ã‚‹ã‹ã©ã†ã‹ç¢ºèªã™ã‚‹ã€‚
 	function CharJudgeDead() {
-		if($this->HP < 1 && $this->STATE !== DEAD) {//¤·¤Ü¡¼
+		if($this->HP < 1 && $this->STATE !== DEAD) {//ã—ã¼ãƒ¼
 			$this->STATE	= DEAD;
 			$this->HP	= 0;
 			$this->ResetExpect();
@@ -768,17 +768,17 @@ class char{
 		}
 	}
 //////////////////////////////////////////////////
-//	À¸Â¸¾õÂÖ¤Ë¤¹¤ë¡£
+//	ç”Ÿå­˜çŠ¶æ…‹ã«ã™ã‚‹ã€‚
 	function GetNormal($mes=false) {
 		if($this->STATE === ALIVE)
 			return true;
-		if($this->STATE === DEAD) {//»àË´¾õÂÖ
+		if($this->STATE === DEAD) {//æ­»äº¡çŠ¶æ…‹
 			if($mes)
 				print($this->Name(bold).' <span class="recover">revived</span>!<br />'."\n");
 			$this->STATE = 0;
 			return true;
 		}
-		if($this->STATE === POISON) {//ÆÇ¾õÂÖ
+		if($this->STATE === POISON) {//æ¯’çŠ¶æ…‹
 			if($mes)
 				print($this->Name(bold)."'s <span class=\"spdmg\">poison</span> has cured.<br />\n");
 			$this->STATE = 0;
@@ -786,16 +786,16 @@ class char{
 		}
 	}
 //////////////////////////////////////////////////
-//	ÀïÆ®Ãæ¤Î¥­¥ã¥éÌ¾,HP,SP ¤ò¿§¤òÊ¬¤±¤ÆÉ½¼¨¤¹¤ë
-//	¤½¤ì°Ê³°¤Ë¤âÉ¬Í×¤ÊÊª¤¬¤¢¤ì¤ĞÉ½¼¨¤¹¤ë¤è¤¦¤Ë¤·¤¿¡£
+//	æˆ¦é—˜ä¸­ã®ã‚­ãƒ£ãƒ©å,HP,SP ã‚’è‰²ã‚’åˆ†ã‘ã¦è¡¨ç¤ºã™ã‚‹
+//	ãã‚Œä»¥å¤–ã«ã‚‚å¿…è¦ãªç‰©ãŒã‚ã‚Œã°è¡¨ç¤ºã™ã‚‹ã‚ˆã†ã«ã—ãŸã€‚
 	function ShowHpSp() {
 		if($this->STATE === 1)
 			$sub	= " dmg";
 		else if($this->STATE === 2)
 			$sub	= " spdmg";
-		//Ì¾Á°
+		//åå‰
 		print("<span class=\"bold{$sub}\">{$this->name}</span>\n");
-		// ¥Á¥ã¡¼¥¸or±Ó¾§
+		// ãƒãƒ£ãƒ¼ã‚¸orè© å”±
 		if($this->expect_type === 0)
 			print('<span class="charge">(charging)</span>'."\n");
 		else if($this->expect_type === 1)
@@ -809,30 +809,30 @@ class char{
 		print("</div>\n");//SP
 	}
 //////////////////////////////////////////////////
-//	ÃÍ¤ÎÊÑ²½¤òÉ½¼¨¤¹¤ë(¥À¥á¡¼¥¸¼õ¤±¤¿»ş¤È¤«)
+//	å€¤ã®å¤‰åŒ–ã‚’è¡¨ç¤ºã™ã‚‹(ãƒ€ãƒ¡ãƒ¼ã‚¸å—ã‘ãŸæ™‚ã¨ã‹)
 	function ShowValueChange($from,$to) {
 		print("({$from} &gt; {$to})");
 	}
 //////////////////////////////////////////////////
-//	HP¤Ø¤Î¥À¥á¡¼¥¸
+//	HPã¸ã®ãƒ€ãƒ¡ãƒ¼ã‚¸
 	function HpDamage($damage,$show=true) {
 		$Before	= $this->HP;
-		$this->HP	-= $damage;// HP¤ò¸º¤é¤¹¡£
+		$this->HP	-= $damage;// HPã‚’æ¸›ã‚‰ã™ã€‚
 		if($show)
 			$this->ShowValueChange($Before,$this->HP);
 	}
 //////////////////////////////////////////////////
-//	HP¤Ø¤Î¥À¥á¡¼¥¸(0°Ê²¼¤Ë¤Ê¤ë¤Ê¤é1¤Ë¤Ê¤ë¡£)
+//	HPã¸ã®ãƒ€ãƒ¡ãƒ¼ã‚¸(0ä»¥ä¸‹ã«ãªã‚‹ãªã‚‰1ã«ãªã‚‹ã€‚)
 	function HpDamage2($damage) {
 		$Before	= $this->HP;
 		$this->HP	-= $damage;
-		// $DoNotDie=true ¤Ê¤éHP¤¬1¤ò²¼²ó¤Ã¤¿¾ì¹ç1¤Ë¤¹¤ë¡£
+		// $DoNotDie=true ãªã‚‰HPãŒ1ã‚’ä¸‹å›ã£ãŸå ´åˆ1ã«ã™ã‚‹ã€‚
 		if($this->HP < 1)
 			$this->HP	= 1;
 		$this->ShowValueChange($Before,$this->HP);
 	}
 //////////////////////////////////////////////////
-//	HP¤Î¥Ñ¡¼¥»¥ó¥È
+//	HPã®ãƒ‘ãƒ¼ã‚»ãƒ³ãƒˆ
 	function HpPercent() {
 		if($this->MAXHP == 0)
 			return 0;
@@ -840,7 +840,7 @@ class char{
 		return $p;
 	}
 //////////////////////////////////////////////////
-//	SP¤Î¥Ñ¡¼¥»¥ó¥È
+//	SPã®ãƒ‘ãƒ¼ã‚»ãƒ³ãƒˆ
 	function SpPercent() {
 		if($this->MAXSP == 0)
 			return 0;
@@ -848,7 +848,7 @@ class char{
 		return $p;
 	}
 //////////////////////////////////////////////////
-//	SP¤Ø¤Î¥À¥á¡¼¥¸(¾ÃÈñ)
+//	SPã¸ã®ãƒ€ãƒ¡ãƒ¼ã‚¸(æ¶ˆè²»)
 	function SpDamage($damage,$show=true) {
 		$Before	= $this->SP;
 		$this->SP	-= $damage;
@@ -858,7 +858,7 @@ class char{
 		$this->ShowValueChange($Before,$this->SP);
 	}
 //////////////////////////////////////////////////
-//	HP²óÉü
+//	HPå›å¾©
 	function HpRecover($recover) {
 		$Before	= $this->HP;
 		$this->HP	+= $recover;
@@ -868,7 +868,7 @@ class char{
 		$this->ShowValueChange($Before,$this->HP);
 	}
 //////////////////////////////////////////////////
-//	SP²óÉü
+//	SPå›å¾©
 	function SpRecover($recover) {
 		$Before	= $this->SP;
 		$this->SP	+= $recover;
@@ -878,14 +878,14 @@ class char{
 		$this->ShowValueChange($Before,$this->SP);
 	}
 //////////////////////////////////////////////////
-//	¥Ñ¥Ã¥·¥Ö¥¹¥­¥ë¤òÆÉ¤ß¹ş¤à
+//	ãƒ‘ãƒƒã‚·ãƒ–ã‚¹ã‚­ãƒ«ã‚’èª­ã¿è¾¼ã‚€
 	function LoadPassiveSkills() {
 		// PassiveSkill
 		foreach($this->skill as $no) {
 			if($no < 7000 || 8000 <= $no) continue;
 
 			$skill	= LoadSkillData($no);
-			//	Ç½ÎÏÃÍ¾å¾º·Ï
+			//	èƒ½åŠ›å€¤ä¸Šæ˜‡ç³»
 			if($skill["P_MAXHP"])
 				$this->P_MAXHP	+= $skill["P_MAXHP"];
 			if($skill["P_MAXSP"])
@@ -901,21 +901,21 @@ class char{
 			if($skill["P_LUK"])
 				$this->P_LUK	+= $skill["P_LUK"];
 
-			//	ÆÃ¼ìµ»Ç½¤Ê¤É($this->SPECIAL)
+			//	ç‰¹æ®ŠæŠ€èƒ½ãªã©($this->SPECIAL)
 			if($skill["HealBonus"])
 				$this->SPECIAL["HealBonus"]	+= $skill["HealBonus"];//....
 		}
 	}
 //////////////////////////////////////////////////
 	function SetBattleVariable($team=false) {
-		// ºÆÆÉ¤ß¹ş¤ß¤òËÉ»ß¤Ç¤­¤ë¤«?
+		// å†èª­ã¿è¾¼ã¿ã‚’é˜²æ­¢ã§ãã‚‹ã‹?
 		if(isset($this->IMG))
 			return false;
 
 		$this->PatternExplode();
 		$this->CutPatterns();
 
-		// ¥Ñ¥Ã¥·¥Ö¥¹¥­¥ë¤òÆÉ¤à
+		// ãƒ‘ãƒƒã‚·ãƒ–ã‚¹ã‚­ãƒ«ã‚’èª­ã‚€
 		$this->LoadPassiveSkills();
 		$this->CalcEquips();
 
@@ -935,32 +935,32 @@ class char{
 		$this->SPD		= $this->spd + $this->P_SPD;
 		$this->LUK		= $this->luk + $this->P_LUK;
 		$this->POSITION	= $this->position;
-		$this->STATE	= 0;//À¸Â¸¾õÂÖ¤Ë¤¹¤ë
+		$this->STATE	= 0;//ç”Ÿå­˜çŠ¶æ…‹ã«ã™ã‚‹
 
-		$this->expect	= false;//(¿ôÃÍ=±Ó¾§Ãæ false=ÂÔµ¡Ãæ)
-		$this->ActCount	= 0;//¹ÔÆ°²ó¿ô
-		$this->JdgCount	= array();//·èÄê¤·¤¿È½ÃÇ¤Î²ó¿ô
+		$this->expect	= false;//(æ•°å€¤=è© å”±ä¸­ false=å¾…æ©Ÿä¸­)
+		$this->ActCount	= 0;//è¡Œå‹•å›æ•°
+		$this->JdgCount	= array();//æ±ºå®šã—ãŸåˆ¤æ–­ã®å›æ•°
 	}
 //////////////////////////////////////////////////
-//	¥­¥ã¥é¤Î¹¶·âÎÏ¤ÈËÉ¸æÎÏ,ÁõÈ÷À­Ç½¤ò·×»»¤¹¤ë
+//	ã‚­ãƒ£ãƒ©ã®æ”»æ’ƒåŠ›ã¨é˜²å¾¡åŠ›,è£…å‚™æ€§èƒ½ã‚’è¨ˆç®—ã™ã‚‹
 	function CalcEquips() {
-		if($this->monster) return false;//mob¤ÏÀßÄê¤»¤ó¤Ç¤¤¤¤
-		$equip	= array("weapon","shield","armor","item");//ÁõÈ÷²Õ½ê
+		if($this->monster) return false;//mobã¯è¨­å®šã›ã‚“ã§ã„ã„
+		$equip	= array("weapon","shield","armor","item");//è£…å‚™ç®‡æ‰€
 		$this->atk	= array(0,0);
 		$this->def	= array(0,0,0,0);
 		foreach($equip as $place) {
 			if(!$this->{$place}) continue;
-			// Éğ´ï¥¿¥¤¥×¤Îµ­²±
+			// æ­¦å™¨ã‚¿ã‚¤ãƒ—ã®è¨˜æ†¶
 
 			$item	= LoadItemData($this->{$place});
 			if($place == "weapon")
 					$this->WEAPON	= $item["type"];
-			$this->atk[0]	+= $item[atk][0];//ÊªÍı¹¶·âÎÏ
-			$this->atk[1]	+= $item[atk][1];//ËâË¡¡·
-			$this->def[0]	+= $item[def][0];//ÊªÍıËÉ¸æ(¡à)
-			$this->def[1]	+= $item[def][1];//¡·(¡İ)
-			$this->def[2]	+= $item[def][2];//ËâË¡ËÉ¸æ(¡à)
-			$this->def[3]	+= $item[def][3];//¡·(¡İ)
+			$this->atk[0]	+= $item[atk][0];//ç‰©ç†æ”»æ’ƒåŠ›
+			$this->atk[1]	+= $item[atk][1];//é­”æ³•ã€ƒ
+			$this->def[0]	+= $item[def][0];//ç‰©ç†é˜²å¾¡(Ã·)
+			$this->def[1]	+= $item[def][1];//ã€ƒ(ï¼)
+			$this->def[2]	+= $item[def][2];//é­”æ³•é˜²å¾¡(Ã·)
+			$this->def[3]	+= $item[def][3];//ã€ƒ(ï¼)
 
 			$this->P_MAXHP	+= $item["P_MAXHP"];
 			$this->M_MAXHP	+= $item["M_MAXHP"];
@@ -975,7 +975,7 @@ class char{
 
 			if($item["P_SUMMON"])
 				$this->GetSpecial("Summon",$item["P_SUMMON"]);
-			// ËÉ¸æÌµ»ë¤Î¹¶·âÎÏ
+			// é˜²å¾¡ç„¡è¦–ã®æ”»æ’ƒåŠ›
 			if($item["P_PIERCE"])
 				$this->GetSpecial("Pierce",$item["P_PIERCE"]);
 		}
@@ -992,9 +992,9 @@ class char{
 	}
 
 //////////////////////////////////////////////////
-//	¥­¥ã¥é¥Ç¡¼¥¿¤ÎÊİÂ¸
+//	ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿ã®ä¿å­˜
 	function SaveCharData($id=false) {
-		// ¥â¥ó¥¹¥¿¡¼¤ÏÊİÂ¸¤·¤Ê¤¤¡£
+		// ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã¯ä¿å­˜ã—ãªã„ã€‚
 		//if($this->monster)	return false;
 
 		if($id) {
@@ -1003,7 +1003,7 @@ class char{
 			if(!$this->user) return false;
 			$dir	= USER.$this->user;
 		}
-		// ¥æ¡¼¥¶¡¼¤¬Â¸ºß¤·¤Ê¤¤¾ì¹çÊİÂ¸¤·¤Ê¤¤
+		// ãƒ¦ãƒ¼ã‚¶ãƒ¼ãŒå­˜åœ¨ã—ãªã„å ´åˆä¿å­˜ã—ãªã„
 		if(!file_exists($dir))
 			return false;
 
@@ -1013,7 +1013,7 @@ class char{
 			$file	= $dir."/".$this->birth.".dat";
 
 		if(file_exists($file) && $this->fp) {
-			//sleep(10);//¥Õ¥¡¥¤¥ë¥í¥Ã¥¯³ÎÇ§ÍÑ
+			//sleep(10);//ãƒ•ã‚¡ã‚¤ãƒ«ãƒ­ãƒƒã‚¯ç¢ºèªç”¨
 			WriteFileFP($this->fp,$this->DataSavingFormat());
 			$this->fpclose();
 		} else {
@@ -1026,7 +1026,7 @@ class char{
 	function DataSavingFormat() {
 		$Save	= array("name","gender","job","birth","level","exp",
 		"statuspoint","skillpoint",
-		//"maxhp","hp","maxsp","sp",// (2007/9/30 ÊİÂ¸¤·¤Ê¤¯¤Ê¤Ã¤¿)
+		//"maxhp","hp","maxsp","sp",// (2007/9/30 ä¿å­˜ã—ãªããªã£ãŸ)
 		"str","int","dex","spd","luk",
 		"weapon","shield","armor","item",
 		"position","guard",
@@ -1034,8 +1034,8 @@ class char{
 		//"judge","action",
 		"Pattern",
 		"PatternMemo",
-		//¥â¥ó¥¹¥¿¡¼ÀìÍÑ
-		//"monster","land","family","monster_message"//ÊİÂ¸¤¹¤ëÉ¬Í×Ìµ¤¯¤Ê¤Ã¤¿
+		//ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼å°‚ç”¨
+		//"monster","land","family","monster_message"//ä¿å­˜ã™ã‚‹å¿…è¦ç„¡ããªã£ãŸ
 		);
 		//$Save	= get_object_vars($this);
 		foreach($Save as $val) {
@@ -1050,7 +1050,7 @@ class char{
 		static $flag = 0;
 
 		$flag++;
-		if( CHAR_ROW%2==0 && $flag%(CHAR_ROW+1)==0 )//carpet¤ÎÊÂ¤Ó¤ò¸ò¸ß¤Ë¤¹¤ë
+		if( CHAR_ROW%2==0 && $flag%(CHAR_ROW+1)==0 )//carpetã®ä¸¦ã³ã‚’äº¤äº’ã«ã™ã‚‹
 			$flag++;
 		?>
 <div class="carpet_frame">
@@ -1060,11 +1060,11 @@ class char{
 	}
 
 //////////////////////////////////////////////////
-	function ShowCharLink() {//$array=¿§¡¹
+	function ShowCharLink() {//$array=è‰²ã€…
 		static $flag = 0;
 
 		$flag++;
-		if( CHAR_ROW%2==0 && $flag%(CHAR_ROW+1)==0 )//carpet¤ÎÊÂ¤Ó¤ò¸ò¸ß¤Ë¤¹¤ë
+		if( CHAR_ROW%2==0 && $flag%(CHAR_ROW+1)==0 )//carpetã®ä¸¦ã³ã‚’äº¤äº’ã«ã™ã‚‹
 			$flag++;
 		?>
 <div class="carpet_frame">
@@ -1075,12 +1075,12 @@ class char{
 	}
 
 //////////////////////////////////////////////////
-//	checkbox¤âÉ½¼¨¤¹¤ë
+//	checkboxã‚‚è¡¨ç¤ºã™ã‚‹
 	function ShowCharRadio($birth,$checked=null) {
 		static $flag = 0;
 
 		$flag++;
-		if( CHAR_ROW%2==0 && $flag%(CHAR_ROW+1)==0 )//carpet¤ÎÊÂ¤Ó¤ò¸ò¸ß¤Ë¤¹¤ë
+		if( CHAR_ROW%2==0 && $flag%(CHAR_ROW+1)==0 )//carpetã®ä¸¦ã³ã‚’äº¤äº’ã«ã™ã‚‹
 			$flag++;
 
 // onclick="Element.toggleClassName(this,'unselect')"
@@ -1102,12 +1102,12 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 </div><?
 	}
 //////////////////////////////////////////////////
-//	ÀïÆ®»ş¤Î¥Á¡¼¥à¤òÀßÄê(¤¢¤ó¤Ş¤ê»È¤Ã¤Æ¤Ê¤¤)
+//	æˆ¦é—˜æ™‚ã®ãƒãƒ¼ãƒ ã‚’è¨­å®š(ã‚ã‚“ã¾ã‚Šä½¿ã£ã¦ãªã„)
 	function SetTeam($no) {
 		$this->team	= $no;
 	}
 //////////////////////////////////////////////////
-//	IMG¥¿¥°¤Ç²èÁü¤òÉ½¼¨¤¹¤ë¤Î¤ß
+//	IMGã‚¿ã‚°ã§ç”»åƒã‚’è¡¨ç¤ºã™ã‚‹ã®ã¿
 	function GetImageURL($dir) {
 		if(file_exists(IMG_CHAR.$this->img)) {
 			if($this->STATE === DEAD) {
@@ -1122,7 +1122,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		}
 	}
 //////////////////////////////////////////////////
-//	IMG¥¿¥°¤Ç²èÁü¤òÉ½¼¨¤¹¤ë¤Î¤ß
+//	IMGã‚¿ã‚°ã§ç”»åƒã‚’è¡¨ç¤ºã™ã‚‹ã®ã¿
 	function ShowImage($class=false) {
 		$url = $this->GetImageURL(IMG_CHAR);
 		if($class)
@@ -1131,13 +1131,13 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 			print('<img src="'.$url.'">');
 	}
 //////////////////////////////////////////////////
-//	HP¤ÈSP¤ò·×»»¤·¤ÆÀßÄê¤¹¤ë
+//	HPã¨SPã‚’è¨ˆç®—ã—ã¦è¨­å®šã™ã‚‹
 	function SetHpSp()
-	// $coe=array(HP,SP·¸¿ô);
+	// $coe=array(HP,SPä¿‚æ•°);
 	{
-		$MaxStatus	= MAX_STATUS;//ºÇ¹â¥¹¥Æ¡¼¥¿¥¹(¤¸¤ã¤Ê¤¯¤Æ¤â¤¤¤¤¤Ç¤¹)
+		$MaxStatus	= MAX_STATUS;//æœ€é«˜ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹(ã˜ã‚ƒãªãã¦ã‚‚ã„ã„ã§ã™)
 
-		$jobdata		= LoadJobData($this->job);// 2²óÆÉ¤ß¹ş¤ó¤Ç¤ë¤«¤éÄ¾¤¹¤Ù¤­
+		$jobdata		= LoadJobData($this->job);// 2å›èª­ã¿è¾¼ã‚“ã§ã‚‹ã‹ã‚‰ç›´ã™ã¹ã
 		$coe	= $jobdata["coe"];
 
 		$div		= $MaxStatus * $MaxStatus;
@@ -1151,39 +1151,39 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		$this->maxsp	= round($this->maxsp);
 	}
 //////////////////////////////////////////////////
-//	handle·×»»
+//	handleè¨ˆç®—
 	function GetHandle() {
 		$handle	= 5 + floor($this->level / 10) + floor($this->dex / 5);
 		return $handle;
 	}
 //////////////////////////////////////////////////
-//	¥İ¥¤¥ó¥È¤ò¾ÃÈñ¤·¤Æµ»¤ò³Ğ¤¨¤ë¡£
+//	ãƒã‚¤ãƒ³ãƒˆã‚’æ¶ˆè²»ã—ã¦æŠ€ã‚’è¦šãˆã‚‹ã€‚
 	function LearnNewSkill($no) {
 		include_once(DATA_SKILL_TREE);
 		$tree	= LoadSkillTree($this);
 
-		//½¬ÆÀ²ÄÇ½µ»¤Ë³Ğ¤¨¤è¤¦¤È¤·¤Æ¤ë¥ä¥Ä¤Ê¤±¤ê¤ã½ªÎ»
+		//ç¿’å¾—å¯èƒ½æŠ€ã«è¦šãˆã‚ˆã†ã¨ã—ã¦ã‚‹ãƒ¤ãƒ„ãªã‘ã‚Šã‚ƒçµ‚äº†
 		if(!in_array($_POST["newskill"],$tree))
-			return array(false,"¥¹¥­¥ë¥Ä¥ê¡¼¤ËÌµ¤¤");
+			return array(false,"ã‚¹ã‚­ãƒ«ãƒ„ãƒªãƒ¼ã«ç„¡ã„");
 		$skill	= LoadSKillData($no);
-		//¤â¤·½¬ÆÀºÑ¤ß¤Ê¤é?
+		//ã‚‚ã—ç¿’å¾—æ¸ˆã¿ãªã‚‰?
 		if(in_array($no,$this->skill))
-			return array(false,"{$skill[name]} ¤Ï½¤ÆÀºÑ¤ß.");
+			return array(false,"{$skill[name]} ã¯ä¿®å¾—æ¸ˆã¿.");
 		if($this->UseSkillPoint($skill["learn"])) {
 			$this->GetNewSkill($skill["no"]);
 			//$this->SaveCharData();
-			return array(true,$this->Name()." ¤Ï {$skill[name]} ¤ò½¤ÆÀ¤·¤¿¡£");
+			return array(true,$this->Name()." ã¯ {$skill[name]} ã‚’ä¿®å¾—ã—ãŸã€‚");
 		} else
-			return array(false,"¥¹¥­¥ë¥İ¥¤¥ó¥ÈÉÔÂ­");
+			return array(false,"ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆä¸è¶³");
 	}
 //////////////////////////////////////////////////
-//	¿·¥ï¥¶¤òÄÉ²Ã¤¹¤ë¡£
+//	æ–°ãƒ¯ã‚¶ã‚’è¿½åŠ ã™ã‚‹ã€‚
 	function GetNewSkill($no) {
 		$this->skill[]	= $no;
 		asort($this->skill);
 	}
 //////////////////////////////////////////////////
-//	¥¹¥­¥ë¥İ¥¤¥ó¥È¤ò¾ÃÈñ¤¹¤ë
+//	ã‚¹ã‚­ãƒ«ãƒã‚¤ãƒ³ãƒˆã‚’æ¶ˆè²»ã™ã‚‹
 	function UseSKillPoint($no) {
 		if($no <= $this->skillpoint) {
 			$this->skillpoint	-= $no;
@@ -1192,7 +1192,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		return false;
 	}
 //////////////////////////////////////////////////
-//	·Ğ¸³ÃÍ¤ò½Ğ¤¹(¥â¥ó¥¹¥¿¡¼¤À¤±?)
+//	çµŒé¨“å€¤ã‚’å‡ºã™(ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã ã‘?)
 	function DropExp() {
 		if(isset($this->exphold)) {
 			$exp	= $this->exphold;
@@ -1203,7 +1203,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		}
 	}
 //////////////////////////////////////////////////
-//	¤ª¶â¤ò½Ğ¤¹(¥â¥ó¥¹¥¿¡¼¤À¤±?)
+//	ãŠé‡‘ã‚’å‡ºã™(ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã ã‘?)
 	function DropMoney() {
 		if(isset($this->moneyhold)) {
 			$money	= $this->moneyhold;
@@ -1214,11 +1214,11 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		}
 	}
 //////////////////////////////////////////////////
-//	¥¢¥¤¥Æ¥à¤òÍî¤È¤¹(¥â¥ó¥¹¥¿¡¼¤À¤±?)
+//	ã‚¢ã‚¤ãƒ†ãƒ ã‚’è½ã¨ã™(ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã ã‘?)
 	function DropItem() {
 		if($this->itemdrop) {
 			$item	= $this->itemdrop;
-			// °ìÅÙÍî¤È¤·¤¿¥¢¥¤¥Æ¥à¤Ï¾Ã¤¹
+			// ä¸€åº¦è½ã¨ã—ãŸã‚¢ã‚¤ãƒ†ãƒ ã¯æ¶ˆã™
 			$this->itemdrop	= false;
 			return $item;
 		} else {
@@ -1235,7 +1235,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		}
 	}
 //////////////////////////////////////////////////
-//	¥Ñ¥¿¡¼¥óÊ¸»úÎó¤òÇÛÎó¤Ë¤¹¤ë¡£
+//	ãƒ‘ã‚¿ãƒ¼ãƒ³æ–‡å­—åˆ—ã‚’é…åˆ—ã«ã™ã‚‹ã€‚
 //	****<>****<>****|****<>****<>****|****<>****<>****
 	function PatternExplode() {
 		//dump($this->judge);
@@ -1247,13 +1247,13 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		$this->action	= explode("<>",$Pattern["2"]);
 	}
 //////////////////////////////////////////////////
-//	¥Ñ¥¿¡¼¥óÇÛÎó¤òÊİÂ¸¤¹¤ë¡£
+//	ãƒ‘ã‚¿ãƒ¼ãƒ³é…åˆ—ã‚’ä¿å­˜ã™ã‚‹ã€‚
 	function PatternSave($judge,$quantity,$action) {
 		$this->Pattern	= implode("<>",$judge)."|".implode("<>",$quantity)."|".implode("<>",$action);
 		return true;
 	}
 //////////////////////////////////////////////////
-//	¥­¥ã¥é¥¯¥¿¡¼¤ò¾Ã¤¹
+//	ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚’æ¶ˆã™
 	function DeleteChar() {
 		if(!file_exists($this->file))
 			return false;
@@ -1264,7 +1264,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		unlink($this->file);
 	}
 //////////////////////////////////////////////////
-//	¥­¥ã¥é¤ÎÊÑ¿ô¤ò¥»¥Ã¥È¤¹¤ë¡£
+//	ã‚­ãƒ£ãƒ©ã®å¤‰æ•°ã‚’ã‚»ãƒƒãƒˆã™ã‚‹ã€‚
 	function SetCharData(&$data) {
 		$this->name	= $data["name"];
 		$this->gender	= $data["gender"];
@@ -1295,7 +1295,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 			$this->maxsp	= $data["maxsp"];
 			$this->sp		= $data["sp"];
 		} else {
-			// HPSP¤òÀßÄê¡£HPSP¤ò²óÉü¡£¤½¤¦¤¤¤¦¥²¡¼¥à¤À¤«¤é¡Ä
+			// HPSPã‚’è¨­å®šã€‚HPSPã‚’å›å¾©ã€‚ãã†ã„ã†ã‚²ãƒ¼ãƒ ã ã‹ã‚‰â€¦
 			$this->SetHpSp();
 			$this->hp		= $this->maxhp;
 			$this->sp		= $this->maxsp;
@@ -1316,7 +1316,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		if($data["PatternMemo"])
 			$this->PatternMemo	= $data["PatternMemo"];
 
-		// ¥â¥ó¥¹¥¿¡¼¤Î¤¿¤á¡©
+		// ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã®ãŸã‚ï¼Ÿ
 		if(is_array($data["judge"]))
 			$this->judge	= $data["judge"];
 		//else
@@ -1330,7 +1330,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		//else
 		//	$this->action	= explode("<>",$data["action"]);
 
-		//¥â¥ó¥¹¥¿¡¼ÀìÍÑ
+		//ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼å°‚ç”¨
 		if($this->monster	= $data["monster"]) {
 			$this->exphold		= $data["exphold"];
 			$this->moneyhold	= $data["moneyhold"];

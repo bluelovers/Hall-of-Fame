@@ -1,13 +1,13 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>admin?</title>
 </head>
 <body>
 <?php
 include("../setting.php");
-$admin	= "../";// index.php ¤«¤é¤Îµ÷Î¥
+$admin	= "../";// index.php ã‹ã‚‰ã®è·é›¢
 $users	= glob($admin.USER."/*");
 print("Users : ".count($users)." / ".MAX_USERS."<br />\n");
 

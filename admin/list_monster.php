@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Monster List</title>
 <link rel="stylesheet" href="../basis.css" type="text/css">
 <link rel="stylesheet" href="../style.css" type="text/css">
@@ -11,7 +11,7 @@
 	padding	: 0;
 	margin	: 0;
 	line-height	: 140%;
-	font-family	: Osaka,Verdana,"£Í£Ó £Ğ¥´¥·¥Ã¥¯";
+	font-family	: Osaka,Verdana,"ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯";
 	overflow:inherit;
 }
 body{
@@ -81,7 +81,7 @@ for($no=1000; $no<5999; $no++) {
 	else
 		print("<td>{$m[position]}</td>");//position
 	print("<td>{$m[guard]}</td>");//guard
-	// ¹ÔÆ°¼ê½ç
+	// è¡Œå‹•æ‰‹é †
 	print("</tr>\n");
 	print("<tr><td colspan=\"13\" style=\"text-align:left\">");
 	print("<table><tbody>");
@@ -103,7 +103,7 @@ for($no=1000; $no<5999; $no++) {
 		ShowSkillDetail($skill);
 		print("</td></tr>");
 	}
-	// Íî¤È¤¹¥¢¥¤¥Æ¥à
+	// è½ã¨ã™ã‚¢ã‚¤ãƒ†ãƒ 
 	if($m[itemtable]) {
 		print('<tr><td colspan="3">');
 		print("<table><tbody>");
@@ -141,12 +141,12 @@ print("</tbody></table>");
 
 		if($item["type"])
 			print("<span class=\"light\"> ({$item[type]})</span>");
-		if($amount) {//¿ôÎÌ
+		if($amount) {//æ•°é‡
 			print(" x{$amount}");
 		}
-		if($item["atk"]["0"])//ÊªÍı¹¶·â
+		if($item["atk"]["0"])//ç‰©ç†æ”»æ’ƒ
 			print(' / <span class="dmg">Atk:'.$item[atk][0].'</span>');
-		if($item["atk"]["1"])//ËâË¡¹¶·â
+		if($item["atk"]["1"])//é­”æ³•æ”»æ’ƒ
 			print(' / <span class="spdmg">Matk:'.$item[atk][1].'</span>');
 		if($item["def"]) {
 			print(" / <span class=\"recover\">Def:{$item[def][0]}+{$item[def][1]}</span>");
@@ -154,9 +154,9 @@ print("</tbody></table>");
 		}
 		if($item["handle"])
 			print(' / <span class="charge">h:'.$item[handle].'</span>');
-		//print("\n");//¤Ê¤ó¤Ç¥Ğ¥°¤ë¤ó¡©(IE6)
+		//print("\n");//ãªã‚“ã§ãƒã‚°ã‚‹ã‚“ï¼Ÿ(IE6)
 	}
-//	µ»¤Î¾ÜºÙ¤òÉ½¼¨
+//	æŠ€ã®è©³ç´°ã‚’è¡¨ç¤º
 	function ShowSkillDetail2($skill,$radio=false) {
 		$file	= "../image/icon/";
 		if(!$skill) return false;
@@ -170,7 +170,7 @@ print("</tbody></table>");
 		if($radio)
 			print(" / <span class=\"bold\">{$skill[learn]}</span>pt");
 
-		if($skill[target][0] == "all")//ÂĞ¾İ
+		if($skill[target][0] == "all")//å¯¾è±¡
 			print(" / <span class=\"charge\">{$skill[target][0]}</span>");
 		else if($skill[target][0] == "enemy")
 			print(" / <span class=\"dmg\">{$skill[target][0]}</span>");
@@ -181,7 +181,7 @@ print("</tbody></table>");
 		else if(isset($skill[target][0]))
 			print(" / {$skill[target][0]}");
 
-		if($skill[target][1] == "all")//Ã±ÂÎorÊ£¿ôorÁ´ÂÎ
+		if($skill[target][1] == "all")//å˜ä½“orè¤‡æ•°orå…¨ä½“
 			print(" - <span class=\"charge\">{$skill[target][1]}</span>");
 		else if($skill[target][1] == "individual")
 			print(" - <span class=\"recover\">{$skill[target][1]}</span>");

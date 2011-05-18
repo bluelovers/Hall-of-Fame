@@ -1,5 +1,5 @@
 <?php
-// ├├╠ъ▓░
+// щНЫхЖ╢х▒Л
 class Item {
 	var $item;
 
@@ -13,17 +13,17 @@ class Item {
 		$this->SetItem($no);
 	}
 //////////////////////////////////////////////////
-//	еведе╞ердм┼╧д╡дьд┐╛ь╣че╟б╝е┐дЄ▓Є└╧д╣ды?
+//	уВвуВдуГЖуГауБМц╕буБХуВМуБЯха┤хРИуГЗуГ╝уВ┐уВТшзгцЮРуБЩуВЛ?
 	function SetItem($no) {
 		if(!$no) return false;
 		$this->item	= $no;
 
-		$this->base	= substr($no,0,4);//еведе╞ерд╬┤Ё╦▄╚╓╣ц
-		// └║╧г├═
+		$this->base	= substr($no,0,4);//уВвуВдуГЖуГауБохЯ║цЬмчХкхП╖
+		// ч▓╛щМмхАд
 		$this->refine	= (int)substr($no,4,2);
 		if(!$this->refine)
 			$this->refine	= 0;
-		// ╔╒▓├╟╜╬╧
+		// ф╗ШхКашГ╜хКЫ
 		$this->option0	= substr($no,6,3);
 		$this->option1	= substr($no,9,3);
 		$this->option2	= substr($no,12,3);
@@ -33,7 +33,7 @@ class Item {
 		}
 	}
 //////////////////////////////////////////////////
-//	еведе╞ердЄ└╜║юд╣дыбг
+//	уВвуВдуГЖуГауВТшг╜ф╜ЬуБЩуВЛуАВ
 	function CreateItem() {
 		$this->refine	= false;
 		$this->option0	= false;
@@ -42,7 +42,7 @@ class Item {
 		list($low,$high)	= ItemAbilityPossibility($this->type);
 
 		// 2:3:4
-		// ╔╒▓├╟╜╬╧дмд─дп│╬╬ибг
+		// ф╗ШхКашГ╜хКЫуБМуБдуБПчв║чОЗуАВ
 		$prob	= mt_rand(1,9);
 		switch($prob) {
 			case 1:
@@ -63,7 +63,7 @@ class Item {
 				break;
 		}
 
-		// array_rand() д╧╚∙╠пд╩д╬д╟╖╔▒єд╣дыбг
+		// array_rand() уБпх╛охжЩуБкуБоуБзцХмщБауБЩуВЛуАВ
 
 		if($AddHigh) {
 			$prob	= mt_rand(0,count($high)-1);
@@ -75,12 +75,12 @@ class Item {
 		}
 	}
 //////////////////////////////////////////////////
-//	╞├╝ьд╩двдьбй3╚╓╠▄д╬╔╒▓├бй
+//	чЙ╣цоКуБкуБВуВМя╝Я3чХкчЫоуБоф╗ШхКая╝Я
 	function AddSpecial($opt) {
 		$this->option0	= $opt;
 	}
 //////////////////////////////////////////////////
-//	└║╧г▓─╟╜д╩╩кдлд╔дждлбг
+//	ч▓╛щМмхПпшГ╜уБкчЙйуБЛуБйуБЖуБЛуАВ
 	function CanRefine() {
 		$possible	= CanRefineType();
 		if (REFINE_LIMIT <= $this->refine)
@@ -91,7 +91,7 @@ class Item {
 			return false;
 	}
 //////////////////////////////////////////////////
-//	└║╧гдЄд╣ды
+//	ч▓╛щМмуВТуБЩуВЛ
 	function ItemRefine() {
 		if($this->RefineProb($this->refine)) {
 			print("+".$this->refine." -> ");
@@ -105,10 +105,10 @@ class Item {
 		}
 	}
 //////////////////////////////////////////////////
-//	└║╧г┼┘╩╠д╦└║╧г└о╕∙дл╚▌длд╚д╜д╬│╬╬и
+//	ч▓╛щМмх║жхИеуБлч▓╛щМмцИРхКЯуБЛхРжуБЛуБиуБЭуБочв║чОЗ
 	function RefineProb($now) {
 		$prob	= mt_rand(0,99);
-		//return true;// е│есеєе╚╝шдыд╚└о╕∙╬и100%
+		//return true;// уВ│уГбуГ│уГИхПЦуВЛуБицИРхКЯчОЗ100%
 		switch($now) {
 			case 0:
 			case 1:
@@ -137,13 +137,13 @@ class Item {
 		return false;
 	}
 //////////////////////////////////////////////////
-//	еведе╞ердЄ╩╓д╣бг
+//	уВвуВдуГЖуГауВТш┐ФуБЩуАВ
 	function ReturnItem() {
-		// └║╧гдтеке╫е╖ечеєдт╠╡дд╛ь╣чд╧└ш╞м4╩╕╗·д└д▒╩╓д╣бг
+		// ч▓╛щМмуВВуВкуГЧуВ╖уГзуГ│уВВчДбуБДха┤хРИуБпхЕИщан4цЦЗхнЧуБауБСш┐ФуБЩуАВ
 		if(!$this->refine && !$this->option0 && !$this->option1 && !$this->option2 )
 			return $this->base;
 		
-		// ╛пд╩дпд╚дт└║╧гд╡дьд╞дддыдлбвеке╫е╖ечеєдм═нды╛ь╣ч
+		// х░СуБкуБПуБиуВВч▓╛щМмуБХуВМуБжуБДуВЛуБЛуАБуВкуГЧуВ╖уГзуГ│уБМцЬЙуВЛха┤хРИ
 		$item	= $this->base.
 				sprintf("%02d",$this->refine).
 				$this->option0.

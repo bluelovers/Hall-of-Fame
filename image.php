@@ -1,33 +1,33 @@
 <?
 /*
-	²èÁü¹çÀ®¤òÈó¾ï¤Ë¥Ê¥ó¥»¥ó¥¹¤ÊÊıË¡¤Ç¹Ô¤¦¡£
-	GD¥é¥¤¥Ö¥é¥ê¢ª²èÁü¤Î¿åÊ¿È¿Å¾¤¬ÉÔ²ÄÇ½¡£
-	PECL ImageMagic¢ª²ÄÇ½¡£¤·¤«¤·PEAR¤ÎÃÎ¼±¤¬Ìµ¤¯ÃÇÇ°¡£
+	ç”»åƒåˆæˆã‚’éå¸¸ã«ãƒŠãƒ³ã‚»ãƒ³ã‚¹ãªæ–¹æ³•ã§è¡Œã†ã€‚
+	GDãƒ©ã‚¤ãƒ–ãƒ©ãƒªâ†’ç”»åƒã®æ°´å¹³åè»¢ãŒä¸å¯èƒ½ã€‚
+	PECL ImageMagicâ†’å¯èƒ½ã€‚ã—ã‹ã—PEARã®çŸ¥è­˜ãŒç„¡ãæ–­å¿µã€‚
 	
-	½¾¤Ã¤Æ²èÁü¹çÀ®¤¹¤ë¾ì¹ç,È¿Å¾ºÑ¤ß¤Î²èÁü¤òÊÌ¤ÇÍÑ°Õ¤¹¤ë¡£
+	å¾“ã£ã¦ç”»åƒåˆæˆã™ã‚‹å ´åˆ,åè»¢æ¸ˆã¿ã®ç”»åƒã‚’åˆ¥ã§ç”¨æ„ã™ã‚‹ã€‚
 	
 	sampleURL
 http://localhost/proj/hof/image.php?f11=mon_018&f12=mon_018&f13=mon_018&f14=mon_018&b11=mon_018&b12=mon_018&f21=mon_018&f22=mon_018&b21=mon_018&b22=mon_018&b23=mon_018&f23=mon_018&f24=mon_018&info=0
-	ºÇ¸å¤Î[&info=0] ¤ÏÌµ¤¯¤Æ¤âok
+	æœ€å¾Œã®[&info=0] ã¯ç„¡ãã¦ã‚‚ok
 	
-	¢¨¢¨¢¨ ËâË¡¿Ø¤ÎÉ½¼¨¤ËÌ¤ÂĞ±ş¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª¡ª
+	â€»â€»â€» é­”æ³•é™£ã®è¡¨ç¤ºã«æœªå¯¾å¿œï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼
 */
 include("setting.php");
 
 $img	= new image();
 // ( gif, png, jpeg )
-// gif -> Æ°ºî³ÎÇ§ºÑ¤ß
-// png -> ²èÁü¤Î¿§¿ô¤òÊİ¤Æ¤ë¤«¤É¤¦¤«Ì¤³ÎÇ§
-// jpeg -> Æ°ºîÌ¤³ÎÇ§
-$img->SetBackGround("gif");// ÇØ·Ê²èÁü¤Î·Á¼°
+// gif -> å‹•ä½œç¢ºèªæ¸ˆã¿
+// png -> ç”»åƒã®è‰²æ•°ã‚’ä¿ã¦ã‚‹ã‹ã©ã†ã‹æœªç¢ºèª
+// jpeg -> å‹•ä½œæœªç¢ºèª
+$img->SetBackGround("gif");// èƒŒæ™¯ç”»åƒã®å½¢å¼
 
 $img->SetCharFile("gif");// *
 $img->ShowInfo();
 $img->CopyChar();
 $img->Filter();
 
-// ½ĞÎÏ²èÁü¤Î·Á¼°
-// gif > png > jpeg ¤Î½ç¤Ç¥µ¥¤¥º¤¬°Û¤Ê¤ë
+// å‡ºåŠ›ç”»åƒã®å½¢å¼
+// gif > png > jpeg ã®é †ã§ã‚µã‚¤ã‚ºãŒç•°ãªã‚‹
 $img->OutPutImage("gif");
 
 //////////////////////////////////////////////////////////////////////
@@ -41,9 +41,9 @@ class image{
 	var $team2_front	= array();
 	var $team2_back		= array();
 
-	var $char_img_type;//¥­¥ã¥é²èÁü·Á¼°
+	var $char_img_type;//ã‚­ãƒ£ãƒ©ç”»åƒå½¢å¼
 
-	var $img_x, $img_y;//¥¤¥á¡¼¥¸Éı
+	var $img_x, $img_y;//ã‚¤ãƒ¡ãƒ¼ã‚¸å¹…
 
 	function SetCharFile($type) {
 		$this->char_img_type	= $type;
@@ -57,29 +57,29 @@ class image{
 			f21 = team2_front[0]...
 			b21 = team2_back[0]...
 		*/
-		for($j=1; $j<6; $j++) {// 1,2,3,4,5¡¡¥Á¡¼¥à£±
+		for($j=1; $j<6; $j++) {// 1,2,3,4,5ã€€ãƒãƒ¼ãƒ ï¼‘
 			if( $img = $_GET["f1".$j] ) {
-				if( strpos($img,"/") !== false ) continue;// "/"¤¬»ØÄê¤µ¤ì¤¿¾ì¹çÌµ»ë
+				if( strpos($img,"/") !== false ) continue;// "/"ãŒæŒ‡å®šã•ã‚ŒãŸå ´åˆç„¡è¦–
 				$file	= IMG_CHAR.$img.".".$type;
 				if(file_exists($file))
 					$this->team1_front[]	= $file;
 			}
 			if( $img = $_GET["b1".$j]) {
-				if( strpos($img,"/") !== false ) continue;// "/"¤¬»ØÄê¤µ¤ì¤¿¾ì¹çÌµ»ë
+				if( strpos($img,"/") !== false ) continue;// "/"ãŒæŒ‡å®šã•ã‚ŒãŸå ´åˆç„¡è¦–
 				$file	= IMG_CHAR.$img.".".$type;
 				if(file_exists($file))
 					$this->team1_back[]	= $file;
 			}
 		}
-		for($j=1; $j<6; $j++) {// 1,2,3,4,5¡¡¥Á¡¼¥à£²
+		for($j=1; $j<6; $j++) {// 1,2,3,4,5ã€€ãƒãƒ¼ãƒ ï¼’
 			if( $img = $_GET["f2".$j] ) {
-				if( strpos($img,"/") !== false ) continue;// "/"¤¬»ØÄê¤µ¤ì¤¿¾ì¹çÌµ»ë
+				if( strpos($img,"/") !== false ) continue;// "/"ãŒæŒ‡å®šã•ã‚ŒãŸå ´åˆç„¡è¦–
 				$file	= IMG_CHAR_REV.$img.".".$type;
 				if(file_exists($file))
 					$this->team2_front[]	= $file;
 			}
 			if( $img = $_GET["b2".$j]) {
-				if( strpos($img,"/") !== false ) continue;// "/"¤¬»ØÄê¤µ¤ì¤¿¾ì¹çÌµ»ë
+				if( strpos($img,"/") !== false ) continue;// "/"ãŒæŒ‡å®šã•ã‚ŒãŸå ´åˆç„¡è¦–
 				$file	= IMG_CHAR_REV.$img.".".$type;
 				if(file_exists($file))
 					$this->team2_back[]	= $file;
@@ -120,13 +120,13 @@ class image{
 
 		$copy	= $imgcreatefrom($file);
 		list($width, $height)	= getimagesize($file);
-		$x	-= $width/2;// ¥­¥ã¥éÉıÊ¬¤À¤±¤º¤é¤¹
+		$x	-= $width/2;// ã‚­ãƒ£ãƒ©å¹…åˆ†ã ã‘ãšã‚‰ã™
 		$y	-= $height/2;
 		imagecopy($this->image,$copy,round($x),round($y),0,0,$width,$height);
 	}
 
 	function SetBackGround($type) {
-		if($_GET["bg"])//ÇØ·Ê
+		if($_GET["bg"])//èƒŒæ™¯
 			$file	= IMG_OTHER."bg_".$_GET["bg"].".".$type;
 		if(file_exists($file))
 			$this->background	= $file;
@@ -139,15 +139,15 @@ class image{
 		list($this->img_x, $this->img_y)	= getimagesize($this->background);
 	}
 
-	function Filter() {//ÅÓÃæ
+	function Filter() {//é€”ä¸­
 		//imagegammacorrect($this->image,200,255);
-		if($_GET["gray"]) {//¥°¥ì¥¤¥¹¥±¡¼¥ë½èÍı
+		if($_GET["gray"]) {//ã‚°ãƒ¬ã‚¤ã‚¹ã‚±ãƒ¼ãƒ«å‡¦ç†
 			$val	= $_GET["gray"];
 			if($val < 0) $val	= 0;
 			else if(100 < $val) $val	= 100;
 			imagecopymergegray($this->image,$this->image,0,0,0,0,$this->img_x,$this->img_y,$val);
 		}
-		//$image_p = imagecreatetruecolor(240, 100);//½Ì¾®
+		//$image_p = imagecreatetruecolor(240, 100);//ç¸®å°
 		//imagecopyresampled($image_p, $this->image, 0, 0, 0, 0, 240, 100, $this->img_x, $this->img_y);
 		//$this->image	= $image_p;
 	}

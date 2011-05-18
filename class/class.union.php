@@ -15,24 +15,24 @@ class union extends char{
 	var $UnionLand;
 	var $LevelLimit;
 /*
-	Union¥â¥ó¥¹¥¿¡¼¤Ï¥À¥á¡¼¥¸¤ò¼õ¤±¤ë¤È·Ğ¸³ÃÍ¤òÅÏ¤¹¡£
-	¤Ê¤Î¤Ç¡¢Á´³«¤ÎHP¤Èº¹Ê¬¤ò¼è¤Ã¤Æ»àË´È½Äê»ş¤Ë·Ğ¸³ÃÍ¤òÅÏ¤¹¤³¤È¤Ë¤¹¤ë¡£
+	Unionãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã¯ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ã‚‹ã¨çµŒé¨“å€¤ã‚’æ¸¡ã™ã€‚
+	ãªã®ã§ã€å…¨é–‹ã®HPã¨å·®åˆ†ã‚’å–ã£ã¦æ­»äº¡åˆ¤å®šæ™‚ã«çµŒé¨“å€¤ã‚’æ¸¡ã™ã“ã¨ã«ã™ã‚‹ã€‚
 */
 	var $LastHP;
 
-	// ¥â¥ó¥¹¥¿¡¼ÀìÍÑ¤ÎÊÑ¿ô
+	// ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼å°‚ç”¨ã®å¤‰æ•°
 	var $monster = true;
-	var $exphold;//·Ğ¸³ÃÍ
-	var $moneyhold;//¤ª¶â
-	var $itemdrop;//Íî¤È¤¹¥¢¥¤¥Æ¥à
+	var $exphold;//çµŒé¨“å€¤
+	var $moneyhold;//ãŠé‡‘
+	var $itemdrop;//è½ã¨ã™ã‚¢ã‚¤ãƒ†ãƒ 
 
 //////////////////////////////////////////////////
-//	¥³¥ó¥¹¥È¥é¥¯¥¿
+//	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	function union($file=false) {
 		$this->LoadData($file);
 	}
 //////////////////////////////////////////////////
-//	ÆÇ¥À¥á¡¼¥¸
+//	æ¯’ãƒ€ãƒ¡ãƒ¼ã‚¸
 	function PoisonDamage($multiply=1) {
 		if($this->STATE !== 2) return false;
 
@@ -43,7 +43,7 @@ class union extends char{
 		print("</span><br />\n");
 	}
 //////////////////////////////////////////////////
-//	ÆÇ¥À¥á¡¼¥¸¤Î¸ø¼°
+//	æ¯’ãƒ€ãƒ¡ãƒ¼ã‚¸ã®å…¬å¼
 	function PoisonDamageFormula($multiply=1) {
 		$damage	= round($this->HP * 0.01);
 		$damage	*= mt_rand(50,150)/100;
@@ -54,12 +54,12 @@ class union extends char{
 	}
 
 //////////////////////////////////////////////////
-//	À¸Â¸¾õÂÖ¤Ë¤¹¤ë¡£
+//	ç”Ÿå­˜çŠ¶æ…‹ã«ã™ã‚‹ã€‚
 	function GetNormal($mes=false) {
 		if($this->STATE === ALIVE)
 			return true;
-		if($this->STATE === DEAD) {//»àË´¾õÂÖ
-			// ¥æ¥Ë¥ª¥ó¤ÏÉü³è¤·¤Ê¤¤»ö¤È¤¹¤ë¡£
+		if($this->STATE === DEAD) {//æ­»äº¡çŠ¶æ…‹
+			// ãƒ¦ãƒ‹ã‚ªãƒ³ã¯å¾©æ´»ã—ãªã„äº‹ã¨ã™ã‚‹ã€‚
 			return true;
 			/*
 			if($mes)
@@ -68,7 +68,7 @@ class union extends char{
 			return true;
 			*/
 		}
-		if($this->STATE === POISON) {//ÆÇ¾õÂÖ
+		if($this->STATE === POISON) {//æ¯’çŠ¶æ…‹
 			if($mes)
 				print($this->Name(bold)."'s <span class=\"spdmg\">poison</span> has cured.<br />\n");
 			$this->STATE = 0;
@@ -76,14 +76,14 @@ class union extends char{
 		}
 	}
 //////////////////////////////////////////////////
-//	¹ÔÆ°¤òÃÙ¤é¤»¤ë(Rate)
+//	è¡Œå‹•ã‚’é…ã‚‰ã›ã‚‹(Rate)
 	function DelayByRate($No,$BaseDelay,$Show=false) {
 		if(DELAY_TYPE === 0) {
 			if($Show) {
 				print("(".sprintf("%0.1f",$this->delay));
 				print('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
 			}
-			$Delay	= ($BaseDelay - $this->SPD) * ($No/100);//ÃÙ¤é¤»¤ë´Ö³Ö
+			$Delay	= ($BaseDelay - $this->SPD) * ($No/100);//é…ã‚‰ã›ã‚‹é–“éš”
 			$this->delay	-= $Delay;
 			if($Show) {
 				print(sprintf("%0.1f",$this->delay)."/".sprintf("%0.1f",$BaseDelay).")");
@@ -93,7 +93,7 @@ class union extends char{
 				print("(".sprintf("%0.0f",$this->delay));
 				print('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
 			}
-			$Delay	= round($No/3);//ÃÙ¤é¤»¤ë´Ö³Ö
+			$Delay	= round($No/3);//é…ã‚‰ã›ã‚‹é–“éš”
 			$this->delay	-= $Delay;
 			if($Show) {
 				print(sprintf("%0.0f",$this->delay)."/".sprintf("%d",100).")");
@@ -101,16 +101,16 @@ class union extends char{
 		}
 	}
 //////////////////////////////////////////////////
-//	ÀïÆ®Ãæ¤Î¥­¥ã¥éÌ¾,HP,SP ¤ò¿§¤òÊ¬¤±¤ÆÉ½¼¨¤¹¤ë
-//	¤½¤ì°Ê³°¤Ë¤âÉ¬Í×¤ÊÊª¤¬¤¢¤ì¤ĞÉ½¼¨¤¹¤ë¤è¤¦¤Ë¤·¤¿¡£
+//	æˆ¦é—˜ä¸­ã®ã‚­ãƒ£ãƒ©å,HP,SP ã‚’è‰²ã‚’åˆ†ã‘ã¦è¡¨ç¤ºã™ã‚‹
+//	ãã‚Œä»¥å¤–ã«ã‚‚å¿…è¦ãªç‰©ãŒã‚ã‚Œã°è¡¨ç¤ºã™ã‚‹ã‚ˆã†ã«ã—ãŸã€‚
 	function ShowHpSp() {
 		if($this->STATE === 1)
 			$sub	= " dmg";
 		else if($this->STATE === 2)
 			$sub	= " spdmg";
-		//Ì¾Á°
+		//åå‰
 		print("<span class=\"bold{$sub}\">{$this->name}</span>\n");
-		// ¥Á¥ã¡¼¥¸or±Ó¾§
+		// ãƒãƒ£ãƒ¼ã‚¸orè© å”±
 		if($this->expect_type === 0)
 			print('<span class="charge">(charging)</span>'."\n");
 		else if($this->expect_type === 1)
@@ -125,12 +125,12 @@ class union extends char{
 		print("</div>\n");//SP
 	}
 //////////////////////////////////////////////////
-//	ÃÍ¤ÎÊÑ²½¤òÉ½¼¨¤¹¤ë(¥À¥á¡¼¥¸¼õ¤±¤¿»ş¤È¤«)
+//	å€¤ã®å¤‰åŒ–ã‚’è¡¨ç¤ºã™ã‚‹(ãƒ€ãƒ¡ãƒ¼ã‚¸å—ã‘ãŸæ™‚ã¨ã‹)
 	function ShowValueChange() {
 		print("(??? &gt; ???)");
 	}
 //////////////////////////////////////////////////
-//	ÈÖ¹æ¤Ç¸Æ¤Ó½Ğ¤¹
+//	ç•ªå·ã§å‘¼ã³å‡ºã™
 	function UnionNumber($no) {
 		$file	= UNION.$no."_Union.dat";
 		if($this->LoadData($file))
@@ -139,7 +139,7 @@ class union extends char{
 			return false;
 	}
 //////////////////////////////////////////////////
-//	¥æ¥Ë¥ª¥ó¼«ÂÎ¤¬À¸¤­¤Æ¤ë¤«¤É¤¦¤«³ÎÇ§¤¹¤ë(ÀïÆ®³°¤Ç)
+//	ãƒ¦ãƒ‹ã‚ªãƒ³è‡ªä½“ãŒç”Ÿãã¦ã‚‹ã‹ã©ã†ã‹ç¢ºèªã™ã‚‹(æˆ¦é—˜å¤–ã§)
 	function is_Alive() {
 		if(0 < $this->hp)
 			return true;
@@ -218,7 +218,7 @@ class union extends char{
 		print($this->Name(bold)." MDEF down {$no}%<br />\n");
 	}
 //////////////////////////////////////////////////
-//	º¹Ê¬·Ğ¸³ÃÍ
+//	å·®åˆ†çµŒé¨“å€¤
 	function HpDifferenceEXP() {
 		$dif	= $this->LastHP - $this->HP;
 		$this->LastHP	= $this->HP;
@@ -227,7 +227,7 @@ class union extends char{
 		return $exp;
 	}
 //////////////////////////////////////////////////
-//	¥­¥ã¥é¤ÎÊÑ¿ô¤ò¥»¥Ã¥È¤¹¤ë¡£
+//	ã‚­ãƒ£ãƒ©ã®å¤‰æ•°ã‚’ã‚»ãƒƒãƒˆã™ã‚‹ã€‚
 	function SetCharData(&$data) {
 		$this->MonsterNumber	= $data["MonsterNumber"];
 		$this->LastDefeated		= $data["LastDefeated"];
@@ -265,7 +265,7 @@ class union extends char{
 		if(is_array($monster["action"]))
 			$this->action	= $monster["action"];
 
-		//¥â¥ó¥¹¥¿¡¼ÀìÍÑ
+		//ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼å°‚ç”¨
 		$this->monster		= true;
 		$this->exphold		= $monster["exphold"];
 		$this->moneyhold	= $monster["moneyhold"];
@@ -278,24 +278,24 @@ class union extends char{
 		$this->UnionLand	= $monster["land"];
 		$this->LevelLimit	= $monster["LevelLimit"];
 
-		// »ş´Ö¤¬·Ğ²á¤·¤ÆÉü³è¤¹¤ë½èÍı¡£
+		// æ™‚é–“ãŒçµŒéã—ã¦å¾©æ´»ã™ã‚‹å‡¦ç†ã€‚
 		$Now	= time();
 		$Passed	= $this->LastDefeated + $monster["cycle"];
 		if($Passed < $Now && !$this->hp) {
 			$this->hp	= $this->maxhp;
 			$this->sp	= $this->maxsp;
 		}
-		$this->LastHP	= $data["HP"];//º¹Ê¬¤ò¼è¤ë¤¿¤á¤ÎHP¡£
+		$this->LastHP	= $data["HP"];//å·®åˆ†ã‚’å–ã‚‹ãŸã‚ã®HPã€‚
 	}
 
 //////////////////////////////////////////////////
-//	ÀïÆ®ÍÑ¤ÎÊÑ¿ô
+//	æˆ¦é—˜ç”¨ã®å¤‰æ•°
 	function SetBattleVariable($team=false) {
-		// ºÆÆÉ¤ß¹ş¤ß¤òËÉ»ß¤Ç¤­¤ë ¤«?
+		// å†èª­ã¿è¾¼ã¿ã‚’é˜²æ­¢ã§ãã‚‹ ã‹?
 		if(isset($this->IMG))
 			return false;
 
-		$this->team		= $team;//¤³¤ìÉ¬Í×¤«?
+		$this->team		= $team;//ã“ã‚Œå¿…è¦ã‹?
 		$this->IMG		= $this->img;
 		$this->MAXHP	= $this->maxhp;
 		$this->HP		= $this->hp;
@@ -307,16 +307,16 @@ class union extends char{
 		$this->SPD		= $this->spd + $this->P_SPD;
 		$this->LUK		= $this->luk + $this->P_LUK;
 		$this->POSITION	= $this->position;
-		$this->STATE	= ALIVE;//À¸Â¸¾õÂÖ¤Ë¤¹¤ë
+		$this->STATE	= ALIVE;//ç”Ÿå­˜çŠ¶æ…‹ã«ã™ã‚‹
 
-		$this->expect	= false;//(¿ôÃÍ=±Ó¾§Ãæ false=ÂÔµ¡Ãæ)
-		$this->ActCount	= 0;//¹ÔÆ°²ó¿ô
-		$this->JdgCount	= array();//·èÄê¤·¤¿È½ÃÇ¤Î²ó¿ô
+		$this->expect	= false;//(æ•°å€¤=è© å”±ä¸­ false=å¾…æ©Ÿä¸­)
+		$this->ActCount	= 0;//è¡Œå‹•å›æ•°
+		$this->JdgCount	= array();//æ±ºå®šã—ãŸåˆ¤æ–­ã®å›æ•°
 	}
 //////////////////////////////////////////////////
-//	¤·¤Ü¡¼¤·¤Æ¤ë¤«¤É¤¦¤«³ÎÇ§¤¹¤ë¡£
+//	ã—ã¼ãƒ¼ã—ã¦ã‚‹ã‹ã©ã†ã‹ç¢ºèªã™ã‚‹ã€‚
 	function CharJudgeDead() {
-		if($this->HP < 1 && $this->STATE !== 1) {//¤·¤Ü¡¼
+		if($this->HP < 1 && $this->STATE !== 1) {//ã—ã¼ãƒ¼
 			$this->STATE	= 1;
 			$this->HP	= 0;
 			$this->ResetExpect();
@@ -326,7 +326,7 @@ class union extends char{
 		}
 	}
 //////////////////////////////////////////////////
-//	¥­¥ã¥é¥Ç¡¼¥¿¤ÎÊİÂ¸
+//	ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿ã®ä¿å­˜
 	function SaveCharData() {
 		if(!file_exists($this->file))
 			return false;

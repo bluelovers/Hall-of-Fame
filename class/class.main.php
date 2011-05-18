@@ -25,15 +25,15 @@ class main extends user {
 //////////////////////////////////////////////////
 //	
 	function Order() {
-		// ¥í¥°¥¤¥ó½èÍı¤¹¤ëÁ°¤Ë½èÍı¤¹¤ë¤â¤Î
-		// ¤Ş¤À¥æ¡¼¥¶¥Ç¡¼¥¿ÆÉ¤ó¤Ç¤Ş¤»¤ó
+		// ãƒ­ã‚°ã‚¤ãƒ³å‡¦ç†ã™ã‚‹å‰ã«å‡¦ç†ã™ã‚‹ã‚‚ã®
+		// ã¾ã ãƒ¦ãƒ¼ã‚¶ãƒ‡ãƒ¼ã‚¿èª­ã‚“ã§ã¾ã›ã‚“
 		switch(true) {
 			case($_GET["menu"] === "auction"):
 				include(CLASS_AUCTION);
 				$ItemAuction	= new Auction(item);
 				$ItemAuction->AuctionHttpQuery("auction");
-				$ItemAuction->ItemCheckSuccess();// ¶¥Çä¤¬½ªÎ»¤·¤¿ÉÊÊª¤òÄ´¤Ù¤ë
-				$ItemAuction->UserSaveData();// ¶¥ÇäÉÊ¤È¶â³Û¤ò³ÆID¤ËÇÛ¤Ã¤ÆÊİÂ¸¤¹¤ë
+				$ItemAuction->ItemCheckSuccess();// ç«¶å£²ãŒçµ‚äº†ã—ãŸå“ç‰©ã‚’èª¿ã¹ã‚‹
+				$ItemAuction->UserSaveData();// ç«¶å£²å“ã¨é‡‘é¡ã‚’å„IDã«é…ã£ã¦ä¿å­˜ã™ã‚‹
 				break;
 
 			case($_GET["menu"] === "rank"):
@@ -43,7 +43,7 @@ class main extends user {
 		}
 		if( true === $message = $this->CheckLogin() ):
 		//if( false ):
-		// ¥í¥°¥¤¥ó
+		// ãƒ­ã‚°ã‚¤ãƒ³
 			include_once(DATA_ITEM);
 			include(CLASS_CHAR);
 			if($this->FirstLogin())
@@ -57,7 +57,7 @@ class main extends user {
 					if($this->DeleteMyData())
 						return 0;
 
-				// ÀßÄê
+				// è¨­å®š
 				case($_SERVER["QUERY_STRING"] === "setting"):
 					if($this->SettingProcess())
 						$this->SaveData();
@@ -66,26 +66,26 @@ class main extends user {
 					$this->SettingShow();
 					return 0;
 
-				// ¥ª¡¼¥¯¥·¥ç¥ó
+				// ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³
 				case($_GET["menu"] === "auction"):
-					$this->LoadUserItem();//¥¢¥¤¥Æ¥à¥Ç¡¼¥¿ÆÉ¤à
+					$this->LoadUserItem();//ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿èª­ã‚€
 					$this->AuctionHeader();
 
 					/*
-					* ½ĞÉÊÍÑ¤Î¥Õ¥©¡¼¥à
-					* É½¼¨¤òÍ×µá¤·¤¿¾ì¹ç¤«¡¢
-					* ½ĞÉÊ¤Ë¼ºÇÔ¤·¤¿¾ì¹çÉ½¼¨¤¹¤ë¡£
+					* å‡ºå“ç”¨ã®ãƒ•ã‚©ãƒ¼ãƒ 
+					* è¡¨ç¤ºã‚’è¦æ±‚ã—ãŸå ´åˆã‹ã€
+					* å‡ºå“ã«å¤±æ•—ã—ãŸå ´åˆè¡¨ç¤ºã™ã‚‹ã€‚
 					*/
 					$ResultExhibit	= $this->AuctionItemExhibitProcess($ItemAuction);
 					$ResultBidding	= $this->AuctionItemBiddingProcess($ItemAuction);
-					$ItemAuction->ItemSaveData();// ÊÑ¹¹¤¬¤¢¤Ã¤¿¾ì¹ç¤À¤±ÊİÂ¸¤¹¤ë¡£
+					$ItemAuction->ItemSaveData();// å¤‰æ›´ãŒã‚ã£ãŸå ´åˆã ã‘ä¿å­˜ã™ã‚‹ã€‚
 
-					// ½ĞÉÊ¥ê¥¹¥È¤òÉ½¼¨¤¹¤ë
+					// å‡ºå“ãƒªã‚¹ãƒˆã‚’è¡¨ç¤ºã™ã‚‹
 					if($_POST["ExhibitItemForm"]) {
 						$this->fpCloseAll();
 						$this->AuctionItemExhibitForm($ItemAuction);
 
-					// ½ĞÉÊ¤«Æş»¥¤ËÀ®¸ù¤·¤¿¾ì¹ç¤Ï¥Ç¡¼¥¿¤òÊİÂ¸¤¹¤ë
+					// å‡ºå“ã‹å…¥æœ­ã«æˆåŠŸã—ãŸå ´åˆã¯ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜ã™ã‚‹
 					} else if($ResultExhibit !== false) {
 
 						if($ResultExhibit === true || $ResultBidding === true)
@@ -94,7 +94,7 @@ class main extends user {
 						$this->fpCloseAll();
 						$this->AuctionItemBiddingForm($ItemAuction);
 
-					// ¤½¤ì°Ê³°
+					// ãã‚Œä»¥å¤–
 					} else {
 						$this->fpCloseAll();
 						$this->AuctionItemExhibitForm($ItemAuction);
@@ -103,23 +103,23 @@ class main extends user {
 					$this->AuctionFoot($ItemAuction);
 					return 0;
 
-				// ¼í¾ì
+				// ç‹©å ´
 				case($_SERVER["QUERY_STRING"] === "hunt"):
-					$this->LoadUserItem();//¥¢¥¤¥Æ¥à¥Ç¡¼¥¿ÆÉ¤à
+					$this->LoadUserItem();//ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿èª­ã‚€
 					$this->fpCloseAll();
 					$this->HuntShow();
 					return 0;
 
-				// ³¹
+				// è¡—
 				case($_SERVER["QUERY_STRING"] === "town"):
-					$this->LoadUserItem();//¥¢¥¤¥Æ¥à¥Ç¡¼¥¿ÆÉ¤à
+					$this->LoadUserItem();//ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿èª­ã‚€
 					$this->fpCloseAll();
 					$this->TownShow();
 					return 0;
 
-				// ¥·¥ß¥å¤ì
+				// ã‚·ãƒŸãƒ¥ã‚Œ
 				case($_SERVER["QUERY_STRING"] === "simulate"):
-					$this->CharDataLoadAll();//¥­¥ã¥é¥Ç¡¼¥¿ÆÉ¤à
+					$this->CharDataLoadAll();//ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿èª­ã‚€
 					if($this->SimuBattleProcess())
 						$this->SaveData();
 
@@ -127,26 +127,26 @@ class main extends user {
 					$this->SimuBattleShow($result);
 					return 0;
 
-				// ¥æ¥Ë¥ª¥ó
+				// ãƒ¦ãƒ‹ã‚ªãƒ³
 				case($_GET["union"]):
-					$this->CharDataLoadAll();//¥­¥ã¥é¥Ç¡¼¥¿ÆÉ¤à
+					$this->CharDataLoadAll();//ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿èª­ã‚€
 					include(CLASS_UNION);
 					include(DATA_MONSTER);
 					if($this->UnionProcess()) {
-						// ÀïÆ®¤¹¤ë
+						// æˆ¦é—˜ã™ã‚‹
 						$this->SaveData();
 						$this->fpCloseAll();
 					} else {
-						// É½¼¨
+						// è¡¨ç¤º
 						$this->fpCloseAll();
 						$this->UnionShow();
 					}
 					return 0;
 
-				// °ìÈÌ¥â¥ó¥¹¥¿¡¼
+				// ä¸€èˆ¬ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼
 				case($_GET["common"]):
-					$this->CharDataLoadAll();//¥­¥ã¥é¥Ç¡¼¥¿ÆÉ¤à
-					$this->LoadUserItem();//¥¢¥¤¥Æ¥à¥Ç¡¼¥¿ÆÉ¤à
+					$this->CharDataLoadAll();//ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿èª­ã‚€
+					$this->LoadUserItem();//ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿èª­ã‚€
 					if($this->MonsterBattle()) {
 						$this->SaveData();
 						$this->fpCloseAll();
@@ -156,26 +156,26 @@ class main extends user {
 					}
 					return 0;
 
-				// ¥­¥ã¥é¥¹¥Æ
+				// ã‚­ãƒ£ãƒ©ã‚¹ãƒ†
 				case($_GET["char"]):
-					$this->CharDataLoadAll();//¥­¥ã¥é¥Ç¡¼¥¿ÆÉ¤à
+					$this->CharDataLoadAll();//ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿èª­ã‚€
 					include(DATA_SKILL);
 					include(DATA_JUDGE_SETUP);
-					$this->LoadUserItem();//¥¢¥¤¥Æ¥à¥Ç¡¼¥¿ÆÉ¤à
+					$this->LoadUserItem();//ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿èª­ã‚€
 					$this->CharStatProcess();
 					$this->fpCloseAll();
 					$this->CharStatShow();
 					return 0;
 
-				// ¥¢¥¤¥Æ¥à°ìÍ÷
+				// ã‚¢ã‚¤ãƒ†ãƒ ä¸€è¦§
 				case($_SERVER["QUERY_STRING"] === "item"):
-					$this->LoadUserItem();//¥¢¥¤¥Æ¥à¥Ç¡¼¥¿ÆÉ¤à
+					$this->LoadUserItem();//ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿èª­ã‚€
 					//$this->ItemProcess();
 					$this->fpCloseAll();
 					$this->ItemShow();
 					return 0;
 
-				// ÀºÏ£
+				// ç²¾éŒ¬
 				case($_GET["menu"] === "refine"):
 					$this->LoadUserItem();
 					$this->SmithyRefineHeader();
@@ -186,11 +186,11 @@ class main extends user {
 					$result	= $this->SmithyRefineShow();
 					return 0;
 
-				// À½ºî
+				// è£½ä½œ
 				case($_GET["menu"] === "create"):
 					$this->LoadUserItem();
 					$this->SmithyCreateHeader();
-					include(DATA_CREATE);//À½ºî¤Ç¤­¤ë¤â¤Î¥Ç¡¼¥¿Åù
+					include(DATA_CREATE);//è£½ä½œã§ãã‚‹ã‚‚ã®ãƒ‡ãƒ¼ã‚¿ç­‰
 					if($this->SmithyCreateProcess())
 						$this->SaveData();
 
@@ -198,18 +198,18 @@ class main extends user {
 					$this->SmithyCreateShow();
 					return 0;
 /*
-				// ¥·¥ç¥Ã¥×(µì¼°:Çã¤¦,Çä¤ë,¥¢¥ë¥Ğ¥¤¥È)
+				// ã‚·ãƒ§ãƒƒãƒ—(æ—§å¼:è²·ã†,å£²ã‚‹,ã‚¢ãƒ«ãƒã‚¤ãƒˆ)
 				case($_SERVER["QUERY_STRING"] === "shop"):
-					$this->LoadUserItem();//¥¢¥¤¥Æ¥à¥Ç¡¼¥¿ÆÉ¤à
+					$this->LoadUserItem();//ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿èª­ã‚€
 					if($this->ShopProcess())
 						$this->SaveData();
 					$this->fpCloseAll();
 					$this->ShopShow();
 					return 0;
 */
-				// ¥·¥ç¥Ã¥×(Çã¤¦)
+				// ã‚·ãƒ§ãƒƒãƒ—(è²·ã†)
 				case($_GET["menu"] === "buy"):
-					$this->LoadUserItem();//¥¢¥¤¥Æ¥à¥Ç¡¼¥¿ÆÉ¤à
+					$this->LoadUserItem();//ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿èª­ã‚€
 					$this->ShopHeader();
 					if($this->ShopBuyProcess())
 						$this->SaveData();
@@ -217,9 +217,9 @@ class main extends user {
 					$this->ShopBuyShow();
 					return 0;
 
-				// ¥·¥ç¥Ã¥×(Çä¤ë)
+				// ã‚·ãƒ§ãƒƒãƒ—(å£²ã‚‹)
 				case($_GET["menu"] === "sell"):
-					$this->LoadUserItem();//¥¢¥¤¥Æ¥à¥Ç¡¼¥¿ÆÉ¤à
+					$this->LoadUserItem();//ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿èª­ã‚€
 					$this->ShopHeader();
 					if($this->ShopSellProcess())
 						$this->SaveData();
@@ -227,7 +227,7 @@ class main extends user {
 					$this->ShopSellShow();
 					return 0;
 
-				// ¥·¥ç¥Ã¥×(Æ¯¤¯)
+				// ã‚·ãƒ§ãƒƒãƒ—(åƒã)
 				case($_GET["menu"] === "work"):
 					$this->ShopHeader();
 					if($this->WorkProcess())
@@ -236,9 +236,9 @@ class main extends user {
 					$this->WorkShow();
 					return 0;
 
-				// ¥é¥ó¥­¥ó¥°
+				// ãƒ©ãƒ³ã‚­ãƒ³ã‚°
 				case($_GET["menu"] === "rank"):
-					$this->CharDataLoadAll();//¥­¥ã¥é¥Ç¡¼¥¿ÆÉ¤à
+					$this->CharDataLoadAll();//ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿èª­ã‚€
 					$RankProcess	= $this->RankProcess($Ranking);
 
 					if ($RankProcess === "BATTLE") {
@@ -254,7 +254,7 @@ class main extends user {
 					}
 					return 0;
 
-				// ¸ÛÍÑ
+				// é›‡ç”¨
 				case($_SERVER["QUERY_STRING"] === "recruit"):
 					if($this->RecruitProcess())
 						$this->SaveData();
@@ -263,15 +263,15 @@ class main extends user {
 					$this->RecruitShow($result);
 					return 0;
 
-				// ¤½¤ì°Ê³°(¥È¥Ã¥×)
+				// ãã‚Œä»¥å¤–(ãƒˆãƒƒãƒ—)
 				default:
-					$this->CharDataLoadAll();//¥­¥ã¥é¥Ç¡¼¥¿ÆÉ¤à
+					$this->CharDataLoadAll();//ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿èª­ã‚€
 					$this->fpCloseAll();
 					$this->LoginMain();
 					return 0;
 			}
 		else:
-		// ¥í¥°¥¢¥¦¥È
+		// ãƒ­ã‚°ã‚¢ã‚¦ãƒˆ
 			$this->fpCloseAll();
 			switch(true) {
 				case($this->OptionOrder()):	return false;
@@ -289,7 +289,7 @@ class main extends user {
 	}
 
 //////////////////////////////////////////////////
-//	UpDate,BBS,ManualÅù
+//	UpDate,BBS,Manualç­‰
 	function OptionOrder() {
 		$this->fpCloseAll();
 		switch(true) {
@@ -321,40 +321,40 @@ class main extends user {
 	}
 
 //////////////////////////////////////////////////
-//	Å¨¤Î¿ô¤òÊÖ¤¹	¿ô¡Á¿ô+2(max:5)
+//	æ•µã®æ•°ã‚’è¿”ã™	æ•°ï½æ•°+2(max:5)
 	function EnemyNumber($party) {
-		$min	= count($party);//¥×¥ì¥¤¥ä¡¼¤ÎPT¿ô
-		if($min == 5)//5¿Í¤Ê¤é5É¤
+		$min	= count($party);//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®PTæ•°
+		if($min == 5)//5äººãªã‚‰5åŒ¹
 			return 5;
-		$max	= $min + ENEMY_INCREASE;// ¤Ä¤Ş¤ê¡¢+2¤Ê¤é[1¿Í:1¡Á3É¤] [2¿Í:2¡Á4É¤] [3:3-5] [4:4-5] [5:5]
+		$max	= $min + ENEMY_INCREASE;// ã¤ã¾ã‚Šã€+2ãªã‚‰[1äºº:1ï½3åŒ¹] [2äºº:2ï½4åŒ¹] [3:3-5] [4:4-5] [5:5]
 		if($max>5)
 			$max	= 5;
 		mt_srand();
 		return mt_rand($min,$max);
 	}
 //////////////////////////////////////////////////
-//	½Ğ¸½¤¹¤ë³ÎÎ¨¤«¤éÅ¨¤òÁª¤ó¤ÇÊÖ¤¹
+//	å‡ºç¾ã™ã‚‹ç¢ºç‡ã‹ã‚‰æ•µã‚’é¸ã‚“ã§è¿”ã™
 	function SelectMonster($monster) {
 		foreach($monster as $val)
-			$max	+= $val[0];//³ÎÎ¨¤Î¹ç·×
-		$pos	= mt_rand(0,$max);//0¡Á¹ç·× ¤ÎÃæ¤ÇÍğ¿ô¤ò¼è¤ë
+			$max	+= $val[0];//ç¢ºç‡ã®åˆè¨ˆ
+		$pos	= mt_rand(0,$max);//0ï½åˆè¨ˆ ã®ä¸­ã§ä¹±æ•°ã‚’å–ã‚‹
 		foreach($monster as $monster_no => $val) {
-			$upp	+= $val[0];//¤½¤Î»şÅÀ¤Ç¤Î³ÎÎ¨¤Î¹ç·×
-			if($pos <= $upp)//¹ç·×¤è¤êÄã¤±¤ì¤Ğ¡¡Å¨¤¬·èÄê¤µ¤ì¤ë
+			$upp	+= $val[0];//ãã®æ™‚ç‚¹ã§ã®ç¢ºç‡ã®åˆè¨ˆ
+			if($pos <= $upp)//åˆè¨ˆã‚ˆã‚Šä½ã‘ã‚Œã°ã€€æ•µãŒæ±ºå®šã•ã‚Œã‚‹
 				return $monster_no;
 		}
 	}
 //////////////////////////////////////////////////
-//	Å¨¤ÎPT¤òºîÀ®¡¢ÊÖ¤¹
-//	Specify=Å¨»ØÄê(ÇÛÎó)
+//	æ•µã®PTã‚’ä½œæˆã€è¿”ã™
+//	Specify=æ•µæŒ‡å®š(é…åˆ—)
 	function EnemyParty($Amount,$MonsterList,$Specify=false) {
 
-		// »ØÄê¥â¥ó¥¹¥¿¡¼
+		// æŒ‡å®šãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼
 		if($Specify) {
 			$MonsterNumbers	= $Specify;
 		}
 
-		// ¥â¥ó¥¹¥¿¡¼¤ò¤È¤ê¤¢¤¨¤ºÇÛÎó¤ËÁ´ÉôÆş¤ì¤ë
+		// ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã‚’ã¨ã‚Šã‚ãˆãšé…åˆ—ã«å…¨éƒ¨å…¥ã‚Œã‚‹
 		$enemy	= array();
 		if(!$Amount)
 			return $enemy;
@@ -362,13 +362,13 @@ class main extends user {
 		for($i=0; $i<$Amount; $i++)
 			$MonsterNumbers[]	= $this->SelectMonster($MonsterList);
 
-		// ½ÅÊ£¤·¤Æ¤¤¤ë¥â¥ó¥¹¥¿¡¼¤òÄ´¤Ù¤ë
+		// é‡è¤‡ã—ã¦ã„ã‚‹ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã‚’èª¿ã¹ã‚‹
 		$overlap	= array_count_values($MonsterNumbers);
 
-		// Å¨¾ğÊó¤òÆÉ¤ó¤ÇÇÛÎó¤ËÆş¤ì¤ë¡£
+		// æ•µæƒ…å ±ã‚’èª­ã‚“ã§é…åˆ—ã«å…¥ã‚Œã‚‹ã€‚
 		include(CLASS_MONSTER);
 		foreach($MonsterNumbers as $Number) {
-			if(1 < $overlap[$Number])//1É¤°Ê¾å½Ğ¸½¤¹¤ë¤Ê¤éÌ¾Á°¤Ëµ­¹æ¤ò¤Ä¤±¤ë¡£
+			if(1 < $overlap[$Number])//1åŒ¹ä»¥ä¸Šå‡ºç¾ã™ã‚‹ãªã‚‰åå‰ã«è¨˜å·ã‚’ã¤ã‘ã‚‹ã€‚
 				$enemy[]	= new monster(CreateMonster($Number,true));
 			else
 				$enemy[]	= new monster(CreateMonster($Number));
@@ -376,18 +376,18 @@ class main extends user {
 		return $enemy;
 	}
 //////////////////////////////////////////////////
-//	¥­¥ã¥é¾ÜºÙÉ½¼¨¤«¤éÁ÷¤é¤ì¤¿¥ê¥¯¥¨¥¹¥È¤ò½èÍı¤¹¤ë
-//	Ä¹¤¤...(100¹Ô¥ª¡¼¥Ğ¡¼)
+//	ã‚­ãƒ£ãƒ©è©³ç´°è¡¨ç¤ºã‹ã‚‰é€ã‚‰ã‚ŒãŸãƒªã‚¯ã‚¨ã‚¹ãƒˆã‚’å‡¦ç†ã™ã‚‹
+//	é•·ã„...(100è¡Œã‚ªãƒ¼ãƒãƒ¼)
 	function CharStatProcess() {
 		$char	= &$this->char[$_GET["char"]];
 		if(!$char) return false;
 		switch(true):
-			// ¥¹¥Æ¡¼¥¿¥¹¾å¾º
+			// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ä¸Šæ˜‡
 			case($_POST["stup"]):
-				//¥¹¥Æ¡¼¥¿¥¹¥İ¥¤¥ó¥ÈÄ¶²á(¤Í¤ó¤Î¤¿¤á¤ÎÀäÂĞÃÍ)
+				//ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒã‚¤ãƒ³ãƒˆè¶…é(ã­ã‚“ã®ãŸã‚ã®çµ¶å¯¾å€¤)
 				$Sum	= abs($_POST["upStr"]) + abs($_POST["upInt"]) + abs($_POST["upDex"]) + abs($_POST["upSpd"]) + abs($_POST["upLuk"]);
 				if($char->statuspoint < $Sum) {
-					ShowError("¥¹¥Æ¡¼¥¿¥¹¥İ¥¤¥ó¥ÈÄ¶²á","margin15");
+					ShowError("ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒã‚¤ãƒ³ãƒˆè¶…é","margin15");
 					return false;
 				}
 
@@ -395,62 +395,62 @@ class main extends user {
 					return false;
 
 				$Stat	= array("Str","Int","Dex","Spd","Luk");
-				foreach($Stat as $val) {//ºÇÂçÃÍ¤òÄ¶¤¨¤Ê¤¤¤«¥Á¥§¥Ã¥¯
+				foreach($Stat as $val) {//æœ€å¤§å€¤ã‚’è¶…ãˆãªã„ã‹ãƒã‚§ãƒƒã‚¯
 					if(MAX_STATUS < ($char->{strtolower($val)} + $_POST["up".$val])) {
-						ShowError("ºÇÂç¥¹¥Æ¡¼¥¿¥¹Ä¶²á(".MAX_STATUS.")","margin15");
+						ShowError("æœ€å¤§ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹è¶…é(".MAX_STATUS.")","margin15");
 						return false;
 					}
 				}
-				$char->str	+= $_POST["upStr"];//¥¹¥Æ¡¼¥¿¥¹¤òÁı¤ä¤¹
+				$char->str	+= $_POST["upStr"];//ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’å¢—ã‚„ã™
 				$char->int	+= $_POST["upInt"];
 				$char->dex	+= $_POST["upDex"];
 				$char->spd	+= $_POST["upSpd"];
 				$char->luk	+= $_POST["upLuk"];
 				$char->SetHpSp();
 
-				$char->statuspoint	-= $Sum;//¥İ¥¤¥ó¥È¤ò¸º¤é¤¹¡£
+				$char->statuspoint	-= $Sum;//ãƒã‚¤ãƒ³ãƒˆã‚’æ¸›ã‚‰ã™ã€‚
 				print("<div class=\"margin15\">\n");
 				if($_POST["upStr"])
-					ShowResult("STR ¤¬ <span class=\"bold\">".$_POST[upStr]."</span> ¾å¤¬¤Ã¤¿¡£".($char->str - $_POST["upStr"])." -> ".$char->str."<br />\n");
+					ShowResult("STR ãŒ <span class=\"bold\">".$_POST[upStr]."</span> ä¸ŠãŒã£ãŸã€‚".($char->str - $_POST["upStr"])." -> ".$char->str."<br />\n");
 				if($_POST["upInt"])
-					ShowResult("INT ¤¬ <span class=\"bold\">".$_POST[upInt]."</span> ¾å¤¬¤Ã¤¿¡£".($char->int - $_POST["upInt"])." -> ".$char->int."<br />\n");
+					ShowResult("INT ãŒ <span class=\"bold\">".$_POST[upInt]."</span> ä¸ŠãŒã£ãŸã€‚".($char->int - $_POST["upInt"])." -> ".$char->int."<br />\n");
 				if($_POST["upDex"])
-					ShowResult("DEX ¤¬ <span class=\"bold\">".$_POST[upDex]."</span> ¾å¤¬¤Ã¤¿¡£".($char->dex - $_POST["upDex"])." -> ".$char->dex."<br />\n");
+					ShowResult("DEX ãŒ <span class=\"bold\">".$_POST[upDex]."</span> ä¸ŠãŒã£ãŸã€‚".($char->dex - $_POST["upDex"])." -> ".$char->dex."<br />\n");
 				if($_POST["upSpd"])
-					ShowResult("SPD ¤¬ <span class=\"bold\">".$_POST[upSpd]."</span> ¾å¤¬¤Ã¤¿¡£".($char->spd - $_POST["upSpd"])." -> ".$char->spd."<br />\n");
+					ShowResult("SPD ãŒ <span class=\"bold\">".$_POST[upSpd]."</span> ä¸ŠãŒã£ãŸã€‚".($char->spd - $_POST["upSpd"])." -> ".$char->spd."<br />\n");
 				if($_POST["upLuk"])
-					ShowResult("LUK ¤¬ <span class=\"bold\">".$_POST[upLuk]."</span> ¾å¤¬¤Ã¤¿¡£".($char->luk - $_POST["upLuk"])." -> ".$char->luk."<br />\n");
+					ShowResult("LUK ãŒ <span class=\"bold\">".$_POST[upLuk]."</span> ä¸ŠãŒã£ãŸã€‚".($char->luk - $_POST["upLuk"])." -> ".$char->luk."<br />\n");
 				print("</div>\n");
 				$char->SaveCharData($this->id);
 				return true;
-			// ÇÛÃÖ¡¦Â¾ÀßÄê(ËÉ¸æ)
+			// é…ç½®ãƒ»ä»–è¨­å®š(é˜²å¾¡)
 			case($_POST["position"]):
 				if($_POST["position"] == "front") {
 					$char->position	= FRONT;
-					$pos	= "Á°±Ò(Front)";
+					$pos	= "å‰è¡›(Front)";
 				} else {
 					$char->position	= BACK;
-					$pos	= "¸å±Ò(Back)";
+					$pos	= "å¾Œè¡›(Back)";
 				}
 
 				$char->guard	= $_POST["guard"];
 				switch($_POST["guard"]) {
-					case "never":	$guard	= "¸å±Ò¤ò¼é¤é¤Ê¤¤"; break;
-					case "life25":	$guard	= "ÂÎÎÏ¤¬ 25%°Ê¾å¤Ê¤é ¸å±Ò¤ò¼é¤ë"; break;
-					case "life50":	$guard	= "ÂÎÎÏ¤¬ 50%°Ê¾å¤Ê¤é ¸å±Ò¤ò¼é¤ë"; break;
-					case "life75":	$guard	= "ÂÎÎÏ¤¬ 75%°Ê¾å¤Ê¤é ¸å±Ò¤ò¼é¤ë"; break;
-					case "prob25":	$guard	= "25%¤Î³ÎÎ¨¤Ç ¸å±Ò¤ò¼é¤ë"; break;
-					case "prob50":	$guard	= "50%¤Î³ÎÎ¨¤Ç ¸å±Ò¤ò¼é¤ë"; break;
-					case "prob75":	$guard	= "75%¤Î³ÎÎ¨¤Ç ¸å±Ò¤ò¼é¤ë"; break;
-					default:	$guard	= "É¬¤º¸å±Ò¤ò¼é¤ë"; break;
+					case "never":	$guard	= "å¾Œè¡›ã‚’å®ˆã‚‰ãªã„"; break;
+					case "life25":	$guard	= "ä½“åŠ›ãŒ 25%ä»¥ä¸Šãªã‚‰ å¾Œè¡›ã‚’å®ˆã‚‹"; break;
+					case "life50":	$guard	= "ä½“åŠ›ãŒ 50%ä»¥ä¸Šãªã‚‰ å¾Œè¡›ã‚’å®ˆã‚‹"; break;
+					case "life75":	$guard	= "ä½“åŠ›ãŒ 75%ä»¥ä¸Šãªã‚‰ å¾Œè¡›ã‚’å®ˆã‚‹"; break;
+					case "prob25":	$guard	= "25%ã®ç¢ºç‡ã§ å¾Œè¡›ã‚’å®ˆã‚‹"; break;
+					case "prob50":	$guard	= "50%ã®ç¢ºç‡ã§ å¾Œè¡›ã‚’å®ˆã‚‹"; break;
+					case "prob75":	$guard	= "75%ã®ç¢ºç‡ã§ å¾Œè¡›ã‚’å®ˆã‚‹"; break;
+					default:	$guard	= "å¿…ãšå¾Œè¡›ã‚’å®ˆã‚‹"; break;
 				}
 				$char->SaveCharData($this->id);
-				ShowResult($char->Name()." ¤ÎÇÛÃÖ¤ò {$pos} ¤Ë¡£<br />Á°±Ò¤Î»ş {$guard} ¤è¤¦¤ËÀßÄê¡£\n","margin15");
+				ShowResult($char->Name()." ã®é…ç½®ã‚’ {$pos} ã«ã€‚<br />å‰è¡›ã®æ™‚ {$guard} ã‚ˆã†ã«è¨­å®šã€‚\n","margin15");
 				return true;
-			//¹ÔÆ°ÀßÄê
+			//è¡Œå‹•è¨­å®š
 			case($_POST["ChangePattern"]):
 				$max	= $char->MaxPatterns();
-				//µ­²±¤¹¤ë¥Ñ¥¿¡¼¥ó¤Èµ»¤ÎÇÛÎó¡£
+				//è¨˜æ†¶ã™ã‚‹ãƒ‘ã‚¿ãƒ¼ãƒ³ã¨æŠ€ã®é…åˆ—ã€‚
 				for($i=0; $i<$max; $i++) {
 					$judge[]	= $_POST["judge".$i];
 					$quantity_post	= (int)$_POST["quantity".$i];
@@ -463,16 +463,16 @@ class main extends user {
 				//if($char->ChangePattern($judge,$action)) {
 				if($char->PatternSave($judge,$quantity,$action)) {
 					$char->SaveCharData($this->id);
-					ShowResult("¥Ñ¥¿¡¼¥óÀßÄêÊİÂ¸ ´°Î»","margin15");
+					ShowResult("ãƒ‘ã‚¿ãƒ¼ãƒ³è¨­å®šä¿å­˜ å®Œäº†","margin15");
 					return true;
 				}
-				ShowError("¼ºÇÔ¤·¤¿¤Ê¤ó¤Ç¡©Êó¹ğ¤·¤Æ¤ß¤Æ¤¯¤À¤µ¤¤ 03050242","margin15");
+				ShowError("å¤±æ•—ã—ãŸãªã‚“ã§ï¼Ÿå ±å‘Šã—ã¦ã¿ã¦ãã ã•ã„ 03050242","margin15");
 				return false;
 				break;
-			//	¹ÔÆ°ÀßÄê ·ó ÌÏµ¼Àï
+			//	è¡Œå‹•è¨­å®š å…¼ æ¨¡æ“¬æˆ¦
 			case($_POST["TestBattle"]):
 					$max	= $char->MaxPatterns();
-					//µ­²±¤¹¤ë¥Ñ¥¿¡¼¥ó¤Èµ»¤ÎÇÛÎó¡£
+					//è¨˜æ†¶ã™ã‚‹ãƒ‘ã‚¿ãƒ¼ãƒ³ã¨æŠ€ã®é…åˆ—ã€‚
 					for($i=0; $i<$max; $i++) {
 						$judge[]	= $_POST["judge".$i];
 						$quantity_post	= (int)$_POST["quantity".$i];
@@ -488,42 +488,42 @@ class main extends user {
 						$this->CharTestDoppel();
 					}
 				break;
-			//	¹ÔÆ°¥Ñ¥¿¡¼¥ó¥á¥â(¸ò´¹)
+			//	è¡Œå‹•ãƒ‘ã‚¿ãƒ¼ãƒ³ãƒ¡ãƒ¢(äº¤æ›)
 			case($_POST["PatternMemo"]):
 				if($char->ChangePatternMemo()) {
 					$char->SaveCharData($this->id);
-					ShowResult("¥Ñ¥¿¡¼¥ó¸ò´¹ ´°Î»","margin15");
+					ShowResult("ãƒ‘ã‚¿ãƒ¼ãƒ³äº¤æ› å®Œäº†","margin15");
 					return true;
 				}
 				break;
-			//	»ØÄê¹Ô¤ËÄÉ²Ã
+			//	æŒ‡å®šè¡Œã«è¿½åŠ 
 			case($_POST["AddNewPattern"]):
 				if(!isset($_POST["PatternNumber"]))
 					return false;
 				if($char->AddPattern($_POST["PatternNumber"])) {
 					$char->SaveCharData($this->id);
-					ShowResult("¥Ñ¥¿¡¼¥óÄÉ²Ã ´°Î»","margin15");
+					ShowResult("ãƒ‘ã‚¿ãƒ¼ãƒ³è¿½åŠ  å®Œäº†","margin15");
 					return true;
 				}
 				break;
-			//	»ØÄê¹Ô¤òºï½ü
+			//	æŒ‡å®šè¡Œã‚’å‰Šé™¤
 			case($_POST["DeletePattern"]):
 				if(!isset($_POST["PatternNumber"]))
 					return false;
 				if($char->DeletePattern($_POST["PatternNumber"])) {
 					$char->SaveCharData($this->id);
-					ShowResult("¥Ñ¥¿¡¼¥óºï½ü ´°Î»","margin15");
+					ShowResult("ãƒ‘ã‚¿ãƒ¼ãƒ³å‰Šé™¤ å®Œäº†","margin15");
 					return true;
 				}
 				break;
-			//	»ØÄê²Õ½ê¤À¤±ÁõÈ÷¤ò¤Ï¤º¤¹
+			//	æŒ‡å®šç®‡æ‰€ã ã‘è£…å‚™ã‚’ã¯ãšã™
 			case($_POST["remove"]):
 				if(!$_POST["spot"]) {
-					ShowError("ÁõÈ÷¤ò¤Ï¤º¤¹²Õ½ê¤¬ÁªÂò¤µ¤ì¤Æ¤¤¤Ê¤¤","margin15");
+					ShowError("è£…å‚™ã‚’ã¯ãšã™ç®‡æ‰€ãŒé¸æŠã•ã‚Œã¦ã„ãªã„","margin15");
 					return false;
 				}
-				if(!$char->{$_POST["spot"]}) {// $this ¤È $char ¤Î¶èÊÌÃí°Õ¡ª
-					ShowError("»ØÄê¤µ¤ì¤¿²Õ½ê¤Ë¤ÏÁõÈ÷Ìµ¤·","margin15");
+				if(!$char->{$_POST["spot"]}) {// $this ã¨ $char ã®åŒºåˆ¥æ³¨æ„ï¼
+					ShowError("æŒ‡å®šã•ã‚ŒãŸç®‡æ‰€ã«ã¯è£…å‚™ç„¡ã—","margin15");
 					return false;
 				}
 				$item	= LoadItemData($char->{$_POST["spot"]});
@@ -532,10 +532,10 @@ class main extends user {
 				$this->SaveUserItem();
 				$char->{$_POST["spot"]}	= NULL;
 				$char->SaveCharData($this->id);
-				SHowResult($char->Name()." ¤Î {$item[name]} ¤ò ¤Ï¤º¤·¤¿¡£","margin15");
+				SHowResult($char->Name()." ã® {$item[name]} ã‚’ ã¯ãšã—ãŸã€‚","margin15");
 				return true;
 				break;
-			//	ÁõÈ÷Á´Éô¤Ï¤º¤¹
+			//	è£…å‚™å…¨éƒ¨ã¯ãšã™
 			case($_POST["remove_all"]):
 				if($char->weapon || $char->shield || $char->armor || $char->item ) {
 					if($char->weapon)	{ $this->AddItem($char->weapon);	$char->weapon	=NULL; }
@@ -544,20 +544,20 @@ class main extends user {
 					if($char->item)		{ $this->AddItem($char->item);		$char->item		=NULL; }
 					$this->SaveUserItem();
 					$char->SaveCharData($this->id);
-					ShowResult($char->Name()." ¤ÎÁõÈ÷¤ò Á´Éô²ò½ü¤·¤¿","margin15");
+					ShowResult($char->Name()." ã®è£…å‚™ã‚’ å…¨éƒ¨è§£é™¤ã—ãŸ","margin15");
 					return true;
 				}	break;
-			//	»ØÄêÊª¤òÁõÈ÷¤¹¤ë
+			//	æŒ‡å®šç‰©ã‚’è£…å‚™ã™ã‚‹
 			case($_POST["equip_item"]):
 				$item_no	= $_POST["item_no"];
-				if(!$this->item["$item_no"]) {//¤½¤Î¥¢¥¤¥Æ¥à¤ò½ê»ı¤·¤Æ¤¤¤ë¤«
+				if(!$this->item["$item_no"]) {//ãã®ã‚¢ã‚¤ãƒ†ãƒ ã‚’æ‰€æŒã—ã¦ã„ã‚‹ã‹
 					ShowError("Item not exists.","margin15");
 					return false;
 				}
 
 				$JobData	= LoadJobData($char->job);
-				$item	= LoadItemData($item_no);//ÁõÈ÷¤·¤è¤¦¤È¤·¤Æ¤ëÊª
-				if( !in_array( $item["type"], $JobData["equip"]) ) {//¤½¤ì¤¬ÁõÈ÷ÉÔ²ÄÇ½¤Ê¤é?
+				$item	= LoadItemData($item_no);//è£…å‚™ã—ã‚ˆã†ã¨ã—ã¦ã‚‹ç‰©
+				if( !in_array( $item["type"], $JobData["equip"]) ) {//ãã‚ŒãŒè£…å‚™ä¸å¯èƒ½ãªã‚‰?
 					ShowError("{$char->job_name} can't equip {$item[name]}.","margin15");
 					return false;
 				}
@@ -574,13 +574,13 @@ class main extends user {
 
 				$this->SaveUserItem();
 				$char->SaveCharData($this->id);
-				ShowResult("{$char->name} ¤Ï {$item[name]} ¤òÁõÈ÷¤·¤¿.","margin15");
+				ShowResult("{$char->name} ã¯ {$item[name]} ã‚’è£…å‚™ã—ãŸ.","margin15");
 				return true;
 				break;
-			// ¥¹¥­¥ë½¬ÆÀ
+			// ã‚¹ã‚­ãƒ«ç¿’å¾—
 			case($_POST["learnskill"]):
 				if(!$_POST["newskill"]) {
-					ShowError("¥¹¥­¥ëÌ¤ÁªÂò","margin15");
+					ShowError("ã‚¹ã‚­ãƒ«æœªé¸æŠ","margin15");
 					return false;
 				}
 
@@ -593,14 +593,14 @@ class main extends user {
 					ShowError($message,"margin15");
 				}
 				return true;
-			// ¥¯¥é¥¹¥Á¥§¥ó¥¸(Å¾¿¦)
+			// ã‚¯ãƒ©ã‚¹ãƒã‚§ãƒ³ã‚¸(è»¢è·)
 			case($_POST["classchange"]):
 				if(!$_POST["job"]) {
-					ShowError("¿¦ Ì¤ÁªÂò","margin15");
+					ShowError("è· æœªé¸æŠ","margin15");
 					return false;
 				}
 				if($char->ClassChange($_POST["job"])) {
-					// ÁõÈ÷¤òÁ´Éô²ò½ü
+					// è£…å‚™ã‚’å…¨éƒ¨è§£é™¤
 					if($char->weapon || $char->shield || $char->armor || $char->item ) {
 						if($char->weapon)	{ $this->AddItem($char->weapon);	$char->weapon	=NULL; }
 						if($char->shield)	{ $this->AddItem($char->shield);	$char->shield	=NULL; }
@@ -608,19 +608,19 @@ class main extends user {
 						if($char->item)		{ $this->AddItem($char->item);		$char->item		=NULL; }
 						$this->SaveUserItem();
 					}
-					// ÊİÂ¸
+					// ä¿å­˜
 					$char->SaveCharData($this->id);
-					ShowResult("Å¾¿¦ ´°Î»","margin15");
+					ShowResult("è»¢è· å®Œäº†","margin15");
 					return true;
 				}
 				ShowError("failed.","margin15");
 				return false;
-			//	²şÌ¾(É½¼¨)
+			//	æ”¹å(è¡¨ç¤º)
 			case($_POST["rename"]):
 				$Name	= $char->Name();
 				$message = <<< EOD
 <form action="?char={$_GET[char]}" method="post" class="margin15">
-È¾³Ñ±Ñ¿ô16Ê¸»ú (Á´³Ñ1Ê¸»ú=È¾³Ñ2Ê¸»ú)<br />
+åŠè§’è‹±æ•°16æ–‡å­— (å…¨è§’1æ–‡å­—=åŠè§’2æ–‡å­—)<br />
 <input type="text" name="NewName" style="width:160px" class="text" />
 <input type="submit" class="btn" name="NameChange" value="Change" />
 <input type="submit" class="btn" value="Cancel" />
@@ -628,7 +628,7 @@ class main extends user {
 EOD;
 				print($message);
 				return false;
-			// ²şÌ¾(½èÍı)
+			// æ”¹å(å‡¦ç†)
 			case($_POST["NewName"]):
 				list($result,$return)	= CheckString($_POST["NewName"],16);
 				if($result === false) {
@@ -636,22 +636,22 @@ EOD;
 					return false;
 				} else if($result === true) {
 					if($this->DeleteItem("7500",1) == 1) {
-						ShowResult($char->Name()." ¤«¤é ".$return." ¤Ø²şÌ¾¤·¤Ş¤·¤¿¡£","margin15");
+						ShowResult($char->Name()." ã‹ã‚‰ ".$return." ã¸æ”¹åã—ã¾ã—ãŸã€‚","margin15");
 						$char->ChangeName($return);
 						$char->SaveCharData($this->id);
 						$this->SaveUserItem();
 						return true;
 					} else {
-						ShowError("¥¢¥¤¥Æ¥à¤¬¤¢¤ê¤Ş¤»¤ó¡£","margin15");
+						ShowError("ã‚¢ã‚¤ãƒ†ãƒ ãŒã‚ã‚Šã¾ã›ã‚“ã€‚","margin15");
 						return false;
 					}
 					return true;
 				}
-			// ³Æ¼ï¥ê¥»¥Ã¥È¤ÎÉ½¼¨
+			// å„ç¨®ãƒªã‚»ãƒƒãƒˆã®è¡¨ç¤º
 			case($_POST["showreset"]):
 				$Name	= $char->Name();
 				print('<div class="margin15">'."\n");
-				print("»ÈÍÑ¤¹¤ë¥¢¥¤¥Æ¥à<br />\n");
+				print("ä½¿ç”¨ã™ã‚‹ã‚¢ã‚¤ãƒ†ãƒ <br />\n");
 				print('<form action="?char='.$_GET[char].'" method="post">'."\n");
 				print('<select name="itemUse">'."\n");
 				$resetItem	= array(7510,7511,7512,7513,7520);
@@ -668,7 +668,7 @@ EOD;
 				print('</div>'."\n");
 				break;
 
-			// ³Æ¼ï¥ê¥»¥Ã¥È¤Î½èÍı
+			// å„ç¨®ãƒªã‚»ãƒƒãƒˆã®å‡¦ç†
 			case($_POST["resetVarious"]):
 				switch($_POST["itemUse"]) {
 					case 7510:
@@ -688,10 +688,10 @@ EOD;
 						$skillReset	= true;
 						break;
 				}
-				// ÀĞ¤³¤í¤òSPD1¤ËÌá¤¹¥¢¥¤¥Æ¥à¤Ë¤¹¤ë
+				// çŸ³ã“ã‚ã‚’SPD1ã«æˆ»ã™ã‚¢ã‚¤ãƒ†ãƒ ã«ã™ã‚‹
 				if($_POST["itemUse"] == 6000) {
 					if($this->DeleteItem(6000) == 0) {
-						ShowError("¥¢¥¤¥Æ¥à¤¬¤¢¤ê¤Ş¤»¤ó¡£","margin15");
+						ShowError("ã‚¢ã‚¤ãƒ†ãƒ ãŒã‚ã‚Šã¾ã›ã‚“ã€‚","margin15");
 						return false;
 					}
 					if(1 < $char->spd) {
@@ -700,13 +700,13 @@ EOD;
 						$char->statuspoint	+= $dif;
 						$char->SaveCharData($this->id);
 						$this->SaveUserItem();
-						ShowResult("¥İ¥¤¥ó¥È´Ô¸µÀ®¸ù","margin15");
+						ShowResult("ãƒã‚¤ãƒ³ãƒˆé‚„å…ƒæˆåŠŸ","margin15");
 						return true;
 					}
 				}
 				if($lowLimit) {
 					if(!$this->item[$_POST["itemUse"]]) {
-						ShowError("¥¢¥¤¥Æ¥à¤¬¤¢¤ê¤Ş¤»¤ó¡£","margin15");
+						ShowError("ã‚¢ã‚¤ãƒ†ãƒ ãŒã‚ã‚Šã¾ã›ã‚“ã€‚","margin15");
 						return false;
 					}
 					if($lowLimit < $char->str) {$dif = $char->str - $lowLimit; $char->str -= $dif; $pointBack += $dif;}
@@ -716,35 +716,35 @@ EOD;
 					if($lowLimit < $char->luk) {$dif = $char->luk - $lowLimit; $char->luk -= $dif; $pointBack += $dif;}
 					if($pointBack) {
 						if($this->DeleteItem($_POST["itemUse"]) == 0) {
-							ShowError("¥¢¥¤¥Æ¥à¤¬¤¢¤ê¤Ş¤»¤ó¡£","margin15");
+							ShowError("ã‚¢ã‚¤ãƒ†ãƒ ãŒã‚ã‚Šã¾ã›ã‚“ã€‚","margin15");
 							return false;
 						}
 						$char->statuspoint	+= $pointBack;
-						// ÁõÈ÷¤âÁ´Éô²ò½ü
+						// è£…å‚™ã‚‚å…¨éƒ¨è§£é™¤
 						if($char->weapon || $char->shield || $char->armor || $char->item ) {
 							if($char->weapon)	{ $this->AddItem($char->weapon);	$char->weapon	=NULL; }
 							if($char->shield)	{ $this->AddItem($char->shield);	$char->shield	=NULL; }
 							if($char->armor)	{ $this->AddItem($char->armor);		$char->armor	=NULL; }
 							if($char->item)		{ $this->AddItem($char->item);		$char->item		=NULL; }
-							ShowResult($char->Name()." ¤ÎÁõÈ÷¤ò Á´Éô²ò½ü¤·¤¿","margin15");
+							ShowResult($char->Name()." ã®è£…å‚™ã‚’ å…¨éƒ¨è§£é™¤ã—ãŸ","margin15");
 						}
 						$char->SaveCharData($this->id);
 						$this->SaveUserItem();
-						ShowResult("¥İ¥¤¥ó¥È´Ô¸µÀ®¸ù","margin15");
+						ShowResult("ãƒã‚¤ãƒ³ãƒˆé‚„å…ƒæˆåŠŸ","margin15");
 						return true;
 					} else {
-						ShowError("¥İ¥¤¥ó¥È´Ô¸µ¼ºÇÔ","margin15");
+						ShowError("ãƒã‚¤ãƒ³ãƒˆé‚„å…ƒå¤±æ•—","margin15");
 						return false;
 					}
 				}
 				break;
 
-			// ¥µ¥è¥Ê¥é(É½¼¨)
+			// ã‚µãƒ¨ãƒŠãƒ©(è¡¨ç¤º)
 			case($_POST["byebye"]):
 				$Name	= $char->Name();
 				$message = <<< HTML_BYEBYE
 <div class="margin15">
-{$Name} ¤ò ²ò¸Û¤·¤Ş¤¹¤«?<br>
+{$Name} ã‚’ è§£é›‡ã—ã¾ã™ã‹?<br>
 <form action="?char={$_GET[char]}" method="post">
 <input type="submit" class="btn" name="kick" value="Yes">
 <input type="submit" class="btn" value="No">
@@ -753,7 +753,7 @@ EOD;
 HTML_BYEBYE;
 				print($message);
 				return false;
-			// ¥µ¥è¥Ê¥é(½èÍı)
+			// ã‚µãƒ¨ãƒŠãƒ©(å‡¦ç†)
 			case($_POST["kick"]):
 				//$this->DeleteChar($char->birth);
 				$char->DeleteChar();
@@ -767,46 +767,46 @@ HTML_BYEBYE;
 		endswitch;
 	}
 //////////////////////////////////////////////////////////////////////////////////////
-//	¥­¥ã¥é¥¯¥¿¡¼¾ÜºÙÉ½¼¨¡¦ÁõÈ÷ÊÑ¹¹¤Ê¤É¤Ê¤É
-//	Ä¹¤¹¤®¤ë...(200¹Ô°Ê¾å)
+//	ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼è©³ç´°è¡¨ç¤ºãƒ»è£…å‚™å¤‰æ›´ãªã©ãªã©
+//	é•·ã™ãã‚‹...(200è¡Œä»¥ä¸Š)
 	function CharStatShow() {
 		$char	= &$this->char[$_GET["char"]];
 		if(!$char) {
 			print("Not exists");
 			return false;
 		}
-		// ÀïÆ®ÍÑÊÑ¿ô¤ÎÀßÄê¡£
+		// æˆ¦é—˜ç”¨å¤‰æ•°ã®è¨­å®šã€‚
 		$char->SetBattleVariable();
 
-		// ¿¦¥Ç¡¼¥¿
+		// è·ãƒ‡ãƒ¼ã‚¿
 		$JobData	= LoadJobData($char->job);
 
-		// Å¾¿¦²ÄÇ½¤Ê¿¦
+		// è»¢è·å¯èƒ½ãªè·
 		if($JobData["change"]) {
 			include_once(DATA_CLASSCHANGE);
 			foreach($JobData["change"] as $job) {
 				if(CanClassChange($char,$job))
-					$CanChange[]	= $job;//Å¾¿¦¤Ç¤­¤ë¸õÊä¡£
+					$CanChange[]	= $job;//è»¢è·ã§ãã‚‹å€™è£œã€‚
 			}
 		}
 
-		////// ¥¹¥Æ¡¼¥¿¥¹É½¼¨ //////////////////////////////
+		////// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹è¡¨ç¤º //////////////////////////////
 			?>
 <form action="?char=<?=$_GET["char"]?>" method="post" style="padding:5px 0 0 15px"><?
-		// ¤½¤ÎÂ¾¥­¥ã¥é
+		// ãã®ä»–ã‚­ãƒ£ãƒ©
 		print('<div style="padding-top:5px">');
 		foreach($this->char as $key => $val) {
-			//if($key == $_GET["char"]) continue;//É½¼¨Ãæ¥­¥ã¥é¥¹¥­¥Ã¥×
+			//if($key == $_GET["char"]) continue;//è¡¨ç¤ºä¸­ã‚­ãƒ£ãƒ©ã‚¹ã‚­ãƒƒãƒ—
 			echo "<a href=\"?char={$key}\">{$val->name}</a>&nbsp;&nbsp;";
 		}
 		print("</div>");
 	?>
 <h4>Character Status <a href="?manual#charstat" target="_blank" class="a0">?</a></h4><?
 		$char->ShowCharDetail();
-		// ²şÌ¾
+		// æ”¹å
 		if($this->item["7500"])
 			print('<input type="submit" class="btn" name="rename" value="ChangeName">'."\n");
-		// ¥¹¥Æ¡¼¥¿¥¹¥ê¥»¥Ã¥È·Ï
+		// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒªã‚»ãƒƒãƒˆç³»
 		if($this->item["7510"] ||
 			$this->item["7511"] ||
 			$this->item["7512"] ||
@@ -817,7 +817,7 @@ HTML_BYEBYE;
 ?>
 <input type="submit" class="btn" name="byebye" value="Kick">
 </form><?
-	// ¥¹¥Æ¡¼¥¿¥¹¾å¾º ////////////////////////////
+	// ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ä¸Šæ˜‡ ////////////////////////////
 	if(0 < $char->statuspoint) {
 print <<< HTML
 	<form action="?char=$_GET[char]" method="post" style="padding:0 15px">
@@ -843,27 +843,27 @@ HTML;
 	<form action="?char=<?=$_GET["char"]?>" method="post" style="padding:0 15px">
 	<h4>Action Pattern <a href="?manual#jdg" target="_blank" class="a0">?</a></h4><?
 
-		// Action Pattern ¹ÔÆ°È½Äê /////////////////////////
-		$list	= JudgeList();// ¹ÔÆ°È½Äê¾ò·ï°ìÍ÷
+		// Action Pattern è¡Œå‹•åˆ¤å®š /////////////////////////
+		$list	= JudgeList();// è¡Œå‹•åˆ¤å®šæ¡ä»¶ä¸€è¦§
 		print("<table cellspacing=\"5\"><tbody>\n");
 		for($i=0; $i<$char->MaxPatterns(); $i++) {
 			print("<tr><td>");
 			//----- No
 			print( ($i+1)."</td><td>");
-			//----- JudgeSelect(È½Äê¤Î¼ïÎà)
+			//----- JudgeSelect(åˆ¤å®šã®ç¨®é¡)
 			print("<select name=\"judge".$i."\">\n");
-			foreach($list as $val) {//È½ÃÇ¤Îoption
+			foreach($list as $val) {//åˆ¤æ–­ã®option
 				$exp	= LoadJudgeData($val);
 				print("<option value=\"{$val}\"".($char->judge[$i] == $val ? " selected" : NULL).($exp["css"]?' class="select0"':NULL).">".($exp["css"]?'&nbsp;':'&nbsp;&nbsp;&nbsp;')."{$exp[exp]}</option>\n");
 			}
 			print("</select>\n");
 			print("</td><td>\n");
-			//----- ¿ôÃÍ(ÎÌ)
+			//----- æ•°å€¤(é‡)
 			print("<input type=\"text\" name=\"quantity".$i."\" maxlength=\"4\" value=\"".$char->quantity[$i]."\" style=\"width:56px\" class=\"text\">");
 			print("</td><td>\n");
-			//----- //SkillSelect(µ»¤Î¼ïÎà)
+			//----- //SkillSelect(æŠ€ã®ç¨®é¡)
 			print("<select name=\"skill".$i."\">\n");
-			foreach($char->skill as $val) {//µ»¤Îoption
+			foreach($char->skill as $val) {//æŠ€ã®option
 				$skill	= LoadSkillData($val);
 				print("<option value=\"{$val}\"".($char->action[$i] == $val ? " selected" : NULL).">");
 				print($skill["name"].(isset($skill["sp"])?" - (SP:{$skill[sp]})":NULL));
@@ -886,12 +886,12 @@ HTML;
 <form action="?char=<?=$_GET["char"]?>" method="post" style="padding:0 15px">
 <h4>Position & Guarding <a href="?manual#posi" target="_blank" class="a0">?</a></h4>
 <table><tbody>
-<tr><td>°ÌÃÖ(Position) :</td><td><input type="radio" class="vcent" name="position" value="front"<? ($char->position=="front"?print(" checked"):NULL) ?>>Á°±Ò(Front)</td></tr>
-<tr><td></td><td><input type="radio" class="vcent" name="position" value="back"<? ($char->position=="back"?print(" checked"):NULL) ?>>¸å±Ò(Backs)</td></tr>
-<tr><td>¸î±Ò(Guarding) :</td><td>
+<tr><td>ä½ç½®(Position) :</td><td><input type="radio" class="vcent" name="position" value="front"<? ($char->position=="front"?print(" checked"):NULL) ?>>å‰è¡›(Front)</td></tr>
+<tr><td></td><td><input type="radio" class="vcent" name="position" value="back"<? ($char->position=="back"?print(" checked"):NULL) ?>>å¾Œè¡›(Backs)</td></tr>
+<tr><td>è­·è¡›(Guarding) :</td><td>
 <select name="guard"><?
 
-		// Á°±Ò¤Î»ş¤Î¸å±Ò¼é¤ê //////////////////////////////
+		// å‰è¡›ã®æ™‚ã®å¾Œè¡›å®ˆã‚Š //////////////////////////////
 		$option	= array(/*
 		"always"=> "Always",
 		"never"	=> "Never",
@@ -902,14 +902,14 @@ HTML;
 		"prpb50"	=> "Probability of 50%",
 		"prob75"	=> "Probability of 75%",
 		*/
-		"always"=> "É¬¤º¼é¤ë",
-		"never"	=> "¼é¤é¤Ê¤¤",
-		"life25"	=> "ÂÎÎÏ¤¬ 25%°Ê¾å¤Ê¤é ¼é¤ë",
-		"life50"	=> "ÂÎÎÏ¤¬ 50%°Ê¾å¤Ê¤é ¼é¤ë",
-		"life75"	=> "ÂÎÎÏ¤¬ 75%°Ê¾å¤Ê¤é ¼é¤ë",
-		"prob25"	=> "25%¤Î³ÎÎ¨¤Ç ¼é¤ë",
-		"prpb50"	=> "50%¤Î³ÎÎ¨¤Ç ¼é¤ë",
-		"prob75"	=> "75%¤Î³ÎÎ¨¤Ç ¼é¤ë",
+		"always"=> "å¿…ãšå®ˆã‚‹",
+		"never"	=> "å®ˆã‚‰ãªã„",
+		"life25"	=> "ä½“åŠ›ãŒ 25%ä»¥ä¸Šãªã‚‰ å®ˆã‚‹",
+		"life50"	=> "ä½“åŠ›ãŒ 50%ä»¥ä¸Šãªã‚‰ å®ˆã‚‹",
+		"life75"	=> "ä½“åŠ›ãŒ 75%ä»¥ä¸Šãªã‚‰ å®ˆã‚‹",
+		"prob25"	=> "25%ã®ç¢ºç‡ã§ å®ˆã‚‹",
+		"prpb50"	=> "50%ã®ç¢ºç‡ã§ å®ˆã‚‹",
+		"prob75"	=> "75%ã®ç¢ºç‡ã§ å®ˆã‚‹",
 		);
 		foreach($option as $key => $val)
 			print("<option value=\"{$key}\"".($char->guard==$key ? " selected" : NULL ).">{$val}</option>");
@@ -920,7 +920,7 @@ HTML;
 	<input type="submit" class="btn" value="Set">
 	</form>
 <?
-		// ÁõÈ÷Ãæ¤ÎÊªÉ½¼¨ ////////////////////////////////
+		// è£…å‚™ä¸­ã®ç‰©è¡¨ç¤º ////////////////////////////////
 		$weapon	= LoadItemData($char->weapon);
 		$shield	= LoadItemData($char->shield);
 		$armor	= LoadItemData($char->armor);
@@ -957,11 +957,11 @@ HTML;
 	</div>
 <?
 
-		// ÁõÈ÷²ÄÇ½¤ÊÊªÉ½¼¨ ////////////////////////////////
+		// è£…å‚™å¯èƒ½ãªç‰©è¡¨ç¤º ////////////////////////////////
 		if($JobData["equip"])
-			$EquipAllow	= array_flip($JobData["equip"]);//ÁõÈ÷²ÄÇ½¤ÊÊª¥ê¥¹¥È(È¿Å¾)
+			$EquipAllow	= array_flip($JobData["equip"]);//è£…å‚™å¯èƒ½ãªç‰©ãƒªã‚¹ãƒˆ(åè»¢)
 		else
-			$EquipAllow	= array();//ÁõÈ÷²ÄÇ½¤ÊÊª¥ê¥¹¥È(È¿Å¾)
+			$EquipAllow	= array();//è£…å‚™å¯èƒ½ãªç‰©ãƒªã‚¹ãƒˆ(åè»¢)
 		$Equips		= array("Weapon"=>"2999","Shield"=>"4999","Armor"=>"5999","Item"=>"9999");
 
 		print("<div style=\"padding:15px 15px 0 15px\">\n");
@@ -971,13 +971,13 @@ HTML;
 			$EquipList	= new JS_ItemList();
 			$EquipList->SetID("equip");
 			$EquipList->SetName("type_equip");
-			// JS¤ò»ÈÍÑ¤·¤Ê¤¤¡£
+			// JSã‚’ä½¿ç”¨ã—ãªã„ã€‚
 			if($this->no_JS_itemlist)
 				$EquipList->NoJS();
-			reset($this->item);//¤³¤ì¤¬Ìµ¤¤¤ÈÁõÈ÷ÊÑ¹¹»ş¤ËÉ½¼¨¤µ¤ì¤Ê¤¤
+			reset($this->item);//ã“ã‚ŒãŒç„¡ã„ã¨è£…å‚™å¤‰æ›´æ™‚ã«è¡¨ç¤ºã•ã‚Œãªã„
 			foreach($this->item as $key => $val) {
 				$item	= LoadItemData($key);
-				// ÁõÈ÷¤Ç¤­¤Ê¤¤¤Î¤Ç¼¡
+				// è£…å‚™ã§ããªã„ã®ã§æ¬¡
 				if(!isset( $EquipAllow[ $item["type"] ] ))
 					continue;
 				$head	= '<input type="radio" name="item_no" value="'.$key.'" class="vcent">';
@@ -1000,7 +1000,7 @@ HTML;
 		print("\t<table><tbody><tr><td colspan=\"2\">\n");
 		print("\t<span class=\"bold u\">Stock & Allowed to Equip</span></td></tr>\n");
 		if($this->item):
-			reset($this->item);//¤³¤ì¤¬Ìµ¤¤¤ÈÁõÈ÷ÊÑ¹¹»ş¤ËÉ½¼¨¤µ¤ì¤Ê¤¤
+			reset($this->item);//ã“ã‚ŒãŒç„¡ã„ã¨è£…å‚™å¤‰æ›´æ™‚ã«è¡¨ç¤ºã•ã‚Œãªã„
 			foreach($Equips as $key => $val) {
 				print("\t<tr><td class=\"align-right\" valign=\"top\">\n");
 				print("\t{$key} :</td><td>\n");
@@ -1029,8 +1029,8 @@ HTML;
 	<form action="?char=<?=$_GET["char"]?>" method="post" style="padding:0 15px">
 	<h4>Skill <a href="?manual#skill" target="_blank" class="a0">?</a></h4><?
 
-		// ¥¹¥­¥ëÉ½¼¨ //////////////////////////////////////
-		//include(DATA_SKILL);//ActionPattern¤Ë°ÜÆ°
+		// ã‚¹ã‚­ãƒ«è¡¨ç¤º //////////////////////////////////////
+		//include(DATA_SKILL);//ActionPatternã«ç§»å‹•
 		include_once(DATA_SKILL_TREE);
 		if($char->skill) {
 			print('<div class="u bold">Mastered</div>');
@@ -1058,7 +1058,7 @@ HTML;
 			print('<input type="submit" class="btn" name="learnskill" value="Learn">'."\n");
 			print('<input type="hidden" name="learnskill" value="1">'."\n");
 		}
-		// Å¾¿¦ ////////////////////////////////////////////
+		// è»¢è· ////////////////////////////////////////////
 		if($CanChange) {
 			?>
 
@@ -1069,7 +1069,7 @@ HTML;
 			foreach($CanChange as $job) {
 				print("<td valign=\"bottom\" style=\"padding:5px 30px;text-align:center\">");
 				$JOB	= LoadJobData($job);
-				print('<img src="'.IMG_CHAR.$JOB["img_".($char->gender?"female":"male")].'">'."<br />\n");//²èÁü
+				print('<img src="'.IMG_CHAR.$JOB["img_".($char->gender?"female":"male")].'">'."<br />\n");//ç”»åƒ
 				print('<input type="radio" value="'.$job.'" name="job">'."<br />\n");
 				print($JOB["name_".($char->gender?"female":"male")]);
 				print("</td>");
@@ -1083,10 +1083,10 @@ HTML;
 	?>
 
 	</form>
-	<?//¤½¤ÎÂ¾¥­¥ã¥é
+	<?//ãã®ä»–ã‚­ãƒ£ãƒ©
 		print('<div  style="padding:15px">');
 		foreach($this->char as $key => $val) {
-			//if($key == $_GET["char"]) continue;//É½¼¨Ãæ¥­¥ã¥é¥¹¥­¥Ã¥×
+			//if($key == $_GET["char"]) continue;//è¡¨ç¤ºä¸­ã‚­ãƒ£ãƒ©ã‚¹ã‚­ãƒƒãƒ—
 			echo "<a href=\"?char={$key}\">{$val->name}</a>&nbsp;&nbsp;";
 		}
 		print('</div>');
@@ -1100,47 +1100,47 @@ HTML;
 		$this->DoppelBattle(array($char));
 	}
 //////////////////////////////////////////////////
-//	¥É¥Ã¥Ú¥ë¥²¥ó¥¬¡¼¤ÈÀï¤¦¡£
+//	ãƒ‰ãƒƒãƒšãƒ«ã‚²ãƒ³ã‚¬ãƒ¼ã¨æˆ¦ã†ã€‚
 	function DoppelBattle($party,$turns=10) {
 		//$enemy	= $party;
-		//¤³¤ì¤¬Ìµ¤¤¤ÈPHP4or5 ¤Ç°ã¤¦·ë²Ì¤Ë¤Ê¤ë¤ó¤Ç¤¹
+		//ã“ã‚ŒãŒç„¡ã„ã¨PHP4or5 ã§é•ã†çµæœã«ãªã‚‹ã‚“ã§ã™
 		//$enemy	= unserialize(serialize($enemy));
-		// ¢­
+		// â†“
 		foreach($party as $key => $char) {
 			$enemy[$key]	= new char();
 			$enemy[$key]->SetCharData(get_object_vars($char));
 			
 		}
 		foreach($enemy as $key => $doppel) {
-			//$doppel->judge	= array();//¥³¥á¥ó¥È¤ò¼è¤ë¤È¥É¥Ã¥Ú¥ë¤¬¹ÔÆ°¤·¤Ê¤¤¡£
-			$enemy[$key]->ChangeName("¥Ë¥»".$doppel->name);
+			//$doppel->judge	= array();//ã‚³ãƒ¡ãƒ³ãƒˆã‚’å–ã‚‹ã¨ãƒ‰ãƒƒãƒšãƒ«ãŒè¡Œå‹•ã—ãªã„ã€‚
+			$enemy[$key]->ChangeName("ãƒ‹ã‚»".$doppel->name);
 		}
 		//dump($enemy[0]->judge);
 		//dump($party[0]->judge);
 
 		include(CLASS_BATTLE);
 		$battle	= new battle($party,$enemy);
-		$battle->SetTeamName($this->name,"¥É¥Ã¥Ú¥ë");
-		$battle->LimitTurns($turns);//ºÇÂç¥¿¡¼¥ó¿ô¤Ï10
+		$battle->SetTeamName($this->name,"ãƒ‰ãƒƒãƒšãƒ«");
+		$battle->LimitTurns($turns);//æœ€å¤§ã‚¿ãƒ¼ãƒ³æ•°ã¯10
 		$battle->NoResult();
-		$battle->Process();//ÀïÆ®³«»Ï
+		$battle->Process();//æˆ¦é—˜é–‹å§‹
 		return true;
 	}
 //////////////////////////////////////////////////
 //
 	function SimuBattleProcess() {
 		if($_POST["simu_battle"]) {
-			$this->MemorizeParty();//¥Ñ¡¼¥Æ¥£¡¼µ­²±
-			// ¼«Ê¬¥Ñ¡¼¥Æ¥£¡¼
-			foreach($this->char as $key => $val) {//¥Á¥§¥Ã¥¯¤µ¤ì¤¿¤ä¤Ä¥ê¥¹¥È
+			$this->MemorizeParty();//ãƒ‘ãƒ¼ãƒ†ã‚£ãƒ¼è¨˜æ†¶
+			// è‡ªåˆ†ãƒ‘ãƒ¼ãƒ†ã‚£ãƒ¼
+			foreach($this->char as $key => $val) {//ãƒã‚§ãƒƒã‚¯ã•ã‚ŒãŸã‚„ã¤ãƒªã‚¹ãƒˆ
 				if($_POST["char_".$key])
 					$MyParty[]	= $this->char[$key];
 			}
 			if( count($MyParty) === 0) {
-				ShowError('ÀïÆ®¤¹¤ë¤Ë¤ÏºÇÄã1¿ÍÉ¬Í×',"margin15");
+				ShowError('æˆ¦é—˜ã™ã‚‹ã«ã¯æœ€ä½1äººå¿…è¦',"margin15");
 				return false;
 			} else if(5 < count($MyParty)) {
-				ShowError('ÀïÆ®¤Ë½Ğ¤»¤ë¥­¥ã¥é¤Ï5¿Í¤Ş¤Ç',"margin15");
+				ShowError('æˆ¦é—˜ã«å‡ºã›ã‚‹ã‚­ãƒ£ãƒ©ã¯5äººã¾ã§',"margin15");
 				return false;
 			}
 			$this->DoppelBattle($MyParty,50);
@@ -1152,7 +1152,7 @@ HTML;
 	function SimuBattleShow($message=false) {
 		print('<div style="margin:15px">');
 		ShowError($message);
-		print('<span class="bold">ÌÏµ¼Àï</span>');
+		print('<span class="bold">æ¨¡æ“¬æˆ¦</span>');
 		print('<h4>Teams</h4></div>');
 		print('<form action="'.INDEX.'?simulate" method="post">');
 		$this->ShowCharacters($this->char,CHECKBOX,explode("<>",$this->party_memo));
@@ -1211,7 +1211,7 @@ HTML;
 
 		// union
 		print("<div style=\"margin:0 15px\">\n");
-		print("<h4>Union Battle Log <a href=\"?ulog\">Á´É½¼¨</a></h4>\n");
+		print("<h4>Union Battle Log <a href=\"?ulog\">å…¨è¡¨ç¤º</a></h4>\n");
 		print("<div style=\"margin:0 20px\">\n");
 		$log	= @glob(LOG_BATTLE_UNION."*");
 		foreach(array_reverse($log) as $file) {
@@ -1223,12 +1223,12 @@ HTML;
 		print("</div></div>\n");
 	}
 //////////////////////////////////////////////////
-//	¥â¥ó¥¹¥¿¡¼¤ÎÉ½¼¨
+//	ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã®è¡¨ç¤º
 	function MonsterShow() {
 		$land_id	= $_GET["common"];
 		include(DATA_LAND);
 		include_once(DATA_LAND_APPEAR);
-		// ¤Ş¤À¹Ô¤±¤Ê¤¤¥Ş¥Ã¥×¤Ê¤Î¤Ë¹Ô¤³¤¦¤È¤·¤¿¡£
+		// ã¾ã è¡Œã‘ãªã„ãƒãƒƒãƒ—ãªã®ã«è¡Œã“ã†ã¨ã—ãŸã€‚
 		if(!in_array($_GET["common"],LoadMapAppear($this))) {
 			print('<div style="margin:15px">not appeared or not exist</div>');
 			return false;
@@ -1263,57 +1263,57 @@ HTML;
 	}
 
 //////////////////////////////////////////////////
-//	¥â¥ó¥¹¥¿¡¼¤È¤ÎÀïÆ®
+//	ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã¨ã®æˆ¦é—˜
 	function MonsterBattle() {
 		if($_POST["monster_battle"]) {
-			$this->MemorizeParty();//¥Ñ¡¼¥Æ¥£¡¼µ­²±
-			// ¤½¤Î¥Ş¥Ã¥×¤ÇÀï¤¨¤ë¤«¤É¤¦¤«³ÎÇ§¤¹¤ë¡£
+			$this->MemorizeParty();//ãƒ‘ãƒ¼ãƒ†ã‚£ãƒ¼è¨˜æ†¶
+			// ãã®ãƒãƒƒãƒ—ã§æˆ¦ãˆã‚‹ã‹ã©ã†ã‹ç¢ºèªã™ã‚‹ã€‚
 			include_once(DATA_LAND_APPEAR);
 			$land	= LoadMapAppear($this);
 			if(!in_array($_GET["common"],$land)) {
-				ShowError("¥Ş¥Ã¥×¤¬½Ğ¸½¤·¤ÆÌµ¤¤","margin15");
+				ShowError("ãƒãƒƒãƒ—ãŒå‡ºç¾ã—ã¦ç„¡ã„","margin15");
 				return false;
 			}
 
-			// Time¤¬Â­¤ê¤Æ¤ë¤«¤É¤¦¤«³ÎÇ§¤¹¤ë
+			// TimeãŒè¶³ã‚Šã¦ã‚‹ã‹ã©ã†ã‹ç¢ºèªã™ã‚‹
 			if($this->time < NORMAL_BATTLE_TIME) {
-				ShowError("Time ÉÔÂ­ (É¬Í× Time:".NORMAL_BATTLE_TIME.")","margin15");
+				ShowError("Time ä¸è¶³ (å¿…è¦ Time:".NORMAL_BATTLE_TIME.")","margin15");
 				return false;
 			}
-			// ¼«Ê¬¥Ñ¡¼¥Æ¥£¡¼
-			foreach($this->char as $key => $val) {//¥Á¥§¥Ã¥¯¤µ¤ì¤¿¤ä¤Ä¥ê¥¹¥È
+			// è‡ªåˆ†ãƒ‘ãƒ¼ãƒ†ã‚£ãƒ¼
+			foreach($this->char as $key => $val) {//ãƒã‚§ãƒƒã‚¯ã•ã‚ŒãŸã‚„ã¤ãƒªã‚¹ãƒˆ
 				if($_POST["char_".$key])
 					$MyParty[]	= $this->char[$key];
 			}
 			if( count($MyParty) === 0) {
-				ShowError('ÀïÆ®¤¹¤ë¤Ë¤ÏºÇÄã1¿ÍÉ¬Í×',"margin15");
+				ShowError('æˆ¦é—˜ã™ã‚‹ã«ã¯æœ€ä½1äººå¿…è¦',"margin15");
 				return false;
 			} else if(5 < count($MyParty)) {
-				ShowError('ÀïÆ®¤Ë½Ğ¤»¤ë¥­¥ã¥é¤Ï5¿Í¤Ş¤Ç',"margin15");
+				ShowError('æˆ¦é—˜ã«å‡ºã›ã‚‹ã‚­ãƒ£ãƒ©ã¯5äººã¾ã§',"margin15");
 				return false;
 			}
-			// Å¨¥Ñ¡¼¥Æ¥£¡¼(¤Ş¤¿¤Ï°ìÉ¤)
+			// æ•µãƒ‘ãƒ¼ãƒ†ã‚£ãƒ¼(ã¾ãŸã¯ä¸€åŒ¹)
 			include(DATA_LAND);
 			include(DATA_MONSTER);
 			list($Land,$MonsterList)	= LandInformation($_GET["common"]);
 			$EneNum	= $this->EnemyNumber($MyParty);
 			$EnemyParty	= $this->EnemyParty($EneNum,$MonsterList);
 
-			$this->WasteTime(NORMAL_BATTLE_TIME);//»ş´Ö¤Î¾ÃÈñ
+			$this->WasteTime(NORMAL_BATTLE_TIME);//æ™‚é–“ã®æ¶ˆè²»
 			include(CLASS_BATTLE);
 			$battle	= new battle($MyParty,$EnemyParty);
-			$battle->SetBackGround($Land["land"]);//ÇØ·Ê
+			$battle->SetBackGround($Land["land"]);//èƒŒæ™¯
 			$battle->SetTeamName($this->name,$Land["name"]);
-			$battle->Process();//ÀïÆ®³«»Ï
-			$battle->SaveCharacters();//¥­¥ã¥é¥Ç¡¼¥¿ÊİÂ¸
-			list($UserMoney)	= $battle->ReturnMoney();//ÀïÆ®¤ÇÆÀ¤¿¹ç·×¶â³Û
-			//¤ª¶â¤òÁı¤ä¤¹
+			$battle->Process();//æˆ¦é—˜é–‹å§‹
+			$battle->SaveCharacters();//ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿ä¿å­˜
+			list($UserMoney)	= $battle->ReturnMoney();//æˆ¦é—˜ã§å¾—ãŸåˆè¨ˆé‡‘é¡
+			//ãŠé‡‘ã‚’å¢—ã‚„ã™
 			$this->GetMoney($UserMoney);
-			//ÀïÆ®¥í¥°¤ÎÊİÂ¸
+			//æˆ¦é—˜ãƒ­ã‚°ã®ä¿å­˜
 			if($this->record_btl_log)
 				$battle->RecordLog();
 
-			// ¥¢¥¤¥Æ¥à¤ò¼õ¤±¼è¤ë
+			// ã‚¢ã‚¤ãƒ†ãƒ ã‚’å—ã‘å–ã‚‹
 			if($itemdrop	= $battle->ReturnItemGet(0)) {
 				$this->LoadUserItem();
 				foreach($itemdrop as $itemno => $amount)
@@ -1344,7 +1344,7 @@ HTML;
 			$goods	= new JS_ItemList();
 			$goods->SetID("my");
 			$goods->SetName("type");
-			// JS¤ò»ÈÍÑ¤·¤Ê¤¤¡£
+			// JSã‚’ä½¿ç”¨ã—ãªã„ã€‚
 			if($this->no_JS_itemlist)
 				$goods->NoJS();
 			//$goods->ListTable("<table>");
@@ -1364,20 +1364,20 @@ HTML;
 		print("</div></div>");
 	}
 //////////////////////////////////////////////////
-//	Å¹¥Ø¥Ã¥À
+//	åº—ãƒ˜ãƒƒãƒ€
 	function ShopHeader() {
 		?>
 <div style="margin:15px">
-<h4>Å¹</h4>
+<h4>åº—</h4>
 
 <div style="width:600px">
 <div style="float:left;width:50px;">
 <img src="<?=IMG_CHAR?>ori_002.gif" />
 </div>
 <div style="float:right;width:550px;">
-¤¤¤é¤Ã¤·¤ã¤¤¤Ş¤»¡¼<br />
-<a href="?menu=buy">Çã¤¦</a> / <a href="?menu=sell">Çä¤ë</a><br />
-<a href="?menu=work">¥¢¥ë¥Ğ¥¤¥È</a>
+ã„ã‚‰ã£ã—ã‚ƒã„ã¾ã›ãƒ¼<br />
+<a href="?menu=buy">è²·ã†</a> / <a href="?menu=sell">å£²ã‚‹</a><br />
+<a href="?menu=work">ã‚¢ãƒ«ãƒã‚¤ãƒˆ</a>
 </div>
 <div style="clear:both"></div>
 </div>
@@ -1391,14 +1391,14 @@ HTML;
 			case($_POST["partjob"]):
 				if($this->WasteTime(100)) {
 					$this->GetMoney(500);
-					ShowResult("Æ¯¤¤¤Æ ".MoneyFormat(500)." ¤²¤Ã¤È¤·¤¿!","margin15");
+					ShowResult("åƒã„ã¦ ".MoneyFormat(500)." ã’ã£ã¨ã—ãŸ!","margin15");
 					return true;
 				} else {
-					ShowError("»ş´Ö¤¬Ìµ¤¤¡£Æ¯¤¯¤Ê¤ó¤Æ¤â¤Ã¤¿¤¤¤Ê¤¤¡£","margin15");
+					ShowError("æ™‚é–“ãŒç„¡ã„ã€‚åƒããªã‚“ã¦ã‚‚ã£ãŸã„ãªã„ã€‚","margin15");
 					return false;
 				}
 			case($_POST["shop_buy"]):
-				$ShopList	= ShopList();//Çä¤Ã¤Æ¤ë¤â¤Î¥Ç¡¼¥¿
+				$ShopList	= ShopList();//å£²ã£ã¦ã‚‹ã‚‚ã®ãƒ‡ãƒ¼ã‚¿
 				if($_POST["item_no"] && in_array($_POST["item_no"],$ShopList)) {
 					if(ereg("^[0-9]",$_POST["amount"])) {
 						$amount	= (int)$_POST["amount"];
@@ -1408,21 +1408,21 @@ HTML;
 						$amount	= 1;
 					}
 					$item	= LoadItemData($_POST["item_no"]);
-					$need	= $amount * $item["buy"];//¹ØÆş¤ËÉ¬Í×¤Ê¤ª¶â
-					if($this->TakeMoney($need)) {// ¤ª¶â¤ò°ú¤±¤ë¤«¤ÇÈ½Äê¡£
+					$need	= $amount * $item["buy"];//è³¼å…¥ã«å¿…è¦ãªãŠé‡‘
+					if($this->TakeMoney($need)) {// ãŠé‡‘ã‚’å¼•ã‘ã‚‹ã‹ã§åˆ¤å®šã€‚
 						$this->AddItem($_POST["item_no"],$amount);
 						$this->SaveUserItem();
 						if(1 < $amount) {
 							$img	= "<img src=\"".IMG_ICON.$item[img]."\" class=\"vcent\" />";
-							ShowResult("{$img}{$item[name]} ¤ò{$amount}¸Ä ¹ØÆş¤·¤¿ (".MoneyFormat($item["buy"])." x{$amount} = ".MoneyFormat($need).")","margin15");
+							ShowResult("{$img}{$item[name]} ã‚’{$amount}å€‹ è³¼å…¥ã—ãŸ (".MoneyFormat($item["buy"])." x{$amount} = ".MoneyFormat($need).")","margin15");
 							return true;
 						} else {
 							$img	= "<img src=\"".IMG_ICON.$item[img]."\" class=\"vcent\" />";
-							ShowResult("{$img}{$item[name]} ¤ò¹ØÆş¤·¤¿ (".MoneyFormat($need).")","margin15");
+							ShowResult("{$img}{$item[name]} ã‚’è³¼å…¥ã—ãŸ (".MoneyFormat($need).")","margin15");
 							return true;
 						}
-					} else {//»ñ¶âÉÔÂ­
-						ShowError("»ñ¶âÉÔÂ­(Need ".MoneyFormat($need).")","margin15");
+					} else {//è³‡é‡‘ä¸è¶³
+						ShowError("è³‡é‡‘ä¸è¶³(Need ".MoneyFormat($need).")","margin15");
 						return false;
 					}
 				}
@@ -1436,7 +1436,7 @@ HTML;
 					} else {
 						$amount	= 1;
 					}
-					// ¾Ã¤·¤¿¸Ä¿ô(Ä¶²á¤·¤ÆÇä¤é¤ì¤ë¤Î¤âËÉ¤°)
+					// æ¶ˆã—ãŸå€‹æ•°(è¶…éã—ã¦å£²ã‚‰ã‚Œã‚‹ã®ã‚‚é˜²ã)
 					$DeletedAmount	= $this->DeleteItem($_POST["item_no"],$amount);
 					$item	= LoadItemData($_POST["item_no"]);
 					$price	= (isset($item["sell"]) ? $item["sell"] : round($item["buy"]*SELLING_PRICE));
@@ -1445,7 +1445,7 @@ HTML;
 					if($DeletedAmount != 1)
 						$add	= " x{$DeletedAmount}";
 					$img	= "<img src=\"".IMG_ICON.$item[img]."\" class=\"vcent\" />";
-					ShowResult("{$img}{$item[name]}{$add} ¤ò ".MoneyFormat($price*$DeletedAmount)." ¤ÇÇä¤Ã¤¿","margin15");
+					ShowResult("{$img}{$item[name]}{$add} ã‚’ ".MoneyFormat($price*$DeletedAmount)." ã§å£²ã£ãŸ","margin15");
 					return true;
 				}
 				break;
@@ -1461,12 +1461,12 @@ HTML;
 	<div style="margin:0 20px">
 	<?
 		include(CLASS_JS_ITEMLIST);
-		$ShopList	= ShopList();//Çä¤Ã¤Æ¤ë¤â¤Î¥Ç¡¼¥¿
+		$ShopList	= ShopList();//å£²ã£ã¦ã‚‹ã‚‚ã®ãƒ‡ãƒ¼ã‚¿
 
 		$goods	= new JS_ItemList();
 		$goods->SetID("JS_buy");
 		$goods->SetName("type_buy");
-		// JS¤ò»ÈÍÑ¤·¤Ê¤¤¡£
+		// JSã‚’ä½¿ç”¨ã—ãªã„ã€‚
 		if($this->no_JS_itemlist)
 			$goods->NoJS();
 		foreach($ShopList as $no) {
@@ -1485,13 +1485,13 @@ HTML;
 		print('<input type="hidden" name="shop_buy" value="1">');
 		print('</form></div>'."\n");
 
-		print("<h4>My Items<a name=\"sell\"></a></h4>\n");//½ê»ıÊªÇä¤ë
+		print("<h4>My Items<a name=\"sell\"></a></h4>\n");//æ‰€æŒç‰©å£²ã‚‹
 		print('<div style="margin:0 20px">'."\n");
 		if($this->item) {
 			$goods	= new JS_ItemList();
 			$goods->SetID("JS_sell");
 			$goods->SetName("type_sell");
-			// JS¤ò»ÈÍÑ¤·¤Ê¤¤¡£
+			// JSã‚’ä½¿ç”¨ã—ãªã„ã€‚
 			if($this->no_JS_itemlist)
 				$goods->NoJS();
 			foreach($this->item as $no => $val) {
@@ -1536,7 +1536,7 @@ HTML;
 <form action="?shop" method="post">
 <h4>Work</h4>
 <div style="margin:0 20px">
-Å¹¤Ç¥¢¥ë¥Ğ¥¤¥È¤·¤Æ¤ª¶â¤òÆÀ¤Ş¤¹...<br />
+åº—ã§ã‚¢ãƒ«ãƒã‚¤ãƒˆã—ã¦ãŠé‡‘ã‚’å¾—ã¾ã™...<br />
 <input type="submit" class="btn" name="partjob" value="Work at Shop">
 Get <?=MoneyFormat("500")?> for 100Time.
 </form></div></div><?
@@ -1550,10 +1550,10 @@ Get <?=MoneyFormat("500")?> for 100Time.
 
 		print("<div style=\"margin:15px\">");
 		print("<table cellspacing=\"0\">\n");
-		print('<tr><td class="td6" style="text-align:center">ÃÍÃÊ</td>'.
-		'<td class="td6" style="text-align:center">¿ô</td>'.
-		'<td class="td6" style="text-align:center">·×</td>'.
-		'<td class="td6" style="text-align:center">¥¢¥¤¥Æ¥à</td></tr>'."\n");
+		print('<tr><td class="td6" style="text-align:center">å€¤æ®µ</td>'.
+		'<td class="td6" style="text-align:center">æ•°</td>'.
+		'<td class="td6" style="text-align:center">è¨ˆ</td>'.
+		'<td class="td6" style="text-align:center">ã‚¢ã‚¤ãƒ†ãƒ </td></tr>'."\n");
 		$moneyNeed	= 0;
 		$ShopList	= ShopList();
 		foreach($ShopList as $itemNo) {
@@ -1580,21 +1580,21 @@ Get <?=MoneyFormat("500")?> for 100Time.
 			print("</td></tr>\n");
 			$this->AddItem($itemNo,$amount);
 		}
-		print("<tr><td colspan=\"4\" class=\"td8\">¹ç·× : ".MoneyFormat($moneyNeed)."</td></tr>");
+		print("<tr><td colspan=\"4\" class=\"td8\">åˆè¨ˆ : ".MoneyFormat($moneyNeed)."</td></tr>");
 		print("</table>\n");
 		print("</div>");
 		if($this->TakeMoney($moneyNeed)) {
 			$this->SaveUserItem();
 			return true;
 		} else {
-			ShowError("¤ª¶â¤¬Â­¤ê¤Ş¤»¤ó","margin15");
+			ShowError("ãŠé‡‘ãŒè¶³ã‚Šã¾ã›ã‚“","margin15");
 			return false;
 		}
 	}
 //////////////////////////////////////////////////
 	function ShopBuyShow() {
 		print('<div style="margin:15px">'."\n");
-		print("<h4>Çã¤¦</h4>\n");
+		print("<h4>è²·ã†</h4>\n");
 
 print <<< JS_HTML
 <script type="text/javascript">
@@ -1622,9 +1622,9 @@ JS_HTML;
 		print('<form action="?menu=buy" method="post">'."\n");
 		print("<table cellspacing=\"0\">\n");
 		print('<tr><td class="td6"></td>'.
-		'<td style="text-align:center" class="td6">ÃÍÃÊ</td>'.
-		'<td style="text-align:center" class="td6">¿ô</td>'.
-		'<td style="text-align:center" class="td6">¥¢¥¤¥Æ¥à</td></tr>'."\n");
+		'<td style="text-align:center" class="td6">å€¤æ®µ</td>'.
+		'<td style="text-align:center" class="td6">æ•°</td>'.
+		'<td style="text-align:center" class="td6">ã‚¢ã‚¤ãƒ†ãƒ </td></tr>'."\n");
 		$ShopList	= ShopList();
 		foreach($ShopList as $itemNo) {
 			$item	= LoadItemData($itemNo);
@@ -1632,7 +1632,7 @@ JS_HTML;
 			print("<tr><td class=\"td7\" id=\"i{$itemNo}a\">\n");
 			print('<input type="checkbox" name="check_'.$itemNo.'" value="1" onclick="toggleCSS(\''.$itemNo.'\')">'."\n");
 			print("</td><td class=\"td7\" id=\"i{$itemNo}b\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
-			// ÇãÃÍ
+			// è²·å€¤
 			$price	= $item["buy"];
 			print(MoneyFormat($price));
 			print("</td><td class=\"td7\" id=\"i{$itemNo}c\">\n");
@@ -1656,10 +1656,10 @@ JS_HTML;
 		$GetMoney	= 0;
 		print("<div style=\"margin:15px\">");
 		print("<table cellspacing=\"0\">\n");
-		print('<tr><td class="td6" style="text-align:center">ÇäÃÍ</td>'.
-		'<td class="td6" style="text-align:center">¿ô</td>'.
-		'<td class="td6" style="text-align:center">·×</td>'.
-		'<td class="td6" style="text-align:center">¥¢¥¤¥Æ¥à</td></tr>'."\n");
+		print('<tr><td class="td6" style="text-align:center">å£²å€¤</td>'.
+		'<td class="td6" style="text-align:center">æ•°</td>'.
+		'<td class="td6" style="text-align:center">è¨ˆ</td>'.
+		'<td class="td6" style="text-align:center">ã‚¢ã‚¤ãƒ†ãƒ </td></tr>'."\n");
 		foreach($this->item as $itemNo => $amountHave) {
 			if(!$_POST["check_".$itemNo])
 				continue;
@@ -1683,7 +1683,7 @@ JS_HTML;
 			print(ShowItemDetail($item)."\n");
 			print("</td></tr>\n");
 		}
-		print("<tr><td colspan=\"4\" class=\"td8\">¹ç·× : ".MoneyFormat($getMoney)."</td></tr>");
+		print("<tr><td colspan=\"4\" class=\"td8\">åˆè¨ˆ : ".MoneyFormat($getMoney)."</td></tr>");
 		print("</table>\n");
 		print("</div>");
 		$this->SaveUserItem();
@@ -1693,7 +1693,7 @@ JS_HTML;
 //////////////////////////////////////////////////
 	function ShopSellShow() {
 		print('<div style="margin:15px">'."\n");
-		print("<h4>Çä¤ë</h4>\n");
+		print("<h4>å£²ã‚‹</h4>\n");
 
 print <<< JS_HTML
 <script type="text/javascript">
@@ -1721,16 +1721,16 @@ JS_HTML;
 		print('<form action="?menu=sell" method="post">'."\n");
 		print("<table cellspacing=\"0\">\n");
 		print('<tr><td class="td6"></td>'.
-		'<td style="text-align:center" class="td6">ÇäÃÍ</td>'.
-		'<td style="text-align:center" class="td6">¿ô</td>'.
-		'<td style="text-align:center" class="td6">¥¢¥¤¥Æ¥à</td></tr>'."\n");
+		'<td style="text-align:center" class="td6">å£²å€¤</td>'.
+		'<td style="text-align:center" class="td6">æ•°</td>'.
+		'<td style="text-align:center" class="td6">ã‚¢ã‚¤ãƒ†ãƒ </td></tr>'."\n");
 		foreach($this->item as $itemNo => $amount) {
 			$item	= LoadItemData($itemNo);
 			if(!$item) continue;
 			print("<tr><td class=\"td7\" id=\"i{$itemNo}a\">\n");
 			print('<input type="checkbox" name="check_'.$itemNo.'" value="1" onclick="toggleCSS(\''.$itemNo.'\')">'."\n");
 			print("</td><td class=\"td7\" id=\"i{$itemNo}b\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
-			// ÇäÃÍ
+			// å£²å€¤
 			$price	= ItemSellPrice($item);
 			print(MoneyFormat($price));
 			print("</td><td class=\"td7\" id=\"i{$itemNo}c\">\n");
@@ -1747,34 +1747,34 @@ JS_HTML;
 		print("</div>\n");
 	}
 //////////////////////////////////////////////////
-//	¥¢¥ë¥Ğ¥¤¥È½èÍı
+//	ã‚¢ãƒ«ãƒã‚¤ãƒˆå‡¦ç†
 	function WorkProcess() {
 		if($_POST["amount"]) {
 			$amount	= (int)$_POST["amount"];
-			// 1°Ê¾å10°Ê²¼
+			// 1ä»¥ä¸Š10ä»¥ä¸‹
 			if(0 < $amount && $amount < 11) {
 				$time	= $amount * 100;
 				$money	= $amount * 500;
 				if($this->WasteTime($time)) {
-					ShowResult(MoneyFormat($money)." ¤²¤Ã¤È¤·¤¿¡ª","margin15");
+					ShowResult(MoneyFormat($money)." ã’ã£ã¨ã—ãŸï¼","margin15");
 					$this->GetMoney($money);
 					return true;
 				} else {
-					ShowError("»ş´Ö¤¬Â­¤ê¤Ş¤»¤ó¡£","margin15");
+					ShowError("æ™‚é–“ãŒè¶³ã‚Šã¾ã›ã‚“ã€‚","margin15");
 					return false;
 				}
 			}
 		}
 	}
 //////////////////////////////////////////////////
-//	¥¢¥ë¥Ğ¥¤¥ÈÉ½¼¨
+//	ã‚¢ãƒ«ãƒã‚¤ãƒˆè¡¨ç¤º
 	function WorkShow() {
 		?>
 <div style="margin:15px">
-<h4>¥¢¥ë¥Ğ¥¤¥È¤¹¤ë¡ª</h4>
+<h4>ã‚¢ãƒ«ãƒã‚¤ãƒˆã™ã‚‹ï¼</h4>
 <form method="post" action="?menu=work">
-<p>1²ó 100Time<br />
-µëÍ¿ : <?=MoneyFormat(500)?>/²ó</p>
+<p>1å› 100Time<br />
+çµ¦ä¸ : <?=MoneyFormat(500)?>/å›</p>
 <select name="amount">
 <option value="1">1</option>
 <option value="2">2</option>
@@ -1798,19 +1798,19 @@ JS_HTML;
 		// RankBattle
 		if($_POST["ChallengeRank"]) {
 			if(!$this->party_rank) {
-				ShowError("¥Á¡¼¥à¤¬ÀßÄê¤µ¤ì¤Æ¤¤¤Ş¤»¤ó","margin15");
+				ShowError("ãƒãƒ¼ãƒ ãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“","margin15");
 				return false;
 			}
 			$result	= $this->CanRankBattle();
 			if(is_array($result)) {
-				ShowError("ÂÔµ¡»ş´Ö¤¬¤Ş¤À»Ä¤Ã¤Æ¤Ş¤¹","margin15");
+				ShowError("å¾…æ©Ÿæ™‚é–“ãŒã¾ã æ®‹ã£ã¦ã¾ã™","margin15");
 				return false;
 			}
 
 			/*
-				$BattleResult = 0;//¾¡Íø
-				$BattleResult = 1;//ÇÔËÌ
-				$BattleResult = "d";//°úÊ¬
+				$BattleResult = 0;//å‹åˆ©
+				$BattleResult = 1;//æ•—åŒ—
+				$BattleResult = "d";//å¼•åˆ†
 			*/
 			//list($message,$BattleResult)	= $Rank->Challenge(&$this);
 			$Result	= $Ranking->Challenge(&$this);
@@ -1819,51 +1819,51 @@ JS_HTML;
 			//	$this->RankRecord($BattleResult,"CHALLENGE",false);
 
 			/*
-			// ¾¡ÇÔ¤Ë¤è¤Ã¤Æ¼¡¤Ş¤Ç¤ÎÀïÆ®¤Î»ş´Ö¤òÀßÄê¤¹¤ë
-			//¾¡Íø
+			// å‹æ•—ã«ã‚ˆã£ã¦æ¬¡ã¾ã§ã®æˆ¦é—˜ã®æ™‚é–“ã‚’è¨­å®šã™ã‚‹
+			//å‹åˆ©
 			if($BattleResult === 0) {
 				$this->SetRankBattleTime(time() + RANK_BATTLE_NEXT_WIN);
 
-			//ÇÔËÌ
+			//æ•—åŒ—
 			} else if($BattleResult === 1) {
 				$this->SetRankBattleTime(time() + RANK_BATTLE_NEXT_LOSE);
 
-			//°úÊ¬¤±
+			//å¼•åˆ†ã‘
 			} else if($BattleResult === "d") {
 				$this->SetRankBattleTime(time() + RANK_BATTLE_NEXT_LOSE);
 
 			}
 			*/
 
-			return $Result;// ÀïÆ®¤·¤Æ¤¤¤ì¤Ğ $Result = "Battle";
+			return $Result;// æˆ¦é—˜ã—ã¦ã„ã‚Œã° $Result = "Battle";
 		}
 
-		// ¥é¥ó¥­¥ó¥°ÍÑ¤Î¥Á¡¼¥àÅĞÏ¿
+		// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ç”¨ã®ãƒãƒ¼ãƒ ç™»éŒ²
 		if($_POST["SetRankTeam"]) {
 			$now	= time();
-			// ¤Ş¤ÀÀßÄê»ş´Ö¤¬»Ä¤Ã¤Æ¤¤¤ë¡£
+			// ã¾ã è¨­å®šæ™‚é–“ãŒæ®‹ã£ã¦ã„ã‚‹ã€‚
 			if(($now - $this->rank_set_time) < RANK_TEAM_SET_TIME) {
 				$left	= RANK_TEAM_SET_TIME - ($now - $this->rank_set_time);
 				$day	= floor($left / 3600 / 24);
 				$hour	= floor($left / 3600)%24;
 				$min	= floor(($left % 3600)/60);
 				$sec	= floor(($left % 3600)%60);
-				ShowError("¥Á¡¼¥àºÆÀßÄê¤Ş¤Ç ¤¢¤È »Ä¤ê {$day}Æü ¤È {$hour}»ş´Ö {$min}Ê¬ {$sec}ÉÃ","margin15");
+				ShowError("ãƒãƒ¼ãƒ å†è¨­å®šã¾ã§ ã‚ã¨ æ®‹ã‚Š {$day}æ—¥ ã¨ {$hour}æ™‚é–“ {$min}åˆ† {$sec}ç§’","margin15");
 				return false;
 			}
-			foreach($this->char as $key => $val) {//¥Á¥§¥Ã¥¯¤µ¤ì¤¿¤ä¤Ä¥ê¥¹¥È
+			foreach($this->char as $key => $val) {//ãƒã‚§ãƒƒã‚¯ã•ã‚ŒãŸã‚„ã¤ãƒªã‚¹ãƒˆ
 				if($_POST["char_".$key])
 					$checked[]	= $key;
 			}
-			// ÀßÄê¥­¥ã¥é¿ô¤¬Â¿¤¤¤«¾¯¤Ê¤¹¤®¤ë
+			// è¨­å®šã‚­ãƒ£ãƒ©æ•°ãŒå¤šã„ã‹å°‘ãªã™ãã‚‹
 			if(count($checked) == 0 || 5 < count($checked)) {
-				ShowError("¥Á¡¼¥à¿Í¿ô¤Ï 1¿Í°Ê¾å 5¿Í°Ê²¼ ¤Ç¤Ê¤¤¤È¤¤¤±¤Ê¤¤","margin15");
+				ShowError("ãƒãƒ¼ãƒ äººæ•°ã¯ 1äººä»¥ä¸Š 5äººä»¥ä¸‹ ã§ãªã„ã¨ã„ã‘ãªã„","margin15");
 				return false;
 			}
 
 			$this->party_rank	= implode("<>",$checked);
 			$this->rank_set_time	= $now;
-			ShowResult("¥Á¡¼¥àÀßÄê ´°Î»","margin15");
+			ShowResult("ãƒãƒ¼ãƒ è¨­å®š å®Œäº†","margin15");
 			return true;
 		}
 	}
@@ -1873,11 +1873,11 @@ JS_HTML;
 
 		//$ProcessResult	= $this->RankProcess($Ranking);// array();
 
-		//ÀïÆ®¤¬¹Ô¤ï¤ì¤¿¤Î¤ÇÉ½¼¨¤·¤Ê¤¤¡£
+		//æˆ¦é—˜ãŒè¡Œã‚ã‚ŒãŸã®ã§è¡¨ç¤ºã—ãªã„ã€‚
 		//if($ProcessResult === "BATTLE")
 		//	return true;
 
-		// ¥Á¡¼¥àºÆÀßÄê¤Î»Ä¤ê»ş´Ö·×»»
+		// ãƒãƒ¼ãƒ å†è¨­å®šã®æ®‹ã‚Šæ™‚é–“è¨ˆç®—
 		$now	= time();
 		if( ($now - $this->rank_set_time) < RANK_TEAM_SET_TIME) {
 			$left	= RANK_TEAM_SET_TIME - ($now - $this->rank_set_time);
@@ -1891,9 +1891,9 @@ JS_HTML;
 	<div style="margin:15px">
 	<?=ShowError($message)?>
 	<form action="?menu=rank" method="post">
-	<h4>¥é¥ó¥­¥ó¥°(Ranking) - <a href="?rank">Á´¥é¥ó¥­¥ó¥°¤ò¸«¤ë</a>&nbsp;<a href="?manual#ranking" target="_blank" class="a0">?</a></h4>
+	<h4>ãƒ©ãƒ³ã‚­ãƒ³ã‚°(Ranking) - <a href="?rank">å…¨ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‚’è¦‹ã‚‹</a>&nbsp;<a href="?manual#ranking" target="_blank" class="a0">?</a></h4>
 	<?php
-		// Ä©Àï¤Ç¤­¤ë¤«¤É¤¦¤«(»ş´Ö¤Î·Ğ²á¤Ç)
+		// æŒ‘æˆ¦ã§ãã‚‹ã‹ã©ã†ã‹(æ™‚é–“ã®çµŒéã§)
 		$CanRankBattle	= $this->CanRankBattle();
 		if($CanRankBattle !== true) {
 			print('<p>Time left to Next : <span class="bold">');
@@ -1914,7 +1914,7 @@ JS_HTML;
 		print("<div style=\"clear:both\"></div>\n");
 		print("</div>\n");
 
-		// µì¥é¥ó¥¯ÍÑ
+		// æ—§ãƒ©ãƒ³ã‚¯ç”¨
 		//$Rank->dump();
 		/*
 		print("<table><tbody><tr><td style=\"padding:0 50px 0 0\">\n");
@@ -1929,9 +1929,9 @@ JS_HTML;
 	<input type="submit" class="btn" value="challenge!" name="ChallengeRank" style="width:160px"<?=$disableRB?> />
 	</form>
 	<form action="?menu=rank" method="post">
-	<h4>¥Á¡¼¥àÀßÄê(Team Setting)</h4>
-	<p>¥é¥ó¥­¥ó¥°ÀïÍÑ¤Î¥Á¡¼¥àÀßÄê¡£<br />
-	¤³¤³¤ÇÀßÄê¤·¤¿¥Á¡¼¥à¤ÇÀï¤¤¤Ş¤¹¡£</p>
+	<h4>ãƒãƒ¼ãƒ è¨­å®š(Team Setting)</h4>
+	<p>ãƒ©ãƒ³ã‚­ãƒ³ã‚°æˆ¦ç”¨ã®ãƒãƒ¼ãƒ è¨­å®šã€‚<br />
+	ã“ã“ã§è¨­å®šã—ãŸãƒãƒ¼ãƒ ã§æˆ¦ã„ã¾ã™ã€‚</p>
 	</div>
 	<?$this->ShowCharacters($this->char,CHECKBOX,explode("<>",$this->party_rank));?>
 
@@ -1939,7 +1939,7 @@ JS_HTML;
 	<?=$left_mes?>
 	<input type="submit" class="btn" style="width:160px" value="SetTeam"<?=$disable?> />
 	<input type="hidden" name="SetRankTeam" value="1" />
-	<p>ÀßÄê¸å¡¢<?=$reset=floor(RANK_TEAM_SET_TIME/(60*60))?>»ş´Ö¤ÏÊÑ¹¹¤Ç¤­¤Ş¤»¤ó¡£<br />Team setting disabled after <?=$reset?>hours once set.</p>
+	<p>è¨­å®šå¾Œã€<?=$reset=floor(RANK_TEAM_SET_TIME/(60*60))?>æ™‚é–“ã¯å¤‰æ›´ã§ãã¾ã›ã‚“ã€‚<br />Team setting disabled after <?=$reset?>hours once set.</p>
 	</form>
 	</div>
 <?
@@ -1947,23 +1947,23 @@ JS_HTML;
 //////////////////////////////////////////////////
 	function RecruitProcess() {
 
-		// ¸ÛÍÑ¿ô¸Â³¦
+		// é›‡ç”¨æ•°é™ç•Œ
 		if( MAX_CHAR <= count($this->char) )
 			return false;
 
 		include(DATA_BASE_CHAR);
 		if($_POST["recruit"]) {
-			// ¥­¥ã¥é¤Î¥¿¥¤¥×
+			// ã‚­ãƒ£ãƒ©ã®ã‚¿ã‚¤ãƒ—
 			switch($_POST["recruit_no"]) {
 				case "1": $hire = 2000; $charNo	= 1; break;
 				case "2": $hire = 2000; $charNo	= 2; break;
 				case "3": $hire = 2500; $charNo	= 3; break;
 				case "4": $hire = 4000; $charNo	= 4; break;
 				default:
-					ShowError("¥­¥ã¥é Ì¤ÁªÂò","margin15");
+					ShowError("ã‚­ãƒ£ãƒ© æœªé¸æŠ","margin15");
 					return false;
 			}
-			// Ì¾Á°½èÍı
+			// åå‰å‡¦ç†
 			if($_POST["recruit_name"]) {
 				if(is_numeric(strpos($_POST["recruit_name"],"\t")))
 					return "error.";
@@ -1971,36 +1971,36 @@ JS_HTML;
 				$name	= stripslashes($name);
 				$len	= strlen($name);
 				if ( 0 == $len || 16 < $len ) {
-					ShowError("Ì¾Á°¤¬Ã»¤¹¤®¤ë¤«Ä¹¤¹¤®¤Ç¤¹","margin15");
+					ShowError("åå‰ãŒçŸ­ã™ãã‚‹ã‹é•·ã™ãã§ã™","margin15");
 					return false;
 				}
 				$name	= htmlspecialchars($name,ENT_QUOTES);
 			} else {
-				ShowError("Ì¾Á°¤¬¶õÍó¤Ç¤¹","margin15");
+				ShowError("åå‰ãŒç©ºæ¬„ã§ã™","margin15");
 				return false;
 			}
-			//À­ÊÌ
+			//æ€§åˆ¥
 			if( !isset($_POST["recruit_gend"]) ) {
-				ShowError("À­ÊÌ Ì¤ÁªÂò","margin15");
+				ShowError("æ€§åˆ¥ æœªé¸æŠ","margin15");
 				return false;
 			} else {
-				$Gender	= $_POST["recruit_gend"]?"¡ê":"¡é";
+				$Gender	= $_POST["recruit_gend"]?"â™€":"â™‚";
 			}
-			// ¥­¥ã¥é¥Ç¡¼¥¿¤ò¥¯¥é¥¹¤ËÆş¤ì¤ë
+			// ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿ã‚’ã‚¯ãƒ©ã‚¹ã«å…¥ã‚Œã‚‹
 			
 			$plus	= array("name"=>"$name","gender"=>$_POST["recruit_gend"]);
 			$char	= new char();
 			$char->SetCharData(array_merge(BaseCharStatus($charNo),$plus));
-			//¸ÛÍÑ¶â
+			//é›‡ç”¨é‡‘
 			if($hire <= $this->money) {
 				$this->TakeMoney($hire);
 			} else {
-				ShowError("¤ª¶â¤¬Â­¤ê¤Ş¤»¤ó","margin15");
+				ShowError("ãŠé‡‘ãŒè¶³ã‚Šã¾ã›ã‚“","margin15");
 				return false;
 			}
-			// ¥­¥ã¥é¤òÊİÂ¸¤¹¤ë
+			// ã‚­ãƒ£ãƒ©ã‚’ä¿å­˜ã™ã‚‹
 			$char->SaveCharData($this->id);
-			ShowResult($char->Name()."($char->job_name:{$Gender}) ¤¬Ãç´Ö¤Ë¤Ê¤Ã¤¿¡ª","margin15");
+			ShowResult($char->Name()."($char->job_name:{$Gender}) ãŒä»²é–“ã«ãªã£ãŸï¼","margin15");
 			return true;
 		}
 	}
@@ -2014,8 +2014,8 @@ JS_HTML;
 	<div style="margin:15px">
 	<p>Maximum characters.<br>
 	Need to make a space to recruit new character.</p>
-	<p>¥­¥ã¥é¿ô¤¬¸Â³¦¤ËÃ£¤·¤Æ¤¤¤Ş¤¹¡£<br>
-	¿·¤·¤¤¥­¥ã¥é¤òÆş¤ì¤ë¤Ë¤Ï¶õ¤­¤¬É¬Í×¤Ç¤¹¡£</p>
+	<p>ã‚­ãƒ£ãƒ©æ•°ãŒé™ç•Œã«é”ã—ã¦ã„ã¾ã™ã€‚<br>
+	æ–°ã—ã„ã‚­ãƒ£ãƒ©ã‚’å…¥ã‚Œã‚‹ã«ã¯ç©ºããŒå¿…è¦ã§ã™ã€‚</p>
 	</div><?
 			return false;
 		}
@@ -2080,35 +2080,35 @@ JS_HTML;
 	</td><td valign="top">
 	<p>1 to 16 letters.<br>
 	Japanese characters count as 2.<br>
-	ÆüËÜ¸ì¤Ï1Ê¸»ú = 2 letter.
+	æ—¥æœ¬èªã¯1æ–‡å­— = 2 letter.
 	</p>
 	</td></tr></tbody></table>
 	</form><?
 	}
 //////////////////////////////////////////////////
-//	ÃÃÌê²°ÀºÏ£¥Ø¥Ã¥À
+//	é›å†¶å±‹ç²¾éŒ¬ãƒ˜ãƒƒãƒ€
 	function SmithyRefineHeader() {
 	?>
 <div style="margin:15px">
-<h4>ÃÃÌê²°(Smithy)</h4>
+<h4>é›å†¶å±‹(Smithy)</h4>
 
 <div style="width:600px">
 <div style="float:left;width:80px;">
 <img src="<?=IMG_CHAR?>mon_053r.gif" />
 </div>
 <div style="float:right;width:520px;">
-¤³¤³¤Ç¤Ï&nbsp;¥¢¥¤¥Æ¥à¤ÎÀºÏ£¤¬¤Ç¤­¤ë¤¼¡ª<br />
-ÀºÏ£¤¹¤ëÊª¤ÈÀºÏ£²ó¿ô¤òÁª¤ó¤Ç¤¯¤ì¡£<br />
-¤¿¤À¤·²õ¤ì¤Æ¤âÀÕÇ¤¤Ï»ı¤Æ¤Ê¤¤¤¼¡£<br />
-Äï¤¬¤ä¤Ã¤Æ¤ë <span class="bold">À½ºî¹©Ë¼</span> ¤Ï<a href="?menu=create">¥¢¥Ã¥Á</a>¤À¡£
+ã“ã“ã§ã¯&nbsp;ã‚¢ã‚¤ãƒ†ãƒ ã®ç²¾éŒ¬ãŒã§ãã‚‹ãœï¼<br />
+ç²¾éŒ¬ã™ã‚‹ç‰©ã¨ç²¾éŒ¬å›æ•°ã‚’é¸ã‚“ã§ãã‚Œã€‚<br />
+ãŸã ã—å£Šã‚Œã¦ã‚‚è²¬ä»»ã¯æŒã¦ãªã„ãœã€‚<br />
+å¼ŸãŒã‚„ã£ã¦ã‚‹ <span class="bold">è£½ä½œå·¥æˆ¿</span> ã¯<a href="?menu=create">ã‚¢ãƒƒãƒ</a>ã ã€‚
 </div>
 <div style="clear:both"></div>
 </div>
-<h4>¥¢¥¤¥Æ¥à¤ÎÀºÏ£<a name="refine"></a></h4>
+<h4>ã‚¢ã‚¤ãƒ†ãƒ ã®ç²¾éŒ¬<a name="refine"></a></h4>
 <div style="margin:0 20px"><?
 	}
 //////////////////////////////////////////////////
-//	ÃÃÌê²°½èÍı(ÀºÏ£)
+//	é›å†¶å±‹å‡¦ç†(ç²¾éŒ¬)
 	function SmithyRefineProcess() {
 		if(!$_POST["refine"])
 			return false;
@@ -2116,17 +2116,17 @@ JS_HTML;
 			ShowError("Select Item.");
 			return false;
 		}
-		// ¥¢¥¤¥Æ¥à¤¬ÆÉ¤ß¹ş¤á¤Ê¤¤¾ì¹ç
+		// ã‚¢ã‚¤ãƒ†ãƒ ãŒèª­ã¿è¾¼ã‚ãªã„å ´åˆ
 		if(!$item	= LoadItemData($_POST["item_no"])) {
 			ShowError("Failed to load item data.");
 			return false;
 		}
-		// ¥¢¥¤¥Æ¥à¤ò½ê»ı¤·¤Æ¤¤¤Ê¤¤¾ì¹ç
+		// ã‚¢ã‚¤ãƒ†ãƒ ã‚’æ‰€æŒã—ã¦ã„ãªã„å ´åˆ
 		if(!$this->item[$_POST["item_no"]]) {
 			ShowError("Item \"{$item[name]}\" doesn't exists.");
 			return false;
 		}
-		// ²ó¿ô¤¬»ØÄê¤µ¤ì¤Æ¤¤¤Ê¤¤¾ì¹ç
+		// å›æ•°ãŒæŒ‡å®šã•ã‚Œã¦ã„ãªã„å ´åˆ
 		if($_POST["timesA"] < $_POST["timesB"])
 			$times	= $_POST["timesB"];
 		else
@@ -2137,34 +2137,34 @@ JS_HTML;
 		}
 		include(CLASS_SMITHY);
 		$obj_item	= new Item($_POST["item_no"]);
-		// ¤½¤Î¥¢¥¤¥Æ¥à¤¬ÀºÏ£¤Ç¤­¤Ê¤¤¾ì¹ç
+		// ãã®ã‚¢ã‚¤ãƒ†ãƒ ãŒç²¾éŒ¬ã§ããªã„å ´åˆ
 		if(!$obj_item->CanRefine()) {
 			ShowError("Cant refine \"{$item[name]}\"");
 			return false;
 		}
-		// ¤³¤³¤«¤éÀºÏ£¤ò»Ï¤á¤ë½èÍı
-		$this->DeleteItem($_POST["item_no"]);// ¥¢¥¤¥Æ¥à¤Ï¾Ã¤¨¤ë¤«ÊÑ²½¤¹¤ë¤Î¤Ç¾Ã¤¹
+		// ã“ã“ã‹ã‚‰ç²¾éŒ¬ã‚’å§‹ã‚ã‚‹å‡¦ç†
+		$this->DeleteItem($_POST["item_no"]);// ã‚¢ã‚¤ãƒ†ãƒ ã¯æ¶ˆãˆã‚‹ã‹å¤‰åŒ–ã™ã‚‹ã®ã§æ¶ˆã™
 		$Price	= round($item["buy"]/2);
-		// ºÇÂçÀºÏ£¿ô¤ÎÄ´À°¡£
+		// æœ€å¤§ç²¾éŒ¬æ•°ã®èª¿æ•´ã€‚
 		if( REFINE_LIMIT < ($item["refine"] + $times) ) {
 			$times	= REFINE_LIMIT - $item["refine"];
 		}
 		$Trys	= 0;
 		for($i=0; $i<$times; $i++) {
-			// ¤ª¶â¤ò°ú¤¯
+			// ãŠé‡‘ã‚’å¼•ã
 			if($this->TakeMoney($Price)) {
 				$MoneySum	+= $Price;
 				$Trys++;
-				if(!$obj_item->ItemRefine()) {//ÀºÏ£¤¹¤ë(false=¼ºÇÔ¤Ê¤Î¤Ç½ªÎ»¤¹¤ë)
+				if(!$obj_item->ItemRefine()) {//ç²¾éŒ¬ã™ã‚‹(false=å¤±æ•—ãªã®ã§çµ‚äº†ã™ã‚‹)
 					break;
 				}
-			// ¤ª¶â¤¬ÅÓÃæ¤Ç¤Ê¤¯¤Ê¤Ã¤¿¾ì¹ç¡£
+			// ãŠé‡‘ãŒé€”ä¸­ã§ãªããªã£ãŸå ´åˆã€‚
 			} else {
 				ShowError("Not enough money.<br />\n");
 				$this->AddItem($obj_item->ReturnItem());
 				break;
 			}
-			// »ØÄê²ó¿ôÀºÏ£¤òÀ®¸ù¤·¤­¤Ã¤¿¾ì¹ç¡£
+			// æŒ‡å®šå›æ•°ç²¾éŒ¬ã‚’æˆåŠŸã—ãã£ãŸå ´åˆã€‚
 			if($i == ($times - 1)) {
 				$this->AddItem($obj_item->ReturnItem());
 			}
@@ -2172,7 +2172,7 @@ JS_HTML;
 		print("Money Used : ".MoneyFormat($Price)." x ".$Trys." = ".MoneyFormat($MoneySum)."<br />\n");
 		$this->SaveUserItem();
 		return true;
-		/*// ¤ª¶â¤¬Â­¤ê¤Æ¤ë¤«·×»»
+		/*// ãŠé‡‘ãŒè¶³ã‚Šã¦ã‚‹ã‹è¨ˆç®—
 		$Price	= round($item["buy"]/2);
 		$MoneyNeed	= $times * $Price;
 		if($this->money < $MoneyNeed) {
@@ -2182,32 +2182,32 @@ JS_HTML;
 		
 	}
 //////////////////////////////////////////////////
-//	ÃÃÌê²°É½¼¨
+//	é›å†¶å±‹è¡¨ç¤º
 	function SmithyRefineShow() {
-		// ¢£ÀºÏ£½èÍı
+		// â– ç²¾éŒ¬å‡¦ç†
 		//$Result	= $this->SmithyRefineProcess();
 
-		// ÀºÏ£²ÄÇ½¤ÊÊª¤ÎÉ½¼¨
+		// ç²¾éŒ¬å¯èƒ½ãªç‰©ã®è¡¨ç¤º
 		if($this->item) {
 			include(CLASS_JS_ITEMLIST);
 			$possible	= CanRefineType();
 			$possible	= array_flip($possible);
-			//ÇÛÎó¤ÎÀèÆ¬¤ÎÃÍ¤¬"0"¤Ê¤Î¤Ç1¤Ë¤¹¤ë(isset»È¤ï¤º¤Ëtrue¤Ë¤¹¤ë¤¿¤á)
+			//é…åˆ—ã®å…ˆé ­ã®å€¤ãŒ"0"ãªã®ã§1ã«ã™ã‚‹(issetä½¿ã‚ãšã«trueã«ã™ã‚‹ãŸã‚)
 			$possible[key($possible)]++;
 
 			$goods	= new JS_ItemList();
 			$goods->SetID("my");
 			$goods->SetName("type");
 
-			$goods->ListTable("<table cellspacing=\"0\">");// ¥Æ¡¼¥Ö¥ë¥¿¥°¤Î¤Ï¤¸¤Ş¤ê
-			$goods->ListTableInsert("<tr><td class=\"td9\"></td><td class=\"align-center td9\">ÀºÏ£Èñ</td><td class=\"align-center td9\">Item</td></tr>"); // ¥Æ¡¼¥Ö¥ë¤ÎºÇ½é¤ÈºÇ¸å¤Î¹Ô¤ËÉ½¼¨¤µ¤»¤ë¤ä¤Ä¡£
+			$goods->ListTable("<table cellspacing=\"0\">");// ãƒ†ãƒ¼ãƒ–ãƒ«ã‚¿ã‚°ã®ã¯ã˜ã¾ã‚Š
+			$goods->ListTableInsert("<tr><td class=\"td9\"></td><td class=\"align-center td9\">ç²¾éŒ¬è²»</td><td class=\"align-center td9\">Item</td></tr>"); // ãƒ†ãƒ¼ãƒ–ãƒ«ã®æœ€åˆã¨æœ€å¾Œã®è¡Œã«è¡¨ç¤ºã•ã›ã‚‹ã‚„ã¤ã€‚
 
-			// JS¤ò»ÈÍÑ¤·¤Ê¤¤¡£
+			// JSã‚’ä½¿ç”¨ã—ãªã„ã€‚
 			if($this->no_JS_itemlist)
 				$goods->NoJS();
 			foreach($this->item as $no => $val) {
 				$item	= LoadItemData($no);
-				// ÀºÏ£²ÄÇ½¤ÊÊª¤À¤±É½¼¨¤µ¤»¤ë¡£
+				// ç²¾éŒ¬å¯èƒ½ãªç‰©ã ã‘è¡¨ç¤ºã•ã›ã‚‹ã€‚
 				if(!$possible[$item["type"]])
 					continue;
 				$price	= $item["buy"]/2;
@@ -2222,27 +2222,27 @@ JS_HTML;
 
 				$goods->AddItem($item,$string);
 			}
-			// JavaScriptÉôÊ¬¤Î½ñ¤­½Ğ¤·
+			// JavaScriptéƒ¨åˆ†ã®æ›¸ãå‡ºã—
 			print($goods->GetJavaScript("list"));
-			print('ÀºÏ£²ÄÇ½¤ÊÊª°ìÍ÷');
-			// ¼ïÎà¤Î¥»¥ì¥¯¥È¥Ü¥Ã¥¯¥¹
+			print('ç²¾éŒ¬å¯èƒ½ãªç‰©ä¸€è¦§');
+			// ç¨®é¡ã®ã‚»ãƒ¬ã‚¯ãƒˆãƒœãƒƒã‚¯ã‚¹
 			print($goods->ShowSelect());
 			print('<form action="?menu=refine" method="post">'."\n");
 			// [Refine]button
 			print('<input type="submit" value="Refine" name="refine" class="btn">'."\n");
-			// ÀºÏ£²ó¿ô¤Î»ØÄê
-			print('²ó¿ô : <select name="timesA">'."\n");
+			// ç²¾éŒ¬å›æ•°ã®æŒ‡å®š
+			print('å›æ•° : <select name="timesA">'."\n");
 			for($i=1; $i<11; $i++) {
 				print('<option value="'.$i.'">'.$i.'</option>');
 			}
 			print('</select>'."\n");
-			// ¥ê¥¹¥È¤ÎÉ½¼¨
+			// ãƒªã‚¹ãƒˆã®è¡¨ç¤º
 			print('<div id="list">'.$goods->ShowDefault().'</div>'."\n");
 			// [Refine]button
 			print('<input type="submit" value="Refine" name="refine" class="btn">'."\n");
 			print('<input type="hidden" value="1" name="refine">'."\n");
-			// ÀºÏ£²ó¿ô¤Î»ØÄê
-			print('²ó¿ô : <select name="timesB">'."\n");
+			// ç²¾éŒ¬å›æ•°ã®æŒ‡å®š
+			print('å›æ•° : <select name="timesB">'."\n");
 			for($i=1; $i<(REFINE_LIMIT+1); $i++) {
 				print('<option value="'.$i.'">'.$i.'</option>');
 			}
@@ -2257,81 +2257,81 @@ JS_HTML;
 <?
 	}
 //////////////////////////////////////////////////
-//	ÃÃÌê²° À½ºî ¥Ø¥Ã¥À
+//	é›å†¶å±‹ è£½ä½œ ãƒ˜ãƒƒãƒ€
 	function SmithyCreateHeader() {
 		?>
 <div style="margin:15px">
-<h4>ÃÃÌê²°(Smithy)<a name="sm"></a></h4>
+<h4>é›å†¶å±‹(Smithy)<a name="sm"></a></h4>
 <div style="width:600px">
 <div style="float:left;width:80px;">
 <img src="<?=IMG_CHAR?>mon_053rz.gif" />
 </div>
 <div style="float:right;width:520px;">
-¤³¤³¤Ç¤Ï&nbsp;¥¢¥¤¥Æ¥à¤ÎÀ½ºî¤¬¤Ç¤­¤ë¤¼¡ª<br />
-¤ªÁ°¤µ¤ó¤¬»ı¤Ã¤Æ¤ëÁÇºà¤«¤éºî¤ì¤½¤¦¤ÊÁõÈ÷¤òºî¤ì¤ë¤¼¡£<br />
-ÆÃÊÌ¤ÊÁÇºà¤òÎı¤ê¹ş¤á¤ĞÆÃ¼ì¤ÊÉğ´ï¤âºî¤ì¤ë¤¼¡£<br />
-·»¤¬¤ä¤Ã¤Æ¤ë <span class="bold">ÀºÏ£¹©Ë¼</span> ¤Ï<a href="?menu=refine">¥³¥Ã¥Á</a>¤À¡£<br />
-<a href="#mat">½ê»ıÁÇºà°ìÍ÷</a>
+ã“ã“ã§ã¯&nbsp;ã‚¢ã‚¤ãƒ†ãƒ ã®è£½ä½œãŒã§ãã‚‹ãœï¼<br />
+ãŠå‰ã•ã‚“ãŒæŒã£ã¦ã‚‹ç´ æã‹ã‚‰ä½œã‚Œãã†ãªè£…å‚™ã‚’ä½œã‚Œã‚‹ãœã€‚<br />
+ç‰¹åˆ¥ãªç´ æã‚’ç·´ã‚Šè¾¼ã‚ã°ç‰¹æ®Šãªæ­¦å™¨ã‚‚ä½œã‚Œã‚‹ãœã€‚<br />
+å…„ãŒã‚„ã£ã¦ã‚‹ <span class="bold">ç²¾éŒ¬å·¥æˆ¿</span> ã¯<a href="?menu=refine">ã‚³ãƒƒãƒ</a>ã ã€‚<br />
+<a href="#mat">æ‰€æŒç´ æä¸€è¦§</a>
 </div>
 <div style="clear:both"></div>
 </div>
-<h4>¥¢¥¤¥Æ¥à¤ÎÀ½ºî<a name="refine"></a></h4>
+<h4>ã‚¢ã‚¤ãƒ†ãƒ ã®è£½ä½œ<a name="refine"></a></h4>
 <div style="margin:0 15px"><?
 	}
 //////////////////////////////////////////////////
-//	À½ºî½èÍı
+//	è£½ä½œå‡¦ç†
 	function SmithyCreateProcess() {
 		if(!$_POST["Create"]) return false;
 
-		// ¥¢¥¤¥Æ¥à¤¬ÁªÂò¤µ¤ì¤Æ¤¤¤Ê¤¤
+		// ã‚¢ã‚¤ãƒ†ãƒ ãŒé¸æŠã•ã‚Œã¦ã„ãªã„
 		if(!$_POST["ItemNo"]) {
-			ShowError("À½ºî¤¹¤ë¥¢¥¤¥Æ¥à¤òÁª¤ó¤Ç¤¯¤À¤µ¤¤");
+			ShowError("è£½ä½œã™ã‚‹ã‚¢ã‚¤ãƒ†ãƒ ã‚’é¸ã‚“ã§ãã ã•ã„");
 			return false;
 		}
 
-		// ¥¢¥¤¥Æ¥à¤òÆÉ¤à
+		// ã‚¢ã‚¤ãƒ†ãƒ ã‚’èª­ã‚€
 		if(!$item	= LoadItemData($_POST["ItemNo"])) {
 			ShowError("error12291703");
 			return false;
 		}
 
-		// ºî¤ì¤ë¥¢¥¤¥Æ¥à¤«¤É¤¦¤«¤¿¤·¤«¤á¤ë
+		// ä½œã‚Œã‚‹ã‚¢ã‚¤ãƒ†ãƒ ã‹ã©ã†ã‹ãŸã—ã‹ã‚ã‚‹
 		if(!HaveNeeds($item,$this->item)) {
-			ShowError($item["name"]." ¤òÀ½ºî¤¹¤ëÁÇºà¤¬Â­¤ê¤Ş¤»¤ó¡£");
+			ShowError($item["name"]." ã‚’è£½ä½œã™ã‚‹ç´ æãŒè¶³ã‚Šã¾ã›ã‚“ã€‚");
 			return false;
 		}
 
-		// ÄÉ²ÃÁÇºà
+		// è¿½åŠ ç´ æ
 		if($_POST["AddMaterial"]) {
-			// ½ê»ı¤·¤Æ¤¤¤Ê¤¤¾ì¹ç
+			// æ‰€æŒã—ã¦ã„ãªã„å ´åˆ
 			if(!$this->item[$_POST["AddMaterial"]]) {
-				ShowError("¤½¤ÎÄÉ²ÃÁÇºà¤Ï¤¢¤ê¤Ş¤»¤ó¡£");
+				ShowError("ãã®è¿½åŠ ç´ æã¯ã‚ã‚Šã¾ã›ã‚“ã€‚");
 				return false;
 			}
-			// ÄÉ²ÃÁÇºà¤Î¥¢¥¤¥Æ¥à¥Ç¡¼¥¿
+			// è¿½åŠ ç´ æã®ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿
 			$ADD	= LoadItemData($_POST["AddMaterial"]);
 			$this->DeleteItem($_POST["AddMaterial"]);
 		}
 
-		// ¥¢¥¤¥Æ¥à¤ÎÀ½ºî
-		// ¤ª¶â¤ò¸º¤é¤¹
+		// ã‚¢ã‚¤ãƒ†ãƒ ã®è£½ä½œ
+		// ãŠé‡‘ã‚’æ¸›ã‚‰ã™
 		//$Price	= $item["buy"];
 		$Price	= 0;
 		if(!$this->TakeMoney($Price)) {
-			ShowError("¤ª¶â¤¬Â­¤ê¤Ş¤»¤ó¡£".MoneyFormat($Price)."É¬Í×¤Ç¤¹¡£");
+			ShowError("ãŠé‡‘ãŒè¶³ã‚Šã¾ã›ã‚“ã€‚".MoneyFormat($Price)."å¿…è¦ã§ã™ã€‚");
 			return false;
 		}
-		// ÁÇºà¤ò¸º¤é¤¹
+		// ç´ æã‚’æ¸›ã‚‰ã™
 		foreach($item["need"] as $M_item => $M_amount) {
 			$this->DeleteItem($M_item,$M_amount);
 		}
 		include(CLASS_SMITHY);
 		$item	= new item($_POST["ItemNo"]);
 		$item->CreateItem();
-		// ÉÕ²Ã¸ú²Ì
+		// ä»˜åŠ åŠ¹æœ
 		if($ADD["Add"])
 			$item->AddSpecial($ADD["Add"]);
-		// ¤Ç¤­¤¿¥¢¥¤¥Æ¥à¤òÊİÂ¸¤¹¤ë
+		// ã§ããŸã‚¢ã‚¤ãƒ†ãƒ ã‚’ä¿å­˜ã™ã‚‹
 		$done	= $item->ReturnItem();
 		$this->AddItem($done);
 		$this->SaveUserItem();
@@ -2339,11 +2339,11 @@ JS_HTML;
 		print("<p>");
 		print(ShowItemDetail(LoadItemData($done)));
 		
-		print("\n<br />¤¬¤Ç¤­¤¿¤¼¡ª</p>\n");
+		print("\n<br />ãŒã§ããŸãœï¼</p>\n");
 		return true;
 	}
 //////////////////////////////////////////////////
-//	À½ºîÉ½¼¨
+//	è£½ä½œè¡¨ç¤º
 	function SmithyCreateShow() {
 		//$result	= $this->SmithyCreateProcess();
 
@@ -2353,15 +2353,15 @@ JS_HTML;
 		$CreateList->SetID("create");
 		$CreateList->SetName("type_create");
 
-		$CreateList->ListTable("<table cellspacing=\"0\">");// ¥Æ¡¼¥Ö¥ë¥¿¥°¤Î¤Ï¤¸¤Ş¤ê
-		$CreateList->ListTableInsert("<tr><td class=\"td9\"></td><td class=\"align-center td9\">À½ºîÈñ</td><td class=\"align-center td9\">Item</td></tr>"); // ¥Æ¡¼¥Ö¥ë¤ÎºÇ½é¤ÈºÇ¸å¤Î¹Ô¤ËÉ½¼¨¤µ¤»¤ë¤ä¤Ä¡£
+		$CreateList->ListTable("<table cellspacing=\"0\">");// ãƒ†ãƒ¼ãƒ–ãƒ«ã‚¿ã‚°ã®ã¯ã˜ã¾ã‚Š
+		$CreateList->ListTableInsert("<tr><td class=\"td9\"></td><td class=\"align-center td9\">è£½ä½œè²»</td><td class=\"align-center td9\">Item</td></tr>"); // ãƒ†ãƒ¼ãƒ–ãƒ«ã®æœ€åˆã¨æœ€å¾Œã®è¡Œã«è¡¨ç¤ºã•ã›ã‚‹ã‚„ã¤ã€‚
 
-		// JS¤ò»ÈÍÑ¤·¤Ê¤¤¡£
+		// JSã‚’ä½¿ç”¨ã—ãªã„ã€‚
 		if($this->no_JS_itemlist)
 			$CreateList->NoJS();
 		foreach($CanCreate as $item_no) {
 			$item	= LoadItemData($item_no);
-			if(!HaveNeeds($item,$this->item))// ÁÇºàÉÔÂ­¤Ê¤é¼¡
+			if(!HaveNeeds($item,$this->item))// ç´ æä¸è¶³ãªã‚‰æ¬¡
 				continue;
 			// NoTable
 			//$head	= '<input type="radio" name="ItemNo" value="'.$item_no.'">'.ShowItemDetail($item,false,1,$this->item)."<br />";
@@ -2381,8 +2381,8 @@ JS_HTML;
 <input type="reset" class="btn" value="Reset">
 <input type="hidden" name="Create" value="1"><br />
 <?
-		// ÄÉ²ÃÁÇºà¤ÎÉ½¼¨
-		print('<div class="bold u" style="margin-top:15px">ÄÉ²ÃÁÇºà</div>'."\n");
+		// è¿½åŠ ç´ æã®è¡¨ç¤º
+		print('<div class="bold u" style="margin-top:15px">è¿½åŠ ç´ æ</div>'."\n");
 		for($item_no=7000; $item_no<7200; $item_no++) {
 			if(!$this->item["$item_no"])
 				continue;
@@ -2397,13 +2397,13 @@ JS_HTML;
 </form>
 <?
 		} else {
-			print("¤¢¤ó¤¿¤¬»ı¤Ã¤Æ¤ëÁÇºà¤¸¤ã²¿¤âºî¤ì¤½¤¦¤ËÌµ¤¤¤Ê¡£");
+			print("ã‚ã‚“ãŸãŒæŒã£ã¦ã‚‹ç´ æã˜ã‚ƒä½•ã‚‚ä½œã‚Œãã†ã«ç„¡ã„ãªã€‚");
 		}
 
 
-		// ½ê»ıÁÇºà°ìÍ÷
+		// æ‰€æŒç´ æä¸€è¦§
 		print("</div>\n");
-		print("<h4>½ê»ıÁÇºà°ìÍ÷<a name=\"mat\"></a> <a href=\"#sm\">¢¬</a></h4>");
+		print("<h4>æ‰€æŒç´ æä¸€è¦§<a name=\"mat\"></a> <a href=\"#sm\">â†‘</a></h4>");
 		print("<div style=\"margin:0 15px\">");
 		for($i=6000; $i<7000; $i++) {
 			if(!$this->item["$i"])
@@ -2419,40 +2419,40 @@ JS_HTML;
 		return $result;
 	}
 //////////////////////////////////////////////////
-//	¥á¥ó¥Ğ¡¼¤Ë¤Ê¤ë½èÍı
+//	ãƒ¡ãƒ³ãƒãƒ¼ã«ãªã‚‹å‡¦ç†
 	function AuctionJoinMember() {
 		if(!$_POST["JoinMember"])
 			return false;
-		if($this->item["9000"]) {//´û¤Ë²ñ°÷
+		if($this->item["9000"]) {//æ—¢ã«ä¼šå“¡
 			//ShowError("You are already a member.\n");
 			return false;
 		}
-		// ¤ª¶â¤¬Â­¤ê¤Ê¤¤
+		// ãŠé‡‘ãŒè¶³ã‚Šãªã„
 		if(!$this->TakeMoney(round(START_MONEY * 1.10))) {
-			ShowError("¤ª¶â¤¬Â­¤ê¤Ş¤»¤ó<br />\n");
+			ShowError("ãŠé‡‘ãŒè¶³ã‚Šã¾ã›ã‚“<br />\n");
 			return false;
 		}
-		// ¥¢¥¤¥Æ¥à¤òÂ­¤¹
+		// ã‚¢ã‚¤ãƒ†ãƒ ã‚’è¶³ã™
 		$this->AddItem(9000);
 		$this->SaveUserItem();
 		$this->SaveData();
-		ShowResult("¥ª¡¼¥¯¥·¥ç¥ó²ñ°÷¤Ë¤Ê¤ê¤Ş¤·¤¿¡£<br />\n");
+		ShowResult("ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ä¼šå“¡ã«ãªã‚Šã¾ã—ãŸã€‚<br />\n");
 		return true;
 	}
 //////////////////////////////////////////////////
 //	
 	function AuctionEnter() {
-		if($this->item["9000"])//¥ª¡¼¥¯¥·¥ç¥ó¥á¥ó¥Ğ¡¼¥«¡¼¥É
+		if($this->item["9000"])//ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ãƒ¡ãƒ³ãƒãƒ¼ã‚«ãƒ¼ãƒ‰
 			return true;
 		else
 			return false;
 	}
 //////////////////////////////////////////////////
-//	¥ª¡¼¥¯¥·¥ç¥ó¤ÎÉ½¼¨(header)
+//	ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ã®è¡¨ç¤º(header)
 	function AuctionHeader() {
 		?>
 <div style="margin:15px 0 0 15px">
-<h4>¥ª¡¼¥¯¥·¥ç¥ó(Auction)</h4>
+<h4>ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³(Auction)</h4>
 <div style="margin-left:20px">
 
 <div style="width:500px">
@@ -2463,42 +2463,42 @@ JS_HTML;
 
 		$this->AuctionJoinMember();
 		if($this->AuctionEnter()) {
-			print("¤ªµÒÍÍ¤Ï²ñ°÷¾Ú¤ò¤ª»ı¤Á¤Ç¤¹¤Í¡£<br />\n");
-			print("¤è¤¦¤³¤½¥ª¡¼¥¯¥·¥ç¥ó²ñ¾ì¤Ø¡£<br />\n");
-			print("<a href=\"#log\">µ­Ï¿¤Î²óÍ÷</a>\n");
+			print("ãŠå®¢æ§˜ã¯ä¼šå“¡è¨¼ã‚’ãŠæŒã¡ã§ã™ã­ã€‚<br />\n");
+			print("ã‚ˆã†ã“ãã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ä¼šå ´ã¸ã€‚<br />\n");
+			print("<a href=\"#log\">è¨˜éŒ²ã®å›è¦§</a>\n");
 		} else {
-			print("¥ª¡¼¥¯¥·¥ç¥ó¤Ø¤Î½ĞÉÊ¡¦Æş»¥¤Ë¤ÏÆş²ñ¤¬É¬Í×¤Ç¤¹¡£<br />\n");
-			print("Æş²ñÈñ¤Ï&nbsp;".MoneyFormat(round(START_MONEY * 1.10))."&nbsp;¤Ç¤¹¡£<br />\n");
-			print("Æş²ñ¤·¤Ş¤¹¤«?<br />\n");
+			print("ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ã¸ã®å‡ºå“ãƒ»å…¥æœ­ã«ã¯å…¥ä¼šãŒå¿…è¦ã§ã™ã€‚<br />\n");
+			print("å…¥ä¼šè²»ã¯&nbsp;".MoneyFormat(round(START_MONEY * 1.10))."&nbsp;ã§ã™ã€‚<br />\n");
+			print("å…¥ä¼šã—ã¾ã™ã‹?<br />\n");
 			print('<form action="" method="post">'."\n");
-			print('<input type="submit" value="Æş²ñ¤¹¤ë" name="JoinMember" class="btn"/>'."\n");
+			print('<input type="submit" value="å…¥ä¼šã™ã‚‹" name="JoinMember" class="btn"/>'."\n");
 			print("</form>\n");
 		}
 		if(!AUCTION_TOGGLE)
-			ShowError("µ¡Ç½Ää»ßÃæ");
+			ShowError("æ©Ÿèƒ½åœæ­¢ä¸­");
 		if(!AUCTION_EXHIBIT_TOGGLE)
-			ShowError("½ĞÉÊÄä»ßÃæ");
+			ShowError("å‡ºå“åœæ­¢ä¸­");
 		?>
 </div>
 <div style="clear:both"></div>
 </div>
 </div>
-<h4>¥¢¥¤¥Æ¥à ¥ª¡¼¥¯¥·¥ç¥ó(Item Auction)</h4>
+<h4>ã‚¢ã‚¤ãƒ†ãƒ  ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³(Item Auction)</h4>
 <div style="margin-left:20px"><?
 	}
 //////////////////////////////////////////////////
-//	¥ª¡¼¥¯¥·¥ç¥ó¤ÎÉ½¼¨
+//	ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ã®è¡¨ç¤º
 	function AuctionFoot(&$ItemAuction) {
 		?>
 </div>
 <a name="log"></a>
-<h4>¥ª¡¼¥¯¥·¥ç¥ó¥í¥°(AuctionLog)</h4>
+<h4>ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ãƒ­ã‚°(AuctionLog)</h4>
 <div style="margin-left:20px">
 <?$ItemAuction->ShowLog();?>
 </div><?
 	}
 //////////////////////////////////////////////////
-//	Æş»¥½èÍı
+//	å…¥æœ­å‡¦ç†
 	function AuctionItemBiddingProcess(&$ItemAuction) {
 		if(!$this->AuctionEnter())
 			return false;
@@ -2508,60 +2508,60 @@ JS_HTML;
 		$ArticleNo	= $_POST["ArticleNo"];
 		$BidPrice	= (int)$_POST["BidPrice"];
 		if($BidPrice < 1) {
-			ShowError("Æş»¥²Á³Ê¤Ë¸í¤ê¤¬¤¢¤ê¤Ş¤¹¡£");
+			ShowError("å…¥æœ­ä¾¡æ ¼ã«èª¤ã‚ŠãŒã‚ã‚Šã¾ã™ã€‚");
 			return false;
 		}
-		// ¤Ş¤À½ĞÉÊÃæ¤«¤É¤¦¤«³ÎÇ§¤¹¤ë¡£
+		// ã¾ã å‡ºå“ä¸­ã‹ã©ã†ã‹ç¢ºèªã™ã‚‹ã€‚
 		if(!$ItemAuction->ItemArticleExists($ArticleNo)) {
-			ShowError("¤½¤Î¶¥ÇäÉÊ¤Î½ĞÉÊ¤¬³ÎÇ§¤Ç¤­¤Ş¤»¤ó¡£");
+			ShowError("ãã®ç«¶å£²å“ã®å‡ºå“ãŒç¢ºèªã§ãã¾ã›ã‚“ã€‚");
 			return false;
 		}
-		// ¼«Ê¬¤¬Æş»¥¤Ç¤­¤ë¿Í¤«¤É¤¦¤«¤Î³ÎÇ§
+		// è‡ªåˆ†ãŒå…¥æœ­ã§ãã‚‹äººã‹ã©ã†ã‹ã®ç¢ºèª
 		if(!$ItemAuction->ItemBidRight($ArticleNo,$this->id)) {
-			ShowError("No.".$ArticleNo."&nbsp;¤ÏÆş»¥ºÑ¤ß¤«½ĞÉÊ¼Ô¤Ç¤¹¡£");
+			ShowError("No.".$ArticleNo."&nbsp;ã¯å…¥æœ­æ¸ˆã¿ã‹å‡ºå“è€…ã§ã™ã€‚");
 			return false;
 		}
-		// ºÇÄãÆş»¥²Á³Ê¤ò³ä¤Ã¤Æ¤¤¤Ê¤¤¤«³ÎÇ§¤¹¤ë¡£
+		// æœ€ä½å…¥æœ­ä¾¡æ ¼ã‚’å‰²ã£ã¦ã„ãªã„ã‹ç¢ºèªã™ã‚‹ã€‚
 		$Bottom	= $ItemAuction->ItemBottomPrice($ArticleNo);
 		if($BidPrice < $Bottom) {
-			ShowError("ºÇÄãÆş»¥²Á³Ê¤ò²¼²ó¤Ã¤Æ¤¤¤Ş¤¹¡£");
-			ShowError("Äó¼¨Æş»¥²Á³Ê:".MoneyFormat($BidPrice)."&nbsp;ºÇÄãÆş»¥²Á³Ê:".MoneyFormat($Bottom));
+			ShowError("æœ€ä½å…¥æœ­ä¾¡æ ¼ã‚’ä¸‹å›ã£ã¦ã„ã¾ã™ã€‚");
+			ShowError("æç¤ºå…¥æœ­ä¾¡æ ¼:".MoneyFormat($BidPrice)."&nbsp;æœ€ä½å…¥æœ­ä¾¡æ ¼:".MoneyFormat($Bottom));
 			return false;
 		}
-		// ¶â»ı¤Ã¤Æ¤ë¤«³ÎÇ§¤¹¤ë
+		// é‡‘æŒã£ã¦ã‚‹ã‹ç¢ºèªã™ã‚‹
 		if(!$this->TakeMoney($BidPrice)) {
-			ShowError("½ê»ı¶â¤¬Â­¤ê¤Ê¤¤¤è¤¦¤Ç¤¹¡£");
+			ShowError("æ‰€æŒé‡‘ãŒè¶³ã‚Šãªã„ã‚ˆã†ã§ã™ã€‚");
 			return false;
 		}
 
-		// ¼Âºİ¤ËÆş»¥¤¹¤ë¡£
+		// å®Ÿéš›ã«å…¥æœ­ã™ã‚‹ã€‚
 		if($ItemAuction->ItemBid($ArticleNo,$BidPrice,$this->id,$this->name)) {
-			ShowResult("No:{$ArticleNo}&nbsp;¤Ë&nbsp;".MoneyFormat($BidPrice)."&nbsp;¤ÇÆş»¥¤·¤Ş¤·¤¿¡£<br />\n");
+			ShowResult("No:{$ArticleNo}&nbsp;ã«&nbsp;".MoneyFormat($BidPrice)."&nbsp;ã§å…¥æœ­ã—ã¾ã—ãŸã€‚<br />\n");
 			return true;
 		}
 	}
 //////////////////////////////////////////////////
-//	¥¢¥¤¥Æ¥à¥ª¡¼¥¯¥·¥ç¥óÍÑ¤Î¥ª¥Ö¥¸¥§¥¯¥È¤òÆÉ¤ó¤ÇÊÖ¤¹
+//	ã‚¢ã‚¤ãƒ†ãƒ ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ç”¨ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’èª­ã‚“ã§è¿”ã™
 /*
 	function AuctionItemLoadData() {
 		include(CLASS_AUCTION);
 		$ItemAuction	= new Auction(item);
-		$ItemAuction->ItemCheckSuccess();// ¶¥Çä¤¬½ªÎ»¤·¤¿ÉÊÊª¤òÄ´¤Ù¤ë
-		$ItemAuction->UserSaveData();// ¶¥ÇäÉÊ¤È¶â³Û¤ò³ÆID¤ËÇÛ¤Ã¤ÆÊİÂ¸¤¹¤ë
+		$ItemAuction->ItemCheckSuccess();// ç«¶å£²ãŒçµ‚äº†ã—ãŸå“ç‰©ã‚’èª¿ã¹ã‚‹
+		$ItemAuction->UserSaveData();// ç«¶å£²å“ã¨é‡‘é¡ã‚’å„IDã«é…ã£ã¦ä¿å­˜ã™ã‚‹
 
 		return $ItemAuction;
 	}
 */
 //////////////////////////////////////////////////
-//	Æş»¥ÍÑ¥Õ¥©¡¼¥à(²èÌÌ)
+//	å…¥æœ­ç”¨ãƒ•ã‚©ãƒ¼ãƒ (ç”»é¢)
 	function AuctionItemBiddingForm(&$ItemAuction) {
 
 		if(!AUCTION_TOGGLE)
 			return false;
 
-		// ½ĞÉÊÍÑ¥Õ¥©¡¼¥à¤Ë¤¤¤¯¥Ü¥¿¥ó
+		// å‡ºå“ç”¨ãƒ•ã‚©ãƒ¼ãƒ ã«ã„ããƒœã‚¿ãƒ³
 		if($this->AuctionEnter()) {
-			// Æş²ñ¤·¤Æ¤¿¾ì¹ç¡¡Æş»¥¤Ç¤­¤ë¤è¤¦¤Ë
+			// å…¥ä¼šã—ã¦ãŸå ´åˆã€€å…¥æœ­ã§ãã‚‹ã‚ˆã†ã«
 			$ItemAuction->ItemSortBy($_GET["sort"]);
 			$ItemAuction->ItemShowArticle2(true);
 
@@ -2572,18 +2572,18 @@ JS_HTML;
 			}
 
 		} else {
-			// Æş»¥¤Ç¤­¤Ê¤¤
+			// å…¥æœ­ã§ããªã„
 			$ItemAuction->ItemShowArticle2(false);
 		}
 	}
 //////////////////////////////////////////////////
-//	¥¢¥¤¥Æ¥à½ĞÉÊ½èÍı
+//	ã‚¢ã‚¤ãƒ†ãƒ å‡ºå“å‡¦ç†
 	function AuctionItemExhibitProcess(&$ItemAuction) {
 
 		if(!AUCTION_EXHIBIT_TOGGLE)
-			return "BIDFORM";// ½ĞÉÊÅà·ë
+			return "BIDFORM";// å‡ºå“å‡çµ
 
-		// ÊİÂ¸¤·¤Ê¤¤¤Ç½ĞÉÊ¥ê¥¹¥È¤òÉ½¼¨¤¹¤ë
+		// ä¿å­˜ã—ãªã„ã§å‡ºå“ãƒªã‚¹ãƒˆã‚’è¡¨ç¤ºã™ã‚‹
 		if(!$this->AuctionEnter())
 			return "BIDFORM";
 		if(!$_POST["PutAuction"])
@@ -2593,39 +2593,39 @@ JS_HTML;
 			ShowError("Select Item.");
 			return false;
 		}
-		// ¥»¥Ã¥·¥ç¥ó¤Ë¤è¤ë30ÉÃ´Ö¤Î½ĞÉÊµñÈİ
+		// ã‚»ãƒƒã‚·ãƒ§ãƒ³ã«ã‚ˆã‚‹30ç§’é–“ã®å‡ºå“æ‹’å¦
 		$SessionLeft	= 30 - (time() - $_SESSION["AuctionExhibit"]);
 		if($_SESSION["AuctionExhibit"] && 0 < $SessionLeft) {
 			ShowError("Wait {$SessionLeft}seconds to ReExhibit.");
 			return false;
 		}
-		// Æ±»ş½ĞÉÊ¿ô¤ÎÀ©¸Â
+		// åŒæ™‚å‡ºå“æ•°ã®åˆ¶é™
 		if(AUCTION_MAX <= $ItemAuction->ItemAmount()) {
-			ShowError("½ĞÉÊ¿ô¤¬¸Â³¦¤ËÃ£¤·¤Æ¤¤¤Ş¤¹¡£(".$ItemAuction->ItemAmount()."/".AUCTION_MAX.")");
+			ShowError("å‡ºå“æ•°ãŒé™ç•Œã«é”ã—ã¦ã„ã¾ã™ã€‚(".$ItemAuction->ItemAmount()."/".AUCTION_MAX.")");
 			return false;
 		}
-		// ½ĞÉÊÈñÍÑ
+		// å‡ºå“è²»ç”¨
 		if(!$this->TakeMoney(500)) {
 			ShowError("Need ".MoneyFormat(500)." to exhibit auction.");
 			return false;
 		}
-		// ¥¢¥¤¥Æ¥à¤¬ÆÉ¤ß¹ş¤á¤Ê¤¤¾ì¹ç
+		// ã‚¢ã‚¤ãƒ†ãƒ ãŒèª­ã¿è¾¼ã‚ãªã„å ´åˆ
 		if(!$item	= LoadItemData($_POST["item_no"])) {
 			ShowError("Failed to load item data.");
 			return false;
 		}
-		// ¥¢¥¤¥Æ¥à¤ò½ê»ı¤·¤Æ¤¤¤Ê¤¤¾ì¹ç
+		// ã‚¢ã‚¤ãƒ†ãƒ ã‚’æ‰€æŒã—ã¦ã„ãªã„å ´åˆ
 		if(!$this->item[$_POST["item_no"]]) {
 			ShowError("Item \"{$item[name]}\" doesn't exists.");
 			return false;
 		}
-		// ¤½¤Î¥¢¥¤¥Æ¥à¤¬½ĞÉÊ¤Ç¤­¤Ê¤¤¾ì¹ç
+		// ãã®ã‚¢ã‚¤ãƒ†ãƒ ãŒå‡ºå“ã§ããªã„å ´åˆ
 		$possible	= CanExhibitType();
 		if(!$possible[$item["type"]]) {
 			ShowError("Cant put \"{$item[name]}\" to the Auction");
 			return false;
 		}
-		// ½ĞÉÊ»ş´Ö¤Î³ÎÇ§
+		// å‡ºå“æ™‚é–“ã®ç¢ºèª
 		if(	!(	$_POST["ExhibitTime"] === '1' ||
 				$_POST["ExhibitTime"] === '3' ||
 				$_POST["ExhibitTime"] === '6' ||
@@ -2636,7 +2636,7 @@ JS_HTML;
 			ShowError("time?");
 			return false;
 		}
-		// ¿ôÎÌ¤Î³ÎÇ§
+		// æ•°é‡ã®ç¢ºèª
 		if(ereg("^[0-9]",$_POST["Amount"])) {
 			$amount	= (int)$_POST["Amount"];
 			if($amount == 0)
@@ -2644,19 +2644,19 @@ JS_HTML;
 		} else {
 			$amount	= 1;
 		}
-		// ¸º¤é¤¹(½ê»ı¿ô¤è¤êÂ¿¤¯»ØÄê¤µ¤ì¤¿¾ì¹ç¤½¤Î¿ô¤òÄ´Àá¤¹¤ë)
-		$_SESSION["AuctionExhibit"]	= time();//¥»¥Ã¥·¥ç¥ó¤Ç2½Å½ĞÉÊ¤òËÉ¤°
+		// æ¸›ã‚‰ã™(æ‰€æŒæ•°ã‚ˆã‚Šå¤šãæŒ‡å®šã•ã‚ŒãŸå ´åˆãã®æ•°ã‚’èª¿ç¯€ã™ã‚‹)
+		$_SESSION["AuctionExhibit"]	= time();//ã‚»ãƒƒã‚·ãƒ§ãƒ³ã§2é‡å‡ºå“ã‚’é˜²ã
 		$amount	= $this->DeleteItem($_POST["item_no"],$amount);
 		$this->SaveUserItem();
 
-		// ½ĞÉÊ¤¹¤ë
-		// $ItemAuction	= new Auction(item);// (2008/2/28:¥³¥á¥ó¥È²½)
+		// å‡ºå“ã™ã‚‹
+		// $ItemAuction	= new Auction(item);// (2008/2/28:ã‚³ãƒ¡ãƒ³ãƒˆåŒ–)
 		$ItemAuction->ItemAddArticle($_POST["item_no"],$amount,$this->id,$_POST["ExhibitTime"],$_POST["StartPrice"],$_POST["Comment"]);
-		print($item["name"]."&nbsp;¤ò&nbsp;{$amount}¸Ä&nbsp;½ĞÉÊ¤·¤Ş¤·¤¿¡£");
+		print($item["name"]."&nbsp;ã‚’&nbsp;{$amount}å€‹&nbsp;å‡ºå“ã—ã¾ã—ãŸã€‚");
 		return true;
 	}
 //////////////////////////////////////////////////
-//	½ĞÉÊÍÑ¥Õ¥©¡¼¥à
+//	å‡ºå“ç”¨ãƒ•ã‚©ãƒ¼ãƒ 
 	function AuctionItemExhibitForm() {
 
 		if(!AUCTION_EXHIBIT_TOGGLE)
@@ -2665,25 +2665,25 @@ JS_HTML;
 		include(CLASS_JS_ITEMLIST);
 		$possible	= CanExhibitType();
 		?>
-<div class="u bold">½ĞÉÊÊıË¡</div>
+<div class="u bold">å‡ºå“æ–¹æ³•</div>
 <ol>
-<li>½ĞÉÊ¤¹¤ë¥¢¥¤¥Æ¥à¤òÁªÂò¤·¤Ş¤¹¡£</li>
-<li>2¸Ä°Ê¾å½ĞÉÊ¤¹¤ë¾ì¹ç¡¢¿ôÎÌ¤òÆşÎÏ¤·¤Ş¤¹¡£</li>
-<li>½ĞÉÊ¤·¤Æ¤¤¤ë»ş´Ö¤ÎÄ¹¤µ¤ò»ØÄê¤·¤Ş¤¹¡£</li>
-<li>³«»Ï²Á³Ê¤ò»ØÄê¤·¤Ş¤¹(µ­ÆşÌµ¤· = 0)</li>
-<li>¥³¥á¥ó¥È¤¬¤¢¤ì¤ĞÆşÎÏ¤·¤Ş¤¹¡£</li>
-<li>Á÷¿®¤¹¤ë¡£</li>
+<li>å‡ºå“ã™ã‚‹ã‚¢ã‚¤ãƒ†ãƒ ã‚’é¸æŠã—ã¾ã™ã€‚</li>
+<li>2å€‹ä»¥ä¸Šå‡ºå“ã™ã‚‹å ´åˆã€æ•°é‡ã‚’å…¥åŠ›ã—ã¾ã™ã€‚</li>
+<li>å‡ºå“ã—ã¦ã„ã‚‹æ™‚é–“ã®é•·ã•ã‚’æŒ‡å®šã—ã¾ã™ã€‚</li>
+<li>é–‹å§‹ä¾¡æ ¼ã‚’æŒ‡å®šã—ã¾ã™(è¨˜å…¥ç„¡ã— = 0)</li>
+<li>ã‚³ãƒ¡ãƒ³ãƒˆãŒã‚ã‚Œã°å…¥åŠ›ã—ã¾ã™ã€‚</li>
+<li>é€ä¿¡ã™ã‚‹ã€‚</li>
 </ol>
-<div class="u bold">Ãí°Õ»ö¹à</div>
+<div class="u bold">æ³¨æ„äº‹é …</div>
 <ul>
-<li>½ĞÉÊ¤Ë¤Ï&nbsp;¼ê¿ôÎÁ¤È¤·¤Æ$500&nbsp;É¬Í×¤Ç¤¹¡£</li>
-<li>¤Á¤ã¤ó¤È¤¦¤´¤¤¤Æ¤¯¤ì¤Ê¤µ¤½¤¦</li>
+<li>å‡ºå“ã«ã¯&nbsp;æ‰‹æ•°æ–™ã¨ã—ã¦$500&nbsp;å¿…è¦ã§ã™ã€‚</li>
+<li>ã¡ã‚ƒã‚“ã¨ã†ã”ã„ã¦ãã‚Œãªã•ãã†</li>
 </ul>
-<a href="?menu=auction">°ìÍ÷¤ËÌá¤ë</a>
+<a href="?menu=auction">ä¸€è¦§ã«æˆ»ã‚‹</a>
 </div>
-<h4>½ĞÉÊ¤¹¤ë</h4>
+<h4>å‡ºå“ã™ã‚‹</h4>
 <div style="margin-left:20px">
-<div class="u bold">½ĞÉÊ²ÄÇ½¤ÊÊª°ìÍ÷</div>
+<div class="u bold">å‡ºå“å¯èƒ½ãªç‰©ä¸€è¦§</div>
 <?
 		if(!$this->item) {
 			print("No items<br />\n");
@@ -2692,7 +2692,7 @@ JS_HTML;
 		$ExhibitList	= new JS_ItemList();
 		$ExhibitList->SetID("auc");
 		$ExhibitList->SetName("type_auc");
-		// JS¤ò»ÈÍÑ¤·¤Ê¤¤¡£
+		// JSã‚’ä½¿ç”¨ã—ãªã„ã€‚
 		if($this->no_JS_itemlist)
 			$ExhibitList->NoJS();
 		foreach($this->item as $no => $amount) {
@@ -2709,9 +2709,9 @@ JS_HTML;
 <form action="?menu=auction" method="post">
 <div id="list"><?=$ExhibitList->ShowDefault()?></div>
 <table><tr><td style="text-align:right">
-¿ôÎÌ(Amount) :</td><td><input type="text" name="Amount" class="text" style="width:60px" value="1" /><br />
+æ•°é‡(Amount) :</td><td><input type="text" name="Amount" class="text" style="width:60px" value="1" /><br />
 </td></tr><tr><td style="text-align:right">
-»ş´Ö(Time) :</td><td>
+æ™‚é–“(Time) :</td><td>
 <select name="ExhibitTime">
 <option value="24" selected>24 hour</option>
 <option value="18">18 hour</option>
@@ -2721,9 +2721,9 @@ JS_HTML;
 <option value="1">1 hour</option>
 </select>
 </td></tr><tr><td>
-³«»Ï²Á³Ê(Start Price) :</td><td><input type="text" name="StartPrice" class="text" style="width:240px" maxlength="10"><br />
+é–‹å§‹ä¾¡æ ¼(Start Price) :</td><td><input type="text" name="StartPrice" class="text" style="width:240px" maxlength="10"><br />
 </td></tr><tr><td style="text-align:right">
-¥³¥á¥ó¥È(Comment) :</td><td>
+ã‚³ãƒ¡ãƒ³ãƒˆ(Comment) :</td><td>
 <input type="text" name="Comment" class="text" style="width:240px" maxlength="40">
 </td></tr><tr><td></td><td>
 <input type="submit" class="btn" value="Put Auction" name="PutAuction" style="width:240px"/>
@@ -2735,7 +2735,7 @@ JS_HTML;
 		
 	}
 //////////////////////////////////////////////////
-//	Union¥â¥ó¥¹¥¿¡¼¤Î½èÍı
+//	Unionãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã®å‡¦ç†
 	function UnionProcess() {
 
 		if($this->CanUnionBattle() !== true) {
@@ -2749,30 +2749,30 @@ JS_HTML;
 		if(!$_POST["union_battle"])
 			return false;
 		$Union	= new union();
-		// Åİ¤µ¤ì¤Æ¤¤¤ë¤«¡¢Â¸ºß¤·¤Ê¤¤¾ì¹ç¡£
+		// å€’ã•ã‚Œã¦ã„ã‚‹ã‹ã€å­˜åœ¨ã—ãªã„å ´åˆã€‚
 		if(!$Union->UnionNumber($_GET["union"]) || !$Union->is_Alive()) {
 			return false;
 		}
-		// ¥æ¥Ë¥ª¥ó¥â¥ó¥¹¥¿¡¼¤Î¥Ç¡¼¥¿
+		// ãƒ¦ãƒ‹ã‚ªãƒ³ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã®ãƒ‡ãƒ¼ã‚¿
 		$UnionMob	= CreateMonster($Union->MonsterNumber);
-		$this->MemorizeParty();//¥Ñ¡¼¥Æ¥£¡¼µ­²±
-		// ¼«Ê¬¥Ñ¡¼¥Æ¥£¡¼
-		foreach($this->char as $key => $val) {//¥Á¥§¥Ã¥¯¤µ¤ì¤¿¤ä¤Ä¥ê¥¹¥È
+		$this->MemorizeParty();//ãƒ‘ãƒ¼ãƒ†ã‚£ãƒ¼è¨˜æ†¶
+		// è‡ªåˆ†ãƒ‘ãƒ¼ãƒ†ã‚£ãƒ¼
+		foreach($this->char as $key => $val) {//ãƒã‚§ãƒƒã‚¯ã•ã‚ŒãŸã‚„ã¤ãƒªã‚¹ãƒˆ
 			if($_POST["char_".$key]) {
 				$MyParty[]	= $this->char[$key];
-				$TotalLevel	+= $this->char[$key]->level;//¼«Ê¬PT¤Î¹ç·×¥ì¥Ù¥ë
+				$TotalLevel	+= $this->char[$key]->level;//è‡ªåˆ†PTã®åˆè¨ˆãƒ¬ãƒ™ãƒ«
 			}
 		}
-		// ¹ç·×¥ì¥Ù¥ëÀ©¸Â
+		// åˆè¨ˆãƒ¬ãƒ™ãƒ«åˆ¶é™
 		if($UnionMob["LevelLimit"] < $TotalLevel) {
-			ShowError('¹ç·×¥ì¥Ù¥ë¥ª¡¼¥Ğ¡¼('.$TotalLevel.'/'.$UnionMob["LevelLimit"].')',"margin15");
+			ShowError('åˆè¨ˆãƒ¬ãƒ™ãƒ«ã‚ªãƒ¼ãƒãƒ¼('.$TotalLevel.'/'.$UnionMob["LevelLimit"].')',"margin15");
 			return false;
 		}
 		if( count($MyParty) === 0) {
-			ShowError('ÀïÆ®¤¹¤ë¤Ë¤ÏºÇÄã1¿ÍÉ¬Í×',"margin15");
+			ShowError('æˆ¦é—˜ã™ã‚‹ã«ã¯æœ€ä½1äººå¿…è¦',"margin15");
 			return false;
 		} else if(5 < count($MyParty)) {
-			ShowError('ÀïÆ®¤Ë½Ğ¤»¤ë¥­¥ã¥é¤Ï5¿Í¤Ş¤Ç',"margin15");
+			ShowError('æˆ¦é—˜ã«å‡ºã›ã‚‹ã‚­ãƒ£ãƒ©ã¯5äººã¾ã§',"margin15");
 			return false;
 		}
 		if(!$this->WasteTime(UNION_BATTLE_TIME)) {
@@ -2780,20 +2780,20 @@ JS_HTML;
 			return false;
 		}
 
-		// Å¨PT¿ô
+		// æ•µPTæ•°
 
-		// ¥é¥ó¥À¥àÅ¨¥Ñ¡¼¥Æ¥£¡¼
+		// ãƒ©ãƒ³ãƒ€ãƒ æ•µãƒ‘ãƒ¼ãƒ†ã‚£ãƒ¼
 		if($UnionMob["SlaveAmount"])
-			$EneNum	= $UnionMob["SlaveAmount"] + 1;//PT¥á¥ó¥Ğ¤ÈÆ±¤¸¿ô¤À¤±¡£
+			$EneNum	= $UnionMob["SlaveAmount"] + 1;//PTãƒ¡ãƒ³ãƒã¨åŒã˜æ•°ã ã‘ã€‚
 		else
-			$EneNum	= 5;// Union´Ş¤á¤Æ5¤Ë¸ÇÄê¤¹¤ë¡£
+			$EneNum	= 5;// Unionå«ã‚ã¦5ã«å›ºå®šã™ã‚‹ã€‚
 
 		if($UnionMob["SlaveSpecify"])
 			$EnemyParty	= $this->EnemyParty($EneNum-1, $Union->Slave, $UnionMob["SlaveSpecify"]);
 		else
 			$EnemyParty	= $this->EnemyParty($EneNum-1, $Union->Slave, $UnionMob["SlaveSpecify"]);
 
-		// unionMob¤òÇÛÎó¤Î¤ª¤è¤½Ãæ±û¤ËÆş¤ì¤ë
+		// unionMobã‚’é…åˆ—ã®ãŠã‚ˆãä¸­å¤®ã«å…¥ã‚Œã‚‹
 		array_splice($EnemyParty,floor(count($EnemyParty)/2),0,array($Union));
 
 		$this->UnionSetTime();
@@ -2801,16 +2801,16 @@ JS_HTML;
 		include(CLASS_BATTLE);
 		$battle	= new battle($MyParty,$EnemyParty);
 		$battle->SetUnionBattle();
-		$battle->SetBackGround($Union->UnionLand);//ÇØ·Ê
+		$battle->SetBackGround($Union->UnionLand);//èƒŒæ™¯
 		//$battle->SetTeamName($this->name,"Union:".$Union->Name());
 		$battle->SetTeamName($this->name,$UnionMob["UnionName"]);
-		$battle->Process();//ÀïÆ®³«»Ï
+		$battle->Process();//æˆ¦é—˜é–‹å§‹
 
-		$battle->SaveCharacters();//¥­¥ã¥é¥Ç¡¼¥¿ÊİÂ¸
-			list($UserMoney)	= $battle->ReturnMoney();//ÀïÆ®¤ÇÆÀ¤¿¹ç·×¶â³Û
-			$this->GetMoney($UserMoney);//¤ª¶â¤òÁı¤ä¤¹
+		$battle->SaveCharacters();//ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿ä¿å­˜
+			list($UserMoney)	= $battle->ReturnMoney();//æˆ¦é—˜ã§å¾—ãŸåˆè¨ˆé‡‘é¡
+			$this->GetMoney($UserMoney);//ãŠé‡‘ã‚’å¢—ã‚„ã™
 			$battle->RecordLog("UNION");
-			// ¥¢¥¤¥Æ¥à¤ò¼õ¤±¼è¤ë
+			// ã‚¢ã‚¤ãƒ†ãƒ ã‚’å—ã‘å–ã‚‹
 			if($itemdrop	= $battle->ReturnItemGet(0)) {
 				$this->LoadUserItem();
 				foreach($itemdrop as $itemno => $amount)
@@ -2821,7 +2821,7 @@ JS_HTML;
 		return true;
 	}
 //////////////////////////////////////////////////
-//	Union¥â¥ó¥¹¥¿¡¼¤ÎÉ½¼¨
+//	Unionãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã®è¡¨ç¤º
 	function UnionShow() {
 		if($this->CanUnionBattle() !== true) {
 			$host  = $_SERVER['HTTP_HOST'];
@@ -2835,7 +2835,7 @@ JS_HTML;
 		print('<div style="margin:15px">'."\n");
 		print("<h4>Union Monster</h4>\n");
 		$Union	= new union();
-		// Åİ¤µ¤ì¤Æ¤¤¤ë¤«¡¢Â¸ºß¤·¤Ê¤¤¾ì¹ç¡£
+		// å€’ã•ã‚Œã¦ã„ã‚‹ã‹ã€å­˜åœ¨ã—ãªã„å ´åˆã€‚
 		if(!$Union->UnionNumber($_GET["union"]) || !$Union->is_Alive()) {
 			ShowError("Defeated or not Exists.");
 			return false;
@@ -2857,55 +2857,55 @@ JS_HTML;
 <?
 	}
 //////////////////////////////////////////////////
-//	Ä®¤ÎÉ½¼¨
+//	ç”ºã®è¡¨ç¤º
 	function TownShow() {
 		include(DATA_TOWN);
 		print('<div style="margin:15px">'."\n");
-		print("<h4>³¹</h4>");
+		print("<h4>è¡—</h4>");
 		print('<div class="town">'."\n");
 		print("<ul>\n");
 		$PlaceList	= TownAppear($this);
-		// Å¹
+		// åº—
 		if($PlaceList["Shop"]) {
 			?>
-<li>Å¹(Shop)
+<li>åº—(Shop)
 <ul>
-<li><a href="?menu=buy">Çã¤¦(Buy)</a></li>
-<li><a href="?menu=sell">Çä¤ë(Sell)</a></li>
-<li><a href="?menu=work">¥¢¥ë¥Ğ¥¤¥È</a></li>
+<li><a href="?menu=buy">è²·ã†(Buy)</a></li>
+<li><a href="?menu=sell">å£²ã‚‹(Sell)</a></li>
+<li><a href="?menu=work">ã‚¢ãƒ«ãƒã‚¤ãƒˆ</a></li>
 </ul>
 </li>
 <?
 		}
-		// °¶Àû½ê
+		// æ–¡æ—‹æ‰€
 		if($PlaceList["Recruit"])
-			print("<li><p><a href=\"?recruit\">¿Íºà°¶Àû½ê(Recruit)</a></p></li>");
-		// ÃÃÌê²°
+			print("<li><p><a href=\"?recruit\">äººææ–¡æ—‹æ‰€(Recruit)</a></p></li>");
+		// é›å†¶å±‹
 		if($PlaceList["Smithy"]) {
 			?>
-<li>ÃÃÌê²°(Smithy)
+<li>é›å†¶å±‹(Smithy)
 <ul>
-<li><a href="?menu=refine">ÀºÏ£¹©Ë¼(Refine)</a></li>
-<li><a href="?menu=create">À½ºî¹©Ë¼(Create)</a></li>
+<li><a href="?menu=refine">ç²¾éŒ¬å·¥æˆ¿(Refine)</a></li>
+<li><a href="?menu=create">è£½ä½œå·¥æˆ¿(Create)</a></li>
 </ul>
 </li>
 <?
 		}
-		// ¥ª¡¼¥¯¥·¥ç¥ó²ñ¾ì
+		// ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ä¼šå ´
 		if($PlaceList["Auction"] && AUCTION_TOGGLE)
-			print("<li><a href=\"?menu=auction\">¥ª¡¼¥¯¥·¥ç¥ó²ñ¾ì(Auction)</li>");
-		// ¥³¥í¥·¥¢¥à
+			print("<li><a href=\"?menu=auction\">ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ä¼šå ´(Auction)</li>");
+		// ã‚³ãƒ­ã‚·ã‚¢ãƒ 
 		if($PlaceList["Colosseum"])
-			print("<li><a href=\"?menu=rank\">¥³¥í¥·¥¢¥à(Colosseum)</a></li>");
+			print("<li><a href=\"?menu=rank\">ã‚³ãƒ­ã‚·ã‚¢ãƒ (Colosseum)</a></li>");
 		print("</ul>\n");
 		print("</div>\n");
-		print("<h4>¹­¾ì</h4>");
+		print("<h4>åºƒå ´</h4>");
 		$this->TownBBS();
 		print("</div>\n");
 	}
 
 //////////////////////////////////////////////////
-//	ÉáÄÌ¤Î1¹Ô·Ç¼¨ÈÄ
+//	æ™®é€šã®1è¡Œæ²ç¤ºæ¿
 	function TownBBS() {
 		$file	= BBS_TOWN;
 	?>
@@ -2955,7 +2955,7 @@ JS_HTML;
 			}
 			$userName	= userNameLoad();
 			if(in_array($NewName,$userName)) {
-				ShowError("¤½¤ÎÌ¾Á°¤Ï»ÈÍÑ¤µ¤ì¤Æ¤¤¤ë¡£","margin15");
+				ShowError("ãã®åå‰ã¯ä½¿ç”¨ã•ã‚Œã¦ã„ã‚‹ã€‚","margin15");
 				return false;
 			}
 			if(!$this->TakeMoney(NEW_NAME_COST)) {
@@ -2970,7 +2970,7 @@ JS_HTML;
 				userNameAdd($NewName);
 				return true;
 			} else {
-				ShowError("?");//Ì¾Á°¤¬Æ±¤¸¡©
+				ShowError("?");//åå‰ãŒåŒã˜ï¼Ÿ
 				return false;
 			}
 		}
@@ -2996,7 +2996,7 @@ JS_HTML;
 		}
 	}
 //////////////////////////////////////////////////
-//	ÀßÄêÉ½¼¨²èÌÌ
+//	è¨­å®šè¡¨ç¤ºç”»é¢
 	function SettingShow() {
 		print('<div style="margin:15px">'."\n");
 		if($this->record_btl_log) $record_btl_log	= " checked";
@@ -3005,8 +3005,8 @@ JS_HTML;
 <h4>Setting</h4>
 <form action="?setting" method="post">
 <table><tbody>
-<tr><td><input type="checkbox" name="record_battle_log" value="1" <?=$record_btl_log?>></td><td>ÀïÆ®¥í¥°¤Îµ­Ï¿</td></tr>
-<tr><td><input type="checkbox" name="no_JS_itemlist" value="1" <?=$no_JS_itemlist?>></td><td>¥¢¥¤¥Æ¥à¥ê¥¹¥È¤ËJavaScript¤ò»È¤ï¤Ê¤¤</td></tr>
+<tr><td><input type="checkbox" name="record_battle_log" value="1" <?=$record_btl_log?>></td><td>æˆ¦é—˜ãƒ­ã‚°ã®è¨˜éŒ²</td></tr>
+<tr><td><input type="checkbox" name="no_JS_itemlist" value="1" <?=$no_JS_itemlist?>></td><td>ã‚¢ã‚¤ãƒ†ãƒ ãƒªã‚¹ãƒˆã«JavaScriptã‚’ä½¿ã‚ãªã„</td></tr>
 </tbody></table>
 <!--<tr><td>None</td><td><input type="checkbox" name="none" value="1"></td></tr>-->
 Color : <?
@@ -3026,15 +3026,15 @@ Color : <?
 <form action="<?=INDEX?>" method="post">
 <input type="submit" class="btn" name="logout" value="logout" style="width:100px">
 </form>
-<h4>¥Á¡¼¥àÌ¾¤ÎÊÑ¹¹</h4>
+<h4>ãƒãƒ¼ãƒ åã®å¤‰æ›´</h4>
 <form action="?setting" method="post">
-ÈñÍÑ : <?=MoneyFormat(NEW_NAME_COST)?><br />
-16Ê¸»ú¤Ş¤Ç(Á´³Ñ=2Ê¸»ú)<br />
-¿·¤·¤¤Ì¾Á° : <input type="text" class="text" name="NewName" size="20">
+è²»ç”¨ : <?=MoneyFormat(NEW_NAME_COST)?><br />
+16æ–‡å­—ã¾ã§(å…¨è§’=2æ–‡å­—)<br />
+æ–°ã—ã„åå‰ : <input type="text" class="text" name="NewName" size="20">
 <input type="submit" class="btn" value="change" style="width:100px">
 </form>
-<h4>Ã¦½Ğ¸ı</h4>
-<div class="u">¢¨¥Ç¡¼¥¿¤Îºï½ü</div>
+<h4>è„±å‡ºå£</h4>
+<div class="u">â€»ãƒ‡ãƒ¼ã‚¿ã®å‰Šé™¤</div>
 <form action="?setting" method="post">
 PassWord : <input type="text" class="text" name="deletepass" size="20">
 <input type="submit" class="btn" name="delete" value="delete" style="width:100px">
@@ -3054,17 +3054,17 @@ PassWord : <input type="text" class="text" name="deletepass" size="20">
  */
 
 //////////////////////////////////////////////////
-//	ÀïÆ®»ş¤ËÁªÂò¤·¤¿¥á¥ó¥Ğ¡¼¤òµ­²±¤¹¤ë
+//	æˆ¦é—˜æ™‚ã«é¸æŠã—ãŸãƒ¡ãƒ³ãƒãƒ¼ã‚’è¨˜æ†¶ã™ã‚‹
 	function MemorizeParty() {
 		if($_POST["memory_party"]) {
-			//$temp	= $this->party_memo;//°ì»şÅª¤Ëµ­²±
+			//$temp	= $this->party_memo;//ä¸€æ™‚çš„ã«è¨˜æ†¶
 			//$this->party_memo	= array();
-			foreach($this->char as $key => $val) {//¥Á¥§¥Ã¥¯¤µ¤ì¤¿¤ä¤Ä¥ê¥¹¥È
+			foreach($this->char as $key => $val) {//ãƒã‚§ãƒƒã‚¯ã•ã‚ŒãŸã‚„ã¤ãƒªã‚¹ãƒˆ
 				if($_POST["char_".$key])
 					//$this->party_memo[]	 = $key;
 					$PartyMemo[]	= $key;
 			}
-			//if(5 < count($this->party_memo) )//5¿Í°Ê¾å¤ÏÂÌÌÜ
+			//if(5 < count($this->party_memo) )//5äººä»¥ä¸Šã¯é§„ç›®
 			//	$this->party_memo	= $temp;
 			if(0 < count($PartyMemo) && count($PartyMemo) < 6)
 				$this->party_memo	= implode("<>",$PartyMemo);
@@ -3075,14 +3075,14 @@ PassWord : <input type="text" class="text" name="deletepass" size="20">
 
 
 //////////////////////////////////////////////////
-//	¥í¥°¥¤¥ó¤·¤¿²èÌÌ
+//	ãƒ­ã‚°ã‚¤ãƒ³ã—ãŸç”»é¢
 	function LoginMain() {
 		$this->ShowTutorial();
 		$this->ShowMyCharacters();
 		RegularControl($this->id);
 	}
 //////////////////////////////////////////////////
-//	¥Á¥å¥¦¥È¥ê¥¢¥ë
+//	ãƒãƒ¥ã‚¦ãƒˆãƒªã‚¢ãƒ«
 	function ShowTutorial() {
 		$last	= $this->last;
 		$start	= substr($this->start,0,10);
@@ -3090,7 +3090,7 @@ PassWord : <input type="text" class="text" name="deletepass" size="20">
 		if( ($last - $start) < $term) {
 			?>
 	<div style="margin:5px 15px">
-	<a href="?tutorial">¥Á¥å¡¼¥È¥ê¥¢¥ë</a> - ÀïÆ®¤Î´ğËÜ(ÅĞÏ¿¸å,1»ş´Ö¤À¤±É½¼¨¤µ¤ì¤Ş¤¹)
+	<a href="?tutorial">ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«</a> - æˆ¦é—˜ã®åŸºæœ¬(ç™»éŒ²å¾Œ,1æ™‚é–“ã ã‘è¡¨ç¤ºã•ã‚Œã¾ã™)
 	</div>
 
 <?
@@ -3098,17 +3098,17 @@ PassWord : <input type="text" class="text" name="deletepass" size="20">
 	}
 
 //////////////////////////////////////////////////
-//	¼«Ê¬¤Î¥­¥ã¥é¤òÉ½¼¨¤¹¤ë
-	function ShowMyCharacters($array=NULL) {// $array ¢« ¿§¡¹¼õ¤±¼è¤ë
+//	è‡ªåˆ†ã®ã‚­ãƒ£ãƒ©ã‚’è¡¨ç¤ºã™ã‚‹
+	function ShowMyCharacters($array=NULL) {// $array â† è‰²ã€…å—ã‘å–ã‚‹
 		if(!$this->char) return false;
 		$divide	= (count($this->char)<CHAR_ROW ? count($this->char) : CHAR_ROW);
-		$width	= floor(100/$divide);//³Æ¥»¥ë²£Éı
+		$width	= floor(100/$divide);//å„ã‚»ãƒ«æ¨ªå¹…
 
-		print('<table cellspacing="0" style="width:100%"><tbody><tr>');//²£Éı100%
+		print('<table cellspacing="0" style="width:100%"><tbody><tr>');//æ¨ªå¹…100%
 		foreach($this->char as $val) {
 			if( $i%CHAR_ROW==0 && $i != 0 )
 				print("\t</tr><tr>\n");
-			print("\t<td valign=\"bottom\" style=\"width:{$width}%\">");//¥­¥ã¥é¿ô¤Ë±ş¤¸¤Æ%¤Ç³Æ¥»¥ëÊ¬³ä
+			print("\t<td valign=\"bottom\" style=\"width:{$width}%\">");//ã‚­ãƒ£ãƒ©æ•°ã«å¿œã˜ã¦%ã§å„ã‚»ãƒ«åˆ†å‰²
 			$val->ShowCharLink($array);
 			print("</td>\n");
 			$i++;
@@ -3116,11 +3116,11 @@ PassWord : <input type="text" class="text" name="deletepass" size="20">
 		print("</tr></tbody></table>");
 	}
 //////////////////////////////////////////////////
-//	¥­¥ã¥é¤òÉ½ÁÈ¤ß¤ÇÉ½¼¨¤¹¤ë
+//	ã‚­ãƒ£ãƒ©ã‚’è¡¨çµ„ã¿ã§è¡¨ç¤ºã™ã‚‹
 	function ShowCharacters($characters,$type=null,$checked=null) {
 		if(!$characters) return false;
 		$divide	= (count($characters)<CHAR_ROW ? count($characters) : CHAR_ROW);
-		$width	= floor(100/$divide);//³Æ¥»¥ë²£Éı
+		$width	= floor(100/$divide);//å„ã‚»ãƒ«æ¨ªå¹…
 
 		if($type == "CHECKBOX") {
 print <<< HTML
@@ -3136,11 +3136,11 @@ Element.toggleClassName("text"+id,'unselect');
 HTML;
 		}
 
-		print('<table cellspacing="0" style="width:100%"><tbody><tr>');//²£Éı100%
+		print('<table cellspacing="0" style="width:100%"><tbody><tr>');//æ¨ªå¹…100%
 		foreach($characters as $char) {
 			if( $i%CHAR_ROW==0 && $i != 0 )
 				print("\t</tr><tr>\n");
-			print("\t<td valign=\"bottom\" style=\"width:{$width}%\">");//¥­¥ã¥é¿ô¤Ë±ş¤¸¤Æ%¤Ç³Æ¥»¥ëÊ¬³ä
+			print("\t<td valign=\"bottom\" style=\"width:{$width}%\">");//ã‚­ãƒ£ãƒ©æ•°ã«å¿œã˜ã¦%ã§å„ã‚»ãƒ«åˆ†å‰²
 
 			/*-------------------*/
 			switch(1) {
@@ -3164,7 +3164,7 @@ HTML;
 	}
 
 //////////////////////////////////////////////////
-//	¼«Ê¬¤Î¥Ç¡¼¥¿¤È¥¯¥Ã¥­¡¼¤ò¾Ã¤¹
+//	è‡ªåˆ†ã®ãƒ‡ãƒ¼ã‚¿ã¨ã‚¯ãƒƒã‚­ãƒ¼ã‚’æ¶ˆã™
 	function DeleteMyData() {
 		if($this->pass == $this->CryptPassword($_POST["deletepass"]) ) {
 			$this->DeleteUser();
@@ -3181,14 +3181,14 @@ HTML;
 	}
 
 //////////////////////////////////////////////////
-//	ÊÑ¿ô¤ÎÉ½¼¨
+//	å¤‰æ•°ã®è¡¨ç¤º
 	function Debug() {
 		if(DEBUG)
 			print("<pre>".print_r(get_object_vars($this),1)."</pre>");
 	}
 
 //////////////////////////////////////////////////
-//	¥»¥Ã¥·¥ç¥ó¾ğÊó¤òÉ½¼¨¤¹¤ë¡£
+//	ã‚»ãƒƒã‚·ãƒ§ãƒ³æƒ…å ±ã‚’è¡¨ç¤ºã™ã‚‹ã€‚
 	function ShowSession() {
 		echo "this->id:$this->id<br>";
 		echo "this->pass:$this->pass<br>";
@@ -3202,13 +3202,13 @@ HTML;
 	}
 
 //////////////////////////////////////////////////
-//	¥í¥°¥¤¥ó¤·¤¿»ş´Ö¤òÀßÄê¤¹¤ë
+//	ãƒ­ã‚°ã‚¤ãƒ³ã—ãŸæ™‚é–“ã‚’è¨­å®šã™ã‚‹
 	function RenewLoginTime() {
 		$this->login	= time();
 	}
 
 //////////////////////////////////////////////////
-//	¥í¥°¥¤¥ó¤·¤¿¤Î¤«¡¢¤·¤Æ¤¤¤ë¤Î¤«¡¢¥í¥°¥¢¥¦¥È¤·¤¿¤Î¤«¡£
+//	ãƒ­ã‚°ã‚¤ãƒ³ã—ãŸã®ã‹ã€ã—ã¦ã„ã‚‹ã®ã‹ã€ãƒ­ã‚°ã‚¢ã‚¦ãƒˆã—ãŸã®ã‹ã€‚
 	function CheckLogin() {
 		//logout
 		if(isset($_POST["logout"])) {
@@ -3226,7 +3226,7 @@ HTML;
 			if($this->pass == NULL)
 				return false;
 			if ($data["pass"] === $this->pass) {
-				//¥í¥°¥¤¥ó¾õÂÖ
+				//ãƒ­ã‚°ã‚¤ãƒ³çŠ¶æ…‹
 				$this->DataUpDate($data);
 				$this->SetData($data);
 				if(RECORD_IP)
@@ -3234,13 +3234,13 @@ HTML;
 				$this->RenewLoginTime();
 
 				$pass	= ($_POST["pass"])?$_POST["pass"]:$_GET["pass"];
-				if ($pass) {//¤Á¤ç¤¦¤Éº£¥í¥°¥¤¥ó¤¹¤ë¤Ê¤é
+				if ($pass) {//ã¡ã‚‡ã†ã©ä»Šãƒ­ã‚°ã‚¤ãƒ³ã™ã‚‹ãªã‚‰
 					$_SESSION["id"]	= $this->id;
 					$_SESSION["pass"]	= $pass;
 					setcookie("NO",session_id(),time()+COOKIE_EXPIRE);
 				}
 
-				$this->islogin	= true;//¥í¥°¥¤¥ó¾õÂÖ
+				$this->islogin	= true;//ãƒ­ã‚°ã‚¤ãƒ³çŠ¶æ…‹
 				return true;
 			} else
 				return "Wrong password!";
@@ -3251,7 +3251,7 @@ HTML;
 	}
 
 //////////////////////////////////////////////////
-//	$id ¤òÅĞÏ¿ºÑ¤ßid¤È¤·¤Æµ­Ï¿¤¹¤ë
+//	$id ã‚’ç™»éŒ²æ¸ˆã¿idã¨ã—ã¦è¨˜éŒ²ã™ã‚‹
 	function RecordRegister($id) {
 		$fp=fopen(REGISTER,"a");
 		flock($fp,2);
@@ -3260,13 +3260,13 @@ HTML;
 	}
 
 //////////////////////////////////////////////////
-//	pass ¤È id ¤òÀßÄê¤¹¤ë
+//	pass ã¨ id ã‚’è¨­å®šã™ã‚‹
 	function Set_ID_PASS() {
 		$id	= ($_POST["id"])?$_POST["id"]:$_GET["id"];
 		//if($_POST["id"]) {
 		if($id) {
 				$this->id	= $id;//$_POST["id"];
-			// ¢­¥í¥°¥¤¥ó½èÍı¤·¤¿»ş¤À¤±
+			// â†“ãƒ­ã‚°ã‚¤ãƒ³å‡¦ç†ã—ãŸæ™‚ã ã‘
 			if (is_registered($_POST["id"])) {
 				$_SESSION["id"]	= $this->id;
 			}
@@ -3285,16 +3285,16 @@ HTML;
 	}
 
 //////////////////////////////////////////////////
-//	ÊİÂ¸¤µ¤ì¤Æ¤¤¤ë¥»¥Ã¥·¥ç¥óÈÖ¹æ¤òÊÑ¹¹¤¹¤ë¡£
+//	ä¿å­˜ã•ã‚Œã¦ã„ã‚‹ã‚»ãƒƒã‚·ãƒ§ãƒ³ç•ªå·ã‚’å¤‰æ›´ã™ã‚‹ã€‚
 	function SessionSwitch() {
-		// session¾ÃÌÇ¤Î»ş´Ö(?)
+		// sessionæ¶ˆæ»…ã®æ™‚é–“(?)
 		// how about "session_set_cookie_params()"?
 		session_cache_expire(COOKIE_EXPIRE/60);
-		if($_COOKIE["NO"])//¥¯¥Ã¥­¡¼¤ËÊİÂ¸¤·¤Æ¤¢¤ë¥»¥Ã¥·¥ç¥óID¤Î¥»¥Ã¥·¥ç¥ó¤ò¸Æ¤Ó½Ğ¤¹
+		if($_COOKIE["NO"])//ã‚¯ãƒƒã‚­ãƒ¼ã«ä¿å­˜ã—ã¦ã‚ã‚‹ã‚»ãƒƒã‚·ãƒ§ãƒ³IDã®ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚’å‘¼ã³å‡ºã™
 			session_id($_COOKIE["NO"]);
 
 		session_start();
-		if(!SESSION_SWITCH)//switch¤·¤Ê¤¤¤Ê¤é¤³¤³¤Ç½ªÎ»
+		if(!SESSION_SWITCH)//switchã—ãªã„ãªã‚‰ã“ã“ã§çµ‚äº†
 			return false;
 		//print_r($_SESSION);
 		//dump($_SESSION);
@@ -3310,9 +3310,9 @@ HTML;
 		session_start();
 
 		if($_SESSION):
-		//	session_destroy();//Sleipnir¤À¤È¤ª¤«¤·¤¤...?(ºÇ½é´ü)
-		//	unset($_SESSION);//¤³¤Ã¤Á¤ÏÂç¾æÉ×(¤ä¤Ã¤Ñ¤ê¤³¤ì¤ÏÂÌÌÜ¤«¤â)(½¤Àµ¸å)
-			//·ë¶É,¥»¥Ã¥·¥ç¥ó¤òforeach¤Ç¥ë¡¼¥×¤·¤Æ1¸Ä¤Å¤Äunset(2007/9/14 ºÆ½¤Àµ)
+		//	session_destroy();//Sleipnirã ã¨ãŠã‹ã—ã„...?(æœ€åˆæœŸ)
+		//	unset($_SESSION);//ã“ã£ã¡ã¯å¤§ä¸ˆå¤«(ã‚„ã£ã±ã‚Šã“ã‚Œã¯é§„ç›®ã‹ã‚‚)(ä¿®æ­£å¾Œ)
+			//çµå±€,ã‚»ãƒƒã‚·ãƒ§ãƒ³ã‚’foreachã§ãƒ«ãƒ¼ãƒ—ã—ã¦1å€‹ã¥ã¤unset(2007/9/14 å†ä¿®æ­£)
 			foreach($_SESSION as $key => $val)
 				unset($_SESSION["$key"]);
 		endif;
@@ -3323,23 +3323,23 @@ HTML;
 	}
 
 //////////////////////////////////////////////////
-//	ÆşÎÏ¤µ¤ì¤¿¾ğÊó¤¬·¿¤Ë¤Ï¤Ş¤ë¤«È½Äê
-//	¢ª ¿·µ¬¥Ç¡¼¥¿¤òºîÀ®¡£
+//	å…¥åŠ›ã•ã‚ŒãŸæƒ…å ±ãŒå‹ã«ã¯ã¾ã‚‹ã‹åˆ¤å®š
+//	â†’ æ–°è¦ãƒ‡ãƒ¼ã‚¿ã‚’ä½œæˆã€‚
 
 	function MakeNewData() {
-		// ÅĞÏ¿¼Ô¿ô¤¬¸Â³¦¤Î¾ì¹ç
+		// ç™»éŒ²è€…æ•°ãŒé™ç•Œã®å ´åˆ
 		if(MAX_USERS <= count(glob(USER."*")))
-			return array(false,"Maximum users.<br />ÅĞÏ¿¼Ô¿ô¤¬¸Â³¦¤ËÃ£¤·¤Æ¤·¤Ş¤Ã¤¿ÍÍ¤Ç¤¹¡£");
+			return array(false,"Maximum users.<br />ç™»éŒ²è€…æ•°ãŒé™ç•Œã«é”ã—ã¦ã—ã¾ã£ãŸæ§˜ã§ã™ã€‚");
 		if(isset($_POST["Newid"]))
 			trim($_POST["Newid"]);
 		if(empty($_POST["Newid"]))
 			return array(false,"Enter ID.");
 
 		if(!ereg("[0-9a-zA-Z]{4,16}",$_POST["Newid"])||
-			ereg("[^0-9a-zA-Z]+",$_POST["Newid"]))//Àµµ¬É½¸½
+			ereg("[^0-9a-zA-Z]+",$_POST["Newid"]))//æ­£è¦è¡¨ç¾
 			return array(false,"Bad ID");
 
-		if(strlen($_POST["Newid"]) < 4 || 16 < strlen($_POST["Newid"]))//Ê¸»úÀ©¸Â
+		if(strlen($_POST["Newid"]) < 4 || 16 < strlen($_POST["Newid"]))//æ–‡å­—åˆ¶é™
 			return array(false,"Bad ID");
 
 		if(is_registered($_POST["Newid"]))
@@ -3354,11 +3354,11 @@ HTML;
 
 		if(!ereg("[0-9a-zA-Z]{4,16}",$_POST["pass1"]) || ereg("[^0-9a-zA-Z]+",$_POST["pass1"]))
 			return array(false,"Bad Password 1");
-		if(strlen($_POST["pass1"]) < 4 || 16 < strlen($_POST["pass1"]))//Ê¸»úÀ©¸Â
+		if(strlen($_POST["pass1"]) < 4 || 16 < strlen($_POST["pass1"]))//æ–‡å­—åˆ¶é™
 			return array(false,"Bad Password 1");
 		if(!ereg("[0-9a-zA-Z]{4,16}",$_POST["pass2"]) || ereg("[^0-9a-zA-Z]+",$_POST["pass2"]))
 			return array(false,"Bad Password 2");
-		if(strlen($_POST["pass2"]) < 4 || 16 < strlen($_POST["pass2"]))//Ê¸»úÀ©¸Â
+		if(strlen($_POST["pass2"]) < 4 || 16 < strlen($_POST["pass2"]))//æ–‡å­—åˆ¶é™
 			return array(false,"Bad Password 2");
 
 		if($_POST["pass1"] !== $_POST["pass2"])
@@ -3368,7 +3368,7 @@ HTML;
 		// MAKE
 		if(!file_exists($file)){
 			mkdir(USER.$_POST["Newid"], 0705);
-			$this->RecordRegister($_POST["Newid"]);//IDµ­Ï¿
+			$this->RecordRegister($_POST["Newid"]);//IDè¨˜éŒ²
 			$fp=fopen("$file","w");
 			flock($fp,LOCK_EX);
 				$now	= time();
@@ -3385,19 +3385,19 @@ HTML;
 			$_SESSION["id"]=$_POST["Newid"];
 			setcookie("NO",session_id(),time()+COOKIE_EXPIRE);
 			$success	= "<div class=\"recover\">ID : $_POST[Newid] success. Try Login</div>";
-			return array(true,$success);//¶¯°ú...
+			return array(true,$success);//å¼·å¼•...
 		}
 	}
 
 //////////////////////////////////////////////////
-//	¿·µ¬IDºîÀ®ÍÑ¤Î¥Õ¥©¡¼¥à
+//	æ–°è¦IDä½œæˆç”¨ã®ãƒ•ã‚©ãƒ¼ãƒ 
 	function NewForm($error=NULL) {
 		if(MAX_USERS <= count(glob(USER."*"))) {
 			?>
 
 	<div style="margin:15px">
 	Maximum users.<br />
-	ÅĞÏ¿¼Ô¿ô¤¬¸Â³¦¤ËÃ£¤·¤Æ¤¤¤ë¤è¤¦¤Ç¤¹¡£
+	ç™»éŒ²è€…æ•°ãŒé™ç•Œã«é”ã—ã¦ã„ã‚‹ã‚ˆã†ã§ã™ã€‚
 	</div><?
 			return false;
 		}
@@ -3405,15 +3405,15 @@ HTML;
 		?>
 	<div style="margin:15px">
 	<?=ShowError($error);?>
-	<h4>¤È¤ê¤¢¤¨¤º New Game!</h4>
+	<h4>ã¨ã‚Šã‚ãˆãš New Game!</h4>
 	<form action="<?=INDEX?>" method="post">
 
 	<table><tbody>
 	<tr><td colspan="2">ID & PASS must be 4 to 16 letters.<br />letters allowed a-z,A-Z,0-9<br />
-	ID ¤È PASS¤Ï 4-16 Ê¸»ú°ÊÆâ¤Ç¡£È¾³Ñ±Ñ¿ô»ú¡£</td></tr>
+	ID ã¨ PASSã¯ 4-16 æ–‡å­—ä»¥å†…ã§ã€‚åŠè§’è‹±æ•°å­—ã€‚</td></tr>
 	<tr><td><div style="text-align:right">ID:</div></td>
 	<td><input type="text" maxlength="16" class="text" name="Newid" style="width:240px"<?=$idset?>></td></tr>
-	<tr><td colspan="2"><br />Password,Re-enter.<br />PASS ¤È¤½¤ÎºÆÆşÎÏ¤Ç¤¹ ³ÎÇ§ÍÑ¡£</td></tr>
+	<tr><td colspan="2"><br />Password,Re-enter.<br />PASS ã¨ãã®å†å…¥åŠ›ã§ã™ ç¢ºèªç”¨ã€‚</td></tr>
 	<tr><td><div style="text-align:right">PASS:</div></td>
 	<td><input type="password" maxlength="16" class="text" name="pass1" style="width:240px"></td></tr>
 
@@ -3429,11 +3429,11 @@ HTML;
 	}
 
 //////////////////////////////////////////////////
-//	¥í¥°¥¤¥óÍÑ¤Î¥Õ¥©¡¼¥à
+//	ãƒ­ã‚°ã‚¤ãƒ³ç”¨ã®ãƒ•ã‚©ãƒ¼ãƒ 
 	function LoginForm($message = NULL) {
 		?>
 <div style="width:730px;">
-<!-- ¥í¥°¥¤¥ó -->
+<!-- ãƒ­ã‚°ã‚¤ãƒ³ -->
 <div style="width:350px;float:right">
 <h4 style="width:350px">Login</h4>
 <?=$message?>
@@ -3460,22 +3460,22 @@ HTML;
 	$Rank->ShowRanking(0,4);
 	?>
 </div>
-<!-- ¾ş -->
+<!-- é£¾ -->
 <div style="width:350px;padding:15px;float:left;">
 <div style="width:350px;text-align:center">
 <img src="./image/top01.gif" style="margin-bottom:20px" />
 </div>
 <div style="margin-left:20px">
-<div class="u">¤³¤ì¤Ã¤Æ¤É¤ó¤Ê¥²¡¼¥à?</div>
+<div class="u">ã“ã‚Œã£ã¦ã©ã‚“ãªã‚²ãƒ¼ãƒ ?</div>
 <ul>
-<li>¥²¡¼¥à¤ÎÌÜÅª¤Ï¥é¥ó¥­¥ó¥°1°Ì¤Ë¤Ê¤ê¡¢<br />1°Ì¤ò¼é¤ë»ö¤Ç¤¹¡£</li>
-<li>ËÁ¸±Í×ÁÇ¤Ï¤Ê¤¤¤Ç¤¹¤¬¡¢<br />¤Á¤ç¤Ã¤È¿¼¤¤ÀïÆ®¥·¥¹¥Æ¥à¤¬Çä¤ê¤Ç¤¹¡£</li>
+<li>ã‚²ãƒ¼ãƒ ã®ç›®çš„ã¯ãƒ©ãƒ³ã‚­ãƒ³ã‚°1ä½ã«ãªã‚Šã€<br />1ä½ã‚’å®ˆã‚‹äº‹ã§ã™ã€‚</li>
+<li>å†’é™ºè¦ç´ ã¯ãªã„ã§ã™ãŒã€<br />ã¡ã‚‡ã£ã¨æ·±ã„æˆ¦é—˜ã‚·ã‚¹ãƒ†ãƒ ãŒå£²ã‚Šã§ã™ã€‚</li>
 </ul>
-<div class="u">ÀïÆ®¤Ï¤É¤ó¤Ê´¶¤¸?</div>
+<div class="u">æˆ¦é—˜ã¯ã©ã‚“ãªæ„Ÿã˜?</div>
 <ul>
-<li>5¿Í¤Î¥­¥ã¥é¥¯¥¿¡¼¤Ç¥Ñ¡¼¥Æ¥£¡¼¤òÊÔÀ®¡£</li>
-<li>³Æ¥­¥ã¥é¤¬¹ÔÆ°¥Ñ¥¿¡¼¥ó¤ò»ı¤Á¡¢<br />ÀïÆ®¤Î¾õ¶·¤Ë±ş¤¸¤Æµ»¤ò»È¤¤Ê¬¤±¤Ş¤¹¡£</li>
-<li><a href="?log" class="a0">¤³¤Á¤é</a>¤ÇÀïÆ®¥í¥°¤¬²óÍ÷¤Ç¤­¤Ş¤¹¡£</li>
+<li>5äººã®ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã§ãƒ‘ãƒ¼ãƒ†ã‚£ãƒ¼ã‚’ç·¨æˆã€‚</li>
+<li>å„ã‚­ãƒ£ãƒ©ãŒè¡Œå‹•ãƒ‘ã‚¿ãƒ¼ãƒ³ã‚’æŒã¡ã€<br />æˆ¦é—˜ã®çŠ¶æ³ã«å¿œã˜ã¦æŠ€ã‚’ä½¿ã„åˆ†ã‘ã¾ã™ã€‚</li>
+<li><a href="?log" class="a0">ã“ã¡ã‚‰</a>ã§æˆ¦é—˜ãƒ­ã‚°ãŒå›è¦§ã§ãã¾ã™ã€‚</li>
 </ul>
 </div>
 </div>
@@ -3489,17 +3489,17 @@ HTML;
 Users : <?=UserAmount()?> / <?=MAX_USERS?><br />
 <?
 	$Abandon	= ABANDONED;
-	print(floor($Abandon/(60*60*24))."Æü¥Ç¡¼¥¿¤ËÊÑ²½Ìµ¤·¤Ç¥Ç¡¼¥¿¾Ã¤¨¤ë¡£");
+	print(floor($Abandon/(60*60*24))."æ—¥ãƒ‡ãƒ¼ã‚¿ã«å¤‰åŒ–ç„¡ã—ã§ãƒ‡ãƒ¼ã‚¿æ¶ˆãˆã‚‹ã€‚");
 print("</div>\n");
 	}
 
 //////////////////////////////////////////////////
-//	¾åÉô¤ËÉ½¼¨¤µ¤ì¤ë¥á¥Ë¥å¡¼¡£
-//	¥í¥°¥¤¥ó¤·¤Æ¤ë¿ÍÍÑ¤È¤½¤¦¤Ç¤Ê¤¤¿Í¡£
+//	ä¸Šéƒ¨ã«è¡¨ç¤ºã•ã‚Œã‚‹ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã€‚
+//	ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ã‚‹äººç”¨ã¨ãã†ã§ãªã„äººã€‚
 	function MyMenu() {
-		if($this->name && $this->islogin) { // ¥í¥°¥¤¥ó¤·¤Æ¤ë¿ÍÍÑ
+		if($this->name && $this->islogin) { // ãƒ­ã‚°ã‚¤ãƒ³ã—ã¦ã‚‹äººç”¨
 			print('<div id="menu">'."\n");
-			//print('<span class="divide"></span>');//¶èÀÚ¤ê
+			//print('<span class="divide"></span>');//åŒºåˆ‡ã‚Š
 			print('<a href="'.INDEX.'">Top</a><span class="divide"></span>');
 			print('<a href="?hunt">Hunt</a><span class="divide"></span>');
 			print('<a href="?item">Item</a><span class="divide"></span>');
@@ -3519,21 +3519,21 @@ print("</div>\n");
 	<div class="c-both"></div>
 	</div><?
 			print('</div>');
-		} else if(!$this->name && $this->islogin) {// ½é²ó¥í¥°¥¤¥ó¤Î¿Í
+		} else if(!$this->name && $this->islogin) {// åˆå›ãƒ­ã‚°ã‚¤ãƒ³ã®äºº
 			print('<div id="menu">');
 			print("First login. Thankyou for the entry.");
 			print('</div><div id="menu2">');
-			print("fill the blanks. ¤Æ¤­¤È¡¼¤ËËä¤á¤Æ¤¯¤À¤µ¤¤¡£");
+			print("fill the blanks. ã¦ãã¨ãƒ¼ã«åŸ‹ã‚ã¦ãã ã•ã„ã€‚");
 			print('</div>');
-		} else { //// ¥í¥°¥¢¥¦¥È¾õÂÖ¤Î¿Í¡¢ÍèµÒÍÑ¤ÎÉ½¼¨
+		} else { //// ãƒ­ã‚°ã‚¢ã‚¦ãƒˆçŠ¶æ…‹ã®äººã€æ¥å®¢ç”¨ã®è¡¨ç¤º
 			print('<div id="menu">');
-			print('<a href="'.INDEX.'">¥È¥Ã¥×</a><span class="divide"></span>'."\n");
-			print('<a href="?newgame">¿·µ¬</a><span class="divide"></span>'."\n");
-			print('<a href="?manual">¥ë¡¼¥ë¤È¥Ş¥Ë¥å¥¢¥ë</a><span class="divide"></span>'."\n");
-			print('<a href="?gamedata=job">¥²¡¼¥à¥Ç¡¼¥¿</a><span class="divide"></span>'."\n");
-			print('<a href="?log">ÀïÆ®¥í¥°</a><span class="divide"></span>'."\n");
+			print('<a href="'.INDEX.'">ãƒˆãƒƒãƒ—</a><span class="divide"></span>'."\n");
+			print('<a href="?newgame">æ–°è¦</a><span class="divide"></span>'."\n");
+			print('<a href="?manual">ãƒ«ãƒ¼ãƒ«ã¨ãƒãƒ‹ãƒ¥ã‚¢ãƒ«</a><span class="divide"></span>'."\n");
+			print('<a href="?gamedata=job">ã‚²ãƒ¼ãƒ ãƒ‡ãƒ¼ã‚¿</a><span class="divide"></span>'."\n");
+			print('<a href="?log">æˆ¦é—˜ãƒ­ã‚°</a><span class="divide"></span>'."\n");
 			if(BBS_OUT)
-			print('<a href="'.BBS_OUT.'">Áí¹çBBS</a><span class="divide"></span>'."\n");
+			print('<a href="'.BBS_OUT.'">ç·åˆBBS</a><span class="divide"></span>'."\n");
 			
 			print('</div><div id="menu2">');
 			print("Welcome to [ ".TITLE." ]");
@@ -3542,7 +3542,7 @@ print("</div>\n");
 	}
 
 //////////////////////////////////////////////////
-//	HTML³«»ÏÉôÊ¬
+//	HTMLé–‹å§‹éƒ¨åˆ†
 	function Head() {
 		?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
@@ -3558,10 +3558,10 @@ print("</div>\n");
 	}
 
 //////////////////////////////////////////////////
-//	¥¹¥¿¥¤¥ë¥·¡¼¥È¤È¤«¡£
+//	ã‚¹ã‚¿ã‚¤ãƒ«ã‚·ãƒ¼ãƒˆã¨ã‹ã€‚
 	function HtmlScript() {
 		?>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="./basis.css" type="text/css">
 <link rel="stylesheet" href="./style.css" type="text/css">
 <script type="text/javascript" src="prototype.js"></script>
@@ -3569,7 +3569,7 @@ print("</div>\n");
 	}
 
 //////////////////////////////////////////////////
-//	HTML½ªÎ»ÉôÊ¬
+//	HTMLçµ‚äº†éƒ¨åˆ†
 	function Foot() {
 		?>
 </div>
@@ -3590,9 +3590,9 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 	}
 
 //////////////////////////////////////////////////
-//	½é²ó¥í¥°¥¤¥óÍÑ¤Î¥Õ¥©¡¼¥à
+//	åˆå›ãƒ­ã‚°ã‚¤ãƒ³ç”¨ã®ãƒ•ã‚©ãƒ¼ãƒ 
 	function FirstLogin() {
-		// ÊÖÃÍ:ÀßÄêºÑ¤ß=false / ÈóÀßÄê=true
+		// è¿”å€¤:è¨­å®šæ¸ˆã¿=false / éè¨­å®š=true
 		if ($this->name)
 			return false;
 
@@ -3620,10 +3620,10 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 			}
 			$userName	= userNameLoad();
 			if(in_array($_POST["name"],$userName)) {
-				$error	= '¤½¤ÎÌ¾Á°¤Ï»ÈÍÑ¤µ¤ì¤Æ¤¤¤Ş¤¹¡£';
+				$error	= 'ãã®åå‰ã¯ä½¿ç”¨ã•ã‚Œã¦ã„ã¾ã™ã€‚';
 				break;
 			}
-			// ºÇ½é¤Î¥­¥ã¥é¤ÎÌ¾Á°
+			// æœ€åˆã®ã‚­ãƒ£ãƒ©ã®åå‰
 			$_POST["first_name"]	= trim($_POST["first_name"]);
 			$_POST["first_name"]	= stripslashes($_POST["first_name"]);
 			if(is_numeric(strpos($_POST["first_name"],"\t"))) {
@@ -3687,15 +3687,15 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 	<p>Decide the Name of the team.<br />
 	It should be more than 1 and less than 16 letters.<br />
 	Japanese characters count as 2 letters.</p>
-	<p>1-16Ê¸»ú¤Ç¥Á¡¼¥à¤ÎÌ¾Á°·è¤á¤Æ¤¯¤À¤µ¤¤¡£<br />
-	ÆüËÜ¸ì¤Ç¤âOK¡£<br />
-	ÆüËÜ¸ì¤Ï 1Ê¸»ú = 2 letter</p>
+	<p>1-16æ–‡å­—ã§ãƒãƒ¼ãƒ ã®åå‰æ±ºã‚ã¦ãã ã•ã„ã€‚<br />
+	æ—¥æœ¬èªã§ã‚‚OKã€‚<br />
+	æ—¥æœ¬èªã¯ 1æ–‡å­— = 2 letter</p>
 	<div class="bold u">TeamName</div>
 	<input class="text" style="width:160px" maxlength="16" name="name"<?print($_POST["name"]?"value=\"$_POST[name]\"":"")?>>
 	<h4>First Character</h4>
 	<p>Decide the name of Your First Charactor.<br>
 	more than 1 and less than 16 letters.</p>
-	<p>½é´ü¥­¥ã¥é¤ÎÌ¾Á°¡£</p>
+	<p>åˆæœŸã‚­ãƒ£ãƒ©ã®åå‰ã€‚</p>
 	<div class="bold u">CharacterName</div>
 	<input class="text" type="text" name="first_name" maxlength="16" style="width:160px;margin-bottom:10px">
 	<table cellspacing="0" style="width:400px"><tbody>
@@ -3708,14 +3708,14 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 	<tr><td colspan="2" class="td4"><div style="text-align:center">Warrior</div></td><td colspan="2" class="td4"><div style="text-align:center">Socerer</div></td></tr>
 	</tbody></table>
 	<p>Choose your first character's job &amp; Gender.</p>
-	<p>ºÇ½é¤Î¥­¥ã¥é¤Î¿¦¤ÈÀ­ÊÌ</p>
+	<p>æœ€åˆã®ã‚­ãƒ£ãƒ©ã®è·ã¨æ€§åˆ¥</p>
 	<input class="btn" style="width:160px" type="submit" value="Done" name="Done">
 	<input type="hidden" value="1" name="Done">
 	<input class="btn" style="width:160px" type="submit" value="logout" name="logout"></form><?
 			return true;
 	}
 //////////////////////////////////////////////////
-//	ÉáÄÌ¤Î1¹Ô·Ç¼¨ÈÄ
+//	æ™®é€šã®1è¡Œæ²ç¤ºæ¿
 	function bbs01() {
 		if(!BBS_BOTTOM_TOGGLE)
 			return false;
@@ -3723,7 +3723,7 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 	?>
 <div style="margin:15px">
 <h4>one line bbs</h4>
-¥Ğ¥°Êó¹ğ,¥Ğ¥é¥ó¥¹¤Ë¤Ä¤¤¤Æ¤Î°Õ¸«¤È¤«¤Ï¤³¤Á¤é¤Ç¤É¤¦¤¾¡£
+ãƒã‚°å ±å‘Š,ãƒãƒ©ãƒ³ã‚¹ã«ã¤ã„ã¦ã®æ„è¦‹ã¨ã‹ã¯ã“ã¡ã‚‰ã§ã©ã†ãã€‚
 <form action="?bbs" method="post">
 <input type="text" maxlength="60" name="message" class="text" style="width:300px"/>
 <input type="submit" value="post" class="btn" style="width:100px" />
@@ -3736,13 +3736,13 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 			$_POST["message"]	= htmlspecialchars($_POST["message"],ENT_QUOTES);
 			$_POST["message"]	= stripslashes($_POST["message"]);
 
-			$name	= ($this->name ? "<span class=\"bold\">{$this->name}</span>":"Ì¾Ìµ¤·");
+			$name	= ($this->name ? "<span class=\"bold\">{$this->name}</span>":"åç„¡ã—");
 			$message	= $name." > ".$_POST["message"];
 			if($this->UserColor)
 				$message	= "<span style=\"color:{$this->UserColor}\">".$message."</span>";
 			$message	.= " <span class=\"light\">(".date("Mj G:i").")</span>\n";
 			array_unshift($log,$message);
-			while(150 < count($log))// ¥í¥°ÊİÂ¸¹Ô¿ô¤¢
+			while(150 < count($log))// ãƒ­ã‚°ä¿å­˜è¡Œæ•°ã‚
 				array_pop($log);
 			WriteFile($file,implode(null,$log));
 		}

@@ -1,18 +1,18 @@
 <?php
 function LoadSkillTree($char) {
 /*
-	K“¾‰Â”\‚È‹Z‚ğ•Ô‚·B
+	ç¿’å¾—å¯èƒ½ãªæŠ€ã‚’è¿”ã™ã€‚
 */
-	// K“¾Ï‚İƒXƒLƒ‹B
-	// array_search() ‚Å‚È‚­ ƒnƒbƒVƒ…‚ğg‚Á‚Ä–ˆ‰ñ”»’è‚·‚éB
-	// ‚Ç‚Á‚¿‚Ìˆ—‚ª‘¬‚¢‚©‚ÍA’m‚ç‚ñB
+	// ç¿’å¾—æ¸ˆã¿ã‚¹ã‚­ãƒ«ã€‚
+	// array_search() ã§ãªã ãƒãƒƒã‚·ãƒ¥ã‚’ä½¿ã£ã¦æ¯å›åˆ¤å®šã™ã‚‹ã€‚
+	// ã©ã£ã¡ã®å‡¦ç†ãŒé€Ÿã„ã‹ã¯ã€çŸ¥ã‚‰ã‚“ã€‚
 	$lnd	= array_flip($char->skill);
-	$lnd[key($lnd)]++;//”z—ñ‚Ìæ“ª‚Ì’l‚ª"0"‚È‚Ì‚Å1‚É‚·‚é(issetg‚í‚¸‚Étrue‚É‚·‚é‚½‚ß)
+	$lnd[key($lnd)]++;//é…åˆ—ã®å…ˆé ­ã®å€¤ãŒ"0"ãªã®ã§1ã«ã™ã‚‹(issetä½¿ã‚ãšã«trueã«ã™ã‚‹ãŸã‚)
 
-	$list	= array();//‹ó”z—ñ
+	$list	= array();//ç©ºé…åˆ—
 
 
-	//////////////////////////////////// Œ•‹Z
+	//////////////////////////////////// å‰£æŠ€
 	if(	$char->job == 100
 	 ||	$char->job == 101
 	 ||	$char->job == 102
@@ -94,7 +94,7 @@ function LoadSkillTree($char) {
 		}
 		if($lnd["1021"])//SoulBreak
 			$list[]	= "1024";//LifeDivision
-		// –³ğŒ
+		// ç„¡æ¡ä»¶
 		$list[]	= "2090";//EnergyRob
 		$list[]	= "3231";//ForceShield(self)
 		if($lnd["2090"]) {//EnergyRob
@@ -111,7 +111,7 @@ function LoadSkillTree($char) {
 		}
 	}
 
-	//////////////////////////////////// –‚–@Œn
+	//////////////////////////////////// é­”æ³•ç³»
 	if(	$char->job == 200
 	||	$char->job == 201
 	||	$char->job == 202
@@ -202,7 +202,7 @@ function LoadSkillTree($char) {
 		}
 		if($lnd["2050"])//VenomBlast
 			$list[]	= "2051";//PoisonSmog
-		/* // İ’è‚ªŠÈ’P‚·‚¬‚éB
+		/* // è¨­å®šãŒç°¡å˜ã™ãã‚‹ã€‚
 		if($lnd["2031"])//LifeSqueeze
 			$list[]	= "2032";//DeathKnell
 		*/
@@ -226,7 +226,7 @@ function LoadSkillTree($char) {
 			$list[]	= "2465";// Biohazard
 	}
 
-	//////////////////////////////////// x‰‡Œn
+	//////////////////////////////////// æ”¯æ´ç³»
 	if(	$char->job == 300
 	 ||	$char->job == 301
 	 ||	$char->job == 302) {
@@ -290,7 +290,7 @@ function LoadSkillTree($char) {
 			$list[]	= "3265";//SpeedAsist
 		$list[]	= "3415";//MagicCircle
 	}
-	//////////////////////////////////// ‹|Œn
+	//////////////////////////////////// å¼“ç³»
 	if( $char->job == 400
 	||	$char->job == 401
 	||	$char->job == 402
@@ -367,7 +367,7 @@ function LoadSkillTree($char) {
 			$list[]	= "3306";//Nimble
 		if($lnd["3303"])//
 			$list[]	= "3307";//Fortify
-		// `Train 4í—Ş
+		// ï½Train 4ç¨®é¡
 		if($lnd["3300"] && $lnd["3301"] && $lnd["3302"] && $lnd["3303"]) {
 			$list[]	= "3308";//FullSupport
 			$list[]	= "3310";//SuppressBeast
@@ -394,16 +394,16 @@ function LoadSkillTree($char) {
 	}
 
 
-	//////////////////////////////////// ‚»‚Ì‘¼
+	//////////////////////////////////// ãã®ä»–
 	if(!$lnd["3010"] && $char->job == "200")//ManaRecharge
 		$list[]	= "3010";
 
-	//////////////////////////////////// ‹¤’ÊŒn
+	//////////////////////////////////// å…±é€šç³»
 	if(19 < $char->level)
-		$list[]	= "4000";//—Õí‘Ô¨
+		$list[]	= "4000";//è‡¨æˆ¦æ…‹å‹¢
 
 	if(4 < $char->level)
-		$list[]	= "9000";//•¡””»’è(* think over)
+		$list[]	= "9000";//è¤‡æ•°åˆ¤å®š(* think over)
 
 	asort($list);
 	return $list;

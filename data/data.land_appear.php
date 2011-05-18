@@ -1,13 +1,13 @@
 <?php
-// ‚Ü‚Á‚Õ‚ÌoŒ»ğŒ”»’è
+// ã¾ã£ã·ã®å‡ºç¾æ¡ä»¶åˆ¤å®š
 function LoadMapAppear($user) {
 
 	$land	= array();
 
-	// –³ğŒ
+	// ç„¡æ¡ä»¶
 	array_push($land,"gb0","gb1","gb2");
 
-	// ƒAƒCƒeƒ€‚ª‚ ‚ê‚Îs‚¯‚éB
+	// ã‚¢ã‚¤ãƒ†ãƒ ãŒã‚ã‚Œã°è¡Œã‘ã‚‹ã€‚
 	if($user->item["8000"])
 		array_push($land,"ac0");
 	if($user->item["8001"])

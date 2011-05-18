@@ -9,19 +9,19 @@ class Ranking {
 	var $UserRecord;
 
 //////////////////////////////////////////////
-// ¥Õ¥¡¥¤¥ë¤«¤éÆÉ¤ß¹ş¤ó¤Ç¥é¥ó¥­¥ó¥°¤òÇÛÎó¤Ë¤¹¤ë
+// ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿è¾¼ã‚“ã§ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‚’é…åˆ—ã«ã™ã‚‹
 /*
 
-	$this->Ranking[0][0]= *********;// ¼ó°Ì
+	$this->Ranking[0][0]= *********;// é¦–ä½
 
-	$this->Ranking[1][0]= *********;// Æ±°ì 2°Ì
+	$this->Ranking[1][0]= *********;// åŒä¸€ 2ä½
 	$this->Ranking[1][1]= *********;
 
-	$this->Ranking[2][0]= *********;// Æ±°ì 3°Ì
+	$this->Ranking[2][0]= *********;// åŒä¸€ 3ä½
 	$this->Ranking[2][1]= *********;
 	$this->Ranking[2][2]= *********;
 
-	$this->Ranking[3][0]= *********;// Æ±°ì 4°Ì
+	$this->Ranking[3][0]= *********;// åŒä¸€ 4ä½
 	$this->Ranking[3][1]= *********;
 	$this->Ranking[3][2]= *********;
 	$this->Ranking[3][3]= *********;
@@ -34,7 +34,7 @@ class Ranking {
 
 		if(!file_exists($file)) return 0;
 
-		// ¥Õ¥¡¥¤¥ë¤«¤éÆÉ¤ó¤ÇÇÛÎó¤Ë¤¤¤ì¤ë
+		// ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã‚“ã§é…åˆ—ã«ã„ã‚Œã‚‹
 
 		$this->fp	= FileLock($file);
 		$Place	= 0;
@@ -46,9 +46,9 @@ class Ranking {
 			$this->Ranking[$Place][]	= $line;
 		}
 		//$this->Ranking	= file($file);
-		// ÇÛÎó¤¬0¤Ê¤é½ªÎ»
+		// é…åˆ—ãŒ0ãªã‚‰çµ‚äº†
 		if(!$this->Ranking) return 0;
-		// ¶èÀÚ¤Ã¤ÆÊ¸»úÎó¤òÊ¬³ä
+		// åŒºåˆ‡ã£ã¦æ–‡å­—åˆ—ã‚’åˆ†å‰²
 		foreach($this->Ranking as $Rank => $SamePlaces) {
 			if(!is_array($SamePlaces))
 				continue;
@@ -62,9 +62,9 @@ class Ranking {
 		//dump($this->Ranking);
 	}
 //////////////////////////////////////////////
-// ¥é¥ó¥­¥ó¥°Àï¤¹¤ë¡£Àï¤¦¡£
+// ãƒ©ãƒ³ã‚­ãƒ³ã‚°æˆ¦ã™ã‚‹ã€‚æˆ¦ã†ã€‚
 	function Challenge(&$user) {
-		// ¥é¥ó¥­¥ó¥°¤¬Ìµ¤¤¤È¤­(1°Ì¤Ë¤Ê¤ë)
+		// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ãŒç„¡ã„ã¨ã(1ä½ã«ãªã‚‹)
 		if(!$this->Ranking) {
 			$this->JoinRanking($user->id);
 			$this->SaveRanking();
@@ -72,24 +72,24 @@ class Ranking {
 			//return array($message,true);
 			return false;
 		}
-		//¼«Ê¬¤Î½ç°Ì
+		//è‡ªåˆ†ã®é †ä½
 		$MyRank	= $this->SearchID($user->id);
 
-		// 1°Ì¤Î¾ì¹ç¡£
+		// 1ä½ã®å ´åˆã€‚
 		if($MyRank["0"] === 0) {
 			SHowError("First place can't challenge.");
 			//return array($message,true);
 			return false;
 		}
 
-		// ¼«Ê¬¤¬¥é¥ó¥¯³°¤Ê¤é ////////////////////////////////////
+		// è‡ªåˆ†ãŒãƒ©ãƒ³ã‚¯å¤–ãªã‚‰ ////////////////////////////////////
 		if(!$MyRank)
 		{
-			$this->JoinRanking($user->id);//¼«Ê¬¤òºÇ²¼°Ì¤Ë¤¹¤ë¡£
-			$MyPlace	= count($this->Ranking) - 1;//¼«Ê¬¤Î¥é¥ó¥¯(ºÇ²¼°Ì)
+			$this->JoinRanking($user->id);//è‡ªåˆ†ã‚’æœ€ä¸‹ä½ã«ã™ã‚‹ã€‚
+			$MyPlace	= count($this->Ranking) - 1;//è‡ªåˆ†ã®ãƒ©ãƒ³ã‚¯(æœ€ä¸‹ä½)
 			$RivalPlace	= (int)($MyPlace - 1);
 
-			// Áê¼ê¤¬¼ó°Ì¤Ê¤Î¤«¤É¤¦¤«
+			// ç›¸æ‰‹ãŒé¦–ä½ãªã®ã‹ã©ã†ã‹
 			if($RivalPlace === 0)
 				$DefendMatch	= true;
 			else
@@ -97,16 +97,16 @@ class Ranking {
 
 			//$MyID	= $id;
 
-			//¼«Ê¬¤è¤ê1¸Ä¾å¤Î¿Í¤¬Áê¼ê¡£
+			//è‡ªåˆ†ã‚ˆã‚Š1å€‹ä¸Šã®äººãŒç›¸æ‰‹ã€‚
 			$RivalRankKey	= array_rand($this->Ranking[$RivalPlace]);
-			$RivalID	= $this->Ranking[$RivalPlace][$RivalRankKey]["id"];//ÂĞÀï¤¹¤ëÁê¼ê¤ÎID
+			$RivalID	= $this->Ranking[$RivalPlace][$RivalRankKey]["id"];//å¯¾æˆ¦ã™ã‚‹ç›¸æ‰‹ã®ID
 			$Rival	= new user($RivalID);
 
 			/*
 			dump($this->Ranking);
 			dump($RivalID);
 			dump($MyID);
-			dump($MyRank);//¥¨¥é¡¼¤Ç¤¿¤é´èÄ¥¤ì
+			dump($MyRank);//ã‚¨ãƒ©ãƒ¼ã§ãŸã‚‰é ‘å¼µã‚Œ
 			return 0;
 			*/
 
@@ -114,7 +114,7 @@ class Ranking {
 			$Return	= $this->ProcessByResult($Result,&$user,&$Rival,$DefendMatch);
 			
 			return $Return;
-			// ¾¡Íø¤Ê¤é½ç°Ì¸òÂå
+			// å‹åˆ©ãªã‚‰é †ä½äº¤ä»£
 			//if($message == "Battle" && $result === 0) {
 			//	$this->ChangePlace($user,$Rival);
 			//}
@@ -123,17 +123,17 @@ class Ranking {
 			//return array($message,$result);
 		}
 
-		// 2°Ì-ºÇ²¼°Ì¤Î¿Í¤Î½èÍı¡£////////////////////////////////
+		// 2ä½-æœ€ä¸‹ä½ã®äººã®å‡¦ç†ã€‚////////////////////////////////
 		if($MyRank) {
-			$RivalPlace	= (int)($MyRank["0"] - 1);//¼«Ê¬¤è¤ê½ç°Ì¤¬1¸Ä¾å¤Î¿Í¡£
+			$RivalPlace	= (int)($MyRank["0"] - 1);//è‡ªåˆ†ã‚ˆã‚Šé †ä½ãŒ1å€‹ä¸Šã®äººã€‚
 
-			// Áê¼ê¤¬¼ó°Ì¤Ê¤Î¤«¤É¤¦¤«
+			// ç›¸æ‰‹ãŒé¦–ä½ãªã®ã‹ã©ã†ã‹
 			if($RivalPlace === 0)
 				$DefendMatch	= true;
 			else
 				$DefendMatch	= false;
 
-			//¼«Ê¬¤è¤ê1¸Ä¾å¤Î¿Í¤¬Áê¼ê
+			//è‡ªåˆ†ã‚ˆã‚Š1å€‹ä¸Šã®äººãŒç›¸æ‰‹
 			$RivalRankKey	= array_rand($this->Ranking[$RivalPlace]);
 			$RivalID	= $this->Ranking[$RivalPlace][$RivalRankKey]["id"];
 			$Rival	= new user($RivalID);
@@ -147,7 +147,7 @@ class Ranking {
 			//if($message != "Battle")
 			//	return array($message,$result);
 
-			// ÀïÆ®¤ò¹Ô¤Ã¤Æ¾¡Íø¤Ê¤é½ç°Ì¸òÂå
+			// æˆ¦é—˜ã‚’è¡Œã£ã¦å‹åˆ©ãªã‚‰é †ä½äº¤ä»£
 			/*
 			if($message == "Battle" && $result === 0) {
 				$this->ChangePlace($MyID,$RivalID);
@@ -160,42 +160,42 @@ class Ranking {
 	}
 
 //////////////////////////////////////////////
-// Àï¤ï¤»¤ë
+// æˆ¦ã‚ã›ã‚‹
 	function RankBattle(&$user,&$Rival,$UserPlace,$RivalPlace) {
 
-		$UserPlace	= "[".($UserPlace+1)."°Ì]";
-		$RivalPlace	= "[".($RivalPlace+1)."°Ì]";
+		$UserPlace	= "[".($UserPlace+1)."ä½]";
+		$RivalPlace	= "[".($RivalPlace+1)."ä½]";
 
 		/*
-			¢£ Áê¼ê¤Î¥æ¡¼¥¶¼«ÂÎ¤¬´û¤ËÂ¸ºß¤·¤Ê¤¤¾ì¹ç¤Î½èÍı
-			¥¢¥«¥¦¥ó¥È¤¬ºï½ü½èÍı¤µ¤ì¤¿»ş¤Ë¥é¥ó¥­¥ó¥°¤«¤é¤â¾Ã¤¨¤ë¤è¤¦¤Ë¤·¤¿¤«¤é
-			ËÜÍè½Ğ¤Ê¤¤¥¨¥é¡¼¤«¤â¤·¤ì¤Ê¤¤¡£
+			â–  ç›¸æ‰‹ã®ãƒ¦ãƒ¼ã‚¶è‡ªä½“ãŒæ—¢ã«å­˜åœ¨ã—ãªã„å ´åˆã®å‡¦ç†
+			ã‚¢ã‚«ã‚¦ãƒ³ãƒˆãŒå‰Šé™¤å‡¦ç†ã•ã‚ŒãŸæ™‚ã«ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‹ã‚‰ã‚‚æ¶ˆãˆã‚‹ã‚ˆã†ã«ã—ãŸã‹ã‚‰
+			æœ¬æ¥å‡ºãªã„ã‚¨ãƒ©ãƒ¼ã‹ã‚‚ã—ã‚Œãªã„ã€‚
 		*/
 		if($Rival->is_exist() == false) {
-			ShowError("Áê¼ê¤¬´û¤ËÂ¸ºß¤·¤Æ¤¤¤Ş¤»¤ó¤Ç¤·¤¿(ÉÔÀï¾¡)");
+			ShowError("ç›¸æ‰‹ãŒæ—¢ã«å­˜åœ¨ã—ã¦ã„ã¾ã›ã‚“ã§ã—ãŸ(ä¸æˆ¦å‹)");
 			$this->DeleteRank($DefendID);
 			$this->SaveRanking();
 			//return array(true);
 			return "DEFENDER_NO_ID";
 		}
 
-		// ¤ª¸ß¤¤¤Î¥é¥ó¥­¥ó¤°ÍÑ¤Î¥Ñ¡¼¥Æ¥£¡¼¤òÆÉ¤ß¹ş¤à
+		// ãŠäº’ã„ã®ãƒ©ãƒ³ã‚­ãƒ³ãç”¨ã®ãƒ‘ãƒ¼ãƒ†ã‚£ãƒ¼ã‚’èª­ã¿è¾¼ã‚€
 		$Party_Challenger	= $user->RankParty();
 		$Party_Defender		= $Rival->RankParty();
 
 
-		// ¥é¥ó¥¯ÍÑ¥Ñ¡¼¥Æ¥£¡¼¤¬¤¢¤ê¤Ş¤»¤ó¡ª¡ª¡ª
+		// ãƒ©ãƒ³ã‚¯ç”¨ãƒ‘ãƒ¼ãƒ†ã‚£ãƒ¼ãŒã‚ã‚Šã¾ã›ã‚“ï¼ï¼ï¼
 		if($Party_Challenger === false) {
-			ShowError("Àï¤¦¥á¥ó¥Ğ¡¼¤¬¤¤¤Ş¤»¤ó¡£");
+			ShowError("æˆ¦ã†ãƒ¡ãƒ³ãƒãƒ¼ãŒã„ã¾ã›ã‚“ã€‚");
 			return "CHALLENGER_NO_PARTY";
 		}
 
-		// ¥é¥ó¥¯ÍÑ¥Ñ¡¼¥Æ¥£¡¼¤¬¤¢¤ê¤Ş¤»¤ó¡ª¡ª¡ª
+		// ãƒ©ãƒ³ã‚¯ç”¨ãƒ‘ãƒ¼ãƒ†ã‚£ãƒ¼ãŒã‚ã‚Šã¾ã›ã‚“ï¼ï¼ï¼
 		if($Party_Defender === false) {
 			//$defender->RankRecord(0,"DEFEND",$DefendMatch);
 			//$defender->SaveData();
-			ShowError($Rival->name." ¤ÏÂĞÀï¥­¥ã¥é¤¬ÀßÄê¤µ¤ì¤Æ¤¤¤Ş¤»¤ó¤Ç¤·¤¿<br />(ÉÔÀï¾¡)");
-			return "DEFENDER_NO_PARTY";//ÉÔÀï¾¡¤È¤¹¤ë
+			ShowError($Rival->name." ã¯å¯¾æˆ¦ã‚­ãƒ£ãƒ©ãŒè¨­å®šã•ã‚Œã¦ã„ã¾ã›ã‚“ã§ã—ãŸ<br />(ä¸æˆ¦å‹)");
+			return "DEFENDER_NO_PARTY";//ä¸æˆ¦å‹ã¨ã™ã‚‹
 		}
 
 		//dump($Party_Challenger);
@@ -203,13 +203,13 @@ class Ranking {
 		include(CLASS_BATTLE);
 		$battle	= new battle($Party_Challenger,$Party_Defender);
 		$battle->SetBackGround("colosseum");
-		$battle->SetResultType(1);// ·èÃå¤Ä¤«¤Ê¤¤¾ì¹ç¤ÏÀ¸Â¸¼Ô¤Î¿ô¤Ç·è¤á¤ë¤è¤¦¤Ë¤¹¤ë
+		$battle->SetResultType(1);// æ±ºç€ã¤ã‹ãªã„å ´åˆã¯ç”Ÿå­˜è€…ã®æ•°ã§æ±ºã‚ã‚‹ã‚ˆã†ã«ã™ã‚‹
 		$battle->SetTeamName($user->name.$UserPlace,$Rival->name.$RivalPlace);
-		$battle->Process();//ÀïÆ®³«»Ï
+		$battle->Process();//æˆ¦é—˜é–‹å§‹
 		$battle->RecordLog("RANK");
-		$Result	= $battle->ReturnBattleResult();// ÀïÆ®·ë²Ì
+		$Result	= $battle->ReturnBattleResult();// æˆ¦é—˜çµæœ
 
-		// ÀïÆ®¤ò¼õ¤±¤ÆÎ©¤Ã¤¿Â¦¤ÎÀ®ÀÓ¤Ï¤³¤³¤ÇÊÑ¤¨¤ë¡£
+		// æˆ¦é—˜ã‚’å—ã‘ã¦ç«‹ã£ãŸå´ã®æˆç¸¾ã¯ã“ã“ã§å¤‰ãˆã‚‹ã€‚
 		//$defender->RankRecord($Result,"DEFEND",$DefendMatch);
 		//$defender->SaveData();
 
@@ -221,15 +221,15 @@ class Ranking {
 		} else if ($Result === DRAW) {
 			return "DRAW_GAME";
 		} else {
-			return "DRAW_GAME";//(¥¨¥é¡¼)Í½Äê¤Ç¤Ï½Ğ¤Ê¤¤¥¨¥é¡¼(²óÈòÍÑ)
+			return "DRAW_GAME";//(ã‚¨ãƒ©ãƒ¼)äºˆå®šã§ã¯å‡ºãªã„ã‚¨ãƒ©ãƒ¼(å›é¿ç”¨)
 		}
 	}
 //////////////////////////////////////////////////
-//	·ë²Ì¤Ë¤è¤Ã¤Æ½èÍı¤òÊÑ¤¨¤ë
+//	çµæœã«ã‚ˆã£ã¦å‡¦ç†ã‚’å¤‰ãˆã‚‹
 	function ProcessByResult($Result,&$user,&$Rival,$DefendMatch) {
 		switch($Result) {
 
-			// ¼õ¤±¤¿Â¦¤ÎID¤¬Â¸ºß¤·¤Ê¤¤
+			// å—ã‘ãŸå´ã®IDãŒå­˜åœ¨ã—ãªã„
 			case "DEFENDER_NO_ID":
 				$this->ChangePlace($user->id,$Rival->id);
 				$this->DeleteRank($Rival->id);
@@ -237,12 +237,12 @@ class Ranking {
 				return false;
 				break;
 
-			// Ä©ÀïÂ¦PTÌµ¤·
+			// æŒ‘æˆ¦å´PTç„¡ã—
 			case "CHALLENGER_NO_PARTY":
 				return false;
 				break;
 
-			// ¼õ¤±¤¿Â¦PTÌµ¤·
+			// å—ã‘ãŸå´PTç„¡ã—
 			case "DEFENDER_NO_PARTY":
 				$this->ChangePlace($user->id,$Rival->id);
 				$this->SaveRanking();
@@ -253,7 +253,7 @@ class Ranking {
 				return true;
 				break;
 
-			// Ä©Àï¼Ô¾¡¤Á
+			// æŒ‘æˆ¦è€…å‹ã¡
 			case "CHALLENGER_WIN":
 				$this->ChangePlace($user->id,$Rival->id);
 				$this->SaveRanking();
@@ -264,7 +264,7 @@ class Ranking {
 				return "BATTLE";
 				break;
 
-			// ¼õ¤±¤¿Â¦¾¡¤Á
+			// å—ã‘ãŸå´å‹ã¡
 			case "DEFENDER_WIN":
 				//$this->SaveRanking();
 				$user->RankRecord(1,"CHALLENGER",$DefendMatch);
@@ -274,7 +274,7 @@ class Ranking {
 				return "BATTLE";
 				break;
 
-			// °úÊ¬¤±
+			// å¼•åˆ†ã‘
 			case "DRAW_GAME":
 				//$this->SaveRanking();
 				$user->RankRecord("d","CHALLENGER",$DefendMatch);
@@ -289,41 +289,41 @@ class Ranking {
 		}
 	}
 //////////////////////////////////////////////////
-//	°ú¿ô¤Î½ç°Ì ¤È Æ±¤¸½ç°Ì¤Î¿Í¿ô
+//	å¼•æ•°ã®é †ä½ ã¨ åŒã˜é †ä½ã®äººæ•°
 	function SamePlaceAmount($Place) {
 		switch(true) {
-			case ($Place == 0): return 1;//1°Ì
-			case ($Place == 1): return 2;//2°Ì
-			case ($Place == 2): return 3;//3°Ì
+			case ($Place == 0): return 1;//1ä½
+			case ($Place == 1): return 2;//2ä½
+			case ($Place == 2): return 3;//3ä½
 			case (2 < $Place):
 				return 3;
 		}
 	}
 //////////////////////////////////////////////
-// ¥é¥ó¥­¥ó¥°¤ÎºÇ²¼°Ì¤Ë»²²Ã¤µ¤»¤ë
+// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®æœ€ä¸‹ä½ã«å‚åŠ ã•ã›ã‚‹
 	function JoinRanking($id) {
 		$last	= count($this->Ranking) - 1;
-		// ¥é¥ó¥­¥ó¥°¤¬Â¸ºß¤·¤Ê¤¤¾ì¹ç
+		// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ãŒå­˜åœ¨ã—ãªã„å ´åˆ
 		if(!$this->Ranking) {
 			$this->Ranking["0"]["0"]["id"]	= $id;
-		// ºÇ²¼°Ì¤Î½ç°Ì¤¬Äê°÷¥ª¡¼¥Ğ¡¼¤Ë¤Ê¤ë¾ì¹ç
+		// æœ€ä¸‹ä½ã®é †ä½ãŒå®šå“¡ã‚ªãƒ¼ãƒãƒ¼ã«ãªã‚‹å ´åˆ
 		} else if(count($this->Ranking[$last]) == $this->SamePlaceAmount($last)) {
 			$this->Ranking[$last+1]["0"]["id"]	= $id;
-		// ¤Ê¤é¤Ê¤¤¾ì¹ç
+		// ãªã‚‰ãªã„å ´åˆ
 		} else {
 			$this->Ranking[$last][]["id"]	= $id;
 		}
 	}
 //////////////////////////////////////////////////
-// ¥é¥ó¥­¥ó¥°¤«¤é¾Ã¤¹
+// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‹ã‚‰æ¶ˆã™
 	function DeleteRank($id) {
 		$place	= $this->SearchID($id);
-		if($place === false) return false;//ºï½ü¼ºÇÔ
+		if($place === false) return false;//å‰Šé™¤å¤±æ•—
 		unset($this->Ranking[$place[0]][$place[1]]);
-		return true;//ºï½üÀ®¸ù
+		return true;//å‰Šé™¤æˆåŠŸ
 	}
 //////////////////////////////////////////////////
-// ¥é¥ó¥­¥ó¥°¤òÊİÂ¸¤¹¤ë
+// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‚’ä¿å­˜ã™ã‚‹
 	function SaveRanking() {
 		foreach($this->Ranking as $rank => $val) {
 			foreach($val as $key => $val2) {
@@ -343,7 +343,7 @@ class Ranking {
 		}
 	}
 //////////////////////////////////////////////////
-//	½ç°Ì¤òÆş¤ìÂØ¤¨¤ë
+//	é †ä½ã‚’å…¥ã‚Œæ›¿ãˆã‚‹
 	function ChangePlace($id_0,$id_1) {
 		$Place_0	= $this->SearchID($id_0);
 		$Place_1	= $this->SearchID($id_1);
@@ -352,38 +352,38 @@ class Ranking {
 		$this->Ranking[$Place_1["0"]][$Place_1["1"]]	= $temp;
 	}
 //////////////////////////////////////////////////
-// $id ¤Î¥é¥ó¥¯°ÌÃÖ¤òÃµ¤¹
+// $id ã®ãƒ©ãƒ³ã‚¯ä½ç½®ã‚’æ¢ã™
 	function SearchID($id) {
 		foreach($this->Ranking as $rank => $val) {
 			foreach($val as $key => $val2) {
 				if($val2["id"] == $id)
-					return array((int)$rank,(int)$key);// ½ç°ÌÌµ¤¤¤Î²¿ÈÖÌÜ¤«¡£
+					return array((int)$rank,(int)$key);// é †ä½ç„¡ã„ã®ä½•ç•ªç›®ã‹ã€‚
 			}
 		}
 		return false;
 	}
 //////////////////////////////////////////////////
-// ¥é¥ó¥­¥ó¥°¤ÎÉ½¼¨
+// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®è¡¨ç¤º
 	function ShowRanking($from=false,$to=false,$bold_id=false) {
-		// ÈÏ°Ï¤¬Ìµ¤¤¾ì¹ç¤ÏÁ´¥é¥ó¥­¥ó¥°¤òÉ½¼¨
+		// ç¯„å›²ãŒç„¡ã„å ´åˆã¯å…¨ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‚’è¡¨ç¤º
 		if($from === false or $to === false) {
-			$from	= 0;//¼ó°Ì
-			$to		= count($this->Ranking);//ºÇ²¼°Ì
+			$from	= 0;//é¦–ä½
+			$to		= count($this->Ranking);//æœ€ä¸‹ä½
 		}
 
-		// ÂÀ»ú¤Ë¤¹¤ë¥é¥ó¥¯
+		// å¤ªå­—ã«ã™ã‚‹ãƒ©ãƒ³ã‚¯
 		if($bold_id)
 			$BoldRank	= $this->SearchID($bold_id);
 
-		$LastPlace	= count($this->Ranking) - 1;// ºÇ²¼°Ì
+		$LastPlace	= count($this->Ranking) - 1;// æœ€ä¸‹ä½
 
 		print("<table cellspacing=\"0\">\n");
-		print("<tr><td class=\"td6\" style=\"text-align:center\">½ç°Ì</td><td  class=\"td6\" style=\"text-align:center\">¥Á¡¼¥à</td></tr>\n");
+		print("<tr><td class=\"td6\" style=\"text-align:center\">é †ä½</td><td  class=\"td6\" style=\"text-align:center\">ãƒãƒ¼ãƒ </td></tr>\n");
 		for($Place=$from; $Place<$to + 1; $Place++) {
 			if(!$this->Ranking["$Place"])
 				break;
 			print("<tr><td class=\"td7\" valign=\"middle\" style=\"text-align:center\">\n");
-			// ½ç°Ì¥¢¥¤¥³¥ó
+			// é †ä½ã‚¢ã‚¤ã‚³ãƒ³
 			switch($Place) {
 				case 0:
 					print('<img src="'.IMG_ICON.'crown01.png" class="vcent" />'); break;
@@ -393,20 +393,20 @@ class Ranking {
 					print('<img src="'.IMG_ICON.'crown03.png" class="vcent" />'); break;
 				default:
 					if($Place == $LastPlace)
-						print("Äì");
+						print("åº•");
 					else
-						print(($Place+1)."°Ì");
+						print(($Place+1)."ä½");
 			}
 			print("</td><td class=\"td8\">\n");
 			foreach($this->Ranking["$Place"] as $SubRank => $data) {
-				list($Name,$R)	= $this->LoadUserName($data["id"],true);//À®ÀÓ¤âÆÉ¤ß¹ş¤à
+				list($Name,$R)	= $this->LoadUserName($data["id"],true);//æˆç¸¾ã‚‚èª­ã¿è¾¼ã‚€
 				$WinProb	= $R[all]?sprintf("%0.0f",($R[win]/$R[all])*100):"--";
-				$Record	= "(".($R[all]?$R[all]:"0")."Àï ".
-						($R[win]?$R[win]:"0")."¾¡ ".
-						($R[lose]?$R[lose]:"0")."ÇÔ ".
-						($R[all]-$R[win]-$R[lose])."°ú ".
-						($R[defend]?$R[defend]:"0")."ËÉ ".
-						"¾¡Î¨".$WinProb.'%'.
+				$Record	= "(".($R[all]?$R[all]:"0")."æˆ¦ ".
+						($R[win]?$R[win]:"0")."å‹ ".
+						($R[lose]?$R[lose]:"0")."æ•— ".
+						($R[all]-$R[win]-$R[lose])."å¼• ".
+						($R[defend]?$R[defend]:"0")."é˜² ".
+						"å‹ç‡".$WinProb.'%'.
 						")";
 				if(isset($BoldRank) && $BoldRank["0"] == $Place && $BoldRank["1"] == $SubRank) {
 					print('<span class="bold u">'.$Name."</span> {$Record}");
@@ -420,12 +420,12 @@ class Ranking {
 		print("</table>\n");
 	}
 //////////////////////////////////////////////
-//	¡Ş¥é¥ó¥¯ ÂĞ¾İID
+//	Â±ãƒ©ãƒ³ã‚¯ å¯¾è±¡ID
 	function ShowRankingRange($id,$Amount) {
 		$RankAmount	= count($this->Ranking);
 		$Last	= $RankAmount - 1;
 		do {
-			// ¥é¥ó¥­¥ó¥°¤¬Amount°Ê¾å¤Ê¤¤¤È¤­
+			// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ãŒAmountä»¥ä¸Šãªã„ã¨ã
 			if($RankAmount <= $Amount) {
 				$start	= 0;
 				$end	= $Last;
@@ -434,19 +434,19 @@ class Ranking {
 
 			$Rank	= $this->SearchID($id);
 			if($Rank === false) {
-				print("¥é¥ó¥­¥ó¥°ÉÔÌÀ");
+				print("ãƒ©ãƒ³ã‚­ãƒ³ã‚°ä¸æ˜");
 				return 0;
 			}
 			$Range	= floor($Amount/2);
-			// ¼ó°Ì¤Ë¶á¤¤¤«¼ó°Ì
+			// é¦–ä½ã«è¿‘ã„ã‹é¦–ä½
 			if( ($Rank[0] - $Range) <= 0 ) {
 				$start	= 0;
 				$end	= $Amount - 1;
-			// ºÇ²¼°Ì¤Ë¤Á¤«¤¤¤«ºÇ²¼°Ì
+			// æœ€ä¸‹ä½ã«ã¡ã‹ã„ã‹æœ€ä¸‹ä½
 			} else if( $Last < ($Rank[0] + $Range) ) {
 				$start	= $RankAmount - $Amount;
 				$end	= $RankAmount;
-			// ÈÏ°ÏÆâ¤Ë¤ª¤µ¤Ş¤ë
+			// ç¯„å›²å†…ã«ãŠã•ã¾ã‚‹
 			} else {
 				$start	= $Rank[0]-$Range;
 				$end	= $Rank[0]+$Range;
@@ -456,7 +456,7 @@ class Ranking {
 		$this->ShowRanking($start,$end,$id);
 	}
 //////////////////////////////////////////////
-//	¥æ¡¼¥¶¤ÎÌ¾Á°¤ò¸Æ¤Ó½Ğ¤¹
+//	ãƒ¦ãƒ¼ã‚¶ã®åå‰ã‚’å‘¼ã³å‡ºã™
 	function LoadUserName($id,$rank=false) {
 
 		if(!$this->UserName["$id"]) {

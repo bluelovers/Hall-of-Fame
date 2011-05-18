@@ -1,7 +1,7 @@
 <?
 class user {
 
-	// ¥Õ¥¡¥¤¥ë¥İ¥¤¥ó¥¿
+	// ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿
 	var $fp;
 	var $file;
 
@@ -10,46 +10,46 @@ class user {
 	var $money;
 	var $char;
 	var $time;
-	var $wtime;//Áí¾ÃÈñ»ş´Ö
-	var $ip;//IP¥¢¥É¥ì¥¹
+	var $wtime;//ç·æ¶ˆè²»æ™‚é–“
+	var $ip;//IPã‚¢ãƒ‰ãƒ¬ã‚¹
 
 	var $party_memo;
-	var $party_rank;//¥é¥ó¥­¥ó¥°ÍÑ¤Î¥Ñ¡¼¥Æ¥£
-	var $rank_set_time;//¥é¥ó¥­¥ó¥°PTÀßÄê¤·¤¿»ş´Ö
-	var $rank_btl_time;//¼¡¤Î¥é¥ó¥¯Àï¤ËÄ©Àï¤Ç¤­¤ë»ş´Ö
-	// ¥é¥ó¥­¥ó¥°¤ÎÀ®ÀÓ
-	// = "ÁíÀïÆ®²ó¿ô<>¾¡Íø¿ô<>ÇÔËÌ¿ô<>°ú¤­Ê¬¤±<>¼ó°ÌËÉ±Ò";
+	var $party_rank;//ãƒ©ãƒ³ã‚­ãƒ³ã‚°ç”¨ã®ãƒ‘ãƒ¼ãƒ†ã‚£
+	var $rank_set_time;//ãƒ©ãƒ³ã‚­ãƒ³ã‚°PTè¨­å®šã—ãŸæ™‚é–“
+	var $rank_btl_time;//æ¬¡ã®ãƒ©ãƒ³ã‚¯æˆ¦ã«æŒ‘æˆ¦ã§ãã‚‹æ™‚é–“
+	// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®æˆç¸¾
+	// = "ç·æˆ¦é—˜å›æ•°<>å‹åˆ©æ•°<>æ•—åŒ—æ•°<>å¼•ãåˆ†ã‘<>é¦–ä½é˜²è¡›";
 	var $rank_record;
-	var $union_btl_time;//¼¡¤ÎUnionÀï¤ËÄ©Àï¤Ç¤­¤ë»ş´Ö
+	var $union_btl_time;//æ¬¡ã®Unionæˆ¦ã«æŒ‘æˆ¦ã§ãã‚‹æ™‚é–“
 
 	// OPTION
 	var $record_btl_log;
 	var $no_JS_itemlist;
 	var $UserColor;
 
-	// ¥æ¡¼¥¶¡¼¥¢¥¤¥Æ¥àÍÑ¤ÎÊÑ¿ô
+	// ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¢ã‚¤ãƒ†ãƒ ç”¨ã®å¤‰æ•°
 	var $fp_item;
 	var $item;
 
 //////////////////////////////////////////////////
-//	ÂĞ¾İ¤ÎID¤Î¥æ¡¼¥¶¡¼¥¯¥é¥¹¤òºîÀ®
+//	å¯¾è±¡ã®IDã®ãƒ¦ãƒ¼ã‚¶ãƒ¼ã‚¯ãƒ©ã‚¹ã‚’ä½œæˆ
 	function user($id,$noExit=false) {
 		if($id)
 		{
 			$this->id	= $id;
 			if($data = $this->LoadData($noExit)) {
-				$this->DataUpDate($data);//time¤È¤«Áı¤ä¤¹
+				$this->DataUpDate($data);//timeã¨ã‹å¢—ã‚„ã™
 				$this->SetData($data);
 			}
 		}
 	}
 //////////////////////////////////////////////////
-//	IP¤òÊÑ¹¹
+//	IPã‚’å¤‰æ›´
 	function SetIp($ip) {
 		$this->ip = $ip;
 	}
 //////////////////////////////////////////////////
-//	¥æ¡¼¥¶¥Ç¡¼¥¿¤òÆÉ¤à
+//	ãƒ¦ãƒ¼ã‚¶ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã‚€
 	function LoadData($noExit=false) {
 		$file	= USER.$this->id."/".DATA;
 		if(file_exists($file))
@@ -59,7 +59,7 @@ class user {
 			if(!$this->fp)
 				return false;
 			$data	= ParseFileFP($this->fp);
-			//$data	= ParseFile($file);// (2007/7/30 ÄÉ²Ã)
+			//$data	= ParseFile($file);// (2007/7/30 è¿½åŠ )
 			/*
 			$Array	= array("party_memo","party_rank");
 			foreach($Array as $val)
@@ -77,7 +77,7 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	ID¤¬·ë¶É¤Î¤È¤³¤íÂ¸ºß¤·¤Æ¤¤¤ë¤«¤¿¤·¤«¤á¤ë
+//	IDãŒçµå±€ã®ã¨ã“ã‚å­˜åœ¨ã—ã¦ã„ã‚‹ã‹ãŸã—ã‹ã‚ã‚‹
 	function is_exist() {
 		if($this->name)
 			return true;
@@ -85,7 +85,7 @@ class user {
 			return false;
 	}
 //////////////////////////////////////////////////
-//	Ì¾Á°¤òÊÖ¤¹
+//	åå‰ã‚’è¿”ã™
 	function Name($opt=false) {
 		if($this->name) {
 			if($opt)
@@ -97,7 +97,7 @@ class user {
 		}
 	}
 //////////////////////////////////////////////////
-//	Ì¾Á°¤òÊÑ¤¨¤ë
+//	åå‰ã‚’å¤‰ãˆã‚‹
 	function ChangeName($name) {
 
 		if($this->name == $name)
@@ -107,12 +107,12 @@ class user {
 		return true;
 	}
 //////////////////////////////////////////////////
-//	UnionÀïÆ®¤·¤¿»ş´Ö¤ò¥»¥Ã¥È
+//	Unionæˆ¦é—˜ã—ãŸæ™‚é–“ã‚’ã‚»ãƒƒãƒˆ
 	function UnionSetTime() {
 		$this->union_btl_time	= time();
 	}
 //////////////////////////////////////////////////
-//	UnionBattle¤¬¤Ç¤­¤ë¤«¤É¤¦¤«³ÎÇ§¤¹¤ë¡£
+//	UnionBattleãŒã§ãã‚‹ã‹ã©ã†ã‹ç¢ºèªã™ã‚‹ã€‚
 	function CanUnionBattle() {
 		$Now	= time();
 		$Past	= $this->union_btl_time	+ UNION_BATTLE_NEXT;
@@ -123,10 +123,10 @@ class user {
 		}
 	}
 //////////////////////////////////////////////////
-//	¥é¥ó¥­¥ó¥°ÀïÍÑ¤Î¥Ñ¡¼¥Æ¥£ÊÔÀ®¤òÊÖ¤¹
+//	ãƒ©ãƒ³ã‚­ãƒ³ã‚°æˆ¦ç”¨ã®ãƒ‘ãƒ¼ãƒ†ã‚£ç·¨æˆã‚’è¿”ã™
 	function RankParty() {
 		if(!$this->name)
-			return "NOID";//Ä¶¥¨¥é¡¼¡£¤½¤â¤½¤â¥æ¡¼¥¶¡¼¤¬Â¸ºß¤·¤Ê¤¤¾ì¹ç¡£
+			return "NOID";//è¶…ã‚¨ãƒ©ãƒ¼ã€‚ãã‚‚ãã‚‚ãƒ¦ãƒ¼ã‚¶ãƒ¼ãŒå­˜åœ¨ã—ãªã„å ´åˆã€‚
 		if(!$this->party_rank)
 			return false;
 
@@ -145,21 +145,21 @@ class user {
 			return false;
 	}
 //////////////////////////////////////////////////
-//	¥é¥ó¥­¥ó¥°¤ÎÀ®ÀÓ
+//	ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®æˆç¸¾
 // side = ("CHALLENGE","DEFEND")
 	function RankRecord($result,$side,$DefendMatch) {
 		$record	= $this->RankRecordLoad();
 
 		$record["all"]++;
 		switch(true) {
-			// °ú¤­Ê¬¤±
+			// å¼•ãåˆ†ã‘
 			/*
 			case ($result === "d"):
 				if($side != "CHALLENGE" && $DefendMatch)
 					$record["defend"]++;
 				break;
 			*/
-			// ÀïÆ®·ë²Ì¤¬Ä©Àï¼Ô¤Î¾¡¤Á
+			// æˆ¦é—˜çµæœãŒæŒ‘æˆ¦è€…ã®å‹ã¡
 			case ($result === 0):
 				if($side == "CHALLENGER") {
 					$record["win"]++;
@@ -167,7 +167,7 @@ class user {
 					$record["lose"]++;
 				}
 				break;
-			// ÀïÆ®·ë²Ì¤¬Ä©Àï¼Ô¤ÎÉé¤±
+			// æˆ¦é—˜çµæœãŒæŒ‘æˆ¦è€…ã®è² ã‘
 			case ($result === 1):
 				if($side == "CHALLENGER") {
 					$record["lose"]++;
@@ -177,7 +177,7 @@ class user {
 						$record["defend"]++;
 				}
 				break;
-			default:// °ú¤­Ê¬¤±
+			default:// å¼•ãåˆ†ã‘
 				if($side != "CHALLENGER" && $DefendMatch)
 					$record["defend"]++;
 				break;
@@ -186,7 +186,7 @@ class user {
 		$this->rank_record	= $record["all"]."|".$record["win"]."|".$record["lose"]."|".$record["defend"];
 	}
 //////////////////////////////////////////////////
-//	¥é¥ó¥­¥ó¥°Àï¤ÎÀ®ÀÓ¤ò¸Æ¤Ó½Ğ¤¹
+//	ãƒ©ãƒ³ã‚­ãƒ³ã‚°æˆ¦ã®æˆç¸¾ã‚’å‘¼ã³å‡ºã™
 	function RankRecordLoad() {
 
 		if(!$this->rank_record) {
@@ -208,13 +208,13 @@ class user {
 		return $record;
 	}
 //////////////////////////////////////////////////
-//	¼¡¤Î¥é¥ó¥¯Àï¤ËÄ©Àï¤Ç¤­¤ë»ş´Ö¤òµ­Ï¿¤¹¤ë¡£
+//	æ¬¡ã®ãƒ©ãƒ³ã‚¯æˆ¦ã«æŒ‘æˆ¦ã§ãã‚‹æ™‚é–“ã‚’è¨˜éŒ²ã™ã‚‹ã€‚
 	function SetRankBattleTime($time) {
 		$this->rank_btl_time	= $time;
 	}
 
 //////////////////////////////////////////////////
-//	¥é¥ó¥­¥ó¥°Ä©Àï¤Ç¤­¤ë¤«¡©(ÌµÍı¤Ê¤é»Ä¤ê»ş´Ö¤òÊÖ¤¹)
+//	ãƒ©ãƒ³ã‚­ãƒ³ã‚°æŒ‘æˆ¦ã§ãã‚‹ã‹ï¼Ÿ(ç„¡ç†ãªã‚‰æ®‹ã‚Šæ™‚é–“ã‚’è¿”ã™)
 	function CanRankBattle() {
 		$now	= time();
 		if($this->rank_btl_time <= $now) {
@@ -231,13 +231,13 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	¤ª¶â¤òÁı¤ä¤¹
+//	ãŠé‡‘ã‚’å¢—ã‚„ã™
 	function GetMoney($no) {
 		$this->money	+= $no;
 	}
 
 //////////////////////////////////////////////////
-//	¤ª¶â¤ò¸º¤é¤¹
+//	ãŠé‡‘ã‚’æ¸›ã‚‰ã™
 	function TakeMoney($no) {
 		if($this->money < $no) {
 			return false;
@@ -248,7 +248,7 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	»ş´Ö¤ò¾ÃÈñ¤¹¤ë(Áí¾ÃÈñ»ş´Ö¤Î²Ã»»)
+//	æ™‚é–“ã‚’æ¶ˆè²»ã™ã‚‹(ç·æ¶ˆè²»æ™‚é–“ã®åŠ ç®—)
 	function WasteTime($time) {
 		if($this->time < $time)
 			return false;
@@ -257,58 +257,58 @@ class user {
 		return true;
 	}
 //////////////////////////////////////////////////
-//	¥­¥ã¥é¥¯¥¿¡¼¤ò½ê»ı¤·¤Æ¤ë¿ô¤ò¤«¤¾¤¨¤ë¡£
+//	ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚’æ‰€æŒã—ã¦ã‚‹æ•°ã‚’ã‹ããˆã‚‹ã€‚
 	function CharCount() {
 		$dir	= USER.$this->id;
 		$no		= 0;
 		foreach(glob("$dir/*") as $adr) {
 			$number	= basename($adr,".dat");
-			if(is_numeric($number)) {//¥­¥ã¥é¥Ç¡¼¥¿¥Õ¥¡¥¤¥ë
+			if(is_numeric($number)) {//ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«
 				$no++;
 			}
 		}
 		return $no;
 	}
 //////////////////////////////////////////////////
-//	Á´½ê»ı¥­¥ã¥é¥¯¥¿¡¼¤ò¥Õ¥¡¥¤¥ë¤«¤éÆÉ¤ó¤Ç $this->char ¤Ë³ÊÇ¼
+//	å…¨æ‰€æŒã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã‚“ã§ $this->char ã«æ ¼ç´
 	function CharDataLoadAll() {
 		$dir	= USER.$this->id;
-		$this->char	= array();//ÇÛÎó¤Î½é´ü²½¤À¤±¤·¤Æ¤ª¤¯
+		$this->char	= array();//é…åˆ—ã®åˆæœŸåŒ–ã ã‘ã—ã¦ãŠã
 		foreach(glob("$dir/*") as $adr) {
-			//print("substr:".substr($adr,-20,16)."<br>");//³ÎÇ§ÍÑ
-			//$number	= substr($adr,-20,16);//¢­1¹Ô¤ÈÆ±¤¸·ë²Ì
+			//print("substr:".substr($adr,-20,16)."<br>");//ç¢ºèªç”¨
+			//$number	= substr($adr,-20,16);//â†“1è¡Œã¨åŒã˜çµæœ
 			$number	= basename($adr,".dat");
-			if(is_numeric($number)) {//¥­¥ã¥é¥Ç¡¼¥¿¥Õ¥¡¥¤¥ë
+			if(is_numeric($number)) {//ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«
 				//$chardata	= ParseFile($adr);// (2007/7/30 $adr -> $fp)
 				//$this->char[$number]	= new char($chardata);
 				$this->char[$number]	= new char($adr);
-				$this->char[$number]->SetUser($this->id);//¥­¥ã¥é¤¬Ã¯¤Î¤«ÀßÄê¤¹¤ë
+				$this->char[$number]->SetUser($this->id);//ã‚­ãƒ£ãƒ©ãŒèª°ã®ã‹è¨­å®šã™ã‚‹
 			}
 		}
 	}
 //////////////////////////////////////////////////
-//	»ØÄê¤Î½ê»ı¥­¥ã¥é¥¯¥¿¡¼¤ò¥Õ¥¡¥¤¥ë¤«¤éÆÉ¤ó¤Ç $this->char ¤Ë³ÊÇ¼¸å "ÊÖ¤¹"¡£
+//	æŒ‡å®šã®æ‰€æŒã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚’ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã‚“ã§ $this->char ã«æ ¼ç´å¾Œ "è¿”ã™"ã€‚
 	function CharDataLoad($CharNo) {
-		// ´û¤ËÆÉ¤ó¤Ç¤ë¾ì¹ç¡£
+		// æ—¢ã«èª­ã‚“ã§ã‚‹å ´åˆã€‚
 		if($this->char[$CharNo])
 			return $this->char[$CharNo];
-		// ÆÉ¤ó¤ÇÌµ¤¤¾ì¹ç¡£
+		// èª­ã‚“ã§ç„¡ã„å ´åˆã€‚
 		$file	= USER.$this->id."/".$CharNo.".dat";
-		// ¤½¤ó¤Ê¥­¥ã¥é¤¤¤Ê¤¤¾ì¹ç¡£
+		// ãã‚“ãªã‚­ãƒ£ãƒ©ã„ãªã„å ´åˆã€‚
 		if(!file_exists($file))
 			return false;
 
-		// µï¤ë¾ì¹ç¡£
+		// å±…ã‚‹å ´åˆã€‚
 		//$chardata	= ParseFile($file);
 		//$this->char[$CharNo]	= new char($chardata);
 		$this->char[$CharNo]	= new char($file);
-		$this->char[$CharNo]->SetUser($this->id);//¥­¥ã¥é¤¬Ã¯¤Î¤«ÀßÄê¤¹¤ë
+		$this->char[$CharNo]->SetUser($this->id);//ã‚­ãƒ£ãƒ©ãŒèª°ã®ã‹è¨­å®šã™ã‚‹
 		return $this->char[$CharNo];
 	}
 //////////////////////////////////////////////////
-//	¥¢¥¤¥Æ¥à¤òÄÉ²Ã
+//	ã‚¢ã‚¤ãƒ†ãƒ ã‚’è¿½åŠ 
 	function AddItem($no,$amount=false) {
-		if(!isset($this->item))//¤É¤¦¤·¤¿¤â¤ó¤«¡Ä
+		if(!isset($this->item))//ã©ã†ã—ãŸã‚‚ã‚“ã‹â€¦
 			$this->LoadUserItem();
 		if($amount)
 			$this->item[$no]	+= $amount;
@@ -317,12 +317,12 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	¥¢¥¤¥Æ¥à¤òºï½ü
+//	ã‚¢ã‚¤ãƒ†ãƒ ã‚’å‰Šé™¤
 	function DeleteItem($no,$amount=false) {
-		if(!isset($this->item))//¤É¤¦¤·¤¿¤â¤ó¤«¡Ä
+		if(!isset($this->item))//ã©ã†ã—ãŸã‚‚ã‚“ã‹â€¦
 			$this->LoadUserItem();
 
-		// ¸º¤é¤¹¿ô¡£
+		// æ¸›ã‚‰ã™æ•°ã€‚
 		if($this->item[$no] < $amount) {
 			$amount	= $this->item[$no];
 			if(!$amount)
@@ -331,7 +331,7 @@ class user {
 		if(!is_numeric($amount))
 			$amount	= 1;
 
-		// ¸º¤é¤¹¡£
+		// æ¸›ã‚‰ã™ã€‚
 		$this->item[$no]	-= $amount;
 		if($this->item[$no] < 1)
 			unset($this->item[$no]);
@@ -340,10 +340,10 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	¥¢¥¤¥Æ¥à¥Ç¡¼¥¿¤òÆÉ¤à
+//	ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã‚€
 	function LoadUserItem() {
 
-		// 2½Å¤ËÆÉ¤à¤Î¤òËÉ»ß¡£
+		// 2é‡ã«èª­ã‚€ã®ã‚’é˜²æ­¢ã€‚
 		if(isset($this->item))
 			return false;
 
@@ -360,7 +360,7 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	¥¢¥¤¥Æ¥à¥Ç¡¼¥¿¤òÊİÂ¸¤¹¤ë
+//	ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜ã™ã‚‹
 	function SaveUserItem() {
 		$dir	= USER.$this->id;
 		if(!file_exists($dir))
@@ -371,7 +371,7 @@ class user {
 		if(!is_array($this->item))
 			return false;
 
-		// ¥¢¥¤¥Æ¥à¤Î¥½¡¼¥È
+		// ã‚¢ã‚¤ãƒ†ãƒ ã®ã‚½ãƒ¼ãƒˆ
 		ksort($this->item,SORT_STRING);
 
 		foreach($this->item as $key => $val) {
@@ -379,17 +379,17 @@ class user {
 		}
 
 		if(file_exists($file) && $this->fp_item) {
-			WriteFileFP($this->fp_item,$text,1);//$text¤¬¶õ¤Ç¤âÊİÂ¸¤¹¤ë
+			WriteFileFP($this->fp_item,$text,1);//$textãŒç©ºã§ã‚‚ä¿å­˜ã™ã‚‹
 			fclose($this->fp_item);
 			unset($this->fp_item);
 		} else {
-			// $text¤¬¶õ¤Ç¤âÊİÂ¸¤¹¤ë
+			// $textãŒç©ºã§ã‚‚ä¿å­˜ã™ã‚‹
 			WriteFile($file,$text,1);
 		}
 	}
 
 //////////////////////////////////////////////////
-//	»ş´Ö¤ò·Ğ²á¤µ¤»¤ë¡£(Time¤ÎÁı²Ã)
+//	æ™‚é–“ã‚’çµŒéã•ã›ã‚‹ã€‚(Timeã®å¢—åŠ )
 	function DataUpDate(&$data) {
 		$now	= time();
 		$diff	= $now - $data["last"];
@@ -401,8 +401,8 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	¥Ç¡¼¥¿¤ò¥»¥Ã¥È¤¹¤ë¡£
-//	¢¨?
+//	ãƒ‡ãƒ¼ã‚¿ã‚’ã‚»ãƒƒãƒˆã™ã‚‹ã€‚
+//	â€»?
 	function SetData(&$data) {
 
 		foreach($data as $key => $val) {
@@ -417,19 +417,19 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	¥Ñ¥¹¥ï¡¼¥É¤ò°Å¹æ²½¤¹¤ë
+//	ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã‚’æš—å·åŒ–ã™ã‚‹
 	function CryptPassword($pass) {
 		return substr(crypt($pass,CRYPT_KEY),strlen(CRYPT_KEY));
 	}
 
 //////////////////////////////////////////////////
-//	Ì¾Á°¤ò¾Ã¤¹
+//	åå‰ã‚’æ¶ˆã™
 	function DeleteName() {
 		$this->name	= NULL;
 	}
 
 //////////////////////////////////////////////////
-//	¥Ç¡¼¥¿¤òÊİÂ¸¤¹¤ë·Á¼°¤ËÊÑ´¹¤¹¤ë¡£(¥Æ¥­¥¹¥È)
+//	ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜ã™ã‚‹å½¢å¼ã«å¤‰æ›ã™ã‚‹ã€‚(ãƒ†ã‚­ã‚¹ãƒˆ)
 	function DataSavingFormat() {
 
 		$Save	= array(
@@ -476,7 +476,7 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	¥Ç¡¼¥¿¤òÊİÂ¸¤¹¤ë
+//	ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜ã™ã‚‹
 	function SaveData() {
 		$dir	= USER.$this->id;
 		$file	= USER.$this->id."/".DATA;
@@ -501,23 +501,23 @@ class user {
 		}
 	}
 /////////////////////////////////////////////////
-//	¥Ç¡¼¥¿¥Õ¥¡¥¤¥ë·ó¥­¥ã¥é¥Õ¥¡¥¤¥ë¤Î¥Õ¥¡¥¤¥ë¥İ¥¤¥ó¥¿¤âÁ´ÉôÊÄ¤¸¤ë
+//	ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚¡ã‚¤ãƒ«å…¼ã‚­ãƒ£ãƒ©ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚‚å…¨éƒ¨é–‰ã˜ã‚‹
 	function fpCloseAll() {
-		// ´ğËÜ¥Ç¡¼¥¿
+		// åŸºæœ¬ãƒ‡ãƒ¼ã‚¿
 		if(is_resource($this->fp))
 		{
 			fclose($this->fp);
 			unset($this->fp);
 		}
 
-		// ¥¢¥¤¥Æ¥à¥Ç¡¼¥¿
+		// ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿
 		if(is_resource($this->fp_item))
 		{
 			fclose($this->fp_item);
 			unset($this->fp_item);
 		}
 
-		// ¥­¥ã¥é¥Ç¡¼¥¿
+		// ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿
 		if($this->char)
 		{
 			foreach($this->char as $key => $var)
@@ -529,9 +529,9 @@ class user {
 
 	}
 //////////////////////////////////////////////////
-//	¥æ¡¼¥¶¡¼¤Îºï½ü(Á´¥Õ¥¡¥¤¥ë)
+//	ãƒ¦ãƒ¼ã‚¶ãƒ¼ã®å‰Šé™¤(å…¨ãƒ•ã‚¡ã‚¤ãƒ«)
 	function DeleteUser($DeleteFromRank=true) {
-		//¥é¥ó¥­¥ó¥°¤«¤é¤Ş¤º¾Ã¤¹¡£
+		//ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‹ã‚‰ã¾ãšæ¶ˆã™ã€‚
 		if($DeleteFromRank) {
 			include_once(CLASS_RANKING);
 			$Ranking	= new Ranking();
@@ -547,10 +547,10 @@ class user {
 		rmdir($dir);
 	}
 //////////////////////////////////////////////////
-//	Êü´ş¤µ¤ì¤Æ¤¤¤ë¤«¤É¤¦¤«³Î¤«¤á¤ë
+//	æ”¾æ£„ã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹ç¢ºã‹ã‚ã‚‹
 	function IsAbandoned() {
 		$now	= time();
-		// $this->login ¤¬¤ª¤«¤·¤±¤ì¤Ğ½ªÎ»¤¹¤ë¡£
+		// $this->login ãŒãŠã‹ã—ã‘ã‚Œã°çµ‚äº†ã™ã‚‹ã€‚
 		if(strlen($this->login) !== 10) {
 			return false;
 		}
@@ -561,7 +561,7 @@ class user {
 		}
 	}
 //////////////////////////////////////////////////
-//	¥­¥ã¥é¥Ç¡¼¥¿¤ò¾Ã¤¹
+//	ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿ã‚’æ¶ˆã™
 	function DeleteChar($no) {
 		$file	= USER.$this->id."/".$no.".dat";
 		if($this->char[$no]) {

@@ -1,460 +1,460 @@
 <?php
 function LoadJudgeData($no) {
 /*
-	È½ÃÇºàÎÁ
+	åˆ¤æ–­ææ–™
 	HP
 	SP
-	¿Í¿ô(¼«Ê¬¤À¤±À¸Â¸Åù)
-	¾õÂÖ(ÆÇÅù)¡©¡©¡©
-	¼«Ê¬¤Î¹ÔÆ°²ó¿ô
-	²ó¿ô¸ÂÄê
-	Áê¼ê¤Î¾õÂÖ
-	Ã±½ã¤Ê³ÎÎ¨
+	äººæ•°(è‡ªåˆ†ã ã‘ç”Ÿå­˜ç­‰)
+	çŠ¶æ…‹(æ¯’ç­‰)ï¼Ÿï¼Ÿï¼Ÿ
+	è‡ªåˆ†ã®è¡Œå‹•å›žæ•°
+	å›žæ•°é™å®š
+	ç›¸æ‰‹ã®çŠ¶æ…‹
+	å˜ç´”ãªç¢ºçŽ‡
 */
 
-	$Quantity	= '¡û¡û';
+	$Quantity	= 'â—‹â—‹';
 
 	switch($no) {
 
-		case 1000:// É¬¤º
-			$judge["exp"]	= "É¬¤º";
+		case 1000:// å¿…ãš
+			$judge["exp"]	= "å¿…ãš";
 			break;
-		case 1001:// ¥Ñ¥¹
-			$judge["exp"]	= "¼¡¤ÎÈ½ÃÇ¤Ø";
+		case 1001:// ãƒ‘ã‚¹
+			$judge["exp"]	= "æ¬¡ã®åˆ¤æ–­ã¸";
 			break;
 //------------------------ HP
 		case 1099:
 			$judge["exp"]	= "HP";
 			$judge["css"]	= true;
 			break;
-		case 1100:// ¼«Ê¬¤ÎHP ¤¬{$Quantity}(%)°Ê¾å
-			$judge["exp"]	= "¼«Ê¬¤ÎHP ¤¬{$Quantity}(%)°Ê¾å";
+		case 1100:// è‡ªåˆ†ã®HP ãŒ{$Quantity}(%)ä»¥ä¸Š
+			$judge["exp"]	= "è‡ªåˆ†ã®HP ãŒ{$Quantity}(%)ä»¥ä¸Š";
 			break;
-		case 1101:// ¼«Ê¬¤ÎHP ¤¬{$Quantity}(%)°Ê²¼
-			$judge["exp"]	= "¼«Ê¬¤ÎHP ¤¬{$Quantity}(%)°Ê²¼";
-			break;
-
-		case 1105:// ¼«Ê¬¤ÎHP ¤¬{$Quantity}°Ê¾å
-			$judge["exp"]	= "¼«Ê¬¤ÎHP ¤¬{$Quantity}°Ê¾å";
-			break;
-		case 1106:// ¼«Ê¬¤ÎHP ¤¬{$Quantity}°Ê²¼
-			$judge["exp"]	= "¼«Ê¬¤ÎHP ¤¬{$Quantity}°Ê²¼";
+		case 1101:// è‡ªåˆ†ã®HP ãŒ{$Quantity}(%)ä»¥ä¸‹
+			$judge["exp"]	= "è‡ªåˆ†ã®HP ãŒ{$Quantity}(%)ä»¥ä¸‹";
 			break;
 
-		case 1110:// ºÇÂçHP ¤¬{$Quantity}°Ê¾å
-			$judge["exp"]	= "ºÇÂçHP ¤¬{$Quantity}°Ê¾å";
+		case 1105:// è‡ªåˆ†ã®HP ãŒ{$Quantity}ä»¥ä¸Š
+			$judge["exp"]	= "è‡ªåˆ†ã®HP ãŒ{$Quantity}ä»¥ä¸Š";
 			break;
-		case 1111:// ºÇÂçHP ¤¬{$Quantity}°Ê²¼
-			$judge["exp"]	= "ºÇÂçHP ¤¬{$Quantity}°Ê²¼";
-			break;
-
-		case 1121:// Ì£Êý¤Ë HP¤¬{$Quantity}(%)°Ê²¼¤Î¥­¥ã¥é ¤¬¤¤¤ë»þ
-			$judge["exp"]	= "Ì£Êý¤Ë HP¤¬{$Quantity}(%)°Ê²¼¤Î¥­¥ã¥é ¤¬¤¤¤ë";
+		case 1106:// è‡ªåˆ†ã®HP ãŒ{$Quantity}ä»¥ä¸‹
+			$judge["exp"]	= "è‡ªåˆ†ã®HP ãŒ{$Quantity}ä»¥ä¸‹";
 			break;
 
-		case 1125:// Ì£Êý¤Î Ê¿¶ÑHP¤¬ {$Quantity}(%)°Ê¾å¤Î»þ
-			$judge["exp"]	= "Ì£Êý¤Î Ê¿¶ÑHP¤¬ {$Quantity}(%)°Ê¾å";
+		case 1110:// æœ€å¤§HP ãŒ{$Quantity}ä»¥ä¸Š
+			$judge["exp"]	= "æœ€å¤§HP ãŒ{$Quantity}ä»¥ä¸Š";
 			break;
-		case 1126:// Ì£Êý¤Î Ê¿¶ÑHP¤¬ {$Quantity}(%)°Ê²¼¤Î»þ
-			$judge["exp"]	= "Ì£Êý¤Î Ê¿¶ÑHP¤¬ {$Quantity}(%)°Ê²¼";
+		case 1111:// æœ€å¤§HP ãŒ{$Quantity}ä»¥ä¸‹
+			$judge["exp"]	= "æœ€å¤§HP ãŒ{$Quantity}ä»¥ä¸‹";
+			break;
+
+		case 1121:// å‘³æ–¹ã« HPãŒ{$Quantity}(%)ä»¥ä¸‹ã®ã‚­ãƒ£ãƒ© ãŒã„ã‚‹æ™‚
+			$judge["exp"]	= "å‘³æ–¹ã« HPãŒ{$Quantity}(%)ä»¥ä¸‹ã®ã‚­ãƒ£ãƒ© ãŒã„ã‚‹";
+			break;
+
+		case 1125:// å‘³æ–¹ã® å¹³å‡HPãŒ {$Quantity}(%)ä»¥ä¸Šã®æ™‚
+			$judge["exp"]	= "å‘³æ–¹ã® å¹³å‡HPãŒ {$Quantity}(%)ä»¥ä¸Š";
+			break;
+		case 1126:// å‘³æ–¹ã® å¹³å‡HPãŒ {$Quantity}(%)ä»¥ä¸‹ã®æ™‚
+			$judge["exp"]	= "å‘³æ–¹ã® å¹³å‡HPãŒ {$Quantity}(%)ä»¥ä¸‹";
 			break;
 //------------------------ SP
 		case 1199:
 			$judge["exp"]	= "SP";
 			$judge["css"]	= true;
 			break;
-		case 1200:// ¼«Ê¬¤ÎSP ¤¬{$Quantity}(%)°Ê¾å
-			$judge["exp"]	= "¼«Ê¬¤ÎSP ¤¬{$Quantity}(%)°Ê¾å";
+		case 1200:// è‡ªåˆ†ã®SP ãŒ{$Quantity}(%)ä»¥ä¸Š
+			$judge["exp"]	= "è‡ªåˆ†ã®SP ãŒ{$Quantity}(%)ä»¥ä¸Š";
 			break;
-		case 1201:// ¼«Ê¬¤ÎSP ¤¬{$Quantity}(%)°Ê²¼
-			$judge["exp"]	= "¼«Ê¬¤ÎSP ¤¬{$Quantity}(%)°Ê²¼";
-			break;
-
-		case 1205:// ¼«Ê¬¤ÎSP ¤¬{$Quantity}°Ê¾å
-			$judge["exp"]	= "¼«Ê¬¤ÎSP ¤¬{$Quantity}°Ê¾å";
-			break;
-		case 1206:// ¼«Ê¬¤ÎSP ¤¬{$Quantity}°Ê²¼
-			$judge["exp"]	= "¼«Ê¬¤ÎSP ¤¬{$Quantity}°Ê²¼";
+		case 1201:// è‡ªåˆ†ã®SP ãŒ{$Quantity}(%)ä»¥ä¸‹
+			$judge["exp"]	= "è‡ªåˆ†ã®SP ãŒ{$Quantity}(%)ä»¥ä¸‹";
 			break;
 
-		case 1210:// ºÇÂçSP ¤¬{$Quantity}°Ê¾å
-			$judge["exp"]	= "ºÇÂçSP ¤¬{$Quantity}°Ê¾å";
+		case 1205:// è‡ªåˆ†ã®SP ãŒ{$Quantity}ä»¥ä¸Š
+			$judge["exp"]	= "è‡ªåˆ†ã®SP ãŒ{$Quantity}ä»¥ä¸Š";
 			break;
-		case 1211:// ºÇÂçSP ¤¬{$Quantity}°Ê²¼
-			$judge["exp"]	= "ºÇÂçSP ¤¬{$Quantity}°Ê²¼";
-			break;
-
-		case 1221:// Ì£Êý¤Ë SP¤¬{$Quantity}(%)°Ê²¼¤Î¥­¥ã¥é ¤¬¤¤¤ë»þ
-			$judge["exp"]	= "Ì£Êý¤Ë SP¤¬{$Quantity}(%)°Ê²¼¤Î¥­¥ã¥é ¤¬¤¤¤ë";
+		case 1206:// è‡ªåˆ†ã®SP ãŒ{$Quantity}ä»¥ä¸‹
+			$judge["exp"]	= "è‡ªåˆ†ã®SP ãŒ{$Quantity}ä»¥ä¸‹";
 			break;
 
-		case 1225:// Ì£Êý¤Î Ê¿¶ÑSP¤¬ {$Quantity}(%)°Ê¾å¤Î»þ
-			$judge["exp"]	= "Ì£Êý¤Î Ê¿¶ÑSP¤¬ {$Quantity}(%)°Ê¾å";
+		case 1210:// æœ€å¤§SP ãŒ{$Quantity}ä»¥ä¸Š
+			$judge["exp"]	= "æœ€å¤§SP ãŒ{$Quantity}ä»¥ä¸Š";
 			break;
-		case 1226:// Ì£Êý¤Î Ê¿¶ÑSP¤¬ {$Quantity}(%)°Ê²¼¤Î»þ
-			$judge["exp"]	= "Ì£Êý¤Î Ê¿¶ÑSP¤¬ {$Quantity}(%)°Ê²¼";
+		case 1211:// æœ€å¤§SP ãŒ{$Quantity}ä»¥ä¸‹
+			$judge["exp"]	= "æœ€å¤§SP ãŒ{$Quantity}ä»¥ä¸‹";
+			break;
+
+		case 1221:// å‘³æ–¹ã« SPãŒ{$Quantity}(%)ä»¥ä¸‹ã®ã‚­ãƒ£ãƒ© ãŒã„ã‚‹æ™‚
+			$judge["exp"]	= "å‘³æ–¹ã« SPãŒ{$Quantity}(%)ä»¥ä¸‹ã®ã‚­ãƒ£ãƒ© ãŒã„ã‚‹";
+			break;
+
+		case 1225:// å‘³æ–¹ã® å¹³å‡SPãŒ {$Quantity}(%)ä»¥ä¸Šã®æ™‚
+			$judge["exp"]	= "å‘³æ–¹ã® å¹³å‡SPãŒ {$Quantity}(%)ä»¥ä¸Š";
+			break;
+		case 1226:// å‘³æ–¹ã® å¹³å‡SPãŒ {$Quantity}(%)ä»¥ä¸‹ã®æ™‚
+			$judge["exp"]	= "å‘³æ–¹ã® å¹³å‡SPãŒ {$Quantity}(%)ä»¥ä¸‹";
 			break;
 /*
 //------------------------ STR
 		case 1299:
 			$judge["exp"]	= "STR";
 			break;
-		case 1300:// ¼«Ê¬¤ÎSTR¤¬{$Quantity} °Ê¾å
-			$judge["exp"]	= "¼«Ê¬¤ÎSTR¤¬{$Quantity} °Ê¾å";
+		case 1300:// è‡ªåˆ†ã®STRãŒ{$Quantity} ä»¥ä¸Š
+			$judge["exp"]	= "è‡ªåˆ†ã®STRãŒ{$Quantity} ä»¥ä¸Š";
 			break;
-		case 1301:// ¼«Ê¬¤ÎSTR¤¬{$Quantity} °Ê²¼
-			$judge["exp"]	= "¼«Ê¬¤ÎSTR¤¬{$Quantity} °Ê²¼";
+		case 1301:// è‡ªåˆ†ã®STRãŒ{$Quantity} ä»¥ä¸‹
+			$judge["exp"]	= "è‡ªåˆ†ã®STRãŒ{$Quantity} ä»¥ä¸‹";
 			break;
 //------------------------ INT
 		case 1309:
 			$judge["exp"]	= "INT";
 			break;
-		case 1310:// ¼«Ê¬¤ÎINT¤¬{$Quantity} °Ê¾å
-			$judge["exp"]	= "¼«Ê¬¤ÎINT¤¬{$Quantity} °Ê¾å";
+		case 1310:// è‡ªåˆ†ã®INTãŒ{$Quantity} ä»¥ä¸Š
+			$judge["exp"]	= "è‡ªåˆ†ã®INTãŒ{$Quantity} ä»¥ä¸Š";
 			break;
-		case 1311:// ¼«Ê¬¤ÎINT¤¬{$Quantity} °Ê²¼
-			$judge["exp"]	= "¼«Ê¬¤ÎINT¤¬{$Quantity} °Ê²¼";
+		case 1311:// è‡ªåˆ†ã®INTãŒ{$Quantity} ä»¥ä¸‹
+			$judge["exp"]	= "è‡ªåˆ†ã®INTãŒ{$Quantity} ä»¥ä¸‹";
 			break;
 //------------------------ DEX
 		case 1319:
 			$judge["exp"]	= "DEX";
 			break;
-		case 1320:// ¼«Ê¬¤ÎDEX¤¬{$Quantity} °Ê¾å
-			$judge["exp"]	= "¼«Ê¬¤ÎDEX¤¬{$Quantity} °Ê¾å";
+		case 1320:// è‡ªåˆ†ã®DEXãŒ{$Quantity} ä»¥ä¸Š
+			$judge["exp"]	= "è‡ªåˆ†ã®DEXãŒ{$Quantity} ä»¥ä¸Š";
 			break;
-		case 1321:// ¼«Ê¬¤ÎDEX¤¬{$Quantity} °Ê²¼
-			$judge["exp"]	= "¼«Ê¬¤ÎDEX¤¬{$Quantity} °Ê²¼";
+		case 1321:// è‡ªåˆ†ã®DEXãŒ{$Quantity} ä»¥ä¸‹
+			$judge["exp"]	= "è‡ªåˆ†ã®DEXãŒ{$Quantity} ä»¥ä¸‹";
 			break;
 //------------------------ SPD
 		case 1329:
 			$judge["exp"]	= "SPD";
 			break;
-		case 1330:// ¼«Ê¬¤ÎSPD¤¬{$Quantity} °Ê¾å
-			$judge["exp"]	= "¼«Ê¬¤ÎSPD¤¬{$Quantity} °Ê¾å";
+		case 1330:// è‡ªåˆ†ã®SPDãŒ{$Quantity} ä»¥ä¸Š
+			$judge["exp"]	= "è‡ªåˆ†ã®SPDãŒ{$Quantity} ä»¥ä¸Š";
 			break;
-		case 1331:// ¼«Ê¬¤ÎSPD¤¬{$Quantity} °Ê²¼
-			$judge["exp"]	= "¼«Ê¬¤ÎSPD¤¬{$Quantity} °Ê²¼";
+		case 1331:// è‡ªåˆ†ã®SPDãŒ{$Quantity} ä»¥ä¸‹
+			$judge["exp"]	= "è‡ªåˆ†ã®SPDãŒ{$Quantity} ä»¥ä¸‹";
 			break;
 //------------------------ LUK
 		case 1339:
 			$judge["exp"]	= "LUK";
 			break;
-		case 1340:// ¼«Ê¬¤ÎLUK¤¬{$Quantity} °Ê¾å
-			$judge["exp"]	= "¼«Ê¬¤ÎLUK¤¬{$Quantity} °Ê¾å";
+		case 1340:// è‡ªåˆ†ã®LUKãŒ{$Quantity} ä»¥ä¸Š
+			$judge["exp"]	= "è‡ªåˆ†ã®LUKãŒ{$Quantity} ä»¥ä¸Š";
 			break;
-		case 1341:// ¼«Ê¬¤ÎLUK¤¬{$Quantity} °Ê²¼
-			$judge["exp"]	= "¼«Ê¬¤ÎLUK¤¬{$Quantity} °Ê²¼";
+		case 1341:// è‡ªåˆ†ã®LUKãŒ{$Quantity} ä»¥ä¸‹
+			$judge["exp"]	= "è‡ªåˆ†ã®LUKãŒ{$Quantity} ä»¥ä¸‹";
 			break;
 //------------------------ ATK
 		case 1349:
 			$judge["exp"]	= "ATK";
 			break;
-		case 1350:// ¼«Ê¬¤ÎATK¤¬{$Quantity} °Ê¾å
-			$judge["exp"]	= "¼«Ê¬¤ÎATK¤¬{$Quantity} °Ê¾å";
+		case 1350:// è‡ªåˆ†ã®ATKãŒ{$Quantity} ä»¥ä¸Š
+			$judge["exp"]	= "è‡ªåˆ†ã®ATKãŒ{$Quantity} ä»¥ä¸Š";
 			break;
-		case 1351:// ¼«Ê¬¤ÎATK¤¬{$Quantity} °Ê²¼
-			$judge["exp"]	= "¼«Ê¬¤ÎATK¤¬{$Quantity} °Ê²¼";
+		case 1351:// è‡ªåˆ†ã®ATKãŒ{$Quantity} ä»¥ä¸‹
+			$judge["exp"]	= "è‡ªåˆ†ã®ATKãŒ{$Quantity} ä»¥ä¸‹";
 			break;
 //------------------------ MATK
 		case 1359:
 			$judge["exp"]	= "MATK";
 			break;
-		case 1360:// ¼«Ê¬¤ÎMATK¤¬{$Quantity} °Ê¾å
-			$judge["exp"]	= "¼«Ê¬¤ÎMATK¤¬{$Quantity} °Ê¾å";
+		case 1360:// è‡ªåˆ†ã®MATKãŒ{$Quantity} ä»¥ä¸Š
+			$judge["exp"]	= "è‡ªåˆ†ã®MATKãŒ{$Quantity} ä»¥ä¸Š";
 			break;
-		case 1361:// ¼«Ê¬¤ÎMATK¤¬{$Quantity} °Ê²¼
-			$judge["exp"]	= "¼«Ê¬¤ÎMATK¤¬{$Quantity} °Ê²¼";
+		case 1361:// è‡ªåˆ†ã®MATKãŒ{$Quantity} ä»¥ä¸‹
+			$judge["exp"]	= "è‡ªåˆ†ã®MATKãŒ{$Quantity} ä»¥ä¸‹";
 			break;
 //------------------------ DEF
 		case 1369:
 			$judge["exp"]	= "DEF";
 			break;
-		case 1370:// ¼«Ê¬¤ÎDEF¤¬{$Quantity} °Ê¾å
-			$judge["exp"]	= "¼«Ê¬¤ÎDEF¤¬{$Quantity} °Ê¾å";
+		case 1370:// è‡ªåˆ†ã®DEFãŒ{$Quantity} ä»¥ä¸Š
+			$judge["exp"]	= "è‡ªåˆ†ã®DEFãŒ{$Quantity} ä»¥ä¸Š";
 			break;
-		case 1371:// ¼«Ê¬¤ÎDEF¤¬{$Quantity} °Ê²¼
-			$judge["exp"]	= "¼«Ê¬¤ÎDEF¤¬{$Quantity} °Ê²¼";
+		case 1371:// è‡ªåˆ†ã®DEFãŒ{$Quantity} ä»¥ä¸‹
+			$judge["exp"]	= "è‡ªåˆ†ã®DEFãŒ{$Quantity} ä»¥ä¸‹";
 			break;
 //------------------------ MDEF
 		case 1379:
 			$judge["exp"]	= "MDEF";
 			break;
-		case 1380:// ¼«Ê¬¤ÎMDEF¤¬{$Quantity} °Ê¾å
-			$judge["exp"]	= "¼«Ê¬¤ÎMDEF¤¬{$Quantity} °Ê¾å";
+		case 1380:// è‡ªåˆ†ã®MDEFãŒ{$Quantity} ä»¥ä¸Š
+			$judge["exp"]	= "è‡ªåˆ†ã®MDEFãŒ{$Quantity} ä»¥ä¸Š";
 			break;
-		case 1381:// ¼«Ê¬¤ÎMDEF¤¬{$Quantity} °Ê²¼
-			$judge["exp"]	= "¼«Ê¬¤ÎMDEF¤¬{$Quantity} °Ê²¼";
+		case 1381:// è‡ªåˆ†ã®MDEFãŒ{$Quantity} ä»¥ä¸‹
+			$judge["exp"]	= "è‡ªåˆ†ã®MDEFãŒ{$Quantity} ä»¥ä¸‹";
 			break;
 */
-//------------------------ À¸»à(Ì£Êý)
+//------------------------ ç”Ÿæ­»(å‘³æ–¹)
 		case 1399:
-			$judge["exp"]	= "À¸»à";
+			$judge["exp"]	= "ç”Ÿæ­»";
 			$judge["css"]	= true;
 			break;
-		case 1400:// Ì£Êý¤ÎÀ¸Â¸¼Ô¤¬ {$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "Ì£Êý¤ÎÀ¸Â¸¼Ô¤¬ {$Quantity}¿Í°Ê¾å";
+		case 1400:// å‘³æ–¹ã®ç”Ÿå­˜è€…ãŒ {$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "å‘³æ–¹ã®ç”Ÿå­˜è€…ãŒ {$Quantity}äººä»¥ä¸Š";
 			break;
-		case 1401:// Ì£Êý¤ÎÀ¸Â¸¼Ô¤¬ {$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "Ì£Êý¤ÎÀ¸Â¸¼Ô¤¬ {$Quantity}¿Í°Ê²¼";
+		case 1401:// å‘³æ–¹ã®ç”Ÿå­˜è€…ãŒ {$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "å‘³æ–¹ã®ç”Ÿå­˜è€…ãŒ {$Quantity}äººä»¥ä¸‹";
 			break;
-		case 1405:// Ì£Êý¤Î»à¼Ô¤¬ {$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "Ì£Êý¤Î»à¼Ô¤¬ {$Quantity}¿Í°Ê¾å";
+		case 1405:// å‘³æ–¹ã®æ­»è€…ãŒ {$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "å‘³æ–¹ã®æ­»è€…ãŒ {$Quantity}äººä»¥ä¸Š";
 			break;
-		case 1406:// Ì£Êý¤Î»à¼Ô¤¬ {$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "Ì£Êý¤Î»à¼Ô¤¬ {$Quantity}¿Í°Ê²¼";
+		case 1406:// å‘³æ–¹ã®æ­»è€…ãŒ {$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "å‘³æ–¹ã®æ­»è€…ãŒ {$Quantity}äººä»¥ä¸‹";
 			break;
 
-		case 1410:// Ì£Êý¤ÇÁ°±Ò¤ÎÀ¸Â¸¼Ô¤¬ {$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "(½é´üÀßÄê¤¬)Á°±Ò¤ÎÀ¸Â¸¼Ô {$Quantity}¿Í°Ê¾å";
+		case 1410:// å‘³æ–¹ã§å‰è¡›ã®ç”Ÿå­˜è€…ãŒ {$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "(åˆæœŸè¨­å®šãŒ)å‰è¡›ã®ç”Ÿå­˜è€… {$Quantity}äººä»¥ä¸Š";
 			break;
-//------------------------ À¸»à(Å¨)
+//------------------------ ç”Ÿæ­»(æ•µ)
 		case 1449:
-			$judge["exp"]	= "À¸»à(Å¨)";
+			$judge["exp"]	= "ç”Ÿæ­»(æ•µ)";
 			$judge["css"]	= true;
 			break;
-		case 1450:// Áê¼ê¤ÎÀ¸Â¸¼Ô¤¬ {$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "Áê¼ê¤ÎÀ¸Â¸¼Ô¤¬ {$Quantity}¿Í°Ê¾å";
+		case 1450:// ç›¸æ‰‹ã®ç”Ÿå­˜è€…ãŒ {$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "ç›¸æ‰‹ã®ç”Ÿå­˜è€…ãŒ {$Quantity}äººä»¥ä¸Š";
 			break;
-		case 1451:// Áê¼ê¤ÎÀ¸Â¸¼Ô¤¬ {$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "Áê¼ê¤ÎÀ¸Â¸¼Ô¤¬ {$Quantity}¿Í°Ê²¼";
+		case 1451:// ç›¸æ‰‹ã®ç”Ÿå­˜è€…ãŒ {$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "ç›¸æ‰‹ã®ç”Ÿå­˜è€…ãŒ {$Quantity}äººä»¥ä¸‹";
 			break;
-		case 1455:// Áê¼ê¤Î»à¼Ô¤¬ {$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "Áê¼ê¤Î»à¼Ô¤¬ {$Quantity}¿Í°Ê¾å";
+		case 1455:// ç›¸æ‰‹ã®æ­»è€…ãŒ {$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "ç›¸æ‰‹ã®æ­»è€…ãŒ {$Quantity}äººä»¥ä¸Š";
 			break;
-		case 1456:// Áê¼ê¤Î»à¼Ô¤¬ {$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "Áê¼ê¤Î»à¼Ô¤¬ {$Quantity}¿Í°Ê²¼";
+		case 1456:// ç›¸æ‰‹ã®æ­»è€…ãŒ {$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "ç›¸æ‰‹ã®æ­»è€…ãŒ {$Quantity}äººä»¥ä¸‹";
 			break;
-//------------------------ ¥Á¥ã¡¼¥¸+±Ó¾§
+//------------------------ ãƒãƒ£ãƒ¼ã‚¸+è© å”±
 		case 1499:
-			$judge["exp"]	= "¥Á¥ã¡¼¥¸+±Ó¾§";
+			$judge["exp"]	= "ãƒãƒ£ãƒ¼ã‚¸+è© å”±";
 			$judge["css"]	= true;
 			break;
-		case 1500:// ¥Á¥ã¡¼¥¸Ãæ¤Î¥­¥ã¥é¤¬ {$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "¥Á¥ã¡¼¥¸Ãæ¤Î¥­¥ã¥é¤¬ {$Quantity}¿Í°Ê¾å";
+		case 1500:// ãƒãƒ£ãƒ¼ã‚¸ä¸­ã®ã‚­ãƒ£ãƒ©ãŒ {$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "ãƒãƒ£ãƒ¼ã‚¸ä¸­ã®ã‚­ãƒ£ãƒ©ãŒ {$Quantity}äººä»¥ä¸Š";
 			break;
-		case 1501:// ¥Á¥ã¡¼¥¸Ãæ¤Î¥­¥ã¥é¤¬ {$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "¥Á¥ã¡¼¥¸Ãæ¤Î¥­¥ã¥é¤¬ {$Quantity}¿Í°Ê²¼";
+		case 1501:// ãƒãƒ£ãƒ¼ã‚¸ä¸­ã®ã‚­ãƒ£ãƒ©ãŒ {$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "ãƒãƒ£ãƒ¼ã‚¸ä¸­ã®ã‚­ãƒ£ãƒ©ãŒ {$Quantity}äººä»¥ä¸‹";
 			break;
-		case 1505:// ±Ó¾§Ãæ¤Î¥­¥ã¥é¤¬ {$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "±Ó¾§Ãæ¤Î¥­¥ã¥é¤¬ {$Quantity}¿Í°Ê¾å";
+		case 1505:// è© å”±ä¸­ã®ã‚­ãƒ£ãƒ©ãŒ {$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "è© å”±ä¸­ã®ã‚­ãƒ£ãƒ©ãŒ {$Quantity}äººä»¥ä¸Š";
 			break;
-		case 1506:// ±Ó¾§Ãæ¤Î¥­¥ã¥é¤¬ {$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "±Ó¾§Ãæ¤Î¥­¥ã¥é¤¬ {$Quantity}¿Í°Ê²¼";
+		case 1506:// è© å”±ä¸­ã®ã‚­ãƒ£ãƒ©ãŒ {$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "è© å”±ä¸­ã®ã‚­ãƒ£ãƒ©ãŒ {$Quantity}äººä»¥ä¸‹";
 			break;
-		case 1510:// ¥Á¥ã¡¼¥¸¤«±Ó¾§Ãæ¤Î¥­¥ã¥é¤¬ {$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "¥Á¥ã¡¼¥¸¤«±Ó¾§Ãæ¤Î¥­¥ã¥é¤¬ {$Quantity}¿Í°Ê¾å";
+		case 1510:// ãƒãƒ£ãƒ¼ã‚¸ã‹è© å”±ä¸­ã®ã‚­ãƒ£ãƒ©ãŒ {$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "ãƒãƒ£ãƒ¼ã‚¸ã‹è© å”±ä¸­ã®ã‚­ãƒ£ãƒ©ãŒ {$Quantity}äººä»¥ä¸Š";
 			break;
-		case 1511:// ¥Á¥ã¡¼¥¸¤«±Ó¾§Ãæ¤Î¥­¥ã¥é¤¬ {$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "¥Á¥ã¡¼¥¸¤«±Ó¾§Ãæ¤Î¥­¥ã¥é¤¬ {$Quantity}¿Í°Ê²¼";
+		case 1511:// ãƒãƒ£ãƒ¼ã‚¸ã‹è© å”±ä¸­ã®ã‚­ãƒ£ãƒ©ãŒ {$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "ãƒãƒ£ãƒ¼ã‚¸ã‹è© å”±ä¸­ã®ã‚­ãƒ£ãƒ©ãŒ {$Quantity}äººä»¥ä¸‹";
 			break;
-//------------------------ ¥Á¥ã¡¼¥¸+±Ó¾§(Å¨)
+//------------------------ ãƒãƒ£ãƒ¼ã‚¸+è© å”±(æ•µ)
 		case 1549:
-			$judge["exp"]	= "¥Á¥ã¡¼¥¸+±Ó¾§(Å¨)";
+			$judge["exp"]	= "ãƒãƒ£ãƒ¼ã‚¸+è© å”±(æ•µ)";
 			$judge["css"]	= true;
 			break;
-		case 1550:// ¥Á¥ã¡¼¥¸Ãæ¤ÎÁê¼ê¤¬ {$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "¥Á¥ã¡¼¥¸Ãæ¤ÎÁê¼ê¤¬ {$Quantity}¿Í°Ê¾å";
+		case 1550:// ãƒãƒ£ãƒ¼ã‚¸ä¸­ã®ç›¸æ‰‹ãŒ {$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "ãƒãƒ£ãƒ¼ã‚¸ä¸­ã®ç›¸æ‰‹ãŒ {$Quantity}äººä»¥ä¸Š";
 			break;
-		case 1551:// ¥Á¥ã¡¼¥¸Ãæ¤ÎÁê¼ê¤¬ {$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "¥Á¥ã¡¼¥¸Ãæ¤ÎÁê¼ê¤¬ {$Quantity}¿Í°Ê²¼";
+		case 1551:// ãƒãƒ£ãƒ¼ã‚¸ä¸­ã®ç›¸æ‰‹ãŒ {$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "ãƒãƒ£ãƒ¼ã‚¸ä¸­ã®ç›¸æ‰‹ãŒ {$Quantity}äººä»¥ä¸‹";
 			break;
-		case 1555:// ±Ó¾§Ãæ¤ÎÁê¼ê¤¬ {$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "±Ó¾§Ãæ¤ÎÁê¼ê¤¬ {$Quantity}¿Í°Ê¾å";
+		case 1555:// è© å”±ä¸­ã®ç›¸æ‰‹ãŒ {$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "è© å”±ä¸­ã®ç›¸æ‰‹ãŒ {$Quantity}äººä»¥ä¸Š";
 			break;
-		case 1556:// ±Ó¾§Ãæ¤ÎÁê¼ê¤¬ {$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "±Ó¾§Ãæ¤ÎÁê¼ê¤¬ {$Quantity}¿Í°Ê²¼";
+		case 1556:// è© å”±ä¸­ã®ç›¸æ‰‹ãŒ {$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "è© å”±ä¸­ã®ç›¸æ‰‹ãŒ {$Quantity}äººä»¥ä¸‹";
 			break;
-		case 1560:// ¥Á¥ã¡¼¥¸¤«±Ó¾§Ãæ¤ÎÁê¼ê¤¬ {$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "¥Á¥ã¡¼¥¸¤«±Ó¾§Ãæ¤ÎÁê¼ê¤¬ {$Quantity}¿Í°Ê¾å";
+		case 1560:// ãƒãƒ£ãƒ¼ã‚¸ã‹è© å”±ä¸­ã®ç›¸æ‰‹ãŒ {$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "ãƒãƒ£ãƒ¼ã‚¸ã‹è© å”±ä¸­ã®ç›¸æ‰‹ãŒ {$Quantity}äººä»¥ä¸Š";
 			break;
-		case 1561:// ¥Á¥ã¡¼¥¸¤«±Ó¾§Ãæ¤ÎÁê¼ê¤¬ {$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "¥Á¥ã¡¼¥¸¤«±Ó¾§Ãæ¤ÎÁê¼ê¤¬ {$Quantity}¿Í°Ê²¼";
+		case 1561:// ãƒãƒ£ãƒ¼ã‚¸ã‹è© å”±ä¸­ã®ç›¸æ‰‹ãŒ {$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "ãƒãƒ£ãƒ¼ã‚¸ã‹è© å”±ä¸­ã®ç›¸æ‰‹ãŒ {$Quantity}äººä»¥ä¸‹";
 			break;
-//------------------------ ÆÇ
+//------------------------ æ¯’
 		case 1599:
-			$judge["exp"]	= "ÆÇ";
+			$judge["exp"]	= "æ¯’";
 			$judge["css"]	= true;
 			break;
-		case 1600:// ¼«Ê¬¤¬ÆÇ¾õÂÖ
-			$judge["exp"]	= "¼«Ê¬¤¬ ÆÇ¾õÂÖ";
+		case 1600:// è‡ªåˆ†ãŒæ¯’çŠ¶æ…‹
+			$judge["exp"]	= "è‡ªåˆ†ãŒ æ¯’çŠ¶æ…‹";
 			break;
-		case 1610:// ÆÇ¾õÂÖ¤ÎÌ£Êý¤¬ {$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "ÆÇ¾õÂÖ¤ÎÌ£Êý¤¬ {$Quantity}¿Í°Ê¾å";
+		case 1610:// æ¯’çŠ¶æ…‹ã®å‘³æ–¹ãŒ {$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "æ¯’çŠ¶æ…‹ã®å‘³æ–¹ãŒ {$Quantity}äººä»¥ä¸Š";
 			break;
-		case 1611:// ÆÇ¾õÂÖ¤ÎÌ£Êý¤¬ {$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "ÆÇ¾õÂÖ¤ÎÌ£Êý¤¬ {$Quantity}¿Í°Ê²¼";
+		case 1611:// æ¯’çŠ¶æ…‹ã®å‘³æ–¹ãŒ {$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "æ¯’çŠ¶æ…‹ã®å‘³æ–¹ãŒ {$Quantity}äººä»¥ä¸‹";
 			break;
-		case 1612:// ÆÇ¾õÂÖ¤ÎÌ£Êý¤¬ {$Quantity}% °Ê²¼
-			$judge["exp"]	= "ÆÇ¾õÂÖ¤ÎÌ£Êý¤¬ {$Quantity}% °Ê¾å";
+		case 1612:// æ¯’çŠ¶æ…‹ã®å‘³æ–¹ãŒ {$Quantity}% ä»¥ä¸‹
+			$judge["exp"]	= "æ¯’çŠ¶æ…‹ã®å‘³æ–¹ãŒ {$Quantity}% ä»¥ä¸Š";
 			break;
-		case 1613:// ÆÇ¾õÂÖ¤ÎÌ£Êý¤¬ {$Quantity}% °Ê²¼
-			$judge["exp"]	= "ÆÇ¾õÂÖ¤ÎÌ£Êý¤¬ {$Quantity}% °Ê²¼";
+		case 1613:// æ¯’çŠ¶æ…‹ã®å‘³æ–¹ãŒ {$Quantity}% ä»¥ä¸‹
+			$judge["exp"]	= "æ¯’çŠ¶æ…‹ã®å‘³æ–¹ãŒ {$Quantity}% ä»¥ä¸‹";
 			break;
-//------------------------ ÆÇ(Å¨)
+//------------------------ æ¯’(æ•µ)
 		case 1614:
-			$judge["exp"]	= "ÆÇ(Å¨)";
+			$judge["exp"]	= "æ¯’(æ•µ)";
 			$judge["css"]	= true;
 			break;
-		case 1615:// ÆÇ¾õÂÖ¤ÎÁê¼ê¤¬ {$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "ÆÇ¾õÂÖ¤ÎÁê¼ê¤¬ {$Quantity}¿Í°Ê¾å";
+		case 1615:// æ¯’çŠ¶æ…‹ã®ç›¸æ‰‹ãŒ {$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "æ¯’çŠ¶æ…‹ã®ç›¸æ‰‹ãŒ {$Quantity}äººä»¥ä¸Š";
 			break;
-		case 1616:// ÆÇ¾õÂÖ¤ÎÁê¼ê¤¬ {$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "ÆÇ¾õÂÖ¤ÎÁê¼ê¤¬ {$Quantity}¿Í°Ê²¼";
+		case 1616:// æ¯’çŠ¶æ…‹ã®ç›¸æ‰‹ãŒ {$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "æ¯’çŠ¶æ…‹ã®ç›¸æ‰‹ãŒ {$Quantity}äººä»¥ä¸‹";
 			break;
-		case 1617:// ÆÇ¾õÂÖ¤ÎÁê¼ê¤¬ {$Quantity}% °Ê²¼
-			$judge["exp"]	= "ÆÇ¾õÂÖ¤ÎÁê¼ê¤¬ {$Quantity}% °Ê¾å";
+		case 1617:// æ¯’çŠ¶æ…‹ã®ç›¸æ‰‹ãŒ {$Quantity}% ä»¥ä¸‹
+			$judge["exp"]	= "æ¯’çŠ¶æ…‹ã®ç›¸æ‰‹ãŒ {$Quantity}% ä»¥ä¸Š";
 			break;
-		case 1618:// ÆÇ¾õÂÖ¤ÎÁê¼ê¤¬ {$Quantity}% °Ê²¼
-			$judge["exp"]	= "ÆÇ¾õÂÖ¤ÎÁê¼ê¤¬ {$Quantity}% °Ê²¼";
+		case 1618:// æ¯’çŠ¶æ…‹ã®ç›¸æ‰‹ãŒ {$Quantity}% ä»¥ä¸‹
+			$judge["exp"]	= "æ¯’çŠ¶æ…‹ã®ç›¸æ‰‹ãŒ {$Quantity}% ä»¥ä¸‹";
 			break;
-//------------------------ ÂâÎó
+//------------------------ éšŠåˆ—
 		case 1699:
-			$judge["exp"]	= "ÂâÎó";
+			$judge["exp"]	= "éšŠåˆ—";
 			$judge["css"]	= true;
 			break;
-		case 1700:// ¼«Ê¬¤¬Á°Îó
-			$judge["exp"]	= "¼«Ê¬¤¬ Á°Îó";
+		case 1700:// è‡ªåˆ†ãŒå‰åˆ—
+			$judge["exp"]	= "è‡ªåˆ†ãŒ å‰åˆ—";
 			break;
-		case 1701:// ¼«Ê¬¤¬¸åÎó
-			$judge["exp"]	= "¼«Ê¬¤¬ ¸åÎó";
-			break;
-
-		case 1710:// Ì£Êý¤Î Á°Îó¤¬{$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "Ì£Êý¤Î Á°Îó¤¬{$Quantity}¿Í°Ê¾å";
-			break;
-		case 1711:// Ì£Êý¤Î Á°Îó¤¬{$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "Ì£Êý¤Î Á°Îó¤¬{$Quantity}¿Í°Ê²¼";
-			break;
-		case 1712:// Ì£Êý¤Î Á°Îó¤¬{$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "Ì£Êý¤Î Á°Îó¤¬{$Quantity}¿Í";
+		case 1701:// è‡ªåˆ†ãŒå¾Œåˆ—
+			$judge["exp"]	= "è‡ªåˆ†ãŒ å¾Œåˆ—";
 			break;
 
-		case 1715:// Ì£Êý¤Î ¸åÎó¤¬{$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "Ì£Êý¤Î ¸åÎó¤¬{$Quantity}¿Í°Ê¾å";
+		case 1710:// å‘³æ–¹ã® å‰åˆ—ãŒ{$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "å‘³æ–¹ã® å‰åˆ—ãŒ{$Quantity}äººä»¥ä¸Š";
 			break;
-		case 1716:// Ì£Êý¤Î ¸åÎó¤¬{$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "Ì£Êý¤Î ¸åÎó¤¬{$Quantity}¿Í°Ê²¼";
+		case 1711:// å‘³æ–¹ã® å‰åˆ—ãŒ{$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "å‘³æ–¹ã® å‰åˆ—ãŒ{$Quantity}äººä»¥ä¸‹";
 			break;
-		case 1717:// Ì£Êý¤Î ¸åÎó¤¬{$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "Ì£Êý¤Î ¸åÎó¤¬{$Quantity}¿Í";
+		case 1712:// å‘³æ–¹ã® å‰åˆ—ãŒ{$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "å‘³æ–¹ã® å‰åˆ—ãŒ{$Quantity}äºº";
 			break;
-//------------------------ ÂâÎó(Å¨)
+
+		case 1715:// å‘³æ–¹ã® å¾Œåˆ—ãŒ{$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "å‘³æ–¹ã® å¾Œåˆ—ãŒ{$Quantity}äººä»¥ä¸Š";
+			break;
+		case 1716:// å‘³æ–¹ã® å¾Œåˆ—ãŒ{$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "å‘³æ–¹ã® å¾Œåˆ—ãŒ{$Quantity}äººä»¥ä¸‹";
+			break;
+		case 1717:// å‘³æ–¹ã® å¾Œåˆ—ãŒ{$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "å‘³æ–¹ã® å¾Œåˆ—ãŒ{$Quantity}äºº";
+			break;
+//------------------------ éšŠåˆ—(æ•µ)
 		case 1749:
-			$judge["exp"]	= "ÂâÎó(Å¨)";
+			$judge["exp"]	= "éšŠåˆ—(æ•µ)";
 			$judge["css"]	= true;
 			break;
-		case 1750:// Áê¼ê¤Î Á°Îó¤¬{$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "Áê¼ê¤Î Á°Îó¤¬{$Quantity}¿Í°Ê¾å";
+		case 1750:// ç›¸æ‰‹ã® å‰åˆ—ãŒ{$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "ç›¸æ‰‹ã® å‰åˆ—ãŒ{$Quantity}äººä»¥ä¸Š";
 			break;
-		case 1751:// Áê¼ê¤Î Á°Îó¤¬{$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "Áê¼ê¤Î Á°Îó¤¬{$Quantity}¿Í°Ê²¼";
+		case 1751:// ç›¸æ‰‹ã® å‰åˆ—ãŒ{$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "ç›¸æ‰‹ã® å‰åˆ—ãŒ{$Quantity}äººä»¥ä¸‹";
 			break;
-		case 1752:// Áê¼ê¤Î Á°Îó¤¬{$Quantity}¿Í
-			$judge["exp"]	= "Áê¼ê¤Î Á°Îó¤¬{$Quantity}¿Í";
+		case 1752:// ç›¸æ‰‹ã® å‰åˆ—ãŒ{$Quantity}äºº
+			$judge["exp"]	= "ç›¸æ‰‹ã® å‰åˆ—ãŒ{$Quantity}äºº";
 			break;
 
-		case 1755:// Áê¼ê¤Î ¸åÎó¤¬{$Quantity}¿Í°Ê¾å
-			$judge["exp"]	= "Áê¼ê¤Î ¸åÎó¤¬{$Quantity}¿Í°Ê¾å";
+		case 1755:// ç›¸æ‰‹ã® å¾Œåˆ—ãŒ{$Quantity}äººä»¥ä¸Š
+			$judge["exp"]	= "ç›¸æ‰‹ã® å¾Œåˆ—ãŒ{$Quantity}äººä»¥ä¸Š";
 			break;
-		case 1756:// Áê¼ê¤Î ¸åÎó¤¬{$Quantity}¿Í°Ê²¼
-			$judge["exp"]	= "Áê¼ê¤Î ¸åÎó¤¬{$Quantity}¿Í°Ê²¼";
+		case 1756:// ç›¸æ‰‹ã® å¾Œåˆ—ãŒ{$Quantity}äººä»¥ä¸‹
+			$judge["exp"]	= "ç›¸æ‰‹ã® å¾Œåˆ—ãŒ{$Quantity}äººä»¥ä¸‹";
 			break;
-		case 1757:// Áê¼ê¤Î ¸åÎó¤¬{$Quantity}¿Í
-			$judge["exp"]	= "Áê¼ê¤Î ¸åÎó¤¬{$Quantity}¿Í";
+		case 1757:// ç›¸æ‰‹ã® å¾Œåˆ—ãŒ{$Quantity}äºº
+			$judge["exp"]	= "ç›¸æ‰‹ã® å¾Œåˆ—ãŒ{$Quantity}äºº";
 			break;
-//------------------------ ¾¤´­
+//------------------------ å¬å–š
 		case 1799:
-			$judge["exp"]	= "¾¤´­";
+			$judge["exp"]	= "å¬å–š";
 			$judge["css"]	= true;
 			break;
-		case 1800:// Ì£Êý¤Î ¾¤´­¥­¥ã¥é¤¬ {$Quantity}É¤°Ê¾å
-			$judge["exp"]	= "Ì£Êý¤Î ¾¤´­¥­¥ã¥é¤¬ {$Quantity}É¤°Ê¾å";
+		case 1800:// å‘³æ–¹ã® å¬å–šã‚­ãƒ£ãƒ©ãŒ {$Quantity}åŒ¹ä»¥ä¸Š
+			$judge["exp"]	= "å‘³æ–¹ã® å¬å–šã‚­ãƒ£ãƒ©ãŒ {$Quantity}åŒ¹ä»¥ä¸Š";
 			break;
-		case 1801:// Ì£Êý¤Î ¾¤´­¥­¥ã¥é¤¬ {$Quantity}É¤°Ê²¼
-			$judge["exp"]	= "Ì£Êý¤Î ¾¤´­¥­¥ã¥é¤¬ {$Quantity}É¤°Ê²¼";
+		case 1801:// å‘³æ–¹ã® å¬å–šã‚­ãƒ£ãƒ©ãŒ {$Quantity}åŒ¹ä»¥ä¸‹
+			$judge["exp"]	= "å‘³æ–¹ã® å¬å–šã‚­ãƒ£ãƒ©ãŒ {$Quantity}åŒ¹ä»¥ä¸‹";
 			break;
-		case 1805:// Ì£Êý¤Î ¾¤´­¥­¥ã¥é¤¬ {$Quantity}É¤
-			$judge["exp"]	= "Ì£Êý¤Î ¾¤´­¥­¥ã¥é¤¬ {$Quantity}É¤";
+		case 1805:// å‘³æ–¹ã® å¬å–šã‚­ãƒ£ãƒ©ãŒ {$Quantity}åŒ¹
+			$judge["exp"]	= "å‘³æ–¹ã® å¬å–šã‚­ãƒ£ãƒ©ãŒ {$Quantity}åŒ¹";
 			break;
-//------------------------ ¾¤´­(Å¨)
+//------------------------ å¬å–š(æ•µ)
 		case 1819:
-			$judge["exp"]	= "¾¤´­(Å¨)";
+			$judge["exp"]	= "å¬å–š(æ•µ)";
 			$judge["css"]	= true;
 			break;
-		case 1820:// Áê¼ê¤Î ¾¤´­¥­¥ã¥é¤¬ {$Quantity}É¤°Ê¾å
-			$judge["exp"]	= "Áê¼ê¤Î ¾¤´­¥­¥ã¥é¤¬ {$Quantity}É¤°Ê¾å";
+		case 1820:// ç›¸æ‰‹ã® å¬å–šã‚­ãƒ£ãƒ©ãŒ {$Quantity}åŒ¹ä»¥ä¸Š
+			$judge["exp"]	= "ç›¸æ‰‹ã® å¬å–šã‚­ãƒ£ãƒ©ãŒ {$Quantity}åŒ¹ä»¥ä¸Š";
 			break;
-		case 1821:// Áê¼ê¤Î ¾¤´­¥­¥ã¥é¤¬ {$Quantity}É¤°Ê²¼
-			$judge["exp"]	= "Áê¼ê¤Î ¾¤´­¥­¥ã¥é¤¬ {$Quantity}É¤°Ê²¼";
+		case 1821:// ç›¸æ‰‹ã® å¬å–šã‚­ãƒ£ãƒ©ãŒ {$Quantity}åŒ¹ä»¥ä¸‹
+			$judge["exp"]	= "ç›¸æ‰‹ã® å¬å–šã‚­ãƒ£ãƒ©ãŒ {$Quantity}åŒ¹ä»¥ä¸‹";
 			break;
-		case 1825:// Áê¼ê¤Î ¾¤´­¥­¥ã¥é¤¬ {$Quantity}É¤
-			$judge["exp"]	= "Áê¼ê¤Î ¾¤´­¥­¥ã¥é¤¬ {$Quantity}É¤";
+		case 1825:// ç›¸æ‰‹ã® å¬å–šã‚­ãƒ£ãƒ©ãŒ {$Quantity}åŒ¹
+			$judge["exp"]	= "ç›¸æ‰‹ã® å¬å–šã‚­ãƒ£ãƒ©ãŒ {$Quantity}åŒ¹";
 			break;
 
-//------------------------ ËâË¡¿Ø
+//------------------------ é­”æ³•é™£
 		case 1839:
-			$judge["exp"]	= "ËâË¡¿Ø";
+			$judge["exp"]	= "é­”æ³•é™£";
 			$judge["css"]	= true;
 			break;
-		case 1840:// Ì£Êý¤ÎËâË¡¿Ø¤Î¿ô¤¬ {$Quantity}¸Ä°Ê¾å
-			$judge["exp"]	= "Ì£Êý¤ÎËâË¡¿Ø¤Î¿ô¤¬ {$Quantity}¸Ä°Ê¾å";
+		case 1840:// å‘³æ–¹ã®é­”æ³•é™£ã®æ•°ãŒ {$Quantity}å€‹ä»¥ä¸Š
+			$judge["exp"]	= "å‘³æ–¹ã®é­”æ³•é™£ã®æ•°ãŒ {$Quantity}å€‹ä»¥ä¸Š";
 			break;
-		case 1841:// Ì£Êý¤ÎËâË¡¿Ø¤Î¿ô¤¬ {$Quantity}¸Ä°Ê²¼
-			$judge["exp"]	= "Ì£Êý¤ÎËâË¡¿Ø¤Î¿ô¤¬ {$Quantity}¸Ä°Ê²¼";
+		case 1841:// å‘³æ–¹ã®é­”æ³•é™£ã®æ•°ãŒ {$Quantity}å€‹ä»¥ä¸‹
+			$judge["exp"]	= "å‘³æ–¹ã®é­”æ³•é™£ã®æ•°ãŒ {$Quantity}å€‹ä»¥ä¸‹";
 			break;
-		case 1845:// Ì£Êý¤ÎËâË¡¿Ø¤Î¿ô¤¬ {$Quantity}¸Ä
-			$judge["exp"]	= "Ì£Êý¤ÎËâË¡¿Ø¤Î¿ô¤¬ {$Quantity}¸Ä";
+		case 1845:// å‘³æ–¹ã®é­”æ³•é™£ã®æ•°ãŒ {$Quantity}å€‹
+			$judge["exp"]	= "å‘³æ–¹ã®é­”æ³•é™£ã®æ•°ãŒ {$Quantity}å€‹";
 			break;
-//------------------------ ËâË¡¿Ø(Å¨)
+//------------------------ é­”æ³•é™£(æ•µ)
 		case 1849:
-			$judge["exp"]	= "ËâË¡¿Ø(Å¨)";
+			$judge["exp"]	= "é­”æ³•é™£(æ•µ)";
 			$judge["css"]	= true;
 			break;
-		case 1850:// Áê¼ê¤ÎËâË¡¿Ø¤Î¿ô¤¬ {$Quantity}¸Ä°Ê¾å
-			$judge["exp"]	= "Áê¼ê¤ÎËâË¡¿Ø¤Î¿ô¤¬ {$Quantity}¸Ä°Ê¾å";
+		case 1850:// ç›¸æ‰‹ã®é­”æ³•é™£ã®æ•°ãŒ {$Quantity}å€‹ä»¥ä¸Š
+			$judge["exp"]	= "ç›¸æ‰‹ã®é­”æ³•é™£ã®æ•°ãŒ {$Quantity}å€‹ä»¥ä¸Š";
 			break;
-		case 1851:// Áê¼ê¤ÎËâË¡¿Ø¤Î¿ô¤¬ {$Quantity}¸Ä°Ê²¼
-			$judge["exp"]	= "Áê¼ê¤ÎËâË¡¿Ø¤Î¿ô¤¬ {$Quantity}¸Ä°Ê²¼";
+		case 1851:// ç›¸æ‰‹ã®é­”æ³•é™£ã®æ•°ãŒ {$Quantity}å€‹ä»¥ä¸‹
+			$judge["exp"]	= "ç›¸æ‰‹ã®é­”æ³•é™£ã®æ•°ãŒ {$Quantity}å€‹ä»¥ä¸‹";
 			break;
-		case 1855:// Áê¼ê¤ÎËâË¡¿Ø¤Î¿ô¤¬ {$Quantity}¸Ä
-			$judge["exp"]	= "Áê¼ê¤ÎËâË¡¿Ø¤Î¿ô¤¬ {$Quantity}¸Ä";
+		case 1855:// ç›¸æ‰‹ã®é­”æ³•é™£ã®æ•°ãŒ {$Quantity}å€‹
+			$judge["exp"]	= "ç›¸æ‰‹ã®é­”æ³•é™£ã®æ•°ãŒ {$Quantity}å€‹";
 			break;
 
-//------------------------ »ØÄê¹ÔÆ°²ó¿ô
+//------------------------ æŒ‡å®šè¡Œå‹•å›žæ•°
 		case 1899:
-			$judge["exp"]	= "»ØÄê¹ÔÆ°²ó¿ô";
+			$judge["exp"]	= "æŒ‡å®šè¡Œå‹•å›žæ•°";
 			$judge["css"]	= true;
 			break;
-		case 1900:// ¼«Ê¬¤Î¹ÔÆ°²ó¿ô¤¬ {$Quantity}²ó°Ê¾å
-			$judge["exp"]	= "¼«Ê¬¤Î¹ÔÆ°¤¬ {$Quantity}²ó°Ê¾å";
+		case 1900:// è‡ªåˆ†ã®è¡Œå‹•å›žæ•°ãŒ {$Quantity}å›žä»¥ä¸Š
+			$judge["exp"]	= "è‡ªåˆ†ã®è¡Œå‹•ãŒ {$Quantity}å›žä»¥ä¸Š";
 			break;
-		case 1901:// ¼«Ê¬¤Î¹ÔÆ°²ó¿ô¤¬ {$Quantity}²ó°Ê²¼
-			$judge["exp"]	= "¼«Ê¬¤Î¹ÔÆ°¤¬ {$Quantity}²ó°Ê²¼";
+		case 1901:// è‡ªåˆ†ã®è¡Œå‹•å›žæ•°ãŒ {$Quantity}å›žä»¥ä¸‹
+			$judge["exp"]	= "è‡ªåˆ†ã®è¡Œå‹•ãŒ {$Quantity}å›žä»¥ä¸‹";
 			break;
-		case 1902:// ¼«Ê¬¤Î¹ÔÆ°²ó¿ô¤¬ {$Quantity}²óÌÜ
-			$judge["exp"]	= "¼«Ê¬¤Î {$Quantity}²óÌÜ¤Î¹ÔÆ°";
+		case 1902:// è‡ªåˆ†ã®è¡Œå‹•å›žæ•°ãŒ {$Quantity}å›žç›®
+			$judge["exp"]	= "è‡ªåˆ†ã® {$Quantity}å›žç›®ã®è¡Œå‹•";
 			break;
-//------------------------ ²ó¿ôÀ©¸Â
+//------------------------ å›žæ•°åˆ¶é™
 		case 1919:
-			$judge["exp"]	= "²ó¿ôÀ©¸Â";
+			$judge["exp"]	= "å›žæ•°åˆ¶é™";
 			$judge["css"]	= true;
 			break;
-		case 1920:// {$Quantity}²ó¤À¤±É¬¤º
-			$judge["exp"]	= "{$Quantity}²ó¤À¤± É¬¤º";
+		case 1920:// {$Quantity}å›žã ã‘å¿…ãš
+			$judge["exp"]	= "{$Quantity}å›žã ã‘ å¿…ãš";
 			break;
-//------------------------ ³ÎÎ¨
+//------------------------ ç¢ºçŽ‡
 		case 1939:
-			$judge["exp"]	= "³ÎÎ¨";
+			$judge["exp"]	= "ç¢ºçŽ‡";
 			$judge["css"]	= true;
 			break;
-		case 1940:// {$Quantity}%¤Î³ÎÎ¨¤Ç
-			$judge["exp"]	= "{$Quantity}%¤Î ³ÎÎ¨¤Ç";
+		case 1940:// {$Quantity}%ã®ç¢ºçŽ‡ã§
+			$judge["exp"]	= "{$Quantity}%ã® ç¢ºçŽ‡ã§";
 			break;
 
 
-//----------------------- ÆÃ¼ì
-		case 9000:// Áê¼ê¥Á¡¼¥à¤ËLv**°Ê¾å¤¬µï¤ë¡£
-			$judge["exp"]	= "Áê¼ê¥Á¡¼¥à¤Ë Lv{$Quantity}°Ê¾å¤¬µï¤ë";
+//----------------------- ç‰¹æ®Š
+		case 9000:// ç›¸æ‰‹ãƒãƒ¼ãƒ ã«Lv**ä»¥ä¸ŠãŒå±…ã‚‹ã€‚
+			$judge["exp"]	= "ç›¸æ‰‹ãƒãƒ¼ãƒ ã« Lv{$Quantity}ä»¥ä¸ŠãŒå±…ã‚‹";
 			break;
 
 

@@ -1,34 +1,34 @@
 <div style="margin:15px">
-<h4>���塼�ȥꥢ��</h4>
-<p>��Ʈ�δ���Ū����ά(���᡼��:����)</p>
-<img src="./image/manual/t001.gif" alt="���᡼��" />
-<p>���ܤ� <span class="bold">���</span>(Warrior) �Τ褦���Ǥ��춯�������� <span class="bold">����</span>(Front) �ˡ�<br />
-<span class="bold">��ˡ�Ȥ�</span>(Sorecerer) �Τ褦���Ǥ���夤������ <span class="bold">���</span>(Back) �ˡ�</p>
-<p>���Ҥϸ�Ҥ��ꡢ�����Ϥι⤤��Ҥ�Ũ���ݤ���<br />
-���Ĥ������Ҥ��Ҥ������Ƥ����롣�Ȥ������Ǥ���</p>
-<h4>�Ȥꤢ���� ��Ƥߤ���</h4>
-<p>���(Warrior), ��ˡ�Ȥ�(Sorecerer) �� ��η(Priest) ��·���褦��<br />
-��˥塼�� <span class="bold">��(Town) �� </span><a href="?recruit">�ͺశ����(Recruit)</a> ����ۤäƤߤޤ���
-<span class="light">(��󥯤ϥ������󤷤Ƥ���Τ�ͭ��)</span><br />
-�ۤä������ǡ����������廊��褦�����ꤷ�Ƥ���ޤ���</p>
-<img src="<?=IMG_CHAR_REV?>mon_079.gif" alt="����" />
-<img src="<?=IMG_CHAR_REV?>mon_018.gif" alt="�ˤ����⤹���" />
-<img src="<?=IMG_CHAR_REV?>mon_214.gif" alt="������" />
-<p>�ǤϤ��ä�������Ʈ�Ǥ���<br />
-��˥塼�� ����(Hunt) �� <a href="?common=gb0">���֥���ͷ��</a><span class="light">(��󥯤ϥ������󤷤Ƥ���Τ�ͭ��)</span><br />
-�ۤä��ͤ����˥����å���Ĥ����顢<br />
+<h4>チュートリアル</h4>
+<p>戦闘の基本的な戦略(イメージ:下図)</p>
+<img src="./image/manual/t001.gif" alt="いめーじ" />
+<p>基本は <span class="bold">戦士</span>(Warrior) のような打たれ強いキャラを <span class="bold">前衛</span>(Front) に、<br />
+<span class="bold">魔法使い</span>(Sorecerer) のような打たれ弱いキャラを <span class="bold">後衛</span>(Back) に。</p>
+<p>前衛は後衛を守り、攻撃力の高い後衛が敵を倒し、<br />
+傷ついた前衛を後衛が治してあげる。という具合です。</p>
+<h4>とりあえず やてみろ！</h4>
+<p>戦士(Warrior), 魔法使い(Sorecerer) と 僧侶(Priest) が揃うように<br />
+メニューの <span class="bold">街(Town) → </span><a href="?recruit">人材斡旋所(Recruit)</a> から雇ってみましょ
+<span class="light">(リンクはログインしてる場合のみ有効)</span><br />
+雇った時点で、そこそこ戦えるように設定してあります。</p>
+<img src="<?=IMG_CHAR_REV?>mon_079.gif" alt="守る人" />
+<img src="<?=IMG_CHAR_REV?>mon_018.gif" alt="痛い攻撃する人" />
+<img src="<?=IMG_CHAR_REV?>mon_214.gif" alt="治す人" />
+<p>ではさっそく、戦闘です。<br />
+メニューの 狩り(Hunt) → <a href="?common=gb0">ゴブリンと遊ぶ</a><span class="light">(リンクはログインしてる場合のみ有効)</span><br />
+雇った人たちにチェックをつけたら、<br />
 Battle !</p>
-<p>�����ȤǤ��Ƥ���С�<br />��Ʈ��̤�ɽ�������Ȼפ��ޤ���</p>
-<h4>��˥塼�ι���</h4>
+<p>ちゃんとできていれば、<br />戦闘結果が表示されると思います。</p>
+<h4>メニューの構成</h4>
 <img src="./image/manual/003.gif">
-<h4>����̤�</h4>
-<div class="bold u">�ۤ����������</div>
+<h4>うんぬん</h4>
+<div class="bold u">雇える初期キャラ</div>
 <p><ul>
-<li>���(Warrior) - �Ǥ��춯����</li>
-<li>��ˡ(Sorcerer) - �����ϤϹ⤤�����Ǥ���夤��</li>
-<li>��η(Priest) - ������</li>
-<li>�ݻȤ�(Hunter) - �������Ҥ�̵�뤷�Ƹ�Ҥ򹶷�Ǥ�������</li>
+<li>戦士(Warrior) - 打たれ強い。</li>
+<li>魔法(Sorcerer) - 攻撃力は高いが、打たれ弱い。</li>
+<li>僧侶(Priest) - 回復役。</li>
+<li>弓使い(Hunter) - 相手の前衛を無視して後衛を攻撃できる等。</li>
 </ul></p>
-<h4>�����2��</h4>
-�Խ���(2008/01/28)
+<h4>うんぬ2ん</h4>
+編集日(2008/01/28)
 </div>

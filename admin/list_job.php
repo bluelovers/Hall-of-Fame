@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="../basis.css" type="text/css">
 <title>JOB List</title>
 <style type="text/css">
@@ -10,7 +10,7 @@
 	padding	: 0;
 	margin	: 0;
 	line-height	: 140%;
-	font-family	: Osaka,Verdana,"£Í£Ó £Ğ¥´¥·¥Ã¥¯";
+	font-family	: Osaka,Verdana,"ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯";
 	overflow:inherit;
 }
 body{
@@ -73,7 +73,7 @@ for($no=100; $no<999; $no++) {
 		print("$i, ");
 	print("</td>");
 	print("</tr>\n");
-	// ½¬ÆÀµ»
+	// ç¿’å¾—æŠ€
 	if($j[learn]) {
 	print("<tr><td colspan=\"4\">");
 	print('<table><tbody>');
@@ -94,7 +94,7 @@ print("</tbody></table>");
 </html>
 <?php
 //////////////////////////////////////////////////
-//	µ»¤Î¾ÜºÙ¤òÉ½¼¨
+//	æŠ€ã®è©³ç´°ã‚’è¡¨ç¤º
 	function ShowSkillDetail($skill,$radio=false) {
 
 		define("IMG_ICON","../image/icon/");
@@ -110,7 +110,7 @@ print("</tbody></table>");
 		if($radio)
 			print(" / <span class=\"bold\">{$skill[learn]}</span>pt");
 
-		if($skill[target][0] == "all")//ÂĞ¾İ
+		if($skill[target][0] == "all")//å¯¾è±¡
 			print(" / <span class=\"charge\">{$skill[target][0]}</span>");
 		else if($skill[target][0] == "enemy")
 			print(" / <span class=\"dmg\">{$skill[target][0]}</span>");
@@ -121,7 +121,7 @@ print("</tbody></table>");
 		else if(isset($skill[target][0]))
 			print(" / {$skill[target][0]}");
 
-		if($skill[target][1] == "all")//Ã±ÂÎorÊ£¿ôorÁ´ÂÎ
+		if($skill[target][1] == "all")//å˜ä½“orè¤‡æ•°orå…¨ä½“
 			print(" - <span class=\"charge\">{$skill[target][1]}</span>");
 		else if($skill[target][1] == "individual")
 			print(" - <span class=\"recover\">{$skill[target][1]}</span>");

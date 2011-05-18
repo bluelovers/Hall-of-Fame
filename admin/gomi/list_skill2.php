@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>skl_list2</title>
 <style type="text/css">
 <!--
@@ -9,7 +9,7 @@
 	padding	: 0;
 	margin	: 0;
 	line-height	: 140%;
-	font-family	: Osaka,Verdana,"£Õ£” £–•¥•∑•√•Ø";
+	font-family	: Osaka,Verdana,"Ôº≠Ôº≥ Ôº∞„Ç¥„Ç∑„ÉÉ„ÇØ";
 	overflow:inherit;
 }
 body{
@@ -68,7 +68,7 @@ for($no=1000; $no<9999; $no++) {
 	print("<td>{$skill[learn]}</td>");//learn
 	print("<td>{$skill[target][0]},{$skill[target][1]},{$skill[target][2]}</td>");//target
 	if($skill[summon]) {
-		print("<td>æ§¥≠:{$skill[summon]}".($skill[quick]?"(Q)":"")."</td>");
+		print("<td>Âè¨Âñö:{$skill[summon]}".($skill[quick]?"(Q)":"")."</td>");
 	} else {
 		print("<td>{$skill[pow]}% x {$skill[target][2]} = ".($skill[pow]*$skill[target][2])."%</td>");//pow
 	}

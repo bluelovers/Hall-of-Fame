@@ -15,7 +15,7 @@ h4{
 }
 .bgcolor{background-color	: #10151b;}
 .light{
-  /* Éğ´ï¼ïÎà */
+  /* æ­¦å™¨ç¨®é¡ */
   color	: #40526a;
   font-size	: 80%;
 }
@@ -110,13 +110,13 @@ a:hover{
   font-weight	: bold;
 }
 .a0{
-  /* ¥Ø¥ë¥×¡Ö?¡×¤Î¿§(¤À¤±) */
+  /* ãƒ˜ãƒ«ãƒ—ã€Œ?ã€ã®è‰²(ã ã‘) */
   text-decoration	: none;
   color	: #c69500;
   font-weight	: bold;
 }
 .a0:hover{
-  /* ¢¬ */
+  /* â†‘ */
   text-decoration	: underline;
   color	: #ffcc33;
   font-weight	: bold;
@@ -191,7 +191,7 @@ select{
   border:1px solid #334357;
   background : url(image/btn_bk01.gif) repeat-x left top;
 }
-/*** ÀïÆ®²èÌÌÍÑ ***/
+/*** æˆ¦é—˜ç”»é¢ç”¨ ***/
 .btl_img{
   background	: #070b0e;
   padding	: 3px;
@@ -210,26 +210,26 @@ select{
 .hpsp{
   padding-left:20px;
 }
-/* º¸Â¦ */
+/* å·¦å´ */
 .bl{
-  /* Ì¤»ÈÍÑ */
+  /* æœªä½¿ç”¨ */
 	width:49%;
   float:left;
   border-right:1px solid #070b0e;
 }
-/* ±¦Â¦ */
+/* å³å´ */
 .br{
-  /* Ì¤»ÈÍÑ */
+  /* æœªä½¿ç”¨ */
 	width:50%;
   float:right;
 }
-/* ±¦Â¦ */
+/* å³å´ */
 .ttd1{
   border-left	: 1px solid #070b0e;
   padding-left	: 10px;
 }
 .ttd2{
-  /* º¸Â¦ */
+  /* å·¦å´ */
   padding-left	: 10px;
 }
 .town{

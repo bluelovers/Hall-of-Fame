@@ -1,20 +1,20 @@
 <?
 //////////////////////////////////////////////////
-//	Å¹¤ËÇä¤Ã¤Æ¤ë¤â¤Î¥Ç¡¼¥¿
+//	åº—ã«å£²ã£ã¦ã‚‹ã‚‚ã®ãƒ‡ãƒ¼ã‚¿
 	function ShopList() {
-		return array(//Å¹ÈÎÇä¥ê¥¹¥È
+		return array(//åº—è²©å£²ãƒªã‚¹ãƒˆ
 		1002,1003,1004,1100,1101,1200,
 		1700,1701,1702,1703,1800,1801,2000,2001,
 		3000,3001,3002,3100,3101,5000,5001,5002,5003,
 		5100,5101,5102,5103,5200,5201,5202,5203,
 		5500,5501,
 		7000,7001,7500,
-		//7510,7511,7512,7513,7520,// ¥ê¥»¥Ã¥È·Ï¥¢¥¤¥Æ¥à
+		//7510,7511,7512,7513,7520,// ãƒªã‚»ãƒƒãƒˆç³»ã‚¢ã‚¤ãƒ†ãƒ 
 		8000,8009,
 		);
 	}
 //////////////////////////////////////////////////
-//	¥ª¡¼¥¯¥·¥ç¥ó¤Ë½ĞÉÊ²ÄÇ½¤Ê¥¢¥¤¥Æ¥à¤Î¼ïÎà
+//	ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ã«å‡ºå“å¯èƒ½ãªã‚¢ã‚¤ãƒ†ãƒ ã®ç¨®é¡
 	function CanExhibitType() {
 		return array(
 		"Sword"	=> "1",
@@ -34,7 +34,7 @@
 		);
 	}
 //////////////////////////////////////////////////
-//	ÀºÏ£²ÄÇ½¤Ê¥¢¥¤¥Æ¥à¤Î¼ïÎà
+//	ç²¾éŒ¬å¯èƒ½ãªã‚¢ã‚¤ãƒ†ãƒ ã®ç¨®é¡
 	function CanRefineType() {
 		return array(
 		"Sword","TwoHandSword","Dagger",
@@ -45,37 +45,37 @@
 		);
 	}
 //////////////////////////////////////////////////
-//	´ü¸ÂÀÚ¤ì¥¢¥«¥¦¥ó¥È¤Î°ìÀÆºï½ü
+//	æœŸé™åˆ‡ã‚Œã‚¢ã‚«ã‚¦ãƒ³ãƒˆã®ä¸€æ–‰å‰Šé™¤
 	function DeleteAbandonAccount() {
 		$list	= glob(USER."*");
 		$now	= time();
 
-		// ¥æ¡¼¥¶¡¼°ìÍ÷¤ò¼èÆÀ¤¹¤ë
+		// ãƒ¦ãƒ¼ã‚¶ãƒ¼ä¸€è¦§ã‚’å–å¾—ã™ã‚‹
 		foreach($list as $file) {
 			if(!is_dir($file)) continue;
 			$UserID	= substr($file,strrpos($file,"/")+1);
 			$user	= new user($UserID,true);
 
-			// ¾Ã¤µ¤ì¤ë¥æ¡¼¥¶¡¼
+			// æ¶ˆã•ã‚Œã‚‹ãƒ¦ãƒ¼ã‚¶ãƒ¼
 			if($user->IsAbandoned())
 			{
-				// ¥é¥ó¥­¥ó¥°¤òÆÉ¤à
+				// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‚’èª­ã‚€
 				if(!isset($Ranking))
 				{
 					include_once(CLASS_RANKING);
 					$Ranking	= new Ranking();
-					$RankChange	= false;// ¥é¥ó¥­¥ó¥°¥Ç¡¼¥¿¤¬ÊÑ¹¹¤µ¤ì¤¿¤«
+					$RankChange	= false;// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ãƒ‡ãƒ¼ã‚¿ãŒå¤‰æ›´ã•ã‚ŒãŸã‹
 				}
 
-				// ¥é¥ó¥­¥ó¥°¤«¤é¾Ã¤¹
+				// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‹ã‚‰æ¶ˆã™
 				if( $Ranking->DeleteRank($UserID) ) {
-					$RankChange	= true;// ÊÑ¹¹¤µ¤ì¤¿
+					$RankChange	= true;// å¤‰æ›´ã•ã‚ŒãŸ
 				}
 
 				RecordManage(date("Y M d G:i:s",$now).": user ".$user->id." deleted.");
-				$user->DeleteUser(false);//¥é¥ó¥­¥ó¥°¤«¤é¤Ï¾Ã¤µ¤Ê¤¤¤è¤¦¤Ëfalse
+				$user->DeleteUser(false);//ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‹ã‚‰ã¯æ¶ˆã•ãªã„ã‚ˆã†ã«false
 			}
-			// ¾Ã¤µ¤ì¤Ê¤¤¥æ¡¼¥¶¡¼
+			// æ¶ˆã•ã‚Œãªã„ãƒ¦ãƒ¼ã‚¶ãƒ¼
 				else
 			{
 				$user->fpCloseAll();
@@ -83,7 +83,7 @@
 			}
 		}
 
-		// °ìÄÌ¤ê¥æ¡¼¥¶¥Á¥§¥Ã¥¯¤¬½ª¤ï¤Ã¤¿¤Î¤Ç¥é¥ó¥­¥ó¥°¤ò¤É¤¦¤¹¤ë¤«
+		// ä¸€é€šã‚Šãƒ¦ãƒ¼ã‚¶ãƒã‚§ãƒƒã‚¯ãŒçµ‚ã‚ã£ãŸã®ã§ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‚’ã©ã†ã™ã‚‹ã‹
 		if($RankChange === true)
 			$Ranking->SaveRanking();
 		else if($RankChange === false)
@@ -92,12 +92,12 @@
 		//print("<pre>".print_r($list,1)."</pre>");
 	}
 //////////////////////////////////////////////////
-//	Äê´üÅª¤Ë´ÉÍı¤¹¤ë²¿¤«
+//	å®šæœŸçš„ã«ç®¡ç†ã™ã‚‹ä½•ã‹
 	function RegularControl($value=null) {
 		/*
-			¥µ¡¼¥Ğ¤¬½Å(º®¤ß)¤½¤¦¤Ê»ş´ÖÂÓ¤Ï¸å²ó¤·¤Ë¤¹¤ë¡£
-			PM 7:00 - AM 2:00 ¤Ï½èÍı¤·¤Ê¤¤¡£
-			¢¨»ş¹ï¤Ï or ¤Ê¤Î¤ËÃí°Õ¡ª
+			ã‚µãƒ¼ãƒãŒé‡(æ··ã¿)ãã†ãªæ™‚é–“å¸¯ã¯å¾Œå›ã—ã«ã™ã‚‹ã€‚
+			PM 7:00 - AM 2:00 ã¯å‡¦ç†ã—ãªã„ã€‚
+			â€»æ™‚åˆ»ã¯ or ãªã®ã«æ³¨æ„ï¼
 		*/
 		if(19 <= date("H") || date("H") <= 1)
 			 return false;
@@ -109,7 +109,7 @@
 			return false;
 		//$ctrltime	= file_get_contents(CTRL_TIME_FILE);
 		$ctrltime	= trim(fgets($fp, 1024));
-		// ¼ş´ü¤¬¤Ş¤À¤Ê¤é½ªÎ»
+		// å‘¨æœŸãŒã¾ã ãªã‚‰çµ‚äº†
 		if($now < $ctrltime)
 		{
 			fclose($fp);
@@ -117,28 +117,28 @@
 			return false;
 		}
 
-		// ´ÉÍı¤Î½èÍı
+		// ç®¡ç†ã®å‡¦ç†
 		RecordManage(date("Y M d G:i:s",$now).": auto regular control by {$value}.");
 
-		DeleteAbandonAccount();//¤½¤Î1 Êü´ş¥æ¡¼¥¶¤ÎÁİ½ü
+		DeleteAbandonAccount();//ãã®1 æ”¾æ£„ãƒ¦ãƒ¼ã‚¶ã®æƒé™¤
 
-		// Äê´ü´ÉÍı¤¬½ª¤ï¤Ã¤¿¤é¼¡¤Î´ÉÍı»ş¹ï¤ò½ñ¤­¹ş¤ó¤Ç½ªÎ»¤¹¤ë¡£
+		// å®šæœŸç®¡ç†ãŒçµ‚ã‚ã£ãŸã‚‰æ¬¡ã®ç®¡ç†æ™‚åˆ»ã‚’æ›¸ãè¾¼ã‚“ã§çµ‚äº†ã™ã‚‹ã€‚
 		WriteFileFP($fp,$now + CONTROL_PERIOD);
 		fclose($fp);
 		unset($fp);
 	}
 //////////////////////////////////////////////////
-//	$id ¤¬²áµîÅĞÏ¿¤µ¤ì¤¿¤«¤É¤¦¤«
+//	$id ãŒéå»ç™»éŒ²ã•ã‚ŒãŸã‹ã©ã†ã‹
 	function is_registered($id) {
 		if($registered = @file(REGISTER)):
-			if(array_search($id."\n",$registered)!==false && !ereg("[\.\/]+",$id) )//²ş¹Ôµ­¹æÉ¬¿Ü
+			if(array_search($id."\n",$registered)!==false && !ereg("[\.\/]+",$id) )//æ”¹è¡Œè¨˜å·å¿…é ˆ
 				return true;
 			else
 				return false;
 		endif;
 	}
 //////////////////////////////////////////////////
-//	¥Õ¥¡¥¤¥ë¥í¥Ã¥¯¤·¤¿¥Õ¥¡¥¤¥ë¥İ¥¤¥ó¥¿¤òÊÖ¤¹¡£
+//	ãƒ•ã‚¡ã‚¤ãƒ«ãƒ­ãƒƒã‚¯ã—ãŸãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’è¿”ã™ã€‚
 	function FileLock($file,$noExit=false) {
 
 		if(!file_exists($file))
@@ -154,7 +154,7 @@
 				stream_set_write_buffer($fp, 0);
 				return $fp;
 			} else {
-				usleep(10000);//0.01ÉÃ
+				usleep(10000);//0.01ç§’
 				$i++;
 			}
 		}while($i<5);
@@ -165,16 +165,16 @@
 			ob_clean();
 			exit("file lock error.");
 		}
-		//flock($fp, LOCK_EX);//ÇÓÂ¾
-		//flock($fp, LOCK_SH);//¶¦Í­¥í¥Ã¥¯
+		//flock($fp, LOCK_EX);//æ’ä»–
+		//flock($fp, LOCK_SH);//å…±æœ‰ãƒ­ãƒƒã‚¯
 		//flock($fp,LOCK_EX);
 
 		return $fp;
 	}
 //////////////////////////////////////////////////
-//	¥Õ¥¡¥¤¥ë¤Ë½ñ¤­¹ş¤à(°ú¿ô:¥Õ¥¡¥¤¥ë¥İ¥¤¥ó¥¿)
+//	ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãè¾¼ã‚€(å¼•æ•°:ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿)
 	function WriteFileFP($fp,$text,$check=false) {
-		if(!$check && !trim($text))//$text¤¬¶õÍó¤Ê¤é½ª¤ï¤ë
+		if(!$check && !trim($text))//$textãŒç©ºæ¬„ãªã‚‰çµ‚ã‚ã‚‹
 			return false;
 		/*if(file_exists($file)):
 			ftruncate()
@@ -189,9 +189,9 @@
 	}
 
 //////////////////////////////////////////////////
-//	¥Õ¥¡¥¤¥ë¤Ë½ñ¤­¹ş¤à
+//	ãƒ•ã‚¡ã‚¤ãƒ«ã«æ›¸ãè¾¼ã‚€
 	function WriteFile($file,$text,$check=false) {
-		if(!$check && !$text)//$text¤¬¶õÍó¤Ê¤é½ª¤ï¤ë
+		if(!$check && !$text)//$textãŒç©ºæ¬„ãªã‚‰çµ‚ã‚ã‚‹
 			return false;
 		/*if(file_exists($file)):
 			ftruncate()
@@ -203,7 +203,7 @@
 	}
 
 //////////////////////////////////////////////////
-//	¥Õ¥¡¥¤¥ë¤òÆÉ¤ó¤ÇÇÛÎó¤Ë³ÊÇ¼(°ú¿ô:¥Õ¥¡¥¤¥ë¥İ¥¤¥ó¥¿)
+//	ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã‚“ã§é…åˆ—ã«æ ¼ç´(å¼•æ•°:ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿)
 	function ParseFileFP($fp) {
 
 		if(!$fp) return false;
@@ -227,7 +227,7 @@
 			return false;
 	}
 //////////////////////////////////////////////////
-//	¥Õ¥¡¥¤¥ë¤òÆÉ¤ó¤ÇÇÛÎó¤Ë³ÊÇ¼
+//	ãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã‚“ã§é…åˆ—ã«æ ¼ç´
 	function ParseFile($file) {
 
 		$fp		= fopen($file,"r+");
@@ -268,14 +268,14 @@
 //	
 	function JudgeList(){
 
-		// ¼«Æ°ÆÉ¤ß¹ş¤ß(for¤Ç¥ë¡¼¥×¤µ¤»¤Æ¤ë¤«¤éÌµÂÌ¤Ê½èÍı)
+		// è‡ªå‹•èª­ã¿è¾¼ã¿(forã§ãƒ«ãƒ¼ãƒ—ã•ã›ã¦ã‚‹ã‹ã‚‰ç„¡é§„ãªå‡¦ç†)
 		if(JUDGE_LIST_AUTO_LOAD) {
 			for($i=1000; $i<2500; $i++) {
 				if( LoadJudgeData($i) !== false)
 					$list[]=$i;
 			}
 			return $list;
-		// ¼êÆ°(ÄÉ²Ã¤·¤¿È½ÃÇ¤Ï¼«Ê¬¤Ç½ñ¤­Â­¤»)
+		// æ‰‹å‹•(è¿½åŠ ã—ãŸåˆ¤æ–­ã¯è‡ªåˆ†ã§æ›¸ãè¶³ã›)
 		} else {
 		return array(
 1000, 1001, 1099, 1100, 1101,
@@ -305,7 +305,7 @@
 	}
 
 //////////////////////////////////////////////////
-//	¤ª¶â¤ÎÉ½¼¨Êı¼°
+//	ãŠé‡‘ã®è¡¨ç¤ºæ–¹å¼
 	function MoneyFormat($number) {
 		return '$&nbsp;'.number_format($number);
 	}
@@ -317,24 +317,24 @@
 	}
 
 //////////////////////////////////////////////////
-//	ÀïÆ®¥í¥°¤ÎÉ½¼¨
+//	æˆ¦é—˜ãƒ­ã‚°ã®è¡¨ç¤º
 function ShowLogList() {
 	print("<div style=\"margin:15px\">\n");
-	/*// ¥í¥°¾¯¤Ê¤¤¤Ê¤éÁ´ÉôÉ½¼¨¤¹¤ì¤Ğ¤¤¤¤¡£¢­
+	/*// ãƒ­ã‚°å°‘ãªã„ãªã‚‰å…¨éƒ¨è¡¨ç¤ºã™ã‚Œã°ã„ã„ã€‚â†“
 	// common
-	print("<h4>ºÇ¶á¤ÎÀïÆ®(Recent Battles)</h4>\n");
+	print("<h4>æœ€è¿‘ã®æˆ¦é—˜(Recent Battles)</h4>\n");
 	$log	= @glob(LOG_BATTLE_NORMAL."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file);
 	}
 	// union
-	print("<h4>¥æ¥Ë¥ª¥óÀï(Union Battle Log)</h4>\n");
+	print("<h4>ãƒ¦ãƒ‹ã‚ªãƒ³æˆ¦(Union Battle Log)</h4>\n");
 	$log	= @glob(LOG_BATTLE_UNION."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"UNION");
 	}
 	// rank
-	print("<h4>¥é¥ó¥­¥ó¥°Àï(Rank Battle Log)</h4>\n");
+	print("<h4>ãƒ©ãƒ³ã‚­ãƒ³ã‚°æˆ¦(Rank Battle Log)</h4>\n");
 	$log	= @glob(LOG_BATTLE_RANK."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"RANK");
@@ -347,7 +347,7 @@ function ShowLogList() {
 	print("<a href=\"?rlog\">Ranking</a>");
 
 	// common
-	print("<h4>ºÇ¶á¤ÎÀïÆ® - <a href=\"?clog\">Á´É½¼¨</a>(Recent Battles)</h4>\n");
+	print("<h4>æœ€è¿‘ã®æˆ¦é—˜ - <a href=\"?clog\">å…¨è¡¨ç¤º</a>(Recent Battles)</h4>\n");
 	$log	= @glob(LOG_BATTLE_NORMAL."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file);
@@ -358,7 +358,7 @@ function ShowLogList() {
 	}
 	// union
 	$limit	= 0;
-	print("<h4>¥æ¥Ë¥ª¥óÀï - <a href=\"?ulog\">Á´É½¼¨</a>(Union Battle Log)</h4>\n");
+	print("<h4>ãƒ¦ãƒ‹ã‚ªãƒ³æˆ¦ - <a href=\"?ulog\">å…¨è¡¨ç¤º</a>(Union Battle Log)</h4>\n");
 	$log	= @glob(LOG_BATTLE_UNION."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"UNION");
@@ -369,7 +369,7 @@ function ShowLogList() {
 	}
 	// rank
 	$limit	= 0;
-	print("<h4>¥é¥ó¥­¥ó¥°Àï - <a href=\"?rlog\">Á´É½¼¨</a>(Rank Battle Log)</h4>\n");
+	print("<h4>ãƒ©ãƒ³ã‚­ãƒ³ã‚°æˆ¦ - <a href=\"?rlog\">å…¨è¡¨ç¤º</a>(Rank Battle Log)</h4>\n");
 	$log	= @glob(LOG_BATTLE_RANK."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"RANK");
@@ -382,7 +382,7 @@ function ShowLogList() {
 	print("</div>\n");
 }
 //////////////////////////////////////////////////
-//	ÀïÆ®¥í¥°¤ÎÉ½¼¨
+//	æˆ¦é—˜ãƒ­ã‚°ã®è¡¨ç¤º
 function LogShowCommon() {
 	print("<div style=\"margin:15px\">\n");
 	
@@ -391,7 +391,7 @@ function LogShowCommon() {
 	print("<a href=\"?ulog\">Union</a> ");
 	print("<a href=\"?rlog\">Ranking</a>");
 	// common
-	print("<h4>ºÇ¶á¤ÎÀïÆ® - Á´¥í¥°(Recent Battles)</h4>\n");
+	print("<h4>æœ€è¿‘ã®æˆ¦é—˜ - å…¨ãƒ­ã‚°(Recent Battles)</h4>\n");
 	$log	= @glob(LOG_BATTLE_NORMAL."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file);
@@ -399,7 +399,7 @@ function LogShowCommon() {
 	print("</div>\n");
 }
 //////////////////////////////////////////////////
-//	ÀïÆ®¥í¥°¤ÎÉ½¼¨(union)
+//	æˆ¦é—˜ãƒ­ã‚°ã®è¡¨ç¤º(union)
 function LogShowUnion() {
 	print("<div style=\"margin:15px\">\n");
 
@@ -408,7 +408,7 @@ function LogShowUnion() {
 	print("<a href=\"?ulog\" class=\"a0\">Union</a> ");
 	print("<a href=\"?rlog\">Ranking</a>");
 	// union
-	print("<h4>¥æ¥Ë¥ª¥óÀï - Á´¥í¥°(Union Battle Log)</h4>\n");
+	print("<h4>ãƒ¦ãƒ‹ã‚ªãƒ³æˆ¦ - å…¨ãƒ­ã‚°(Union Battle Log)</h4>\n");
 	$log	= @glob(LOG_BATTLE_UNION."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"UNION");
@@ -416,7 +416,7 @@ function LogShowUnion() {
 	print("</div>\n");
 }
 //////////////////////////////////////////////////
-//	ÀïÆ®¥í¥°¤ÎÉ½¼¨(ranking)
+//	æˆ¦é—˜ãƒ­ã‚°ã®è¡¨ç¤º(ranking)
 function LogShowRanking() {
 	print("<div style=\"margin:15px\">\n");
 
@@ -425,7 +425,7 @@ function LogShowRanking() {
 	print("<a href=\"?ulog\">Union</a> ");
 	print("<a href=\"?rlog\" class=\"a0\">Ranking</a>");
 	// rank
-	print("<h4>¥é¥ó¥­¥ó¥°Àï - Á´¥í¥°(Rank Battle Log)</h4>\n");
+	print("<h4>ãƒ©ãƒ³ã‚­ãƒ³ã‚°æˆ¦ - å…¨ãƒ­ã‚°(Rank Battle Log)</h4>\n");
 	$log	= @glob(LOG_BATTLE_RANK."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"RANK");
@@ -433,28 +433,28 @@ function LogShowRanking() {
 	print("</div>\n");
 }
 //////////////////////////////////////////////////
-//	ÀïÆ®¥í¥°¤Î¾ÜºÙ¤òÉ½¼¨(¥ê¥ó¥¯)
+//	æˆ¦é—˜ãƒ­ã‚°ã®è©³ç´°ã‚’è¡¨ç¤º(ãƒªãƒ³ã‚¯)
 function BattleLogDetail($log,$type=false) {
 	$fp	= fopen($log,"r");
 
-	// ¿ô¹Ô¤À¤±ÆÉ¤ß¹ş¤à¡£
-	$time	= fgets($fp);//³«»Ï»ş´Ö 1¹ÔÌÜ
-	$team	= explode("<>",fgets($fp));//¥Á¡¼¥àÌ¾ 2¹ÔÌÜ
-	$number	= explode("<>",trim(fgets($fp)));//¿Í¿ô 3¹ÔÌÜ
-	$avelv	= explode("<>",trim(fgets($fp)));//Ê¿¶Ñ¥ì¥Ù¥ë 4¹ÔÌÜ
-	$win	= trim(fgets($fp));// ¾¡Íø¥Á¡¼¥à 5¹ÔÌÜ
-	$act	= trim(fgets($fp));// Áí¹ÔÆ°¿ô 6¹ÔÌÜ
+	// æ•°è¡Œã ã‘èª­ã¿è¾¼ã‚€ã€‚
+	$time	= fgets($fp);//é–‹å§‹æ™‚é–“ 1è¡Œç›®
+	$team	= explode("<>",fgets($fp));//ãƒãƒ¼ãƒ å 2è¡Œç›®
+	$number	= explode("<>",trim(fgets($fp)));//äººæ•° 3è¡Œç›®
+	$avelv	= explode("<>",trim(fgets($fp)));//å¹³å‡ãƒ¬ãƒ™ãƒ« 4è¡Œç›®
+	$win	= trim(fgets($fp));// å‹åˆ©ãƒãƒ¼ãƒ  5è¡Œç›®
+	$act	= trim(fgets($fp));// ç·è¡Œå‹•æ•° 6è¡Œç›®
 	fclose($fp);
 
 	$date	= date("m/d H:i:s",substr($time,0,10));
-	// ¾¡Íø¥Á¡¼¥à¤Ë¤è¤Ã¤Æ¿§¤òÊ¬¤±¤ÆÉ½¼¨
+	// å‹åˆ©ãƒãƒ¼ãƒ ã«ã‚ˆã£ã¦è‰²ã‚’åˆ†ã‘ã¦è¡¨ç¤º
 	if($type == "RANK")
 		print("[ <a href=\"?rlog={$time}\">{$date}</a> ]&nbsp;\n");
 	else if($type == "UNION")
 		print("[ <a href=\"?ulog={$time}\">{$date}</a> ]&nbsp;\n");
 	else
 		print("[ <a href=\"?log={$time}\">{$date}</a> ]&nbsp;\n");
-	print("<span class=\"bold\">$act</span>turns&nbsp;\n");//Áí¥¿¡¼¥ó¿ô
+	print("<span class=\"bold\">$act</span>turns&nbsp;\n");//ç·ã‚¿ãƒ¼ãƒ³æ•°
 	if($win === "0")
 		print("<span class=\"recover\">{$team[0]}</span>");
 	else if($win === "1")
@@ -476,7 +476,7 @@ function BattleLogDetail($log,$type=false) {
 	print("({$number[1]}:{$avelv[1]})<br />");
 }
 //////////////////////////////////////////////////
-//	ÀïÆ®¥í¥°¤ò²óÍ÷¤¹¤ë
+//	æˆ¦é—˜ãƒ­ã‚°ã‚’å›è¦§ã™ã‚‹
 function ShowBattleLog($no,$type=false) {
 	if($type == "RANK")
 		$file	= LOG_BATTLE_RANK.$no.".dat";
@@ -484,13 +484,13 @@ function ShowBattleLog($no,$type=false) {
 		$file	= LOG_BATTLE_UNION.$no.".dat";
 	else
 		$file	= LOG_BATTLE_NORMAL.$no.".dat";
-	if(!file_exists($file)) {//¥í¥°¤¬Ìµ¤¤
+	if(!file_exists($file)) {//ãƒ­ã‚°ãŒç„¡ã„
 		print("log doesnt exists");
 		return false;
 	}
 
 	$log	= file($file);
-	$row	= 6;//¥í¥°¤Î²¿¹ÔÌÜ¤«¤é½ñ¤­½Ğ¤¹¤«?
+	$row	= 6;//ãƒ­ã‚°ã®ä½•è¡Œç›®ã‹ã‚‰æ›¸ãå‡ºã™ã‹?
 	$time	= substr($log[0],0,10);
 
 	//print('<table style="width:100%;text-align:center" class="break"><tr><td>'."\n");
@@ -507,7 +507,7 @@ function ShowBattleLog($no,$type=false) {
 	}
 }
 //////////////////////////////////////////////////
-//	µ»¤Î¾ÜºÙ¤òÉ½¼¨
+//	æŠ€ã®è©³ç´°ã‚’è¡¨ç¤º
 	function ShowSkillDetail($skill,$radio=false) {
 		if(!$skill) return false;
 		
@@ -520,7 +520,7 @@ function ShowBattleLog($no,$type=false) {
 		if($radio)
 			print(" / <span class=\"bold\">{$skill[learn]}</span>pt");
 
-		if($skill[target][0] == "all")//ÂĞ¾İ
+		if($skill[target][0] == "all")//å¯¾è±¡
 			print(" / <span class=\"charge\">{$skill[target][0]}</span>");
 		else if($skill[target][0] == "enemy")
 			print(" / <span class=\"dmg\">{$skill[target][0]}</span>");
@@ -531,7 +531,7 @@ function ShowBattleLog($no,$type=false) {
 		else if(isset($skill[target][0]))
 			print(" / {$skill[target][0]}");
 
-		if($skill[target][1] == "all")//Ã±ÂÎorÊ£¿ôorÁ´ÂÎ
+		if($skill[target][1] == "all")//å˜ä½“orè¤‡æ•°orå…¨ä½“
 			print(" - <span class=\"charge\">{$skill[target][1]}</span>");
 		else if($skill[target][1] == "individual")
 			print(" - <span class=\"recover\">{$skill[target][1]}</span>");
@@ -542,10 +542,10 @@ function ShowBattleLog($no,$type=false) {
 
 		if(isset($skill["sacrifice"]))
 			print(" / <span class=\"dmg\">Sacrifice:{$skill[sacrifice]}%</span>");
-		// ¾ÃÈñSP
+		// æ¶ˆè²»SP
 		if(isset($skill["sp"]))
 			print(" / <span class=\"support\">{$skill[sp]}sp</span>");
-		// ¾ÃÈñËâÊı¿Ø
+		// æ¶ˆè²»é­”æ–¹é™£
 		if($skill["MagicCircleDeleteTeam"])
 			print(" / <span class=\"support\">MagicCircle x".$skill["MagicCircleDeleteTeam"]."</span>");
 		if($skill["pow"]) {
@@ -630,7 +630,7 @@ function ShowBattleLog($no,$type=false) {
 			print(($skill["charge"]["1"]?$skill["charge"]["1"]:"0").")");
 		}
 
-		// Éğ´ïÀ©¸ÂÉ½¼¨
+		// æ­¦å™¨åˆ¶é™è¡¨ç¤º
 		if($skill["limit"]) {
 			$Limit	= " / Limit:";
 			foreach($skill["limit"] as $type => $bool) {
@@ -643,26 +643,26 @@ function ShowBattleLog($no,$type=false) {
 		print("\n");
 	}
 //////////////////////////////////////////////////
-//	¥¢¥¤¥Æ¥à¤Î¾ÜºÙ¤òÊÖ¤¹...¤Á¤ç¤Ã¤È½¤Àµ¤·¤¿¤¤¤Ê¡£
+//	ã‚¢ã‚¤ãƒ†ãƒ ã®è©³ç´°ã‚’è¿”ã™...ã¡ã‚‡ã£ã¨ä¿®æ­£ã—ãŸã„ãªã€‚
 	function ShowItemDetail($item,$amount=false,$text=false,$need=false) {
 		if(!$item) return false;
 
 		$html	= "<img src=\"".IMG_ICON.$item["img"]."\" class=\"vcent\">";
-		// ÀºÏ£ÃÍ
+		// ç²¾éŒ¬å€¤
 		if($item["refine"])
 			$html	.= "+{$item[refine]} ";
 		if($item["AddName"])
 			$html	.= "{$item[AddName]} ";
-		$html	.= "{$item[base_name]}";// Ì¾Á°
+		$html	.= "{$item[base_name]}";// åå‰
 
 		if($item["type"])
 			$html	.= "<span class=\"light\"> ({$item[type]})</span>";
-		if($amount) {//¿ôÎÌ
+		if($amount) {//æ•°é‡
 			$html	.= " x<span class=\"bold\" style=\"font-size:80%\">{$amount}</span>";
 		}
-		if($item["atk"]["0"])//ÊªÍı¹¶·â
+		if($item["atk"]["0"])//ç‰©ç†æ”»æ’ƒ
 			$html	.= ' / <span class="dmg">Atk:'.$item[atk][0].'</span>';
-		if($item["atk"]["1"])//ËâË¡¹¶·â
+		if($item["atk"]["1"])//é­”æ³•æ”»æ’ƒ
 			$html	.= ' / <span class="spdmg">Matk:'.$item[atk][1].'</span>';
 		if($item["def"]) {
 			$html	.= " / <span class=\"recover\">Def:{$item[def][0]}+{$item[def][1]}</span>";
@@ -680,7 +680,7 @@ function ShowBattleLog($no,$type=false) {
 			foreach($item["need"] as $M_itemNo => $M_amount) {
 				$M_item	= LoadItemData($M_itemNo);
 				$html	.= "<img src=\"".IMG_ICON.$M_item["img"]."\" class=\"vcent\">";
-				$html	.= "{$M_item[base_name]}";// Ì¾Á°
+				$html	.= "{$M_item[base_name]}";// åå‰
 				$html	.= " x<span class=\"bold\" style=\"font-size:80%\">{$M_amount}</span>";
 				if($need["$M_itemNo"])
 				$html	.= "<span class=\"light\">(".$need["$M_itemNo"].")</span>";
@@ -694,7 +694,7 @@ function ShowBattleLog($no,$type=false) {
 	}
 
 //////////////////////////////////////////////////
-//	ÀÖ¤¤·Ù¹ğÊ¸¤Ç¥¨¥é¡¼É½¼¨
+//	èµ¤ã„è­¦å‘Šæ–‡ã§ã‚¨ãƒ©ãƒ¼è¡¨ç¤º
 	function ShowResult($message,$add=false) {
 		if($add)
 			$add	= " ".$add;
@@ -702,7 +702,7 @@ function ShowBattleLog($no,$type=false) {
 			print('<div class="result'.$add.'">'.$message.'</div>'."\n");
 	}
 //////////////////////////////////////////////////
-//	ÀÖ¤¤·Ù¹ğÊ¸¤Ç¥¨¥é¡¼É½¼¨
+//	èµ¤ã„è­¦å‘Šæ–‡ã§ã‚¨ãƒ©ãƒ¼è¡¨ç¤º
 	function ShowError($message,$add=false) {
 		if($add)
 			$add	= " ".$add;
@@ -710,25 +710,25 @@ function ShowBattleLog($no,$type=false) {
 			print('<div class="error'.$add.'">'.$message.'</div>'."\n");
 	}
 //////////////////////////////////////////////////
-//	¥Ş¥Ë¥å¥¢¥ë¤òÉ½¼¨¤¹¤ë
+//	ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ã‚’è¡¨ç¤ºã™ã‚‹
 	function ShowManual() {
 		include(MANUAL);
 		return true;
 	}
 //////////////////////////////////////////////////
-//	¥Ş¥Ë¥å¥¢¥ë¤òÉ½¼¨¤¹¤ë
+//	ãƒãƒ‹ãƒ¥ã‚¢ãƒ«ã‚’è¡¨ç¤ºã™ã‚‹
 	function ShowManual2() {
 		include(MANUAL_HIGH);
 		return true;
 	}
 //////////////////////////////////////////////////
-//	¥Á¥å¡¼¥È¥ê¥¢¥ë¤òÉ½¼¨¤¹¤ë
+//	ãƒãƒ¥ãƒ¼ãƒˆãƒªã‚¢ãƒ«ã‚’è¡¨ç¤ºã™ã‚‹
 	function ShowTutorial() {
 		include(TUTORIAL);
 		return true;
 	}
 //////////////////////////////////////////////////
-//	¹¹¿·ÆâÍÆ¤ÎÉ½¼¨
+//	æ›´æ–°å†…å®¹ã®è¡¨ç¤º
 	function ShowUpDate() {
 		print('<div style="margin:15px">');
 		print("<p><a href=\"?\">Back</a><br><a href=\"#btm\">to bottom</a></p>");
@@ -745,7 +745,7 @@ function ShowBattleLog($no,$type=false) {
 			print("$update");
 			print('</textarea><br>');
 			print('<input type="submit" class="btn" value="update">');
-			print('<a href="?update">¥ê¥í¡¼¥É</a><br>');
+			print('<a href="?update">ãƒªãƒ­ãƒ¼ãƒ‰</a><br>');
 		}
 
 		print(nl2br($update)."\n");
@@ -766,16 +766,16 @@ EOD;
 		print("<p><a href=\"?\">Back</a></p></div>");
 	}
 //////////////////////////////////////////////////
-//	¤²¡¼¤à¤Ç¡¼¤¿
+//	ã’ãƒ¼ã‚€ã§ãƒ¼ãŸ
 	function ShowGameData() {
 		?>
 <div style="margin:15px">
 <h4>GameData</h4>
 <div style="margin:0 20px">
-| <a href="?gamedata=job">¿¦(Job)</a> | 
-<a href="?gamedata=item">¥¢¥¤¥Æ¥à(item)</a> | 
-<a href="?gamedata=judge">È½Äê</a> | 
-<a href="?gamedata=monster">¥â¥ó¥¹¥¿¡¼</a> | 
+| <a href="?gamedata=job">è·(Job)</a> | 
+<a href="?gamedata=item">ã‚¢ã‚¤ãƒ†ãƒ (item)</a> | 
+<a href="?gamedata=judge">åˆ¤å®š</a> | 
+<a href="?gamedata=monster">ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼</a> | 
 </div>
 </div><?
 	switch($_GET["gamedata"]) {
@@ -815,10 +815,10 @@ EOD;
 		fclose($fp);
 	}
 //////////////////////////////////////////////////
-//	Á´¥é¥ó¥­¥ó¥°¤ÎÉ½¼¨
+//	å…¨ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®è¡¨ç¤º
 	function RankAllShow() {
 		print('<div style="margin:15px">'."\n");
-		print('<h4>Ranking - '.date("YÇ¯n·îjÆü G»şiÊ¬sÉÃ").'</h4>'."\n");
+		print('<h4>Ranking - '.date("Yå¹´næœˆjæ—¥ Gæ™‚iåˆ†sç§’").'</h4>'."\n");
 		include(CLASS_RANKING);
 		$Rank	= new Ranking();
 		$Rank->ShowRanking();
@@ -837,32 +837,32 @@ EOD;
 	}
 
 	/*
-	*	ÆşÎÏ¤µ¤ì¤¿Ê¸»úÎó¤ò³ÎÇ§¤¹¤ë
-	*	ÊÖ¤êÃÍ
-	*	À®¸ù = array(true,ÊÑ´¹($string));
-	*	¼ºÇÔ = array(false,¼ºÇÔÍıÍ³);
+	*	å…¥åŠ›ã•ã‚ŒãŸæ–‡å­—åˆ—ã‚’ç¢ºèªã™ã‚‹
+	*	è¿”ã‚Šå€¤
+	*	æˆåŠŸ = array(true,å¤‰æ›($string));
+	*	å¤±æ•— = array(false,å¤±æ•—ç†ç”±);
 	*/
 	function CheckString($string,$maxLength=16) {
 		$string	= trim($string);
 		$string	= stripslashes($string);
 		if(is_numeric(strpos($string,"\t"))) {
-			return array(false,"ÉÔÀµ¤ÊÊ¸»ú");
+			return array(false,"ä¸æ­£ãªæ–‡å­—");
 		}
 		if(is_numeric(strpos($string,"\n"))) {
-			return array(false,"ÉÔÀµ¤ÊÊ¸»ú");
+			return array(false,"ä¸æ­£ãªæ–‡å­—");
 		}
 		if (!$string) {
-			return array(false,"Ì¤ÆşÎÏ");
+			return array(false,"æœªå…¥åŠ›");
 		}
 		$length	= strlen($string);
 		if ( 0 == $length || $maxLength < $length) {
-			return array(false,"Ä¹¤¹¤®¤«Ã»¤¹¤®¤ë");
+			return array(false,"é•·ã™ãã‹çŸ­ã™ãã‚‹");
 		}
 		$string	= htmlspecialchars($string,ENT_QUOTES);
 		return array(true,$string);
 	}
 ///////////////////////////////////////////////////
-//	Ã¼Ëö¤òÈ½ÃÇ¡£
+//	ç«¯æœ«ã‚’åˆ¤æ–­ã€‚
 	function isMobile() {
 		if(strstr($_SERVER['HTTP_USER_AGENT'],"DoCoMo")){
 			$env = 'i';

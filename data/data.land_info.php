@@ -1,25 +1,25 @@
 <?php
 /*
-	ÄÌ¾ïÀïÆ®¤Ë¤ª¤±¤ë¾ì½ê¤Î¾ðÊó
-	´ðËÜÅª¾ðÊó¡¢½Ð¸½¤¹¤ëÅ¨Åù
+	é€šå¸¸æˆ¦é—˜ã«ãŠã‘ã‚‹å ´æ‰€ã®æƒ…å ±
+	åŸºæœ¬çš„æƒ…å ±ã€å‡ºç¾ã™ã‚‹æ•µç­‰
 
-	name0 = Ì¤»ÈÍÑ
-	proper = Ì¤»ÈÍÑ
-	land = ÅÚÃÏ¤Î²èÁü¤ËÂÐ±þ¤¹¤ë
+	name0 = æœªä½¿ç”¨
+	proper = æœªä½¿ç”¨
+	land = åœŸåœ°ã®ç”»åƒã«å¯¾å¿œã™ã‚‹
 	
-	*** Å¨¤Î½Ð¸½³ÎÎ¨¤ÎÀßÄê¤Ë¤Ä¤¤¤Æ
+	*** æ•µã®å‡ºç¾ç¢ºçŽ‡ã®è¨­å®šã«ã¤ã„ã¦
 	$monster = array(
-	Å¨ÈÖ¹æ = array("³ÎÎ¨",1=É½¼¨ 0=±£¤·Å¨);
+	æ•µç•ªå· = array("ç¢ºçŽ‡",1=è¡¨ç¤º 0=éš ã—æ•µ);
 	)
 
-	³ÎÎ¨¤Î¹ç·×¤Ïµ¤¤Ë¤·¤Ê¤¯¤Æ¤¤¤¤¡£
-	½Ð¸½³ÎÎ¨ = ("³ÎÎ¨"/Á´ÂÎ¤Î³ÎÎ¨¹ç·×)
+	ç¢ºçŽ‡ã®åˆè¨ˆã¯æ°—ã«ã—ãªãã¦ã„ã„ã€‚
+	å‡ºç¾ç¢ºçŽ‡ = ("ç¢ºçŽ‡"/å…¨ä½“ã®ç¢ºçŽ‡åˆè¨ˆ)
 */
 function LandInformation($land) {
 	switch($land) {
 		case "gb0":
 			$land	= array(
-			"name"	=> "¥´¥Ö¥ê¥ó¤ÈÍ·¤Ö(ºÇ¼å)",
+			"name"	=> "ã‚´ãƒ–ãƒªãƒ³ã¨éŠã¶(æœ€å¼±)",
 			"name0"	=> "Goblin Training",
 			"land"	=> "grass",
 			"proper"	=> "Lv1",
@@ -30,7 +30,7 @@ function LandInformation($land) {
 			); break;
 		case "gb1":
 			$land	= array(
-			"name"	=> "¤Á¤ç¤Ã¤È¶¯¤¤¥´¥Ö¥ê¥ó",
+			"name"	=> "ã¡ã‚‡ã£ã¨å¼·ã„ã‚´ãƒ–ãƒªãƒ³",
 			"name0"	=> "The Goblins",
 			"land"	=> "grass",
 			"proper"	=> "Lv1-5",
@@ -47,7 +47,7 @@ function LandInformation($land) {
 			); break;
 		case "gb2":
 			$land	= array(
-			"name"	=> "¥´¥Ö¥ê¥ó¤ÎÀï»ÎÃ£",
+			"name"	=> "ã‚´ãƒ–ãƒªãƒ³ã®æˆ¦å£«é”",
 			"name0"	=> "The Goblin Warriors",
 			"land"	=> "grass",
 			"proper"	=> "Lv3-8",
@@ -61,14 +61,14 @@ function LandInformation($land) {
 			); break;
 		case "ac0":
 			$land	= array(
-			"name"	=> "¸Å¤ÎÆ¶·¢",
+			"name"	=> "å¤ã®æ´žçªŸ",
 			"name0"	=> "TheAncientCave",
 			"land"	=> "cave",
 			"proper"	=> "Lv??",
 			);
 			$monster	= array(
-			1010	=> array(0,1),// ¼ÂºÝ¤Ë¤Ï½Ð¸½¤·¤Ê¤¤¤¬
-			1011	=> array(0,1),// 1012¤¬¤½¤ÎÂå¤ï¤ê
+			1010	=> array(0,1),// å®Ÿéš›ã«ã¯å‡ºç¾ã—ãªã„ãŒ
+			1011	=> array(0,1),// 1012ãŒãã®ä»£ã‚ã‚Š
 			1012	=> array(500,0),
 			1013	=> array(150,1),
 			1014	=> array(150,1),
@@ -78,7 +78,7 @@ function LandInformation($land) {
 			); break;
 		case "ac1":
 			$land	= array(
-			"name"	=> "¸Å¤ÎÆ¶·¢(B2)",
+			"name"	=> "å¤ã®æ´žçªŸ(B2)",
 			"name0"	=> "TheAncientCave2F",
 			"land"	=> "cave",
 			"proper"	=> "Lv??",
@@ -92,7 +92,7 @@ function LandInformation($land) {
 			); break;
 		case "ac2":
 			$land	= array(
-			"name"	=> "¸Å¤ÎÆ¶·¢(B3)",
+			"name"	=> "å¤ã®æ´žçªŸ(B3)",
 			"name0"	=> "TheAncientCave3F",
 			"land"	=> "cave",
 			"proper"	=> "Lv??",
@@ -104,7 +104,7 @@ function LandInformation($land) {
 			); break;
 		case "ac3":
 			$land	= array(
-			"name"	=> "¸Å¤ÎÆ¶·¢(B4)",
+			"name"	=> "å¤ã®æ´žçªŸ(B4)",
 			"name0"	=> "TheAncientCave4F",
 			"land"	=> "cave",
 			"proper"	=> "Lv??",
@@ -116,7 +116,7 @@ function LandInformation($land) {
 			); break;
 		case "ac4":
 			$land	= array(
-			"name"	=> "¸Å¤ÎÆ¶·¢(B5)",
+			"name"	=> "å¤ã®æ´žçªŸ(B5)",
 			"name0"	=> "TheAncientCave5F",
 			"land"	=> "cave",
 			"proper"	=> "Lv??",
@@ -132,7 +132,7 @@ function LandInformation($land) {
 
 		case "sea0":
 			$land	= array(
-			"name"	=> "³¤",
+			"name"	=> "æµ·",
 			"name0"	=> "",
 			"land"	=> "sea",
 			"proper"	=> "99-99",
@@ -148,7 +148,7 @@ function LandInformation($land) {
 			); break;
 		case "sea1":
 			$land	= array(
-			"name"	=> "³¤(À¾³¤´ß)",
+			"name"	=> "æµ·(è¥¿æµ·å²¸)",
 			"name0"	=> "",
 			"land"	=> "sea",
 			"proper"	=> "99-99",
@@ -159,7 +159,7 @@ function LandInformation($land) {
 
 		case "ocean0":
 			$land	= array(
-			"name"	=> "³¤Ãæ",
+			"name"	=> "æµ·ä¸­",
 			"name0"	=> "",
 			"land"	=> "ocean",
 			"proper"	=> "99-99",
@@ -174,7 +174,7 @@ function LandInformation($land) {
 
 		case "sand0":
 			$land	= array(
-			"name"	=> "º½Çù",
+			"name"	=> "ç ‚æ¼ ",
 			"name0"	=> "",
 			"land"	=> "sand",
 			"proper"	=> "99-99",
@@ -189,7 +189,7 @@ function LandInformation($land) {
 
 		case "mt0":
 			$land	= array(
-			"name"	=> "²Ð»³¤Õ¤â¤È",
+			"name"	=> "ç«å±±ãµã‚‚ã¨",
 			"name0"	=> "",
 			"land"	=> "mount",
 			"proper"	=> "Lv??",
@@ -202,7 +202,7 @@ function LandInformation($land) {
 			); break;
 		case "volc0":
 			$land	= array(
-			"name"	=> "²Ð»³(ÃæÊ¢)",
+			"name"	=> "ç«å±±(ä¸­è…¹)",
 			"name0"	=> "",
 			"land"	=> "lava",
 			"proper"	=> "Lv??",
@@ -216,7 +216,7 @@ function LandInformation($land) {
 			); break;
 		case "volc1":
 			$land	= array(
-			"name"	=> "²Ð»³(Äº¾å)",
+			"name"	=> "ç«å±±(é ‚ä¸Š)",
 			"name0"	=> "",
 			"land"	=> "lava",
 			"proper"	=> "Lv??",
@@ -232,7 +232,7 @@ function LandInformation($land) {
 
 		case "swamp0":
 			$land	= array(
-			"name"	=> "¾Â",
+			"name"	=> "æ²¼",
 			"name0"	=> "",
 			"land"	=> "swamp",
 			"proper"	=> "Lv??",
@@ -247,7 +247,7 @@ function LandInformation($land) {
 			); break;
 		case "swamp1":
 			$land	= array(
-			"name"	=> "½¸Íî?",
+			"name"	=> "é›†è½?",
 			"name0"	=> "",
 			"land"	=> "swamp",
 			"proper"	=> "Lv??",
@@ -262,7 +262,7 @@ function LandInformation($land) {
 
 		case "snow0":
 			$land	= array(
-			"name"	=> "Å©Åà»³¤Õ¤â¤È",
+			"name"	=> "æ»´å‡å±±ãµã‚‚ã¨",
 			"name0"	=> "FrostyMountain(foot)",
 			"land"	=> "snow",
 			"proper"	=> "Lv??",
@@ -275,7 +275,7 @@ function LandInformation($land) {
 			); break;
 		case "snow1":
 			$land	= array(
-			"name"	=> "Å©Åà»³(ÃæÊ¢)",
+			"name"	=> "æ»´å‡å±±(ä¸­è…¹)",
 			"name0"	=> "FrostyMountain(HalfWay)",
 			"land"	=> "snow",
 			"proper"	=> "Lv??",
@@ -291,7 +291,7 @@ function LandInformation($land) {
 			); break;
 		case "snow2":
 			$land	= array(
-			"name"	=> "Å©Åà»³(Äº¾å)",
+			"name"	=> "æ»´å‡å±±(é ‚ä¸Š)",
 			"name0"	=> "FrostyMountain(Top)",
 			"land"	=> "snow",
 			"proper"	=> "Lv??",
@@ -312,7 +312,7 @@ function LandInformation($land) {
 
 		case "des01":
 			$land	= array(
-			"name"	=> "Î¬Ã¥¼Ô¤Îº½Çù",
+			"name"	=> "ç•¥å¥ªè€…ã®ç ‚æ¼ ",
 			"name"	=> "Plunderer's Sandland",
 			"land"	=> "sand",
 			"proper"	=> "Lv5-10",
@@ -326,7 +326,7 @@ function LandInformation($land) {
 			); break;
 		case "plund01":
 			$land	= array(
-			"name"	=> "Â±¤ÎÁã·¢",
+			"name"	=> "è³Šã®å·£çªŸ",
 			"name0"	=> "Plunderer's Nest",
 			"land"	=> "sand",
 			"proper"	=> "Lv10-15",
@@ -340,7 +340,7 @@ function LandInformation($land) {
 			); break;
 		case "blow01":
 			$land	= array(
-			"name"	=> "¥Ò¥ë¥º¥Ö¥í¥¦ÃÏ¶è",
+			"name"	=> "ãƒ’ãƒ«ã‚ºãƒ–ãƒ­ã‚¦åœ°åŒº",
 			"name0"	=> "TheBlowHills",
 			"land"	=> "aband",
 			"proper"	=> "Lv20-30",
@@ -354,7 +354,7 @@ function LandInformation($land) {
 			); break;
 		case "horh":
 			$land	= array(
-			"name"	=> "¥Ø¥Ö¥ó¥ª¥¢¥Ø¥ë",
+			"name"	=> "ãƒ˜ãƒ–ãƒ³ã‚ªã‚¢ãƒ˜ãƒ«",
 			"name0"	=> "Heaven or Hell",
 			"land"	=> "sea",
 			"proper"	=> "Lv99",

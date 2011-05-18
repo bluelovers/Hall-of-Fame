@@ -1,11 +1,11 @@
 <?php
-// Javascript¤Ç¼ïÎà¤òÀÚ¤êÂØ¤¨¤ÆÉ½¼¨¡£
+// Javascriptã§ç¨®é¡ã‚’åˆ‡ã‚Šæ›¿ãˆã¦è¡¨ç¤ºã€‚
 
-// ¥µ¥ó¥×¥ë
+// ã‚µãƒ³ãƒ—ãƒ«
 /*
 $list0	= new JS_ItemList();
-$list0->SetID("buy");//°ú¿ô¤Ê¤ó¤Ç¤â¤¤¤¤
-$list0->SetName("type_buy");//°ú¿ô¤Ê¤ó¤Ç¤â¤¤¤¤
+$list0->SetID("buy");//å¼•æ•°ãªã‚“ã§ã‚‚ã„ã„
+$list0->SetName("type_buy");//å¼•æ•°ãªã‚“ã§ã‚‚ã„ã„
 foreach($ShopList as $no) {
 	$item	= LoadItemData($no);
 	$head	= '<input type="radio" name="item_no" value="'.$no.'" class="vcent">'.MoneyFormat($item["buy"]);
@@ -14,28 +14,28 @@ foreach($ShopList as $no) {
 }
 	print($list0->GetJavaScript("list"));
 	print($list0->ShowSelect());
------------------- ¢­¤âÉ¬Í×
+------------------ â†“ã‚‚å¿…è¦
 <form action="?" method="post">
 <div id="list"><?=$list0->ShowDefault()?></div>
 <input type="submit" class="btn" name="shop_buy" value="Buy">
 </form>
 -----------------------
-¢¨Ãí°Õ»ö¹à
+â€»æ³¨æ„äº‹é …
 <form></form>
-¤¬Æş¤ì»Ò¤Ë¤Ê¤é¤Ê¤¤¤è¤¦¤ËÃí°Õ¡£
+ãŒå…¥ã‚Œå­ã«ãªã‚‰ãªã„ã‚ˆã†ã«æ³¨æ„ã€‚
 
 print($list0->ShowSelect());
-¤Ï<form>¡Á¡Á¡Á¡Á</form>¤Ç½ñ¤­½Ğ¤µ¤ì¤ë¡£
+ã¯<form>ï½ï½ï½ï½</form>ã§æ›¸ãå‡ºã•ã‚Œã‚‹ã€‚
 print("<form>");
 print($list0->ShowSelect());
-print("</form>");// ¤Î·Á¤Ë¤Ê¤ë¤ÈÆ°¤«¤Ê¤¤¡£
+print("</form>");// ã®å½¢ã«ãªã‚‹ã¨å‹•ã‹ãªã„ã€‚
 */
 
 /*
-	// ¥Æ¡¼¥Ö¥ë·Á¼°¤ÇÉ½¼¨¤µ¤»¤ë¾ì¹ç
-	// ³Æ¥¢¥¤¥Æ¥à¤Î¹àÌÜ¤Ë\ n¤Ï»È¤¨¤Ê¤¤¡ª¡ª¡ª
-$list0->ListTable("<table>");// ¥Æ¡¼¥Ö¥ë¥¿¥°¤Î¤Ï¤¸¤Ş¤ê
-$list0->ListTableInsert("<tr><td>No</td><td>Item</td></tr>"); // ¥Æ¡¼¥Ö¥ë¤ÎºÇ½é¤ÈºÇ¸å¤Î¹Ô¤ËÉ½¼¨¤µ¤»¤ë¤ä¤Ä¡£
+	// ãƒ†ãƒ¼ãƒ–ãƒ«å½¢å¼ã§è¡¨ç¤ºã•ã›ã‚‹å ´åˆ
+	// å„ã‚¢ã‚¤ãƒ†ãƒ ã®é …ç›®ã«\ nã¯ä½¿ãˆãªã„ï¼ï¼ï¼
+$list0->ListTable("<table>");// ãƒ†ãƒ¼ãƒ–ãƒ«ã‚¿ã‚°ã®ã¯ã˜ã¾ã‚Š
+$list0->ListTableInsert("<tr><td>No</td><td>Item</td></tr>"); // ãƒ†ãƒ¼ãƒ–ãƒ«ã®æœ€åˆã¨æœ€å¾Œã®è¡Œã«è¡¨ç¤ºã•ã›ã‚‹ã‚„ã¤ã€‚
 */
 
 class JS_ItemList {
@@ -51,7 +51,7 @@ class JS_ItemList {
 	var $Table	= false;
 	var $TableInsert;
 
-	// JS¤ò»ÈÍÑ¤·¤Ê¤¤¡ª¡ª¡ª
+	// JSã‚’ä½¿ç”¨ã—ãªã„ï¼ï¼ï¼
 	var $NoJS;
 
 	function SetID($ID) {
@@ -62,12 +62,12 @@ class JS_ItemList {
 		$this->name	= $name;
 	}
 
-	// JS¤ò»ÈÍÑ¤·¤Ê¤¤¡ª¡ª¡ª
+	// JSã‚’ä½¿ç”¨ã—ãªã„ï¼ï¼ï¼
 	function NoJS() {
 		$this->NoJS	= true;
 	}
 
-	// ¥¢¥¤¥Æ¥à¤ÎÄÉ²Ã
+	// ã‚¢ã‚¤ãƒ†ãƒ ã®è¿½åŠ 
 	function AddItem($item,$string) {
 		switch($item["type"]) {
 			case "Sword":
@@ -94,17 +94,17 @@ class JS_ItemList {
 		}
 	}
 
-	// ¥Æ¡¼¥Ö¥ë¥¿¥°¤ÇÉ½·Á¼°¤ËÉ½¼¨¤¹¤ë¤è¤¦¤Ë¤¹¤ë¡£
+	// ãƒ†ãƒ¼ãƒ–ãƒ«ã‚¿ã‚°ã§è¡¨å½¢å¼ã«è¡¨ç¤ºã™ã‚‹ã‚ˆã†ã«ã™ã‚‹ã€‚
 	function ListTable($HTML) {
 		$this->Table	= $HTML;
 	}
 
-	// ¥Æ¡¼¥Ö¥ë¤Î°ìÈÖ¾å¤È²¼¤ËÉ¬¤ºÉ½¼¨¤¹¤ë¹àÌÜ¤ß¤¿¤¤¤Ê¤Î
+	// ãƒ†ãƒ¼ãƒ–ãƒ«ã®ä¸€ç•ªä¸Šã¨ä¸‹ã«å¿…ãšè¡¨ç¤ºã™ã‚‹é …ç›®ã¿ãŸã„ãªã®
 	function ListTableInsert($string) {
 		$this->TableInsert	= $string;
 	}
 
-	// JS¤òÊÖ¤¹¡£
+	// JSã‚’è¿”ã™ã€‚
 	function GetJavaScript($Id) {
 		if($this->NoJS)
 			return NULL;
@@ -176,9 +176,9 @@ _JS_;
 		return $js;
 	}
 
-	// ºÇ½é¤ËÉ½¼¨¤¹¤ë¤â¤Î
+	// æœ€åˆã«è¡¨ç¤ºã™ã‚‹ã‚‚ã®
 	function ShowDefault() {
-		// JS¤ò»È¤ï¤Ê¤¤¤Î¤ÇÁ´¤ÆÉ½¼¨¤¹¤ë¡£
+		// JSã‚’ä½¿ã‚ãªã„ã®ã§å…¨ã¦è¡¨ç¤ºã™ã‚‹ã€‚
 		if($this->NoJS) {
 			$list	= array_merge($this->weapon,$this->armor,$this->item,$this->other);
 			foreach($list as $str)
@@ -218,7 +218,7 @@ _JS_;
 		return $open;
 	}
 
-	// SELECT¥Ü¥Ã¥¯¥¹¤ÎÉ½¼¨¡£
+	// SELECTãƒœãƒƒã‚¯ã‚¹ã®è¡¨ç¤ºã€‚
 	function ShowSelect() {
 		if($this->NoJS)
 			return NULL;
@@ -232,11 +232,11 @@ _JS_;
 
 $html = <<< HTML
 <form id="{$this->ID}"><select onchange="ChangeType{$this->ID}()" name="{$this->name}" style="margin-bottom:10px">
-  <option value="weapon">Éğ´ï(weapon)</option>
-  <option value="armor"{$armor}>ËÉ¶ñ(armor)</option>
-  <option value="item"{$item}>¥¢¥¤¥Æ¥à(---)</option>
-  <option value="other"{$other}>¤½¤ÎÂ¾(other)</option>
-  <option value="all"{$all}>Á´Éô(all)</option>
+  <option value="weapon">æ­¦å™¨(weapon)</option>
+  <option value="armor"{$armor}>é˜²å…·(armor)</option>
+  <option value="item"{$item}>ã‚¢ã‚¤ãƒ†ãƒ (---)</option>
+  <option value="other"{$other}>ãã®ä»–(other)</option>
+  <option value="all"{$all}>å…¨éƒ¨(all)</option>
 </select></form>
 HTML;
 

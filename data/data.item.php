@@ -3,51 +3,51 @@ if(file_exists(DATA_ENCHANT))
 	include(DATA_ENCHANT);
 
 function LoadItemData($no) {
-	$base	= substr($no,0,4);//¥¢¥¤¥Æ¥à¤Î¼ïÎà
-	$refine	= (int)substr($no,4,2);//ÀºÏ£ÃÍ
-	// ÉÕ²ÃÇ½ÎÏ
+	$base	= substr($no,0,4);//ã‚¢ã‚¤ãƒ†ãƒ ã®ç¨®é¡
+	$refine	= (int)substr($no,4,2);//ç²¾éŒ¬å€¤
+	// ä»˜åŠ èƒ½åŠ›
 	$option0	= substr($no,6,3);
 	$option1	= substr($no,9,3);
 	$option2	= substr($no,12,3);
 
 /*
- * ÀßÄê¹àÌÜ
+ * è¨­å®šé …ç›®
  * ---------------------------------------------
- * "name"=>"Ì¾¾Î",
- * "type"=>"¼ïÎà",
- * "buy"=>"ÇãÃÍ",
- * "img"=>"²èÁü",
- * "atk"=>array(ÊªÍı¹¶·â,ËâË¡¹¶·â),
- * "def"=>array(ÊªÍı³ä?,ÊªÍı¸º,ËâË¡³ä?,ËâË¡¸º),
- * "dh"=> true,//Î¾¼êÉğ´ï¤«Èİ¤«( "D"ouble"H"and )
- * "handle"=>"¿ôÃÍ",
- * "need" => array("ÁÇºàÈÖ¹æ"=>¿ô, ...),// À½ºî¤ËÉ¬Í×¤Ê¥¢¥¤¥Æ¥à
+ * "name"=>"åç§°",
+ * "type"=>"ç¨®é¡",
+ * "buy"=>"è²·å€¤",
+ * "img"=>"ç”»åƒ",
+ * "atk"=>array(ç‰©ç†æ”»æ’ƒ,é­”æ³•æ”»æ’ƒ),
+ * "def"=>array(ç‰©ç†å‰²?,ç‰©ç†æ¸›,é­”æ³•å‰²?,é­”æ³•æ¸›),
+ * "dh"=> true,//ä¸¡æ‰‹æ­¦å™¨ã‹å¦ã‹( "D"ouble"H"and )
+ * "handle"=>"æ•°å€¤",
+ * "need" => array("ç´ æç•ªå·"=>æ•°, ...),// è£½ä½œã«å¿…è¦ãªã‚¢ã‚¤ãƒ†ãƒ 
  * ---------------------------------------------
  * type
- * "Sword"	ÊÒ¼ê·õ
- * "TwoHandSword"	Î¾¼ê·õ
- * "Dagger"	Ã»·õ
- * "Spear"	Î¾¼êÁä
- * "Pike"	ÊÒ¼êÁä
- * "Axe"	Î¾¼êÉà
- * "Hatchet"ÊÒ¼êÉà
- * "Wand"	ÊÒ¼ê¾ó
- * "Staff"	Î¾¼ê¾ó
- * "Mace"	Æß´ï(ÊÒ¼ê)
- * "Bow"	µİ
- * "CrossBow"	ÀĞµİ
+ * "Sword"	ç‰‡æ‰‹å‰£
+ * "TwoHandSword"	ä¸¡æ‰‹å‰£
+ * "Dagger"	çŸ­å‰£
+ * "Spear"	ä¸¡æ‰‹æ§
+ * "Pike"	ç‰‡æ‰‹æ§
+ * "Axe"	ä¸¡æ‰‹æ–§
+ * "Hatchet"ç‰‡æ‰‹æ–§
+ * "Wand"	ç‰‡æ‰‹æ–
+ * "Staff"	ä¸¡æ‰‹æ–
+ * "Mace"	éˆå™¨(ç‰‡æ‰‹)
+ * "Bow"	å¼“
+ * "CrossBow"	çŸ³å¼“
  * 
- * "Shield"	½â
- * "MainGauche"	ËÉ¸æÍÑÃ»·õ
- * "Book"	ËÜ
+ * "Shield"	ç›¾
+ * "MainGauche"	é˜²å¾¡ç”¨çŸ­å‰£
+ * "Book"	æœ¬
  * 
- * "Armor"	³»
- * "Cloth"	Éş
- * "Robe"	°á
+ * "Armor"	é§
+ * "Cloth"	æœ
+ * "Robe"	è¡£
  * 
  * "?"
  *--------------------------------------------
-	ÄÉ²Ã¥ª¥×¥·¥ç¥ó
+	è¿½åŠ ã‚ªãƒ—ã‚·ãƒ§ãƒ³
 	P_MAXHP
 	M_MAXHP
 	P_MAXSP
@@ -57,12 +57,12 @@ function LoadItemData($no) {
 	P_DEX
 	P_SPD
 	P_LUK
-	P_SUMMON = ¾¤´ÔÎÏ¶¯²½
-	P_PIERCE = array(ÊªÍı,ËâË¡),
+	P_SUMMON = å¬é‚„åŠ›å¼·åŒ–
+	P_PIERCE = array(ç‰©ç†,é­”æ³•),
  *--------------------------------------------
  */
 	switch($base) {
-		case "1000":	//	1000-1100	ÊÒ¼ê·õ
+		case "1000":	//	1000-1100	ç‰‡æ‰‹å‰£
 $item	= array(
 "name"	=> "ShortSword",
 "type"	=> "Sword",
@@ -162,7 +162,7 @@ $item	= array(
 "handle"=> "8",
 "P_PIERCE"=> array(30,0),
 "need"	=> array("6002"=>"15","6800"=>"1",),
-"option"	=> "ÊªÍıËÉ¸æÌµ»ë+30 ,",
+"option"	=> "ç‰©ç†é˜²å¾¡ç„¡è¦–+30 ,",
 ); break;
 		case "1021":
 $item	= array(
@@ -199,7 +199,7 @@ $item	= array(
 "need"	=> array("6600"=>"3","6602"=>"1",),
 ); break;
 
-		case "1100":	//	1100-1200	Î¾¼ê·õ
+		case "1100":	//	1100-1200	ä¸¡æ‰‹å‰£
 $item	= array(
 "name"	=> "Slayer",
 "type"	=> "TwoHandSword",
@@ -266,9 +266,9 @@ $item	= array(
 "need"	=> array(),
 "P_PIERCE"=> array(50,0),
 "need"	=> array("6002"=>"5","6003"=>"10","6800"=>"1",),
-"option"	=> "ÊªÍıËÉ¸æÌµ»ë+50 ,",
+"option"	=> "ç‰©ç†é˜²å¾¡ç„¡è¦–+50 ,",
 ); break;
-		case "1200":	// 1200-1300	Ã»·õ
+		case "1200":	// 1200-1300	çŸ­å‰£
 $item	= array(
 "name"	=> "Stiletto",
 "type"	=> "Dagger",
@@ -326,7 +326,7 @@ $item	= array(
 "atk"	=> array(20,0),
 "handle"=> "6",
 "P_PIERCE"	=>array(20,0),
-"option"	=> "ÊªÍıËÉ¸æÌµ»ë+20 ,",
+"option"	=> "ç‰©ç†é˜²å¾¡ç„¡è¦–+20 ,",
 "need"	=> array("6003"=>20,"6022"=>4),
 ); break;
 
@@ -343,7 +343,7 @@ $item	= array(
 "need"	=> array("6600"=>"3","6602"=>"1",),
 ); break;
 
-		case "1300":	//	1300-1400	Î¾¼êÁä
+		case "1300":	//	1300-1400	ä¸¡æ‰‹æ§
 $item	= array(
 "name"	=> "Partizan",
 "type"	=> "Spear",
@@ -353,7 +353,7 @@ $item	= array(
 "atk"	=> array(28,0),
 "handle"=> "2",
 ); break;
-		case "1400":	//	1400-1500	ÊÒ¼êÁä
+		case "1400":	//	1400-1500	ç‰‡æ‰‹æ§
 $item	= array(
 "name"	=> "Javelin",
 "type"	=> "Pike",
@@ -362,7 +362,7 @@ $item	= array(
 "atk"	=> array(14,0),
 "handle"=> "2",
 ); break;
-		case "1500":	//	1500-1600	Î¾¼êÉà
+		case "1500":	//	1500-1600	ä¸¡æ‰‹æ–§
 $item	= array(
 "name"	=> "GreatAxe",
 "type"	=> "Axe",
@@ -372,7 +372,7 @@ $item	= array(
 "atk"	=> array(35,0),
 "handle"=> "2",
 ); break;
-		case "1600":	//	1600-1700	ÊÒ¼êÉà
+		case "1600":	//	1600-1700	ç‰‡æ‰‹æ–§
 $item	= array(
 "name"	=> "TomaHawk",
 "type"	=> "Hatchet",
@@ -381,7 +381,7 @@ $item	= array(
 "atk"	=> array(17,0),
 "handle"=> "2",
 ); break;
-		case "1700":	//	1700-1800	ÊÒ¼ê¾ó
+		case "1700":	//	1700-1800	ç‰‡æ‰‹æ–
 $item	= array(
 "name"	=> "Rod",
 "type"	=> "Wand",
@@ -451,7 +451,7 @@ $item	= array(
 "handle"=> "7",
 "need"	=> array("6021"=>"10","6002"=>"4",),
 ); break;
-		case "1800":	//	1800-1900	Î¾¼ê¾ó
+		case "1800":	//	1800-1900	ä¸¡æ‰‹æ–
 $item	= array(
 "name"	=> "Staff",
 "type"	=> "Staff",
@@ -555,7 +555,7 @@ $item	= array(
 "option"	=> "SP+130 ,",
 "need"	=> array("6020"=> 16,"6021"=> 16,),
 ); break;
-		case "1900":	//	1900-2000	Æß´ï(ÊÒ¼ê)
+		case "1900":	//	1900-2000	éˆå™¨(ç‰‡æ‰‹)
 $item	= array(
 "name"	=> "BronzeMace",
 "type"	=> "Mace",
@@ -564,7 +564,7 @@ $item	= array(
 "atk"	=> array(5,5),
 "handle"=> "2",
 ); break;
-		case "2000":	//	2000-2100	µİ
+		case "2000":	//	2000-2100	å¼“
 $item	= array(
 "name"	=> "ShortBow",
 "type"	=> "Bow",
@@ -672,10 +672,10 @@ $item	= array(
 "handle"=> "30",
 "P_PIERCE"=> array(40,0),
 "need"	=> array("6022"=>"10","6182"=>"5","6801"=>"1",),
-"option"	=> "ÊªÍıËÉ¸æÌµ»ë+40 ,",
+"option"	=> "ç‰©ç†é˜²å¾¡ç„¡è¦–+40 ,",
 ); break;
 
-						//	2100-2199	ÀĞµİ
+						//	2100-2199	çŸ³å¼“
 		case "2100":
 $item	= array(
 "name"	=> "Gastraphetes",
@@ -686,7 +686,7 @@ $item	= array(
 "atk"	=> array(25,0),
 "handle"=> "2",
 ); break;
-						//	2200-2299	ÊÜ
+						//	2200-2299	é­
 		case "2200":
 $item	= array(
 "name"	=> "TamerWhip",
@@ -731,7 +731,7 @@ $item	= array(
 "P_SUMMON"	=> "25",
 "need"	=> array("6040"=>"12","6181"=>"24","6000"=>"24",),
 ); break;
-// 2210 ÊÜ
+// 2210 é­
 		case "2210":
 $item	= array(
 "name"	=> "Wire",
@@ -754,7 +754,7 @@ $item	= array(
 "P_SUMMON"	=> "8",
 "need"	=> array("6040"=>"12","6002"=>"32",),
 ); break;
-//------------------------------------- 3000 ½â
+//------------------------------------- 3000 ç›¾
 		case "3000":
 $item	= array(
 "name"	=> "WoodShield",
@@ -845,7 +845,7 @@ $item	= array(
 "handle"=> "6",
 "need"	=> array("6002"=>"32",),
 ); break;
-		case "3100":	//	3100-		ËÜ
+		case "3100":	//	3100-		æœ¬
 $item	= array(
 "name"	=> "TextBook",
 "type"	=> "Book",
@@ -911,7 +911,7 @@ $item	= array(
 "handle"=> "5",
 "need"	=> array("6182"=>"58",),
 ); break;
-		case "5000":	//	5000-5100	³»
+		case "5000":	//	5000-5100	é§
 $item	= array(
 "name"	=> "LeatherArmor ",
 "type"	=> "Armor",
@@ -1073,7 +1073,7 @@ $item	= array(
 "def"	=> array(60,40,35,45),
 "handle"=> "16",
 ); break;
-		case "5100":	//	5100-5200	Éş
+		case "5100":	//	5100-5200	æœ
 $item	= array(
 "name"	=> "CottonShirt",
 "type"	=> "Cloth",
@@ -1153,7 +1153,7 @@ $item	= array(
 "handle"=> "8",
 "need"	=> array("6040"=>"4","6183"=>"15","6184"=>"15",),
 ); break;
-		case "5200":	//	5200-5300	°á
+		case "5200":	//	5200-5300	è¡£
 $item	= array(
 "name"	=> "CottonRobe",
 "type"	=> "Robe",
@@ -1223,7 +1223,7 @@ $item	= array(
 "handle"=> "7",
 "need"	=> array("6183"=>"12","6184"=>"12",),
 ); break;
-						// 5500 - Áõ¾şÉÊ
+						// 5500 - è£…é£¾å“
 		case "5500":
 $item	= array(
 "name"	=> "LifeRing",
@@ -1309,8 +1309,8 @@ $item	= array(
 "M_MAXHP"	=> "-50",
 "option"	=> "STR+100, HP-50% ,",
 ); break;
-						// 6000	-	ÁÇºà·Ï
-		case "6000"://ÀĞ·Ï
+						// 6000	-	ç´ æç³»
+		case "6000"://çŸ³ç³»
 $item	= array(
 "name"	=> "Stone",
 "type"	=> "Material",
@@ -1342,7 +1342,7 @@ $item	= array(
 "sell"	=> "30",
 "img"	=> "mat_001.png",
 ); break;
-						// 6020-ÌÚºà
+						// 6020-æœ¨æ
 		case "6020":
 $item	= array(
 "name"	=> "Lumber",
@@ -1367,7 +1367,7 @@ $item	= array(
 "sell"	=> "40",
 "img"	=> "mat_025.png",
 ); break;
-		case "6040"://6040-Èé
+		case "6040"://6040-çš®
 $item	= array(
 "name"	=> "Leather",
 "type"	=> "Material",
@@ -1375,7 +1375,7 @@ $item	= array(
 "sell"	=> "10",
 "img"	=> "mat_024.png",
 ); break;
-		case "6060"://6060-¹ü
+		case "6060"://6060-éª¨
 $item	= array(
 "name"	=> "",
 "type"	=> "Material",
@@ -1383,7 +1383,7 @@ $item	= array(
 "sell"	=> "10",
 "img"	=> "mat_016.png",
 ); break;
-		case "6080"://6080-²ç
+		case "6080"://6080-ç‰™
 $item	= array(
 "name"	=> "",
 "type"	=> "Material",
@@ -1391,7 +1391,7 @@ $item	= array(
 "sell"	=> "10",
 "img"	=> "mat_013.png",
 ); break;
-		case "6100"://6100-±©
+		case "6100"://6100-ç¾½
 $item	= array(
 "name"	=> "",
 "type"	=> "Material",
@@ -1399,7 +1399,7 @@ $item	= array(
 "sell"	=> "20",
 "img"	=> "mat_008.png",
 ); break;
-		case "6120"://6120-ÊõÀĞ
+		case "6120"://6120-å®çŸ³
 $item	= array(
 "name"	=> "Diamond",
 "type"	=> "Material",
@@ -1407,7 +1407,7 @@ $item	= array(
 "sell"	=> "100",
 "img"	=> "gem_02.png",
 ); break;
-		case "6140"://6140-²»
+		case "6140"://6140-éŸ³
 $item	= array(
 "name"	=> "NoisySound",
 "type"	=> "Material",
@@ -1415,7 +1415,7 @@ $item	= array(
 "sell"	=> "10",
 "img"	=> "other_007.png",
 ); break;
-		case "6160"://6160-¥³¥¤¥ó
+		case "6160"://6160-ã‚³ã‚¤ãƒ³
 $item	= array(
 "name"	=> "GoldCoin",
 "type"	=> "Material",
@@ -1439,7 +1439,7 @@ $item	= array(
 "sell"	=> "100",
 "img"	=> "acce_005c.png",
 ); break;
-						//6180 - »å,Á¡°İ
+						//6180 - ç³¸,ç¹Šç¶­
 		case "6180":
 $item	= array(
 "name"	=> "Cotton",
@@ -1480,7 +1480,7 @@ $item	= array(
 "sell"	=> "10",
 "img"	=> "other_008.png",
 ); break;
-		case "6200"://6200 - ²»
+		case "6200"://6200 - éŸ³
 $item	= array(
 "name"	=> "NoisySound",
 "type"	=> "Material",
@@ -1488,7 +1488,7 @@ $item	= array(
 "sell"	=> "10",
 "img"	=> "other_007.png",
 ); break;
-		case "6600"://6600 - ¥´¥ß
+		case "6600"://6600 - ã‚´ãƒŸ
 $item	= array(
 "name"	=> "Banana",
 "type"	=> "Material",
@@ -1512,7 +1512,7 @@ $item	= array(
 "sell"	=> "50",
 "img"	=> "banana.png",
 ); break;
-		case "6800"://6800 - ¥ì¥¢
+		case "6800"://6800 - ãƒ¬ã‚¢
 $item	= array(
 "name"	=> "DragonTooth",
 "type"	=> "Material",
@@ -1536,7 +1536,7 @@ $item	= array(
 "sell"	=> "10",
 "img"	=> "we_sword026.png",
 ); break;
-						// À½ºî¶¯²½·Ï
+						// è£½ä½œå¼·åŒ–ç³»
 		case "7000":
 $item	= array(
 "name"	=> "PowerSphere",
@@ -1555,7 +1555,7 @@ $item	= array(
 "img"	=> "item_019.png",
 "Add"	=> "X01",
 ); break;
-						// À½ºî¶¯²½·Ï(¥â¥ó¥¹¥¿¡¼¥ì¥¢¥É¥í¥Ã¥×)
+						// è£½ä½œå¼·åŒ–ç³»(ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ãƒ¬ã‚¢ãƒ‰ãƒ­ãƒƒãƒ—)
 		case "7100":
 $item	= array(
 "name"	=> "Goblin&#39;s Tears",
@@ -1709,7 +1709,7 @@ $item	= array(
 "img"	=> "item_018.png",
 "Add"	=> "",
 ); break;
-//------------------------------ 7500 Â¾¾ÃÌ×ÉÊ
+//------------------------------ 7500 ä»–æ¶ˆè€—å“
 		case "7500":
 $item	= array(
 "name"	=> "RenameCard",
@@ -1758,7 +1758,7 @@ $item	= array(
 "sell"	=> "100",
 "img"	=> "gem_03.png",
 ); break;
-//------------------------------ 8000 ÃÏ¿Ş,¥«¥®
+//------------------------------ 8000 åœ°å›³,ã‚«ã‚®
 		case "8000":
 $item	= array(
 "name"	=> "AncientCave",
@@ -1809,7 +1809,7 @@ $item	= array(
 ); break;
 		case "8010":
 $item	= array(
-"name"	=> "Map to the depth(Å©Åà»³)",
+"name"	=> "Map to the depth(æ»´å‡å±±)",
 "type"	=> "Map",
 "buy"	=> "5000",
 "sell"	=> "100",
@@ -1817,13 +1817,13 @@ $item	= array(
 ); break;
 		case "8011":
 $item	= array(
-"name"	=> "Map to the peak(Å©Åà»³)",
+"name"	=> "Map to the peak(æ»´å‡å±±)",
 "type"	=> "Map",
 "buy"	=> "5000",
 "sell"	=> "100",
 "img"	=> "book_003.png",
 ); break;
-						// 9000 - ¤½¤ÎÂ¾
+						// 9000 - ãã®ä»–
 		case "9000":
 $item	= array(
 "name"	=> "AuctionMembershipCard",
@@ -1838,7 +1838,7 @@ $item	= array(
 			return false;
 	}
 
-	// ÄÉ²ÃÊÑ¿ô
+	// è¿½åŠ å¤‰æ•°
 	$item["no"]	= $no;
 	$item["base_name"]	= $item["name"];
 	switch($item["type"]) {
@@ -1863,14 +1863,14 @@ $item	= array(
 			break;
 	}
 
-	// ÀºÏ£ÃÍ
+	// ç²¾éŒ¬å€¤
 	if($refine) {
 		$item["refine"]	= $refine;
 		$item["name"]	= "+".$refine." ".$item["name"];
 		//$item["name"]	.= "+".$refine;
 		//$RefineRate	= 1 + 0.5 * ($refine/10);
 		if(isset($item["atk"]["0"])) {
-			//$item["atk"]["0"]	= ceil($item["atk"]["0"] * $RefineRate);// Ã±½ã¼°
+			//$item["atk"]["0"]	= ceil($item["atk"]["0"] * $RefineRate);// å˜ç´”å¼
 			// 1.05*1.05*1.05....
 			/*
 			for($i=0; $i<$refine; $i++) {
@@ -1890,7 +1890,7 @@ $item	= array(
 			$item["atk"]["1"]	*= ( 1 + ($refine*$refine)/100 );
 			$item["atk"]["1"]	= ceil($item["atk"]["1"]);
 		}
-		// ËÉ¶ñ¤ÎÃÍ¶¯²½
+		// é˜²å…·ã®å€¤å¼·åŒ–
 		$RefineRate	= 1 + 0.3 * ($refine/10);
 		if(isset($item["def"]["0"]))
 			$item["def"]["0"]	= ceil($item["def"]["0"] * $RefineRate);
@@ -1902,7 +1902,7 @@ $item	= array(
 			$item["def"]["3"]	= ceil($item["def"]["3"] * $RefineRate);
 			
 	}
-	// ÉÕ²ÃÇ½ÎÏ
+	// ä»˜åŠ èƒ½åŠ›
 	if($option0)
 		AddEnchantData($item,$option0);
 	if($option1)

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="stylesheet" href="../basis.css" type="text/css">
 <link rel="stylesheet" href="../style.css" type="text/css">
 <title>skl_list3</title>
@@ -11,7 +11,7 @@
 	padding	: 0;
 	margin	: 0;
 	line-height	: 140%;
-	font-family	: Osaka,Verdana,"£Í£Ó £Ð¥´¥·¥Ã¥¯";
+	font-family	: Osaka,Verdana,"ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯";
 	overflow:inherit;
 }
 body{

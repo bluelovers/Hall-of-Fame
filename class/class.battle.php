@@ -4,7 +4,7 @@ class battle extends ClassSkillEffect{
 /*
  * $battle	= new battle($MyParty,$EnemyParty);
  * $battle->SetTeamName($this->name,$party["name"]);
- * $battle->Process();//ÀïÆ®³«»Ï
+ * $battle->Process();//æˆ¦é—˜é–‹å§‹
  * 
  * 
  * 
@@ -22,69 +22,69 @@ class battle extends ClassSkillEffect{
 	// team ave level
 	var $team0_ave_lv, $team1_ave_lv;
 
-	// ËâÊı¿Ø
+	// é­”æ–¹é™£
 	var $team0_mc = 0;
 	var $team1_mc = 0;
 
-	// ÀïÆ®¤ÎºÇÂç¥¿¡¼¥ó¿ô(±äÄ¹¤µ¤ì¤ë²ÄÇ½À­¤Î¤¢¤ë)
+	// æˆ¦é—˜ã®æœ€å¤§ã‚¿ãƒ¼ãƒ³æ•°(å»¶é•·ã•ã‚Œã‚‹å¯èƒ½æ€§ã®ã‚ã‚‹)
 	var $BattleMaxTurn	= BATTLE_MAX_TURNS;
 	var $NoExtends	= false;
 
 	//
 	var $NoResult	= false;
 
-	// ÀïÆ®ÇØ·Ê
+	// æˆ¦é—˜èƒŒæ™¯
 	var $BackGround = "grass";
 
-	// ¥¹¥¯¥í¡¼¥ë ( << >> ¢« ¤³¤ì¤ÎÊÑ¿ô)
+	// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ« ( << >> â† ã“ã‚Œã®å¤‰æ•°)
 	var $Scroll = 0;
 
-	// Áí¥À¥á¡¼¥¸
+	// ç·ãƒ€ãƒ¡ãƒ¼ã‚¸
 	var $team0_dmg = 0;
 	var $team1_dmg = 0;
-	// Áí¹ÔÆ°²ó¿ô
+	// ç·è¡Œå‹•å›æ•°
 	var $actions = 0;
-	// ÀïÆ®¤Ë¤ª¤±¤ë´ğ½à¥Ç¥£¥ì¥¤
+	// æˆ¦é—˜ã«ãŠã‘ã‚‹åŸºæº–ãƒ‡ã‚£ãƒ¬ã‚¤
 	var $delay;
-	// ¾¡Íø¥Á¡¼¥à
+	// å‹åˆ©ãƒãƒ¼ãƒ 
 	var $result;
-	// ¤â¤é¤¨¤ë¤ª¶â
+	// ã‚‚ã‚‰ãˆã‚‹ãŠé‡‘
 	var $team0_money, $team1_money;
-	// ¤²¤Ã¤È¤·¤¿¥¢¥¤¥Æ¥à
+	// ã’ã£ã¨ã—ãŸã‚¢ã‚¤ãƒ†ãƒ 
 	var $team0_item=array(), $team1_item=array();
-	var $team0_exp=0, $team1_exp=0;// Áí·Ğ¸³ÃÍ¡£
+	var $team0_exp=0, $team1_exp=0;// ç·çµŒé¨“å€¤ã€‚
 
-	// ÆÃ¼ì¤ÊÊÑ¿ô
-	var $ChangeDelay	= false;//¥­¥ã¥é¤ÎSPD¤¬ÊÑ²½¤·¤¿ºİ¤ËDELAY¤òºÆ·×»»¤¹¤ë¡£
+	// ç‰¹æ®Šãªå¤‰æ•°
+	var $ChangeDelay	= false;//ã‚­ãƒ£ãƒ©ã®SPDãŒå¤‰åŒ–ã—ãŸéš›ã«DELAYã‚’å†è¨ˆç®—ã™ã‚‹ã€‚
 
-	var $BattleResultType	= 0;// 0=·èÃåÃå¤«¤Ê¤±¤ì¤ĞDraw 1=À¸Â¸¼Ô¤Î¿ô¤Ç¾¡ÇÔ¤ò·è¤á¤ë
-	var $UnionBattle;// »Ä¤êHPÁíHP¤ò±£¤¹(????/????)
+	var $BattleResultType	= 0;// 0=æ±ºç€ç€ã‹ãªã‘ã‚Œã°Draw 1=ç”Ÿå­˜è€…ã®æ•°ã§å‹æ•—ã‚’æ±ºã‚ã‚‹
+	var $UnionBattle;// æ®‹ã‚ŠHPç·HPã‚’éš ã™(????/????)
 //////////////////////////////////////////////////
-//	¥³¥ó¥¹¥È¥é¥¯¥¿¡£
+//	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã€‚
 
-	//³Æ¥Á¡¼¥à¤ÎÇÛÎó¤ò¼õ¤±¤È¤ë¡£
+	//å„ãƒãƒ¼ãƒ ã®é…åˆ—ã‚’å—ã‘ã¨ã‚‹ã€‚
 	function battle($team0,$team1) {
 		include(DATA_JUDGE);
 		include_once(DATA_SKILL);
 
-		//¥â¥ó¥¹¥¿¡¼¤¬»²Àï¤·¤Æ¤Ê¤¯¤Æ¤â¾¤´­¤µ¤ì¤ë¾ì¹ç¤¬¤¢¤ë¤Î¤Ç
+		//ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ãŒå‚æˆ¦ã—ã¦ãªãã¦ã‚‚å¬å–šã•ã‚Œã‚‹å ´åˆãŒã‚ã‚‹ã®ã§
 		include_once(CLASS_MONSTER);
 
 		$this->team0	= $team0;
 		$this->team1	= $team1;
 
-		// ³Æ¥Á¡¼¥à¤ËÀïÆ®ÀìÍÑ¤ÎÊÑ¿ô¤òÀßÄê¤¹¤ë(class.char.php)
-		// ÁõÈ÷¤ÎÆÃ¼ìµ¡Ç½Åù¤ò·×»»¤·¤ÆÀßÄê¤¹¤ë¡£
-		// ÀïÆ®ÀìÍÑ¤ÎÊÑ¿ô¤ÏÂçÊ¸»ú±Ñ¸ì¤À¤Ã¤¿¤ê¤¹¤ë¡£class.char.php¤ò»²¾È¡£
-		//  $this->team["$key"] ¤ÇÅÏ¤¹¤³¤È.(°ú¿ô¤Ï¥Á¡¼¥àÈÖ¹æ)
+		// å„ãƒãƒ¼ãƒ ã«æˆ¦é—˜å°‚ç”¨ã®å¤‰æ•°ã‚’è¨­å®šã™ã‚‹(class.char.php)
+		// è£…å‚™ã®ç‰¹æ®Šæ©Ÿèƒ½ç­‰ã‚’è¨ˆç®—ã—ã¦è¨­å®šã™ã‚‹ã€‚
+		// æˆ¦é—˜å°‚ç”¨ã®å¤‰æ•°ã¯å¤§æ–‡å­—è‹±èªã ã£ãŸã‚Šã™ã‚‹ã€‚class.char.phpã‚’å‚ç…§ã€‚
+		//  $this->team["$key"] ã§æ¸¡ã™ã“ã¨.(å¼•æ•°ã¯ãƒãƒ¼ãƒ ç•ªå·)
 		foreach($this->team0 as $key => $char)
 			$this->team0["$key"]->SetBattleVariable(TEAM_0);
 		foreach($this->team1 as $key => $char)
 			$this->team1["$key"]->SetBattleVariable(TEAM_1);
 		//dump($this->team0[0]);
-		// delay´ØÏ¢
-		$this->SetDelay();//¥Ç¥£¥ì¥¤·×»»
-		$this->DelayResetAll();//½é´ü²½
+		// delayé–¢é€£
+		$this->SetDelay();//ãƒ‡ã‚£ãƒ¬ã‚¤è¨ˆç®—
+		$this->DelayResetAll();//åˆæœŸåŒ–
 	}
 //////////////////////////////////////////////////
 //	
@@ -92,17 +92,17 @@ class battle extends ClassSkillEffect{
 		$this->BattleResultType	= $var;
 	}
 //////////////////////////////////////////////////
-//	UnionBattle¤Ç¤¢¤ë»ö¤Ë¤¹¤ë¡£
+//	UnionBattleã§ã‚ã‚‹äº‹ã«ã™ã‚‹ã€‚
 	function SetUnionBattle() {
 		$this->UnionBattle	= true;
 	}
 //////////////////////////////////////////////////
-//	ÇØ·Ê²èÁü¤ò¥»¥Ã¥È¤¹¤ë¡£
+//	èƒŒæ™¯ç”»åƒã‚’ã‚»ãƒƒãƒˆã™ã‚‹ã€‚
 	function SetBackGround($bg) {
 		$this->BackGround	= $bg;
 	}
 //////////////////////////////////////////////////
-//	ÀïÆ®¤Ë¥­¥ã¥é¥¯¥¿¡¼¤òÅÓÃæ»²²Ã¤µ¤»¤ë¡£
+//	æˆ¦é—˜ã«ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚’é€”ä¸­å‚åŠ ã•ã›ã‚‹ã€‚
 	function JoinCharacter($user,$add) {
 		foreach($this->team0 as $char) {
 			if($user === $char) {
@@ -125,10 +125,10 @@ class battle extends ClassSkillEffect{
 		}
 	}
 //////////////////////////////////////////////////
-//	¸Â³¦¥¿¡¼¥ó¿ô¤ò·è¤á¤Á¤ã¤¦¡£
+//	é™ç•Œã‚¿ãƒ¼ãƒ³æ•°ã‚’æ±ºã‚ã¡ã‚ƒã†ã€‚
 	function LimitTurns($no) {
 		$this->BattleMaxTurn	= $no;
-		$this->NoExtends		= true;//¤³¤ì°Ê¾å±äÄ¹¤Ï¤·¤Ê¤¤¡£
+		$this->NoExtends		= true;//ã“ã‚Œä»¥ä¸Šå»¶é•·ã¯ã—ãªã„ã€‚
 	}
 //////////////////////////////////////////////////
 //	
@@ -136,9 +136,9 @@ class battle extends ClassSkillEffect{
 		$this->NoResult	= true;
 	}
 //////////////////////////////////////////////////
-//	ÀïÆ®¤ÎºÇÂç¥¿¡¼¥ó¿ô¤òÁı¤ä¤¹¡£
+//	æˆ¦é—˜ã®æœ€å¤§ã‚¿ãƒ¼ãƒ³æ•°ã‚’å¢—ã‚„ã™ã€‚
 	function ExtendTurns($no,$notice=false) {
-		// ±äÄ¹¤·¤Ê¤¤ÊÑ¿ô¤¬ÀßÄê¤µ¤ì¤Æ¤¤¤ì¤Ğ±äÄ¹¤·¤Ê¤¤¡£
+		// å»¶é•·ã—ãªã„å¤‰æ•°ãŒè¨­å®šã•ã‚Œã¦ã„ã‚Œã°å»¶é•·ã—ãªã„ã€‚
 		if($this->NoExtends === true) return false;
 
 		$this->BattleMaxTurn	+= $no;
@@ -154,7 +154,7 @@ HTML;
 		return true;
 	}
 //////////////////////////////////////////////////
-//	ÀïÆ®Ãæ³ÍÆÀ¤·¤¿¥¢¥¤¥Æ¥à¤òÊÖ¤¹¡£
+//	æˆ¦é—˜ä¸­ç²å¾—ã—ãŸã‚¢ã‚¤ãƒ†ãƒ ã‚’è¿”ã™ã€‚
 	function ReturnItemGet($team) {
 		if($team == TEAM_0) {
 			if(count($this->team0_item) != 0)
@@ -169,12 +169,12 @@ HTML;
 		}
 	}
 //////////////////////////////////////////////////
-//	Ä©Àï¼ÔÂ¦¤¬¾¡Íø¤·¤¿¤«¡©
+//	æŒ‘æˆ¦è€…å´ãŒå‹åˆ©ã—ãŸã‹ï¼Ÿ
 	function ReturnBattleResult() {
 		return $this->result;
 	}
 //////////////////////////////////////////////////
-//	ÀïÆ®µ­Ï¿¤òÊİÂ¸¤¹¤ë
+//	æˆ¦é—˜è¨˜éŒ²ã‚’ä¿å­˜ã™ã‚‹
 	function RecordLog($type=false) {
 		if($type == "RANK") {
 			$file	= LOG_BATTLE_RANK;
@@ -190,7 +190,7 @@ HTML;
 			$logAmount = MAX_BATTLE_LOG;
 		}
 
-		// ¸Å¤¤¥í¥°¤ò¾Ã¤¹
+		// å¤ã„ãƒ­ã‚°ã‚’æ¶ˆã™
 		$i	= 0;
 		while($logAmount <= count($log) ) {
 			unlink($log["$i"]);
@@ -198,72 +198,72 @@ HTML;
 			$i++;
 		}
 
-		// ¿·¤·¤¤¥í¥°¤òºî¤ë
+		// æ–°ã—ã„ãƒ­ã‚°ã‚’ä½œã‚‹
 		$time	= time().substr(microtime(),2,6);
 		$file	.= $time.".dat";
 
-		$head	= $time."\n";//³«»Ï»ş´Ö(1¹ÔÌÜ)
-		$head	.= $this->team0_name."<>".$this->team1_name."\n";//»²²Ã¥Á¡¼¥à(2¹ÔÌÜ)
-		$head	.= count($this->team0)."<>".count($this->team1)."\n";//»²²Ã¿Í¿ô(3¹ÔÌÜ)
-		$head	.= $this->team0_ave_lv."<>".$this->team1_ave_lv."\n";//Ê¿¶Ñ¥ì¥Ù¥ë(4¹ÔÌÜ)
-		$head	.= $this->result."\n";//¾¡Íø¥Á¡¼¥à(5¹ÔÌÜ)
-		$head	.= $this->actions."\n";//Áí¥¿¡¼¥ó¿ô(6¹ÔÌÜ)
-		$head	.= "\n";// ²ş¹Ô(7¹ÔÌÜ)
+		$head	= $time."\n";//é–‹å§‹æ™‚é–“(1è¡Œç›®)
+		$head	.= $this->team0_name."<>".$this->team1_name."\n";//å‚åŠ ãƒãƒ¼ãƒ (2è¡Œç›®)
+		$head	.= count($this->team0)."<>".count($this->team1)."\n";//å‚åŠ äººæ•°(3è¡Œç›®)
+		$head	.= $this->team0_ave_lv."<>".$this->team1_ave_lv."\n";//å¹³å‡ãƒ¬ãƒ™ãƒ«(4è¡Œç›®)
+		$head	.= $this->result."\n";//å‹åˆ©ãƒãƒ¼ãƒ (5è¡Œç›®)
+		$head	.= $this->actions."\n";//ç·ã‚¿ãƒ¼ãƒ³æ•°(6è¡Œç›®)
+		$head	.= "\n";// æ”¹è¡Œ(7è¡Œç›®)
 
 		WriteFile($file,$head.ob_get_contents());
 	}
 //////////////////////////////////////////////////
-//	ÀïÆ®½èÍı(¤³¤ì¤ò¼Â¹Ô¤·¤ÆÀïÆ®¤¬½èÍı¤µ¤ì¤ë)
+//	æˆ¦é—˜å‡¦ç†(ã“ã‚Œã‚’å®Ÿè¡Œã—ã¦æˆ¦é—˜ãŒå‡¦ç†ã•ã‚Œã‚‹)
 	function Process() {
 		$this->BattleHeader();
 
-		//ÀïÆ®¤¬½ª¤ï¤ë¤Ş¤Ç·«¤êÊÖ¤¹
+		//æˆ¦é—˜ãŒçµ‚ã‚ã‚‹ã¾ã§ç¹°ã‚Šè¿”ã™
 		do {
-			if($this->actions % BATTLE_STAT_TURNS == 0)//°ìÄê´Ö³Ö¤Ç¾õ¶·¤òÉ½¼¨
-				$this->BattleState();//¾õ¶·¤ÎÉ½¼¨
+			if($this->actions % BATTLE_STAT_TURNS == 0)//ä¸€å®šé–“éš”ã§çŠ¶æ³ã‚’è¡¨ç¤º
+				$this->BattleState();//çŠ¶æ³ã®è¡¨ç¤º
 
-			// ¹ÔÆ°¥­¥ã¥é
+			// è¡Œå‹•ã‚­ãƒ£ãƒ©
 			if(DELAY_TYPE === 0)
 				$char	= &$this->NextActer();
 			else if(DELAY_TYPE === 1)
 				$char	= &$this->NextActerNew();
 
-			$this->Action($char);//¹ÔÆ°
-			$result	= $this->BattleResult();//¢¬¤Î¹ÔÆ°¤ÇÀïÆ®¤¬½ªÎ»¤·¤¿¤«¤É¤¦¤«¤ÎÈ½Äê
+			$this->Action($char);//è¡Œå‹•
+			$result	= $this->BattleResult();//â†‘ã®è¡Œå‹•ã§æˆ¦é—˜ãŒçµ‚äº†ã—ãŸã‹ã©ã†ã‹ã®åˆ¤å®š
 
-			//µ»¤Î»ÈÍÑÅù¤ÇSPD¤¬ÊÑ²½¤·¤¿¾ì¹çDELAY¤òºÆ·×»»¤¹¤ë¡£
+			//æŠ€ã®ä½¿ç”¨ç­‰ã§SPDãŒå¤‰åŒ–ã—ãŸå ´åˆDELAYã‚’å†è¨ˆç®—ã™ã‚‹ã€‚
 			if($this->ChangeDelay)
 				$this->SetDelay();
 
 		} while(!$result);
 
-		$this->ShowResult($result);//ÀïÆ®¤Î·ë²ÌÉ½¼¨
+		$this->ShowResult($result);//æˆ¦é—˜ã®çµæœè¡¨ç¤º
 		$this->BattleFoot();
 
 		//$this->SaveCharacters();
 	}
 //////////////////////////////////////////////////
-//	ÀïÆ®¸å¤Î¥­¥ã¥é¥¯¥¿¡¼¾õ¶·¤òÊİÂ¸¤¹¤ë¡£
+//	æˆ¦é—˜å¾Œã®ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼çŠ¶æ³ã‚’ä¿å­˜ã™ã‚‹ã€‚
 	function SaveCharacters() {
-		//¥Á¡¼¥à0
+		//ãƒãƒ¼ãƒ 0
 		foreach($this->team0 as $char) {
 			$char->SaveCharData();
 		}
-		//¥Á¡¼¥à1
+		//ãƒãƒ¼ãƒ 1
 		foreach($this->team1 as $char) {
 			$char->SaveCharData();
 		}
 	}
 
 //////////////////////////////////////////////////
-//	ÀïÆ®½ªÎ»¤ÎÈ½Äê
-//	Á´°÷»à¤ó¤Ç¤ë=draw(?)
+//	æˆ¦é—˜çµ‚äº†ã®åˆ¤å®š
+//	å…¨å“¡æ­»ã‚“ã§ã‚‹=draw(?)
 	function BattleResult() {
-		if(CountAlive($this->team0) == 0)//Á´°÷¤·¤Ü¡¼¤Ê¤éÉé¤±¤Ë¤¹¤ë¡£
+		if(CountAlive($this->team0) == 0)//å…¨å“¡ã—ã¼ãƒ¼ãªã‚‰è² ã‘ã«ã™ã‚‹ã€‚
 			$team0Lose	= true;
-		if(CountAlive($this->team1) == 0)//Á´°÷¤·¤Ü¡¼¤Ê¤éÉé¤±¤Ë¤¹¤ë¡£
+		if(CountAlive($this->team1) == 0)//å…¨å“¡ã—ã¼ãƒ¼ãªã‚‰è² ã‘ã«ã™ã‚‹ã€‚
 			$team1Lose	= true;
-		//¾¡¼Ô¤Î¥Á¡¼¥àÈÖ¹æ¤«°ú¤­Ê¬¤±¤òÊÖ¤¹
+		//å‹è€…ã®ãƒãƒ¼ãƒ ç•ªå·ã‹å¼•ãåˆ†ã‘ã‚’è¿”ã™
 		if( $team0Lose && $team1Lose ) {
 			$this->result	= DRAW;
 			return "draw";
@@ -274,11 +274,11 @@ HTML;
 			$this->result	= TEAM_0;
 			return "team0";
 
-		// Î¾¥Á¡¼¥àÀ¸Â¸¤·¤Æ¤¤¤ÆºÇÂç¹ÔÆ°¿ô¤ËÃ£¤·¤¿»ş¡£
+		// ä¸¡ãƒãƒ¼ãƒ ç”Ÿå­˜ã—ã¦ã„ã¦æœ€å¤§è¡Œå‹•æ•°ã«é”ã—ãŸæ™‚ã€‚
 		} else if($this->BattleMaxTurn <= $this->actions) {
-			// À¸Â¸¼Ô¿ô¤Îº¹¡£
+			// ç”Ÿå­˜è€…æ•°ã®å·®ã€‚
 			/*
-				// À¸Â¸¼Ô¿ô¤Îº¹¤¬1¿Í°Ê¾å¤Ê¤é±äÄ¹
+				// ç”Ÿå­˜è€…æ•°ã®å·®ãŒ1äººä»¥ä¸Šãªã‚‰å»¶é•·
 			$AliveNumDiff	= abs(CountAlive($this->team0) - CountAlive($this->team1));
 			if(0 < $AliveNumDiff && $this->BattleMaxTurn < BATTLE_MAX_EXTENDS) {
 			*/
@@ -291,16 +291,16 @@ HTML;
 					return false;
 			}
 
-			// ·èÃåÃå¤«¤Ê¤±¤ì¤Ğ¤¿¤À°ú¤­Ê¬¤±¤Ë¤¹¤ë¡£
+			// æ±ºç€ç€ã‹ãªã‘ã‚Œã°ãŸã å¼•ãåˆ†ã‘ã«ã™ã‚‹ã€‚
 			if($this->BattleResultType == 0) {
-				$this->result	= DRAW;//°ú¤­Ê¬¤±¡£
+				$this->result	= DRAW;//å¼•ãåˆ†ã‘ã€‚
 				return "draw";
-			// ·èÃåÃå¤«¤Ê¤±¤ì¤ĞÀ¸Â¸¼Ô¤Î¿ô¤Ç¾¡ÇÔ¤ò¤Ä¤±¤ë¡£
+			// æ±ºç€ç€ã‹ãªã‘ã‚Œã°ç”Ÿå­˜è€…ã®æ•°ã§å‹æ•—ã‚’ã¤ã‘ã‚‹ã€‚
 			} else if($this->BattleResultType == 1) {
-				// ¤È¤ê¤¢¤¨¤º°ú¤­Ê¬¤±¤ËÀßÄê
-				// (1) À¸Â¸¼Ô¿ô¤¬Â¿¤¤¤Û¤¦¤¬¾¡¤Á
-				// (2) (1) ¤¬Æ±¤¸¤Ê¤éÁí¥À¥á¡¼¥¸¤¬Â¿¤¤¤Û¤¦¤¬¾¡¤Á
-				// (3) (2) ¤Ç¤âÆ±¤¸¤Ê¤é°ú¤­Ê¬¤±¡Ä???(orËÉ±ÒÂ¦¤Î¾¡¤Á)
+				// ã¨ã‚Šã‚ãˆãšå¼•ãåˆ†ã‘ã«è¨­å®š
+				// (1) ç”Ÿå­˜è€…æ•°ãŒå¤šã„ã»ã†ãŒå‹ã¡
+				// (2) (1) ãŒåŒã˜ãªã‚‰ç·ãƒ€ãƒ¡ãƒ¼ã‚¸ãŒå¤šã„ã»ã†ãŒå‹ã¡
+				// (3) (2) ã§ã‚‚åŒã˜ãªã‚‰å¼•ãåˆ†ã‘â€¦???(oré˜²è¡›å´ã®å‹ã¡)
 	
 				$team0Alive	= CountAliveChars($this->team0);
 				$team1Alive	= CountAliveChars($this->team1);
@@ -316,50 +316,50 @@ HTML;
 				}
 			} else {
 				$this->result	= DRAW;
-				print("error321708.<br />¤ª¤«¤·¤¤¤Î¤ÇÊó¹ğ¤·¤Æ¤¯¤À¤µ¤¤¡£");
-				return "draw";// ¥¨¥é¡¼²óÈò¡£
+				print("error321708.<br />ãŠã‹ã—ã„ã®ã§å ±å‘Šã—ã¦ãã ã•ã„ã€‚");
+				return "draw";// ã‚¨ãƒ©ãƒ¼å›é¿ã€‚
 			}
 
 			$this->result	= DRAW;
-			print("error321709.<br />¤ª¤«¤·¤¤¤Î¤ÇÊó¹ğ¤·¤Æ¤¯¤À¤µ¤¤¡£");
-			return "draw";// ¥¨¥é¡¼²óÈò¡£
+			print("error321709.<br />ãŠã‹ã—ã„ã®ã§å ±å‘Šã—ã¦ãã ã•ã„ã€‚");
+			return "draw";// ã‚¨ãƒ©ãƒ¼å›é¿ã€‚
 		}
 	}
 //////////////////////////////////////////////////
-//	ÀïÆ®¤Î·ë²ÌÉ½¼¨
+//	æˆ¦é—˜ã®çµæœè¡¨ç¤º
 	function ShowResult($result) {
 
-		// º¸Â¦¤Î¥Á¡¼¥à(ÀïÆ®¤ò¼õ¤±¤¿Â¦)
+		// å·¦å´ã®ãƒãƒ¼ãƒ (æˆ¦é—˜ã‚’å—ã‘ãŸå´)
 		$TotalAlive2	= 0;
-		// »Ä¤êHP / ¹ç·×HP ¤Î É½¼¨
-		foreach($this->team1 as $char) {//¥Á¡¼¥à1
+		// æ®‹ã‚ŠHP / åˆè¨ˆHP ã® è¡¨ç¤º
+		foreach($this->team1 as $char) {//ãƒãƒ¼ãƒ 1
 			if($char->STATE !== DEAD)
 				$TotalAlive2++;
-			$TotalHp2	+= $char->HP;//¹ç·×HP
-			$TotalMaxHp2	+= $char->MAXHP;//¹ç·×ºÇÂçHP
+			$TotalHp2	+= $char->HP;//åˆè¨ˆHP
+			$TotalMaxHp2	+= $char->MAXHP;//åˆè¨ˆæœ€å¤§HP
 		}
 
-		// ±¦Â¦¤Î¥Á¡¼¥à(ÀïÆ®¤ò»Å³İ¤±¤¿Â¦)
+		// å³å´ã®ãƒãƒ¼ãƒ (æˆ¦é—˜ã‚’ä»•æ›ã‘ãŸå´)
 		$TotalAlive1	= 0;
-		foreach($this->team0 as $char) {//¥Á¡¼¥à0
+		foreach($this->team0 as $char) {//ãƒãƒ¼ãƒ 0
 			if($char->STATE !== DEAD)
 				$TotalAlive1++;
-			$TotalHp1	+= $char->HP;//¹ç·×HP
-			$TotalMaxHp1	+= $char->MAXHP;//¹ç·×ºÇÂçHP
+			$TotalHp1	+= $char->HP;//åˆè¨ˆHP
+			$TotalMaxHp1	+= $char->MAXHP;//åˆè¨ˆæœ€å¤§HP
 		}
 
-		// ·ë²Ì¤òÉ½¼¨¤·¤Ê¤¤¡£
+		// çµæœã‚’è¡¨ç¤ºã—ãªã„ã€‚
 		if($this->NoResult) {
 			print('<tr><td colspan="2" style="text-align:center;padding:10px 0px" class="break break-top">');
-			//print("<a name=\"s{$this->Scroll}\"></a>");// ¥¹¥¯¥í¡¼¥ë¤ÎºÇ¸å
-			print("ÌÏµ¼Àï½ªÎ»");
+			//print("<a name=\"s{$this->Scroll}\"></a>");// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã®æœ€å¾Œ
+			print("æ¨¡æ“¬æˆ¦çµ‚äº†");
 			print("</td></tr>\n");
 			print('<tr><td class="teams break">'."\n");
-			// º¸Â¦¥Á¡¼¥à
+			// å·¦å´ãƒãƒ¼ãƒ 
 			print("HP remain : {$TotalHp2}/{$TotalMaxHp2}<br />\n");
 			print("Alive : {$TotalAlive2}/".count($this->team1)."<br />\n");
 			print("TotalDamage : {$this->team1_dmg}<br />\n");
-			// ±¦Â¦¥Á¡¼¥à
+			// å³å´ãƒãƒ¼ãƒ 
 			print('</td><td class="teams break">'."\n");
 			print("HP remain : {$TotalHp1}/{$TotalMaxHp1}<br />\n");
 			print("Alive : {$TotalAlive1}/".count($this->team0)."<br />\n");
@@ -373,7 +373,7 @@ HTML;
 		$BreakTop	= " break-top";
 		print('<tr><td colspan="2" style="text-align:center;padding:10px 0px" class="break'.$BreakTop.'">'."\n");
 		//print($this->actions."%".BATTLE_STAT_TURNS."<br>");
-		print("<a name=\"s{$this->Scroll}\"></a>\n");// ¥¹¥¯¥í¡¼¥ë¤ÎºÇ¸å
+		print("<a name=\"s{$this->Scroll}\"></a>\n");// ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ã®æœ€å¾Œ
 		if($result == "draw") {
 			print("<span style=\"font-size:150%\">Draw Game</span><br />\n");
 		} else {
@@ -383,7 +383,7 @@ HTML;
 		}
 
 		print('<tr><td class="teams">'."\n");
-		// Union¤È¤½¤¦¤Ç¤Ê¤¤¤Î¤Ç¤ï¤±¤ë
+		// Unionã¨ãã†ã§ãªã„ã®ã§ã‚ã‘ã‚‹
 		print("HP remain : ");
 		print($this->UnionBattle?"????/????":"{$TotalHp2}/{$TotalMaxHp2}");
 		print("<br />\n");
@@ -394,14 +394,14 @@ HTML;
 			print("HP remain : {$TotalHp2}/{$TotalMaxHp2}<br />\n");
 		}
 */
-		// º¸Â¦¥Á¡¼¥à
+		// å·¦å´ãƒãƒ¼ãƒ 
 		print("Alive : {$TotalAlive2}/".count($this->team1)."<br />\n");
 		print("TotalDamage : {$this->team1_dmg}<br />\n");
-		if($this->team1_exp)//ÆÀ¤¿·Ğ¸³ÃÍ
+		if($this->team1_exp)//å¾—ãŸçµŒé¨“å€¤
 			print("TotalExp : ".$this->team1_exp."<br />\n");
-		if($this->team1_money)//ÆÀ¤¿¤ª¶â
+		if($this->team1_money)//å¾—ãŸãŠé‡‘
 			print("Funds : ".MoneyFormat($this->team1_money)."<br />\n");
-		if($this->team1_item) {//ÆÀ¤¿¥¢¥¤¥Æ¥à
+		if($this->team1_item) {//å¾—ãŸã‚¢ã‚¤ãƒ†ãƒ 
 			print("<div class=\"bold\">Items</div>\n");
 			foreach($this->team0_item as $itemno => $amount) {
 				$item	= LoadItemData($itemno);
@@ -410,16 +410,16 @@ HTML;
 			}
 		}
 
-		// ±¦Â¦¥Á¡¼¥à
+		// å³å´ãƒãƒ¼ãƒ 
 		print('</td><td class="teams">');
 		print("HP remain : {$TotalHp1}/{$TotalMaxHp1}<br />\n");
 		print("Alive : {$TotalAlive1}/".count($this->team0)."<br />\n");
 		print("TotalDamage : {$this->team0_dmg}<br />\n");
-		if($this->team0_exp)//ÆÀ¤¿·Ğ¸³ÃÍ
+		if($this->team0_exp)//å¾—ãŸçµŒé¨“å€¤
 			print("TotalExp : ".$this->team0_exp."<br />\n");
-		if($this->team0_money)//ÆÀ¤¿¤ª¶â
+		if($this->team0_money)//å¾—ãŸãŠé‡‘
 			print("Funds : ".MoneyFormat($this->team0_money)."<br />\n");
-		if($this->team0_item) {//ÆÀ¤¿¥¢¥¤¥Æ¥à
+		if($this->team0_item) {//å¾—ãŸã‚¢ã‚¤ãƒ†ãƒ 
 			print("<div class=\"bold\">Items</div>\n");
 			foreach($this->team0_item as $itemno => $amount) {
 				$item	= LoadItemData($itemno);
@@ -432,20 +432,20 @@ HTML;
 	}
 
 //////////////////////////////////////////////////
-//	¥­¥ã¥é¤Î¹ÔÆ°
+//	ã‚­ãƒ£ãƒ©ã®è¡Œå‹•
 	function Action(&$char) {
-		// $char->judge ¤¬ÀßÄê¤µ¤ì¤Æ¤Ê¤±¤ì¤ĞÈô¤Ğ¤¹
+		// $char->judge ãŒè¨­å®šã•ã‚Œã¦ãªã‘ã‚Œã°é£›ã°ã™
 		if($char->judge === array()) {
 			$char->delay	= $char->SPD;
 			return false;
 		}
 
-		// ¥Á¡¼¥à0¤Î¿Í¤Ï¥»¥ë¤Î±¦Â¦¤Ë
-		// ¥Á¡¼¥à1¤Î¿Í¤Ïº¸Â¦¤Ë ¹ÔÆ°ÆâÍÆ¤È·ë²Ì ¤òÉ½¼¨¤¹¤ë
+		// ãƒãƒ¼ãƒ 0ã®äººã¯ã‚»ãƒ«ã®å³å´ã«
+		// ãƒãƒ¼ãƒ 1ã®äººã¯å·¦å´ã« è¡Œå‹•å†…å®¹ã¨çµæœ ã‚’è¡¨ç¤ºã™ã‚‹
 		print("<tr><td class=\"ttd2\">\n");
 		if($char->team === TEAM_0)
 			print("</td><td class=\"ttd1\">\n");
-		// ¼«Ê¬¤Î¥Á¡¼¥à¤Ï¤É¤Á¤é¤«?
+		// è‡ªåˆ†ã®ãƒãƒ¼ãƒ ã¯ã©ã¡ã‚‰ã‹?
 		foreach($this->team0 as $val) {
 			if($val === $char) {
 				$MyTeam	= &$this->team0;
@@ -453,31 +453,31 @@ HTML;
 				break;
 			}
 		}
-		//¥Á¡¼¥à0¤Ç¤Ê¤¤¤Ê¤é¥Á¡¼¥à1
+		//ãƒãƒ¼ãƒ 0ã§ãªã„ãªã‚‰ãƒãƒ¼ãƒ 1
 		if(!$MyTeam) {
 			$MyTeam	= &$this->team1;
 			$EnemyTeam	= &$this->team0;
 		}
 
-		//¹ÔÆ°¤ÎÈ½Äê(»ÈÍÑ¤¹¤ëµ»¤ÎÈ½Äê)
-		if($char->expect) {// ±Ó¾§,Ãù¤á ´°Î»
+		//è¡Œå‹•ã®åˆ¤å®š(ä½¿ç”¨ã™ã‚‹æŠ€ã®åˆ¤å®š)
+		if($char->expect) {// è© å”±,è²¯ã‚ å®Œäº†
 			$skill	= $char->expect;
 			$return	= &$char->target_expect;
-		} else {//ÂÔµ¡¢ªÈ½Äê¢ª¥¹¥­¥ë
+		} else {//å¾…æ©Ÿâ†’åˆ¤å®šâ†’ã‚¹ã‚­ãƒ«
 			$JudgeKey	= -1;
 
-			// »ıÂ³²óÉü·Ï
+			// æŒç¶šå›å¾©ç³»
 			$char->AutoRegeneration();
-			// ÆÇ¾õÂÖ¤Ê¤é¥À¥á¡¼¥¸¤ò¼õ¤±¤ë¡£
+			// æ¯’çŠ¶æ…‹ãªã‚‰ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å—ã‘ã‚‹ã€‚
 			$char->PoisonDamage();
 
-			//È½Äê
+			//åˆ¤å®š
 			do {
-				$Keys	= array();//¶õÇÛÎó(½é´ü²½)
+				$Keys	= array();//ç©ºé…åˆ—(åˆæœŸåŒ–)
 				do {
 					$JudgeKey++;
 					$Keys[]	= $JudgeKey;
-				// ½ÅÊ£È½Äê¤Ê¤é¼¡¤â²Ã¤¨¤ë
+				// é‡è¤‡åˆ¤å®šãªã‚‰æ¬¡ã‚‚åŠ ãˆã‚‹
 				} while($char->action["$JudgeKey"] == 9000 && $char->judge["$JudgeKey"]);
 
 				//$return	= MultiFactJudge($Keys,$char,$MyTeam,$EnemyTeam);
@@ -486,48 +486,48 @@ HTML;
 				if($return) {
 					$skill	= $char->action["$JudgeKey"];
 					foreach($Keys as $no)
-						$char->JdgCount[$no]++;//·èÄê¤·¤¿È½ÃÇ¤Î¥«¥¦¥ó¥È¤¦£ğ
+						$char->JdgCount[$no]++;//æ±ºå®šã—ãŸåˆ¤æ–­ã®ã‚«ã‚¦ãƒ³ãƒˆã†ï½
 					break;
 				}
 			} while($char->judge["$JudgeKey"]);
 
 			/* // (2007/10/15)
 			foreach($char->judge as $key => $judge){
-				// $return ¤Ï true,false,ÇÛÎó¤Î¤¤¤Å¤ì¤«
-				// ÇÛÎó¤Î¾ì¹ç¤ÏÈ½Äê¤Î¾ò·ï¤Ë°ìÃ×¤·¤¿¥­¥ã¥é¤¬ÊÖ¤ë(¥Ï¥º)¡£
+				// $return ã¯ true,false,é…åˆ—ã®ã„ã¥ã‚Œã‹
+				// é…åˆ—ã®å ´åˆã¯åˆ¤å®šã®æ¡ä»¶ã«ä¸€è‡´ã—ãŸã‚­ãƒ£ãƒ©ãŒè¿”ã‚‹(ãƒã‚º)ã€‚
 				$return	=& DecideJudge($judge,$char,$MyTeam,$EnemyTeam,$key);
 				if($return) {
 					$skill	= $char->action["$key"];
-					$char->JdgCount[$key]++;//·èÄê¤·¤¿È½ÃÇ¤Î¥«¥¦¥ó¥È¤¦£ğ
+					$char->JdgCount[$key]++;//æ±ºå®šã—ãŸåˆ¤æ–­ã®ã‚«ã‚¦ãƒ³ãƒˆã†ï½
 					break;
 				}
 			}
 			*/
 		}
 
-		// ÀïÆ®¤ÎÁí¹ÔÆ°²ó¿ô¤òÁı¤ä¤¹¡£
+		// æˆ¦é—˜ã®ç·è¡Œå‹•å›æ•°ã‚’å¢—ã‚„ã™ã€‚
 		$this->actions++;
 
 		if($skill) {
 			$this->UseSkill($skill,$return,$char,$MyTeam,$EnemyTeam);
-		// ¹ÔÆ°¤Ç¤­¤Ê¤«¤Ã¤¿¾ì¹ç¤Î½èÍı
+		// è¡Œå‹•ã§ããªã‹ã£ãŸå ´åˆã®å‡¦ç†
 		} else {
 			print($char->Name(bold)." sunk in thought and couldn't act.<br />(No more patterns)<br />\n");
 			$char->DelayReset();
 		}
 
-		//¥Ç¥£¥ì¥¤¥ê¥»¥Ã¥È
+		//ãƒ‡ã‚£ãƒ¬ã‚¤ãƒªã‚»ãƒƒãƒˆ
 		//if($ret	!== "DontResetDelay")
 		//	$char->DelayReset;
 
-		//echo $char->name." ".$skill."<br>";//³ÎÇ§ÍÑ
-		//¥»¥ë¤Î½ª¤ï¤ê
+		//echo $char->name." ".$skill."<br>";//ç¢ºèªç”¨
+		//ã‚»ãƒ«ã®çµ‚ã‚ã‚Š
 		if($char->team === TEAM_1)
 			print("</td><td class=\"ttd1\">&nbsp;\n");
 		print("</td></tr>\n");
 	}
 //////////////////////////////////////////////////
-//	Áí¥À¥á¡¼¥¸¤ò²Ã»»¤¹¤ë
+//	ç·ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’åŠ ç®—ã™ã‚‹
 	function AddTotalDamage($team,$dmg) {
 		if(!is_numeric($dmg)) return false;
 		if($team == $this->team0)
@@ -539,9 +539,9 @@ HTML;
 //////////////////////////////////////////////////
 //
 	function UseSkill($skill_no,&$JudgedTarget,&$My,&$MyTeam,&$Enemy) {
-		$skill	= LoadSkillData($skill_no);//µ»¥Ç¡¼¥¿ÆÉ¤à
+		$skill	= LoadSkillData($skill_no);//æŠ€ãƒ‡ãƒ¼ã‚¿èª­ã‚€
 
-		// Éğ´ï¥¿¥¤¥×ÉÔ°ìÃ×
+		// æ­¦å™¨ã‚¿ã‚¤ãƒ—ä¸ä¸€è‡´
 		if($skill["limit"] && !$My->monster) {
 			if(!$skill["limit"][$My->WEAPON]) {
 				print('<span class="u">'.$My->Name(bold));
@@ -550,81 +550,81 @@ HTML;
 				print($skill[name]."</span><br />\n");
 				//print($My->Name(bold)." Failed to use ".$skill["name"]."<br />\n");
 				print("(Weapon type doesnt match)<br />\n");
-				$My->DelayReset();// ¹ÔÆ°½ç¤ò¥ê¥»¥Ã¥È
+				$My->DelayReset();// è¡Œå‹•é †ã‚’ãƒªã‚»ãƒƒãƒˆ
 				return true;
 			}
 		}
 
-		// SPÉÔÂ­
+		// SPä¸è¶³
 		if($My->SP < $skill["sp"]) {
 			print($My->Name(bold)." failed to ".$skill["name"]."(SP shortage)");
-			if($My->expect) {//¤â¤·±Ó¾§¤äÃù¤áÅÓÃæ¤ÇSP¤¬ÉÔÂ­¤·¤¿¾ì¹ç
+			if($My->expect) {//ã‚‚ã—è© å”±ã‚„è²¯ã‚é€”ä¸­ã§SPãŒä¸è¶³ã—ãŸå ´åˆ
 				$My->ResetExpect();
 			}
-			$My->DelayReset();// ¹ÔÆ°½ç¤ò¥ê¥»¥Ã¥È
+			$My->DelayReset();// è¡Œå‹•é †ã‚’ãƒªã‚»ãƒƒãƒˆ
 			return true;
 		}
 
-		// ¤â¤· "±Ó¾§" ¤ä "Ãù¤á" ¤¬É¬Í×¤Êµ»¤Ê¤é(+±Ó¾§³«»Ï¤·¤Æ¤Ê¤¤¾ì¹ç)¢ª±Ó¾§,Ãù¤á³«»Ï
+		// ã‚‚ã— "è© å”±" ã‚„ "è²¯ã‚" ãŒå¿…è¦ãªæŠ€ãªã‚‰(+è© å”±é–‹å§‹ã—ã¦ãªã„å ´åˆ)â†’è© å”±,è²¯ã‚é–‹å§‹
 		if($skill["charge"]["0"] && $My->expect === false) {
-			// ¤³¤Á¤é¤ÏÃù¤á¤È±Ó¾§¤ò³«»Ï¤¹¤ë¾ì¹ç /////////////////////
-			// ÊªÍı¤«ËâË¡¤Ë¤è¤Ã¤ÆÊ¸¤òÊÑ¤¨¤ë
-			if($skill["type"] == 0) {//ÊªÍı
+			// ã“ã¡ã‚‰ã¯è²¯ã‚ã¨è© å”±ã‚’é–‹å§‹ã™ã‚‹å ´åˆ /////////////////////
+			// ç‰©ç†ã‹é­”æ³•ã«ã‚ˆã£ã¦æ–‡ã‚’å¤‰ãˆã‚‹
+			if($skill["type"] == 0) {//ç‰©ç†
 				print('<span class="charge">'.$My->Name(bold).' start charging.</span>');
 				$My->expect_type	= CHARGE;
-			} else {//ËâË¡
+			} else {//é­”æ³•
 				print('<span class="charge">'.$My->Name(bold).' start casting.</span>');
 				$My->expect_type	= CAST;
 			}
-			$My->expect	= $skill_no;//±Ó¾§¡¦Ãù¤á´°Î»¤ÈÆ±»ş¤Ë»ÈÍÑ¤¹¤ëµ»
-			// ¢­»È¤Ã¤Æ¤Ê¤¤¤Î¤Ç¥³¥á¥ó¥È¤Ë¤·¤¿¡£
-			//$My->target_expect	= $JudgedTarget;//°ì±ş¥¿¡¼¥²¥Ã¥È¤âÊİÂ¸
-			//±Ó¾§¡¦Ãù¤á»ş´Ö¤ÎÀßÄê¡£
+			$My->expect	= $skill_no;//è© å”±ãƒ»è²¯ã‚å®Œäº†ã¨åŒæ™‚ã«ä½¿ç”¨ã™ã‚‹æŠ€
+			// â†“ä½¿ã£ã¦ãªã„ã®ã§ã‚³ãƒ¡ãƒ³ãƒˆã«ã—ãŸã€‚
+			//$My->target_expect	= $JudgedTarget;//ä¸€å¿œã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚‚ä¿å­˜
+			//è© å”±ãƒ»è²¯ã‚æ™‚é–“ã®è¨­å®šã€‚
 			$My->DelayByRate($skill["charge"]["0"],$this->delay,1);
 			print("<br />\n");
 
-			// ÀïÆ®¤ÎÁí¹ÔÆ°²ó¿ô¤ò¸º¤é¤¹(Ãù¤áor±Ó¾§ ¤Ï¹ÔÆ°¤ËÆş¤ì¤Ê¤¤)
+			// æˆ¦é—˜ã®ç·è¡Œå‹•å›æ•°ã‚’æ¸›ã‚‰ã™(è²¯ã‚orè© å”± ã¯è¡Œå‹•ã«å…¥ã‚Œãªã„)
 			$this->actions--;
 
-			return true;//¥Ç¥£¥ì¥¤ÊÑ¹¹¤·¤¿¤«¤é¥ê¥»¥Ã¥È¤·¤Ê¤¤¤è¤¦¤Ë¡£
+			return true;//ãƒ‡ã‚£ãƒ¬ã‚¤å¤‰æ›´ã—ãŸã‹ã‚‰ãƒªã‚»ãƒƒãƒˆã—ãªã„ã‚ˆã†ã«ã€‚
 		} else {
-			// µ»¤ò¼Âºİ¤Ë»ÈÍÑ¤¹¤ë ///////////////////////////////////
+			// æŠ€ã‚’å®Ÿéš›ã«ä½¿ç”¨ã™ã‚‹ ///////////////////////////////////
 
-			// ¹ÔÆ°²ó¿ô¤ò¥×¥é¥¹¤¹¤ë
+			// è¡Œå‹•å›æ•°ã‚’ãƒ—ãƒ©ã‚¹ã™ã‚‹
 			$My->ActCount++;
 
-			// ¹ÔÆ°ÆâÍÆ¤ÎÉ½¼¨(¹ÔÆ°¤¹¤ë)
+			// è¡Œå‹•å†…å®¹ã®è¡¨ç¤º(è¡Œå‹•ã™ã‚‹)
 			print('<div class="u">'.$My->Name(bold));
 			print("<img src=\"".IMG_ICON.$skill["img"]."\" class=\"vcent\"/>");
 			print($skill[name]."</div>\n");
 
-			// ËâË¡¿Ø¤ò¾ÃÈñ(Ì£Êı)
+			// é­”æ³•é™£ã‚’æ¶ˆè²»(å‘³æ–¹)
 			if($skill["MagicCircleDeleteTeam"])
 			{
 				if($this->MagicCircleDelete($My->team,$skill["MagicCircleDeleteTeam"])) {
 					print($My->Name(bold).'<span class="charge"> use MagicCircle x'.$skill["MagicCircleDeleteTeam"].'</span><br />'."\n");
-				// ËâË¡¿Ø¾ÃÈñ¼ºÇÔ
+				// é­”æ³•é™£æ¶ˆè²»å¤±æ•—
 				} else {
 					print('<span class="dmg">failed!(MagicCircle isn\'t enough)</span><br />'."\n");
-					$My->DelayReset();// ¹ÔÆ°½ç¤ò¥ê¥»¥Ã¥È
+					$My->DelayReset();// è¡Œå‹•é †ã‚’ãƒªã‚»ãƒƒãƒˆ
 					return true;
 				}
 			}
 
-			// SP¤Î¾ÃÈñ(¤³¤Î°ÌÃÖ¤À¤ÈÃù¤á¡¦±Ó¾§´°Î»¤ÈÆ±»ş¤Ë¾ÃÈñ¤¹¤ë)
+			// SPã®æ¶ˆè²»(ã“ã®ä½ç½®ã ã¨è²¯ã‚ãƒ»è© å”±å®Œäº†ã¨åŒæ™‚ã«æ¶ˆè²»ã™ã‚‹)
 			$My->SpDamage($skill["sp"],false);
 
-			// ¥Á¥ã¡¼¥¸(±Ó¾§)´°Î»¤ÈÆ±»ş¤Ë»ÈÍÑ¤¹¤ëµ»¤Î¾ğÊó¤ò¾Ã¤¹¡£
+			// ãƒãƒ£ãƒ¼ã‚¸(è© å”±)å®Œäº†ã¨åŒæ™‚ã«ä½¿ç”¨ã™ã‚‹æŠ€ã®æƒ…å ±ã‚’æ¶ˆã™ã€‚
 			if($My->expect)
 				$My->ResetExpect();
 
-			// HPµ¾À·µ»¤Î¾ì¹ç(Sacrifice)
+			// HPçŠ ç‰²æŠ€ã®å ´åˆ(Sacrifice)
 			if($skill["sacrifice"])
 				$My->SacrificeHp($skill["sacrifice"]);
 
 		}
 
-		// ¥¿¡¼¥²¥Ã¥È¤òÁª¤Ö(¸õÊä)
+		// ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã‚’é¸ã¶(å€™è£œ)
 		if($skill["target"]["0"] == "friend"):
 			$candidate	= &$MyTeam;
 		elseif($skill["target"]["0"] == "enemy"):
@@ -633,40 +633,40 @@ HTML;
 			$candidate[]	= &$My;
 		elseif($skill["target"]["0"] == "all"):
 			//$candidate	= $MyTeam + $Enemy;//???
-			$candidate	= array_merge_recursive(&$MyTeam,&$Enemy);//·ë¹ç¤Î¸å,ÊÂ¤Ó¤ò¥é¥ó¥À¥à¤Ë¤·¤¿Êı¤¬¤¤¤¤??
+			$candidate	= array_merge_recursive(&$MyTeam,&$Enemy);//çµåˆã®å¾Œ,ä¸¦ã³ã‚’ãƒ©ãƒ³ãƒ€ãƒ ã«ã—ãŸæ–¹ãŒã„ã„??
 		endif;
 
-		// ¸õÊä¤«¤é»ÈÍÑ¤¹¤ëÂĞ¾İ¤òÁª¤Ö ¢ª (¥¹¥­¥ë»ÈÍÑ)
+		// å€™è£œã‹ã‚‰ä½¿ç”¨ã™ã‚‹å¯¾è±¡ã‚’é¸ã¶ â†’ (ã‚¹ã‚­ãƒ«ä½¿ç”¨)
 
-		// Ã±ÂÎ¤Ë»ÈÍÑ
+		// å˜ä½“ã«ä½¿ç”¨
 		if($skill["target"]["1"] == "individual") {
-			$target	=& $this->SelectTarget($candidate,$skill);//ÂĞ¾İ¤òÁªÂò
-			if($defender =& $this->Defending($target,$candidate,$skill) )//¼é¤ê¤ËÆş¤ë¥­¥ã¥é
+			$target	=& $this->SelectTarget($candidate,$skill);//å¯¾è±¡ã‚’é¸æŠ
+			if($defender =& $this->Defending($target,$candidate,$skill) )//å®ˆã‚Šã«å…¥ã‚‹ã‚­ãƒ£ãƒ©
 				$target	= &$defender;
-			for($i=0; $i<$skill["target"]["2"]; $i++) {//Ã±ÂÎ¤ËÊ£¿ô²ó¼Â¹Ô
+			for($i=0; $i<$skill["target"]["2"]; $i++) {//å˜ä½“ã«è¤‡æ•°å›å®Ÿè¡Œ
 				$dmg	= $this->SkillEffect($skill,$skill_no,$My,$target);
 				$this->AddTotalDamage($MyTeam,$dmg);
 			}
 
-		// Ê£¿ô¤Ë»ÈÍÑ
+		// è¤‡æ•°ã«ä½¿ç”¨
 		} else if($skill["target"]["1"] == "multi") {
 			for($i=0; $i<$skill["target"]["2"]; $i++) {
-				$target	=& $this->SelectTarget($candidate,$skill);//ÂĞ¾İ¤òÁªÂò
-				if($defender =& $this->Defending($target,$candidate,$skill) )//¼é¤ê¤ËÆş¤ë¥­¥ã¥é
+				$target	=& $this->SelectTarget($candidate,$skill);//å¯¾è±¡ã‚’é¸æŠ
+				if($defender =& $this->Defending($target,$candidate,$skill) )//å®ˆã‚Šã«å…¥ã‚‹ã‚­ãƒ£ãƒ©
 					$target	= &$defender;
 				$dmg	= $this->SkillEffect($skill,$skill_no,$My,$target);
 				$this->AddTotalDamage($MyTeam,$dmg);
 			}
 
-		// Á´ÂÎ¤Ë»ÈÍÑ
+		// å…¨ä½“ã«ä½¿ç”¨
 		} else if($skill["target"]["1"] == "all") {
 			foreach($candidate as $key => $char) {
 				$target	= &$candidate[$key];
-				//if($char->STATE === DEAD) continue;//»àË´¼Ô¤Ï¥Ñ¥¹¡£
-				if($skill["priority"] != "Dead") {//°ì»şÅª¤Ë¡£
-					if($char->STATE === DEAD) continue;//»àË´¼Ô¤Ï¥Ñ¥¹¡£
+				//if($char->STATE === DEAD) continue;//æ­»äº¡è€…ã¯ãƒ‘ã‚¹ã€‚
+				if($skill["priority"] != "Dead") {//ä¸€æ™‚çš„ã«ã€‚
+					if($char->STATE === DEAD) continue;//æ­»äº¡è€…ã¯ãƒ‘ã‚¹ã€‚
 				}
-				// Á´ÂÎ¹¶·â¤Ï¼é¤ê¤ËÆş¤ì¤Ê¤¤(¤È¤¹¤ë)
+				// å…¨ä½“æ”»æ’ƒã¯å®ˆã‚Šã«å…¥ã‚Œãªã„(ã¨ã™ã‚‹)
 				for($i=0; $i<$skill["target"]["2"]; $i++) {
 					$dmg	= $this->SkillEffect($skill,$skill_no,$My,$target);
 					$this->AddTotalDamage($MyTeam,$dmg);
@@ -674,26 +674,26 @@ HTML;
 			}
 		}
 
-		// »ÈÍÑ¸å»ÈÍÑ¼Ô¤Ë±Æ¶Á¤¹¤ë¸ú²ÌÅù
+		// ä½¿ç”¨å¾Œä½¿ç”¨è€…ã«å½±éŸ¿ã™ã‚‹åŠ¹æœç­‰
 		if($skill["umove"])
 			$My->Move($skill["umove"]);
 
-		// ¹¶·âÂĞ¾İ¤Ë¤Ê¤Ã¤¿¥­¥ã¥éÃ£¤¬¤É¤¦¤Ê¤Ã¤¿¤«³Î¤«¤á¤ë(¤È¤ê¤¢¤¨¤ºHP=0¤Ë¤Ê¤Ã¤¿¤«¤É¤¦¤«)¡£
-		if($skill["sacrifice"]) { // Sacri·Ï¤Îµ»¤ò»È¤Ã¤¿¾ì¹ç¡£
+		// æ”»æ’ƒå¯¾è±¡ã«ãªã£ãŸã‚­ãƒ£ãƒ©é”ãŒã©ã†ãªã£ãŸã‹ç¢ºã‹ã‚ã‚‹(ã¨ã‚Šã‚ãˆãšHP=0ã«ãªã£ãŸã‹ã©ã†ã‹)ã€‚
+		if($skill["sacrifice"]) { // Sacriç³»ã®æŠ€ã‚’ä½¿ã£ãŸå ´åˆã€‚
 			$Sacrier[]	= &$My;
 			$this->JudgeTargetsDead($Sacrier);
 		}
-		list($exp,$money,$itemdrop)	= $this->JudgeTargetsDead($candidate);//Ëô¡¢¼èÆÀ¤¹¤ë·Ğ¸³ÃÍ¤òÆÀ¤ë
+		list($exp,$money,$itemdrop)	= $this->JudgeTargetsDead($candidate);//åˆã€å–å¾—ã™ã‚‹çµŒé¨“å€¤ã‚’å¾—ã‚‹
 
 		$this->GetExp($exp,$MyTeam);
 		$this->GetItem($itemdrop,$MyTeam);
 		$this->GetMoney($money,$MyTeam);
 
-		// µ»¤Î»ÈÍÑÅù¤ÇSPD¤¬ÊÑ²½¤·¤¿¾ì¹çDELAY¤òºÆ·×»»¤¹¤ë¡£
+		// æŠ€ã®ä½¿ç”¨ç­‰ã§SPDãŒå¤‰åŒ–ã—ãŸå ´åˆDELAYã‚’å†è¨ˆç®—ã™ã‚‹ã€‚
 		if($this->ChangeDelay)
 			$this->SetDelay();
 
-		// ¹ÔÆ°¸å¤Î¹ÅÄ¾(¤¬¤¢¤ì¤ĞÀßÄê¤¹¤ë)
+		// è¡Œå‹•å¾Œã®ç¡¬ç›´(ãŒã‚ã‚Œã°è¨­å®šã™ã‚‹)
 		if($skill["charge"]["1"]) {
 			$My->DelayReset();
 			print($My->Name(bold)." Delayed");
@@ -702,11 +702,11 @@ HTML;
 			return false;
 		}
 
-		// ºÇ¸å¤Ë¹ÔÆ°½ç¤ò¥ê¥»¥Ã¥È¤¹¤ë¡£
+		// æœ€å¾Œã«è¡Œå‹•é †ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹ã€‚
 		$My->DelayReset();
 	}
 //////////////////////////////////////////////////
-//	·Ğ¸³ÃÍ¤òÆÀ¤ë
+//	çµŒé¨“å€¤ã‚’å¾—ã‚‹
 function GetExp($exp,&$team) {
 	if(!$exp) return false;
 
@@ -720,16 +720,16 @@ function GetExp($exp,&$team) {
 
 	$Alive	= CountAliveChars($team);
 	if($Alive === 0) return false;
-	$ExpGet	= ceil($exp/$Alive);//À¸Â¸¼Ô¤Ë¤À¤±·Ğ¸³ÃÍ¤òÊ¬¤±¤ë¡£
+	$ExpGet	= ceil($exp/$Alive);//ç”Ÿå­˜è€…ã«ã ã‘çµŒé¨“å€¤ã‚’åˆ†ã‘ã‚‹ã€‚
 	print("Alives get {$ExpGet}exps.<br />\n");
 	foreach($team as $key => $char) {
-		if($char->STATE === 1) continue;//»àË´¼Ô¤Ë¤ÏEXP¤¢¤²¤Ê¤¤
-		if($team[$key]->GetExp($ExpGet))//LvUp¤·¤¿¤Ê¤étrue¤¬ÊÖ¤ë
+		if($char->STATE === 1) continue;//æ­»äº¡è€…ã«ã¯EXPã‚ã’ãªã„
+		if($team[$key]->GetExp($ExpGet))//LvUpã—ãŸãªã‚‰trueãŒè¿”ã‚‹
 			print("<span class=\"levelup\">".$char->Name()." LevelUp!</span><br />\n");
 	}
 }
 //////////////////////////////////////////////////
-//	¥¢¥¤¥Æ¥à¤ò¼èÆÀ¤¹¤ë(¥Á¡¼¥à¤¬)
+//	ã‚¢ã‚¤ãƒ†ãƒ ã‚’å–å¾—ã™ã‚‹(ãƒãƒ¼ãƒ ãŒ)
 	function GetItem($itemdrop,$MyTeam) {
 		if(!$itemdrop) return false;
 		if($MyTeam === $this->team0) {
@@ -744,29 +744,29 @@ function GetExp($exp,&$team) {
 	}
 
 //////////////////////////////////////////////////
-//	¸å±Ò¤ò¼é¤ê¤ËÆş¤ë¥­¥ã¥é¤òÁª¤Ö¡£
+//	å¾Œè¡›ã‚’å®ˆã‚Šã«å…¥ã‚‹ã‚­ãƒ£ãƒ©ã‚’é¸ã¶ã€‚
 	function &Defending(&$target,&$candidate,$skill) {
 		if($target === false) return false;
 
-		if($skill["invalid"])//ËÉ¸æÌµ»ë¤Ç¤­¤ëµ»¡£
+		if($skill["invalid"])//é˜²å¾¡ç„¡è¦–ã§ãã‚‹æŠ€ã€‚
 			return false;
-		if($skill["support"])//»Ù±ç¤Ê¤Î¤Ç¥¬¡¼¥É¤·¤Ê¤¤¡£
+		if($skill["support"])//æ”¯æ´ãªã®ã§ã‚¬ãƒ¼ãƒ‰ã—ãªã„ã€‚
 			return false;
-		if($target->POSITION == "front")//Á°±Ò¤Ê¤é¼é¤ëÉ¬Í×Ìµ¤·¡£½ª¤ï¤ë
+		if($target->POSITION == "front")//å‰è¡›ãªã‚‰å®ˆã‚‹å¿…è¦ç„¡ã—ã€‚çµ‚ã‚ã‚‹
 			return false;
-		// "Á°±Ò¤Ç¾°³î¤ÄÀ¸Â¸¼Ô"¤òÇÛÎó¤ËµÍ¤á¤ë¢­
-		// Á°±Ò + À¸Â¸¼Ô + HP1°Ê¾å ¤ËÊÑ¹¹ ( Â¿ÃÊ·Ï¹¶·â¤Ç»à¤Ë¤Ê¤¬¤é¼é¤ë¤Î¤Ç [2007/9/20] )
+		// "å‰è¡›ã§å°šä¸”ã¤ç”Ÿå­˜è€…"ã‚’é…åˆ—ã«è©°ã‚ã‚‹â†“
+		// å‰è¡› + ç”Ÿå­˜è€… + HP1ä»¥ä¸Š ã«å¤‰æ›´ ( å¤šæ®µç³»æ”»æ’ƒã§æ­»ã«ãªãŒã‚‰å®ˆã‚‹ã®ã§ [2007/9/20] )
 		foreach($candidate as $key => $char) {
 			//print("{$char->POSTION}:{$char->STATE}<br>");
 			if($char->POSITION == "front" && $char->STATE !== 1 && 1 < $char->HP )
 				$fore[]	= &$candidate["$key"];
 		}
-		if(count($fore) == 0)//Á°±Ò¤¬¤¤¤Ê¤±¤ê¤ã¼é¤ì¤Ê¤¤¡£½ª¤ï¤ë
+		if(count($fore) == 0)//å‰è¡›ãŒã„ãªã‘ã‚Šã‚ƒå®ˆã‚Œãªã„ã€‚çµ‚ã‚ã‚‹
 			return false;
-		// °ì¿Í¤Å¤Ä¼é¤ê¤ËÆş¤ë¤«Æş¤é¤Ê¤¤¤«¤òÈ½Äê¤¹¤ë¡£
-		shuffle($fore);//ÇÛÎó¤ÎÊÂ¤Ó¤òº®¤¼¤ë
+		// ä¸€äººã¥ã¤å®ˆã‚Šã«å…¥ã‚‹ã‹å…¥ã‚‰ãªã„ã‹ã‚’åˆ¤å®šã™ã‚‹ã€‚
+		shuffle($fore);//é…åˆ—ã®ä¸¦ã³ã‚’æ··ãœã‚‹
 		foreach($fore as $key => $char) {
-			// È½Äê¤Ë»È¤¦ÊÑ¿ô¤ò·×»»¤·¤¿¤ê¤¹¤ë¡£
+			// åˆ¤å®šã«ä½¿ã†å¤‰æ•°ã‚’è¨ˆç®—ã—ãŸã‚Šã™ã‚‹ã€‚
 			switch($char->guard) {
 				case "life25":
 				case "life50":
@@ -778,26 +778,26 @@ function GetExp($exp,&$team) {
 					mt_srand();
 					$prob	= mt_rand(1,100);
 			}
-			// ¼Âºİ¤ËÈ½Äê¤·¤Æ¤ß¤ë¡£
+			// å®Ÿéš›ã«åˆ¤å®šã—ã¦ã¿ã‚‹ã€‚
 			switch($char->guard) {
 				case "never":
 					continue;
-				case "life25":// HP(%)¤¬25%°Ê¾å¤Ê¤é
+				case "life25":// HP(%)ãŒ25%ä»¥ä¸Šãªã‚‰
 					if(25 < $HpRate) $defender	= &$fore["$key"]; break;
-				case "life50":// ¡·50%¡·
+				case "life50":// ã€ƒ50%ã€ƒ
 					if(50 < $HpRate) $defender	= &$fore["$key"]; break;
-				case "life75":// ¡·70%¡·
+				case "life75":// ã€ƒ70%ã€ƒ
 					if(75 < $HpRate) $defender	= &$fore["$key"]; break;
-				case "prob25":// 25%¤Î³ÎÎ¨¤Ç
+				case "prob25":// 25%ã®ç¢ºç‡ã§
 					if($prob < 25) $defender	= &$fore["$key"]; break;
-				case "prob50":// 50% ¡·
+				case "prob50":// 50% ã€ƒ
 					if($prob < 50) $defender	= &$fore["$key"]; break;
-				case "prob75":// 75% ¡·
+				case "prob75":// 75% ã€ƒ
 					if($prob < 75) $defender	= &$fore["$key"]; break;
 				default:
 					$defender	= &$fore["$key"];
 			}
-			// Ã¯¤«¤¬¸å±Ò¤ò¼é¤ê¤ËÆş¤Ã¤¿¤Î¤Ç¤½¤ì¤òÉ½¼¨¤¹¤ë
+			// èª°ã‹ãŒå¾Œè¡›ã‚’å®ˆã‚Šã«å…¥ã£ãŸã®ã§ãã‚Œã‚’è¡¨ç¤ºã™ã‚‹
 			if($defender) {
 				print('<span class="bold">'.$defender->name.'</span> protected <span class="bold">'.$target->name.'</span>!<br />'."\n");
 				return $defender;
@@ -805,24 +805,24 @@ function GetExp($exp,&$team) {
 		}
 	}
 //////////////////////////////////////////////////
-//	¥¹¥­¥ë»ÈÍÑ¸å¤ËÂĞ¾İ¼Ô(¸õÊä)¤¬¤·¤Ü¡¼¤·¤¿¤«¤É¤¦¤«¤ò³Î¤«¤á¤ë
+//	ã‚¹ã‚­ãƒ«ä½¿ç”¨å¾Œã«å¯¾è±¡è€…(å€™è£œ)ãŒã—ã¼ãƒ¼ã—ãŸã‹ã©ã†ã‹ã‚’ç¢ºã‹ã‚ã‚‹
 	function JudgeTargetsDead(&$target) {
 		foreach($target as $key => $char) {
-			// Í¿¤¨¤¿¥À¥á¡¼¥¸¤Îº¹Ê¬¤Ç·Ğ¸³ÃÍ¤ò¼èÆÀ¤¹¤ë¥â¥ó¥¹¥¿¡¼¤Î¾ì¹ç¡£
+			// ä¸ãˆãŸãƒ€ãƒ¡ãƒ¼ã‚¸ã®å·®åˆ†ã§çµŒé¨“å€¤ã‚’å–å¾—ã™ã‚‹ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã®å ´åˆã€‚
 			if(method_exists($target[$key],'HpDifferenceEXP')) {
 				$exp	+= $target[$key]->HpDifferenceEXP();
 			}
-			if($target[$key]->CharJudgeDead()) {//»à¤ó¤À¤«¤É¤¦¤«
-				// »àË´¥á¥Ã¥»¡¼¥¸
+			if($target[$key]->CharJudgeDead()) {//æ­»ã‚“ã ã‹ã©ã†ã‹
+				// æ­»äº¡ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸
 				print("<span class=\"dmg\">".$target[$key]->Name(bold)." down.</span><br />\n");
 
-				//·Ğ¸³ÃÍ¤Î¼èÆÀ
+				//çµŒé¨“å€¤ã®å–å¾—
 				$exp	+= $target[$key]->DropExp();
 
-				//¤ª¶â¤Î¼èÆÀ
+				//ãŠé‡‘ã®å–å¾—
 				$money	+= $target[$key]->DropMoney();
 
-				// ¥¢¥¤¥Æ¥à¥É¥í¥Ã¥×
+				// ã‚¢ã‚¤ãƒ†ãƒ ãƒ‰ãƒ­ãƒƒãƒ—
 				if($item = $target[$key]->DropItem()) {
 					$itemdrop["$item"]++;
 					$item	= LoadItemData($item);
@@ -831,78 +831,78 @@ function GetExp($exp,&$team) {
 					print("<span class=\"bold u\">{$item[name]}</span>.<br />\n");
 				}
 
-				//¾¤´­¥­¥ã¥é¤Ê¤é¾Ã¤¹¡£
+				//å¬å–šã‚­ãƒ£ãƒ©ãªã‚‰æ¶ˆã™ã€‚
 				if($target[$key]->summon === true) {
 					unset($target[$key]);
 				}
 
-				// »à¤ó¤À¤Î¤Ç¥Ç¥£¥ì¥¤¤òÄ¾¤¹¡£
+				// æ­»ã‚“ã ã®ã§ãƒ‡ã‚£ãƒ¬ã‚¤ã‚’ç›´ã™ã€‚
 				$this->ChangeDelay();
 			}
 		}
-		return array($exp,$money,$itemdrop);//¼èÆÀ¤¹¤ë·Ğ¸³ÃÍ¤òÊÖ¤¹
+		return array($exp,$money,$itemdrop);//å–å¾—ã™ã‚‹çµŒé¨“å€¤ã‚’è¿”ã™
 	}
 //////////////////////////////////////////////////
-//	Í¥Àè½ç°Ì¤Ë½¾¤Ã¤Æ¸õÊä¤«¤é°ì¿ÍÊÖ¤¹
+//	å„ªå…ˆé †ä½ã«å¾“ã£ã¦å€™è£œã‹ã‚‰ä¸€äººè¿”ã™
 	function &SelectTarget(&$target_list,$skill) {
 
 		/*
-		* Í¥Àè¤Ï¤¹¤ë¤¬¡¢Åö¤Æ¤Ï¤Ş¤é¤Ê¤¯¤Æ¤âºÇ½ªÅª¤Ë¥¿¡¼¥²¥Ã¥È¤ÏÍ×¤ë¡£
-		* Îã : ¸å±Ò¤¬µï¤Ê¤¤¢ªÁ°±Ò¤òÂĞ¾İ¤Ë¤¹¤ë¡£
-		*    : Á´°÷¤¬HP100%¢ªÃ¯¤« ¤Æ¤­¤È¤¦ ¤ËÂĞ¾İ¤Ë¤¹¤ë¡£
+		* å„ªå…ˆã¯ã™ã‚‹ãŒã€å½“ã¦ã¯ã¾ã‚‰ãªãã¦ã‚‚æœ€çµ‚çš„ã«ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¯è¦ã‚‹ã€‚
+		* ä¾‹ : å¾Œè¡›ãŒå±…ãªã„â†’å‰è¡›ã‚’å¯¾è±¡ã«ã™ã‚‹ã€‚
+		*    : å…¨å“¡ãŒHP100%â†’èª°ã‹ ã¦ãã¨ã† ã«å¯¾è±¡ã«ã™ã‚‹ã€‚
 		*/
 
-		//»Ä¤êHP(%)¤¬¾¯¤Ê¤¤¿Í¤ò¥¿¡¼¥²¥Ã¥È¤Ë¤¹¤ë
+		//æ®‹ã‚ŠHP(%)ãŒå°‘ãªã„äººã‚’ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã«ã™ã‚‹
 		if($skill["priority"] == "LowHpRate") {
-			$hp = 2;//°ì±ş1¤è¤êÂç¤­¤¤¿ô»ú¤Ë¡¦¡¦¡¦
+			$hp = 2;//ä¸€å¿œ1ã‚ˆã‚Šå¤§ãã„æ•°å­—ã«ãƒ»ãƒ»ãƒ»
 			foreach($target_list as $key => $char) {
-				if($char->STATE == DEAD) continue;//¤·¤Ü¡¼¼Ô¤ÏÂĞ¾İ¤Ë¤Ê¤é¤Ê¤¤¡£
+				if($char->STATE == DEAD) continue;//ã—ã¼ãƒ¼è€…ã¯å¯¾è±¡ã«ãªã‚‰ãªã„ã€‚
 				$HpRate	= $char->HP / $char->MAXHP;//HP(%)
 				if($HpRate < $hp) {
-					$hp	= $HpRate;//¸½¾õ¤ÎºÇ¤âHP(%)¤¬Äã¤¤¿Í
+					$hp	= $HpRate;//ç¾çŠ¶ã®æœ€ã‚‚HP(%)ãŒä½ã„äºº
 					$target	= &$target_list[$key];
 				}
 			}
-			return $target;//ºÇ¤âHP¤¬Äã¤¤¿Í
+			return $target;//æœ€ã‚‚HPãŒä½ã„äºº
 
-		//¸å±Ò¤òÍ¥Àè¤¹¤ë
+		//å¾Œè¡›ã‚’å„ªå…ˆã™ã‚‹
 		} else if($skill["priority"] == "Back") {
 			foreach($target_list as $key => $char) {
-				if($char->STATE == DEAD) continue;//¤·¤Ü¡¼¼Ô¤ÏÂĞ¾İ¤Ë¤Ê¤é¤Ê¤¤¡£
-				if($char->POSITION != FRONT)//¸å±Ò¤Ê¤é
-				$target[]	= &$target_list[$key];//¸õÊä¤Ë¤¤¤ì¤ë
+				if($char->STATE == DEAD) continue;//ã—ã¼ãƒ¼è€…ã¯å¯¾è±¡ã«ãªã‚‰ãªã„ã€‚
+				if($char->POSITION != FRONT)//å¾Œè¡›ãªã‚‰
+				$target[]	= &$target_list[$key];//å€™è£œã«ã„ã‚Œã‚‹
 			}
 			if($target)
-				return $target[array_rand($target)];//¥ê¥¹¥È¤ÎÃæ¤«¤é¥é¥ó¥À¥à¤Ç
+				return $target[array_rand($target)];//ãƒªã‚¹ãƒˆã®ä¸­ã‹ã‚‰ãƒ©ãƒ³ãƒ€ãƒ ã§
 
 		/*
-		* Í¥Àè¤Ï¤¹¤ë¤¬¡¢
-		* Í¥Àè¤¹¤ëÂĞ¾İ¤¬¤¤¤Ê¤±¤ì¤Ğ»ÈÍÑ¤Ï¼ºÇÔ¤¹¤ë(¹Ê¹ş¤ß)
+		* å„ªå…ˆã¯ã™ã‚‹ãŒã€
+		* å„ªå…ˆã™ã‚‹å¯¾è±¡ãŒã„ãªã‘ã‚Œã°ä½¿ç”¨ã¯å¤±æ•—ã™ã‚‹(çµè¾¼ã¿)
 		*/
 
-		//¤·¤Ü¡¼¼Ô¤ÎÃæ¤«¤é¥é¥ó¥À¥à¤ÇÊÖ¤¹¡£
+		//ã—ã¼ãƒ¼è€…ã®ä¸­ã‹ã‚‰ãƒ©ãƒ³ãƒ€ãƒ ã§è¿”ã™ã€‚
 		} else if($skill["priority"] == "Dead") {
 			foreach($target_list as $key => $char) {
-				if($char->STATE == DEAD)//¤·¤Ü¡¼¤Ê¤é
-				$target[]	= &$target_list[$key];//¤·¤Ü¡¼¼Ô¥ê¥¹¥È
+				if($char->STATE == DEAD)//ã—ã¼ãƒ¼ãªã‚‰
+				$target[]	= &$target_list[$key];//ã—ã¼ãƒ¼è€…ãƒªã‚¹ãƒˆ
 			}
 			if($target)
-				return $target[array_rand($target)];//¤·¤Ü¡¼¼Ô¥ê¥¹¥È¤ÎÃæ¤«¤é¥é¥ó¥À¥à¤Ç
+				return $target[array_rand($target)];//ã—ã¼ãƒ¼è€…ãƒªã‚¹ãƒˆã®ä¸­ã‹ã‚‰ãƒ©ãƒ³ãƒ€ãƒ ã§
 			else
-				return false;//Ã¯¤â¤¤¤Ê¤±¤ê¤ãfalseÊÖ¤¹¤·¤«¤Ê¤¤...(¢ª¥¹¥­¥ë»ÈÍÑ¼ºÇÔ)
+				return false;//èª°ã‚‚ã„ãªã‘ã‚Šã‚ƒfalseè¿”ã™ã—ã‹ãªã„...(â†’ã‚¹ã‚­ãƒ«ä½¿ç”¨å¤±æ•—)
 
-		// ¾¤´­¥­¥ã¥é¤òÍ¥Àè¤¹¤ë¡£
+		// å¬å–šã‚­ãƒ£ãƒ©ã‚’å„ªå…ˆã™ã‚‹ã€‚
 		} else if($skill["priority"] == "Summon") {
 			foreach($target_list as $key => $char) {
-				if($char->summon)//¾¤´­¥­¥ã¥é¤Ê¤é
-					$target[]	= &$target_list[$key];//¾¤´­¥­¥ã¥é¥ê¥¹¥È
+				if($char->summon)//å¬å–šã‚­ãƒ£ãƒ©ãªã‚‰
+					$target[]	= &$target_list[$key];//å¬å–šã‚­ãƒ£ãƒ©ãƒªã‚¹ãƒˆ
 			}
 			if($target)
-				return $target[array_rand($target)];//¾¤´­¥­¥ã¥é¤ÎÃæ¤«¤é¥é¥ó¥À¥à¤Ç
+				return $target[array_rand($target)];//å¬å–šã‚­ãƒ£ãƒ©ã®ä¸­ã‹ã‚‰ãƒ©ãƒ³ãƒ€ãƒ ã§
 			else
-				return false;//Ã¯¤â¤¤¤Ê¤±¤ê¤ãfalseÊÖ¤¹¤·¤«¤Ê¤¤...(¢ª¥¹¥­¥ë»ÈÍÑ¼ºÇÔ)
+				return false;//èª°ã‚‚ã„ãªã‘ã‚Šã‚ƒfalseè¿”ã™ã—ã‹ãªã„...(â†’ã‚¹ã‚­ãƒ«ä½¿ç”¨å¤±æ•—)
 
-		// ¥Á¥ã¡¼¥¸Ãæ¤Î¥­¥ã¥é
+		// ãƒãƒ£ãƒ¼ã‚¸ä¸­ã®ã‚­ãƒ£ãƒ©
 		} else if($skill["priority"] == "Charge") {
 			foreach($target_list as $key => $char) {
 				if($char->expect)
@@ -911,33 +911,33 @@ function GetExp($exp,&$team) {
 			if($target)
 				return $target[array_rand($target)];
 			else
-				return false;//Ã¯¤â¤¤¤Ê¤±¤ê¤ãfalseÊÖ¤¹¤·¤«¤Ê¤¤...(¢ª¥¹¥­¥ë»ÈÍÑ¼ºÇÔ)
+				return false;//èª°ã‚‚ã„ãªã‘ã‚Šã‚ƒfalseè¿”ã™ã—ã‹ãªã„...(â†’ã‚¹ã‚­ãƒ«ä½¿ç”¨å¤±æ•—)
 		//
 		}
 
-		//¤½¤ì°Ê³°(¥é¥ó¥À¥à)
+		//ãã‚Œä»¥å¤–(ãƒ©ãƒ³ãƒ€ãƒ )
 		foreach($target_list as $key => $char) {
-			if($char->STATE != DEAD)//¤·¤Ü¡¼°Ê³°¤Ê¤é
-				$target[]	= &$target_list[$key];//¤·¤Ü¡¼¼Ô¥ê¥¹¥È
+			if($char->STATE != DEAD)//ã—ã¼ãƒ¼ä»¥å¤–ãªã‚‰
+				$target[]	= &$target_list[$key];//ã—ã¼ãƒ¼è€…ãƒªã‚¹ãƒˆ
 		}
-		return $target[array_rand($target)];//¥é¥ó¥À¥à¤ËÃ¯¤«°ì¿Í
+		return $target[array_rand($target)];//ãƒ©ãƒ³ãƒ€ãƒ ã«èª°ã‹ä¸€äºº
 	}
 //////////////////////////////////////////////////
-//	¼¡¤Î¹ÔÆ°¤ÏÃ¯¤«(Ëô¡¢±Ó¾§Ãæ¤ÎËâË¡¤¬È¯Æ°¤¹¤ë¤Î¤ÏÃ¯¤«)
-//	¥ê¥Õ¥¡¥ì¥ó¥¹¤òÊÖ¤¹
+//	æ¬¡ã®è¡Œå‹•ã¯èª°ã‹(åˆã€è© å”±ä¸­ã®é­”æ³•ãŒç™ºå‹•ã™ã‚‹ã®ã¯èª°ã‹)
+//	ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹ã‚’è¿”ã™
 	function &NextActer() {
-		// ºÇ¤â¥Ç¥£¥ì¥¤¤¬Âç¤­¤¤¿Í¤òÃµ¤¹
+		// æœ€ã‚‚ãƒ‡ã‚£ãƒ¬ã‚¤ãŒå¤§ãã„äººã‚’æ¢ã™
 		foreach($this->team0 as $key => $char) {
 			if($char->STATE === 1) continue;
-			// ºÇ½é¤ÏÃ¯¤Ç¤â¤¤¤¤¤Î¤Ç¤È¤ê¤¢¤¨¤ººÇ½é¤Î¿Í¤È¤¹¤ë¡£
+			// æœ€åˆã¯èª°ã§ã‚‚ã„ã„ã®ã§ã¨ã‚Šã‚ãˆãšæœ€åˆã®äººã¨ã™ã‚‹ã€‚
 			if(!isset($delay)) {
 				$delay	= $char->delay;
 				$NextChar	= &$this->team0["$key"];
 				continue;
 			}
-			// ¥­¥ã¥é¤¬º£¤Î¥Ç¥£¥ì¥¤¤è¤êÂ¿¤±¤ì¤Ğ¸òÂå
-			if($delay <= $char->delay) {//¹ÔÆ°
-				// ¤â¤·¥­¥ã¥é¤È¥Ç¥£¥ì¥¤¤¬Æ±¤¸¤Ê¤é50%¤Ç¸òÂå
+			// ã‚­ãƒ£ãƒ©ãŒä»Šã®ãƒ‡ã‚£ãƒ¬ã‚¤ã‚ˆã‚Šå¤šã‘ã‚Œã°äº¤ä»£
+			if($delay <= $char->delay) {//è¡Œå‹•
+				// ã‚‚ã—ã‚­ãƒ£ãƒ©ã¨ãƒ‡ã‚£ãƒ¬ã‚¤ãŒåŒã˜ãªã‚‰50%ã§äº¤ä»£
 				if($delay == $char->delay) {
 					if(mt_rand(0,1))
 						continue;
@@ -946,10 +946,10 @@ function GetExp($exp,&$team) {
 				$NextChar	= &$this->team0["$key"];
 			}
 		}
-		// ¢¬¤ÈÆ±¤¸¡£
+		// â†‘ã¨åŒã˜ã€‚
 		foreach($this->team1 as $key => $char) {
 			if($char->STATE === 1) continue;
-			if($delay <= $char->delay) {//¹ÔÆ°
+			if($delay <= $char->delay) {//è¡Œå‹•
 				if($delay == $char->delay) {
 					if(mt_rand(0,1))
 						continue;
@@ -958,9 +958,9 @@ function GetExp($exp,&$team) {
 				$NextChar	= &$this->team1["$key"];
 			}
 		}
-		// Á´°÷¥Ç¥£¥ì¥¤¸º¾¯
-		$dif	= $this->delay - $NextChar->delay;//ÀïÆ®´ğËÜ¥Ç¥£¥ì¥¤¤È¹ÔÆ°¼Ô¤Î¥Ç¥£¥ì¥¤¤Îº¹Ê¬
-		if($dif < 0)//¤â¤·¤âº¹Ê¬¤¬0°Ê²¼¤Ë¤Ê¤Ã¤¿¤é¡Ä
+		// å…¨å“¡ãƒ‡ã‚£ãƒ¬ã‚¤æ¸›å°‘
+		$dif	= $this->delay - $NextChar->delay;//æˆ¦é—˜åŸºæœ¬ãƒ‡ã‚£ãƒ¬ã‚¤ã¨è¡Œå‹•è€…ã®ãƒ‡ã‚£ãƒ¬ã‚¤ã®å·®åˆ†
+		if($dif < 0)//ã‚‚ã—ã‚‚å·®åˆ†ãŒ0ä»¥ä¸‹ã«ãªã£ãŸã‚‰â€¦
 			return $NextChar;
 		foreach($this->team0 as $key => $char) {
 			$this->team0["$key"]->Delay($dif);
@@ -968,7 +968,7 @@ function GetExp($exp,&$team) {
 		foreach($this->team1 as $key => $char) {
 			$this->team1["$key"]->Delay($dif);
 		}
-		/*// ¥¨¥é¡¼¤¬½Ğ¤¿¤é¤³¤ì¤Ç¡£
+		/*// ã‚¨ãƒ©ãƒ¼ãŒå‡ºãŸã‚‰ã“ã‚Œã§ã€‚
 		if(!is_object($NextChar)) {
 			print("AAA");
 			dump($NextChar);
@@ -979,11 +979,11 @@ function GetExp($exp,&$team) {
 		return $NextChar;
 	}
 //////////////////////////////////////////////////
-//	¼¡¤Î¹ÔÆ°¤ÏÃ¯¤«(Ëô¡¢±Ó¾§Ãæ¤ÎËâË¡¤¬È¯Æ°¤¹¤ë¤Î¤ÏÃ¯¤«)
-//	¥ê¥Õ¥¡¥ì¥ó¥¹¤òÊÖ¤¹
+//	æ¬¡ã®è¡Œå‹•ã¯èª°ã‹(åˆã€è© å”±ä¸­ã®é­”æ³•ãŒç™ºå‹•ã™ã‚‹ã®ã¯èª°ã‹)
+//	ãƒªãƒ•ã‚¡ãƒ¬ãƒ³ã‚¹ã‚’è¿”ã™
 	function &NextActerNew() {
 
-		// ¼¡¤Î¹ÔÆ°¤Ş¤ÇºÇ¤âµ÷Î¥¤¬Ã»¤¤¿Í¤òÃµ¤¹¡£
+		// æ¬¡ã®è¡Œå‹•ã¾ã§æœ€ã‚‚è·é›¢ãŒçŸ­ã„äººã‚’æ¢ã™ã€‚
 		$nextDis	= 1000;
 		foreach($this->team0 as $key => $char) {
 			if($char->STATE === DEAD) continue;
@@ -996,7 +996,7 @@ function GetExp($exp,&$team) {
 			}
 		}
 
-		// ¢¬¤ÈÆ±¤¸¡£
+		// â†‘ã¨åŒã˜ã€‚
 		foreach($this->team1 as $key => $char) {
 			if($char->STATE === DEAD) continue;
 			$charDis	= $this->team1[$key]->nextDis();
@@ -1008,9 +1008,9 @@ function GetExp($exp,&$team) {
 			}
 		}
 
-		// Á´°÷¥Ç¥£¥ì¥¤¸º¾¯ //////////////////////
+		// å…¨å“¡ãƒ‡ã‚£ãƒ¬ã‚¤æ¸›å°‘ //////////////////////
 
-		//¤â¤·¤âº¹Ê¬¤¬0°Ê²¼¤Ë¤Ê¤Ã¤¿¤é
+		//ã‚‚ã—ã‚‚å·®åˆ†ãŒ0ä»¥ä¸‹ã«ãªã£ãŸã‚‰
 		if($nextDis < 0) {
 			if(is_array($NextChar)) {
 				return $NextChar[array_rand($NextChar)];
@@ -1024,7 +1024,7 @@ function GetExp($exp,&$team) {
 		foreach($this->team1 as $key => $char) {
 			$this->team1["$key"]->Delay($nextDis);
 		}
-		// ¥¨¥é¡¼¤¬½Ğ¤¿¤é¤³¤ì¤Ç¤¿¤·¤«¤á¤í¡£
+		// ã‚¨ãƒ©ãƒ¼ãŒå‡ºãŸã‚‰ã“ã‚Œã§ãŸã—ã‹ã‚ã‚ã€‚
 		/*
 		if(!is_object($NextChar)) {
 			print("AAA");
@@ -1039,7 +1039,7 @@ function GetExp($exp,&$team) {
 			return $NextChar;
 	}
 //////////////////////////////////////////////////
-//	¥­¥ã¥éÁ´°÷¤Î¹ÔÆ°¥Ç¥£¥ì¥¤¤ò½é´ü²½(=SPD)
+//	ã‚­ãƒ£ãƒ©å…¨å“¡ã®è¡Œå‹•ãƒ‡ã‚£ãƒ¬ã‚¤ã‚’åˆæœŸåŒ–(=SPD)
 	function DelayResetAll() {
 		if(DELAY_TYPE === 0 || DELAY_TYPE === 1)
 		{
@@ -1052,13 +1052,13 @@ function GetExp($exp,&$team) {
 		}
 	}
 //////////////////////////////////////////////////
-//	¥Ç¥£¥ì¥¤¤ò·×»»¤·¤ÆÀßÄê¤¹¤ë
-//	Ã¯¤«¤ÎSPD¤¬ÊÑ²½¤·¤¿¾ì¹ç¸Æ¤ÓÄ¾¤¹
-//	*** µ»¤Î»ÈÍÑÅù¤ÇSPD¤¬ÊÑ²½¤·¤¿ºİ¤Ë¸Æ¤Ó½Ğ¤¹ ***
+//	ãƒ‡ã‚£ãƒ¬ã‚¤ã‚’è¨ˆç®—ã—ã¦è¨­å®šã™ã‚‹
+//	èª°ã‹ã®SPDãŒå¤‰åŒ–ã—ãŸå ´åˆå‘¼ã³ç›´ã™
+//	*** æŠ€ã®ä½¿ç”¨ç­‰ã§SPDãŒå¤‰åŒ–ã—ãŸéš›ã«å‘¼ã³å‡ºã™ ***
 	function SetDelay() {
 		if(DELAY_TYPE === 0)
 		{
-			//SPD¤ÎºÇÂçÃÍ¤È¹ç·×¤òµá¤á¤ë
+			//SPDã®æœ€å¤§å€¤ã¨åˆè¨ˆã‚’æ±‚ã‚ã‚‹
 			foreach($this->team0 as $key => $char) {
 				$TotalSPD	+= $char->SPD;
 				if($MaxSPD < $char->SPD)
@@ -1070,21 +1070,21 @@ function GetExp($exp,&$team) {
 				if($MaxSPD < $char->SPD)
 					$MaxSPD	= $char->SPD;
 			}
-			//Ê¿¶ÑSPD
+			//å¹³å‡SPD
 			$AverageSPD	= $TotalSPD/( count($this->team0) + count($this->team1) );
-			//´ğ½àdelay¤È¤«
+			//åŸºæº–delayã¨ã‹
 			$AveDELAY	= $AverageSPD * DELAY;
-			$this->delay	= $MaxSPD + $AveDELAY;//¤½¤ÎÀïÆ®¤Î´ğ½à¥Ç¥£¥ì¥¤
-			$this->ChangeDelay	= false;//false¤Ë¤·¤Ê¤¤¤ÈËè²óDELAY¤ò·×»»¤·Ä¾¤·¤Æ¤·¤Ş¤¦¡£
+			$this->delay	= $MaxSPD + $AveDELAY;//ãã®æˆ¦é—˜ã®åŸºæº–ãƒ‡ã‚£ãƒ¬ã‚¤
+			$this->ChangeDelay	= false;//falseã«ã—ãªã„ã¨æ¯å›DELAYã‚’è¨ˆç®—ã—ç›´ã—ã¦ã—ã¾ã†ã€‚
 		}
 			else if(DELAY_TYPE === 1)
 		{
 		}
 	}
 //////////////////////////////////////////////////
-//	ÀïÆ®¤Î´ğ½à¥Ç¥£¥ì¥¤¤òºÆ·×»»¤µ¤»¤ë¤è¤¦¤Ë¤¹¤ë¡£
-//	»È¤¦¾ì½ê¤Ï¡¢µ»¤Î»ÈÍÑ¤Ç¥­¥ã¥é¤ÎSPD¤¬ÊÑ²½¤·¤¿ºİ¤Ë»È¤¦¡£
-//	class.skill_effect.php ¤Ç»ÈÍÑ¡£
+//	æˆ¦é—˜ã®åŸºæº–ãƒ‡ã‚£ãƒ¬ã‚¤ã‚’å†è¨ˆç®—ã•ã›ã‚‹ã‚ˆã†ã«ã™ã‚‹ã€‚
+//	ä½¿ã†å ´æ‰€ã¯ã€æŠ€ã®ä½¿ç”¨ã§ã‚­ãƒ£ãƒ©ã®SPDãŒå¤‰åŒ–ã—ãŸéš›ã«ä½¿ã†ã€‚
+//	class.skill_effect.php ã§ä½¿ç”¨ã€‚
 	function ChangeDelay(){
 		if(DELAY_TYPE === 0)
 		{
@@ -1092,23 +1092,23 @@ function GetExp($exp,&$team) {
 		}
 	}
 //////////////////////////////////////////////////
-//	¥Á¡¼¥à¤ÎÌ¾Á°¤òÀßÄê
+//	ãƒãƒ¼ãƒ ã®åå‰ã‚’è¨­å®š
 	function SetTeamName($name1,$name2) {
 		$this->team0_name	= $name1;
 		$this->team1_name	= $name2;
 	}
 //////////////////////////////////////////////////
-//	ÀïÆ®³«»Ï¤·¤¿»ş¤ÎÊ¿¶Ñ¥ì¥Ù¥ë¤ä¹ç·×HPÅù¤ò·×»»¡¦É½¼¨
-//	ÀïÆ®¤Î·Ğ°Ş¤Ï°ì¤Ä¤ÎÉ½¤Ç¹½À®¤µ¤ì¤ë¤¦¤Ã¤¦
+//	æˆ¦é—˜é–‹å§‹ã—ãŸæ™‚ã®å¹³å‡ãƒ¬ãƒ™ãƒ«ã‚„åˆè¨ˆHPç­‰ã‚’è¨ˆç®—ãƒ»è¡¨ç¤º
+//	æˆ¦é—˜ã®çµŒç·¯ã¯ä¸€ã¤ã®è¡¨ã§æ§‹æˆã•ã‚Œã‚‹ã†ã£ã†
 	function BattleHeader() {
-		foreach($this->team0 as $char) {//¥Á¡¼¥à0
-			$team0_total_lv	+= $char->level;//¹ç·×LV
-			$team0_total_hp	+= $char->HP;//¹ç·×HP
-			$team0_total_maxhp	+= $char->MAXHP;//¹ç·×ºÇÂçHP
+		foreach($this->team0 as $char) {//ãƒãƒ¼ãƒ 0
+			$team0_total_lv	+= $char->level;//åˆè¨ˆLV
+			$team0_total_hp	+= $char->HP;//åˆè¨ˆHP
+			$team0_total_maxhp	+= $char->MAXHP;//åˆè¨ˆæœ€å¤§HP
 		}
-		$team0_avelv	= round($team0_total_lv/count($this->team0)*10)/10;//¥Á¡¼¥à0Ê¿¶ÑLV
+		$team0_avelv	= round($team0_total_lv/count($this->team0)*10)/10;//ãƒãƒ¼ãƒ 0å¹³å‡LV
 		$this->team0_ave_lv	= $team0_avelv;
-		foreach($this->team1 as $char) {//¥Á¡¼¥à1
+		foreach($this->team1 as $char) {//ãƒãƒ¼ãƒ 1
 			$team1_total_lv	+= $char->level;
 			$team1_total_hp	+= $char->HP;
 			$team1_total_maxhp	+= $char->MAXHP;
@@ -1132,7 +1132,7 @@ Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
 </td></tr><?
 	}
 //////////////////////////////////////////////////
-//	ÀïÆ®½ªÎ»»ş¤ËÉ½¼¨
+//	æˆ¦é—˜çµ‚äº†æ™‚ã«è¡¨ç¤º
 	function BattleFoot() {
 	/*	print("<tr><td>");
 		dump($this->team0);
@@ -1142,7 +1142,7 @@ Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
 <?
 	}
 //////////////////////////////////////////////////
-//	ÀïÆ®²èÁü¡¦³Æ¥­¥ã¥é¤Î»Ä¤êHP»Ä¤êSPÅù¤òÉ½¼¨
+//	æˆ¦é—˜ç”»åƒãƒ»å„ã‚­ãƒ£ãƒ©ã®æ®‹ã‚ŠHPæ®‹ã‚ŠSPç­‰ã‚’è¡¨ç¤º
 	function BattleState() {
 		static $last;
 		if($last !== $this->actions)
@@ -1151,7 +1151,7 @@ Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
 			return false;
 
 		print("<tr><td colspan=\"2\" class=\"btl_img\">\n");
-		// ÀïÆ®¥¹¥Æ¥Ã¥×½ç¤Ë¼«Æ°¥¹¥¯¥í¡¼¥ë
+		// æˆ¦é—˜ã‚¹ãƒ†ãƒƒãƒ—é †ã«è‡ªå‹•ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«
 		print("<a name=\"s".$this->Scroll."\"></a>\n");
 		print("<div style=\"width:100%;hight:100%;position:relative;\">\n");
 		print('<div style="position:absolute;bottom:0px;right:0px;">'."\n");
@@ -1165,12 +1165,12 @@ Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
 		switch(BTL_IMG_TYPE) {
 			case 0:
 				print('<div style="text-align:center">');
-				$this->ShowGdImage();//²èÁü
+				$this->ShowGdImage();//ç”»åƒ
 				print('</div>');
 				break;
 			case 1:
 			case 2:
-				$this->ShowCssImage();//²èÁü
+				$this->ShowCssImage();//ç”»åƒ
 				break;
 		}
 		print("</div>");
@@ -1178,9 +1178,9 @@ Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
 
 		print("<table style=\"width:100%\"><tbody><tr><td style=\"width:50%\">\n");// team1-backs
 
-		// 	º¸Â¦¥Á¡¼¥à¸å±Ò
+		// 	å·¦å´ãƒãƒ¼ãƒ å¾Œè¡›
 		foreach($this->team1 as $char) {
-			// ¾¤´­¥­¥ã¥é¤¬»àË´¤·¤Æ¤¤¤ë¾ì¹ç¤ÏÈô¤Ğ¤¹
+			// å¬å–šã‚­ãƒ£ãƒ©ãŒæ­»äº¡ã—ã¦ã„ã‚‹å ´åˆã¯é£›ã°ã™
 			if($char->STATE === DEAD && $char->summon == true)
 				continue;
 
@@ -1188,10 +1188,10 @@ Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
 				$char->ShowHpSp();
 		}
 
-		// 	º¸Â¦¥Á¡¼¥àÁ°±Ò
+		// 	å·¦å´ãƒãƒ¼ãƒ å‰è¡›
 		print("</td><td style=\"width:50%\">\n");
 		foreach($this->team1 as $char) {
-			// ¾¤´­¥­¥ã¥é¤¬»àË´¤·¤Æ¤¤¤ë¾ì¹ç¤ÏÈô¤Ğ¤¹
+			// å¬å–šã‚­ãƒ£ãƒ©ãŒæ­»äº¡ã—ã¦ã„ã‚‹å ´åˆã¯é£›ã°ã™
 			if($char->STATE === DEAD && $char->summon == true)
 				continue;
 
@@ -1203,20 +1203,20 @@ Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
 
 		print("</td><td class=\"ttd1 break\">\n");
 
-		// 	±¦Â¦¥Á¡¼¥àÁ°±Ò
+		// 	å³å´ãƒãƒ¼ãƒ å‰è¡›
 		print("<table style=\"width:100%\"><tbody><tr><td style=\"width:50%\">\n");
 		foreach($this->team0 as $char) {
-			// ¾¤´­¥­¥ã¥é¤¬»àË´¤·¤Æ¤¤¤ë¾ì¹ç¤ÏÈô¤Ğ¤¹
+			// å¬å–šã‚­ãƒ£ãƒ©ãŒæ­»äº¡ã—ã¦ã„ã‚‹å ´åˆã¯é£›ã°ã™
 			if($char->STATE === DEAD && $char->summon == true)
 				continue;
 			if($char->POSITION == FRONT)
 				$char->ShowHpSp();
 		}
 
-		// 	±¦Â¦¥Á¡¼¥à¸å±Ò
+		// 	å³å´ãƒãƒ¼ãƒ å¾Œè¡›
 		print("</td><td style=\"width:50%\">\n");
 		foreach($this->team0 as $char) {
-			// ¾¤´­¥­¥ã¥é¤¬»àË´¤·¤Æ¤¤¤ë¾ì¹ç¤ÏÈô¤Ğ¤¹
+			// å¬å–šã‚­ãƒ£ãƒ©ãŒæ­»äº¡ã—ã¦ã„ã‚‹å ´åˆã¯é£›ã°ã™
 			if($char->STATE === DEAD && $char->summon == true)
 				continue;
 			if($char->POSITION != FRONT)
@@ -1227,31 +1227,31 @@ Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
 		print("</td></tr>\n");
 	}
 //////////////////////////////////////////////////
-//	ÀïÆ®²èÁü(²èÁü¤Î¤ß)
+//	æˆ¦é—˜ç”»åƒ(ç”»åƒã®ã¿)
 	function ShowGdImage() {
 		$url	= BTL_IMG."?";
 
-		// HP=0 ¤Î¥­¥ã¥é¤Î²èÁü(³ÈÄ¥»Ò¤¬¤¢¤ì¤Ğ¤½¤ì¤ò¼è¤ë)
+		// HP=0 ã®ã‚­ãƒ£ãƒ©ã®ç”»åƒ(æ‹¡å¼µå­ãŒã‚ã‚Œã°ãã‚Œã‚’å–ã‚‹)
 		$DeadImg	= substr(DEAD_IMG,0,strpos(DEAD_IMG,"."));
 
-		//¥Á¡¼¥à1
+		//ãƒãƒ¼ãƒ 1
 		$f	= 1;
-		$b	= 1;//Á°±Ò¤Î¿ô¡¦¸å±Ò¤Î¿ô¤ò½é´ü²½
+		$b	= 1;//å‰è¡›ã®æ•°ãƒ»å¾Œè¡›ã®æ•°ã‚’åˆæœŸåŒ–
 		foreach($this->team0 as $char) {
-			//²èÁü¤Ï¥­¥ã¥é¤ËÀßÄê¤µ¤ì¤Æ¤¤¤ë²èÁü¤Î³ÈÄ¥»Ò¤Ş¤Ç¤ÎÌ¾Á°
+			//ç”»åƒã¯ã‚­ãƒ£ãƒ©ã«è¨­å®šã•ã‚Œã¦ã„ã‚‹ç”»åƒã®æ‹¡å¼µå­ã¾ã§ã®åå‰
 			if($char->STATE === 1)
 				$img	= $DeadImg;
 			else
 				$img	= substr($char->img,0,strpos($char->img,"."));
-			if($char->POSITION == "front")://Á°±Ò
+			if($char->POSITION == "front")://å‰è¡›
 				$url	.= "f2{$f}=$img&";
 				$f++;
 			else:
-				$url	.= "b2{$b}=$img&";//¸å±Ò
+				$url	.= "b2{$b}=$img&";//å¾Œè¡›
 				$b++;
 			endif;
 		}
-		//¥Á¡¼¥à0
+		//ãƒãƒ¼ãƒ 0
 		$f	= 1;
 		$b	= 1;
 		foreach($this->team1 as $char) {
@@ -1267,10 +1267,10 @@ Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
 				$b++;
 			endif;
 		}
-		print('<img src="'.$url.'">');// ¢«¤³¤ì¤¬É½¼¨¤µ¤ì¤ë¤Î¤ß
+		print('<img src="'.$url.'">');// â†ã“ã‚ŒãŒè¡¨ç¤ºã•ã‚Œã‚‹ã®ã¿
 	}
 //////////////////////////////////////////////////
-//	CSSÀïÆ®²èÌÌ
+//	CSSæˆ¦é—˜ç”»é¢
 	function ShowCssImage() {
 		include_once(BTL_IMG_CSS);
 		$img	= new cssimage();
@@ -1278,12 +1278,12 @@ Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
 		$img->SetTeams($this->team1,$this->team0);
 		$img->SetMagicCircle($this->team1_mc, $this->team0_mc);
 		if(BTL_IMG_TYPE == 2)
-			$img->NoFlip();// CSS²èÁüÈ¿Å¾Ìµ¤·
+			$img->NoFlip();// CSSç”»åƒåè»¢ç„¡ã—
 		$img->Show();
 	}
 //////////////////////////////////////////////////
-//	¤ª¶â¤òÆÀ¤ë¡¢°ì»şÅª¤ËÊÑ¿ô¤ËÊİÂ¸¤¹¤ë¤À¤±¡£
-//	classÆâ¤Ë¥á¥½¥Ã¥Éºî¤ì¡¼
+//	ãŠé‡‘ã‚’å¾—ã‚‹ã€ä¸€æ™‚çš„ã«å¤‰æ•°ã«ä¿å­˜ã™ã‚‹ã ã‘ã€‚
+//	classå†…ã«ãƒ¡ã‚½ãƒƒãƒ‰ä½œã‚Œãƒ¼
 	function GetMoney($money,$team) {
 		if(!$money) return false;
 		$money	= ceil($money * MONEY_RATE);
@@ -1296,13 +1296,13 @@ Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
 		}
 	}
 //////////////////////////////////////////////////
-//	¥æ¡¼¥¶¡¼¥Ç¡¼¥¿¤ËÆÀ¤ë¹ç·×¶â³Û¤òÅÏ¤¹
+//	ãƒ¦ãƒ¼ã‚¶ãƒ¼ãƒ‡ãƒ¼ã‚¿ã«å¾—ã‚‹åˆè¨ˆé‡‘é¡ã‚’æ¸¡ã™
 	function ReturnMoney() {
 		return array($this->team0_money,$this->team1_money);
 	}
 
 //////////////////////////////////////////////////
-//	Á´ÂÎ¤Î»à¼Ô¿ô¤ò¿ô¤¨¤ë...(¥Í¥¯¥í¥Ş¥ó¥µ¤·¤«»È¤Ã¤Æ¤Ê¤¤?)
+//	å…¨ä½“ã®æ­»è€…æ•°ã‚’æ•°ãˆã‚‹...(ãƒã‚¯ãƒ­ãƒãƒ³ã‚µã—ã‹ä½¿ã£ã¦ãªã„?)
 	function CountDeadAll() {
 		$dead	= 0;
 		foreach($this->team0 as $char) {
@@ -1317,7 +1317,7 @@ Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
 	}
 
 //////////////////////////////////////////////////
-//	»ØÄê¥­¥ã¥é¤Î¥Á¡¼¥à¤Î»à¼Ô¿ô¤ò¿ô¤¨¤ë(»ØÄê¤Î¥Á¡¼¥à)¥Í¥¯¥í¥Ş¥ó¥µ¤·¤«»È¤Ã¤Æ¤Ê¤¤?
+//	æŒ‡å®šã‚­ãƒ£ãƒ©ã®ãƒãƒ¼ãƒ ã®æ­»è€…æ•°ã‚’æ•°ãˆã‚‹(æŒ‡å®šã®ãƒãƒ¼ãƒ )ãƒã‚¯ãƒ­ãƒãƒ³ã‚µã—ã‹ä½¿ã£ã¦ãªã„?
 	function CountDead($VarChar) {
 		$dead	= 0;
 
@@ -1340,7 +1340,7 @@ Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
 		return $dead;
 	}
 //////////////////////////////////////////////////
-//	ËâÊı¿Ø¤òÄÉ²Ã¤¹¤ë
+//	é­”æ–¹é™£ã‚’è¿½åŠ ã™ã‚‹
 	function MagicCircleAdd($team,$amount) {
 		if($team == TEAM_0) {
 			$this->team0_mc	+= $amount;
@@ -1355,7 +1355,7 @@ Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
 		}
 	}
 //////////////////////////////////////////////////
-//	ËâÊı¿Ø¤òºï½ü¤¹¤ë
+//	é­”æ–¹é™£ã‚’å‰Šé™¤ã™ã‚‹
 	function MagicCircleDelete($team,$amount) {
 		if($team == TEAM_0) {
 			if($this->team0_mc < $amount)
@@ -1373,9 +1373,9 @@ Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
 }
 
 //////////////////////////////////////////////////
-//	À¸Â¸¼Ô¿ô¤ò¿ô¤¨¤ÆÊÖ¤¹
+//	ç”Ÿå­˜è€…æ•°ã‚’æ•°ãˆã¦è¿”ã™
 function CountAlive($team) {
-	$no	= 0;//½é´ü²½
+	$no	= 0;//åˆæœŸåŒ–
 	foreach($team as $char) {
 		if($char->STATE !== 1)
 			$no++;
@@ -1384,9 +1384,9 @@ function CountAlive($team) {
 }
 
 //////////////////////////////////////////////////
-//	½é´ü¥­¥ã¥éÀ¸Â¸¿ô¤ò¿ô¤¨¤ÆÊÖ¤¹
+//	åˆæœŸã‚­ãƒ£ãƒ©ç”Ÿå­˜æ•°ã‚’æ•°ãˆã¦è¿”ã™
 function CountAliveChars($team) {
-	$no	= 0;//½é´ü²½
+	$no	= 0;//åˆæœŸåŒ–
 	foreach($team as $char) {
 		if($char->STATE === 1)
 			continue;
@@ -1397,13 +1397,13 @@ function CountAliveChars($team) {
 	return $no;
 }
 //////////////////////////////////////////////////
-//	¾¤´Ô·Ï¥¹¥­¥ë¤Ç¸Æ¤Ğ¤ì¤¿¥â¥ó¥¹¥¿¡¼¡£
+//	å¬é‚„ç³»ã‚¹ã‚­ãƒ«ã§å‘¼ã°ã‚ŒãŸãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã€‚
 	function CreateSummon($no,$strength=false) {
 		include_once(DATA_MONSTER);
 		$monster	= CreateMonster($no,1);
 
 		$monster["summon"]	= true;
-		// ¾¤´­¥â¥ó¥¹¥¿¡¼¤Î¶¯²½¡£
+		// å¬å–šãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã®å¼·åŒ–ã€‚
 		if($strength) {
 			$monster["maxhp"]	= round($monster["maxhp"]*$strength);
 			$monster["hp"]	= round($monster["hp"]*$strength);
@@ -1424,7 +1424,7 @@ function CountAliveChars($team) {
 		return $monster;
 	}
 //////////////////////////////////////////////////
-//	Ê£¿ô¤ÎÈ½ÃÇÍ×ÁÇ¤Ç¤ÎÈ½Äê
+//	è¤‡æ•°ã®åˆ¤æ–­è¦ç´ ã§ã®åˆ¤å®š
 //function MultiFactJudge($Keys,$char,$MyTeam,$EnemyTeam) {
 function MultiFactJudge($Keys,$char,$classBattle) {
 	foreach($Keys as $no) {
@@ -1432,11 +1432,11 @@ function MultiFactJudge($Keys,$char,$classBattle) {
 		//$return	= DecideJudge($no,$char,$MyTeam,$EnemyTeam);
 		$return	= DecideJudge($no,$char,$classBattle);
 
-		// È½Äê¤¬Èİ¤Ç¤¢¤Ã¤¿¾ì¹ç½ªÎ»¡£
+		// åˆ¤å®šãŒå¦ã§ã‚ã£ãŸå ´åˆçµ‚äº†ã€‚
 		if(!$return)
 			return false;
 
-		// ÇÛÎó¤òÈæ³Ó¤·¤Æ¶¦ÄÌ¹àÌÜ¤ò»Ä¤¹(¤Û¤ÜÇÑ»ß¤ÎÊı¸ş¤Ø)
+		// é…åˆ—ã‚’æ¯”è¼ƒã—ã¦å…±é€šé …ç›®ã‚’æ®‹ã™(ã»ã¼å»ƒæ­¢ã®æ–¹å‘ã¸)
 		/*
 		if(!$compare && is_array($return))
 			$compare	= $return;

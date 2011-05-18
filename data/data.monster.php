@@ -2,57 +2,57 @@
 //print("<pre>".print_r(CreateMonster(1001),1)."</pre>");
 //////////////////////////////////////////////////
 /*
-	ÊÑ¿ô¤ÏPC¥­¥ã¥é¤È¤Û¤ÜÆ±¤¸ÆâÍÆ¡£
-	ÊÖ¤¹Ä¾Á°¤Ë
-	"monster"	=> "1",//*¥â¥ó¥¹¥¿¡¼¤È¶èÊÌ¤¹¤ë¤¿¤á¡£
-	¤òÄÉ²Ã¤¹¤ë¡£
-	ÁõÈ÷Åù¤¬Ìµ¤¤¤¿¤á
+	å¤‰æ•°ã¯PCã‚­ãƒ£ãƒ©ã¨ã»ã¼åŒã˜å†…å®¹ã€‚
+	è¿”ã™ç›´å‰ã«
+	"monster"	=> "1",//*ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã¨åŒºåˆ¥ã™ã‚‹ãŸã‚ã€‚
+	ã‚’è¿½åŠ ã™ã‚‹ã€‚
+	è£…å‚™ç­‰ãŒç„¡ã„ãŸã‚
 	"atk"	=> array(*,*),
 	"def"	=> array(*,*,*,*),
-	atk,def ¤ÏÄ¾ÀÜ»ØÄê¤¹¤ë¡£
-	"exphold"	=> "**",//»ý¤Ã¤Æ¤ë·Ð¸³ÃÍ
-	"guard"	=> "¸åÎó¤ÎËÉ¸æÊýË¡",
+	atk,def ã¯ç›´æŽ¥æŒ‡å®šã™ã‚‹ã€‚
+	"exphold"	=> "**",//æŒã£ã¦ã‚‹çµŒé¨“å€¤
+	"guard"	=> "å¾Œåˆ—ã®é˜²å¾¡æ–¹æ³•",
 	always,never,life25,life50,life75,prob25,prob50,prob75
 
-	"position"	=> "FRONT or BACK",//»ØÄê¤¹¤ë»ö¤Ç°ÌÃÖ¤ò¸åÎóorÁ°Îó¤Ë¸ÇÄê¤Ç¤­¤ë¡£
-	"itemtable"	=> array("¥¢¥¤¥Æ¥àÈÖ¹æ"=>"³ÎÎ©","¥¢¥¤¥Æ¥àÈÖ¹æ2"=>"³ÎÎ©2"),//Íî¤È¤¹¥¢¥¤¥Æ¥à¡£
-		ÀßÄê¤µ¤ì¤Æ¤¤¤Ê¤¤¾ì¹ç ¢ª ²¿¤âÍî¤È¤µ¤Ê¤¤¡£
-		ÀßÄê¤µ¤ì¤Æ¤¤¤ë¾ì¹ç¡£
-		³ÎÎ©¤Ï x/10000
+	"position"	=> "FRONT or BACK",//æŒ‡å®šã™ã‚‹äº‹ã§ä½ç½®ã‚’å¾Œåˆ—orå‰åˆ—ã«å›ºå®šã§ãã‚‹ã€‚
+	"itemtable"	=> array("ã‚¢ã‚¤ãƒ†ãƒ ç•ªå·"=>"ç¢ºç«‹","ã‚¢ã‚¤ãƒ†ãƒ ç•ªå·2"=>"ç¢ºç«‹2"),//è½ã¨ã™ã‚¢ã‚¤ãƒ†ãƒ ã€‚
+		è¨­å®šã•ã‚Œã¦ã„ãªã„å ´åˆ â†’ ä½•ã‚‚è½ã¨ã•ãªã„ã€‚
+		è¨­å®šã•ã‚Œã¦ã„ã‚‹å ´åˆã€‚
+		ç¢ºç«‹ã¯ x/10000
 		array("500"=>"1011", "1500"=>"2011", "3000"=>"10"),
-		1011=500/10000(5%), 2011=1000/10000(10%), 3000=10/10000(0.01%),¤ÇÍî¤È¤¹¡£
-		Ê£¿ô¸ÄÍî¤È¤¹»ö¤ÏÌµ¤¯¡¢1¸Ä¤·¤«Íî¤È¤µ¤Ê¤¤¡£
+		1011=500/10000(5%), 2011=1000/10000(10%), 3000=10/10000(0.01%),ã§è½ã¨ã™ã€‚
+		è¤‡æ•°å€‹è½ã¨ã™äº‹ã¯ç„¡ãã€1å€‹ã—ã‹è½ã¨ã•ãªã„ã€‚
 
-	ÆÃ¼ì
+	ç‰¹æ®Š
 	"SPECIAL" = array(
-	ÆÃ¼ìÇ½ÎÏ(¥æ¥Ë¥ª¥ó¤ÎÆÇÂÑÀ­¤È¤«)
+	ç‰¹æ®Šèƒ½åŠ›(ãƒ¦ãƒ‹ã‚ªãƒ³ã®æ¯’è€æ€§ã¨ã‹)
 	);
 
-	¢£ ¥æ¥Ë¥ª¥ó¥â¥ó¥¹¥¿¡¼ÀìÍÑ¤ÎÊÑ¿ô
+	â–  ãƒ¦ãƒ‹ã‚ªãƒ³ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼å°‚ç”¨ã®å¤‰æ•°
 
-	"cycle" = ½Ð¸½¼þ´ü
+	"cycle" = å‡ºç¾å‘¨æœŸ
 
-	¥æ¥Ë¥ª¥ó¤È°ì½ï¤Ë½Ð¤ë»¨µû½Ð¸½³ÎÎ¨
-	2¸ÄÌÜ¤ÎÊÑ¿ô¤ÏÌµ»ë
+	ãƒ¦ãƒ‹ã‚ªãƒ³ã¨ä¸€ç·’ã«å‡ºã‚‹é›‘é­šå‡ºç¾ç¢ºçŽ‡
+	2å€‹ç›®ã®å¤‰æ•°ã¯ç„¡è¦–
 	"Slave" = array(
-	Å¨ÈÖ¹æ => (³ÎÎ©,0)
+	æ•µç•ªå· => (ç¢ºç«‹,0)
 	);
-	"land" = ÅÚÃÏ(ÇØ·Ê)
+	"land" = åœŸåœ°(èƒŒæ™¯)
 	
-	É¬¤º½Ð¸½¤¹¤ë»¨µû¤ò»ØÄê¤¹¤ë
-	"SlaveSpecify"	=> array(Å¨ÈÖ¹æ, ),
-	"UnionName" = ¥æ¥Ë¥ª¥ó¤ÎÃÄÂÎ¤ÎÌ¾¾Î
-	"LevelLimit" = ¥ì¥Ù¥ëÀ©¸Â
+	å¿…ãšå‡ºç¾ã™ã‚‹é›‘é­šã‚’æŒ‡å®šã™ã‚‹
+	"SlaveSpecify"	=> array(æ•µç•ªå·, ),
+	"UnionName" = ãƒ¦ãƒ‹ã‚ªãƒ³ã®å›£ä½“ã®åç§°
+	"LevelLimit" = ãƒ¬ãƒ™ãƒ«åˆ¶é™
 
-	»¨µû¤Î½Ð¸½¿ô¤ò»ØÄê¤¹¤ë
-	¾ÊÎ¬¤·¤Æ¤âOK
+	é›‘é­šã®å‡ºç¾æ•°ã‚’æŒ‡å®šã™ã‚‹
+	çœç•¥ã—ã¦ã‚‚OK
 	"SlaveAmount" => "6",
 */
 
 //////////////////////////////////////////////////
 //
 function CreateMonster($no,$over=false) {
-	//Ì¾Á°¤¬½ÅÊ£¤·¤Ê¤¤¤è¤¦¤Ë Slime(A),Slime(B)¤ß¤¿¤¤¤Ë¤¹¤ë¤¿¤á¤ÎÊÑ¿ô
+	//åå‰ãŒé‡è¤‡ã—ãªã„ã‚ˆã†ã« Slime(A),Slime(B)ã¿ãŸã„ã«ã™ã‚‹ãŸã‚ã®å¤‰æ•°
 	static $overlap;
 
 	switch($no) {
@@ -2485,10 +2485,10 @@ $monster	= array(
 "def"	=> array(20,20,50,50),
 "itemtable"	=> array(),
 );	break;
-//-------------------------- 20080315 ÄÉ²Ã
+//-------------------------- 20080315 è¿½åŠ 
 		case 1099:
 $monster	= array(
-"name"	=> "GoblinTank",//UnionÍÑ
+"name"	=> "GoblinTank",//Unionç”¨
 "img"	=> "mon_078.gif",
 "level"	=> "15",
 "exphold"	=> "100",
@@ -2836,7 +2836,7 @@ $monster	= array(
 "def"	=> array(60,30,50,30),
 "itemtable"	=> array("6800"=>"5000","6801"=>"5000",),
 "SPECIAL"	=> array("PoisonResist"=>50,),
-// union ÀìÍÑ
+// union å°‚ç”¨
 "cycle"	=> 60*60*24*3,
 "Slave"	=> array(
 1028	=> array(100,0),
@@ -2847,7 +2847,7 @@ $monster	= array(
 ),
 "land"	=> "swamp",
 "UnionName"	=> "DragonFleets",
-"LevelLimit"=> "250",//¹ç·×¥ì¥Ù¥ë¤ÎÀ©¸Â
+"LevelLimit"=> "250",//åˆè¨ˆãƒ¬ãƒ™ãƒ«ã®åˆ¶é™
 );	break;
 
 		case 2001:
@@ -2878,7 +2878,7 @@ $monster	= array(
 "def"	=> array(80,50,50,70),
 "itemtable"	=> array("5500"=>"3000","5501"=>"3000","5600"=>"4000",),
 "SPECIAL"	=> array("PoisonResist"=>50,),
-// union ÀìÍÑ
+// union å°‚ç”¨
 "cycle"	=> 60*60*8,
 "Slave"	=> array(
 1023	=> array(300,0),
@@ -2917,7 +2917,7 @@ $monster	= array(
 "def"	=> array(70,50,40,40),
 "itemtable"	=> array("1021"=>"9000","6802"=>"1000",),
 "SPECIAL"	=> array("PoisonResist"=>50,),
-// union ÀìÍÑ
+// union å°‚ç”¨
 "cycle"	=> 60*60*12,
 "Slave"	=> array(
 1095	=> array(100,0),
@@ -2958,7 +2958,7 @@ $monster	= array(
 "def"	=> array(60,40,40,40),
 "itemtable"	=> array("5510"=>"2000","5515"=>"2000","5520"=>"2000","5525"=>"2000","5530"=>"2000",),
 "SPECIAL"	=> array("PoisonResist"=>50,),
-// union ÀìÍÑ
+// union å°‚ç”¨
 "cycle"	=> 60*60*10,
 "Slave"	=> array(
 1092	=> array(100,0),
@@ -2999,8 +2999,8 @@ $monster	= array(
 "def"	=> array(40,20,30,20),
 "itemtable"	=> array(),
 "SPECIAL"	=> array("PoisonResist"=>50,),
-// union ÀìÍÑ
-"SlaveSpecify"	=> array(1099, ),//»¨µû»ØÄê
+// union å°‚ç”¨
+"SlaveSpecify"	=> array(1099, ),//é›‘é­šæŒ‡å®š
 "SlaveAmount" => "3",
 "Slave"	=> array(
 1000	=> array(100,0),
@@ -3053,8 +3053,8 @@ $monster	= array(
 "def"	=> array(40,20,30,20),
 "itemtable"	=> array(),
 "SPECIAL"	=> array("PoisonResist"=>50,),
-// union ÀìÍÑ
-"SlaveSpecify"	=> array(1099, ),//»¨µû»ØÄê
+// union å°‚ç”¨
+"SlaveSpecify"	=> array(1099, ),//é›‘é­šæŒ‡å®š
 "SlaveAmount" => "3",
 "Slave"	=> array(
 1000	=> array(100,0),
@@ -3107,8 +3107,8 @@ $monster	= array(
 "def"	=> array(40,20,30,20),
 "itemtable"	=> array(),
 "SPECIAL"	=> array("PoisonResist"=>50,),
-// union ÀìÍÑ
-"SlaveSpecify"	=> array(1099, ),//»¨µû»ØÄê
+// union å°‚ç”¨
+"SlaveSpecify"	=> array(1099, ),//é›‘é­šæŒ‡å®š
 "SlaveAmount" => "3",
 "Slave"	=> array(
 1000	=> array(100,0),
@@ -3162,7 +3162,7 @@ $monster	= array(
 "itemtable"	=> array(),
 "SPECIAL"	=> array("PoisonResist"=>50,),
 "itemtable"	=> array("6601"=>"7000","6602"=>"3000",),
-// union ÀìÍÑ
+// union å°‚ç”¨
 "cycle"	=> 60*60*15,
 "Slave"	=> array(
 1100	=> array(100,0),
@@ -3206,7 +3206,7 @@ $monster	= array(
 "def"	=> array(60,30,30,200),
 "itemtable"	=> array(),
 "SPECIAL"	=> array("PoisonResist"=>50,),
-// union ÀìÍÑ
+// union å°‚ç”¨
 "cycle"	=> 60*60*27,
 "Slave"	=> array(
 1092	=> array(100,0),
@@ -3246,7 +3246,7 @@ $monster	= array(
 "def"	=> array(90,150,40,70),
 "itemtable"	=> array(),
 "SPECIAL"	=> array("PoisonResist"=>80,),
-// union ÀìÍÑ
+// union å°‚ç”¨
 "cycle"	=> 60*60*21,
 "Slave"	=> array(
 1092	=> array(100,0),
@@ -3286,7 +3286,7 @@ $monster	= array(
 "def"	=> array(50,50,50,50),
 "itemtable"	=> array(),
 "SPECIAL"	=> array("PoisonResist"=>60,),
-// union ÀìÍÑ
+// union å°‚ç”¨
 "cycle"	=> 60*60*17,
 "Slave"	=> array(
 1092	=> array(100,0),
@@ -3326,7 +3326,7 @@ $monster	= array(
 "def"	=> array(60,40,50,50),
 "itemtable"	=> array(),
 "SPECIAL"	=> array("PoisonResist"=>50,),
-// union ÀìÍÑ
+// union å°‚ç”¨
 "cycle"	=> 60*60*19,
 "Slave"	=> array(
 1092	=> array(100,0),
@@ -3352,7 +3352,7 @@ $monster	= array(
 
 
 
-//------------------------------------ ¾¤´­ÀìÍÑ 5000
+//------------------------------------ å¬å–šå°‚ç”¨ 5000
 		case 5000:
 $monster	= array(
 "name"	=> "HealRabbit",
@@ -3922,29 +3922,29 @@ $monster	= array(
 	if(!$monster)
 		return false;
 
-	///// ¿§¡¹ÊÑ¿ôÄÉ²Ã¡¦ÊÔ½¸ /////////////////////
+	///// è‰²ã€…å¤‰æ•°è¿½åŠ ãƒ»ç·¨é›† /////////////////////
 
 	if($no < 2000) {
 		$monster["moneyhold"]	= 100;
 	}
 
-	//Ì¾Á°¤¬½ÅÊ£¤·¤Ê¤¤¤è¤¦¤Ë Slime(A),Slime(B)¤ß¤¿¤¤¤Ë¤¹¤ë
+	//åå‰ãŒé‡è¤‡ã—ãªã„ã‚ˆã†ã« Slime(A),Slime(B)ã¿ãŸã„ã«ã™ã‚‹
 	if($over) {
-		$letter	= "A";//Ê¸»ú(¿ô»ú¤Ç¤â¤ª£ë)
+		$letter	= "A";//æ–‡å­—(æ•°å­—ã§ã‚‚ãŠï½‹)
 		$letter	= chr(ord($letter) + $overlap[$no]);
-		$overlap[$no]++;//·«¾å¤²
-		$style	= "({$letter})";//¤É¤ó¤Ê´¶¤¸¤Ç²Ã¤¨¤ë¤« ¤³¤ì¤À¤È"(B)"¤ß¤¿¤¤¤Ë¤Ê¤ë
-		$monster["name"]	.= $style;//¼ÂºÝ¤ËÌ¾Á°¤Î¸å¤í¤ËÉÕ¤±²Ã¤¨¤ë
+		$overlap[$no]++;//ç¹°ä¸Šã’
+		$style	= "({$letter})";//ã©ã‚“ãªæ„Ÿã˜ã§åŠ ãˆã‚‹ã‹ ã“ã‚Œã ã¨"(B)"ã¿ãŸã„ã«ãªã‚‹
+		$monster["name"]	.= $style;//å®Ÿéš›ã«åå‰ã®å¾Œã‚ã«ä»˜ã‘åŠ ãˆã‚‹
 	}
 
-	//Á°±Ò¸å±Ò¤¬ÀßÄê¤µ¤ì¤Æ¤¤¤Ê¤±¤ì¤ÐÀßÄê¤¹¤ë
-	mt_srand();//Íð¿ô½é´ü²½
-	if(!$monster["position"]) {//Á°Îó¸åÎó¤ÎÀßÄê
+	//å‰è¡›å¾Œè¡›ãŒè¨­å®šã•ã‚Œã¦ã„ãªã‘ã‚Œã°è¨­å®šã™ã‚‹
+	mt_srand();//ä¹±æ•°åˆæœŸåŒ–
+	if(!$monster["position"]) {//å‰åˆ—å¾Œåˆ—ã®è¨­å®š
 		$monster["position"]	= (mt_rand(0,1) ? "front" : "back" );
 		$monster["posed"]	= true;
 	}
 
-	// Íî¤È¤¹¥¢¥¤¥Æ¥à¤ò¤â¤¿¤»¤ë
+	// è½ã¨ã™ã‚¢ã‚¤ãƒ†ãƒ ã‚’ã‚‚ãŸã›ã‚‹
 	if(is_array($monster["itemtable"])) {
 		$prob	= mt_rand(1,10000);
 		$sum	= 0;

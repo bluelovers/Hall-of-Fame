@@ -1,23 +1,23 @@
 <?php
 /*
-	�ɤä����������Ʋ���ɽ������Ƥʤ��Τ�ɬ�פʤ��ľ����
+	どっかおかしくて画像表示されてないので必要ならば直して
 */
 include_once(DATA_MONSTER);
 ?>
 <div style="margin:0 15px">
-<h4>��󥹥���</h4>
+<h4>モンスター</h4>
 <table class="align-center" style="width:740px" cellspacing="0">
 <?php
 $List	= array(
-1000	=> array("grass","SP������Ȥ��ϡ���������򤿤ޤˤ��Ƥ������١�"),
-1001	=> array("grass","SP������Ȥ��ϡ���������򤿤ޤˤ��Ƥ������١�"),
-1002	=> array("grass","����˲����Ф�����򤹤롣"),
-1003	=> array("grass","���������ʶ�����"),
-1005	=> array("grass","��٥뤬�㤤�ȶ��������롣"),
-1009	=> array("grass","HP���⤤��"),
-1012	=> array("cave","��֤�Ƥ�ǵ۷칶��򤷤Ƥ��롣"),
-1014	=> array("cave","��ˡ�ǹ��⤷�ʤ����ݤ��ˤ�����"),
-1017	=> array("cave","ƶ���Υܥ����ݤ��ȱ��˹Ԥ���褦�ˤʤ롣"),
+1000	=> array("grass","SPがあるときは、強い攻撃をたまにしてくる程度。"),
+1001	=> array("grass","SPがあるときは、強い攻撃をたまにしてくる程度。"),
+1002	=> array("grass","後列に押し出す攻撃をする。"),
+1003	=> array("grass","そこそこな強さ。"),
+1005	=> array("grass","レベルが低いと強く感じる。"),
+1009	=> array("grass","HPが高い。"),
+1012	=> array("cave","仲間を呼んで吸血攻撃をしてくる。"),
+1014	=> array("cave","魔法で攻撃しないと倒しにくい。"),
+1017	=> array("cave","洞窟のボス。倒すと奥に行けるようになる。"),
 );
 $Detail	= "<tr>
 <td class=\"td6\">Image</td>

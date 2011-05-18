@@ -1,79 +1,79 @@
 <?php
 // game setting
-define("TITLE","Hall of Fame");//¥¿¥¤¥È¥ë
-define("MAX_TIME",1000);//ºÇÂçTime
-define("TIME_GAIN_DAY",6000);//1Æü¤Ë²óÉü¤¹¤ëÁíTime
-define("MAX_CHAR",10);//ºÇÂç½ê»ý¥­¥ã¥é¿ô
-define("MAX_USERS",500);//ºÇÂçÅÐÏ¿¼Ô¿Í¿ô
-define("ABANDONED",60*60*24*14);//¥²¡¼¥à¤òÊü´þ¤µ¤ì¤¿¤È¤ß¤Ê¤¹´ü´Ö
-define("CONTROL_PERIOD",60*60*12);//Äê´ü´ÉÍý¤Î¼þ´ü
-define("RECORD_IP",1);//IP¤òµ­Ï¿¤¹¤ë¤«¡©(0=NO 1=YES)
+define("TITLE","Hall of Fame");//ã‚¿ã‚¤ãƒˆãƒ«
+define("MAX_TIME",1000);//æœ€å¤§Time
+define("TIME_GAIN_DAY",6000);//1æ—¥ã«å›žå¾©ã™ã‚‹ç·Time
+define("MAX_CHAR",10);//æœ€å¤§æ‰€æŒã‚­ãƒ£ãƒ©æ•°
+define("MAX_USERS",500);//æœ€å¤§ç™»éŒ²è€…äººæ•°
+define("ABANDONED",60*60*24*14);//ã‚²ãƒ¼ãƒ ã‚’æ”¾æ£„ã•ã‚ŒãŸã¨ã¿ãªã™æœŸé–“
+define("CONTROL_PERIOD",60*60*12);//å®šæœŸç®¡ç†ã®å‘¨æœŸ
+define("RECORD_IP",1);//IPã‚’è¨˜éŒ²ã™ã‚‹ã‹ï¼Ÿ(0=NO 1=YES)
 
 // other
 define("DEBUG",0);// 0=OFF
-define("CHAR_NO_IMAGE","NoImage.gif");// ¥­¥ã¥é²èÁü¤¬¤Ê¤¤¾ì¹çÉ½¼¨¤µ¤ì¤ë²èÁü
+define("CHAR_NO_IMAGE","NoImage.gif");// ã‚­ãƒ£ãƒ©ç”»åƒãŒãªã„å ´åˆè¡¨ç¤ºã•ã‚Œã‚‹ç”»åƒ
 define("SESSION_SWITCH",1);// 0=OFF
-define("CHAR_ROW",5);// 1²èÌÌ¤Î¥­¥ã¥é¤ÎÎó¿ô
-define("CRYPT_KEY",'$1$12345678$');//¥Ñ¥¹Éä¹æ²½¥­¡¼(¥²¡¼¥àÀßÃÖ¸å¤ÏÊÑ¤¨¤ë¤Ê)
+define("CHAR_ROW",5);// 1ç”»é¢ã®ã‚­ãƒ£ãƒ©ã®åˆ—æ•°
+define("CRYPT_KEY",'$1$12345678$');//ãƒ‘ã‚¹ç¬¦å·åŒ–ã‚­ãƒ¼(ã‚²ãƒ¼ãƒ è¨­ç½®å¾Œã¯å¤‰ãˆã‚‹ãª)
 define("COOKIE_EXPIRE",60*60*24*3);//60*60*24*3
-define("UP_PASS","password");// ¹¹¿·¾ðÊó¤Î¤ß¤·¤«»ÈÍÑ¤µ¤ì¤Ê¤¤
+define("UP_PASS","password");// æ›´æ–°æƒ…å ±ã®ã¿ã—ã‹ä½¿ç”¨ã•ã‚Œãªã„
 
-define("START_TIME",900);//¥²¡¼¥à³«»Ï»þ¤Ë»ý¤Ã¤Æ¤ëTime
-define("START_MONEY",50000);//½é´ü½ê»ý¶â
-define("MAX_STATUS",250);//¥¹¥Æ¡¼¥¿¥¹ºÇÂçÃÍ
-define("GET_STATUS_POINT",5);//LVUP¤·¤¿»þ¤ËÆÀ¤ë¥¹¥Æ¥Ý¤Î¿ôÃÍ
-define("GET_SKILL_POINT",2);//LVUP¤·¤¿»þ¤ËÆÀ¤ëµ»¥Ý¤Î¿ôÃÍ
-define("MAX_LEVEL",50);//ºÇÂç¥ì¥Ù¥ë
-define("SELLING_PRICE",1/5);//ÇäÃÍ¤¬ÀßÄê¤µ¤ì¤Æ¤¤¤Ê¤¤¥¢¥¤¥Æ¥à¤ÎÇäÃÍ¢ª(ÇãÃÍ*SELLING_PRICE)
-define("REFINE_LIMIT",10);//ÀºÏ£¸Â³¦ÃÍ
+define("START_TIME",900);//ã‚²ãƒ¼ãƒ é–‹å§‹æ™‚ã«æŒã£ã¦ã‚‹Time
+define("START_MONEY",50000);//åˆæœŸæ‰€æŒé‡‘
+define("MAX_STATUS",250);//ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹æœ€å¤§å€¤
+define("GET_STATUS_POINT",5);//LVUPã—ãŸæ™‚ã«å¾—ã‚‹ã‚¹ãƒ†ãƒã®æ•°å€¤
+define("GET_SKILL_POINT",2);//LVUPã—ãŸæ™‚ã«å¾—ã‚‹æŠ€ãƒã®æ•°å€¤
+define("MAX_LEVEL",50);//æœ€å¤§ãƒ¬ãƒ™ãƒ«
+define("SELLING_PRICE",1/5);//å£²å€¤ãŒè¨­å®šã•ã‚Œã¦ã„ãªã„ã‚¢ã‚¤ãƒ†ãƒ ã®å£²å€¤â†’(è²·å€¤*SELLING_PRICE)
+define("REFINE_LIMIT",10);//ç²¾éŒ¬é™ç•Œå€¤
 
-define("EXP_RATE",1);//·Ð¸³ÃÍ¤â¤é¤¨¤ëÇÜÎ¨
-define("MONEY_RATE",1);//¤ª¶â¤â¤é¤¨¤ëÇÜÎ¨
+define("EXP_RATE",1);//çµŒé¨“å€¤ã‚‚ã‚‰ãˆã‚‹å€çŽ‡
+define("MONEY_RATE",1);//ãŠé‡‘ã‚‚ã‚‰ãˆã‚‹å€çŽ‡
 
-define("NEW_NAME_COST",300000);//¿·¤·¤¤Ì¾Á°¤ËÊÑ¹¹¤¹¤ë¤Î¤ËÉ¬Í×¤Ê¤ª¶â
-define("BBS_OUT","");//³°ÉôBBS¤¬¤¢¤ì¤Ð¤½¤Î¥¢¥É¥ì¥¹¡¢Ìµ¤±¤ì¤Ð¶õÍó¢ª""
-define("BBS_BOTTOM_TOGGLE",0);// ²¼¤Ë¤¢¤Ã¤¿°ì¹Ô·Ç¼¨ÈÄ(0=OFF)
-define("AUCTION_TOGGLE",0);// ¥ª¡¼¥¯¥·¥ç¥ó¤òµ¡Ç½¤µ¤»¤ë¤«(0=OFF 1=ON)
-define("AUCTION_EXHIBIT_TOGGLE",0);// ¥ª¡¼¥¯¥·¥ç¥ó¤Î½ÐÉÊ¤ò²ÄÇ½¤Ë¤¹¤ë¤«(0=OFF 1=ON)
-define("JUDGE_LIST_AUTO_LOAD",0);//¥Ñ¥¿¡¼¥óÈ½ÃÇ¤Î¥ê¥¹¥È¤ò 1=¼«Æ° 0=¼êÆ°ÄÉ²Ã(¼ã´³·Ú¤¤)
-define("AUCTION_MAX",100);//¥ª¡¼¥¯¥·¥ç¥óÆ±»þ¤Ë½ÐÉÊ¤Ç¤­¤ëÉÊ¿ô¡£
+define("NEW_NAME_COST",300000);//æ–°ã—ã„åå‰ã«å¤‰æ›´ã™ã‚‹ã®ã«å¿…è¦ãªãŠé‡‘
+define("BBS_OUT","");//å¤–éƒ¨BBSãŒã‚ã‚Œã°ãã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã€ç„¡ã‘ã‚Œã°ç©ºæ¬„â†’""
+define("BBS_BOTTOM_TOGGLE",0);// ä¸‹ã«ã‚ã£ãŸä¸€è¡ŒæŽ²ç¤ºæ¿(0=OFF)
+define("AUCTION_TOGGLE",0);// ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ã‚’æ©Ÿèƒ½ã•ã›ã‚‹ã‹(0=OFF 1=ON)
+define("AUCTION_EXHIBIT_TOGGLE",0);// ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ã®å‡ºå“ã‚’å¯èƒ½ã«ã™ã‚‹ã‹(0=OFF 1=ON)
+define("JUDGE_LIST_AUTO_LOAD",0);//ãƒ‘ã‚¿ãƒ¼ãƒ³åˆ¤æ–­ã®ãƒªã‚¹ãƒˆã‚’ 1=è‡ªå‹• 0=æ‰‹å‹•è¿½åŠ (è‹¥å¹²è»½ã„)
+define("AUCTION_MAX",100);//ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³åŒæ™‚ã«å‡ºå“ã§ãã‚‹å“æ•°ã€‚
 
 // ranking
-define("RANK_TEAM_SET_TIME",60*60*48);//¥é¥ó¥­¥ó¥°¤Î¥Á¡¼¥àÀßÄê¤Ç¤­¤ë¼þ´ü
-define("RANK_BATTLE_NEXT_LOSE",60*60*24);//¥é¥ó¥­¥ó¥°Àï Éé¤±¤¿¤È¤­¼¡Àï¤¨¤ë¤Þ¤Ç
-define("RANK_BATTLE_NEXT_WIN",60*1);//¥é¥ó¥­¥ó¥°Àï ¾¡¤Ã¤¿¤È¤­¼¡Àï¤¨¤ë¤Þ¤Ç
+define("RANK_TEAM_SET_TIME",60*60*48);//ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®ãƒãƒ¼ãƒ è¨­å®šã§ãã‚‹å‘¨æœŸ
+define("RANK_BATTLE_NEXT_LOSE",60*60*24);//ãƒ©ãƒ³ã‚­ãƒ³ã‚°æˆ¦ è² ã‘ãŸã¨ãæ¬¡æˆ¦ãˆã‚‹ã¾ã§
+define("RANK_BATTLE_NEXT_WIN",60*1);//ãƒ©ãƒ³ã‚­ãƒ³ã‚°æˆ¦ å‹ã£ãŸã¨ãæ¬¡æˆ¦ãˆã‚‹ã¾ã§
 
 // battle setting
-define("NORMAL_BATTLE_TIME",100);//ÄÌ¾ï¤Î¥â¥ó¥¹¥¿¡¼¤È¤ÎÀïÆ®¤Ç¾ÃÈñ¤¹¤ë»þ´Ö
-define("ENEMY_INCREASE",0);//Å¨¤ÎÁý°÷(¥é¥ó¥À¥à)
-define("BATTLE_MAX_TURNS",100);//ÀïÆ®¤ÎºÇÂç¹ÔÆ°²ó¿ô(ÀïÆ®¤¬¿ôÃÍ°Ê¾åÄ¹°ú¤¯¤È½ªÎ»¤µ¤»¤ë)
-define("TURN_EXTENDS",20);// ·èÃå¤¬¤Ä¤­¤½¤¦¤Ê¾ì¹ç±äÄ¹¤¹¤ë¥¿¡¼¥ó¿ô¡£
-define("BATTLE_MAX_EXTENDS",100);//±äÄ¹¤·¤¿¾ì¹ç¤ÎºÇÂç¹ÔÆ°²ó¿ô(±äÄ¹¤Î¸Â³¦)
-define("BTL_IMG_TYPE",2);// (0=GD 1=CSS 2=È¿Å¾ºÑ²èÁü»ÈÍÑCSS)
-define("BTL_IMG","./image.php");// GDÉ½¼¨
-define("BATTLE_STAT_TURNS",10);// ÀïÆ®¤Î¾õ¶·¤òÉ½¼¨¤¹¤ë´Ö³Ö
-define("DEAD_IMG","mon_145.gif");// HP=0 ¤Î¥­¥ã¥é¤Î²èÁü
-define("MAX_BATTLE_LOG",100);// ÀïÆ®¥í¥°¤òÊÝÂ¸¤¹¤ë·ï¿ô
-define("MAX_BATTLE_LOG_UNION",100);// ÀïÆ®¥í¥°¤òÊÝÂ¸¤¹¤ë·ï¿ô
-define("MAX_BATTLE_LOG_RANK",100);// ÀïÆ®¥í¥°¤òÊÝÂ¸¤¹¤ë·ï¿ô
-define("MAX_STATUS_MAXIMUM",2500);// ½é´üÃÍxÃÍ(%) ÀïÆ®Ãæ¤ÎÇ½ÎÏ¾å¾º¤Ç¾å¤¬¤ë¿ôÃÍ¤Î¸Â³¦ÃÍ(1000%=10ÇÜ¤¬¸Â³¦)
+define("NORMAL_BATTLE_TIME",100);//é€šå¸¸ã®ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã¨ã®æˆ¦é—˜ã§æ¶ˆè²»ã™ã‚‹æ™‚é–“
+define("ENEMY_INCREASE",0);//æ•µã®å¢—å“¡(ãƒ©ãƒ³ãƒ€ãƒ )
+define("BATTLE_MAX_TURNS",100);//æˆ¦é—˜ã®æœ€å¤§è¡Œå‹•å›žæ•°(æˆ¦é—˜ãŒæ•°å€¤ä»¥ä¸Šé•·å¼•ãã¨çµ‚äº†ã•ã›ã‚‹)
+define("TURN_EXTENDS",20);// æ±ºç€ãŒã¤ããã†ãªå ´åˆå»¶é•·ã™ã‚‹ã‚¿ãƒ¼ãƒ³æ•°ã€‚
+define("BATTLE_MAX_EXTENDS",100);//å»¶é•·ã—ãŸå ´åˆã®æœ€å¤§è¡Œå‹•å›žæ•°(å»¶é•·ã®é™ç•Œ)
+define("BTL_IMG_TYPE",2);// (0=GD 1=CSS 2=åè»¢æ¸ˆç”»åƒä½¿ç”¨CSS)
+define("BTL_IMG","./image.php");// GDè¡¨ç¤º
+define("BATTLE_STAT_TURNS",10);// æˆ¦é—˜ã®çŠ¶æ³ã‚’è¡¨ç¤ºã™ã‚‹é–“éš”
+define("DEAD_IMG","mon_145.gif");// HP=0 ã®ã‚­ãƒ£ãƒ©ã®ç”»åƒ
+define("MAX_BATTLE_LOG",100);// æˆ¦é—˜ãƒ­ã‚°ã‚’ä¿å­˜ã™ã‚‹ä»¶æ•°
+define("MAX_BATTLE_LOG_UNION",100);// æˆ¦é—˜ãƒ­ã‚°ã‚’ä¿å­˜ã™ã‚‹ä»¶æ•°
+define("MAX_BATTLE_LOG_RANK",100);// æˆ¦é—˜ãƒ­ã‚°ã‚’ä¿å­˜ã™ã‚‹ä»¶æ•°
+define("MAX_STATUS_MAXIMUM",2500);// åˆæœŸå€¤xå€¤(%) æˆ¦é—˜ä¸­ã®èƒ½åŠ›ä¸Šæ˜‡ã§ä¸ŠãŒã‚‹æ•°å€¤ã®é™ç•Œå€¤(1000%=10å€ãŒé™ç•Œ)
 
-define("DELAY_TYPE",1);// 0=µì 1=¿·
+define("DELAY_TYPE",1);// 0=æ—§ 1=æ–°
 // DELAY_TYPE=0
-define("DELAY",2.5);//¥Ç¥£¥ì¥¤(2°Ê¾å¤¬ÌÜ°Â¡£¿ôÃÍ¤¬Äã¤¤¤ÈSPD¤¬¹â¤¤¿Í¤ÏÍ­Íø)
+define("DELAY",2.5);//ãƒ‡ã‚£ãƒ¬ã‚¤(2ä»¥ä¸ŠãŒç›®å®‰ã€‚æ•°å€¤ãŒä½Žã„ã¨SPDãŒé«˜ã„äººã¯æœ‰åˆ©)
 // DELAY_TYPE=1
-define("DELAY_BASE",5);// ¿ôÃÍ¤¬¹â¤¤¤Èº¹¤¬¤Ä¤«¤Ê¤¯¤Ê¤ë¡£
+define("DELAY_BASE",5);// æ•°å€¤ãŒé«˜ã„ã¨å·®ãŒã¤ã‹ãªããªã‚‹ã€‚
 
 // union
-define("UNION_BATTLE_TIME",10);//¥æ¥Ë¥ª¥óÀï¤Ç¾ÃÈñ¤¹¤ë»þ´Ö
-define("UNION_BATTLE_NEXT",60*20);//Union¼¡¤ÎÀïÆ®¤Þ¤Ç¤Î´Ö³Ö
+define("UNION_BATTLE_TIME",10);//ãƒ¦ãƒ‹ã‚ªãƒ³æˆ¦ã§æ¶ˆè²»ã™ã‚‹æ™‚é–“
+define("UNION_BATTLE_NEXT",60*20);//Unionæ¬¡ã®æˆ¦é—˜ã¾ã§ã®é–“éš”
 
 // files
 define("INDEX","index.php");
 
 // CLASS FILE
 define("CLASS_DIR", "./class/");
-define("BTL_IMG_CSS", CLASS_DIR."class.css_btl_image.php");// CSSÉ½¼¨
+define("BTL_IMG_CSS", CLASS_DIR."class.css_btl_image.php");// CSSè¡¨ç¤º
 define("CLASS_MAIN", CLASS_DIR."class.main.php");
 define("CLASS_USER", CLASS_DIR."class.user.php");
 define("CLASS_CHAR", CLASS_DIR."class.char.php");
@@ -115,17 +115,17 @@ define("GAME_DATA_MONSTER", DATA_DIR."data.gd_monster.php");
 
 define("TUTORIAL", DATA_DIR."data.tutorial.php");
 // DAT
-define("AUCTION_ITEM","./auction.dat");//¥¢¥¤¥Æ¥à¥ª¡¼¥¯¥·¥ç¥óÍÑ¤Î¥Õ¥¡¥¤¥ë
-define("AUCTION_ITEM_LOG","./auction_log.dat");//¥¢¥¤¥Æ¥à¥ª¡¼¥¯¥·¥ç¥óÍÑ¤Î¥í¥°¥Õ¥¡¥¤¥ë
+define("AUCTION_ITEM","./auction.dat");//ã‚¢ã‚¤ãƒ†ãƒ ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ç”¨ã®ãƒ•ã‚¡ã‚¤ãƒ«
+define("AUCTION_ITEM_LOG","./auction_log.dat");//ã‚¢ã‚¤ãƒ†ãƒ ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ç”¨ã®ãƒ­ã‚°ãƒ•ã‚¡ã‚¤ãƒ«
 
 define("REGISTER","./register.dat");
 define("UPDATE","./update.dat");
-define("CTRL_TIME_FILE","./ctrltime.dat");//Äê´ü´ÉÍý¤Î¤¿¤á¤Î»þ´Öµ­²±¥Õ¥¡¥¤¥ë
+define("CTRL_TIME_FILE","./ctrltime.dat");//å®šæœŸç®¡ç†ã®ãŸã‚ã®æ™‚é–“è¨˜æ†¶ãƒ•ã‚¡ã‚¤ãƒ«
 define("RANKING","./ranking.dat");
 define("BBS_BOTTOM","./bbs.dat");
 define("BBS_TOWN","./bbs_town.dat");
-define("MANAGE_LOG_FILE","./managed.dat");//Äê´ü´ÉÍýµ­Ï¿¥Õ¥¡¥¤¥ë
-define("USER_NAME","./username.dat");//Ì¾Á°ÊÝÂ¸¥Õ¥¡¥¤¥ë
+define("MANAGE_LOG_FILE","./managed.dat");//å®šæœŸç®¡ç†è¨˜éŒ²ãƒ•ã‚¡ã‚¤ãƒ«
+define("USER_NAME","./username.dat");//åå‰ä¿å­˜ãƒ•ã‚¡ã‚¤ãƒ«
 
 // dir
 define("IMG_CHAR","./image/char/");
@@ -141,7 +141,7 @@ define("LOG_BATTLE_NORMAL","./log/normal/");
 define("LOG_BATTLE_RANK","./log/rank/");
 define("LOG_BATTLE_UNION","./log/union/");
 
-// ¾õÂÖÄêµÁ
+// çŠ¶æ…‹å®šç¾©
 define("FRONT","front");
 define("BACK","back");
 

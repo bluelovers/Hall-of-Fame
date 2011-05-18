@@ -2,11 +2,11 @@
 include_once("class.char.php");
 class monster extends char{
 
-	// ¥â¥ó¥¹¥¿¡¼ÀìÍÑ¤ÎÊÑ¿ô
+	// ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼å°‚ç”¨ã®å¤‰æ•°
 	var $monster = true;
-	var $exphold;//·Ð¸³ÃÍ
-	var $moneyhold;//¤ª¶â
-	var $itemdrop;//Íî¤È¤¹¥¢¥¤¥Æ¥à
+	var $exphold;//çµŒé¨“å€¤
+	var $moneyhold;//ãŠé‡‘
+	var $itemdrop;//è½ã¨ã™ã‚¢ã‚¤ãƒ†ãƒ 
 	var $summon;
 //////////////////////////////////////////////////
 //	
@@ -15,25 +15,25 @@ class monster extends char{
 
 	}
 //////////////////////////////////////////////////
-//	¥­¥ã¥é¥Ç¡¼¥¿¤ÎÊÝÂ¸
+//	ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿ã®ä¿å­˜
 	function SaveCharData() {
-		// ¥â¥ó¥¹¥¿¡¼¤ÏÊÝÂ¸¤·¤Ê¤¤¡£
+		// ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã¯ä¿å­˜ã—ãªã„ã€‚
 		return false;
 	}
 
 //////////////////////////////////////////////////
-//	À¸Â¸¾õÂÖ¤Ë¤¹¤ë¡£
+//	ç”Ÿå­˜çŠ¶æ…‹ã«ã™ã‚‹ã€‚
 	function GetNormal($mes=false) {
 		if($this->STATE === ALIVE)
 			return true;
-		if($this->STATE === DEAD) {//»àË´¾õÂÖ
+		if($this->STATE === DEAD) {//æ­»äº¡çŠ¶æ…‹
 			if($this->summon) return true;
 			if($mes)
 				print($this->Name(bold).' <span class="recover">revived</span>!<br />'."\n");
 			$this->STATE = 0;
 			return true;
 		}
-		if($this->STATE === POISON) {//ÆÇ¾õÂÖ
+		if($this->STATE === POISON) {//æ¯’çŠ¶æ…‹
 			if($mes)
 				print($this->Name(bold)."'s <span class=\"spdmg\">poison</span> has cured.<br />\n");
 			$this->STATE = 0;
@@ -41,9 +41,9 @@ class monster extends char{
 		}
 	}
 //////////////////////////////////////////////////
-//	¤·¤Ü¡¼¤·¤Æ¤ë¤«¤É¤¦¤«³ÎÇ§¤¹¤ë¡£
+//	ã—ã¼ãƒ¼ã—ã¦ã‚‹ã‹ã©ã†ã‹ç¢ºèªã™ã‚‹ã€‚
 	function CharJudgeDead() {
-		if($this->HP < 1 && $this->STATE !== DEAD) {//¤·¤Ü¡¼
+		if($this->HP < 1 && $this->STATE !== DEAD) {//ã—ã¼ãƒ¼
 			$this->STATE	= DEAD;
 			$this->HP	= 0;
 			$this->ResetExpect();
@@ -53,7 +53,7 @@ class monster extends char{
 		}
 	}
 //////////////////////////////////////////////////
-//	¥­¥ã¥é¤ÎÊÑ¿ô¤ò¥»¥Ã¥È¤¹¤ë¡£
+//	ã‚­ãƒ£ãƒ©ã®å¤‰æ•°ã‚’ã‚»ãƒƒãƒˆã™ã‚‹ã€‚
 	function SetCharData($monster) {
 
 		$this->name		= $monster["name"];
@@ -83,7 +83,7 @@ class monster extends char{
 		if(is_array($monster["action"]))
 			$this->action	= $monster["action"];
 
-		//¥â¥ó¥¹¥¿¡¼ÀìÍÑ
+		//ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼å°‚ç”¨
 		//$this->monster		= $monster["monster"];
 		$this->monster		= true;
 		$this->summon		= $monster["summon"];
@@ -95,13 +95,13 @@ class monster extends char{
 		$this->SPECIAL	= $monster["SPECIAL"];
 	}
 //////////////////////////////////////////////////
-//	ÀïÆ®ÍÑ¤ÎÊÑ¿ô
+//	æˆ¦é—˜ç”¨ã®å¤‰æ•°
 	function SetBattleVariable($team=false) {
-		// ºÆÆÉ¤ß¹þ¤ß¤òËÉ»ß¤Ç¤­¤ë ¤«?
+		// å†èª­ã¿è¾¼ã¿ã‚’é˜²æ­¢ã§ãã‚‹ ã‹?
 		if(isset($this->IMG))
 			return false;
 
-		$this->team		= $team;//¤³¤ìÉ¬Í×¤«?
+		$this->team		= $team;//ã“ã‚Œå¿…è¦ã‹?
 		$this->IMG		= $this->img;
 		$this->MAXHP	= $this->maxhp;
 		$this->HP		= $this->hp;
@@ -113,11 +113,11 @@ class monster extends char{
 		$this->SPD		= $this->spd + $this->P_SPD;
 		$this->LUK		= $this->luk + $this->P_LUK;
 		$this->POSITION	= $this->position;
-		$this->STATE	= ALIVE;//À¸Â¸¾õÂÖ¤Ë¤¹¤ë
+		$this->STATE	= ALIVE;//ç”Ÿå­˜çŠ¶æ…‹ã«ã™ã‚‹
 
-		$this->expect	= false;//(¿ôÃÍ=±Ó¾§Ãæ false=ÂÔµ¡Ãæ)
-		$this->ActCount	= 0;//¹ÔÆ°²ó¿ô
-		$this->JdgCount	= array();//·èÄê¤·¤¿È½ÃÇ¤Î²ó¿ô
+		$this->expect	= false;//(æ•°å€¤=è© å”±ä¸­ false=å¾…æ©Ÿä¸­)
+		$this->ActCount	= 0;//è¡Œå‹•å›žæ•°
+		$this->JdgCount	= array();//æ±ºå®šã—ãŸåˆ¤æ–­ã®å›žæ•°
 	}
 }
 ?>

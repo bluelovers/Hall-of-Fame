@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Char List(test)</title>
 <link rel="stylesheet" href="./basis.css" type="text/css">
 <link rel="stylesheet" href="./style.css" type="text/css">

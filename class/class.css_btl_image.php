@@ -1,11 +1,11 @@
 <?php
 /*
-	¥¹¥¿¥¤¥ë¥·¡¼¥È¤Ç²èÁü?ÎÎ°è?È¿Å¾²ÄÇ½¤À¤Ã¤¿¤Î¤ò»×¤¤½Ğ¤·¤¿¤Î¤Ç
-	¤½¤ì¤òÍÑ¤¤¤ÆÀïÆ®²èÌÌ¤òºî¤ë¡£
-	¤¿¤À¤·¥Ö¥é¥¦¥¶¤Ë¤è¤Ã¤Æ¤Ï¾å¼ê¤¯É½¼¨¤µ¤ì¤Ê¤¤¤È»×¤¦¡£
+	ã‚¹ã‚¿ã‚¤ãƒ«ã‚·ãƒ¼ãƒˆã§ç”»åƒ?é ˜åŸŸ?åè»¢å¯èƒ½ã ã£ãŸã®ã‚’æ€ã„å‡ºã—ãŸã®ã§
+	ãã‚Œã‚’ç”¨ã„ã¦æˆ¦é—˜ç”»é¢ã‚’ä½œã‚‹ã€‚
+	ãŸã ã—ãƒ–ãƒ©ã‚¦ã‚¶ã«ã‚ˆã£ã¦ã¯ä¸Šæ‰‹ãè¡¨ç¤ºã•ã‚Œãªã„ã¨æ€ã†ã€‚
 
-	GD¤È°ã¤Ã¤ÆÈ¿Å¾ºÑ¤ß¤Î²èÁü¤òÍÑ°Õ¤¹¤ëÉ¬Í×Ìµ¤·¡£
-	IE¤ÏÉ½¼¨¤Ç¤­¤ë¡£
+	GDã¨é•ã£ã¦åè»¢æ¸ˆã¿ã®ç”»åƒã‚’ç”¨æ„ã™ã‚‹å¿…è¦ç„¡ã—ã€‚
+	IEã¯è¡¨ç¤ºã§ãã‚‹ã€‚
 */
 class cssimage {
 
@@ -18,21 +18,21 @@ class cssimage {
 	var $team1_mc;
 	var $team2_mc;
 
-	var $img_x, $img_y;//¥¤¥á¡¼¥¸Éı
+	var $img_x, $img_y;//ã‚¤ãƒ¡ãƒ¼ã‚¸å¹…
 	var $size;
 
-	var $div; //</div>¤Î¸Ä¿ô
+	var $div; //</div>ã®å€‹æ•°
 
 	var $NoFlip	= false;
 
 //////////////////////////////////////////////////
-//	CSS¤Ç image.flip() ¤ò»È¤¦¤«»È¤ï¤Ê¤¤¤«¡£
+//	CSSã§ image.flip() ã‚’ä½¿ã†ã‹ä½¿ã‚ãªã„ã‹ã€‚
 	function NoFlip() {
 		$this->NoFlip	= true;
 	}
 //////////////////////////////////////////////////
-//	ÇØ·Ê²èÁü¤ò¥»¥Ã¥È¡£
-//	¤Ä¤¤¤Ç¤ËÂç¤­¤µ¤â¼èÆÀ¤¹¤ë¡£
+//	èƒŒæ™¯ç”»åƒã‚’ã‚»ãƒƒãƒˆã€‚
+//	ã¤ã„ã§ã«å¤§ãã•ã‚‚å–å¾—ã™ã‚‹ã€‚
 	function SetBackGround($bg) {
 		$this->background	= IMG_OTHER."bg_".$bg.".gif";
 
@@ -40,11 +40,11 @@ class cssimage {
 		$this->size	= "width:{$this->img_x};height:{$this->img_y};";
 	}
 //////////////////////////////////////////////////
-//	¥Á¡¼¥à¤Î¾ğÊó¤ò¥»¥Ã¥È
-//	Á°±Ò¸å±Ò¤ËÊ¬¤±¤ë
+//	ãƒãƒ¼ãƒ ã®æƒ…å ±ã‚’ã‚»ãƒƒãƒˆ
+//	å‰è¡›å¾Œè¡›ã«åˆ†ã‘ã‚‹
 	function SetTeams($team1,$team2) {
 		foreach($team1 as $char) {
-			// ¾¤´­¥­¥ã¥é¤¬»àË´¤·¤Æ¤¤¤ë¾ì¹ç¤ÏÈô¤Ğ¤¹
+			// å¬å–šã‚­ãƒ£ãƒ©ãŒæ­»äº¡ã—ã¦ã„ã‚‹å ´åˆã¯é£›ã°ã™
 			if($char->STATE === DEAD && $char->summon == true)
 				continue;
 			if($char->POSITION == "front")
@@ -53,7 +53,7 @@ class cssimage {
 				$this->team1_back[]	= $char;
 		}
 		foreach($team2 as $char) {
-			// ¾¤´­¥­¥ã¥é¤¬»àË´¤·¤Æ¤¤¤ë¾ì¹ç¤ÏÈô¤Ğ¤¹
+			// å¬å–šã‚­ãƒ£ãƒ©ãŒæ­»äº¡ã—ã¦ã„ã‚‹å ´åˆã¯é£›ã°ã™
 			if($char->STATE === DEAD && $char->summon == true)
 				continue;
 			if($char->POSITION == "front")
@@ -63,29 +63,29 @@ class cssimage {
 		}
 	}
 //////////////////////////////////////////////////
-//	ËâÊı¿Ø¤Î¿ô
+//	é­”æ–¹é™£ã®æ•°
 	function SetMagicCircle($team1_mc, $team2_mc) {
 		$this->team1_mc	= $team2_mc;
 		$this->team2_mc	= $team1_mc;
 	}
 //////////////////////////////////////////////////
-//	CSS( ¥­¥ã¥é²èÁü ,xºÂÉ¸ ,yºÂÉ¸ )
+//	CSS( ã‚­ãƒ£ãƒ©ç”»åƒ ,xåº§æ¨™ ,yåº§æ¨™ )
 	function det($url,$x,$y) {
 		return "background-image:url({$url});background-repeat:no-repeat;background-position:{$x}px {$y}px;";
 	}
 
 //////////////////////////////////////////////////
-//	ÀïÆ®²èÌÌ¤òÉ½¼¨
+//	æˆ¦é—˜ç”»é¢ã‚’è¡¨ç¤º
 	function Show() {
 
 		//print("<div style=\"postion:relative;height:{$this->img_x}px;\">\n");
 		//$this->div++;
-		// ÇØ·Ê¤òÉ½¼¨ ( Ãæ±ûÉ½¼¨¤Î°Ù¤Ëº¸¤Ë¤º¤é¤¹ )
+		// èƒŒæ™¯ã‚’è¡¨ç¤º ( ä¸­å¤®è¡¨ç¤ºã®ç‚ºã«å·¦ã«ãšã‚‰ã™ )
 		$margin	= (-1) * round($this->img_x / 2);
 		print("<div style=\"position:relative;left:50%;margin-left:{$margin}px;{$this->size}".$this->det($this->background,0,0)."\">\n");
 		$this->div++;
 
-		// ËâÊı¿Ø¤òÉ½¼¨¤¹¤ë
+		// é­”æ–¹é™£ã‚’è¡¨ç¤ºã™ã‚‹
 		if(0 < $this->team1_mc) {
 			print("<div style=\"{$this->size}".$this->det(IMG_OTHER."mc0_".$this->team1_mc.".gif",280,0)."\">\n");
 			$this->div++;
@@ -95,15 +95,15 @@ class cssimage {
 			$this->div++;
 		}
 
-		$cell_width		= ($this->img_x)/6;//²£Éı¤ò6Ê¬³ä¤·¤¿Ä¹¤µ
-		$y	= $this->img_y/2;//¹â¤µ¤ÎÃæ¿´
+		$cell_width		= ($this->img_x)/6;//æ¨ªå¹…ã‚’6åˆ†å‰²ã—ãŸé•·ã•
+		$y	= $this->img_y/2;//é«˜ã•ã®ä¸­å¿ƒ
 
-		// team1 ¤òÉ½¼¨(¸åÎó¢ªÁ°Îó)
+		// team1 ã‚’è¡¨ç¤º(å¾Œåˆ—â†’å‰åˆ—)
 		$this->CopyRow($this->team1_back, 0, $cell_width*1, $cell_width, $y, $this->img_y);
 		$this->CopyRow($this->team1_front, 0, $cell_width*2, $cell_width, $y, $this->img_y);
 
 		if(!$this->NoFlip) {
-			// È¿Å¾ÍÑ¤ÎCSS
+			// åè»¢ç”¨ã®CSS
 			print("<div style=\"{$this->size}filter:FlipH();\">\n");
 			$this->div++;
 			$dir	= 0;
@@ -124,7 +124,7 @@ class cssimage {
 	}
 
 //////////////////////////////////////////////////
-//	Îó¤Î¥­¥ã¥é¤òÉÁ¤­½Ğ¤¹
+//	åˆ—ã®ã‚­ãƒ£ãƒ©ã‚’æãå‡ºã™
 	function CopyRow($teams,$direction,$axis_x,$cell_width,$axis_y,$cell_height) {
 		$number	= count($teams);
 		if($number == 0) return false;

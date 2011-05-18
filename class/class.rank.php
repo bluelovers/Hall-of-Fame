@@ -1,46 +1,46 @@
 <?
 class Ranking {
 /*
-½èÍı¼ê½ç(¥é¥ó¥­¥ó¥°Àï)
-1. Ä©Àï¼Ô¤ÎID¤òÅÏ¤¹
+å‡¦ç†æ‰‹é †(ãƒ©ãƒ³ã‚­ãƒ³ã‚°æˆ¦)
+1. æŒ‘æˆ¦è€…ã®IDã‚’æ¸¡ã™
 2.
-	1°Ì¤Î¿Í¡£
-		ÀïÆ®¤Ç¤­¤Ş¤»¤ó¥¨¥é¡¼¡£
-	2-ºÇ²¼°Ì¤Î¿Í¡£
-		1¸Ä¾å¤Î¿Í¤òÃµ¤¹¡£
-	¥é¥ó¥¯³°¤Î¿Í¡£
-		ºÇ²¼°Ì¤Î¿Í¤òÃµ¤¹¡£
-3. ¼«Ê¬¤ÎÁê¼ê¤ÈÀïÆ®
-4. ¾¡Íø¼Ô¡¢ÇÔ¼Ô¤Î½ç°ÌÊÑÆ°
-5. ÊİÂ¸¡£
+	1ä½ã®äººã€‚
+		æˆ¦é—˜ã§ãã¾ã›ã‚“ã‚¨ãƒ©ãƒ¼ã€‚
+	2-æœ€ä¸‹ä½ã®äººã€‚
+		1å€‹ä¸Šã®äººã‚’æ¢ã™ã€‚
+	ãƒ©ãƒ³ã‚¯å¤–ã®äººã€‚
+		æœ€ä¸‹ä½ã®äººã‚’æ¢ã™ã€‚
+3. è‡ªåˆ†ã®ç›¸æ‰‹ã¨æˆ¦é—˜
+4. å‹åˆ©è€…ã€æ•—è€…ã®é †ä½å¤‰å‹•
+5. ä¿å­˜ã€‚
 ----------------------------
-¥¨¥é¡¼Éİ¤¤¤è¡¢Éİ¤¤¤è¡¼
-µ¯¤³¤ê¤¦¤ëÁ´¤Æ¤Î(?)»ö¾İ¡£
-¡ı|1°Ì¤¬µï¤Ê¤¤»ş(¥é¥ó¥¯¼«ÂÎ¤¬Ìµ¤¤¤È¤­)Ä©Àï¼Ô¤¬1°Ì¤Ë¤Ê¤ë¡£
-¡ı|1°Ì¤ÏÄ©Àï¤Ç¤­¤Ê¤¤¡£
-¡ı|Àµ¾ï¤Ê2°Ì-ºÇ²¼°Ì¤Î¼Ô¤¬¾å¤ËÄ©Àï¤·¤Æ¾¡¤Ä¡£
-¡ı|Àµ¾ï¤Ê2°Ì-ºÇ²¼°Ì¤Î¼Ô¤¬¾å¤ËÄ©Àï¤·¤ÆÉé¤±¤ë¡£
-¡ı|Àµ¾ï¤Ê2°Ì-ºÇ²¼°Ì¤Î¼Ô¤¬¾å¤ËÄ©Àï¤·¤Æ1°Ì¤Ë¤Ê¤ë¡£
-¢¤|¥Á¡¼¥àÅĞÏ¿¤µ¤ì¤ÆÌµ¤¤¼Ô¤ÏÄ©Àï¤Ç¤­¤Ê¤¤¡£
-¡û|¥Á¡¼¥àÅĞÏ¿¤Ï¤·¤¿¤±¤É¡¢¥é¥ó¥­¥ó¥°¤Ë»²²Ã¤·¤Æ¤Ê¤¤¼Ô¤¬Ä©Àï¤¹¤ë¡£
-¡ı|Ä©Àï¤·¤¿Áê¼ê¤Î¥Á¡¼¥à¤¬¤ª¤«¤·¤¤(¿ôÌ¾·ç¤±¤Æ¤¤¤ë)¡£
-¡ı|Ä©Àï¤·¤¿Áê¼ê¤Î¥Á¡¼¥à¤¬¤ª¤«¤·¤¤(Á´°÷·ç¤±¤Æ¤¤¤ë)¡£
-¡û|Ä©Àï¤·¤¿Áê¼ê¤ÎID¼«ÂÎ¤¬¾Ã¤¨¤Æ¤¤¤ë¡£
-¡û|ID¤ò¾Ã¤·¤¿¤È¤­¥é¥ó¥­¥ó¥°¤«¤é¤â¾ÃÌÇ¤¹¤ë¡£
-¢¤|»ş´ÖÀ©¸Â¤¬¤¢¤ë¾ì¹ç¤ÏÄ©Àï¤Ç¤­¤Ê¤¤¡£
-¡ı|Áê¼ê¤¬»ş´ÖÀ©¸ÂÃæ(¢ª¤¿¤Ö¤óÌµ´Ø·¸)
+ã‚¨ãƒ©ãƒ¼æ€–ã„ã‚ˆã€æ€–ã„ã‚ˆãƒ¼
+èµ·ã“ã‚Šã†ã‚‹å…¨ã¦ã®(?)äº‹è±¡ã€‚
+â—|1ä½ãŒå±…ãªã„æ™‚(ãƒ©ãƒ³ã‚¯è‡ªä½“ãŒç„¡ã„ã¨ã)æŒ‘æˆ¦è€…ãŒ1ä½ã«ãªã‚‹ã€‚
+â—|1ä½ã¯æŒ‘æˆ¦ã§ããªã„ã€‚
+â—|æ­£å¸¸ãª2ä½-æœ€ä¸‹ä½ã®è€…ãŒä¸Šã«æŒ‘æˆ¦ã—ã¦å‹ã¤ã€‚
+â—|æ­£å¸¸ãª2ä½-æœ€ä¸‹ä½ã®è€…ãŒä¸Šã«æŒ‘æˆ¦ã—ã¦è² ã‘ã‚‹ã€‚
+â—|æ­£å¸¸ãª2ä½-æœ€ä¸‹ä½ã®è€…ãŒä¸Šã«æŒ‘æˆ¦ã—ã¦1ä½ã«ãªã‚‹ã€‚
+â–³|ãƒãƒ¼ãƒ ç™»éŒ²ã•ã‚Œã¦ç„¡ã„è€…ã¯æŒ‘æˆ¦ã§ããªã„ã€‚
+â—‹|ãƒãƒ¼ãƒ ç™»éŒ²ã¯ã—ãŸã‘ã©ã€ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã«å‚åŠ ã—ã¦ãªã„è€…ãŒæŒ‘æˆ¦ã™ã‚‹ã€‚
+â—|æŒ‘æˆ¦ã—ãŸç›¸æ‰‹ã®ãƒãƒ¼ãƒ ãŒãŠã‹ã—ã„(æ•°åæ¬ ã‘ã¦ã„ã‚‹)ã€‚
+â—|æŒ‘æˆ¦ã—ãŸç›¸æ‰‹ã®ãƒãƒ¼ãƒ ãŒãŠã‹ã—ã„(å…¨å“¡æ¬ ã‘ã¦ã„ã‚‹)ã€‚
+â—‹|æŒ‘æˆ¦ã—ãŸç›¸æ‰‹ã®IDè‡ªä½“ãŒæ¶ˆãˆã¦ã„ã‚‹ã€‚
+â—‹|IDã‚’æ¶ˆã—ãŸã¨ããƒ©ãƒ³ã‚­ãƒ³ã‚°ã‹ã‚‰ã‚‚æ¶ˆæ»…ã™ã‚‹ã€‚
+â–³|æ™‚é–“åˆ¶é™ãŒã‚ã‚‹å ´åˆã¯æŒ‘æˆ¦ã§ããªã„ã€‚
+â—|ç›¸æ‰‹ãŒæ™‚é–“åˆ¶é™ä¸­(â†’ãŸã¶ã‚“ç„¡é–¢ä¿‚)
 */
 
 	var $Ranking	= array();
 
 //////////////////////////////////////////////
-// ¥Õ¥¡¥¤¥ë¤«¤éÆÉ¤ß¹ş¤ó¤Ç¥é¥ó¥­¥ó¥°¤òÇÛÎó¤Ë¤¹¤ë
+// ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã¿è¾¼ã‚“ã§ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‚’é…åˆ—ã«ã™ã‚‹
 	function Ranking() {
 		$file	= RANKING;
 
 		if(!file_exists($file)) return 0;
 
-		// ¥Õ¥¡¥¤¥ë¤«¤éÆÉ¤ó¤ÇÇÛÎó¤Ë¤¤¤ì¤ë
+		// ãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰èª­ã‚“ã§é…åˆ—ã«ã„ã‚Œã‚‹
 		$fp	= fopen($file,"r");
 		flock($fp,LOCK_EX);
 		while($line = fgets($fp) ) {
@@ -49,9 +49,9 @@ class Ranking {
 				$this->Ranking[]	= $line;
 		}
 		//$this->Ranking	= file($file);
-		// ÇÛÎó¤¬0¤Ê¤é½ªÎ»
+		// é…åˆ—ãŒ0ãªã‚‰çµ‚äº†
 		if(!$this->Ranking) return 0;
-		// ¶èÀÚ¤Ã¤ÆÊ¸»úÎó¤òÊ¬³ä
+		// åŒºåˆ‡ã£ã¦æ–‡å­—åˆ—ã‚’åˆ†å‰²
 		foreach($this->Ranking as $rank => $val) {
 			$list	= explode("<>", $val);
 			$this->Ranking["$rank"]	= array();
@@ -62,9 +62,9 @@ class Ranking {
 	}
 
 //////////////////////////////////////////////
-// ¥é¥ó¥­¥ó¥°Àï¤¹¤ë¡£Àï¤¦¡£
+// ãƒ©ãƒ³ã‚­ãƒ³ã‚°æˆ¦ã™ã‚‹ã€‚æˆ¦ã†ã€‚
 	function Challenge($id) {
-		// ¥é¥ó¥­¥ó¥°¤¬Ìµ¤¤¤È¤­(1°Ì¤Ë¤Ê¤ë)
+		// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ãŒç„¡ã„ã¨ã(1ä½ã«ãªã‚‹)
 		if(!$this->Ranking) {
 			$this->JoinRanking($id);
 			$this->SaveRanking();
@@ -72,25 +72,25 @@ class Ranking {
 			return array($message,true);
 		}
 
-		$MyRank	= $this->SearchID($id);//¼«Ê¬¤Î½ç°Ì
-		// 1°Ì¤Î¾ì¹ç¡£
+		$MyRank	= $this->SearchID($id);//è‡ªåˆ†ã®é †ä½
+		// 1ä½ã®å ´åˆã€‚
 		if($MyRank === 0) {
 			$message	= "First place can't challenge.";
 			return array($message,true);
 		}
 
-		// ¼«Ê¬¤¬¥é¥ó¥¯³°¤Ê¤é
+		// è‡ªåˆ†ãŒãƒ©ãƒ³ã‚¯å¤–ãªã‚‰
 		if(!$MyRank) {
-			$this->JoinRanking($id);//¼«Ê¬¤òºÇ²¼°Ì¤Ë¤¹¤ë¡£
-			$MyRank	= count($this->Ranking) - 1;//¼«Ê¬¤Î¥é¥ó¥¯(ºÇ²¼°Ì)
+			$this->JoinRanking($id);//è‡ªåˆ†ã‚’æœ€ä¸‹ä½ã«ã™ã‚‹ã€‚
+			$MyRank	= count($this->Ranking) - 1;//è‡ªåˆ†ã®ãƒ©ãƒ³ã‚¯(æœ€ä¸‹ä½)
 
 			$MyID	= $this->Ranking["$MyRank"]["id"];
-			$RivalID= $this->Ranking["$MyRank" - 1]["id"];//¼«Ê¬¤è¤ê1¸Ä¾å¤Î¿Í¤¬Áê¼ê¡£
+			$RivalID= $this->Ranking["$MyRank" - 1]["id"];//è‡ªåˆ†ã‚ˆã‚Š1å€‹ä¸Šã®äººãŒç›¸æ‰‹ã€‚
 			/*
 			dump($this->Ranking);
 			dump($RivalID);
 			dump($MyID);
-			dump($MyRank);//¥¨¥é¡¼¤Ç¤¿¤é´èÄ¥¤ì
+			dump($MyRank);//ã‚¨ãƒ©ãƒ¼ã§ãŸã‚‰é ‘å¼µã‚Œ
 			return 0;*/
 			list($message,$result)	= $this->RankBattle($MyID,$RivalID);
 			if($message == "Battle" && $result === true)
@@ -100,9 +100,9 @@ class Ranking {
 			return array($message,$result);
 		}
 
-		// 2°Ì-ºÇ²¼°Ì¤Î¿Í¤Î½èÍı¡£
+		// 2ä½-æœ€ä¸‹ä½ã®äººã®å‡¦ç†ã€‚
 		if($MyRank) {
-			$rival	= $MyRank - 1;//¼«Ê¬¤è¤ê½ç°Ì¤¬1¸Ä¾å¤Î¿Í¡£
+			$rival	= $MyRank - 1;//è‡ªåˆ†ã‚ˆã‚Šé †ä½ãŒ1å€‹ä¸Šã®äººã€‚
 
 			$MyID	= $this->Ranking["$MyRank"]["id"];
 			$RivalID= $this->Ranking["$rival"]["id"];
@@ -110,7 +110,7 @@ class Ranking {
 			if($message != "Battle")
 				return array($message,$result);
 
-			// ÀïÆ®¤ò¹Ô¤Ã¤Ætrue¤Ê¤é¥é¥ó¥¯¤¦£ğ
+			// æˆ¦é—˜ã‚’è¡Œã£ã¦trueãªã‚‰ãƒ©ãƒ³ã‚¯ã†ï½
 			if($message == "Battle" && $result === true) {
 				$this->RankUp($MyID);
 				$this->SaveRanking();
@@ -120,7 +120,7 @@ class Ranking {
 	}
 
 //////////////////////////////////////////////
-// Àï¤ï¤»¤ë
+// æˆ¦ã‚ã›ã‚‹
 	function RankBattle($ChallengerID,$DefendID) {
 		$challenger	= new user($ChallengerID);
 		$challenger->CharDataLoadAll();
@@ -130,22 +130,22 @@ class Ranking {
 
 		$Party_Challenger	= $challenger->RankParty();
 		$Party_Defender		= $defender->RankParty();
-		if($Party_Defender == "NOID") {//¥æ¡¼¥¶¼«ÂÎ¤¬´û¤ËÂ¸ºß¤·¤Ê¤¤¾ì¹ç
+		if($Party_Defender == "NOID") {//ãƒ¦ãƒ¼ã‚¶è‡ªä½“ãŒæ—¢ã«å­˜åœ¨ã—ãªã„å ´åˆ
 			$message	= "No USER...<br />(win a game by default)";
 			$this->DeleteRank($DefendID);
 			$this->SaveRanking();
 			return array($message,true);
 		}
 
-		// ÊÖÃÍ
-		// array(¥á¥Ã¥»¡¼¥¸,ÀïÆ®¤¬¤¢¤Ã¤¿¤«,¾¡ÇÔ)
+		// è¿”å€¤
+		// array(ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸,æˆ¦é—˜ãŒã‚ã£ãŸã‹,å‹æ•—)
 
-		// ¥é¥ó¥¯ÍÑ¥Ñ¡¼¥Æ¥£¡¼¤¬¤¢¤ê¤Ş¤»¤ó¡ª¡ª¡ª
+		// ãƒ©ãƒ³ã‚¯ç”¨ãƒ‘ãƒ¼ãƒ†ã‚£ãƒ¼ãŒã‚ã‚Šã¾ã›ã‚“ï¼ï¼ï¼
 		if($Party_Challenger === false) {
 			$message	= "Set Team for Battle!<br />(Your Rank will be removed if challenged by someone)";
 			return array($message,true);
 		}
-		// ¥é¥ó¥¯ÍÑ¥Ñ¡¼¥Æ¥£¡¼¤¬¤¢¤ê¤Ş¤»¤ó¡ª¡ª¡ª
+		// ãƒ©ãƒ³ã‚¯ç”¨ãƒ‘ãƒ¼ãƒ†ã‚£ãƒ¼ãŒã‚ã‚Šã¾ã›ã‚“ï¼ï¼ï¼
 		if($Party_Defender === false) {
 			$this->DeleteRank($DefendID);
 			$this->SaveRanking();
@@ -159,31 +159,31 @@ class Ranking {
 		$battle	= new battle($Party_Challenger,$Party_Defender);
 		$battle->SetBackGround("colosseum");
 		$battle->SetTeamName($challenger->name,$defender->name);
-		$battle->Process();//ÀïÆ®³«»Ï
+		$battle->Process();//æˆ¦é—˜é–‹å§‹
 		$battle->RecordLog("RANK");
 		return array("Battle",$battle->isChallengerWin());
 	}
 
 //////////////////////////////////////////////
-// ¥é¥ó¥­¥ó¥°¤Ë»²²Ã¤µ¤»¤ë¡£
+// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã«å‚åŠ ã•ã›ã‚‹ã€‚
 	function JoinRanking($id,$place=false) {
-		if(!$place)//ºÇ²¼°Ì¤ËÆş¤ì¤ë
+		if(!$place)//æœ€ä¸‹ä½ã«å…¥ã‚Œã‚‹
 			$place	= count($this->Ranking);
 		$data	= array(array("id"=>$id));
 		array_splice($this->Ranking, $place, 0, $data);
 	}
 
 //////////////////////////////////////////////////
-// ½ç°Ì¤òÆş¤ìÂØ¤¨¤ë¡£
+// é †ä½ã‚’å…¥ã‚Œæ›¿ãˆã‚‹ã€‚
 	function ChangeRank($id,$id0) {
 	
 	}
 
 //////////////////////////////////////////////////
-// ½ç°Ì¤ò¾å¤²¤ë¡£
+// é †ä½ã‚’ä¸Šã’ã‚‹ã€‚
 	function RankUp($id) {
 		$place	= $this->SearchID($id);
-		//1°Ì¤ÏÌµÍı ¤¢¤È¡¢¥é¥ó¥­¥ó¥°¤¬1¤Ä¤Î¾ì¹ç(1°Ì¤Î¤ß)
+		//1ä½ã¯ç„¡ç† ã‚ã¨ã€ãƒ©ãƒ³ã‚­ãƒ³ã‚°ãŒ1ã¤ã®å ´åˆ(1ä½ã®ã¿)
 		$number	= count($this->Ranking);
 		if($place === 0 || $number < 2)
 			return false;
@@ -194,10 +194,10 @@ class Ranking {
 	}
 
 //////////////////////////////////////////////////
-// ½ç°Ì¤ò²¼¤²¤ë¡£
+// é †ä½ã‚’ä¸‹ã’ã‚‹ã€‚
 	function RankDown($id) {
 		$place	= $this->SearchID($id);
-		// ºÇ²¼°Ì¤ÏÌµÍı ¤¢¤È¡¢¥é¥ó¥­¥ó¥°¤¬1¤Ä¤Î¾ì¹ç(1°Ì¤Î¤ß)
+		// æœ€ä¸‹ä½ã¯ç„¡ç† ã‚ã¨ã€ãƒ©ãƒ³ã‚­ãƒ³ã‚°ãŒ1ã¤ã®å ´åˆ(1ä½ã®ã¿)
 		$number	= count($this->Ranking);
 		if($place === ($number - 1) ||  $number < 2)
 			return false;
@@ -208,16 +208,16 @@ class Ranking {
 	}
 
 //////////////////////////////////////////////////
-// ¥é¥ó¥­¥ó¥°¤«¤é¾Ã¤¹
+// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‹ã‚‰æ¶ˆã™
 	function DeleteRank($id) {
 		$place	= $this->SearchID($id);
-		if($place === false) return false;//ºï½ü¼ºÇÔ
+		if($place === false) return false;//å‰Šé™¤å¤±æ•—
 		unset($this->Ranking["$place"]);
-		return true;//ºï½üÀ®¸ù
+		return true;//å‰Šé™¤æˆåŠŸ
 	}
 
 //////////////////////////////////////////////////
-// ¥é¥ó¥­¥ó¥°¤òÊİÂ¸¤¹¤ë
+// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‚’ä¿å­˜ã™ã‚‹
 	function SaveRanking() {
 		foreach($this->Ranking as $rank => $val) {
 			$ranking	.= $val["id"]."\n";
@@ -227,7 +227,7 @@ class Ranking {
 	}
 
 //////////////////////////////////////////////////
-// $id ¤òÃµ¤¹
+// $id ã‚’æ¢ã™
 	function SearchID($id) {
 		foreach($this->Ranking as $rank => $val) {
 			if($val["id"] == $id)
@@ -237,17 +237,17 @@ class Ranking {
 	}
 
 //////////////////////////////////////////////////
-// ¥é¥ó¥­¥ó¥°¤ÎÉ½¼¨
+// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®è¡¨ç¤º
 	function ShowRanking($from=false,$to=false,$bold=false) {
 		$last	= count($this->Ranking) - 1;
-		// ¥é¥ó¥­¥ó¥°¤¬Â¸ºß¤·¤Ê¤¤»ş
+		// ãƒ©ãƒ³ã‚­ãƒ³ã‚°ãŒå­˜åœ¨ã—ãªã„æ™‚
 		if(count($this->Ranking) < 1) {
 			print("<div class=\"bold\">No Ranking.</div>\n");
-		// É½¼¨¤¹¤ë¿ô¤ò»ØÄê¤µ¤ì¤¿»ş
+		// è¡¨ç¤ºã™ã‚‹æ•°ã‚’æŒ‡å®šã•ã‚ŒãŸæ™‚
 		} else if(is_numeric($from) && is_numeric($to)) {
 			for($from; $from<$to; $from++) {
 				$user	= new user($this->Ranking["$from"]["id"]);
-				$place	= ($from==$last?"°Ì(ºÇ²¼°Ì)":"°Ì");
+				$place	= ($from==$last?"ä½(æœ€ä¸‹ä½)":"ä½");
 				if($bold === $from) {
 					echo ($from+1)."{$place} : <span class=\"u\">".$user->name."</span><br />";
 					continue;
@@ -256,34 +256,34 @@ class Ranking {
 					echo ($from+1)."{$place} : ".$user->name."<br />";
 				//else break;
 			}
-		// É½¼¨¤¹¤ë¿ô¤ò»ØÄê¤µ¤ì¤Ê¤«¤Ã¤¿»ş(Á´É½¼¨)
+		// è¡¨ç¤ºã™ã‚‹æ•°ã‚’æŒ‡å®šã•ã‚Œãªã‹ã£ãŸæ™‚(å…¨è¡¨ç¤º)
 		} else if(!$no) {
 			foreach($this->Ranking as $key => $val) {
 				$user	= new user($val["id"]);
-				echo ($key+1)."°Ì : ".$user->name."<br />";
+				echo ($key+1)."ä½ : ".$user->name."<br />";
 			}
 		}
 	}
 
 //////////////////////////////////////////////////
-// $id¼şÊÕ¤Î¥é¥ó¥­¥ó¥°¤òÉ½¼¨
+// $idå‘¨è¾ºã®ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã‚’è¡¨ç¤º
 	function ShowNearlyRank($id,$no=5) {
 		//dump($this->Ranking);
 		$MyRank	= $this->SearchID($id);
 		//print("aaa".$MyRank.":".$id."<br>");
 		$lowest	= count($this->Ranking);
-		// ºÇ²¼°Ì¤Ë¶á¤¤¤Î¤Ç·«¤ê¾å¤²¤ÆÉ½¼¨
+		// æœ€ä¸‹ä½ã«è¿‘ã„ã®ã§ç¹°ã‚Šä¸Šã’ã¦è¡¨ç¤º
 		if( $lowest < ($MyRank+$no) ) {
 			$moveup	= $no - ($lowest - $MyRank);
 			$this->ShowRanking($MyRank-$moveup-5,$lowest,$MyRank);
 			return 0;
 		}
-		// ¾å¤Ë¶á¤¤¤Î¤Ç·«¤ê²¼¤²¤ÆÉ½¼¨
+		// ä¸Šã«è¿‘ã„ã®ã§ç¹°ã‚Šä¸‹ã’ã¦è¡¨ç¤º
 		if( ($MyRank-$no) < 0 ) {
 			$this->ShowRanking(0,$no+5,$MyRank);
 			return 0;
 		}
-		// Ãæ´Ö
+		// ä¸­é–“
 		$this->ShowRanking($MyRank-$no,$MyRank+$no,$MyRank);
 	}
 

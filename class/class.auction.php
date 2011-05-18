@@ -1,89 +1,89 @@
 <?php
 /*
-¢£¥ª¡¼¥¯¥·¥ç¥ó¥á¥â
-¢¢¥¢¥¤¥Æ¥à
-	¥Ç¡¼¥¿¤ÎÊİÂ¸ÊıË¡
-	define("AUCTION_ITEM","./*****");//¥³¥³
+â– ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ãƒ¡ãƒ¢
+â–¡ã‚¢ã‚¤ãƒ†ãƒ 
+	ãƒ‡ãƒ¼ã‚¿ã®ä¿å­˜æ–¹æ³•
+	define("AUCTION_ITEM","./*****");//ã‚³ã‚³
 
-	.dat ¤ÎÃæ¿È¤Ë¤Ä¤¤¤Æ
-	ÈÖ¹æ(1¹ÔÌÜ¤À¤±)
-	ÈÖ¹æ<>¶¥Çä½ªÎ»»ş¹ï<>º£¤ÎÆş»¥²Á³Ê<>½ĞÉÊ¼Ôid<>¥¢¥¤¥Æ¥à<>¸Ä¿ô<>¹ç·×Æş»¥¿ô<>ºÇ½ªÆş»¥¼Ôid<>ºÇ½ªÆş»¥»ş´Ö<>¥³¥á¥ó¥È<>IP
-	ÈÖ¹æ-1<>¶¥Çä½ªÎ»»ş¹ï<>º£¤ÎÆş»¥²Á³Ê<>½ĞÉÊ¼Ôid<>¥¢¥¤¥Æ¥à<>¸Ä¿ô<>¹ç·×Æş»¥¿ô<>ºÇ½ªÆş»¥¼Ôid<>ºÇ½ªÆş»¥»ş´Ö<>¥³¥á¥ó¥È<>IP
-	ÈÖ¹æ-2<>¶¥Çä½ªÎ»»ş¹ï<>º£¤ÎÆş»¥²Á³Ê<>½ĞÉÊ¼Ôid<>¥¢¥¤¥Æ¥à<>¸Ä¿ô<>¹ç·×Æş»¥¿ô<>ºÇ½ªÆş»¥¼Ôid<>ºÇ½ªÆş»¥»ş´Ö<>¥³¥á¥ó¥È<>IP
+	.dat ã®ä¸­èº«ã«ã¤ã„ã¦
+	ç•ªå·(1è¡Œç›®ã ã‘)
+	ç•ªå·<>ç«¶å£²çµ‚äº†æ™‚åˆ»<>ä»Šã®å…¥æœ­ä¾¡æ ¼<>å‡ºå“è€…id<>ã‚¢ã‚¤ãƒ†ãƒ <>å€‹æ•°<>åˆè¨ˆå…¥æœ­æ•°<>æœ€çµ‚å…¥æœ­è€…id<>æœ€çµ‚å…¥æœ­æ™‚é–“<>ã‚³ãƒ¡ãƒ³ãƒˆ<>IP
+	ç•ªå·-1<>ç«¶å£²çµ‚äº†æ™‚åˆ»<>ä»Šã®å…¥æœ­ä¾¡æ ¼<>å‡ºå“è€…id<>ã‚¢ã‚¤ãƒ†ãƒ <>å€‹æ•°<>åˆè¨ˆå…¥æœ­æ•°<>æœ€çµ‚å…¥æœ­è€…id<>æœ€çµ‚å…¥æœ­æ™‚é–“<>ã‚³ãƒ¡ãƒ³ãƒˆ<>IP
+	ç•ªå·-2<>ç«¶å£²çµ‚äº†æ™‚åˆ»<>ä»Šã®å…¥æœ­ä¾¡æ ¼<>å‡ºå“è€…id<>ã‚¢ã‚¤ãƒ†ãƒ <>å€‹æ•°<>åˆè¨ˆå…¥æœ­æ•°<>æœ€çµ‚å…¥æœ­è€…id<>æœ€çµ‚å…¥æœ­æ™‚é–“<>ã‚³ãƒ¡ãƒ³ãƒˆ<>IP
 	...........
-¢¢¥­¥ã¥é
+â–¡ã‚­ãƒ£ãƒ©
 */
 class Auction {
 
-	// ¥Õ¥¡¥¤¥ë¥İ¥¤¥ó¥¿
+	// ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿
 	var $fp;
 
-	// ¥ª¡¼¥¯¥·¥ç¥ó¤Î¼ïÎà
-	// ¥¢¥¤¥Æ¥àor¥­¥ã¥é
+	// ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ã®ç¨®é¡
+	// ã‚¢ã‚¤ãƒ†ãƒ orã‚­ãƒ£ãƒ©
 	var $AuctionType;
 
-	// ¶¥ÇäÉÊÈÖ¹æ
+	// ç«¶å£²å“ç•ªå·
 	var $ArticleNo;
 
-	// ½ĞÉÊÊª(¥­¥ã¥é)¥ê¥¹¥È
+	// å‡ºå“ç‰©(ã‚­ãƒ£ãƒ©)ãƒªã‚¹ãƒˆ
 	var $Article = array();
 
 	var $UserName;
 
-	// Íî»¥Êª¤äÍî»¥¶â¤Î½èÍıÍÑ
+	// è½æœ­ç‰©ã‚„è½æœ­é‡‘ã®å‡¦ç†ç”¨
 	var $TempUser	= array();
 
-	// ·Ğ²á¥í¥°
+	// çµŒéãƒ­ã‚°
 	var $AuctionLog;
 
-	// ¥Ç¡¼¥¿¤¬ÊÑ¹¹¤µ¤ì¤¿¤«?
+	// ãƒ‡ãƒ¼ã‚¿ãŒå¤‰æ›´ã•ã‚ŒãŸã‹?
 	var $DataChange	= false;
 
 	var $QUERY;
 	var $sort;
 
 ////////////////////////////////
-// ¥³¥ó¥¹¥È¥é¥¯¥¿
+// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	function Auction($type) {
-		// ¥¢¥¤¥Æ¥à¥ª¡¼¥¯¥·¥ç¥ó
+		// ã‚¢ã‚¤ãƒ†ãƒ ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³
 		if($type == "item") {
 			$this->AuctionType = "item";
 			$this->ItemArticleRead();
-		// ¥­¥ã¥é¥ª¡¼¥¯¥·¥ç¥ó
+		// ã‚­ãƒ£ãƒ©ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³
 		} else if($type == "char") {
 			$this->AuctionType = "char";
 		}
 	}
 //////////////////////////////////////////////
-//	GET¤Î¥¯¥¨¥ê¡¼Ì¾
+//	GETã®ã‚¯ã‚¨ãƒªãƒ¼å
 	function AuctionHttpQuery($name) {
 		$this->QUERY	= $name;
 	}
 //////////////////////////////////////////////
-//	»ş´Ö¤¬·Ğ²á¤·¤Æ½ªÎ»¤·¤¿¶¥ÇäÉÊ¤Î½èÍı
+//	æ™‚é–“ãŒçµŒéã—ã¦çµ‚äº†ã—ãŸç«¶å£²å“ã®å‡¦ç†
 	function ItemCheckSuccess() {
 		$Now	= time();
 		foreach($this->Article as $no => $Article) {
-			// ¶¥Çä»ş´Ö¤¬»Ä¤Ã¤Æ¤¤¤ë¤Ê¤é¼¡
+			// ç«¶å£²æ™‚é–“ãŒæ®‹ã£ã¦ã„ã‚‹ãªã‚‰æ¬¡
 			if(AuctionLeftTime($Now,$Article["end"]))
 				continue;
 			if(!function_exists("LoadItemData"))
 				include(DATA_ITEM);
 			$item	= LoadItemData($Article["item"]);
 			if($Article["bidder"]) {
-				// Íî»¥¼Ô¤¬¤¤¤ë¤Ê¤é¥¢¥¤¥Æ¥à¤òÅÏ¤¹¡£
-				// Íî»¥¼Ô¤¬¤¤¤ë¤Ê¤é½ĞÉÊ¼Ô¤Ë¶â¤òÅÏ¤¹¡£
+				// è½æœ­è€…ãŒã„ã‚‹ãªã‚‰ã‚¢ã‚¤ãƒ†ãƒ ã‚’æ¸¡ã™ã€‚
+				// è½æœ­è€…ãŒã„ã‚‹ãªã‚‰å‡ºå“è€…ã«é‡‘ã‚’æ¸¡ã™ã€‚
 				$this->UserGetItem($Article["bidder"],$Article["item"],$Article["amount"]);
 				$this->UserGetMoney($Article["exhibitor"],$Article["price"]);
-				// ·ë²Ì¤ò¥í¥°¤Ë»Ä¤»
-				$this->AddLog("No.{$Article[No]} <img src=\"".IMG_ICON.$item["img"]."\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>¸Ä ¤ò ".$this->UserGetNameFromTemp($Article["bidder"])." ¤¬ ".MoneyFormat($Article["price"])." ¤Ç<span class=\"recover\">Íî»¥¤·¤Ş¤·¤¿¡£</span>");
+				// çµæœã‚’ãƒ­ã‚°ã«æ®‹ã›
+				$this->AddLog("No.{$Article[No]} <img src=\"".IMG_ICON.$item["img"]."\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>å€‹ ã‚’ ".$this->UserGetNameFromTemp($Article["bidder"])." ãŒ ".MoneyFormat($Article["price"])." ã§<span class=\"recover\">è½æœ­ã—ã¾ã—ãŸã€‚</span>");
 			} else {
-				// Æş»¥¤¬Ìµ¤«¤Ã¤¿¾ì¹ç¡¢½ĞÉÊ¼Ô¤ËÊÖµÑ¡£
+				// å…¥æœ­ãŒç„¡ã‹ã£ãŸå ´åˆã€å‡ºå“è€…ã«è¿”å´ã€‚
 				$this->UserGetItem($Article["exhibitor"],$Article["item"],$Article["amount"]);
-				// ·ë²Ì¤ò¥í¥°¤Ë»Ä¤»
-				$this->AddLog("No.{$Article[No]} <img src=\"".IMG_ICON.$item["img"]."\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>¸Ä ¤Ï<span class=\"dmg\">Æş»¥¼ÔÌµ¤·¤ÇÎ®¤ì¤Ş¤·¤¿¡£</span>");
+				// çµæœã‚’ãƒ­ã‚°ã«æ®‹ã›
+				$this->AddLog("No.{$Article[No]} <img src=\"".IMG_ICON.$item["img"]."\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>å€‹ ã¯<span class=\"dmg\">å…¥æœ­è€…ç„¡ã—ã§æµã‚Œã¾ã—ãŸã€‚</span>");
 			}
-			// ºÇ¸å¤Ë¾Ã¤¹
+			// æœ€å¾Œã«æ¶ˆã™
 			unset($this->Article["$no"]);
 			$this->DataChange	= true;
 		}
@@ -97,7 +97,7 @@ class Auction {
 			return "-";
 	}
 //////////////////////////////////////////////
-//	¥ª¡¼¥¯¥·¥ç¥ó¤Ç¤ª¶â¤ò³ÍÆÀ
+//	ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ã§ãŠé‡‘ã‚’ç²å¾—
 	function UserGetMoney($UserID,$Money) {
 		if(!$this->TempUser["$UserID"]["user"])
 		{
@@ -106,10 +106,10 @@ class Auction {
 		}
 
 		$this->TempUser["$UserID"]["UserGetTotalMoney"]	+= $Money;
-		$this->TempUser["$UserID"]["Money"]	= true;//¶â¤¬ÄÉ²Ã¤µ¤ì¤¿¤³¤È¤òµ­Ï¿
+		$this->TempUser["$UserID"]["Money"]	= true;//é‡‘ãŒè¿½åŠ ã•ã‚ŒãŸã“ã¨ã‚’è¨˜éŒ²
 	}
 //////////////////////////////////////////////
-//	¥ª¡¼¥¯¥·¥ç¥ó¤Ç¥¢¥¤¥Æ¥à³ÍÆÀ
+//	ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ã§ã‚¢ã‚¤ãƒ†ãƒ ç²å¾—
 	function UserGetItem($UserID,$item,$amount) {
 		if(!$this->TempUser["$UserID"]["user"])
 		{
@@ -118,33 +118,33 @@ class Auction {
 		}
 
 		$this->TempUser["$UserID"]["UserGetItem"]["$item"]	+= $amount;
-		$this->TempUser["$UserID"]["item"]	= true;//¥¢¥¤¥Æ¥à¤¬ÄÉ²Ã¤µ¤ì¤¿¤³¤È¤òµ­Ï¿
+		$this->TempUser["$UserID"]["item"]	= true;//ã‚¢ã‚¤ãƒ†ãƒ ãŒè¿½åŠ ã•ã‚ŒãŸã“ã¨ã‚’è¨˜éŒ²
 	}
 //////////////////////////////////////////////
-//	¥ª¡¼¥¯¥·¥ç¥ó¤Ç¥­¥ã¥é¥¯¥¿¡¼³ÍÆÀ
-//	(Æ°ºî³ÎÇ§Ìµ¤·)
+//	ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ã§ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ç²å¾—
+//	(å‹•ä½œç¢ºèªç„¡ã—)
 	function UserGetChar($UserID,$char) {
 		$this->TempUser["$UserID"]["char"][]	= $char;//
-		$this->TempUser["$UserID"]["CharAdd"]	= true;//¥­¥ã¥é¥¯¥¿¡¼¤¬ÄÉ²Ã¤µ¤ì¤¿¤³¤È¤òµ­Ï¿
+		$this->TempUser["$UserID"]["CharAdd"]	= true;//ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ãŒè¿½åŠ ã•ã‚ŒãŸã“ã¨ã‚’è¨˜éŒ²
 	}
 //////////////////////////////////////////////
-//	¥ª¡¼¥¯¥·¥ç¥ó½èÍı·ë²Ì¤òÀ¶»»¤¹¤ë?
+//	ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³å‡¦ç†çµæœã‚’æ¸…ç®—ã™ã‚‹?
 	function UserSaveData() {
 		foreach($this->TempUser as $user => $Result) {
-			// ¤ª¶â¤òÆÀ¤¿
+			// ãŠé‡‘ã‚’å¾—ãŸ
 			if($this->TempUser["$user"]["Money"]) {
 				$this->TempUser["$user"]["user"]->GetMoney($this->TempUser["$user"]["UserGetTotalMoney"]);
 				$this->TempUser["$user"]["user"]->SaveData();
 			}
-			// ¥¢¥¤¥Æ¥à¤òÆÀ¤¿
+			// ã‚¢ã‚¤ãƒ†ãƒ ã‚’å¾—ãŸ
 			if($this->TempUser["$user"]["item"]) {
 				foreach($this->TempUser["$user"]["UserGetItem"] as $itemNo => $amount) {
 					$this->TempUser["$user"]["user"]->AddItem($itemNo,$amount);
 				}
 				$this->TempUser["$user"]["user"]->SaveUserItem();
 			}
-			// ¥­¥ã¥é¥¯¥¿¡¼¤òÆÀ¤¿
-			// (Æ°ºî³ÎÇ§¤Ê¤·)
+			// ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãƒ¼ã‚’å¾—ãŸ
+			// (å‹•ä½œç¢ºèªãªã—)
 			if($this->TempUser["$user"]["CharAdd"]) {
 				if($this->TempUser["$user"]["char"]) {
 					foreach($this->TempUser["$user"]["char"] as $char) {
@@ -152,13 +152,13 @@ class Auction {
 					}
 				}
 			}
-			// ¥æ¡¼¥¶¤¬³«¤¤¤¿Á´¤Æ¤Î¥Õ¥¡¥¤¥ë¤Î¥Õ¥¡¥¤¥ë¥İ¥¤¥ó¥¿¤òÊÄ¤¸¤ë
+			// ãƒ¦ãƒ¼ã‚¶ãŒé–‹ã„ãŸå…¨ã¦ã®ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒã‚¤ãƒ³ã‚¿ã‚’é–‰ã˜ã‚‹
 			$this->TempUser["$user"]["user"]->fpCloseAll();
 		}
 		unset($this->TempUser);
 	}
 //////////////////////////////////////////////
-//	Æş»¥¤¹¤ë¸¢Íø¤¬¤¢¤ë¤«¤É¤¦¤«ÊÖ¤¹
+//	å…¥æœ­ã™ã‚‹æ¨©åˆ©ãŒã‚ã‚‹ã‹ã©ã†ã‹è¿”ã™
 	function ItemBidRight($ArticleNo,$UserID) {
 		if($this->Article["$ArticleNo"]["bidder"] == $UserID)
 			return false;
@@ -167,7 +167,7 @@ class Auction {
 		return true;
 	}
 //////////////////////////////////////////////
-//	¥æ¡¼¥¶¤ÎÌ¾Á°¤ò¸Æ¤Ó½Ğ¤¹
+//	ãƒ¦ãƒ¼ã‚¶ã®åå‰ã‚’å‘¼ã³å‡ºã™
 	function LoadUserName($id) {
 		if($this->UserName["$id"]) {
 			return $this->UserName["$id"];
@@ -183,47 +183,47 @@ class Auction {
 		}
 	}
 //////////////////////////////////////////////
-//	ºÇÄãÆş»¥²Á³Ê¤òÊÖ¤¹
+//	æœ€ä½å…¥æœ­ä¾¡æ ¼ã‚’è¿”ã™
 	function ItemBottomPrice($ArticleNo) {
 		if($this->Article["$ArticleNo"]) {
 			return BottomPrice($this->Article["$ArticleNo"]["price"]);
 		}
 	}
 //////////////////////////////////////////////
-//	Æş»¥¤¹¤ë
+//	å…¥æœ­ã™ã‚‹
 	function ItemBid($ArticleNo,$BidPrice,$Bidder,$BidderName) {
 		if(!$Article	= $this->Article["$ArticleNo"])
 			return false;
 		$BottomPrice	= BottomPrice($this->Article["$ArticleNo"]["price"]);
-		// IP¤¬Æ±¤¸
+		// IPãŒåŒã˜
 		if($Article["IP"] == $_SERVER[REMOTE_ADDR]) {
-			ShowError("IPÀ©¸Â.");
+			ShowError("IPåˆ¶é™.");
 			return false;
 		}
-		// ·ÈÂÓÃ¼Ëö¤ò¶Ø»ß¤¹¤ë¡£
+		// æºå¸¯ç«¯æœ«ã‚’ç¦æ­¢ã™ã‚‹ã€‚
 		if(isMobile == "i") {
 			ShowError("mobile forbid.");
 			return false;
 		}
-		// ºÇÄãÆş»¥²Á³Ê¤ò³ä¤Ã¤Æ¤¤¤ë¾ì¹ç
+		// æœ€ä½å…¥æœ­ä¾¡æ ¼ã‚’å‰²ã£ã¦ã„ã‚‹å ´åˆ
 		if($BidPrice < $BottomPrice)
 			return false;
 
-		// Ã¯¤«¤¬Æş»¥¤·¤Æ¤¤¤¿¾ì¹ç¤ª¶â¤òÊÖ¶â¤¹¤ë¡£
+		// èª°ã‹ãŒå…¥æœ­ã—ã¦ã„ãŸå ´åˆãŠé‡‘ã‚’è¿”é‡‘ã™ã‚‹ã€‚
 		if($Article["bidder"]) {
 			$this->UserGetMoney($Article["bidder"],$Article["price"]);
 			$this->UserSaveData();
 		}
 
-		// Æş»¥»ş´Ö¤¬»Ä¤ê¾¯¤Ê¤¤¤Ê¤é±äÄ¹¤¹¤ë¡£
+		// å…¥æœ­æ™‚é–“ãŒæ®‹ã‚Šå°‘ãªã„ãªã‚‰å»¶é•·ã™ã‚‹ã€‚
 		$Now	= time();
 		$left	= AuctionLeftTime($Now,$Article["end"],true);
-		/* // »Ä¤ê»ş´Ö1»ş´Ö°Ê²¼¤Ê¤é15Ê¬±äÄ¹¤¹¤ë
+		/* // æ®‹ã‚Šæ™‚é–“1æ™‚é–“ä»¥ä¸‹ãªã‚‰15åˆ†å»¶é•·ã™ã‚‹
 		if(1 < $left && $left < 3601) {
 			$this->Article["$ArticleNo"]["end"]	+= 900;
 		}
 		*/
-		// »Ä¤ê»ş´Ö15Ê¬°Ê²¼¤Ê¤é 15Ê¬¤Ë¤¹¤ë¡£
+		// æ®‹ã‚Šæ™‚é–“15åˆ†ä»¥ä¸‹ãªã‚‰ 15åˆ†ã«ã™ã‚‹ã€‚
 		if(0 < $left && $left < 901) {
 			$dif	= 900 - $left;
 			$this->Article["$ArticleNo"]["end"]	+= $dif;
@@ -235,57 +235,57 @@ class Auction {
 		$this->Article["$ArticleNo"]["bidder"]	= $Bidder;
 		$this->DataChange	= true;
 		$item	= LoadItemData($Article["item"]);
-		//$this->AddLog("No.".$Article["No"]." <span class=\"bold\">{$item[name]} x{$Article[amount]}</span>¸Ä¤Ë ".MoneyFormat($BidPrice)." ¤Ç ".$this->LoadUserName($Bidder)." ¤¬<span class=\"support\">Æş»¥¤·¤Ş¤·¤¿¡£</span>");
-		$this->AddLog("No.".$Article["No"]." <span class=\"bold\">{$item[name]} x{$Article[amount]}</span>¸Ä¤Ë ".MoneyFormat($BidPrice)." ¤Ç ".$BidderName." ¤¬<span class=\"support\">Æş»¥¤·¤Ş¤·¤¿¡£</span>");
+		//$this->AddLog("No.".$Article["No"]." <span class=\"bold\">{$item[name]} x{$Article[amount]}</span>å€‹ã« ".MoneyFormat($BidPrice)." ã§ ".$this->LoadUserName($Bidder)." ãŒ<span class=\"support\">å…¥æœ­ã—ã¾ã—ãŸã€‚</span>");
+		$this->AddLog("No.".$Article["No"]." <span class=\"bold\">{$item[name]} x{$Article[amount]}</span>å€‹ã« ".MoneyFormat($BidPrice)." ã§ ".$BidderName." ãŒ<span class=\"support\">å…¥æœ­ã—ã¾ã—ãŸã€‚</span>");
 		return true;
 	}
 //////////////////////////////////////////////
-//	½ĞÉÊÊª°ìÍ÷¤òÉ½¼¨¤¹¤ë(¤½¤Î1) É½¼¨¤ÎÊÂ¤Ó¤¬°ã¤¦¤À¤±
+//	å‡ºå“ç‰©ä¸€è¦§ã‚’è¡¨ç¤ºã™ã‚‹(ãã®1) è¡¨ç¤ºã®ä¸¦ã³ãŒé•ã†ã ã‘
 	function ItemShowArticle($bidding=false) {
 		if(count($this->Article) == 0) {
-			print("¶¥ÇäÊªÌµ¤·(No auction)<br />\n");
+			print("ç«¶å£²ç‰©ç„¡ã—(No auction)<br />\n");
 			return false;
 		} else {
 			$Now	= time();
-			$exp	= '<tr><td class="td9">ÈÖ¹æ</td><td class="td9">²Á³Ê</td><td class="td9">Æş»¥¼Ô</td><td class="td9">Æş»¥¿ô</td><td class="td9">»Ä¤ê</td>'.
-					'<td class="td9">½ĞÉÊ¼Ô</td><td class="td9">¥³¥á¥ó¥È</td></tr>'."\n";
+			$exp	= '<tr><td class="td9">ç•ªå·</td><td class="td9">ä¾¡æ ¼</td><td class="td9">å…¥æœ­è€…</td><td class="td9">å…¥æœ­æ•°</td><td class="td9">æ®‹ã‚Š</td>'.
+					'<td class="td9">å‡ºå“è€…</td><td class="td9">ã‚³ãƒ¡ãƒ³ãƒˆ</td></tr>'."\n";
 			print('<table style="width:725px;text-align:center" cellpadding="0" cellspacing="0" border="0">'."{$exp}\n");
 			foreach($this->Article as $Article) {
 
 				print("<tr><td class=\"td7\">");
-				// ¶¥ÇäÈÖ¹æ
+				// ç«¶å£²ç•ªå·
 				print($Article["No"]);
 				print("</td><td class=\"td7\">");
-				// ¸½ºßÆş»¥²Á³Ê
+				// ç¾åœ¨å…¥æœ­ä¾¡æ ¼
 				print(MoneyFormat($Article["price"]));
 				print("</td><td class=\"td7\">");
-				// Æş»¥¼Ô
+				// å…¥æœ­è€…
 				if(!$Article["bidder"])
 					$bidder	= "-";
 				else
 					$bidder	= $this->LoadUserName($Article["bidder"]);
 				print($bidder);
 				print("</td><td class=\"td7\">");
-				// ¹ç·×Æş»¥¿ô
+				// åˆè¨ˆå…¥æœ­æ•°
 				print($Article["TotalBid"]);
 				print("</td><td class=\"td7\">");
-				// ½ªÎ»»ş¹ï
+				// çµ‚äº†æ™‚åˆ»
 				print(AuctionLeftTime($Now,$Article["end"]));
 				print("</td><td class=\"td7\">");
-				// ½ĞÉÊ¼Ô
+				// å‡ºå“è€…
 				$exhibitor	= $this->LoadUserName($Article["exhibitor"]);
 				print($exhibitor);
 				print("</td><td class=\"td8\">");
-				// ¥³¥á¥ó¥È
+				// ã‚³ãƒ¡ãƒ³ãƒˆ
 				print($Article["comment"]?$Article["comment"]:"&nbsp;");
 				print("</td></tr>\n");
-				// ¥¢¥¤¥Æ¥à
+				// ã‚¢ã‚¤ãƒ†ãƒ 
 				print('<tr><td colspan="7" style="text-align:left;padding-left:15px" class="td6">');
 				$item	= LoadItemData($Article["item"]);
 				print('<form action="?menu=auction" method="post">');
-				// Æş»¥¥Õ¥©¡¼¥à
+				// å…¥æœ­ãƒ•ã‚©ãƒ¼ãƒ 
 				if($bidding) {
-					print('<a href="#" onClick="Element.toggle(\'Bid'.$Article["No"].'\';return false;)">Æş»¥</a>');
+					print('<a href="#" onClick="Element.toggle(\'Bid'.$Article["No"].'\';return false;)">å…¥æœ­</a>');
 					print('<span style="display:none" id="Bid'.$Article["No"].'">');
 					print('&nbsp;<input type="text" name="BidPrice" style="width:80px" class="text" value="'.BottomPrice($Article["price"]).'">');
 					print('<input type="submit" value="Bid" class="btn">');
@@ -301,63 +301,63 @@ class Auction {
 		}
 	}
 //////////////////////////////////////////////
-//	½ĞÉÊÊª°ìÍ÷¤òÉ½¼¨¤¹¤ë(¤½¤Î2) É½¼¨¤ÎÊÂ¤Ó¤¬°ã¤¦¤À¤±
+//	å‡ºå“ç‰©ä¸€è¦§ã‚’è¡¨ç¤ºã™ã‚‹(ãã®2) è¡¨ç¤ºã®ä¸¦ã³ãŒé•ã†ã ã‘
 	function ItemShowArticle2($bidding=false) {
 		if(count($this->Article) == 0) {
-			print("¶¥ÇäÊªÌµ¤·(No auction)<br />\n");
+			print("ç«¶å£²ç‰©ç„¡ã—(No auction)<br />\n");
 			return false;
 		} else {
 			$Now	= time();
-			// ¥½¡¼¥È¤µ¤ì¤Æ¤¤¤ë¿§¤òÊÑ¤¨¤ë(²ÄÊÑÊÑ¿ô)
+			// ã‚½ãƒ¼ãƒˆã•ã‚Œã¦ã„ã‚‹è‰²ã‚’å¤‰ãˆã‚‹(å¯å¤‰å¤‰æ•°)
 			if($this->sort)
 				${"Style_".$this->sort}	= ' class="a0"';
 			$exp	= '<tr><td class="td9"><a href="?menu='.$this->QUERY.'&sort=no"'.$Style_no.'>No</a></td>'.
-					'<td class="td9"><a href="?menu='.$this->QUERY.'&sort=time"'.$Style_time.'>»Ä¤ê</td>'.
-					'<td class="td9"><a href="?menu='.$this->QUERY.'&sort=price"'.$Style_price.'>²Á³Ê</a>'.
-					'<br /><a href="?menu='.$this->QUERY.'&sort=rprice"'.$Style_rprice.'>(¾º)</a></td>'.
+					'<td class="td9"><a href="?menu='.$this->QUERY.'&sort=time"'.$Style_time.'>æ®‹ã‚Š</td>'.
+					'<td class="td9"><a href="?menu='.$this->QUERY.'&sort=price"'.$Style_price.'>ä¾¡æ ¼</a>'.
+					'<br /><a href="?menu='.$this->QUERY.'&sort=rprice"'.$Style_rprice.'>(æ˜‡)</a></td>'.
 					'<td class="td9">Item</td>'.
 					'<td class="td9"><a href="?menu='.$this->QUERY.'&sort=bid"'.$Style_bid.'>Bids</a></td>'.
-					'<td class="td9">Æş»¥¼Ô</td><td class="td9">½ĞÉÊ¼Ô</td></tr>'."\n";
+					'<td class="td9">å…¥æœ­è€…</td><td class="td9">å‡ºå“è€…</td></tr>'."\n";
 
-			print("Áí½ĞÉÊ¿ô:".$this->ItemAmount()."\n");
+			print("ç·å‡ºå“æ•°:".$this->ItemAmount()."\n");
 			print('<table style="width:725px;text-align:center" cellpadding="0" cellspacing="0" border="0">'."\n");
 			print($exp);
 			foreach($this->Article as $Article) {
 
-				// ¶¥ÇäÈÖ¹æ
+				// ç«¶å£²ç•ªå·
 				print("<tr><td rowspan=\"2\" class=\"td7\">");
 				print($Article["No"]);
-				// ½ªÎ»»ş¹ï
+				// çµ‚äº†æ™‚åˆ»
 				print("</td><td class=\"td7\">");
 				print(AuctionLeftTime($Now,$Article["end"]));
-				// ¸½ºßÆş»¥²Á³Ê
+				// ç¾åœ¨å…¥æœ­ä¾¡æ ¼
 				print("</td><td class=\"td7\">");
 				print(MoneyFormat($Article["price"]));
-				// ¥¢¥¤¥Æ¥à
+				// ã‚¢ã‚¤ãƒ†ãƒ 
 				print('</td><td class="td7" style="text-align:left">');
 				$item	= LoadItemData($Article["item"]);
 				print(ShowItemDetail($item,$Article["amount"],1));
-				// ¹ç·×Æş»¥¿ô
+				// åˆè¨ˆå…¥æœ­æ•°
 				print("</td><td class=\"td7\">");
 				print($Article["TotalBid"]);
-				// Æş»¥¼Ô
+				// å…¥æœ­è€…
 				print("</td><td class=\"td7\">");
 				if(!$Article["bidder"])
 					$bidder	= "-";
 				else
 					$bidder	= $this->LoadUserName($Article["bidder"]);
 				print($bidder);
-				// ½ĞÉÊ¼Ô
+				// å‡ºå“è€…
 				print("</td><td class=\"td8\">");
 				$exhibitor	= $this->LoadUserName($Article["exhibitor"]);
 				print($exhibitor);
-				// ¥³¥á¥ó¥È
+				// ã‚³ãƒ¡ãƒ³ãƒˆ
 				print("</td></tr><tr>");
 				print("<td colspan=\"6\" class=\"td8\" style=\"text-align:left\">");
 				print('<form action="?menu=auction" method="post">');
-				// Æş»¥¥Õ¥©¡¼¥à
+				// å…¥æœ­ãƒ•ã‚©ãƒ¼ãƒ 
 				if($bidding) {
-					print('<a style="margin:0 10px" href="#" onClick="Element.toggle(\'Bid'.$Article["No"].'\');return false;">Æş»¥</a>');
+					print('<a style="margin:0 10px" href="#" onClick="Element.toggle(\'Bid'.$Article["No"].'\');return false;">å…¥æœ­</a>');
 					print('<span style="display:none" id="Bid'.$Article["No"].'">');
 					print('&nbsp;<input type="text" name="BidPrice" style="width:80px" class="text" value="'.BottomPrice($Article["price"]).'">');
 					print('<input type="submit" value="Bid" class="btn">');
@@ -376,7 +376,7 @@ class Auction {
 		}
 	}
 //////////////////////////////////////////////////
-//	¤½¤ÎÈÖ¹æ¤Î¶¥ÇäÉÊ¤¬½ĞÉÊ¤µ¤ì¤Æ¤¤¤ë¤«¤¿¤·¤«¤á¤ë¡£
+//	ãã®ç•ªå·ã®ç«¶å£²å“ãŒå‡ºå“ã•ã‚Œã¦ã„ã‚‹ã‹ãŸã—ã‹ã‚ã‚‹ã€‚
 	function ItemArticleExists($no) {
 		if($this->Article["$no"]) {
 			return true;
@@ -385,56 +385,56 @@ class Auction {
 		}
 	}
 //////////////////////////////////////////////
-//	¥¢¥¤¥Æ¥à¤ò½ĞÉÊ¤¹¤ë
+//	ã‚¢ã‚¤ãƒ†ãƒ ã‚’å‡ºå“ã™ã‚‹
 	function ItemAddArticle($item,$amount,$id,$time,$StartPrice,$comment) {
-		// ½ªÎ»»ş¹ï¤Î·×»»
+		// çµ‚äº†æ™‚åˆ»ã®è¨ˆç®—
 		$Now	= time();
 		$end	= $Now + round($now + (60 * 60 * $time));
-		// ³«»Ï²Á³Ê¤Î¤¢¤ì
+		// é–‹å§‹ä¾¡æ ¼ã®ã‚ã‚Œ
 		if(ereg("^[0-9]",$StartPrice)) {
 			$price	= (int)$StartPrice;
 		} else {
 			$price	= 0;
 		}
-		// ¥³¥á¥ó¥È½èÍı
+		// ã‚³ãƒ¡ãƒ³ãƒˆå‡¦ç†
 		$comment	= str_replace("\t","",$comment);
 		$comment	= htmlspecialchars(trim($comment),ENT_QUOTES);
 		$comment	= stripslashes($comment);
-		// ¶¥ÇäÉÊÈÖ¹æ
+		// ç«¶å£²å“ç•ªå·
 		$this->ArticleNo++;
 		if(9999 < $this->ArticleNo)
 			$this->ArticleNo	= 0;
 		$New	= array(
-			// ¶¥ÇäÉÊÈÖ¹æ
+			// ç«¶å£²å“ç•ªå·
 			"No"		=> $this->ArticleNo,
-			// ½ªÎ»»ş¹ï
+			// çµ‚äº†æ™‚åˆ»
 			"end"		=> $end,
-			// º£¤ÎÆş»¥²Á³Ê
+			// ä»Šã®å…¥æœ­ä¾¡æ ¼
 			"price"		=> (int)$price,
-			// ½ĞÉÊ¼Ôid
+			// å‡ºå“è€…id
 			"exhibitor"	=> $id,
-			// ¥¢¥¤¥Æ¥à
+			// ã‚¢ã‚¤ãƒ†ãƒ 
 			"item"		=> $item,
-			// ¸Ä¿ô
+			// å€‹æ•°
 			"amount"	=> (int)$amount,
-			// ¹ç·×Æş»¥¿ô
+			// åˆè¨ˆå…¥æœ­æ•°
 			"TotalBid"	=> 0,
-			// ºÇ½ªÆş»¥¼Ôid
+			// æœ€çµ‚å…¥æœ­è€…id
 			"bidder"	=> NULL,
-			// ºÇ½ªÆş»¥»ş´Ö(»È¤Ã¤Æ¤Ê¤¤¡ª¡©»È¤¤¤¿¤±¤ì¤Ğ»È¤Ã¤Æ¤¯¤À¤µ¤¤)
+			// æœ€çµ‚å…¥æœ­æ™‚é–“(ä½¿ã£ã¦ãªã„ï¼ï¼Ÿä½¿ã„ãŸã‘ã‚Œã°ä½¿ã£ã¦ãã ã•ã„)
 			"latest"	=> NULL,
-			// ¥³¥á¥ó¥È
+			// ã‚³ãƒ¡ãƒ³ãƒˆ
 			"comment"	=> $comment,
 			// IP
 			"IP"	=> $_SERVER[REMOTE_ADDR],
 			);
 		array_unshift($this->Article,$New);
 		$itemData	= LoadItemData($item);
-		$this->AddLog("No.".$this->ArticleNo." ¤Ë <img src=\"".IMG_ICON.$itemData["img"]."\"><span class=\"bold\">{$itemData[name]} x{$amount}</span>¸Ä¤¬<span class=\"charge\">½ĞÉÊ¤µ¤ì¤Ş¤·¤¿¡£</span>");
+		$this->AddLog("No.".$this->ArticleNo." ã« <img src=\"".IMG_ICON.$itemData["img"]."\"><span class=\"bold\">{$itemData[name]} x{$amount}</span>å€‹ãŒ<span class=\"charge\">å‡ºå“ã•ã‚Œã¾ã—ãŸã€‚</span>");
 		$this->DataChange	= true;
 	}
 //////////////////////////////////////////////
-//	¥ª¡¼¥¯¥·¥ç¥ó¤Î¥Ç¡¼¥¿¤òÊİÂ¸¤¹¤ë
+//	ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ã®ãƒ‡ãƒ¼ã‚¿ã‚’ä¿å­˜ã™ã‚‹
 	function ItemSaveData() {
 		if(!$this->DataChange)
 		{
@@ -442,7 +442,7 @@ class Auction {
 			unset($this->fp);
 			return false;
 		}
-		// ¥¢¥¤¥Æ¥à ¥ª¡¼¥¯¥·¥ç¥ó¤òÊİÂ¸¤¹¤ë¡£
+		// ã‚¢ã‚¤ãƒ†ãƒ  ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ã‚’ä¿å­˜ã™ã‚‹ã€‚
 		$string	= $this->ArticleNo."\n";
 		foreach($this->Article as $val) {
 			//if(strlen($val["end"]) != 10) continue;
@@ -499,16 +499,16 @@ class Auction {
 		}
 	}
 //////////////////////////////////////////////
-// ¥¢¥¤¥Æ¥à¥ª¡¼¥¯¥·¥ç¥óÍÑ¤Î¥Õ¥¡¥¤¥ë¤ò³«¤¤¤Æ
-// ¥Ç¡¼¥¿¤ò¼è¤ê½Ğ¤·,³ÊÇ¼
+// ã‚¢ã‚¤ãƒ†ãƒ ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ç”¨ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã„ã¦
+// ãƒ‡ãƒ¼ã‚¿ã‚’å–ã‚Šå‡ºã—,æ ¼ç´
 	function ItemArticleRead() {
-		// ¥Õ¥¡¥¤¥ë¤¬¤¢¤ë¾ì¹ç
+		// ãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã‚‹å ´åˆ
 		if(file_exists(AUCTION_ITEM)) {
 			//$fp	= fopen(AUCTION_ITEM,"r+");
 			$this->fp	= FileLock(AUCTION_ITEM);
 			//if(!$fp) return false;
 			//flock($fp,LOCK_EX);
-			// ¶¥ÇäÈÖ¹æ¤òÀèÆÉ¤ß¤¹¤ë
+			// ç«¶å£²ç•ªå·ã‚’å…ˆèª­ã¿ã™ã‚‹
 			$this->ArticleNo	= trim(fgets($this->fp));
 			while( !feof($this->fp) ) {
 				$str	= fgets($this->fp);
@@ -516,31 +516,31 @@ class Auction {
 				$article = explode("<>",$str);
 				if(strlen($article["1"]) != 10) continue;
 				$this->Article[$article["0"]]	= array(
-				"No"		=> $article["0"],// ¶¥ÇäÈÖ¹æ
-				"end"		=> $article["1"],// ½ªÎ»»ş¹ï
-				"price"		=> $article["2"],// º£¤ÎÆş»¥²Á³Ê
-				"exhibitor"	=> $article["3"],// ½ĞÉÊ¼Ôid
-				"item"		=> $article["4"],// ¥¢¥¤¥Æ¥à
-				"amount"	=> $article["5"],// ¸Ä¿ô
-				"TotalBid"	=> $article["6"],// ¹ç·×Æş»¥¿ô
-				"bidder"	=> $article["7"],// ºÇ½ªÆş»¥¼Ôid
-				"latest"	=> $article["8"],// ºÇ½ªÆş»¥»ş´Ö
-				"comment"	=> trim($article["9"]),// ¥³¥á¥ó¥È
+				"No"		=> $article["0"],// ç«¶å£²ç•ªå·
+				"end"		=> $article["1"],// çµ‚äº†æ™‚åˆ»
+				"price"		=> $article["2"],// ä»Šã®å…¥æœ­ä¾¡æ ¼
+				"exhibitor"	=> $article["3"],// å‡ºå“è€…id
+				"item"		=> $article["4"],// ã‚¢ã‚¤ãƒ†ãƒ 
+				"amount"	=> $article["5"],// å€‹æ•°
+				"TotalBid"	=> $article["6"],// åˆè¨ˆå…¥æœ­æ•°
+				"bidder"	=> $article["7"],// æœ€çµ‚å…¥æœ­è€…id
+				"latest"	=> $article["8"],// æœ€çµ‚å…¥æœ­æ™‚é–“
+				"comment"	=> trim($article["9"]),// ã‚³ãƒ¡ãƒ³ãƒˆ
 				"IP"	=> trim($article["10"]),// IP
 				);
 			}
-		// ¥Õ¥¡¥¤¥ë¤¬Ìµ¤¤¾ì¹ç
+		// ãƒ•ã‚¡ã‚¤ãƒ«ãŒç„¡ã„å ´åˆ
 		} else {
-			// ²¿¤â¤·¤Ê¤¤¡£
+			// ä½•ã‚‚ã—ãªã„ã€‚
 		}
 	}
 //////////////////////////////////////////////////
-//	½ĞÉÊÊª¤Î¿ô
+//	å‡ºå“ç‰©ã®æ•°
 	function ItemAmount() {
 		return count($this->Article);
 	}
 //////////////////////////////////////////////////
-//	¥ª¡¼¥¯¥·¥ç¥ó·Ğ²á¥í¥°¤òÆÉ¤à
+//	ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³çµŒéãƒ­ã‚°ã‚’èª­ã‚€
 	function LoadLog() {
 		if($this->AuctionType == "item") {
 			if(!file_exists(AUCTION_ITEM_LOG)) {
@@ -558,12 +558,12 @@ class Auction {
 		}
 	}
 //////////////////////////////////////////////////
-//	¥ª¡¼¥¯¥·¥ç¥ó·Ğ²á¥í¥°¤ÎÊİÂ¸
+//	ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³çµŒéãƒ­ã‚°ã®ä¿å­˜
 	function SaveLog() {
 		if($this->AuctionType == "item") {
 			if(!$this->AuctionLog)
 				return false;
-			// 30¹Ô°Ê²¼¤Ë¼ı¤á¤ë
+			// 30è¡Œä»¥ä¸‹ã«åã‚ã‚‹
 			while(100 < count($this->AuctionLog)) {
 				array_pop($this->AuctionLog);
 			}
@@ -574,7 +574,7 @@ class Auction {
 		}
 	}
 //////////////////////////////////////////////////
-//	¥í¥°¤ÎÉ½¼¨
+//	ãƒ­ã‚°ã®è¡¨ç¤º
 	function ShowLog() {
 		if(!$this->AuctionLog)
 			$this->LoadLog();
@@ -585,7 +585,7 @@ class Auction {
 		}
 	}
 //////////////////////////////////////////////////
-//	¥í¥°¤ÎÄÉ²Ã
+//	ãƒ­ã‚°ã®è¿½åŠ 
 	function AddLog($string) {
 		if(!$this->AuctionLog)
 			$this->LoadLog();
@@ -597,65 +597,65 @@ class Auction {
 
 }
 //////////////////////////////////////////////////
-//	¥¢¥¤¥Æ¥à¤òÈÖ¹æ½ç¤ËÊÂ¤ÓÂØ¤¨¤ë
+//	ã‚¢ã‚¤ãƒ†ãƒ ã‚’ç•ªå·é †ã«ä¸¦ã³æ›¿ãˆã‚‹
 	function ItemArticleSortByNo($a,$b) {
 		if($a["No"] == $b["No"])
 			return 0;
 		return ($a["No"] > $b["No"]) ? 1:-1;
 	}
 //////////////////////////////////////////////////
-//	¥¢¥¤¥Æ¥à¤ò»Ä¤ê»ş´Ö½ç¤ËÊÂ¤ÓÊÑ¤¨¤ë
+//	ã‚¢ã‚¤ãƒ†ãƒ ã‚’æ®‹ã‚Šæ™‚é–“é †ã«ä¸¦ã³å¤‰ãˆã‚‹
 	function ItemArticleSortByTime($a,$b) {
 		if($a["end"] == $b["end"])
 			return 0;
 		return ($a["end"] > $b["end"]) ? 1:-1;
 	}
 //////////////////////////////////////////////////
-//	¥¢¥¤¥Æ¥à¤ò²Á³Ê½ç¤ËÊÂ¤ÓÂØ¤¨¤ë
+//	ã‚¢ã‚¤ãƒ†ãƒ ã‚’ä¾¡æ ¼é †ã«ä¸¦ã³æ›¿ãˆã‚‹
 	function ItemArticleSortByPrice($a,$b) {
 		if($a["price"] == $b["price"])
 			return 0;
 		return ($a["price"] > $b["price"]) ? -1:1;
 	}
 //////////////////////////////////////////////////
-//	¥¢¥¤¥Æ¥à¤ò²Á³Ê½ç¤ËÊÂ¤ÓÂØ¤¨¤ë(¤®¤ã¤¯)
+//	ã‚¢ã‚¤ãƒ†ãƒ ã‚’ä¾¡æ ¼é †ã«ä¸¦ã³æ›¿ãˆã‚‹(ãã‚ƒã)
 	function ItemArticleSortByRPrice($a,$b) {
 		if($a["price"] == $b["price"])
 			return 0;
 		return ($a["price"] > $b["price"]) ? 1:-1;
 	}
 //////////////////////////////////////////////////
-//	¥¢¥¤¥Æ¥à¤òÆş»¥¿ô½ç¤ËÊÂ¤ÓÂØ¤¨¤ë
+//	ã‚¢ã‚¤ãƒ†ãƒ ã‚’å…¥æœ­æ•°é †ã«ä¸¦ã³æ›¿ãˆã‚‹
 	function ItemArticleSortByTotalBid($a,$b) {
 		if($a["TotalBid"] == $b["TotalBid"])
 			return 0;
 		return ($a["TotalBid"] > $b["TotalBid"]) ? -1:1;
 	}
 //////////////////////////////////////////////////
-//	»Ä¤ê»ş´Ö¤òÊÖ¤¹
+//	æ®‹ã‚Šæ™‚é–“ã‚’è¿”ã™
 	function AuctionLeftTime($now,$end,$int=false) {
 		$left	= $end - $now;
-		// $int=true ¤Ê¤éº¹Ê¬¤À¤±ÊÖ¤¹
+		// $int=true ãªã‚‰å·®åˆ†ã ã‘è¿”ã™
 		if($int)
 			return $left;
-		if($left < 1) {// ½ªÎ»¤·¤Æ¤¤¤ë¾ì¹ç¤Ïfalse
+		if($left < 1) {// çµ‚äº†ã—ã¦ã„ã‚‹å ´åˆã¯false
 			return false;
 		}
 		if($left < 601) {
-			return "{$left}ÉÃ";
+			return "{$left}ç§’";
 		} else if($left < 3601) {
 			$minutes	= floor($left/60);
-			return "{$minutes}Ê¬";
+			return "{$minutes}åˆ†";
 		} else {
 			$hour	= floor($left/3600);
 			$minutes	= floor(($left%3600)/60);
-			return "{$hour}»ş´Ö{$minutes}Ê¬";
+			return "{$hour}æ™‚é–“{$minutes}åˆ†";
 		}
 	}
 //////////////////////////////////////////////////
-//	ºÇÄã²Á³Ê¤òÊÖ¤¹
-//	²Á³Ê¤Î5%¤¬ºÇÄãÃÍ¡£
-//	100°Ê²¼¤Ê¤é100¤¬¤½¤ì¤Ë¤Ê¤ë¡£
+//	æœ€ä½ä¾¡æ ¼ã‚’è¿”ã™
+//	ä¾¡æ ¼ã®5%ãŒæœ€ä½å€¤ã€‚
+//	100ä»¥ä¸‹ãªã‚‰100ãŒãã‚Œã«ãªã‚‹ã€‚
 	function BottomPrice($price) {
 		$bottom	= floor($price * 0.10);
 		if($bottom < 101)

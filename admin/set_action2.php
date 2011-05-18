@@ -1,13 +1,13 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>SetAction02</title>
 <style type="text/css">
 <!--
 *{
 	line-height	: 140%;
-	font-family	: Osaka,Verdana,"£Í£Ó £Ğ¥´¥·¥Ã¥¯";
+	font-family	: Osaka,Verdana,"ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯";
 }
 .bg{
 background-color:#cccccc;
@@ -29,7 +29,7 @@ input{background-color:#dddddd;
 		return 1;
 	}
 
-	// ¹Ô¿ô
+	// è¡Œæ•°
 	define("ROWS",$_POST["patternNum"]?$_POST["patternNum"]:5);
 	define("IMG","../image/char/");
 
@@ -95,7 +95,7 @@ input{background-color:#dddddd;
 		print("</textarea>\n");
 	}
 
-	// È½Äê¤Î¼ïÎà
+	// åˆ¤å®šã®ç¨®é¡
 	include("../data/data.judge_setup.php");
 	for($i=1000; $i<10000; $i++) {
 		$judge	= LoadJudgeData($i);
@@ -106,7 +106,7 @@ input{background-color:#dddddd;
 			$judgeList["$i"]["css"]	= true;
 	}
 
-	// Á´¥¹¥­¥ë
+	// å…¨ã‚¹ã‚­ãƒ«
 	include("../data/data.skill.php");
 	for($i=1000; $i<10000; $i++) {
 		$skill	= LoadSkillData($i);
@@ -121,7 +121,7 @@ input{background-color:#dddddd;
 		print("<tr><td>\n");
 		print('<span style="font-weight:bold">'.sprintf("%2s",$i+1)."</span>");
 		print("</td><td>\n");
-		// È½Äê¥ê¥¹¥È
+		// åˆ¤å®šãƒªã‚¹ãƒˆ
 		print('<select name="judge'.$i.'">'."\n");
 		print('<option></option>'."\n");
 		foreach($judgeList as $key => $exp) {
@@ -133,10 +133,10 @@ input{background-color:#dddddd;
 		}
 		print("</select>\n");
 		print("</td><td>\n");
-		// ¿ôÃÍ
+		// æ•°å€¤
 		print('<input type="text" name="quantity'.$i.'" value="'.($_POST["quantity".$i]?$_POST["quantity".$i]:"0").'" size="10" />'."\n");
 		print("</td><td>\n");
-		// µ»
+		// æŠ€
 		print('<select name="skill'.$i.'">'."\n");
 		print('<option></option>'."\n");
 		foreach($skillList as $key => $exp) {

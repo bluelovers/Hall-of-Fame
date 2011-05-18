@@ -2,7 +2,7 @@
 function AddEnchantData(&$item, $opt) {
 
 /*
-	���삵���h��ɕt�^�����ǉ����ʁB
+	製作した防具に付与される追加効果。
 */
 
 	switch($opt) {
@@ -550,8 +550,8 @@ function AddEnchantData(&$item, $opt) {
 
 
 
-											// ���ꐻ��
-											// ���t�⎞�ԑтɂ���Ă����ʂ������� date();
+											// 特殊製作
+											// 日付や時間帯によっても効果かえれるよ date();
 		case X00:
 			if($item["type2"] == "WEAPON") {
 				$item["atk"]["0"]	+= 5;

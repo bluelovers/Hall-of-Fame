@@ -3,7 +3,7 @@
 	if(!defined("ADMIN_PASSWORD"))
 		exit(1);
 	/*
-	* ¥í¥°¥¤¥ó
+	* ãƒ­ã‚°ã‚¤ãƒ³
 	*/
 	if($_POST["pass"] == ADMIN_PASSWORD || $_COOKIE["adminPass"] == ADMIN_PASSWORD) {
 		setcookie ("adminPass", $_POST["pass"]?$_POST["pass"]:$_COOKIE["adminPass"],time()+60*30);
@@ -11,7 +11,7 @@
 	}
 
 	/*
-	* ¥í¥°¥¢¥¦¥È
+	* ãƒ­ã‚°ã‚¢ã‚¦ãƒˆ
 	*/
 	if($_POST["logout"]) {
 		setcookie ("adminPass");
@@ -20,7 +20,7 @@
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-<head><meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <script type="text/javascript" src="prototype.js"></script>
 <title>HoF - admin</title>
 <style TYPE="text/css">
@@ -46,7 +46,7 @@ if($login) {
 	}
 
 	/*
-	* changeData(¥Ç¡¼¥¿¤ËÊÑ¹¹¤ò²Ã¤¨¤ë)
+	* changeData(ãƒ‡ãƒ¼ã‚¿ã«å¤‰æ›´ã‚’åŠ ãˆã‚‹)
 	*/
 	function changeData($file,$text) {
 		$fp = @fopen($file,"w") or die("file lock error!");
@@ -54,11 +54,11 @@ if($login) {
 		fwrite($fp,stripcslashes($text));
 		flock($fp,LOCK_UN);
 		fclose($fp);
-		print("<span style=\"font-weight:bold\">¥Ç¡¼¥¿½¤Àµ</span>");
+		print("<span style=\"font-weight:bold\">ãƒ‡ãƒ¼ã‚¿ä¿®æ­£</span>");
 	}
 
 	/*
-	* ¥á¥Ë¥å¡¼
+	* ãƒ¡ãƒ‹ãƒ¥ãƒ¼
 	*/
 print <<< MENU
 <form action="?" method="post">
@@ -72,7 +72,7 @@ print <<< MENU
 MENU;
 
 	/*
-	* ¥æ¡¼¥¶°ìÍ÷
+	* ãƒ¦ãƒ¼ã‚¶ä¸€è¦§
 	*/
 	if($_GET["menu"] === "user") {
 		$userList = glob(USER."*");
@@ -87,7 +87,7 @@ MENU;
 	}
 
 	/*
-	* ¥æ¡¼¥¶¥Ç¡¼¥¿
+	* ãƒ¦ãƒ¼ã‚¶ãƒ‡ãƒ¼ã‚¿
 	*/
 	else if($_POST["UserData"]) {
 		$userFileList = glob(USER.$_POST["userID"]."/*");
@@ -101,14 +101,14 @@ MENU;
 			print("</form>\n");
 		}
 		print('<br><form action="?" method="post">');
-		print('¥æ¡¼¥¶ºï½ü :<input type="text" name="deletePass" size="">');
-		print('<input type="submit" name="deleteUser" value="ºï½ü">');
+		print('ãƒ¦ãƒ¼ã‚¶å‰Šé™¤ :<input type="text" name="deletePass" size="">');
+		print('<input type="submit" name="deleteUser" value="å‰Šé™¤">');
 		print('<input type="hidden" name="userID" value="'.$_POST["userID"].'">');
 		print("</form>\n");
 	}
 
 	/*
-	* ¥æ¡¼¥¶¥Ç¡¼¥¿ºï½ü
+	* ãƒ¦ãƒ¼ã‚¶ãƒ‡ãƒ¼ã‚¿å‰Šé™¤
 	*/
 	else if($_POST["deleteUser"]) {
 		if($_POST["deletePass"] == ADMIN_PASSWORD) {
@@ -116,25 +116,25 @@ MENU;
 			include(CLASS_USER);
 			$userD = new user($_POST["userID"]);
 			$userD->DeleteUser();
-			print($_POST["userID"]."¤òºï½ü¤·¤Þ¤·¤¿¡£");
+			print($_POST["userID"]."ã‚’å‰Šé™¤ã—ã¾ã—ãŸã€‚");
 		} else {
-			print("¥Ñ¥¹¥ï¡¼¥É¤Á¤¬¤¦¡£");
+			print("ãƒ‘ã‚¹ãƒ¯ãƒ¼ãƒ‰ã¡ãŒã†ã€‚");
 		}
 	}
 
 	/*
-	* ¥æ¡¼¥¶¥Ç¡¼¥¿(¾ÜºÙ)
+	* ãƒ¦ãƒ¼ã‚¶ãƒ‡ãƒ¼ã‚¿(è©³ç´°)
 	*/
 	else if($_POST["UserFileDet"]) {
 		$file = USER.$_POST["userID"]."/".$_POST["userFile"];
-		// ¥Ç¡¼¥¿¤Î½¤Àµ
+		// ãƒ‡ãƒ¼ã‚¿ã®ä¿®æ­£
 		if($_POST["changeData"]) {
 			$fp = @fopen($file,"w") or die("file lock error!");
 			flock($fp,LOCK_EX);
 			fwrite($fp,$_POST["fileData"]);
 			flock($fp,LOCK_UN);
 			fclose($fp);
-			print("¥Ç¡¼¥¿½¤Àµ");
+			print("ãƒ‡ãƒ¼ã‚¿ä¿®æ­£");
 		}
 
 		print("<p>$file</p>\n");
@@ -142,49 +142,49 @@ MENU;
 		print('<textarea name="fileData" style="width:800px;height:300px;">');
 		print(file_get_contents($file));
 		print("</textarea><br>\n");
-		print('<input type="submit" name="changeData" value="½¤Àµ">');
-		print('<input type="submit" value="¹¹¿·">');
+		print('<input type="submit" name="changeData" value="ä¿®æ­£">');
+		print('<input type="submit" value="æ›´æ–°">');
 		print('<input type="hidden" name="userFile" value="'.$_POST["userFile"].'">');
 		print('<input type="hidden" name="userID" value="'.$_POST["userID"].'">');
 		print('<input type="hidden" name="UserFileDet" value="1">');
 		print("</form>\n");
 		print('<form action="?" method="post">');
-		print('<input type="submit" name="UserData" value="Ìá¤ë">');
+		print('<input type="submit" name="UserData" value="æˆ»ã‚‹">');
 		print('<input type="hidden" name="userID" value="'.$_POST["userID"].'">');
 		print("</form>\n");
 	}
 
 	/*
-	* ¥Ç¡¼¥¿½¸·×
+	* ãƒ‡ãƒ¼ã‚¿é›†è¨ˆ
 	*/
 	else if($_GET["menu"] === "data") {
 print <<< DATA
 <br>
 <form action="?" method="post">
 <ul>
-<li><input type="submit" name="UserDataDetail" value=" + ">(¢¨1)¥æ¡¼¥¶¥Ç¡¼¥¿¤Î½¸·×¤òÉ½¼¨</li>
-<li><input type="submit" name="UserCharDetail" value=" + ">(¢¨1)¥­¥ã¥é¥Ç¡¼¥¿¤Î½¸·×¤òÉ½¼¨</li>
-<li><input type="submit" name="ItemDataDetail" value=" + ">(¢¨1)¥¢¥¤¥Æ¥à¥Ç¡¼¥¿¤Î½¸·×¤òÉ½¼¨</li>
-<li><input type="submit" name="UserIpShow" value=" + ">(¢¨1)¥æ¡¼¥¶¤ÎIP¤òÉ½¼¨</li>
-<li><input type="submit" name="searchBroken" value=" + ">(¢¨1)²õ¤ì¤Æ¤ë²ÄÇ½À­¤Î¤¢¤ë¥Ç¡¼¥¿¤òÃµ¤¹(ÈùÌ¯)<input type="text" name="brokenSize" value="100" size=""></li>
-<li><input type="submit" name="adminBattleLog" value=" + ">ÀïÆ®¥í¥°¤Î´ÉÍý</li>
-<li><input type="submit" name="adminAuction" value=" + ">¥ª¡¼¥¯¥·¥ç¥ó¤Î´ÉÍý</li>
-<li><input type="submit" name="adminRanking" value=" + ">¥é¥ó¥­¥ó¥°¤Î´ÉÍý</li>
-<li><input type="submit" name="adminTown" value=" + ">Ä®¹­¾ì¤Î´ÉÍý</li>
-<li><input type="submit" name="adminRegister" value=" + ">¥æ¡¼¥¶ÅÐÏ¿¾ðÊó¤Î´ÉÍý</li>
-<li><input type="submit" name="adminUserName" value=" + ">¥æ¡¼¥¶Ì¾¤Î´ÉÍý</li>
-<li><input type="submit" name="adminUpDate" value=" + ">¹¹¿·¾ðÊó¤Î´ÉÍý</li>
-<li><input type="submit" name="adminAutoControl" value=" + ">¼«Æ°´ÉÍý¤Î¥í¥°</li>
+<li><input type="submit" name="UserDataDetail" value=" + ">(â€»1)ãƒ¦ãƒ¼ã‚¶ãƒ‡ãƒ¼ã‚¿ã®é›†è¨ˆã‚’è¡¨ç¤º</li>
+<li><input type="submit" name="UserCharDetail" value=" + ">(â€»1)ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿ã®é›†è¨ˆã‚’è¡¨ç¤º</li>
+<li><input type="submit" name="ItemDataDetail" value=" + ">(â€»1)ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿ã®é›†è¨ˆã‚’è¡¨ç¤º</li>
+<li><input type="submit" name="UserIpShow" value=" + ">(â€»1)ãƒ¦ãƒ¼ã‚¶ã®IPã‚’è¡¨ç¤º</li>
+<li><input type="submit" name="searchBroken" value=" + ">(â€»1)å£Šã‚Œã¦ã‚‹å¯èƒ½æ€§ã®ã‚ã‚‹ãƒ‡ãƒ¼ã‚¿ã‚’æŽ¢ã™(å¾®å¦™)<input type="text" name="brokenSize" value="100" size=""></li>
+<li><input type="submit" name="adminBattleLog" value=" + ">æˆ¦é—˜ãƒ­ã‚°ã®ç®¡ç†</li>
+<li><input type="submit" name="adminAuction" value=" + ">ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ã®ç®¡ç†</li>
+<li><input type="submit" name="adminRanking" value=" + ">ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®ç®¡ç†</li>
+<li><input type="submit" name="adminTown" value=" + ">ç”ºåºƒå ´ã®ç®¡ç†</li>
+<li><input type="submit" name="adminRegister" value=" + ">ãƒ¦ãƒ¼ã‚¶ç™»éŒ²æƒ…å ±ã®ç®¡ç†</li>
+<li><input type="submit" name="adminUserName" value=" + ">ãƒ¦ãƒ¼ã‚¶åã®ç®¡ç†</li>
+<li><input type="submit" name="adminUpDate" value=" + ">æ›´æ–°æƒ…å ±ã®ç®¡ç†</li>
+<li><input type="submit" name="adminAutoControl" value=" + ">è‡ªå‹•ç®¡ç†ã®ãƒ­ã‚°</li>
 </ul>
-<p>(¢¨1)¤È¤Æ¤â¥Ø¥Ó¡¼¤Ê½èÍý¤Ç¤¹¡£<br>
-¥Ç¡¼¥¿¤¬Áý¤¨¤ë¤Û¤É½èÍý¤âÁý¤¨¤Þ¤¹¡£
+<p>(â€»1)ã¨ã¦ã‚‚ãƒ˜ãƒ“ãƒ¼ãªå‡¦ç†ã§ã™ã€‚<br>
+ãƒ‡ãƒ¼ã‚¿ãŒå¢—ãˆã‚‹ã»ã©å‡¦ç†ã‚‚å¢—ãˆã¾ã™ã€‚
 </p>
 </form>
 DATA;
 	}
 
 	/*
-	* ¥Ç¡¼¥¿½¸·×(¥æ¡¼¥¶¥Ç¡¼¥¿)
+	* ãƒ‡ãƒ¼ã‚¿é›†è¨ˆ(ãƒ¦ãƒ¼ã‚¶ãƒ‡ãƒ¼ã‚¿)
 	*/
 	else if($_POST["UserDataDetail"]) {
 		include(GLOBAL_PHP);
@@ -200,7 +200,7 @@ DATA;
 	}
 
 	/*
-	* ¥Ç¡¼¥¿½¸·×(¥­¥ã¥é¥Ç¡¼¥¿)
+	* ãƒ‡ãƒ¼ã‚¿é›†è¨ˆ(ã‚­ãƒ£ãƒ©ãƒ‡ãƒ¼ã‚¿)
 	*/
 	else if($_POST["UserCharDetail"]) {
 		include(GLOBAL_PHP);
@@ -246,7 +246,7 @@ DATA;
 	}
 
 	/*
-	* ¥Ç¡¼¥¿½¸·×(¥¢¥¤¥Æ¥à¥Ç¡¼¥¿)
+	* ãƒ‡ãƒ¼ã‚¿é›†è¨ˆ(ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿)
 	*/
 	else if($_POST["ItemDataDetail"]) {
 		include(GLOBAL_PHP);
@@ -265,7 +265,7 @@ DATA;
 	}
 
 	/*
-	* ¥æ¡¼¥¶¤ÎIPÉ½¼¨
+	* ãƒ¦ãƒ¼ã‚¶ã®IPè¡¨ç¤º
 	*/
 	else if($_POST["UserIpShow"]) {
 		include(GLOBAL_PHP);
@@ -277,8 +277,8 @@ DATA;
 			$html .= "<tr><td>".$data["id"]."</td><td>".$data["name"]."</td><td>".$data["ip"]."</td></tr>\n";
 			$ipList[$data["ip"]?$data["ip"]:"*UnKnown"]++;
 		}
-		// ½ÅÊ£¥ê¥¹¥È
-		print("<p>IP½ÅÊ£¥ê¥¹¥È</p>\n");
+		// é‡è¤‡ãƒªã‚¹ãƒˆ
+		print("<p>IPé‡è¤‡ãƒªã‚¹ãƒˆ</p>\n");
 		foreach($ipList as $ip => $amount) {
 			if(1 < $amount)
 				print("$ip : $amount<br>\n");
@@ -290,12 +290,12 @@ DATA;
 	}
 
 	/*
-	* ²õ¤ì¤Æ¤ë²ÄÇ½À­¤Î¤¢¤ë¥Ç¡¼¥¿¤òÃµ¤¹
+	* å£Šã‚Œã¦ã‚‹å¯èƒ½æ€§ã®ã‚ã‚‹ãƒ‡ãƒ¼ã‚¿ã‚’æŽ¢ã™
 	*/
 	else if($_POST["searchBroken"]) {
-		print("<p>²õ¤ì¤Æ¤¤¤ë²ÄÇ½À­¤Î¤¢¤ë¥Õ¥¡¥¤¥ë<br>\n");
+		print("<p>å£Šã‚Œã¦ã„ã‚‹å¯èƒ½æ€§ã®ã‚ã‚‹ãƒ•ã‚¡ã‚¤ãƒ«<br>\n");
 		$baseSize = $_POST["brokenSize"]?(int)$_POST["brokenSize"]:100;
-		print("¢¨{$baseSize}byte °Ê²¼¤Î¥Õ¥¡¥¤¥ë¤òÃµ¤·¤¿¤À¤±(¥¢¥¤¥Æ¥à¥Ç¡¼¥¿¤Ï½ü¤¯).</p>");
+		print("â€»{$baseSize}byte ä»¥ä¸‹ã®ãƒ•ã‚¡ã‚¤ãƒ«ã‚’æŽ¢ã—ãŸã ã‘(ã‚¢ã‚¤ãƒ†ãƒ ãƒ‡ãƒ¼ã‚¿ã¯é™¤ã).</p>");
 		$userFileList = glob(USER."*");
 		foreach($userFileList as $user) {
 			$userDir = glob($user."/*");
@@ -310,7 +310,7 @@ DATA;
 	}
 
 	/*
-	* ÀïÆ®¥í¥°¤Î´ÉÍý
+	* æˆ¦é—˜ãƒ­ã‚°ã®ç®¡ç†
 	*/
 	else if($_POST["adminBattleLog"]) {
 		if($_POST["deleteLogCommon"]) {
@@ -319,42 +319,42 @@ DATA;
 			foreach($logFile as $file) {
 				unlink($file);
 			}
-			print("<p>ÄÌ¾ïÀïÆ®¥í¥°¤òºï½ü¤·¤Þ¤·¤¿¡£</p>\n");
+			print("<p>é€šå¸¸æˆ¦é—˜ãƒ­ã‚°ã‚’å‰Šé™¤ã—ã¾ã—ãŸã€‚</p>\n");
 		} else if($_POST["deleteLogUnion"]) {
 			$dir = LOG_BATTLE_UNION;
 			$logFile = glob($dir."*");
 			foreach($logFile as $file) {
 				unlink($file);
 			}
-			print("<p>¥æ¥Ë¥ª¥óÀïÆ®¥í¥°¤òºï½ü¤·¤Þ¤·¤¿¡£</p>\n");
+			print("<p>ãƒ¦ãƒ‹ã‚ªãƒ³æˆ¦é—˜ãƒ­ã‚°ã‚’å‰Šé™¤ã—ã¾ã—ãŸã€‚</p>\n");
 		} else if($_POST["deleteLogRanking"]) {
 			$dir = LOG_BATTLE_RANK;
 			$logFile = glob($dir."*");
 			foreach($logFile as $file) {
 				unlink($file);
 			}
-			print("<p>¥é¥ó¥­¥ó¥°ÀïÆ®¥í¥°¤òºï½ü¤·¤Þ¤·¤¿¡£</p>\n");
+			print("<p>ãƒ©ãƒ³ã‚­ãƒ³ã‚°æˆ¦é—˜ãƒ­ã‚°ã‚’å‰Šé™¤ã—ã¾ã—ãŸã€‚</p>\n");
 		}
 print <<< DATA
 <br>
 <form action="?" method="post">
 <input type="hidden" name="adminBattleLog" value="1">
 <ul>
-<li><input type="submit" name="deleteLogCommon" value=" + ">ÄÌ¾ïÀïÆ®¥í¥°¤òÁ´Éôºï½ü¤¹¤ë</li>
-<li><input type="submit" name="deleteLogUnion" value=" + ">¥æ¥Ë¥ª¥óÀïÆ®¥í¥°¤òÁ´Éôºï½ü¤¹¤ë</li>
-<li><input type="submit" name="deleteLogRanking" value=" + ">¥é¥ó¥­¥ó¥°¥í¥°¤òÁ´Éôºï½ü¤¹¤ë</li>
+<li><input type="submit" name="deleteLogCommon" value=" + ">é€šå¸¸æˆ¦é—˜ãƒ­ã‚°ã‚’å…¨éƒ¨å‰Šé™¤ã™ã‚‹</li>
+<li><input type="submit" name="deleteLogUnion" value=" + ">ãƒ¦ãƒ‹ã‚ªãƒ³æˆ¦é—˜ãƒ­ã‚°ã‚’å…¨éƒ¨å‰Šé™¤ã™ã‚‹</li>
+<li><input type="submit" name="deleteLogRanking" value=" + ">ãƒ©ãƒ³ã‚­ãƒ³ã‚°ãƒ­ã‚°ã‚’å…¨éƒ¨å‰Šé™¤ã™ã‚‹</li>
 </ul>
 </form>
 DATA;
 	}
 
 	/*
-	* ¥ª¡¼¥¯¥·¥ç¥ó¤Î´ÉÍý
+	* ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ã®ç®¡ç†
 	*/
 	else if($_POST["adminAuction"]) {
 		$file = AUCTION_ITEM;
-		print("<p>¥ª¡¼¥¯¥·¥ç¥ó¤Î´ÉÍý</p>\n");
-		// ¥Ç¡¼¥¿¤Î½¤Àµ
+		print("<p>ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ã®ç®¡ç†</p>\n");
+		// ãƒ‡ãƒ¼ã‚¿ã®ä¿®æ­£
 		if($_POST["changeData"]) {
 			changeData($file,$_POST["fileData"]);
 		}
@@ -362,19 +362,19 @@ DATA;
 		print('<textarea name="fileData" style="width:800px;height:300px;">');
 		print(file_get_contents($file));
 		print("</textarea><br>\n");
-		print('<input type="submit" name="changeData" value="½¤Àµ">');
-		print('<input type="submit" value="¹¹¿·">');
+		print('<input type="submit" name="changeData" value="ä¿®æ­£">');
+		print('<input type="submit" value="æ›´æ–°">');
 		print('<input type="hidden" name="adminAuction" value="1">');
 		print("</form>\n");
 	}
 
 	/*
-	* ¥é¥ó¥­¥ó¥°¤Î´ÉÍý
+	* ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®ç®¡ç†
 	*/
 	else if($_POST["adminRanking"]) {
 		$file = RANKING;
-		print("<p>¥é¥ó¥­¥ó¥°¤Î´ÉÍý</p>\n");
-		// ¥Ç¡¼¥¿¤Î½¤Àµ
+		print("<p>ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®ç®¡ç†</p>\n");
+		// ãƒ‡ãƒ¼ã‚¿ã®ä¿®æ­£
 		if($_POST["changeData"]) {
 			changeData($file,$_POST["fileData"]);
 		}
@@ -382,19 +382,19 @@ DATA;
 		print('<textarea name="fileData" style="width:800px;height:300px;">');
 		print(file_get_contents($file));
 		print("</textarea><br>\n");
-		print('<input type="submit" name="changeData" value="½¤Àµ">');
-		print('<input type="submit" value="¹¹¿·">');
+		print('<input type="submit" name="changeData" value="ä¿®æ­£">');
+		print('<input type="submit" value="æ›´æ–°">');
 		print('<input type="hidden" name="adminRanking" value="1">');
 		print("</form>\n");
 	}
 
 	/*
-	* Ä®¹­¾ì¤Î´ÉÍý
+	* ç”ºåºƒå ´ã®ç®¡ç†
 	*/
 	else if($_POST["adminTown"]) {
 		$file = BBS_TOWN;
-		print("<p>Ä®¹­¾ì¤Î´ÉÍý</p>\n");
-		// ¥Ç¡¼¥¿¤Î½¤Àµ
+		print("<p>ç”ºåºƒå ´ã®ç®¡ç†</p>\n");
+		// ãƒ‡ãƒ¼ã‚¿ã®ä¿®æ­£
 		if($_POST["changeData"]) {
 			changeData($file,$_POST["fileData"]);
 		}
@@ -402,19 +402,19 @@ DATA;
 		print('<textarea name="fileData" style="width:800px;height:300px;">');
 		print(file_get_contents($file));
 		print("</textarea><br>\n");
-		print('<input type="submit" name="changeData" value="½¤Àµ">');
-		print('<input type="submit" value="¹¹¿·">');
+		print('<input type="submit" name="changeData" value="ä¿®æ­£">');
+		print('<input type="submit" value="æ›´æ–°">');
 		print('<input type="hidden" name="adminTown" value="1">');
 		print("</form>\n");
 	}
 
 	/*
-	* ¥æ¡¼¥¶ÅÐÏ¿¾ðÊó¤Î´ÉÍý
+	* ãƒ¦ãƒ¼ã‚¶ç™»éŒ²æƒ…å ±ã®ç®¡ç†
 	*/
 	else if($_POST["adminRegister"]) {
 		$file = REGISTER;
-		print("<p>¥æ¡¼¥¶ÅÐÏ¿¾ðÊó¤Î´ÉÍý</p>\n");
-		// ¥Ç¡¼¥¿¤Î½¤Àµ
+		print("<p>ãƒ¦ãƒ¼ã‚¶ç™»éŒ²æƒ…å ±ã®ç®¡ç†</p>\n");
+		// ãƒ‡ãƒ¼ã‚¿ã®ä¿®æ­£
 		if($_POST["changeData"]) {
 			changeData($file,$_POST["fileData"]);
 		}
@@ -422,19 +422,19 @@ DATA;
 		print('<textarea name="fileData" style="width:800px;height:300px;">');
 		print(file_get_contents($file));
 		print("</textarea><br>\n");
-		print('<input type="submit" name="changeData" value="½¤Àµ">');
-		print('<input type="submit" value="¹¹¿·">');
+		print('<input type="submit" name="changeData" value="ä¿®æ­£">');
+		print('<input type="submit" value="æ›´æ–°">');
 		print('<input type="hidden" name="adminRegister" value="1">');
 		print("</form>\n");
 	}
 
 	/*
-	* ¥æ¡¼¥¶Ì¾¤Î´ÉÍý
+	* ãƒ¦ãƒ¼ã‚¶åã®ç®¡ç†
 	*/
 	else if($_POST["adminUserName"]) {
 		$file = USER_NAME;
-		print("<p>¥æ¡¼¥¶Ì¾¤Î´ÉÍý</p>\n");
-		// ¥Ç¡¼¥¿¤Î½¤Àµ
+		print("<p>ãƒ¦ãƒ¼ã‚¶åã®ç®¡ç†</p>\n");
+		// ãƒ‡ãƒ¼ã‚¿ã®ä¿®æ­£
 		if($_POST["changeData"]) {
 			changeData($file,$_POST["fileData"]);
 		}
@@ -442,19 +442,19 @@ DATA;
 		print('<textarea name="fileData" style="width:800px;height:300px;">');
 		print(file_get_contents($file));
 		print("</textarea><br>\n");
-		print('<input type="submit" name="changeData" value="½¤Àµ">');
-		print('<input type="submit" value="¹¹¿·">');
+		print('<input type="submit" name="changeData" value="ä¿®æ­£">');
+		print('<input type="submit" value="æ›´æ–°">');
 		print('<input type="hidden" name="adminUserName" value="1">');
 		print("</form>\n");
 	}
 
 	/*
-	* ¹¹¿·¾ðÊó¤Î´ÉÍý
+	* æ›´æ–°æƒ…å ±ã®ç®¡ç†
 	*/
 	else if($_POST["adminUpDate"]) {
 		$file = UPDATE;
-		print("<p>¹¹¿·¾ðÊó¤Î´ÉÍý</p>\n");
-		// ¥Ç¡¼¥¿¤Î½¤Àµ
+		print("<p>æ›´æ–°æƒ…å ±ã®ç®¡ç†</p>\n");
+		// ãƒ‡ãƒ¼ã‚¿ã®ä¿®æ­£
 		if($_POST["changeData"]) {
 			changeData($file,$_POST["fileData"]);
 		}
@@ -462,19 +462,19 @@ DATA;
 		print('<textarea name="fileData" style="width:800px;height:300px;">');
 		print(file_get_contents($file));
 		print("</textarea><br>\n");
-		print('<input type="submit" name="changeData" value="½¤Àµ">');
-		print('<input type="submit" value="¹¹¿·">');
+		print('<input type="submit" name="changeData" value="ä¿®æ­£">');
+		print('<input type="submit" value="æ›´æ–°">');
 		print('<input type="hidden" name="adminUpDate" value="1">');
 		print("</form>\n");
 	}
 
 	/*
-	* ¼«Æ°´ÉÍý¤Î¥í¥°
+	* è‡ªå‹•ç®¡ç†ã®ãƒ­ã‚°
 	*/
 	else if($_POST["adminAutoControl"]) {
 		$file = MANAGE_LOG_FILE;
-		print("<p>¼«Æ°´ÉÍý¤Î¥í¥°</p>\n");
-		// ¥Ç¡¼¥¿¤Î½¤Àµ
+		print("<p>è‡ªå‹•ç®¡ç†ã®ãƒ­ã‚°</p>\n");
+		// ãƒ‡ãƒ¼ã‚¿ã®ä¿®æ­£
 		if($_POST["changeData"]) {
 			changeData($file,$_POST["fileData"]);
 		}
@@ -482,8 +482,8 @@ DATA;
 		print('<textarea name="fileData" style="width:800px;height:300px;">');
 		print(file_get_contents($file));
 		print("</textarea><br>\n");
-		print('<input type="submit" name="changeData" value="½¤Àµ">');
-		print('<input type="submit" value="¹¹¿·">');
+		print('<input type="submit" name="changeData" value="ä¿®æ­£">');
+		print('<input type="submit" value="æ›´æ–°">');
 		print('<input type="hidden" name="adminAutoControl" value="1">');
 		print("</form>\n");
 	}
@@ -493,57 +493,57 @@ DATA;
 	*/
 	else if($_GET["menu"] === "other") {
 print("
-<p>¤½¤Î¤¿</p>\n
+<p>ãã®ãŸ</p>\n
 <ul>\n
-<li><a href=\"".ADMIN_DIR."list_item.php\">¥¢¥¤¥Æ¥à°ìÍ÷</a></li>\n
-<li><a href=\"".ADMIN_DIR."list_enchant.php\">ÁõÈ÷¸ú²Ì°ìÍ÷</a></li>\n
-<li><a href=\"".ADMIN_DIR."list_job.php\">¿¦¶È°ìÍ÷</a></li>\n
-<li><a href=\"".ADMIN_DIR."list_judge.php\">È½Äê°ìÍ÷</a></li>\n
-<li><a href=\"".ADMIN_DIR."list_monster.php\">¥â¥ó¥¹¥¿¡¼°ìÍ÷</a></li>\n
-<li><a href=\"".ADMIN_DIR."list_skill3.php\">¥¹¥­¥ë°ìÍ÷</a></li>\n
-<li><a href=\"".ADMIN_DIR."set_action2.php\">¥Ñ¥¿¡¼¥óÀßÄêµ¡</a></li>\n
+<li><a href=\"".ADMIN_DIR."list_item.php\">ã‚¢ã‚¤ãƒ†ãƒ ä¸€è¦§</a></li>\n
+<li><a href=\"".ADMIN_DIR."list_enchant.php\">è£…å‚™åŠ¹æžœä¸€è¦§</a></li>\n
+<li><a href=\"".ADMIN_DIR."list_job.php\">è·æ¥­ä¸€è¦§</a></li>\n
+<li><a href=\"".ADMIN_DIR."list_judge.php\">åˆ¤å®šä¸€è¦§</a></li>\n
+<li><a href=\"".ADMIN_DIR."list_monster.php\">ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ä¸€è¦§</a></li>\n
+<li><a href=\"".ADMIN_DIR."list_skill3.php\">ã‚¹ã‚­ãƒ«ä¸€è¦§</a></li>\n
+<li><a href=\"".ADMIN_DIR."set_action2.php\">ãƒ‘ã‚¿ãƒ¼ãƒ³è¨­å®šæ©Ÿ</a></li>\n
 </ul>\n
 ");
 	}
 
 	/*
-	* ¤½¤ì°Ê³°
+	* ãã‚Œä»¥å¤–
 	*/
 	else {
 print("
-<p>´ðËÜÀßÄê</p>\n
+<p>åŸºæœ¬è¨­å®š</p>\n
 <table border=\"1\">\n
-<tr><td>ÄêµÁ</td><td>ÀâÌÀ</td><td>ÃÍ</td></tr>
-<tr><td>TITLE</td><td>¥¿¥¤¥È¥ë</td><td>".TITLE."</td></tr>\n
-<tr><td>MAX_TIME</td><td>ºÇÂçTime</td><td>".MAX_TIME."Time</td></tr>\n
-<tr><td>TIME_GAIN_DAY</td><td>1Æü¤ÇÁý¤¨¤ëTime</td><td>".TIME_GAIN_DAY."Time</td></tr>\n
-<tr><td>CONTROL_PERIOD</td><td>¼«Æ°´ÉÍý¼þ´ü</td><td>".CONTROL_PERIOD."s(".(CONTROL_PERIOD/60/60)."hour)"."</td></tr>\n
-<tr><td>RECORD_IP</td><td>IP¤òµ­Ï¿¤¹¤ë¤«(1=ON)</td><td>".RECORD_IP."</td></tr>\n
-<tr><td>SELLING_PRICE</td><td>ÇäÃÍ</td><td>".SELLING_PRICE."</td></tr>\n
-<tr><td>EXP_RATE</td><td>·Ð¸³ÃÍÇÜÎ¨</td><td>x".EXP_RATE."</td></tr>\n
-<tr><td>MONEY_RATE</td><td>¤ª¶âÇÜÎ¨</td><td>x".MONEY_RATE."</td></tr>\n
-<tr><td>AUCTION_MAX</td><td>ºÇÂç½ÐÉÊ¿ô</td><td>".AUCTION_MAX."</td></tr>\n
-<tr><td>JUDGE_LIST_AUTO_LOAD</td><td>¾ò·ïÈ½Äê¤Î¥ê¥¹¥È¤ò¼«Æ°¼èÆÀ(1=¼«Æ°)</td><td>".JUDGE_LIST_AUTO_LOAD."</td></tr>\n
-<tr><td>AUCTION_TOGGLE</td><td>¥ª¡¼¥¯¥·¥ç¥óON/OFF(1=ON)</td><td>".AUCTION_TOGGLE."</td></tr>\n
-<tr><td>AUCTION_EXHIBIT_TOGGLE</td><td>½ÐÉÊON/OFF(1=ON)</td><td>".AUCTION_EXHIBIT_TOGGLE."</td></tr>\n
-<tr><td>RANK_TEAM_SET_TIME</td><td>¥é¥ó¥­¥ó¥°¤Î¥Á¡¼¥àÀßÄê¼þ´ü</td><td>".RANK_TEAM_SET_TIME."s(".(RANK_TEAM_SET_TIME/60/60)."hour)"."</td></tr>\n
-<tr><td>RANK_BATTLE_NEXT_LOSE</td><td>Éé¤±¤¿¤È¤­¤ÎÂÔ¤Á»þ´Ö</td><td>".RANK_BATTLE_NEXT_LOSE."s(".(RANK_BATTLE_NEXT_LOSE/60/60)."hour)"."</td></tr>\n
-<tr><td>RANK_BATTLE_NEXT_WIN</td><td>¾¡Íø¤·¤¿¾ì¹ç¤ÎÂÔ¤Á»þ´Ö</td><td>".RANK_BATTLE_NEXT_WIN."s</td></tr>\n
-<tr><td>NORMAL_BATTLE_TIME</td><td>¥â¥ó¥¹¥¿¡¼¤È¤ÎÀï¤¤¤Ç¾ÃÈñ¤¹¤ë»þ´Ö</td><td>".NORMAL_BATTLE_TIME."Time</td></tr>\n
-<tr><td>MAX_BATTLE_LOG</td><td>ÀïÆ®¥í¥°ÊÝÂ¸¿ô(ÄÌ¾ï¥â¥ó¥¹¥¿¡¼)</td><td>".MAX_BATTLE_LOG."</td></tr>\n
-<tr><td>MAX_BATTLE_LOG_UNION</td><td>ÀïÆ®¥í¥°ÊÝÂ¸¿ô(¥æ¥Ë¥ª¥ó)</td><td>".MAX_BATTLE_LOG_UNION."</td></tr>\n
-<tr><td>MAX_BATTLE_LOG_RANK</td><td>ÀïÆ®¥í¥°ÊÝÂ¸¿ô(¥é¥ó¥­¥ó¥°)</td><td>".MAX_BATTLE_LOG_RANK."</td></tr>\n
-<tr><td>UNION_BATTLE_TIME</td><td>¥æ¥Ë¥ª¥óÀï¤Ç¾ÃÈñ¤¹¤ë»þ´Ö</td><td>".UNION_BATTLE_TIME."Time</td></tr>\n
-<tr><td>UNION_BATTLE_NEXT</td><td>¥æ¥Ë¥ª¥óÀï¤ÎÂÔ¤Á»þ´Ö</td><td>".UNION_BATTLE_NEXT."s</td></tr>\n
-<tr><td>BBS_BOTTOM_TOGGLE</td><td>²¼Éô¥á¥Ë¥å¡¼¤Ë¤¢¤ë°ì¹Ô·Ç¼¨ÈÄ(1=ON)</td><td>".BBS_BOTTOM_TOGGLE."</td></tr>\n
+<tr><td>å®šç¾©</td><td>èª¬æ˜Ž</td><td>å€¤</td></tr>
+<tr><td>TITLE</td><td>ã‚¿ã‚¤ãƒˆãƒ«</td><td>".TITLE."</td></tr>\n
+<tr><td>MAX_TIME</td><td>æœ€å¤§Time</td><td>".MAX_TIME."Time</td></tr>\n
+<tr><td>TIME_GAIN_DAY</td><td>1æ—¥ã§å¢—ãˆã‚‹Time</td><td>".TIME_GAIN_DAY."Time</td></tr>\n
+<tr><td>CONTROL_PERIOD</td><td>è‡ªå‹•ç®¡ç†å‘¨æœŸ</td><td>".CONTROL_PERIOD."s(".(CONTROL_PERIOD/60/60)."hour)"."</td></tr>\n
+<tr><td>RECORD_IP</td><td>IPã‚’è¨˜éŒ²ã™ã‚‹ã‹(1=ON)</td><td>".RECORD_IP."</td></tr>\n
+<tr><td>SELLING_PRICE</td><td>å£²å€¤</td><td>".SELLING_PRICE."</td></tr>\n
+<tr><td>EXP_RATE</td><td>çµŒé¨“å€¤å€çŽ‡</td><td>x".EXP_RATE."</td></tr>\n
+<tr><td>MONEY_RATE</td><td>ãŠé‡‘å€çŽ‡</td><td>x".MONEY_RATE."</td></tr>\n
+<tr><td>AUCTION_MAX</td><td>æœ€å¤§å‡ºå“æ•°</td><td>".AUCTION_MAX."</td></tr>\n
+<tr><td>JUDGE_LIST_AUTO_LOAD</td><td>æ¡ä»¶åˆ¤å®šã®ãƒªã‚¹ãƒˆã‚’è‡ªå‹•å–å¾—(1=è‡ªå‹•)</td><td>".JUDGE_LIST_AUTO_LOAD."</td></tr>\n
+<tr><td>AUCTION_TOGGLE</td><td>ã‚ªãƒ¼ã‚¯ã‚·ãƒ§ãƒ³ON/OFF(1=ON)</td><td>".AUCTION_TOGGLE."</td></tr>\n
+<tr><td>AUCTION_EXHIBIT_TOGGLE</td><td>å‡ºå“ON/OFF(1=ON)</td><td>".AUCTION_EXHIBIT_TOGGLE."</td></tr>\n
+<tr><td>RANK_TEAM_SET_TIME</td><td>ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã®ãƒãƒ¼ãƒ è¨­å®šå‘¨æœŸ</td><td>".RANK_TEAM_SET_TIME."s(".(RANK_TEAM_SET_TIME/60/60)."hour)"."</td></tr>\n
+<tr><td>RANK_BATTLE_NEXT_LOSE</td><td>è² ã‘ãŸã¨ãã®å¾…ã¡æ™‚é–“</td><td>".RANK_BATTLE_NEXT_LOSE."s(".(RANK_BATTLE_NEXT_LOSE/60/60)."hour)"."</td></tr>\n
+<tr><td>RANK_BATTLE_NEXT_WIN</td><td>å‹åˆ©ã—ãŸå ´åˆã®å¾…ã¡æ™‚é–“</td><td>".RANK_BATTLE_NEXT_WIN."s</td></tr>\n
+<tr><td>NORMAL_BATTLE_TIME</td><td>ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼ã¨ã®æˆ¦ã„ã§æ¶ˆè²»ã™ã‚‹æ™‚é–“</td><td>".NORMAL_BATTLE_TIME."Time</td></tr>\n
+<tr><td>MAX_BATTLE_LOG</td><td>æˆ¦é—˜ãƒ­ã‚°ä¿å­˜æ•°(é€šå¸¸ãƒ¢ãƒ³ã‚¹ã‚¿ãƒ¼)</td><td>".MAX_BATTLE_LOG."</td></tr>\n
+<tr><td>MAX_BATTLE_LOG_UNION</td><td>æˆ¦é—˜ãƒ­ã‚°ä¿å­˜æ•°(ãƒ¦ãƒ‹ã‚ªãƒ³)</td><td>".MAX_BATTLE_LOG_UNION."</td></tr>\n
+<tr><td>MAX_BATTLE_LOG_RANK</td><td>æˆ¦é—˜ãƒ­ã‚°ä¿å­˜æ•°(ãƒ©ãƒ³ã‚­ãƒ³ã‚°)</td><td>".MAX_BATTLE_LOG_RANK."</td></tr>\n
+<tr><td>UNION_BATTLE_TIME</td><td>ãƒ¦ãƒ‹ã‚ªãƒ³æˆ¦ã§æ¶ˆè²»ã™ã‚‹æ™‚é–“</td><td>".UNION_BATTLE_TIME."Time</td></tr>\n
+<tr><td>UNION_BATTLE_NEXT</td><td>ãƒ¦ãƒ‹ã‚ªãƒ³æˆ¦ã®å¾…ã¡æ™‚é–“</td><td>".UNION_BATTLE_NEXT."s</td></tr>\n
+<tr><td>BBS_BOTTOM_TOGGLE</td><td>ä¸‹éƒ¨ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã«ã‚ã‚‹ä¸€è¡ŒæŽ²ç¤ºæ¿(1=ON)</td><td>".BBS_BOTTOM_TOGGLE."</td></tr>\n
 </table>\n
 ");
 	}
 
 print <<< ADMIN
 <hr>
-<p>¤³¤Î ¤È¤Ã¤Æ¤Ä¤±¤¿¤è¤¦¤Ê´ÉÍýµ¡Ç½¤ò²á¿®¤·¤Ê¤¤¤Ç¤¯¤À¤µ¤¤¡£<br>
-¥æ¡¼¥¶¿ô¤¬0¤À¤Ã¤¿¤ê¤¹¤ë¤È°ìÉô¥¨¥é¡¼¤¬½Ð¤ë²ÄÇ½À­Í­¤ê¡£
+<p>ã“ã® ã¨ã£ã¦ã¤ã‘ãŸã‚ˆã†ãªç®¡ç†æ©Ÿèƒ½ã‚’éŽä¿¡ã—ãªã„ã§ãã ã•ã„ã€‚<br>
+ãƒ¦ãƒ¼ã‚¶æ•°ãŒ0ã ã£ãŸã‚Šã™ã‚‹ã¨ä¸€éƒ¨ã‚¨ãƒ©ãƒ¼ãŒå‡ºã‚‹å¯èƒ½æ€§æœ‰ã‚Šã€‚
 </p>
 ADMIN;
 

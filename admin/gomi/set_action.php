@@ -1,7 +1,7 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>SetAction</title>
 <style type="text/css">
 <!--
@@ -9,7 +9,7 @@
 	padding	: 0;
 	margin	: 0;
 	line-height	: 140%;
-	font-family	: Osaka,Verdana,"‚l‚r ‚oƒSƒVƒbƒN";
+	font-family	: Osaka,Verdana,"ï¼­ï¼³ ï¼°ã‚´ã‚·ãƒƒã‚¯";
 	overflow:inherit;
 }
 body{
@@ -54,7 +54,7 @@ if($_POST["MobNumber"]) {/*
 		}
 	}
 }
-// •\Ž¦
+// è¡¨ï½¦
 if($_POST["Make"]) {
 /*
 	$string	.= "\"judge\"	=> array(";

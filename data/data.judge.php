@@ -2,8 +2,8 @@
 //function DecideJudge($number,$My,$MyTeam,$EnemyTeam,$classBattle) {
 function DecideJudge($number,$My,$classBattle) {
 
-	//»ΩƒÍ§Àª»Õ—§π§Î°°øÙª˙°° —øÙ°°«€ŒÛ°°§»§´§Ú
-	//∑◊ªª§∑§ø§Í§π§Î°£
+	//Âà§ÂÆö„Å´‰ΩøÁî®„Åô„Çã„ÄÄÊï∞Â≠ó„ÄÄÂ§âÊï∞„ÄÄÈÖçÂàó„ÄÄ„Å®„Åã„Çí
+	//Ë®àÁÆó„Åó„Åü„Çä„Åô„Çã„ÄÇ
 	if($My->team == TEAM_0) {
 		$MyTeam	= $classBattle->team0;
 		$EnemyTeam	= $classBattle->team1;
@@ -21,40 +21,40 @@ function DecideJudge($number,$My,$classBattle) {
 
 	switch($Judge) {
 
-		case 1000:// …¨§∫
+		case 1000:// ÂøÖ„Åö
 			return true;
-		case 1001:// •—•π
+		case 1001:// „Éë„Çπ
 			return false;
 
 //------------------------ HP
-		case 1100:// º´ ¨§ŒHP §¨**(%)∞ æÂ
+		case 1100:// Ëá™ÂàÜ„ÅÆHP „Åå**(%)‰ª•‰∏ä
 			$hpp	= $My->HpPercent();
 			if($Quantity <= $hpp) return true;
 			break;
-		case 1101:// º´ ¨§ŒHP §¨**(%)∞ ≤º
+		case 1101:// Ëá™ÂàÜ„ÅÆHP „Åå**(%)‰ª•‰∏ã
 			$hpp	= $My->HpPercent();
 			if($hpp <= $Quantity) return true;
 			break;
 
-		case 1105:// º´ ¨§ŒHP §¨**∞ æÂ
+		case 1105:// Ëá™ÂàÜ„ÅÆHP „Åå**‰ª•‰∏ä
 			$hp		= $My->HP;
 			if($Quantity <= $hp) return true;
 			break;
-		case 1106:// º´ ¨§ŒHP §¨**∞ ≤º
+		case 1106:// Ëá™ÂàÜ„ÅÆHP „Åå**‰ª•‰∏ã
 			$hp		= $My->HP;
 			if($hp <= $Quantity) return true;
 			break;
 
-		case 1110:// ∫«¬ÁHP §¨**∞ æÂ
+		case 1110:// ÊúÄÂ§ßHP „Åå**‰ª•‰∏ä
 			$mhp		= $My->MAXHP;
 			if($Quantity <= $mhp) return true;
 			break;
-		case 1111:// ∫«¬ÁHP §¨**∞ ≤º
+		case 1111:// ÊúÄÂ§ßHP „Åå**‰ª•‰∏ã
 			$mhp		= $My->MAXHP;
 			if($mhp <= $Quantity) return true;
 			break;
 
-		case 1121:// Ã£ ˝§À HP§¨**(%)∞ ≤º§Œ•≠•„•È §¨§§§Îª˛
+		case 1121:// Âë≥Êñπ„Å´ HP„Åå**(%)‰ª•‰∏ã„ÅÆ„Ç≠„É£„É© „Åå„ÅÑ„ÇãÊôÇ
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->HpPercent() <= $Quantity)
@@ -62,54 +62,54 @@ function DecideJudge($number,$My,$classBattle) {
 			}
 			break;
 
-		case 1125:// Ã£ ˝§Œ  ø∂—HP§¨ **(%)∞ æÂ§Œª˛
+		case 1125:// Âë≥Êñπ„ÅÆ Âπ≥ÂùáHP„Åå **(%)‰ª•‰∏ä„ÅÆÊôÇ
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 					$sum	+= $char->HpPercent();
-					$cnt++;// ¿∏¬∏øÕøÙ
+					$cnt++;// ÁîüÂ≠ò‰∫∫Êï∞
 			}
 			$ave	= $sum/$cnt;
 			if($Quantity <= $ave) return true;
 			break;
-		case 1126:// Ã£ ˝§Œ  ø∂—HP§¨ **(%)∞ ≤º§Œª˛
+		case 1126:// Âë≥Êñπ„ÅÆ Âπ≥ÂùáHP„Åå **(%)‰ª•‰∏ã„ÅÆÊôÇ
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 					$sum	+= $char->HpPercent();
-					$cnt++;// ¿∏¬∏øÕøÙ
+					$cnt++;// ÁîüÂ≠ò‰∫∫Êï∞
 			}
 			$ave	= $sum/$cnt;
 			if($ave <= $Quantity) return true;
 			break;
 //------------------------ SP
-		case 1200:// º´ ¨§ŒSP §¨**(%)∞ æÂ
+		case 1200:// Ëá™ÂàÜ„ÅÆSP „Åå**(%)‰ª•‰∏ä
 			$spp	= $My->SpPercent();
 			if($Quantity <= $spp) return true;
 			break;
 
-		case 1201:// º´ ¨§ŒSP §¨**(%)∞ ≤º
+		case 1201:// Ëá™ÂàÜ„ÅÆSP „Åå**(%)‰ª•‰∏ã
 			$spp	= $My->SpPercent();
 			if($spp <= $Quantity) return true;
 			break;
 
-		case 1205:// º´ ¨§ŒSP §¨**∞ æÂ
+		case 1205:// Ëá™ÂàÜ„ÅÆSP „Åå**‰ª•‰∏ä
 			$sp		= $My->SP;
 			if($Quantity <= $sp) return true;
 			break;
-		case 1206:// º´ ¨§ŒSP §¨**∞ ≤º
+		case 1206:// Ëá™ÂàÜ„ÅÆSP „Åå**‰ª•‰∏ã
 			$sp		= $My->SP;
 			if($sp <= $Quantity) return true;
 			break;
 
-		case 1210:// ∫«¬ÁSP §¨**∞ æÂ
+		case 1210:// ÊúÄÂ§ßSP „Åå**‰ª•‰∏ä
 			$msp		= $My->MAXSP;
 			if($Quantity <= $msp) return true;
 			break;
-		case 1211:// ∫«¬ÁSP §¨**∞ ≤º
+		case 1211:// ÊúÄÂ§ßSP „Åå**‰ª•‰∏ã
 			$msp		= $My->MAXSP;
 			if($msp <= $Quantity) return true;
 			break;
 
-		case 1221:// Ã£ ˝§À SP§¨**(%)∞ ≤º§Œ•≠•„•È §¨§§§Îª˛
+		case 1221:// Âë≥Êñπ„Å´ SP„Åå**(%)‰ª•‰∏ã„ÅÆ„Ç≠„É£„É© „Åå„ÅÑ„ÇãÊôÇ
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->MAXSP === 0) continue;
@@ -118,13 +118,13 @@ function DecideJudge($number,$My,$classBattle) {
 			}
 			break;
 
-		case 1225:// Ã£ ˝§Œ  ø∂—SP§¨ **(%)∞ æÂ§Œª˛
+		case 1225:// Âë≥Êñπ„ÅÆ Âπ≥ÂùáSP„Åå **(%)‰ª•‰∏ä„ÅÆÊôÇ
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->MAXSP === 0) continue;
 					
 					$sum	+= $char->SpPercent();
-					$cnt++;// ¿∏¬∏øÕøÙ
+					$cnt++;// ÁîüÂ≠ò‰∫∫Êï∞
 			}
 			// Divide by Zero
 			if(!$cnt)
@@ -133,12 +133,12 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $ave) return true;
 			break;
 
-		case 1226:// Ã£ ˝§Œ  ø∂—SP§¨ **(%)∞ ≤º§Œª˛
+		case 1226:// Âë≥Êñπ„ÅÆ Âπ≥ÂùáSP„Åå **(%)‰ª•‰∏ã„ÅÆÊôÇ
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->MAXSP === 0) continue;
 					$sum	+= $char->SpPercent();
-					$cnt++;// ¿∏¬∏øÕøÙ
+					$cnt++;// ÁîüÂ≠ò‰∫∫Êï∞
 			}
 			// Divide by Zero
 			if(!$cnt)
@@ -147,52 +147,52 @@ function DecideJudge($number,$My,$classBattle) {
 			if($ave <= $Quantity) return true;
 			break;
 //------------------------ STR
-		case 1300:// º´ ¨§ŒSTR§¨** ∞ æÂ
+		case 1300:// Ëá™ÂàÜ„ÅÆSTR„Åå** ‰ª•‰∏ä
 			break;
-		case 1301:// º´ ¨§ŒSTR§¨** ∞ ≤º
+		case 1301:// Ëá™ÂàÜ„ÅÆSTR„Åå** ‰ª•‰∏ã
 			break;
 //------------------------ INT
-		case 1310:// º´ ¨§ŒINT§¨** ∞ æÂ
+		case 1310:// Ëá™ÂàÜ„ÅÆINT„Åå** ‰ª•‰∏ä
 			break;
-		case 1311:// º´ ¨§ŒINT§¨** ∞ ≤º
+		case 1311:// Ëá™ÂàÜ„ÅÆINT„Åå** ‰ª•‰∏ã
 			break;
 //------------------------ DEX
-		case 1320:// º´ ¨§ŒDEX§¨** ∞ æÂ
+		case 1320:// Ëá™ÂàÜ„ÅÆDEX„Åå** ‰ª•‰∏ä
 			break;
-		case 1321:// º´ ¨§ŒDEX§¨** ∞ ≤º
+		case 1321:// Ëá™ÂàÜ„ÅÆDEX„Åå** ‰ª•‰∏ã
 			break;
 //------------------------ SPD
-		case 1330:// º´ ¨§ŒSPD§¨** ∞ æÂ
+		case 1330:// Ëá™ÂàÜ„ÅÆSPD„Åå** ‰ª•‰∏ä
 			break;
-		case 1331:// º´ ¨§ŒSPD§¨** ∞ ≤º
+		case 1331:// Ëá™ÂàÜ„ÅÆSPD„Åå** ‰ª•‰∏ã
 			break;
 //------------------------ LUK
-		case 1340:// º´ ¨§ŒLUK§¨** ∞ æÂ
+		case 1340:// Ëá™ÂàÜ„ÅÆLUK„Åå** ‰ª•‰∏ä
 			break;
-		case 1341:// º´ ¨§ŒLUK§¨** ∞ ≤º
+		case 1341:// Ëá™ÂàÜ„ÅÆLUK„Åå** ‰ª•‰∏ã
 			break;
 //------------------------ ATK
-		case 1350:// º´ ¨§ŒATK§¨** ∞ æÂ
+		case 1350:// Ëá™ÂàÜ„ÅÆATK„Åå** ‰ª•‰∏ä
 			break;
-		case 1351:// º´ ¨§ŒATK§¨** ∞ ≤º
+		case 1351:// Ëá™ÂàÜ„ÅÆATK„Åå** ‰ª•‰∏ã
 			break;
 //------------------------ MATK
-		case 1360:// º´ ¨§ŒMATK§¨** ∞ æÂ
+		case 1360:// Ëá™ÂàÜ„ÅÆMATK„Åå** ‰ª•‰∏ä
 			break;
-		case 1361:// º´ ¨§ŒMATK§¨** ∞ ≤º
+		case 1361:// Ëá™ÂàÜ„ÅÆMATK„Åå** ‰ª•‰∏ã
 			break;
 //------------------------ DEF
-		case 1370:// º´ ¨§ŒDEF§¨** ∞ æÂ
+		case 1370:// Ëá™ÂàÜ„ÅÆDEF„Åå** ‰ª•‰∏ä
 			break;
-		case 1371:// º´ ¨§ŒDEF§¨** ∞ ≤º
+		case 1371:// Ëá™ÂàÜ„ÅÆDEF„Åå** ‰ª•‰∏ã
 			break;
 //------------------------ MDEF
-		case 1380:// º´ ¨§ŒMDEF§¨** ∞ æÂ
+		case 1380:// Ëá™ÂàÜ„ÅÆMDEF„Åå** ‰ª•‰∏ä
 			break;
-		case 1381:// º´ ¨§ŒMDEF§¨** ∞ ≤º
+		case 1381:// Ëá™ÂàÜ„ÅÆMDEF„Åå** ‰ª•‰∏ã
 			break;
-//------------------------ øÕøÙ(Ã£ ˝)
-		case 1400:// Ã£ ˝§Œ¿∏¬∏º‘§¨ *øÕ∞ æÂ
+//------------------------ ‰∫∫Êï∞(Âë≥Êñπ)
+		case 1400:// Âë≥Êñπ„ÅÆÁîüÂ≠òËÄÖ„Åå *‰∫∫‰ª•‰∏ä
 			foreach($MyTeam as $char) {
 				if($char->STATE !== DEAD)
 					$alive++;
@@ -200,7 +200,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $alive) return true;
 			break;
 
-		case 1401:// Ã£ ˝§Œ¿∏¬∏º‘§¨ *øÕ∞ ≤º
+		case 1401:// Âë≥Êñπ„ÅÆÁîüÂ≠òËÄÖ„Åå *‰∫∫‰ª•‰∏ã
 			foreach($MyTeam as $char) {
 				if($char->STATE !== DEAD)
 					$alive++;
@@ -208,7 +208,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($alive <= $Quantity) return true;
 			break;
 
-		case 1405:// Ã£ ˝§Œª‡º‘§¨ *øÕ∞ æÂ
+		case 1405:// Âë≥Êñπ„ÅÆÊ≠ªËÄÖ„Åå *‰∫∫‰ª•‰∏ä
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD)
 					$dead++;
@@ -216,7 +216,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $dead) return true;
 			break;
 
-		case 1406:// Ã£ ˝§Œª‡º‘§¨ *øÕ∞ ≤º
+		case 1406:// Âë≥Êñπ„ÅÆÊ≠ªËÄÖ„Åå *‰∫∫‰ª•‰∏ã
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD)
 					$dead++;
@@ -224,7 +224,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($dead <= $Quantity) return true;
 			break;
 
-		case 1410:// Ã£ ˝§«¡∞±“§Œ¿∏¬∏º‘§¨ *øÕ∞ æÂ
+		case 1410:// Âë≥Êñπ„ÅßÂâçË°õ„ÅÆÁîüÂ≠òËÄÖ„Åå *‰∫∫‰ª•‰∏ä
 			$front_alive	= 0;
 			foreach($MyTeam as $char) {
 				if($char->STATE !== DEAD && $char->position == FRONT)
@@ -233,8 +233,8 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $front_alive) return true;
 			break;
 
-//------------------------ øÕøÙ(≈®)
-		case 1450:// ¡ÍºÍ§Œ¿∏¬∏º‘§¨ *øÕ∞ æÂ
+//------------------------ ‰∫∫Êï∞(Êïµ)
+		case 1450:// Áõ∏Êâã„ÅÆÁîüÂ≠òËÄÖ„Åå *‰∫∫‰ª•‰∏ä
 			foreach($EnemyTeam as $char) {
 				if($char->STATE !== DEAD)
 					$alive++;
@@ -242,7 +242,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $alive) return true;
 			break;
 
-		case 1451:// ¡ÍºÍ§Œ¿∏¬∏º‘§¨ *øÕ∞ ≤º
+		case 1451:// Áõ∏Êâã„ÅÆÁîüÂ≠òËÄÖ„Åå *‰∫∫‰ª•‰∏ã
 			foreach($EnemyTeam as $char) {
 				if($char->STATE !== DEAD)
 					$alive++;
@@ -250,7 +250,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($alive <= $Quantity) return true;
 			break;
 
-		case 1455:// ¡ÍºÍ§Œª‡º‘§¨ *øÕ∞ æÂ
+		case 1455:// Áõ∏Êâã„ÅÆÊ≠ªËÄÖ„Åå *‰∫∫‰ª•‰∏ä
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD)
 					$dead++;
@@ -258,7 +258,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $dead) return true;
 			break;
 
-		case 1456:// ¡ÍºÍ§Œª‡º‘§¨ *øÕ∞ ≤º
+		case 1456:// Áõ∏Êâã„ÅÆÊ≠ªËÄÖ„Åå *‰∫∫‰ª•‰∏ã
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD)
 					$dead++;
@@ -266,8 +266,8 @@ function DecideJudge($number,$My,$classBattle) {
 			if($dead <= $Quantity) return true;
 			break;
 
-//------------------------ •¡•„°º•∏+±”æß
-		case 1500:// •¡•„°º•∏√Ê§Œ•≠•„•È§¨ *øÕ∞ æÂ
+//------------------------ „ÉÅ„É£„Éº„Ç∏+Ë©†Âî±
+		case 1500:// „ÉÅ„É£„Éº„Ç∏‰∏≠„ÅÆ„Ç≠„É£„É©„Åå *‰∫∫‰ª•‰∏ä
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->expect_type === CHARGE)
@@ -276,7 +276,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $charge) return true;
 			break;
 
-		case 1501:// •¡•„°º•∏√Ê§Œ•≠•„•È§¨ *øÕ∞ ≤º
+		case 1501:// „ÉÅ„É£„Éº„Ç∏‰∏≠„ÅÆ„Ç≠„É£„É©„Åå *‰∫∫‰ª•‰∏ã
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->expect_type === CHARGE)
@@ -285,7 +285,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($charge <= $Quantity) return true;
 			break;
 
-		case 1505:// ±”æß√Ê§Œ•≠•„•È§¨ *øÕ∞ æÂ
+		case 1505:// Ë©†Âî±‰∏≠„ÅÆ„Ç≠„É£„É©„Åå *‰∫∫‰ª•‰∏ä
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->expect_type === CAST)
@@ -294,7 +294,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $cast) return true;
 			break;
 
-		case 1506:// ±”æß√Ê§Œ•≠•„•È§¨ *øÕ∞ ≤º
+		case 1506:// Ë©†Âî±‰∏≠„ÅÆ„Ç≠„É£„É©„Åå *‰∫∫‰ª•‰∏ã
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->expect_type === CHARGE)
@@ -303,7 +303,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($cast <= $Quantity) return true;
 			break;
 
-		case 1510:// •¡•„°º•∏§´±”æß√Ê§Œ•≠•„•È§¨ *øÕ∞ æÂ
+		case 1510:// „ÉÅ„É£„Éº„Ç∏„ÅãË©†Âî±‰∏≠„ÅÆ„Ç≠„É£„É©„Åå *‰∫∫‰ª•‰∏ä
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->expect_type === CAST || $char->expect_type === CHARGE)
@@ -312,7 +312,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $expect) return true;
 			break;
 
-		case 1511:// •¡•„°º•∏§´±”æß√Ê§Œ•≠•„•È§¨ *øÕ∞ ≤º
+		case 1511:// „ÉÅ„É£„Éº„Ç∏„ÅãË©†Âî±‰∏≠„ÅÆ„Ç≠„É£„É©„Åå *‰∫∫‰ª•‰∏ã
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->expect_type === CAST || $char->expect_type === CHARGE)
@@ -321,8 +321,8 @@ function DecideJudge($number,$My,$classBattle) {
 			if($expect <= $Quantity) return true;
 			break;
 
-//------------------------ •¡•„°º•∏+±”æß(≈®)
-		case 1550:// •¡•„°º•∏√Ê§Œ¡ÍºÍ§¨ *øÕ∞ æÂ
+//------------------------ „ÉÅ„É£„Éº„Ç∏+Ë©†Âî±(Êïµ)
+		case 1550:// „ÉÅ„É£„Éº„Ç∏‰∏≠„ÅÆÁõ∏Êâã„Åå *‰∫∫‰ª•‰∏ä
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->expect_type === CHARGE)
@@ -331,7 +331,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $charge) return true;
 			break;
 
-		case 1551:// •¡•„°º•∏√Ê§Œ¡ÍºÍ§¨ *øÕ∞ ≤º
+		case 1551:// „ÉÅ„É£„Éº„Ç∏‰∏≠„ÅÆÁõ∏Êâã„Åå *‰∫∫‰ª•‰∏ã
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->expect_type === CHARGE)
@@ -340,7 +340,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($charge <= $Quantity) return true;
 			break;
 
-		case 1555:// ±”æß√Ê§Œ¡ÍºÍ§¨ *øÕ∞ æÂ
+		case 1555:// Ë©†Âî±‰∏≠„ÅÆÁõ∏Êâã„Åå *‰∫∫‰ª•‰∏ä
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->expect_type === CAST)
@@ -349,7 +349,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $cast) return true;
 			break;
 
-		case 1556:// ±”æß√Ê§Œ¡ÍºÍ§¨ *øÕ∞ ≤º
+		case 1556:// Ë©†Âî±‰∏≠„ÅÆÁõ∏Êâã„Åå *‰∫∫‰ª•‰∏ã
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->expect_type === CAST)
@@ -358,7 +358,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($cast <= $Quantity) return true;
 			break;
 
-		case 1560:// •¡•„°º•∏§´±”æß√Ê§Œ¡ÍºÍ§¨ *øÕ∞ æÂ
+		case 1560:// „ÉÅ„É£„Éº„Ç∏„ÅãË©†Âî±‰∏≠„ÅÆÁõ∏Êâã„Åå *‰∫∫‰ª•‰∏ä
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->expect_type === CAST || $char->expect_type === CHARGE)
@@ -367,7 +367,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $expect) return true;
 			break;
 
-		case 1561:// •¡•„°º•∏§´±”æß√Ê§Œ¡ÍºÍ§¨ *øÕ∞ ≤º
+		case 1561:// „ÉÅ„É£„Éº„Ç∏„ÅãË©†Âî±‰∏≠„ÅÆÁõ∏Êâã„Åå *‰∫∫‰ª•‰∏ã
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->expect_type === CAST || $char->expect_type === CHARGE)
@@ -376,12 +376,12 @@ function DecideJudge($number,$My,$classBattle) {
 			if($expect <= $Quantity) return true;
 			break;
 
-//------------------------ ∆«
-		case 1600:// º´ ¨§¨∆«æı¬÷
+//------------------------ ÊØí
+		case 1600:// Ëá™ÂàÜ„ÅåÊØíÁä∂ÊÖã
 			if($My->STATE === POISON) return true;
 			break;
 
-		case 1610:// ∆«æı¬÷§ŒÃ£ ˝§¨ **øÕ∞ æÂ
+		case 1610:// ÊØíÁä∂ÊÖã„ÅÆÂë≥Êñπ„Åå **‰∫∫‰ª•‰∏ä
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->STATE === POISON)
@@ -390,7 +390,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $poison) return true;
 			break;
 
-		case 1611:// ∆«æı¬÷§ŒÃ£ ˝§¨ **øÕ∞ ≤º
+		case 1611:// ÊØíÁä∂ÊÖã„ÅÆÂë≥Êñπ„Åå **‰∫∫‰ª•‰∏ã
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->STATE === POISON)
@@ -399,7 +399,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($poison <= $Quantity) return true;
 			break;
 
-		case 1612:// ∆«æı¬÷§ŒÃ£ ˝§¨ **% ∞ æÂ
+		case 1612:// ÊØíÁä∂ÊÖã„ÅÆÂë≥Êñπ„Åå **% ‰ª•‰∏ä
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				$alive++;
@@ -411,7 +411,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $Rate) return true;
 			break;
 
-		case 1613:// ∆«æı¬÷§ŒÃ£ ˝§¨ **% ∞ ≤º
+		case 1613:// ÊØíÁä∂ÊÖã„ÅÆÂë≥Êñπ„Åå **% ‰ª•‰∏ã
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				$alive++;
@@ -422,8 +422,8 @@ function DecideJudge($number,$My,$classBattle) {
 			$Rate	= ($poison/$alive) * 100;
 			if($Rate <= $Quantity) return true;
 			break;
-//------------------------ ∆«(≈®)
-		case 1615:// ∆«æı¬÷§Œ¡ÍºÍ§¨ **øÕ∞ æÂ
+//------------------------ ÊØí(Êïµ)
+		case 1615:// ÊØíÁä∂ÊÖã„ÅÆÁõ∏Êâã„Åå **‰∫∫‰ª•‰∏ä
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->STATE === POISON)
@@ -432,7 +432,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $poison) return true;
 			break;
 
-		case 1616:// ∆«æı¬÷§Œ¡ÍºÍ§¨ **øÕ∞ ≤º
+		case 1616:// ÊØíÁä∂ÊÖã„ÅÆÁõ∏Êâã„Åå **‰∫∫‰ª•‰∏ã
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				if($char->STATE === POISON)
@@ -441,7 +441,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($poison <= $Quantity) return true;
 			break;
 
-		case 1612:// ∆«æı¬÷§Œ¡ÍºÍ§¨ **% ∞ æÂ
+		case 1612:// ÊØíÁä∂ÊÖã„ÅÆÁõ∏Êâã„Åå **% ‰ª•‰∏ä
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				$alive++;
@@ -453,7 +453,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $Rate) return true;
 			break;
 
-		case 1613:// ∆«æı¬÷§Œ¡ÍºÍ§¨ **% ∞ ≤º
+		case 1613:// ÊØíÁä∂ÊÖã„ÅÆÁõ∏Êâã„Åå **% ‰ª•‰∏ã
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD) continue;
 				$alive++;
@@ -464,16 +464,16 @@ function DecideJudge($number,$My,$classBattle) {
 			$Rate	= ($poison/$alive) * 100;
 			if($Rate <= $Quantity) return true;
 			break;
-//------------------------ ¬‚ŒÛ
-		case 1700:// º´ ¨§¨¡∞ŒÛ
+//------------------------ ÈöäÂàó
+		case 1700:// Ëá™ÂàÜ„ÅåÂâçÂàó
 			if($My->POSITION == FRONT) return true;
 			break;
 
-		case 1701:// º´ ¨§¨∏ÂŒÛ
+		case 1701:// Ëá™ÂàÜ„ÅåÂæåÂàó
 			if($My->POSITION == BACK) return true;
 			break;
 
-		case 1710:// Ã£ ˝§Œ ¡∞ŒÛ§¨**øÕ∞ æÂ
+		case 1710:// Âë≥Êñπ„ÅÆ ÂâçÂàó„Åå**‰∫∫‰ª•‰∏ä
 			$front	= 0;
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
@@ -483,7 +483,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $front) return true;
 			break;
 
-		case 1711:// Ã£ ˝§Œ ¡∞ŒÛ§¨**øÕ∞ ≤º
+		case 1711:// Âë≥Êñπ„ÅÆ ÂâçÂàó„Åå**‰∫∫‰ª•‰∏ã
 			$front	= 0;
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
@@ -493,7 +493,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($front <= $Quantity) return true;
 			break;
 
-		case 1712:// Ã£ ˝§Œ ¡∞ŒÛ§¨**øÕ
+		case 1712:// Âë≥Êñπ„ÅÆ ÂâçÂàó„Åå**‰∫∫
 			$front	= 0;
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
@@ -503,7 +503,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($front == $Quantity) return true;
 			break;
 
-		case 1715:// Ã£ ˝§Œ ∏ÂŒÛ§¨**øÕ∞ æÂ
+		case 1715:// Âë≥Êñπ„ÅÆ ÂæåÂàó„Åå**‰∫∫‰ª•‰∏ä
 			$back	= 0;
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
@@ -513,7 +513,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $back) return true;
 			break;
 
-		case 1716:// Ã£ ˝§Œ ∏ÂŒÛ§¨**øÕ∞ ≤º
+		case 1716:// Âë≥Êñπ„ÅÆ ÂæåÂàó„Åå**‰∫∫‰ª•‰∏ã
 			$back	= 0;
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
@@ -523,7 +523,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($back <= $Quantity) return true;
 			break;
 
-		case 1717:// Ã£ ˝§Œ ∏ÂŒÛ§¨**øÕ
+		case 1717:// Âë≥Êñπ„ÅÆ ÂæåÂàó„Åå**‰∫∫
 			$back	= 0;
 			foreach($MyTeam as $char) {
 				if($char->STATE === DEAD) continue;
@@ -533,8 +533,8 @@ function DecideJudge($number,$My,$classBattle) {
 			if($back == $Quantity) return true;
 			break;
 
-//------------------------ ¬‚ŒÛ(≈®)
-		case 1750:// ¡ÍºÍ§Œ ¡∞ŒÛ§¨**øÕ∞ æÂ
+//------------------------ ÈöäÂàó(Êïµ)
+		case 1750:// Áõ∏Êâã„ÅÆ ÂâçÂàó„Åå**‰∫∫‰ª•‰∏ä
 			$front	= 0;
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD) continue;
@@ -544,7 +544,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $front) return true;
 			break;
 
-		case 1751:// ¡ÍºÍ§Œ ¡∞ŒÛ§¨**øÕ∞ ≤º
+		case 1751:// Áõ∏Êâã„ÅÆ ÂâçÂàó„Åå**‰∫∫‰ª•‰∏ã
 			$front	= 0;
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD) continue;
@@ -554,7 +554,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($front <= $Quantity) return true;
 			break;
 
-		case 1752:// ¡ÍºÍ§Œ ¡∞ŒÛ§¨**øÕ
+		case 1752:// Áõ∏Êâã„ÅÆ ÂâçÂàó„Åå**‰∫∫
 			$front	= 0;
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD) continue;
@@ -564,7 +564,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity == $front) return true;
 			break;
 
-		case 1755:// ¡ÍºÍ§Œ ∏ÂŒÛ§¨**øÕ∞ æÂ
+		case 1755:// Áõ∏Êâã„ÅÆ ÂæåÂàó„Åå**‰∫∫‰ª•‰∏ä
 			$back	= 0;
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD) continue;
@@ -574,7 +574,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $back) return true;
 			break;
 
-		case 1756:// ¡ÍºÍ§Œ ∏ÂŒÛ§¨**øÕ∞ ≤º
+		case 1756:// Áõ∏Êâã„ÅÆ ÂæåÂàó„Åå**‰∫∫‰ª•‰∏ã
 			$back	= 0;
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD) continue;
@@ -584,7 +584,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($back <= $Quantity) return true;
 			break;
 
-		case 1757:// ¡ÍºÍ§Œ ∏ÂŒÛ§¨**øÕ
+		case 1757:// Áõ∏Êâã„ÅÆ ÂæåÂàó„Åå**‰∫∫
 			$back	= 0;
 			foreach($EnemyTeam as $char) {
 				if($char->STATE === DEAD) continue;
@@ -594,8 +594,8 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity == $back) return true;
 			break;
 
-//------------------------ æ§¥≠
-		case 1800:// Ã£ ˝§Œ æ§¥≠•≠•„•È§¨ **…§∞ æÂ
+//------------------------ Âè¨Âñö
+		case 1800:// Âë≥Êñπ„ÅÆ Âè¨Âñö„Ç≠„É£„É©„Åå **Âåπ‰ª•‰∏ä
 			$summon	= 0;
 			foreach($MyTeam as $char) {
 				//if($char->STATE === DEAD) continue;
@@ -605,7 +605,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $summon) return true;
 			break;
 
-		case 1801:// Ã£ ˝§Œ æ§¥≠•≠•„•È§¨ **…§∞ ≤º
+		case 1801:// Âë≥Êñπ„ÅÆ Âè¨Âñö„Ç≠„É£„É©„Åå **Âåπ‰ª•‰∏ã
 			$summon	= 0;
 			foreach($MyTeam as $char) {
 				//if($char->STATE === DEAD) continue;
@@ -615,7 +615,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($summon <= $Quantity) return true;
 			break;
 
-		case 1805:// Ã£ ˝§Œ æ§¥≠•≠•„•È§¨ **…§
+		case 1805:// Âë≥Êñπ„ÅÆ Âè¨Âñö„Ç≠„É£„É©„Åå **Âåπ
 			$summon	= 0;
 			foreach($MyTeam as $char) {
 				//if($char->STATE === DEAD) continue;
@@ -625,8 +625,8 @@ function DecideJudge($number,$My,$classBattle) {
 			if($summon == $Quantity) return true;
 			break;
 
-//------------------------ æ§¥≠(≈®)
-		case 1820:// ¡ÍºÍ§Œ æ§¥≠•≠•„•È§¨ **…§∞ æÂ
+//------------------------ Âè¨Âñö(Êïµ)
+		case 1820:// Áõ∏Êâã„ÅÆ Âè¨Âñö„Ç≠„É£„É©„Åå **Âåπ‰ª•‰∏ä
 			$summon	= 0;
 			foreach($EnemyTeam as $char) {
 				//if($char->STATE === DEAD) continue;
@@ -636,7 +636,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($Quantity <= $summon) return true;
 			break;
 
-		case 1821:// ¡ÍºÍ§Œ æ§¥≠•≠•„•È§¨ **…§∞ ≤º
+		case 1821:// Áõ∏Êâã„ÅÆ Âè¨Âñö„Ç≠„É£„É©„Åå **Âåπ‰ª•‰∏ã
 			$summon	= 0;
 			foreach($EnemyTeam as $char) {
 				//if($char->STATE === DEAD) continue;
@@ -646,7 +646,7 @@ function DecideJudge($number,$My,$classBattle) {
 			if($summon <= $Quantity) return true;
 			break;
 
-		case 1825:// ¡ÍºÍ§Œ æ§¥≠•≠•„•È§¨ **…§
+		case 1825:// Áõ∏Êâã„ÅÆ Âè¨Âñö„Ç≠„É£„É©„Åå **Âåπ
 			$summon	= 0;
 			foreach($EnemyTeam as $char) {
 				//if($char->STATE === DEAD) continue;
@@ -656,60 +656,60 @@ function DecideJudge($number,$My,$classBattle) {
 			if($summon == $Quantity) return true;
 			break;
 
-//------------------------ À‚À°øÿ
-		case 1840:// Ã£ ˝§ŒÀ‚À°øÿ§ŒøÙ§¨ **∏ƒ∞ æÂ
+//------------------------ È≠îÊ≥ïÈô£
+		case 1840:// Âë≥Êñπ„ÅÆÈ≠îÊ≥ïÈô£„ÅÆÊï∞„Åå **ÂÄã‰ª•‰∏ä
 			if($Quantity <= $MyTeamMC)
 				return true;
 			break;
-		case 1841:// Ã£ ˝§ŒÀ‚À°øÿ§ŒøÙ§¨ **∏ƒ∞ ≤º
+		case 1841:// Âë≥Êñπ„ÅÆÈ≠îÊ≥ïÈô£„ÅÆÊï∞„Åå **ÂÄã‰ª•‰∏ã
 			if($MyTeamMC <= $Quantity)
 				return true;
 			break;
-		case 1845:// Ã£ ˝§ŒÀ‚À°øÿ§ŒøÙ§¨ **∏ƒ
+		case 1845:// Âë≥Êñπ„ÅÆÈ≠îÊ≥ïÈô£„ÅÆÊï∞„Åå **ÂÄã
 			if($Quantity == $MyTeamMC)
 				return true;
 			break;
-//------------------------ À‚À°øÿ(≈®)
-		case 1850:// ¡ÍºÍ§ŒÀ‚À°øÿ§ŒøÙ§¨ **∏ƒ∞ æÂ
+//------------------------ È≠îÊ≥ïÈô£(Êïµ)
+		case 1850:// Áõ∏Êâã„ÅÆÈ≠îÊ≥ïÈô£„ÅÆÊï∞„Åå **ÂÄã‰ª•‰∏ä
 			if($Quantity <= $EnemyTeamMC)
 				return true;
 			break;
-		case 1851:// ¡ÍºÍ§ŒÀ‚À°øÿ§ŒøÙ§¨ **∏ƒ∞ ≤º
+		case 1851:// Áõ∏Êâã„ÅÆÈ≠îÊ≥ïÈô£„ÅÆÊï∞„Åå **ÂÄã‰ª•‰∏ã
 			if($EnemyTeamMC <= $Quantity)
 				return true;
 			break;
-		case 1855:// ¡ÍºÍ§ŒÀ‚À°øÿ§ŒøÙ§¨ **∏ƒ
+		case 1855:// Áõ∏Êâã„ÅÆÈ≠îÊ≥ïÈô£„ÅÆÊï∞„Åå **ÂÄã
 			if($Quantity == $EnemyTeamMC)
 				return true;
 			break;
 
-//------------------------ ªÿƒÍπ‘∆∞≤ÛøÙ
-		case 1900:// º´ ¨§Œπ‘∆∞≤ÛøÙ§¨ **≤Û∞ æÂ
+//------------------------ ÊåáÂÆöË°åÂãïÂõûÊï∞
+		case 1900:// Ëá™ÂàÜ„ÅÆË°åÂãïÂõûÊï∞„Åå **Âõû‰ª•‰∏ä
 			if(($Quantity-1) <= $My->ActCount) return true;
 			break;
 
-		case 1901:// º´ ¨§Œπ‘∆∞≤ÛøÙ§¨ **≤Û∞ ≤º
+		case 1901:// Ëá™ÂàÜ„ÅÆË°åÂãïÂõûÊï∞„Åå **Âõû‰ª•‰∏ã
 			if($My->ActCount <= ($Quantity-1)) return true;
 			break;
 
-		case 1902:// º´ ¨§Œπ‘∆∞≤ÛøÙ§¨ **≤ÛÃ‹
+		case 1902:// Ëá™ÂàÜ„ÅÆË°åÂãïÂõûÊï∞„Åå **ÂõûÁõÆ
 			if($My->ActCount == ($Quantity-1)) return true;
 			break;
 
-//------------------------ ≤ÛøÙ¿©∏¬
-		case 1920:// **≤Û§¿§±…¨§∫
+//------------------------ ÂõûÊï∞Âà∂Èôê
+		case 1920:// **Âõû„Å†„ÅëÂøÖ„Åö
 			if($My->JdgCount[$number] < $Quantity) return true;
 			break;
 
-//------------------------ ≥ŒŒ®
-		case 1940:// **%§Œ≥ŒŒ®§«
+//------------------------ Á¢∫Áéá
+		case 1940:// **%„ÅÆÁ¢∫Áéá„Åß
 			$prob	= mt_rand(1,100);
 			if($prob <= $Quantity) return true;
 			break;
 
 
-//------------------------ ∆√ºÏ§ »ΩƒÍ
-		case 9000:// ¡ÍºÍ•¡°º•‡§ÀLv**∞ æÂ§¨µÔ§Î°£
+//------------------------ ÁâπÊÆä„Å™Âà§ÂÆö
+		case 9000:// Áõ∏Êâã„ÉÅ„Éº„É†„Å´Lv**‰ª•‰∏ä„ÅåÂ±Ö„Çã„ÄÇ
 			foreach($EnemyTeam as $char) {
 				if($Quantity <= $char->level)
 					return true;
@@ -718,7 +718,7 @@ function DecideJudge($number,$My,$classBattle) {
 	}
 }
 //////////////////////////////////////////////////
-//	SP§À§‚¬ÂÕ—§«§≠§ø°£(?)
+//	SP„Å´„ÇÇ‰ª£Áî®„Åß„Åç„Åü„ÄÇ(?)
 function &FuncTeamHpSpRate(&$TeamHpRate,$NO) {
 	foreach($TeamHpRate as $key => $Rate) {
 		if($Rate <= $NO)
