@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html charset=UTF-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<title>HoF - ReadMe</title>
+<style type="text/css">
+h1,h2,p{
+margin: 0;
+padding: 0;
+}
+h1{
+background:#fe9;
+padding:0 15px;
+font-weight:bold;
+border-right:solid 1px #ccc;
+border-bottom:solid 1px #ccc;
+border-left:solid 20px #f60;
+}
+h2{
+background:#ffc;
+padding:0 15px;
+font-weight:bold;
+border-right:solid 1px #ccc;
+border-bottom:solid 1px #ccc;
+border-left:solid 40px #fc6;
+}
+p{
+margin: 5px 10px;
+}
+br{
+line-height:10px;
+}
+.padding-l{
+background:#fe9;
+padding:0 5px;
+border:solid 1px #ccc;
+padding: 2px 10px;
+margin-left: 40px;
+}
+.padding-ll{
+background:#cec;
+padding:0 5px;
+border:solid 1px #ccc;
+padding: 2px 10px;
+margin-left: 40px;
+margin-bottom: 10px;
+}
+.padding-lll{
+background:#cef;
+padding:0 5px;
+border:solid 1px #ccc;
+padding: 2px 10px;
+margin-left: 40px;
+margin-bottom: 10px;
+}
+.b{
+font-weight: bold;
+}
+</style>
+</head>
+<body>
+<h1>Hall of Fame - ReadMe</h1>
+<h4>Hall of Fame利用規定</h4>
+<ol>
+<li>スクリプトによって何らかの不利益・損害が生じても<br />作者(juice)は一切の責任を負いません</li>
+<li>フリースクリプトです。著作権は作者(juice)が保持します。<br />スクリプト設置時に表示される著作権は消さないでください。</li>
+<li>改造・再配布は自由です。</li>
+<li>改造した場合はオリジナルと見分けがつくように<br />著作権部分になんらか書き足してください。</li>
+<li>このスクリプトにおいて直接収益を出す商用利用は禁止します。<br />( 個人で貼っているバナー広告はOK )</li>
+<li>作者(juice)に不利益があると判断した場合には<br />一方的に使用を中止してもらう場合があります。</li>
+<li>この利用規約は予告なく改編・加筆をする事もある。</li>
+<li>以上を守れる方のみ使用を許可します。</li>
+</ol>
+<h1>仕様とか</h1>
+<ul>
+<li>HOFはPHPで作られています。</li>
+<li>PHPのバージョンは4,5共に動くように作られてますが、5で動かす事を勧めます。</li>
+<li>ゲーム系のプログラムを禁止しているサーバへ設置するのは辞めてください。</li>
+<li>DBは使いません。</li>
+<li>画像は配布されている状態ではほとんど含まれていません(詳細は下で)</li>
+</ul>
+<h1>ファイル構成</h1><br />
+<div class="padding-l">
+./hof/
+<div class="padding-ll">
+├ ./admin/ (管理系)
+<div class="padding-lll">
+├ ./gomi/ (ごみ箱)<br />
+├ admin.php<br />
+├ list_....php (数種類)<br />
+└ set_action2.php
+</div>
+</div>
+<div class="padding-ll">
+./class/ (クラスファイル)
+<div class="padding-lll">
+├ class.....php (数種類)<br />
+├ Color.dat (色リスト)<br />
+└ global.php
+</div>
+</div>
+<div class="padding-ll">
+./data/ (データファイル)
+<div class="padding-lll">
+├ data.base_char.php (基本キャラの能力値)<br />
+├ data.classchange.php (転職条件)<br />
+├ data.create.php (アイテム作成関連)<br />
+├ data.enchant.php (アイテム追加効果)<br />
+├ data.gd_item.php (デームデータ表示 - アイテム)<br />
+├ data.gd_job.php (デームデータ表示 - 職業)<br />
+├ data.gd_judge.php (デームデータ表示 - 判定)<br />
+├ data.gd_monster.php (デームデータ表示 - モンスター)<br />
+├ data.item.php (アイテムデータ)<br />
+├ data.job.php (職業データ)<br />
+├ data.judge.php (判定処理)<br />
+├ data.judge_setup.php (判定名称)<br />
+├ data.land_appear.php (土地の出現条件)<br />
+├ data.land_info.php (土地の詳細情報)<br />
+├ data.manual0.php (マニュアル基礎)<br />
+├ data.manual1.php (マニュアル応用)<br />
+├ data.monster.php (モンスターデータ)<br />
+├ data.skill.php (スキルデータ)<br />
+├ data.skilltree.php (スキルツリー)<br />
+├ data.town_appear.php (町の施設 出現条件)<br />
+└ data.tutorial.php (チュートリアル表示)
+</div>
+</div>
+<div class="padding-ll">
+./image/ (画像格納)
+<div class="padding-lll">
+├ ./char/ (キャラ画像:右向き)<br />
+├ ./char_rev/ (反転済みキャラ画像:左向き)<br />
+├ ./icon/ (スキルやアイテム等のアイコン)<br />
+├ ./manual/ (マニュアルとかの画像)<br />
+├ ./other/ (その他の画像:戦闘背景, キャラ足元, 魔法陣等)<br />
+└ ....gif/png/jpeg (さらに その他の画像)
+</div>
+</div>
+<div class="padding-ll">
+./log/ (ログ)
+<div class="padding-lll">
+├ ./normal/ (通常モンスター用)<br />
+├ ./rank/ (ランキング)<br />
+└ ./union/ (ユニオン)
+</div>
+</div>
+<div class="padding-ll">
+./union/ (ユニオンモンスター)
+<div class="padding-lll">
+└ ****_Union.dat (数種類)
+</div>
+</div>
+<div class="padding-ll">
+./user/ (ユーザデータ)
+</div>
+<div class="padding-ll">
+├ auction.dat (出品物データ)<br />
+├ auction_log.dat (オークションログ)<br />
+├ bbs.dat (下部掲示板ログ)<br />
+├ bbs_town.dat (町広場ログ)<br />
+├ ctrltime.dat (自動管理の記録)<br />
+├ managed.dat (自動管理ログ)<br />
+├ ranking.dat (ランキング順位データ)<br />
+├ register.dat (登録情報)<br />
+├ update.dat (更新情報)<br />
+├ username.dat (ユーザ名前情報)<br />
+├ admin.php (管理機能プログラム)<br />
+├ image.php (戦闘画像生成プログラム)<br />
+├ index.php (トップページ)<br />
+├ setting.php (設定ファイル)<br />
+├ basis.css (基本CSS)<br />
+└ style.css (CSS)<br />
+</div>
+</div>
+<h4>パーミッションについて</h4>
+<p>ディレクトリは 705 か 707<br />
+.php は 644<br />
+.dat は 606 に設定すれば動くかも。
+</p>
+<h2>他に必要なファイル</h2>
+<br />
+<ol>
+<li><span class="b">画像ファイル</span><br />
+画像ファイルはほとんど含まれていないので。<br />
+キャラクター画像: Rドさん(<a href="http://www.geocities.co.jp/Milano-Cat/3319/">http://www.geocities.co.jp/Milano-Cat/3319/</a>)<br />
+アイコン画像: Whitecatさん(<a href="http://whitecafe.sakura.ne.jp/">http://whitecafe.sakura.ne.jp/</a>)<br />
+の配布画像のファイル名を 大半はそのまま使用しているので、<br />
+各フォルダに画像ファイルを入れれば半分程度は表示されます。</li>
+<li><span class="b">prototype.js</span><br />
+<a href="http://www.prototypejs.org/">http://www.prototypejs.org/</a><br />
+より最新の prototype.js を落として、<br />
+&#34;prototype.js&#34; にファイル名を変えて index.php と同じ階層に置いて下さい。</li>
+</ol>
+<h1>ゲームの設定</h1>
+<h4>基本的な設定</h4>
+<p>setting.php</p>
+<h4>アイテム, スキル, モンスターの設定</h4>
+<p>各データファイルに詳しい事が書いてあるかも</p>
+<h4>特殊or複雑なスキルを作る</h4>
+<p>./class/skill_effect.php に直接プログラムを書かなければいけません。</p>
+<h4>アイテム製作 設定</h4>
+<p>必要な素材の数 → ./data/data.item.php<br />
+製作可能なアイテムとする → ./data/data.create.php <br />
+アイテムに付与される可能性のある能力 → ./data/data.create.php <br />
+付与される能力の効果 → ./data/data.enchant.php <br />
+追加素材で追加される追加効果の識別ID → ./data/data.item.php <br />
+追加効果が付与される確立 → ./class/class.smithy.php <br />
+</p>
+<h4>アイテム精錬 設定</h4>
+<p>精錬可能なアイテムにする → ./class/global.php<br />
+精錬の限界値 → ./setting.php<br />
+精錬成功確立 → ./class/class.smithy.php<br />
+</p>
+<h4>オークション 設定</h4>
+<p>オークションのON/OFF → ./setting.php<br />
+オークション出品のON/OFF → ./setting.php<br />
+オークション出品の可能なアイテムの種類 → ./class/global.php<br />
+</p>
+<h4>店の商品 設定</h4>
+<p>オークション出品の可能なアイテムの種類 → ./class/global.php</p>
+<h4>判定条件のリスト 設定</h4>
+<p>判定リストを自動で取得する/しない → ./setting.php<br />
+判定リストを(制限する/手動で設定) → ./class/global.php<br />
+※手動だと若干 早いです。
+</p>
+<h4>ユニオンのモンスター 設定</h4>
+<p>ユニオンモンスターのデータ → ./data/data.monster.dat<br />
+./union/ ディレクトリにユニオンモンスターのデータファイルを作らないと出現しません。
+</p><br />
+<h1>Q</h1>
+<h4>なぜ一部 英語について</h4>
+<p>最初は ほとんどが英語でした。今は職名と戦闘メッセージが英語になってます。</p>
+<h4>モンスターのパターン設定がめんどくさい</h4>
+<p>./admin/set_action2.php を使って下さい。</p>
+<h4>HoFをローカルで動かしたい</h4>
+<p><a href="http://www.google.com/search?hl=ja&lr=lang_ja&ie=UTF-8&oe=UTF-8&q=XAMPP&num=50">XAMPP</a> を使うと簡単にローカルでPHPを動かせます。<br />
+詳しい方法は調べてください。</p>
+<h1>著作権</h1>
+<p>著作権は<br />
+Tekito<br />
+http://tekito.kanichat.com/<br />
+Juice<br />
+juiceeeee@gmail.com<br />
+BeetleJuice@hotmail.co.jp<br />
+が保有します。<br /><br />
+Hall of Fame<br />
+Copyright (C) 2007-2008 Juice<br />
+All rights reserved.</p>
+</body>
+</html>
