@@ -40,19 +40,19 @@ include("../data/data.enchant.php");
 include("../class/global.php");
 define("IMG_ICON","../image/icon/");
 
-$det	= '<tr><td class="a">No</td>
-<td class="a">Name</td>
+$det	= '<tr><td class="a">ID</td>
+<td class="a">名稱</td>
 <td class="a">Lv</td>
-<td class="a">IMG</td>
-<td class="a">exp</td>
-<td class="a">money</td>
+<td class="a">圖</td>
+<td class="a">經驗值</td>
+<td class="a">錢</td>
 <td class="a">hp</td>
 <td class="a">sp</td>
 <td class="a">atk</td>
 <td class="a">def</td>
 <td class="a">str / int / dex / spd / luk</td>
-<td class="a">pos</td>
-<td class="a">guard</td>'."\n";
+<td class="a">位置</td>
+<td class="a">保護</td>'."\n";
 $img_f	= "../image/char/";
 
 print('<table border="0" cellspacing="1"><tbody>');
@@ -68,7 +68,7 @@ for($no=1000; $no<5999; $no++) {
 	print("<td>{$no}</td>");//no
 	print("<td>{$m[name]}</td>");//name
 	print("<td>{$m[level]}</td>");//name
-	print("<td><img src=\"$img_f{$m[img]}\"></td>");//img
+	print("<td><img src=\"$img_f{$m[img]}\">$img_f{$m[img]}</td>");//img
 	print("<td>{$m[exphold]}</td>");//exp
 	print("<td>{$m[moneyhold]}</td>");//money
 	print("<td>{$m[hp]}/{$m[maxhp]}</td>");//hp
@@ -141,12 +141,12 @@ print("</tbody></table>");
 
 		if($item["type"])
 			print("<span class=\"light\"> ({$item[type]})</span>");
-		if($amount) {//数量
+		if($amount) {//數量
 			print(" x{$amount}");
 		}
-		if($item["atk"]["0"])//物理攻撃
+		if($item["atk"]["0"])//物理攻擊
 			print(' / <span class="dmg">Atk:'.$item[atk][0].'</span>');
-		if($item["atk"]["1"])//魔法攻撃
+		if($item["atk"]["1"])//魔法攻擊
 			print(' / <span class="spdmg">Matk:'.$item[atk][1].'</span>');
 		if($item["def"]) {
 			print(" / <span class=\"recover\">Def:{$item[def][0]}+{$item[def][1]}</span>");
@@ -170,7 +170,7 @@ print("</tbody></table>");
 		if($radio)
 			print(" / <span class=\"bold\">{$skill[learn]}</span>pt");
 
-		if($skill[target][0] == "all")//対象
+		if($skill[target][0] == "all")//對像
 			print(" / <span class=\"charge\">{$skill[target][0]}</span>");
 		else if($skill[target][0] == "enemy")
 			print(" / <span class=\"dmg\">{$skill[target][0]}</span>");
@@ -181,7 +181,7 @@ print("</tbody></table>");
 		else if(isset($skill[target][0]))
 			print(" / {$skill[target][0]}");
 
-		if($skill[target][1] == "all")//単体or複数or全体
+		if($skill[target][1] == "all")//單體or複數or全體
 			print(" - <span class=\"charge\">{$skill[target][1]}</span>");
 		else if($skill[target][1] == "individual")
 			print(" - <span class=\"recover\">{$skill[target][1]}</span>");

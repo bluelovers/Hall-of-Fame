@@ -1,5 +1,5 @@
 <table><tbody>
-<?
+<?php 
 for($i=1; $i<50; $i++) {
 	print("<tr><td>");
 

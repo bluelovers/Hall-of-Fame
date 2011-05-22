@@ -1,12 +1,13 @@
 <?php
 function AddEnchantData(&$item, $opt) {
+//製作精煉的特殊效果
 
 /*
 	製作した防具に付与される追加効果。
 */
 
 	switch($opt) {
-											// ATK
+    // ATK
 		case 100:
 			$item["atk"]["0"]	+= 1;
 			$item["option"]	.= "Atk+1, ";
@@ -87,7 +88,7 @@ function AddEnchantData(&$item, $opt) {
 			$item["atk"]["0"]	+= 20;
 			$item["option"]	.= "Atk+20, ";
 			break;
-											// MATK
+		// MATK
 		case 150:
 			$item["atk"]["1"]	+= 1;
 			$item["option"]	.= "Matk+1, ";
@@ -168,7 +169,7 @@ function AddEnchantData(&$item, $opt) {
 			$item["atk"]["1"]	+= 20;
 			$item["option"]	.= "Matk+20, ";
 			break;
-											// Atk *
+		// Atk *
 		case 200:
 			$item["atk"]["0"]	= round($item["atk"]["0"] * 1.05);
 			$item["option"]	.= "Atk+5%, ";
@@ -185,7 +186,7 @@ function AddEnchantData(&$item, $opt) {
 			$item["atk"]["0"]	= round($item["atk"]["0"] * 1.20);
 			$item["option"]	.= "Atk+20%, ";
 			break;
-											// Matk *
+		// Matk *
 		case 250:
 			$item["atk"]["1"]	= round($item["atk"]["1"] * 1.05);
 			$item["option"]	.= "Matk+5%, ";
@@ -202,8 +203,7 @@ function AddEnchantData(&$item, $opt) {
 			$item["atk"]["1"]	= round($item["atk"]["1"] * 1.20);
 			$item["option"]	.= "Matk+20%, ";
 			break;
-
-											// Def +
+    // Def +
 		case 300:
 			$item["def"]["0"]	+= 1;
 			$item["option"]	.= "Def+1, ";
@@ -224,7 +224,7 @@ function AddEnchantData(&$item, $opt) {
 			$item["def"]["0"]	+= 5;
 			$item["option"]	.= "Def+5, ";
 			break;
-											// Mdef +
+		// Mdef +
 		case 350:
 			$item["def"]["2"]	+= 1;
 			$item["option"]	.= "Mdef+1, ";
@@ -245,12 +245,11 @@ function AddEnchantData(&$item, $opt) {
 			$item["def"]["2"]	+= 5;
 			$item["option"]	.= "Mdef+5, ";
 			break;
-											// Def *
-											// Mdef *
+		// Def *
+		// Mdef *
 		case 400:
 			break;
-
-											// HP +
+    // HP +
 		case H00:
 			$item["P_MAXHP"]	+= 10;
 			$item["option"]	.= "MAXHP+10, ";
@@ -275,7 +274,7 @@ function AddEnchantData(&$item, $opt) {
 			$item["P_MAXHP"]	+= 60;
 			$item["option"]	.= "MAXHP+60, ";
 			break;
-											// HP *
+		// HP *
 		case HM0:
 			$item["M_MAXHP"]	+= 1;
 			$item["option"]	.= "MAXHP+1%, ";
@@ -300,7 +299,7 @@ function AddEnchantData(&$item, $opt) {
 			$item["M_MAXHP"]	+= 6;
 			$item["option"]	.= "MAXHP+6%, ";
 			break;
-											// SP +
+		// SP +
 		case S00:
 			$item["P_MAXSP"]	+= 10;
 			$item["option"]	.= "MAXSP+10, ";
@@ -317,7 +316,7 @@ function AddEnchantData(&$item, $opt) {
 			$item["P_MAXSP"]	+= 40;
 			$item["option"]	.= "MAXSP+40, ";
 			break;
-											// SP *
+		// SP *
 		case SM0:
 			$item["M_MAXSP"]	+= 1;
 			$item["option"]	.= "MAXSP+1%, ";
@@ -342,7 +341,7 @@ function AddEnchantData(&$item, $opt) {
 			$item["M_MAXSP"]	+= 6;
 			$item["option"]	.= "MAXSP+6%, ";
 			break;
-											// STR +
+		// STR +
 		case P00:
 			$item["P_STR"]	+= 1;
 			$item["option"]	.= "STR+1, ";
@@ -383,7 +382,7 @@ function AddEnchantData(&$item, $opt) {
 			$item["P_STR"]	+= 10;
 			$item["option"]	.= "STR+10, ";
 			break;
-											// INT +
+		// INT +
 		case I00:
 			$item["P_INT"]	+= 1;
 			$item["option"]	.= "INT+1, ";
@@ -424,7 +423,7 @@ function AddEnchantData(&$item, $opt) {
 			$item["P_INT"]	+= 10;
 			$item["option"]	.= "INT+10, ";
 			break;
-											// DEX +
+		// DEX +
 		case D00:
 			$item["P_DEX"]	+= 1;
 			$item["option"]	.= "DEX+1, ";
@@ -465,7 +464,7 @@ function AddEnchantData(&$item, $opt) {
 			$item["P_DEX"]	+= 10;
 			$item["option"]	.= "DEX+10, ";
 			break;
-											// SPD +
+		// SPD +
 		case A00:
 			$item["P_SPD"]	+= 1;
 			$item["option"]	.= "SPD+1, ";
@@ -506,7 +505,7 @@ function AddEnchantData(&$item, $opt) {
 			$item["P_SPD"]	+= 10;
 			$item["option"]	.= "SPD+10, ";
 			break;
-											// LUK +
+		// LUK +
 		case L00:
 			$item["P_LUK"]	+= 1;
 			$item["option"]	.= "LUK+1, ";
@@ -547,37 +546,33 @@ function AddEnchantData(&$item, $opt) {
 			$item["P_LUK"]	+= 10;
 			$item["option"]	.= "LUK+10, ";
 			break;
-
-
-
-											// 特殊製作
-											// 日付や時間帯によっても効果かえれるよ date();
+    // 特殊前綴
 		case X00:
 			if($item["type2"] == "WEAPON") {
 				$item["atk"]["0"]	+= 5;
 				$item["option"]	.= "Atk+5, ";
-				$item["AddName"]	= "Power";
+				$item["AddName"]	= "力量";
 			} else {
 				$item["def"]["0"]	+= 2;
 				$item["option"]	.= "Def+2, ";
-				$item["AddName"]	= "Hard";
+				$item["AddName"]	= "穩固";
 			}
 			break;
 		case X01:
 			if($item["type2"] == "WEAPON") {
 				$item["atk"]["1"]	+= 5;
 				$item["option"]	.= "Matk+5, ";
-				$item["AddName"]	= "Wise";
+				$item["AddName"]	= "智慧";
 			} else {
 				$item["def"]["2"]	+= 2;
 				$item["option"]	.= "Mdef+2, ";
-				$item["AddName"]	= "Wise";
+				$item["AddName"]	= "睿智";
 			}
 			break;
 		case M01:
 			$item["P_MAXHP"]	+= 10;
 			$item["option"]	.= "MAXHP+10, ";
-			$item["AddName"]	= "Goblin";
+			$item["AddName"]	= "哥布林之";
 			break;
 	}
 }

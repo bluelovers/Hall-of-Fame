@@ -1,5 +1,5 @@
 <table><tbody>
-<?
+<?php 
 for($i=0; $i<5000; $i++) {
 	print("<tr><td>");
 	//$no	= $i-(($i*$i)/1000);

@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -29,8 +29,8 @@ input{background-color:#dddddd;
 		return 1;
 	}
 
-	// 行数
-	define("ROWS",$_POST["patternNum"]?$_POST["patternNum"]:5);
+	// 行數
+	define("ROWS",$_POST["patternNum"]?$_POST["patternNum"]:8);
 	define("IMG","../image/char/");
 
 	// Load
@@ -90,11 +90,12 @@ input{background-color:#dddddd;
 		$judgeString	.= "),\n";
 		$quantityString	.= "),\n";
 		$skillString	.= "),\n";
+  
+
 		print('<textarea style="width:800px;height:100px">');
 		print($judgeString.$quantityString.$skillString);
 		print("</textarea>\n");
 	}
-
 	// 判定の種類
 	include("../data/data.judge_setup.php");
 	for($i=1000; $i<10000; $i++) {
@@ -133,7 +134,7 @@ input{background-color:#dddddd;
 		}
 		print("</select>\n");
 		print("</td><td>\n");
-		// 数値
+		// 數值
 		print('<input type="text" name="quantity'.$i.'" value="'.($_POST["quantity".$i]?$_POST["quantity".$i]:"0").'" size="10" />'."\n");
 		print("</td><td>\n");
 		// 技
@@ -151,13 +152,14 @@ input{background-color:#dddddd;
 		print("</td></tr>\n");
 	}
 	print("</table>\n");
-	print('PatternNumber : <input type="text" name="patternNum" size="10" value="'.($_POST["patternNum"]?$_POST["patternNum"]:"5").'" /><br />'."\n");
-	print('<input type="submit" value="make" name="make">'."\n");
+	print('判定次數: <input type="text" name="patternNum" size="10" value="'.($_POST["patternNum"]?$_POST["patternNum"]:"8").'" /><br />'."\n");
+	print('<input type="submit" value="創建" name="make">'."\n");
 	print('<input type="hidden" value="make" name="make">'."\n");
-	print('<input type="submit" value="add" name="add">'."\n");
-	print('<input type="submit" value="delete" name="delete"><br />'."\n");
-	print('Load : <input type="text" name="loadMob" size="10" /> <input type="submit" value="Load" name="Load" />');
+	print('<input type="submit" value="添加" name="add">'."\n");
+	print('<input type="submit" value="刪除" name="delete"><br />'."\n");
+	print('輸入怪物id: <input type="text" name="loadMob" size="10" /> <input type="submit" value="讀取" name="Load" />');
 	print("</form>\n");
 ?>
 </body>
 </html>
+  

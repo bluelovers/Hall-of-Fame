@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -72,8 +72,7 @@ if($_POST["Make"]) {
 */
 	$string	= '"Pattern"	=> "';
 	print("<textarea style=\"width:800px;\">$string</textarea>");
-}
-?>
+}?>
 <form action="?" method="post">
 <table border="0" cellspacing="1"><tbody>
 <?php

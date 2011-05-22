@@ -1,10 +1,9 @@
 <?php
-//////////////////////////////////////////////////
-// コ□ョ、ヌコ□□□筅ホ・□ケ・ネ
+// 製作表
 function CanCreate($user) {
 
-/*	// 「ィノスシィ、ヒサ□ヨ、ォ、ォ、□
-	// ・「・、・ニ・爭ヌ。シ・ソ、ヒneed、ャタ゜ト熙オ、□ニ、□筅ホ、□エ、ニシォニーシ霹タ、ケ、□
+/*	// ※表示に時間かかる 
+	// アイテムデ一タにneedが設定されてるものを全て自動取得する
 	for($i=1000; $i<10000; $i++) {
 		$item	= LoadItemData($i);
 		if(!$item) continue;
@@ -13,64 +12,60 @@ function CanCreate($user) {
 	}
 	return $create;
 */
-	// キ□
+	// 劍
 	$create	= array(1000,1001,1002,1003,1004,1005,1006,1007,1008,1020,1022,1023);
-	// ホセシ□□
+	// 雙手劍
 	$create	= array_merge($create,
 	array(1100,1101,1102,1103,1104,1120)
 	);
-	// テサキ□
+	// 短劍
 	$create	= array_merge($create,
 	array(1201,1202,1203,1204,1205,1220,)
 	);
-	// セ□
+	// 杖
 	$create	= array_merge($create,
 	array(1700,1701,1702,1703,1704,1705,1706,)
 	);
-	// ホセシ□□
+	// 雙手杖
 	$create	= array_merge($create,
 	array(1800,1801,1802,1803,1810,1811,1812,)
 	);
-	// オン
+	// 弓
 	$create	= array_merge($create,
 	array(2000,2001,2002,2003,2004,2005,2006,2020,)
 	);
-	// ハワ
+	// 鞭
 	$create	= array_merge($create,
 	array(2200,2201,2202,2203,2210,2211,)
 	);
-
-	// ス□
+	// 盾
 	$create	= array_merge($create,
 	array(3000,3001,3002,3003,3004,3005,3006,3007,3008,)
 	);
-	// ヒワ
+	// 本
 	$create	= array_merge($create,
 	array(3101,3102,3103,3104,3105,)
 	);
-	// ウサ
+	// 鎧
 	$create	= array_merge($create,
 	array(5000,5001,5002,5003,5004,5005,5007,5008,5009,)
 	);
-	// ノ□
+	// 服
 	$create	= array_merge($create,
 	array(5100,5101,5102,5103,5104,5105,5106,5107,)
 	);
-	// ー□
+	// 衣
 	$create	= array_merge($create,
 	array(5200,5201,5202,5203,5204,5205,5206,)
 	);
-
 	return $create;
 }
-//////////////////////////////////////////////////
-// コ□□□ォチヌコ爨ャ、「、□ォフ荀ヲ
+// 判斷道具需求
 function HaveNeeds($item,$UserItem) {
-	// ・譯シ・カ。シ、ホ・「・、・ニ・爨ャフオ、、セ□遉マフオヘ□
+	// 沒有道具的情況
 	if(!$UserItem) return false;
-	// コ□ョ、ヌ、ュ、ハ、、ノ□□ノカ□マフオヘ□
+	// 對像到不不能做成情況下
 	if(!$item["need"]) return false;
-
 	foreach($item["need"] as $NeedNo => $Amount) {
 		if($UserItem[$NeedNo] < $Amount)
 			return false;
@@ -78,17 +73,16 @@ function HaveNeeds($item,$UserItem) {
 	return true;
 }
 
-//////////////////////////////////////////////////
-//	・「・、・ニ・爨ヒノユヘソ、オ、□□トヌスタュ、ホ、「、□スホマ(、□ヨ、ケ)
+// 道具所返回的能力
 function ItemAbilityPossibility($type) {
 	switch($type) {
-		case "Sword":
-		case "TwoHandSword":
-		case "Dagger":
-		case "Wand":
-		case "Staff":
-		case "Bow":
-		case "Whip":
+		case "劍":
+		case "雙手劍":
+		case "匕首":
+		case "魔杖":
+		case "杖":
+		case "弓":
+		case "鞭":
 			$low	= array(
 			// Atk+
 			100,101,102,103,104,
@@ -150,11 +144,11 @@ function ItemAbilityPossibility($type) {
 			L05,L06,L07,L08,L09,
 			);
 			break;
-		case "Shield":
-		case "Book":
-		case "Armor":
-		case "Cloth":
-		case "Robe":
+		case "盾":
+		case "書":
+		case "甲":
+		case "衣服":
+		case "長袍":
 			$low	= array(
 			// Def +
 			300,301,

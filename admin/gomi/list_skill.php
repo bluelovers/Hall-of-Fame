@@ -1,4 +1,3 @@
-
 <?php
 include("./data.skill.php");
 

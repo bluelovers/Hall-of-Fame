@@ -8,11 +8,8 @@ function LoadSkillTree($char) {
 	// どっちの処理が速いかは、知らん。
 	$lnd	= array_flip($char->skill);
 	$lnd[key($lnd)]++;//配列の先頭の値が"0"なので1にする(isset使わずにtrueにするため)
-
 	$list	= array();//空配列
-
-
-	//////////////////////////////////// 剣技
+	//////////////////////////////////// 劍技
 	if(	$char->job == 100
 	 ||	$char->job == 101
 	 ||	$char->job == 102
@@ -59,7 +56,6 @@ function LoadSkillTree($char) {
 			$list[]	= "3123";//SelfRegeneration
 		}
 	}
-
 	// Sacrier
 	if($char->job == 102) {
 		$list[]	= "1100";// ObtainPower
@@ -67,7 +63,6 @@ function LoadSkillTree($char) {
 			$list[]	= "1101";// ObtainSpeed
 		if($lnd["1101"])// ObtainSpeed
 			$list[]	= "1102";// ObtainMind
-
 		$list[]	= "1113";// Pain
 		if($lnd["1113"]) {// Pain
 			$list[]	= "1114";// Rush
@@ -83,7 +78,6 @@ function LoadSkillTree($char) {
 		if($lnd["1114"] && $lnd["1117"] && $lnd["1102"])
 			$list[]	= "1119";// Possession
 	}
-
 	// WitchHunt
 	if($char->job == 103) {
 		if($lnd["1003"])//DowbleAttack
@@ -94,7 +88,7 @@ function LoadSkillTree($char) {
 		}
 		if($lnd["1021"])//SoulBreak
 			$list[]	= "1024";//LifeDivision
-		// 無条件
+		// 柍忦審
 		$list[]	= "2090";//EnergyRob
 		$list[]	= "3231";//ForceShield(self)
 		if($lnd["2090"]) {//EnergyRob
@@ -110,26 +104,22 @@ function LoadSkillTree($char) {
 			$list[]	= "3235";//MindBreak
 		}
 	}
-
 	//////////////////////////////////// 魔法系
 	if(	$char->job == 200
 	||	$char->job == 201
 	||	$char->job == 202
 	||	$char->job == 203) {
 		$list[]	= "3011";//HiManaRecharge
-
 		if($lnd["1002"])//FireBall
 			$list[]	= "2000";//FireStorm
 		if($lnd["2000"])//FireStorm
 			$list[]	= "2002";//FirePillar
-	
 		if($lnd["1002"])//FireBall
 			$list[]	= "2010";//IceSpear
 		if($lnd["2010"])//IceSpear
 			$list[]	= "2011";//IceJavelin
 		if($lnd["2011"])//IceSpear
 			$list[]	= "2014";//IcePrison
-	
 		if($lnd["1002"])//FireBall
 			$list[]	= "2020";//ThunderBolt
 		if($lnd["2020"])//ThunderBolt
@@ -139,7 +129,6 @@ function LoadSkillTree($char) {
 		if($lnd["2021"])
 			$list[]	= "2023";//Paralysis
 	}
-
 	// Warlock
 	if($char->job == 201) {
 		if($lnd["2000"])//FireStorm
@@ -148,33 +137,25 @@ function LoadSkillTree($char) {
 			$list[]	= "2004";//MeteoStorm
 		if($lnd["2002"])
 			$list[]	= "2003";//Explosion
-
 		if($lnd["2011"])//IceSpear
 			$list[]	= "2012";//Blizzard
 		if($lnd["2011"] && $lnd["2014"])//IceSpear + IcePrison
 			$list[]	= "2015";//TidalWave
-
 		if($lnd["2021"])//LightningBall
 			$list[]	= "2024";//ThunderStorm
-
 		if($lnd["3011"])//HiManaRecharge
 			$list[]	= "3012";//LifeConvert
-
 		if($lnd["3012"])//LifeConvert
 			$list[]	= "3013";//EnergyExchange
-
 		if($lnd["2000"] && $lnd["2021"])//FireStorm + LightningBall
 			$list[]	= "2041";//EarthQuake
 		if($lnd["2041"])//EarthQuake
 			$list[]	= "2042";//Subsidence
-
 		if($lnd["2011"] && $lnd["2021"])//IceSpear + LightningBall
 			$list[]	= "2040";//SandStorm
 	}
-
 	// Summoner
 	if($char->job == 202) {
-		
 		$list[]	= "3020";//ManaExtend
 		$list[]	= "2500";//SummonIfrit
 		$list[]	= "2501";//SummonLeviathan
@@ -183,14 +164,12 @@ function LoadSkillTree($char) {
 		$list[]	= "2504";//SummonThor
 		if($lnd["3011"])//HiManaRecharge
 			$list[]	= "3012";//LifeConvert
-
 		$list[]	= "3410";//MagicCircle
 		if($lnd["3410"]) {
 			$list[]	= "3411";//DoubleMagicCircle
 			$list[]	= "3420";//CircleErace
 		}
 	}
-
 	// Necromancer
 	if($char->job == 203) {
 		$list[]	= "2030";//LifeDrain
@@ -202,7 +181,7 @@ function LoadSkillTree($char) {
 		}
 		if($lnd["2050"])//VenomBlast
 			$list[]	= "2051";//PoisonSmog
-		/* // 設定が簡単すぎる。
+		/* // 設定が簡單すぎる
 		if($lnd["2031"])//LifeSqueeze
 			$list[]	= "2032";//DeathKnell
 		*/
@@ -225,7 +204,6 @@ function LoadSkillTree($char) {
 		if($lnd["2463"] && $lnd["2464"])
 			$list[]	= "2465";// Biohazard
 	}
-
 	//////////////////////////////////// 支援系
 	if(	$char->job == 300
 	 ||	$char->job == 301
@@ -240,14 +218,12 @@ function LoadSkillTree($char) {
 			$list[]	= "3004";//SmartHeal
 			$list[]	= "3030";//Reflesh
 		}
-
 		if($lnd["2100"])//Holy
 			$list[]	= "2480";//HealRabbit
 
 		if($lnd["3101"])//Blessing
 			$list[]	= "3102";//Benediction
 	}
-
 	// Bishop
 	if($char->job == 301) {
 		if($lnd["2100"]) {//Holy
@@ -270,20 +246,16 @@ function LoadSkillTree($char) {
 			$list[]	= "3103";//Sanctuary
 		$list[]	= "3415";//MagicCircle
 	}
-
 	// Druid
 	if($char->job == 302) {
-		
 		if($lnd["3004"]) {//SmartHeal
 			$list[]	= "3005";//ProgressiveHeal
 			$list[]	= "3060";//HolyShield
 		}
-
 		if($lnd["3060"]) {
 			$list[]	= "3050";//Quick
 			$list[]	= "3055";//CastAsist
 		}
-
 		$list[]	= "3250";//PowerAsist
 		$list[]	= "3255";//MagicAsist
 		if($lnd["3250"] or $lnd["3255"])
@@ -298,14 +270,12 @@ function LoadSkillTree($char) {
 		$list[]	= "2310";//DoubleShot
 		if(!$lnd["2300"])
 			$list[]	= "2300";//Shoot
-	
 		if($lnd["2300"]) {//Shoot
 			$list[]	= "2301";//PowerShoot
 			$list[]	= "2302";//ArrowShower
 			$list[]	= "2303";//PalsyShot
 		}
 	}
-
 	// Sniper
 	if($char->job == 401) {
 		if($lnd["2303"])//PalsyShot
@@ -322,7 +292,6 @@ function LoadSkillTree($char) {
 		if($lnd["2302"] && $lnd["2305"] && $lnd["2306"])
 			$list[]	= "2307";//HurricaneShot
 	}
-
 	// BeastTamer
 	if($char->job == 402) {
 
@@ -335,8 +304,6 @@ function LoadSkillTree($char) {
 			$list[]	= "1242";//WhipStorm
 			$list[]	= "1244";//BodyBind
 		}
-		
-
 		$list[]	= "2401";//CallPookie
 		$list[]	= "2404";//CallTrainedLion
 		$list[]	= "2408";//CallSprite
@@ -354,7 +321,6 @@ function LoadSkillTree($char) {
 			$list[]	= "2410";//CallDragon
 		if($lnd["2408"] && $lnd["2405"])//CallSprite+Bear
 			$list[]	= "2407";//CallSnowMan
-
 		$list[]	= "3300";//PowerTrain
 		$list[]	= "3301";//MindTrain
 		$list[]	= "3302";//SpeedTrain
@@ -367,13 +333,12 @@ function LoadSkillTree($char) {
 			$list[]	= "3306";//Nimble
 		if($lnd["3303"])//
 			$list[]	= "3307";//Fortify
-		// ～Train 4種類
+		// 糾Train 4庬棕
 		if($lnd["3300"] && $lnd["3301"] && $lnd["3302"] && $lnd["3303"]) {
 			$list[]	= "3308";//FullSupport
 			$list[]	= "3310";//SuppressBeast
 		}
 	}
-
 	// Murderer
 	if($char->job == 403) {
 		$list[]	= "1200";//PoisonBlow
@@ -390,21 +355,15 @@ function LoadSkillTree($char) {
 		$list[]	= "1205";//SulfaricAcid
 		if($lnd["1205"])
 			$list[]	= "1206";//AcidMist
-		
 	}
-
-
 	//////////////////////////////////// その他
 	if(!$lnd["3010"] && $char->job == "200")//ManaRecharge
 		$list[]	= "3010";
-
 	//////////////////////////////////// 共通系
 	if(19 < $char->level)
 		$list[]	= "4000";//臨戦態勢
-
 	if(4 < $char->level)
 		$list[]	= "9000";//複数判定(* think over)
-
 	asort($list);
 	return $list;
 }

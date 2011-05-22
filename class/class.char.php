@@ -1,4 +1,4 @@
-<?
+<?php 
 
 include(DATA_JOB);
 
@@ -17,14 +17,14 @@ class char{
 		$gender	= (0=male 1=female)
 	*/
 	var $name, $gender, $job, $job_name, $img, $birth, $level, $exp;
-	// ステータス
+	// ステ一タス
 	var $maxhp, $hp, $maxsp, $sp, $str, $int, $dex, $spd, $luk;
-	// ステータスポイントとか
+	// ステ一タスポイントとか
 	var $statuspoint;
 	var $skillpoint;
-	// 装備
+	// 裝備
 	var $weapon, $shield, $armor, $item;
-	// 戦闘その他
+	// 戰鬥その他
 	var $position, $guard;
 	// スキル
 	var $skill;
@@ -33,14 +33,14 @@ class char{
 	var $PatternMemo;
 	var $judge, $quantity, $action;
 
-	// 戦闘用変数(BattleVariable) データには保存されない。
+	// 戰鬥用變數(BattleVariable) デ一タには保存されない。
 	var $team;
 	var $IMG;
 	var $MAXHP, $HP, $MAXSP, $SP, $STR, $INT, $DEX, $SPD, $LUK;
-	var $STATE;//状態(0=生存 1=しぼー 2=毒状態)
+	var $STATE;//狀態(0=生存 1=しぼ一 2=毒狀態)
 	var $POSITION;
-	var $P_MAXHP, $P_MAXSP, $P_STR, $P_INT, $P_DEX, $P_SPD,$P_LUK;//単純なステータス補正(plus)
-	var $M_MAXHP, $M_MAXSP;//単純なステータス補正(multipication)
+	var $P_MAXHP, $P_MAXSP, $P_STR, $P_INT, $P_DEX, $P_SPD,$P_LUK;//單純なステ一タス補正(plus)
+	var $M_MAXHP, $M_MAXSP;//單純なステ一タス補正(multipication)
 	var $SPECIAL;// 特殊技能
 	/*
 		PoisonResist 毒抵抗
@@ -53,10 +53,10 @@ class char{
 	var $delay;//行動までの時間
 	var $expect = false;//詠唱完了時に使うスキル
 	var $expect_type;//詠唱完了時に使うスキルのタイプ(物理/魔法)
-	var $expect_target;//↑のターゲット
+	var $expect_target;//↑のタ一ゲット
 
-	var $ActCount;//合計行動回数
-	var $JdgCount;//決定した判断の回数=array()
+	var $ActCount;//合計行動回數
+	var $JdgCount;//決定した判斷の回數=array()
 //////////////////////////////////////////////////
 	function char($file=false) {
 
@@ -81,7 +81,7 @@ class char{
 		}
 	}
 //////////////////////////////////////////////////
-//	召喚力?召喚した時の召喚モンスターの強さ
+//	召喚力?召喚した時の召喚モンスタ一の強さ
 	function SummonPower() {
 		$DEX_PART	= sqrt($this->DEX) * 5;// DEX分の強化分
 		$Strength	= 1 + ($DEX_PART + $this->LUK)/250;
@@ -90,7 +90,7 @@ class char{
 		return $Strength;
 	}
 //////////////////////////////////////////////////
-//	HPの犠牲
+//	HPの犧牲
 	function SacrificeHp($rate) {
 		if(!$rate) return false;
 
@@ -116,55 +116,55 @@ class char{
 		}
 	}
 //////////////////////////////////////////////////
-//	HPSP持続回復
+//	HPSP持續回復
 	function AutoRegeneration() {
 		// HP回復
 		if($this->SPECIAL["HpRegen"]) {
 			$Regen	= round($this->MAXHP * $this->SPECIAL["HpRegen"]/100);
-			print('<span class="recover">* </span>'.$this->Name(bold)."<span class=\"recover\"> Auto Regenerate <span class=\"bold\">".$Regen." HP</span></span> ");
+			print('<span class="recover">* </span>'.$this->Name(bold)."<span class=\"recover\"> 自動回復 <span class=\"bold\">".$Regen." HP</span></span> ");
 			$this->HpRecover($Regen);
 			print("<br />\n");
 		}
 		// SP回復
 		if($this->SPECIAL["SpRegen"]) {
 			$Regen	= round($this->MAXSP * $this->SPECIAL["SpRegen"]/100);
-			print('<span class="support">* </span>'.$this->Name(bold)."<span class=\"support\"> Auto Regenerate <span class=\"bold\">".$Regen." SP</span></span> ");
+			print('<span class="support">* </span>'.$this->Name(bold)."<span class=\"support\"> 自動回復 <span class=\"bold\">".$Regen." SP</span></span> ");
 			$this->SpRecover($Regen);
 			print("<br />\n");
 		}
 	}
 //////////////////////////////////////////////////
-//	キャラステータスの一番上のやつ。
+//	キャラステ一タスの一番上のやつ。
 	function ShowCharDetail() {
 		$P_MAXHP	= round($this->maxhp * $this->M_MAXHP/100) + $this->P_MAXHP;
 		$P_MAXSP	= round($this->maxsp * $this->M_MAXSP/100) + $this->P_MAXSP;
 		?>
 <table>
-<tr><td valign="top" style="width:180px"><?$this->ShowCharLink();?>
+<tr><td valign="top" style="width:180px"><?php $this->ShowCharLink();?>
 </td><td valign="top" style="padding-right:20px">
 <table border="0" cellpadding="0" cellspacing="0">
-<tr><td style="text-align:right">Exp :&nbsp;</td><td><?=$this->exp?>/<?=$this->CalcExpNeed()?></td></tr>
-<tr><td style="text-align:right">HP :&nbsp;</td><td><?=$this->maxhp?><?if($P_MAXHP) print(" + {$P_MAXHP}");?></td></tr>
-<tr><td style="text-align:right">SP :&nbsp;</td><td><?=$this->maxsp?><?if($P_MAXSP) print(" + {$P_MAXSP}");?></td></tr>
-<tr><td style="text-align:right">STR :&nbsp;</td><td><?=$this->str?><?if($this->P_STR) print(" + {$this->P_STR}");?></td></tr>
-<tr><td style="text-align:right">INT :&nbsp;</td><td><?=$this->int?><?if($this->P_INT) print(" + {$this->P_INT}");?></td></tr>
-<tr><td style="text-align:right">DEX :&nbsp;</td><td><?=$this->dex?><?if($this->P_DEX) print(" + {$this->P_DEX}");?></td></tr>
-<tr><td style="text-align:right">SPD :&nbsp;</td><td><?=$this->spd?><?if($this->P_SPD) print(" + {$this->P_SPD}");?></td></tr>
-<tr><td style="text-align:right">LUK :&nbsp;</td><td><?=$this->luk?><?if($this->P_LUK) print(" + {$this->P_LUK}");?></td></tr>
+<tr><td style="text-align:right">Exp : </td><td><?php print $this->exp?>/<?php print $this->CalcExpNeed()?></td></tr>
+<tr><td style="text-align:right">HP : </td><td><?php print $this->maxhp?><?php if($P_MAXHP) print(" + {$P_MAXHP}");?></td></tr>
+<tr><td style="text-align:right">SP : </td><td><?php print $this->maxsp?><?php if($P_MAXSP) print(" + {$P_MAXSP}");?></td></tr>
+<tr><td style="text-align:right">STR : </td><td><?php print $this->str?><?php if($this->P_STR) print(" + {$this->P_STR}");?></td></tr>
+<tr><td style="text-align:right">INT : </td><td><?php print $this->int?><?php if($this->P_INT) print(" + {$this->P_INT}");?></td></tr>
+<tr><td style="text-align:right">DEX : </td><td><?php print $this->dex?><?php if($this->P_DEX) print(" + {$this->P_DEX}");?></td></tr>
+<tr><td style="text-align:right">SPD : </td><td><?php print $this->spd?><?php if($this->P_SPD) print(" + {$this->P_SPD}");?></td></tr>
+<tr><td style="text-align:right">LUK : </td><td><?php print $this->luk?><?php if($this->P_LUK) print(" + {$this->P_LUK}");?></td></tr>
 </table>
 </td><td valign="top">
-<?
+<?php 
 	if($this->SPECIAL["PoisonResist"])
 		print("毒抵抗 +".$this->SPECIAL["PoisonResist"]."%<br />\n");
 	if($this->SPECIAL["Pierce"]["0"])
-		print("物理防御無視ダメージ +".$this->SPECIAL["Pierce"]["0"]."<br />\n");
+		print("無視物理防禦傷害 +".$this->SPECIAL["Pierce"]["0"]."<br />\n");
 	if($this->SPECIAL["Pierce"]["1"])
-		print("魔法防御無視ダメージ +".$this->SPECIAL["Pierce"]["1"]."<br />\n");
+		print("無視魔法防禦傷害 +".$this->SPECIAL["Pierce"]["1"]."<br />\n");
 	if($this->SPECIAL["Summon"])
 		print("召喚力 +".$this->SPECIAL["Summon"]."%<br />\n");
 ?>
 </td></tr></table>
-<?
+<?php 
 	}
 //////////////////////////////////////////////////
 //	誰のキャラか設定する
@@ -172,7 +172,7 @@ class char{
 		$this->user	= $user;
 	}
 //////////////////////////////////////////////////
-//	チャージ(詠唱)中の解除
+//	チャ一ジ(詠唱)中の解除
 	function ResetExpect() {
 		$this->expect	= false;
 		$this->expect_type	= false;
@@ -186,12 +186,12 @@ class char{
 			if($this->POSITION == "front")
 				return false;
 			$this->POSITION = "front";
-			print($this->Name(bold)." moved to front.<br />\n");
+			print($this->Name(bold)." 移到前排.<br />\n");
 		} else {
 			if($this->POSITION != "front")
 				return false;
 			$this->POSITION = "back";
-			print($this->Name(bold)." moved to back.<br />\n");
+			print($this->Name(bold)." 移到後排.<br />\n");
 		}
 	}
 
@@ -215,10 +215,10 @@ class char{
 //////////////////////////////////////////////////
 //	行動を近づかせる。
 	function Delay($no) {
-		// 死亡中は増えないようにする
-		if($this->STATE === DEAD)
+		// 死亡中は增えないようにする
+		if($this->STATE === DEAD){
 			return false;
-
+    }
 		if(DELAY_TYPE === 0) {
 			$this->delay	+= $no;
 		} else if(DELAY_TYPE === 1) {
@@ -232,14 +232,14 @@ class char{
 		return sqrt($this->SPD) + DELAY_BASE;
 	}
 //////////////////////////////////////////////////
-//	行動を遅らせる(Rate)
+//	行動を遲らせる(Rate)
 	function DelayByRate($No,$BaseDelay,$Show=false) {
 		if(DELAY_TYPE === 0) {
 			if($Show) {
 				print("(".sprintf("%0.1f",$this->delay));
-				print('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
+				print('<span style="font-size:80%"> >>> </span>');
 			}
-			$Delay	= ($BaseDelay - $this->SPD) * ($No/100);//遅らせる間隔
+			$Delay	= ($BaseDelay - $this->SPD) * ($No/100);//遲らせる間隔
 			$this->delay	-= $Delay;
 			if($Show) {
 				print(sprintf("%0.1f",$this->delay)."/".sprintf("%0.1f",$BaseDelay).")");
@@ -247,9 +247,9 @@ class char{
 		} else if(DELAY_TYPE === 1) {
 			if($Show) {
 				print("(".sprintf("%0.0f",$this->delay));
-				print('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
+				print('<span style="font-size:80%"> >>> </span>');
 			}
-			$Delay	= $No;//遅らせる間隔
+			$Delay	= $No;//遲らせる間隔
 			$this->delay	-= $Delay;
 			if($Show) {
 				print(sprintf("%0.0f",floor($this->delay))."/".sprintf("%d",100).")");
@@ -263,7 +263,7 @@ class char{
 			$Delay	= ($BaseDelay - $this->delay) * ($No/100);//早まらせる間隔
 			if($Show) {
 				print("(".sprintf("%0.1f",$this->delay));
-				print('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
+				print('<span style="font-size:80%"> >>> </span>');
 			}
 			$this->delay	+= $Delay;
 			if($Show) {
@@ -273,7 +273,7 @@ class char{
 			$Delay	= (100 - $this->delay) * ($No/100);//早まらせる間隔
 			if($Show) {
 				print("(".sprintf("%0.1f",$this->delay));
-				print('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
+				print('<span style="font-size:80%"> >>> </span>');
 			}
 			$this->delay	+= $Delay;
 			if($Show) {
@@ -290,12 +290,12 @@ class char{
 			$this->delay	= 100.1;
 	}
 //////////////////////////////////////////////////
-//	名前を変える。
+//	名前を變える。
 	function ChangeName($new) {
 		$this->name	= $new;
 	}
 //////////////////////////////////////////////////
-//	行動パターンに追加する。
+//	行動パタ一ンに追加する。
 	function AddPattern($no) {
 		if(!is_int($no) && $no < 0) return false;
 
@@ -311,7 +311,7 @@ class char{
 		return true;
 	}
 //////////////////////////////////////////////////
-//	行動パターンを削除。
+//	行動パタ一ンを削除。
 	function DeletePattern($no) {
 		if(!is_int($no) && $no < 0) return false;
 
@@ -327,7 +327,7 @@ class char{
 		return true;
 	}
 //////////////////////////////////////////////////
-//	限界設定数を超えていないか心配なので作った。。
+//	限界設定數を超えていないか心配なので作った。。
 	function CutPatterns() {
 		$No	= $this->MaxPatterns();
 		while($No < count($this->judge)) {
@@ -341,7 +341,7 @@ class char{
 		}
 	}
 //////////////////////////////////////////////////
-//	メモってあるパターンと交換
+//	メモってあるパタ一ンと交換
 	function ChangePatternMemo() {
 		$temp	= $this->Pattern;
 		$this->Pattern	= $this->PatternMemo;
@@ -370,108 +370,108 @@ class char{
 	function KnockBack($no=1) {
 		if($this->POSITION == "front") {
 			$this->POSITION = "back";
-			print($this->Name(bold)." knock backed!<br />\n");
+			print($this->Name(bold)."敲到後排!<br />\n");
 		}
 	}
 //////////////////////////////////////////////////
 //	
-//	ステータス強化(+)
+//	ステ一タス強化(+)
 	function PlusSTR($no) {
 		$this->STR	+= $no;
-		print($this->Name(bold)." STR rise {$no}<br />\n");
+		print($this->Name(bold)." STR 提升 {$no}<br />\n");
 	}
 	function PlusINT($no) {
 		$this->INT	+= $no;
-		print($this->Name(bold)." INT rise {$no}<br />\n");
+		print($this->Name(bold)." INT 提升 {$no}<br />\n");
 	}
 	function PlusDEX($no) {
 		$this->DEX	+= $no;
-		print($this->Name(bold)." DEX rise {$no}<br />\n");
+		print($this->Name(bold)." DEX 提升 {$no}<br />\n");
 	}
 	function PlusSPD($no) {
 		$this->SPD	+= $no;
-		print($this->Name(bold)." SPD rise {$no}<br />\n");
+		print($this->Name(bold)." SPD 提升 {$no}<br />\n");
 	}
 	function PlusLUK($no) {
 		$this->LUK	+= $no;
-		print($this->Name(bold)." LUK rise {$no}<br />\n");
+		print($this->Name(bold)." LUK 提升 {$no}<br />\n");
 	}
 //////////////////////////////////////////////////
-//	ステータス強化(%)
+//	ステ一タス強化(%)
 	function UpMAXHP($no) {
-		print($this->Name(bold)." MAXHP({$this->MAXHP}) extended to ");
+		print($this->Name(bold)." MAXHP({$this->MAXHP}) 提升到 ");
 		$this->MAXHP	= round($this->MAXHP * (1 + $no/100));
 		print("{$this->MAXHP}<br />\n");
 	}
 	function UpMAXSP($no) {
-		print($this->Name(bold)." MAXSP({$this->MAXSP}) extended to ");
+		print($this->Name(bold)." MAXSP({$this->MAXSP}) 提升到 ");
 		$this->MAXSP	= round($this->MAXSP * (1 + $no/100));
 		print("{$this->MAXSP}<br />\n");
 	}
 	function UpSTR($no) {
 		$this->STR	= round($this->STR * (1 + $no/100));
 		if(($this->str * MAX_STATUS_MAXIMUM/100) < $this->STR) {
-			print($this->Name(bold)." STR rise to the maximum(".MAX_STATUS_MAXIMUM."%).<br />\n");
+			print($this->Name(bold)." STR 提升到最大 (".MAX_STATUS_MAXIMUM."%).<br />\n");
 			$this->STR = round($this->str * MAX_STATUS_MAXIMUM/100);
 		} else {
-			print($this->Name(bold)." STR rise {$no}%<br />\n");
+			print($this->Name(bold)." STR 提升 {$no}%<br />\n");
 		}
 	}
 	function UpINT($no) {
 		$this->INT	= round($this->INT * (1 + $no/100));
 		if(($this->int * MAX_STATUS_MAXIMUM/100) < $this->INT) {
-			print($this->Name(bold)." INT rise to the maximum(".MAX_STATUS_MAXIMUM."%).<br />\n");
+			print($this->Name(bold)." INT 提升到最大(".MAX_STATUS_MAXIMUM."%).<br />\n");
 			$this->INT = round($this->int * MAX_STATUS_MAXIMUM/100);
 		} else {
-			print($this->Name(bold)." INT rise {$no}%<br />\n");
+			print($this->Name(bold)." INT 提升 {$no}%<br />\n");
 		}
 	}
 	function UpDEX($no) {
 		$this->DEX	= round($this->DEX * (1 + $no/100));
 		if(($this->dex * MAX_STATUS_MAXIMUM/100) < $this->DEX) {
-			print($this->Name(bold)." DEX rise to the maximum(".MAX_STATUS_MAXIMUM."%).<br />\n");
+			print($this->Name(bold)." DEX 提升到最大(".MAX_STATUS_MAXIMUM."%).<br />\n");
 			$this->DEX = round($this->dex * MAX_STATUS_MAXIMUM/100);
 		} else {
-			print($this->Name(bold)." DEX rise {$no}%<br />\n");
+			print($this->Name(bold)." DEX 提升 {$no}%<br />\n");
 		}
 	}
 	function UpSPD($no) {
 		$this->SPD	= round($this->SPD * (1 + $no/100));
 		if(($this->spd * MAX_STATUS_MAXIMUM/100) < $this->SPD) {
-			print($this->Name(bold)." SPD rise to the maximum(".MAX_STATUS_MAXIMUM."%).<br />\n");
+			print($this->Name(bold)." SPD 提升到最大(".MAX_STATUS_MAXIMUM."%).<br />\n");
 			$this->SPD = round($this->spd * MAX_STATUS_MAXIMUM/100);
 		} else {
-			print($this->Name(bold)." SPD rise {$no}%<br />\n");
+			print($this->Name(bold)." SPD 提升 {$no}%<br />\n");
 		}
 	}
 	function UpATK($no) {
 		$this->atk["0"]	= round($this->atk["0"] * (1 + $no/100));
-		print($this->Name(bold)." ATK rise {$no}%<br />\n");
+		print($this->Name(bold)." ATK 提升 {$no}%<br />\n");
 	}
 	function UpMATK($no) {
 		$this->atk["1"]	= round($this->atk["1"] * (1 + $no/100));
-		print($this->Name(bold)." MATK rise {$no}%<br />\n");
+		print($this->Name(bold)." MATK 提升 {$no}%<br />\n");
 	}
 	function UpDEF($no) {
 		$up	= floor((100 - $this->def["0"]) * ($no/100) );
 		$this->def["0"]	+= $up;
-		print($this->Name(bold)." DEF rise {$no}%<br />\n");
+		print($this->Name(bold)." DEF 提升 {$no}%<br />\n");
 	}
 	function UpMDEF($no) {
 		$up	= floor((100 - $this->def["2"]) * ($no/100) );
-		print($this->Name(bold)." MDEF rise {$no}%<br />\n");
+		print($this->Name(bold)." MDEF 提升 {$no}%<br />\n");
 		$this->def["2"]	+= $up;
 	}
-//	ステータス弱体化(%)
+//	ステ一タス弱體化(%)
 	function DownMAXHP($no) {
-		print($this->Name(bold)." MAXHP({$this->MAXHP}) down to ");
+		print($this->Name(bold)." MAXHP({$this->MAXHP}) 下降到 ");
 		$this->MAXHP	= round($this->MAXHP * (1 - $no/100));
 		if($this->MAXHP < $this->HP)
 			$this->HP	= $this->MAXHP;
 		print("{$this->MAXHP}<br />\n");
 	}
 	function DownMAXSP($no) {
-		print($this->Name(bold)." MAXSP({$this->MAXSP}) down to ");
+		print($this->Name(bold)." MAXSP({$this->MAXSP}) 下降到 ");
 		$this->MAXSP	= round($this->MAXSP * (1 - $no/100));
 		if($this->MAXSP < $this->SP)
 			$this->SP	= $this->MAXSP;
@@ -479,38 +479,38 @@ class char{
 	}
 	function DownSTR($no) {
 		$this->STR	= round($this->STR * (1 - $no/100));
-		print($this->Name(bold)." STR down {$no}%<br />\n");
+		print($this->Name(bold)." STR 下降 {$no}%<br />\n");
 	}
 	function DownINT($no) {
 		$this->INT	= round($this->INT * (1 - $no/100));
-		print($this->Name(bold)." INT down {$no}%<br />\n");
+		print($this->Name(bold)." INT 下降 {$no}%<br />\n");
 	}
 	function DownDEX($no) {
 		$this->DEX	= round($this->DEX * (1 - $no/100));
-		print($this->Name(bold)." DEX down {$no}%<br />\n");
+		print($this->Name(bold)." DEX 下降 {$no}%<br />\n");
 	}
 	function DownSPD($no) {
 		$this->SPD	= round($this->SPD * (1 - $no/100));
-		print($this->Name(bold)." SPD down {$no}%<br />\n");
+		print($this->Name(bold)." SPD 下降 {$no}%<br />\n");
 	}
 	function DownATK($no) {
 		$this->atk["0"]	= round($this->atk["0"] * (1 - $no/100));
-		print($this->Name(bold)." ATK down {$no}%<br />\n");
+		print($this->Name(bold)." ATK 下降 {$no}%<br />\n");
 	}
 	function DownMATK($no) {
 		$this->atk["1"]	= round($this->atk["1"] * (1 - $no/100));
-		print($this->Name(bold)." MATK down {$no}%<br />\n");
+		print($this->Name(bold)." MATK 下降 {$no}%<br />\n");
 	}
 	function DownDEF($no) {
 		$this->def["0"]	= round($this->def["0"] * (1 - $no/100));
-		print($this->Name(bold)." DEF down {$no}%<br />\n");
+		print($this->Name(bold)." DEF 下降 {$no}%<br />\n");
 	}
 	function DownMDEF($no) {
 		$this->def["2"]	= round($this->def["2"] * (1 - $no/100));
-		print($this->Name(bold)." MDEF down {$no}%<br />\n");
+		print($this->Name(bold)." MDEF 下降 {$no}%<br />\n");
 	}
 //////////////////////////////////////////////////
-//	キャラの指示の数
+//	キャラの指示の數
 	function MaxPatterns() {
 		if($this->int < 10)//1-9
 			$no	= 2;
@@ -537,14 +537,14 @@ class char{
 	}
 
 //////////////////////////////////////////////////
-//	行動パターンの変更。
+//	行動パタ一ンの變更。
 	function ChangePattern($judge,$action) {
 		$this->judge	= array();
 		$this->action	= array();
-		$max	= $this->MaxPatterns();//最低判断数
+		$max	= $this->MaxPatterns();//最低判斷數
 		$judge_list	= array_flip(JudgeList());
 		$skill_list	= array_flip($this->skill);
-		for($i=0; $i<$max; $i++) {//判断順に記憶
+		for($i=0; $i<$max; $i++) {//判斷順に記憶
 			if(!$judge["$i"])	$this->judge[$i]	= 1000;
 			if(!$action["$i"])	$this->action[$i]	= 1000;
 
@@ -558,25 +558,25 @@ class char{
 		return true;
 	}
 //////////////////////////////////////////////////
-//	毒ダメージ
+//	毒ダメ一ジ
 	function PoisonDamage($multiply=1) {
 		if($this->STATE !== 2) return false;
 
 		$poison	= $this->PoisonDamageFormula($multiply);
-		print("<span class=\"spdmg\">".$this->Name(bold)." got ");
-		print("<span class=\"bold\">$poison</span> damage by poison.\n");
+		print("<span class=\"spdmg\">".$this->Name(bold)." 由於中毒受到 ");
+		print("<span class=\"bold\">$poison</span> 傷害.\n");
 		$this->HpDamage2($poison);
 		print("</span><br />\n");
 	}
 //////////////////////////////////////////////////
-//	毒ダメージの公式
+//	毒ダメ一ジの公式
 	function PoisonDamageFormula($multiply=1) {
 		$damage	= round($this->MAXHP * 0.10) + ceil($this->level/2);
 		$damage	*= $multiply;
 		return round($damage);
 	}
 //////////////////////////////////////////////////
-//	毒の状態 異常化 処理
+//	毒の狀態 異常化 處理
 	function GetPoison($BePoison) {
 		if($this->STATE === 2)
 			return false;
@@ -612,7 +612,7 @@ class char{
 			return $this->name;
 	}
 //////////////////////////////////////////////////
-//	必要経験値
+//	必要經驗值
 	function CalcExpNeed() {
 		switch($this->level) {
 			case 40:	$no	= 30000; break;
@@ -641,20 +641,20 @@ class char{
 		return $no;
 	}
 //////////////////////////////////////////////////
-//	経験値を得る
+//	經驗值を得る
 	function GetExp($exp) {
-		if($this->monster) return false;//モンスターは経験値を得ない
-		if(MAX_LEVEL <= $this->level) return false;//最大レベルの場合経験値を得ない
+		if($this->monster) return false;//モンスタ一は經驗值を得ない
+		if(MAX_LEVEL <= $this->level) return false;//最大レベルの場合經驗值を得ない
 
 		$this->exp	+= $exp;
-		$need	= $this->CalcExpNeed($this->level);// 必要な経験値
+		$need	= $this->CalcExpNeed($this->level);// 必要な經驗值
 		if($need <= $this->exp) {
 			$this->LevelUp();
 			return true;
 		}
 	}
 //////////////////////////////////////////////////
-//	レベルあげる時の処理
+//	レベルあげる時の處理
 	function LevelUp() {
 		$this->exp	= 0;
 		$this->level++;
@@ -662,77 +662,77 @@ class char{
 		$this->skillpoint	+= GET_SKILL_POINT;
 	}
 //////////////////////////////////////////////////
-//	クラスチェンジ(転職)
-//	装備をはずす。
+//	クラスチェンジ(轉職)
+//	裝備をはずす。
 	function ClassChange($job) {
 		include_once(DATA_CLASSCHANGE);
 		if(CanClassChange($this,$job)) {
 			$this->job = $job;
 			$this->SetJobData();
 			$this->SetHpSp();
-			//装備を解除
+			//裝備を解除
 			return true;
 		}
 		return false;
 	}
 //////////////////////////////////////////////////
-//	アイテムを装備する(職が装備可能な物かどうかは調べない)
+//	アイテムを裝備する(職が裝備可能な物かどうかは調べない)
 	function Equip($item) {
-		$old	= array(//現在の装備を仮に保存しておく。
+		$old	= array(//現在の裝備を反に保存しておく。
 			"weapon"=> $this->weapon,
 			"shield"=> $this->shield,
 			"armor"	=> $this->armor,
 			"item"	=> $this->item
 			);
 
-		$return	= array();//はずした装備。
+		$return	= array();//はずした裝備。
 
 		switch($item["type"]) {//種類別
-			case "Sword"://片手武器
-			case "Dagger":
-			case "Pike":
-			case "Hatchet":
-			case "Wand":
-			case "Mace":
-			case "TwoHandSword"://両手武器
-			case "Spear":
-			case "Axe":
-			case "Staff":
-			case "Bow":
-			case "CrossBow":
-			case "Whip":
-				// 既に装備してある武器ははずす。
+			case "劍"://片手武器
+			case "匕首":
+			case "矛":
+			case "短柄斧":
+			case "魔杖":
+			case "錘":
+			case "雙手劍"://兩手武器
+			case "槍":
+			case "斧":
+			case "杖":
+			case "弓":
+			case "十字弓":
+			case "鞭":
+				// 既に裝備してある武器ははずす。
 				if($this->weapon)
 					$return[]	= $this->weapon;
-				if($item["dh"] && $this->shield) {//両手持ちの武器の場合。
-					//盾を装備していたらはずす。
+				if($item["dh"] && $this->shield) {//兩手持ちの武器の場合。
+					//盾を裝備していたらはずす。
 					$return[]	= $this->shield;
 					$this->shield	= NULL;
 				}
 				$this->weapon	= $item["no"];
 				break;
-			case "Shield"://盾
+			case "盾"://盾
 			case "MainGauche":
-			case "Book":
-				if($this->weapon) {//両手武器ならそれははずす
+			case "書":
+				if($this->weapon) {//兩手武器ならそれははずす
 					$weapon	= LoadItemData($this->weapon);
 					if($weapon["dh"]) {
 						$return[]	= $this->weapon;
 						$this->weapon	= NULL;
 					}
 				}
-				if($this->shield)//盾装備していれば持ち物に加える
+				if($this->shield)//盾裝備していれば持ち物に加える
 					$return[]	= $this->shield;
 				$this->shield	= $item["no"];
 				break;
-			case "Armor"://鎧
-			case "Cloth":
-			case "Robe":
+			case "甲"://鎧
+			case "衣服":
+			case "長袍":
 				if($this->armor)
 					$return[]	= $this->armor;
 				$this->armor	= $item["no"];
 				break;
-			case "Item":
+			case "道具":
 				if($this->item)
 					$return[]	= $this->item;
 				$this->item	= $item["no"];
@@ -749,7 +749,7 @@ class char{
 		$handle	= 0;
 		$handle	= $weapon["handle"] + $shield["handle"] + $armor["handle"] + $item2["handle"];
 		if($this->GetHandle() < $handle) {//handle over
-			foreach($old as $key => $val)//元に戻す。
+			foreach($old as $key => $val)//元に戾す。
 				$this->{$key}	= $val;
 			return false;
 		}
@@ -757,9 +757,9 @@ class char{
 		return $return;
 	}
 //////////////////////////////////////////////////
-//	しぼーしてるかどうか確認する。
+//	しぼ一してるかどうか確認する。
 	function CharJudgeDead() {
-		if($this->HP < 1 && $this->STATE !== DEAD) {//しぼー
+		if($this->HP < 1 && $this->STATE !== DEAD) {//しぼ一
 			$this->STATE	= DEAD;
 			$this->HP	= 0;
 			$this->ResetExpect();
@@ -768,25 +768,25 @@ class char{
 		}
 	}
 //////////////////////////////////////////////////
-//	生存状態にする。
+//	生存狀態にする。
 	function GetNormal($mes=false) {
 		if($this->STATE === ALIVE)
 			return true;
-		if($this->STATE === DEAD) {//死亡状態
+		if($this->STATE === DEAD) {//死亡狀態
 			if($mes)
-				print($this->Name(bold).' <span class="recover">revived</span>!<br />'."\n");
+				print($this->Name(bold).' <span class="recover">復活</span>!<br />'."\n");
 			$this->STATE = 0;
 			return true;
 		}
-		if($this->STATE === POISON) {//毒状態
+		if($this->STATE === POISON) {//毒狀態
 			if($mes)
-				print($this->Name(bold)."'s <span class=\"spdmg\">poison</span> has cured.<br />\n");
+				print($this->Name(bold)."的 <span class=\"spdmg\">中毒</span> 被治癒.<br />\n");
 			$this->STATE = 0;
 			return true;
 		}
 	}
 //////////////////////////////////////////////////
-//	戦闘中のキャラ名,HP,SP を色を分けて表示する
+//	戰鬥中のキャラ名,HP,SP を色を分けて表示する
 //	それ以外にも必要な物があれば表示するようにした。
 	function ShowHpSp() {
 		if($this->STATE === 1)
@@ -795,11 +795,11 @@ class char{
 			$sub	= " spdmg";
 		//名前
 		print("<span class=\"bold{$sub}\">{$this->name}</span>\n");
-		// チャージor詠唱
+		// チャ一ジor詠唱
 		if($this->expect_type === 0)
-			print('<span class="charge">(charging)</span>'."\n");
+			print('<span class="charge">(蓄力)</span>'."\n");
 		else if($this->expect_type === 1)
-			print('<span class="charge">(casting)</span>'."\n");
+			print('<span class="charge">(詠唱)</span>'."\n");
 		// HP,SP
 		print("<div class=\"hpsp\">\n");
 		$sub	= $this->STATE === 1 ? "dmg":"recover";
@@ -809,12 +809,12 @@ class char{
 		print("</div>\n");//SP
 	}
 //////////////////////////////////////////////////
-//	値の変化を表示する(ダメージ受けた時とか)
+//	值の變化を表示する(ダメ一ジ受けた時とか)
 	function ShowValueChange($from,$to) {
-		print("({$from} &gt; {$to})");
+		print("({$from} > {$to})");
 	}
 //////////////////////////////////////////////////
-//	HPへのダメージ
+//	HPへのダメ一ジ
 	function HpDamage($damage,$show=true) {
 		$Before	= $this->HP;
 		$this->HP	-= $damage;// HPを減らす。
@@ -822,7 +822,7 @@ class char{
 			$this->ShowValueChange($Before,$this->HP);
 	}
 //////////////////////////////////////////////////
-//	HPへのダメージ(0以下になるなら1になる。)
+//	HPへのダメ一ジ(0以下になるなら1になる。)
 	function HpDamage2($damage) {
 		$Before	= $this->HP;
 		$this->HP	-= $damage;
@@ -832,7 +832,7 @@ class char{
 		$this->ShowValueChange($Before,$this->HP);
 	}
 //////////////////////////////////////////////////
-//	HPのパーセント
+//	HPのパ一セント
 	function HpPercent() {
 		if($this->MAXHP == 0)
 			return 0;
@@ -840,7 +840,7 @@ class char{
 		return $p;
 	}
 //////////////////////////////////////////////////
-//	SPのパーセント
+//	SPのパ一セント
 	function SpPercent() {
 		if($this->MAXSP == 0)
 			return 0;
@@ -848,7 +848,7 @@ class char{
 		return $p;
 	}
 //////////////////////////////////////////////////
-//	SPへのダメージ(消費)
+//	SPへのダメ一ジ(消費)
 	function SpDamage($damage,$show=true) {
 		$Before	= $this->SP;
 		$this->SP	-= $damage;
@@ -878,14 +878,14 @@ class char{
 		$this->ShowValueChange($Before,$this->SP);
 	}
 //////////////////////////////////////////////////
-//	パッシブスキルを読み込む
+//	パッシブスキルを讀み迂む
 	function LoadPassiveSkills() {
 		// PassiveSkill
 		foreach($this->skill as $no) {
 			if($no < 7000 || 8000 <= $no) continue;
 
 			$skill	= LoadSkillData($no);
-			//	能力値上昇系
+			//	能力值上昇系
 			if($skill["P_MAXHP"])
 				$this->P_MAXHP	+= $skill["P_MAXHP"];
 			if($skill["P_MAXSP"])
@@ -908,14 +908,14 @@ class char{
 	}
 //////////////////////////////////////////////////
 	function SetBattleVariable($team=false) {
-		// 再読み込みを防止できるか?
+		// 再讀み迂みを防止できるか?
 		if(isset($this->IMG))
 			return false;
 
 		$this->PatternExplode();
 		$this->CutPatterns();
 
-		// パッシブスキルを読む
+		// パッシブスキルを讀む
 		$this->LoadPassiveSkills();
 		$this->CalcEquips();
 
@@ -935,17 +935,17 @@ class char{
 		$this->SPD		= $this->spd + $this->P_SPD;
 		$this->LUK		= $this->luk + $this->P_LUK;
 		$this->POSITION	= $this->position;
-		$this->STATE	= 0;//生存状態にする
+		$this->STATE	= 0;//生存狀態にする
 
-		$this->expect	= false;//(数値=詠唱中 false=待機中)
-		$this->ActCount	= 0;//行動回数
-		$this->JdgCount	= array();//決定した判断の回数
+		$this->expect	= false;//(數值=詠唱中 false=待機中)
+		$this->ActCount	= 0;//行動回數
+		$this->JdgCount	= array();//決定した判斷の回數
 	}
 //////////////////////////////////////////////////
-//	キャラの攻撃力と防御力,装備性能を計算する
+//	キャラの攻擊力と防禦力,裝備性能を計算する
 	function CalcEquips() {
 		if($this->monster) return false;//mobは設定せんでいい
-		$equip	= array("weapon","shield","armor","item");//装備箇所
+		$equip	= array("weapon","shield","armor","item");//裝備箇所
 		$this->atk	= array(0,0);
 		$this->def	= array(0,0,0,0);
 		foreach($equip as $place) {
@@ -955,11 +955,11 @@ class char{
 			$item	= LoadItemData($this->{$place});
 			if($place == "weapon")
 					$this->WEAPON	= $item["type"];
-			$this->atk[0]	+= $item[atk][0];//物理攻撃力
+			$this->atk[0]	+= $item[atk][0];//物理攻擊力
 			$this->atk[1]	+= $item[atk][1];//魔法〃
-			$this->def[0]	+= $item[def][0];//物理防御(÷)
+			$this->def[0]	+= $item[def][0];//物理防禦(÷)
 			$this->def[1]	+= $item[def][1];//〃(－)
-			$this->def[2]	+= $item[def][2];//魔法防御(÷)
+			$this->def[2]	+= $item[def][2];//魔法防禦(÷)
 			$this->def[3]	+= $item[def][3];//〃(－)
 
 			$this->P_MAXHP	+= $item["P_MAXHP"];
@@ -975,7 +975,7 @@ class char{
 
 			if($item["P_SUMMON"])
 				$this->GetSpecial("Summon",$item["P_SUMMON"]);
-			// 防御無視の攻撃力
+			// 防禦無視の攻擊力
 			if($item["P_PIERCE"])
 				$this->GetSpecial("Pierce",$item["P_PIERCE"]);
 		}
@@ -984,17 +984,17 @@ class char{
 	function ShowCharWithLand($land) {
 		?>
 	<div class="carpet_frame">
-	<div class="land" style="background-image : url(<?=IMG_OTHER."land_".$land.".gif"?>);">
-	<?$this->ShowImage()?>
+	<div class="land" style="background-image : url(<?php print IMG_OTHER."land_".$land.".gif"?>);">
+	<?php $this->ShowImage()?>
 	</div>
-	<?=$this->name?><br>Lv.<?=$this->level?>
-	</div><?
+	<?php print $this->name?><br>Lv.<?php print $this->level?>
+	</div><?php 
 	}
 
 //////////////////////////////////////////////////
-//	キャラデータの保存
+//	キャラデ一タの保存
 	function SaveCharData($id=false) {
-		// モンスターは保存しない。
+		// モンスタ一は保存しない。
 		//if($this->monster)	return false;
 
 		if($id) {
@@ -1003,7 +1003,7 @@ class char{
 			if(!$this->user) return false;
 			$dir	= USER.$this->user;
 		}
-		// ユーザーが存在しない場合保存しない
+		// ユ一ザ一が存在しない場合保存しない
 		if(!file_exists($dir))
 			return false;
 
@@ -1034,7 +1034,7 @@ class char{
 		//"judge","action",
 		"Pattern",
 		"PatternMemo",
-		//モンスター専用
+		//モンスタ一專用
 		//"monster","land","family","monster_message"//保存する必要無くなった
 		);
 		//$Save	= get_object_vars($this);
@@ -1054,9 +1054,9 @@ class char{
 			$flag++;
 		?>
 <div class="carpet_frame">
-<div class="carpet<?=$flag%2?>"><?$this->ShowImage();?></div>
-<?=$this->name?><br>Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
-</div><?
+<div class="carpet<?php print $flag%2?>"><?php $this->ShowImage();?></div>
+<?php print $this->name?><br>Lv.<?php print $this->level?> <?php print $this->job_name?>
+</div><?php 
 	}
 
 //////////////////////////////////////////////////
@@ -1068,10 +1068,10 @@ class char{
 			$flag++;
 		?>
 <div class="carpet_frame">
-<div class="carpet<?=$flag%2?>">
-<a href="?char=<?=$this->Number?>"><?$this->ShowImage();?></a></div>
-<?=$this->name?><?if($this->statuspoint)print('<span class="bold charge">*</span>');?><br>Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
-</div><?
+<div class="carpet<?php print $flag%2?>">
+<a href="?char=<?php print $this->Number?>"><?php $this->ShowImage();?></a></div>
+<?php print $this->name?><?php if($this->statuspoint)print('<span class="bold charge">*</span>');?><br>Lv.<?php print $this->level?> <?php print $this->job_name?>
+</div><?php 
 	}
 
 //////////////////////////////////////////////////
@@ -1087,27 +1087,27 @@ class char{
 
 		?>
 <div class="carpet_frame">
-<div class="carpet<?=$flag%2?>">
-<a href="?char=<?=$this->birth?>"><?$this->ShowImage();?></a>
+<div class="carpet<?php print $flag%2?>">
+<a href="?char=<?php print $this->birth?>"><?php $this->ShowImage();?></a>
 </div>
 
-<div onClick="toggleCheckBox('<?=$flag?>')" id="text<?=$flag?>" <?print($checked?null:' class="unselect"');?>>
-<?=$this->name?>
-<?if($this->statuspoint)print('<span class="bold charge">*</span>');?><br />
-Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
+<div onClick="toggleCheckBox('<?php print $flag?>')" id="text<?php print $flag?>" <?php print($checked?null:' class="unselect"');?>>
+<?php print $this->name?>
+<?php if($this->statuspoint)print('<span class="bold charge">*</span>');?><br />
+Lv.<?php print $this->level?> <?php print $this->job_name?>
 
 </div>
-<input type="checkbox" onclick="Element.toggleClassName('text<?=$flag?>','unselect')" id="box<?=$flag?>" name="char_<?=$birth?>" value="1"<?=$checked?>>
+<input type="checkbox" onclick="Element.toggleClassName('text<?php print $flag?>','unselect')" id="box<?php print $flag?>" name="char_<?php print $birth?>" value="1"<?php print $checked?>>
 
-</div><?
+</div><?php 
 	}
 //////////////////////////////////////////////////
-//	戦闘時のチームを設定(あんまり使ってない)
+//	戰鬥時のチ一ムを設定(あんまり使ってない)
 	function SetTeam($no) {
 		$this->team	= $no;
 	}
 //////////////////////////////////////////////////
-//	IMGタグで画像を表示するのみ
+//	IMGタグで畫像を表示するのみ
 	function GetImageURL($dir) {
 		if(file_exists(IMG_CHAR.$this->img)) {
 			if($this->STATE === DEAD) {
@@ -1122,7 +1122,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		}
 	}
 //////////////////////////////////////////////////
-//	IMGタグで画像を表示するのみ
+//	IMGタグで畫像を表示するのみ
 	function ShowImage($class=false) {
 		$url = $this->GetImageURL(IMG_CHAR);
 		if($class)
@@ -1133,11 +1133,11 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 //////////////////////////////////////////////////
 //	HPとSPを計算して設定する
 	function SetHpSp()
-	// $coe=array(HP,SP係数);
+	// $coe=array(HP,SP係數);
 	{
-		$MaxStatus	= MAX_STATUS;//最高ステータス(じゃなくてもいいです)
+		$MaxStatus	= MAX_STATUS;//最高ステ一タス(じゃなくてもいいです)
 
-		$jobdata		= LoadJobData($this->job);// 2回読み込んでるから直すべき
+		$jobdata		= LoadJobData($this->job);// 2回讀み迂んでるから直すべき
 		$coe	= $jobdata["coe"];
 
 		$div		= $MaxStatus * $MaxStatus;
@@ -1157,24 +1157,24 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		return $handle;
 	}
 //////////////////////////////////////////////////
-//	ポイントを消費して技を覚える。
+//	ポイントを消費して技を覺える。
 	function LearnNewSkill($no) {
 		include_once(DATA_SKILL_TREE);
 		$tree	= LoadSkillTree($this);
 
-		//習得可能技に覚えようとしてるヤツなけりゃ終了
+		//習得可能技に覺えようとしてるヤツなけりゃ終了
 		if(!in_array($_POST["newskill"],$tree))
-			return array(false,"スキルツリーに無い");
+			return array(false,"沒有技能樹");
 		$skill	= LoadSKillData($no);
-		//もし習得済みなら?
+		//もし習得濟みなら?
 		if(in_array($no,$this->skill))
-			return array(false,"{$skill[name]} は修得済み.");
+			return array(false,"{$skill[name]} 已經習得.");
 		if($this->UseSkillPoint($skill["learn"])) {
 			$this->GetNewSkill($skill["no"]);
 			//$this->SaveCharData();
-			return array(true,$this->Name()." は {$skill[name]} を修得した。");
+			return array(true,$this->Name()."  {$skill[name]} 已經習得。");
 		} else
-			return array(false,"スキルポイント不足");
+			return array(false,"技能點數不足");
 	}
 //////////////////////////////////////////////////
 //	新ワザを追加する。
@@ -1192,7 +1192,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		return false;
 	}
 //////////////////////////////////////////////////
-//	経験値を出す(モンスターだけ?)
+//	經驗值を出す(モンスタ一だけ?)
 	function DropExp() {
 		if(isset($this->exphold)) {
 			$exp	= $this->exphold;
@@ -1203,7 +1203,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		}
 	}
 //////////////////////////////////////////////////
-//	お金を出す(モンスターだけ?)
+//	お金を出す(モンスタ一だけ?)
 	function DropMoney() {
 		if(isset($this->moneyhold)) {
 			$money	= $this->moneyhold;
@@ -1214,7 +1214,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		}
 	}
 //////////////////////////////////////////////////
-//	アイテムを落とす(モンスターだけ?)
+//	アイテムを落とす(モンスタ一だけ?)
 	function DropItem() {
 		if($this->itemdrop) {
 			$item	= $this->itemdrop;
@@ -1235,7 +1235,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		}
 	}
 //////////////////////////////////////////////////
-//	パターン文字列を配列にする。
+//	パタ一ン文字列を配列にする。
 //	****<>****<>****|****<>****<>****|****<>****<>****
 	function PatternExplode() {
 		//dump($this->judge);
@@ -1247,13 +1247,13 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		$this->action	= explode("<>",$Pattern["2"]);
 	}
 //////////////////////////////////////////////////
-//	パターン配列を保存する。
+//	パタ一ン配列を保存する。
 	function PatternSave($judge,$quantity,$action) {
 		$this->Pattern	= implode("<>",$judge)."|".implode("<>",$quantity)."|".implode("<>",$action);
 		return true;
 	}
 //////////////////////////////////////////////////
-//	キャラクターを消す
+//	キャラクタ一を消す
 	function DeleteChar() {
 		if(!file_exists($this->file))
 			return false;
@@ -1264,7 +1264,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		unlink($this->file);
 	}
 //////////////////////////////////////////////////
-//	キャラの変数をセットする。
+//	キャラの變數をセットする。
 	function SetCharData(&$data) {
 		$this->name	= $data["name"];
 		$this->gender	= $data["gender"];
@@ -1295,7 +1295,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 			$this->maxsp	= $data["maxsp"];
 			$this->sp		= $data["sp"];
 		} else {
-			// HPSPを設定。HPSPを回復。そういうゲームだから…
+			// HPSPを設定。HPSPを回復。そういうゲ一ムだから…
 			$this->SetHpSp();
 			$this->hp		= $this->maxhp;
 			$this->sp		= $this->maxsp;
@@ -1316,7 +1316,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		if($data["PatternMemo"])
 			$this->PatternMemo	= $data["PatternMemo"];
 
-		// モンスターのため？
+		// モンスタ一のため？
 		if(is_array($data["judge"]))
 			$this->judge	= $data["judge"];
 		//else
@@ -1330,7 +1330,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		//else
 		//	$this->action	= explode("<>",$data["action"]);
 
-		//モンスター専用
+		//モンスタ一專用
 		if($this->monster	= $data["monster"]) {
 			$this->exphold		= $data["exphold"];
 			$this->moneyhold	= $data["moneyhold"];

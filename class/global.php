@@ -1,4 +1,4 @@
-<?
+<?php 
 //////////////////////////////////////////////////
 //	店に売ってるものデータ
 	function ShopList() {
@@ -9,73 +9,77 @@
 		5100,5101,5102,5103,5200,5201,5202,5203,
 		5500,5501,
 		7000,7001,7500,
-		//7510,7511,7512,7513,7520,// リセット系アイテム
-		8000,8009,
+		//7510,7511,7512,7513,7520,// 重置道具
+		8000,8009,8012,
 		);
 	}
 //////////////////////////////////////////////////
 //	オークションに出品可能なアイテムの種類
+//	可以拍賣的道具類型
 	function CanExhibitType() {
 		return array(
-		"Sword"	=> "1",
-		"TwoHandSword"	=> "1",
-		"Dagger"	=> "1",
-		"Wand"	=> "1",
-		"Staff"	=> "1",
-		"Bow"	=> "1",
-		"Whip"	=> "1",
-		"Shield"	=> "1",
-		"Book"	=> "1",
-		"Armor"	=> "1",
-		"Cloth"	=> "1",
-		"Robe"	=> "1",
-		"Item"	=> "1",
-		"Material"	=> "1",
+		"劍"	=> "1",
+		"雙手劍"	=> "1",
+		"匕首"	=> "1",
+		"魔杖"	=> "1",
+		"杖"	=> "1",
+		"弓"	=> "1",
+		"鞭"	=> "1",
+		"盾"	=> "1",
+		"書"	=> "1",
+		"甲"	=> "1",
+		"衣服"	=> "1",
+		"長袍"	=> "1",
+		"道具"	=> "1",
+		"材料"	=> "1",
 		);
 	}
 //////////////////////////////////////////////////
 //	精錬可能なアイテムの種類
+//	可以精煉的道具類型
 	function CanRefineType() {
 		return array(
-		"Sword","TwoHandSword","Dagger",
-		"Wand","Staff","Bow",
-		"Whip",
-		"Shield","Book",
-		"Armor","Cloth","Robe",
+		"劍","雙手劍","匕首",
+		"魔杖","杖","弓",
+		"鞭",
+		"盾","書",
+		"甲","衣服","長袍",
 		);
 	}
 //////////////////////////////////////////////////
 //	期限切れアカウントの一斉削除
+//	刪除過期用戶
 	function DeleteAbandonAccount() {
 		$list	= glob(USER."*");
 		$now	= time();
-
+		// 用戶列表
 		// ユーザー一覧を取得する
 		foreach($list as $file) {
 			if(!is_dir($file)) continue;
 			$UserID	= substr($file,strrpos($file,"/")+1);
 			$user	= new user($UserID,true);
-
+			// 用戶將被刪除
 			// 消されるユーザー
 			if($user->IsAbandoned())
 			{
 				// ランキングを読む
+				// 排行榜相關
 				if(!isset($Ranking))
 				{
 					include_once(CLASS_RANKING);
 					$Ranking	= new Ranking();
-					$RankChange	= false;// ランキングデータが変更されたか
+					$RankChange	= false;// 排行榜不可被修改
 				}
-
+				// 消除排名
 				// ランキングから消す
 				if( $Ranking->DeleteRank($UserID) ) {
-					$RankChange	= true;// 変更された
+					$RankChange	= true;// 排行榜可以修改了
 				}
-
 				RecordManage(date("Y M d G:i:s",$now).": user ".$user->id." deleted.");
 				$user->DeleteUser(false);//ランキングからは消さないようにfalse
 			}
 			// 消されないユーザー
+			// 不可刪除
 				else
 			{
 				$user->fpCloseAll();
@@ -88,11 +92,11 @@
 			$Ranking->SaveRanking();
 		else if($RankChange === false)
 			$Ranking->fpclose();
-
 		//print("<pre>".print_r($list,1)."</pre>");
 	}
 //////////////////////////////////////////////////
 //	定期的に管理する何か
+//	定期自動管理相關
 	function RegularControl($value=null) {
 		/*
 			サーバが重(混み)そうな時間帯は後回しにする。
@@ -101,9 +105,7 @@
 		*/
 		if(19 <= date("H") || date("H") <= 1)
 			 return false;
-
 		$now	= time();
-
 		$fp		= FileLock(CTRL_TIME_FILE,true);
 		if(!$fp)
 			return false;
@@ -116,22 +118,19 @@
 			unset($fp);
 			return false;
 		}
-
-		// 管理の処理
+		// 管理の處理
 		RecordManage(date("Y M d G:i:s",$now).": auto regular control by {$value}.");
-
-		DeleteAbandonAccount();//その1 放棄ユーザの掃除
-
-		// 定期管理が終わったら次の管理時刻を書き込んで終了する。
+		DeleteAbandonAccount();//その1 放棄ユ一ザの掃除
+		// 定期管理が終わったら次の管理時刻を書き迂んで終了する。
 		WriteFileFP($fp,$now + CONTROL_PERIOD);
 		fclose($fp);
 		unset($fp);
 	}
 //////////////////////////////////////////////////
-//	$id が過去登録されたかどうか
+//	$id が過去登錄されたかどうか
 	function is_registered($id) {
 		if($registered = @file(REGISTER)):
-			if(array_search($id."\n",$registered)!==false && !ereg("[\.\/]+",$id) )//改行記号必須
+			if(array_search($id."\n",$registered)!==false && !ereg("[\.\/]+",$id) )//改行記號必須
 				return true;
 			else
 				return false;
@@ -139,42 +138,39 @@
 	}
 //////////////////////////////////////////////////
 //	ファイルロックしたファイルポインタを返す。
+//	鎖文件並返回文件指針
 	function FileLock($file,$noExit=false) {
-
 		if(!file_exists($file))
 			return false;
-
 		$fp	= @fopen($file,"r+") or die("Error!");
 		if(!$fp)
 			return false;
-
 		$i=0;
 		do{
 			if(flock($fp, LOCK_EX | LOCK_NB)) {
 				stream_set_write_buffer($fp, 0);
 				return $fp;
 			} else {
-				usleep(10000);//0.01秒
+				usleep(10000);//0.01秒為單位
 				$i++;
 			}
 		}while($i<5);
-
-		if($noExit) {
-			return false;
-		} else {
-			ob_clean();
-			exit("file lock error.");
-		}
+		//if($noExit) {
+		//	return false;
+		//} else {
+		//	ob_clean();
+		//	exit("file lock error.");
+		//}
 		//flock($fp, LOCK_EX);//排他
 		//flock($fp, LOCK_SH);//共有ロック
 		//flock($fp,LOCK_EX);
-
 		return $fp;
 	}
 //////////////////////////////////////////////////
 //	ファイルに書き込む(引数:ファイルポインタ)
+//文件寫入（參數：文件指針）
 	function WriteFileFP($fp,$text,$check=false) {
-		if(!$check && !trim($text))//$textが空欄なら終わる
+		if(!$check && !trim($text))//空白的話結束
 			return false;
 		/*if(file_exists($file)):
 			ftruncate()
@@ -187,7 +183,6 @@
 		fputs($fp,$text);
 		//print("<br>"."<br>".$text);
 	}
-
 //////////////////////////////////////////////////
 //	ファイルに書き込む
 	function WriteFile($file,$text,$check=false) {
@@ -322,13 +317,13 @@ function ShowLogList() {
 	print("<div style=\"margin:15px\">\n");
 	/*// ログ少ないなら全部表示すればいい。↓
 	// common
-	print("<h4>最近の戦闘(Recent Battles)</h4>\n");
+	print("<h4>最近的戰鬥(Recent Battles)</h4>\n");
 	$log	= @glob(LOG_BATTLE_NORMAL."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file);
 	}
 	// union
-	print("<h4>ユニオン戦(Union Battle Log)</h4>\n");
+	print("<h4>BOSS戰(Union Battle Log)</h4>\n");
 	$log	= @glob(LOG_BATTLE_UNION."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"UNION");
@@ -341,13 +336,13 @@ function ShowLogList() {
 	}
 	*/
 
-	print("<a href=\"?log\" class=\"a0\">All</a> ");
-	print("<a href=\"?clog\">Common</a> ");
-	print("<a href=\"?ulog\">Union</a> ");
-	print("<a href=\"?rlog\">Ranking</a>");
+	print("<a href=\"?log\" class=\"a0\">全部</a> ");
+	print("<a href=\"?clog\">普通</a> ");
+	print("<a href=\"?ulog\">BOSS戰</a> ");
+	print("<a href=\"?rlog\">排行戰</a>");
 
 	// common
-	print("<h4>最近の戦闘 - <a href=\"?clog\">全表示</a>(Recent Battles)</h4>\n");
+	print("<h4>最近的戰鬥 - <a href=\"?clog\">全表示</a>(Recent Battles)</h4>\n");
 	$log	= @glob(LOG_BATTLE_NORMAL."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file);
@@ -358,7 +353,7 @@ function ShowLogList() {
 	}
 	// union
 	$limit	= 0;
-	print("<h4>ユニオン戦 - <a href=\"?ulog\">全表示</a>(Union Battle Log)</h4>\n");
+	print("<h4>BOSS戰 - <a href=\"?ulog\">全表示</a>(Union Battle Log)</h4>\n");
 	$log	= @glob(LOG_BATTLE_UNION."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"UNION");
@@ -369,7 +364,7 @@ function ShowLogList() {
 	}
 	// rank
 	$limit	= 0;
-	print("<h4>ランキング戦 - <a href=\"?rlog\">全表示</a>(Rank Battle Log)</h4>\n");
+	print("<h4>排名戰 - <a href=\"?rlog\">全表示</a>(Rank Battle Log)</h4>\n");
 	$log	= @glob(LOG_BATTLE_RANK."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"RANK");
@@ -386,12 +381,12 @@ function ShowLogList() {
 function LogShowCommon() {
 	print("<div style=\"margin:15px\">\n");
 	
-	print("<a href=\"?log\">All</a> ");
-	print("<a href=\"?clog\" class=\"a0\">Common</a> ");
-	print("<a href=\"?ulog\">Union</a> ");
-	print("<a href=\"?rlog\">Ranking</a>");
+	print("<a href=\"?log\">全部</a> ");
+	print("<a href=\"?clog\" class=\"a0\">普通</a> ");
+	print("<a href=\"?ulog\">BOSS戰</a> ");
+	print("<a href=\"?rlog\">排行戰</a>");
 	// common
-	print("<h4>最近の戦闘 - 全ログ(Recent Battles)</h4>\n");
+	print("<h4>最近的戰鬥 - 全記錄(Recent Battles)</h4>\n");
 	$log	= @glob(LOG_BATTLE_NORMAL."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file);
@@ -403,12 +398,12 @@ function LogShowCommon() {
 function LogShowUnion() {
 	print("<div style=\"margin:15px\">\n");
 
-	print("<a href=\"?log\">All</a> ");
-	print("<a href=\"?clog\">Common</a> ");
-	print("<a href=\"?ulog\" class=\"a0\">Union</a> ");
-	print("<a href=\"?rlog\">Ranking</a>");
+	print("<a href=\"?log\">全部</a> ");
+	print("<a href=\"?clog\">普通</a> ");
+	print("<a href=\"?ulog\" class=\"a0\">BOSS戰</a> ");
+	print("<a href=\"?rlog\">排行戰</a>");
 	// union
-	print("<h4>ユニオン戦 - 全ログ(Union Battle Log)</h4>\n");
+	print("<h4>BOSS戰 - 全記錄(Union Battle Log)</h4>\n");
 	$log	= @glob(LOG_BATTLE_UNION."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"UNION");
@@ -420,12 +415,12 @@ function LogShowUnion() {
 function LogShowRanking() {
 	print("<div style=\"margin:15px\">\n");
 
-	print("<a href=\"?log\">All</a> ");
-	print("<a href=\"?clog\">Common</a> ");
-	print("<a href=\"?ulog\">Union</a> ");
-	print("<a href=\"?rlog\" class=\"a0\">Ranking</a>");
+	print("<a href=\"?log\">全部</a> ");
+	print("<a href=\"?clog\">普通</a> ");
+	print("<a href=\"?ulog\">BOSS戰</a> ");
+	print("<a href=\"?rlog\" class=\"a0\">排行戰</a>");
 	// rank
-	print("<h4>ランキング戦 - 全ログ(Rank Battle Log)</h4>\n");
+	print("<h4>排名賽-全記錄(Rank Battle Log)</h4>\n");
 	$log	= @glob(LOG_BATTLE_RANK."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"RANK");
@@ -745,7 +740,7 @@ function ShowBattleLog($no,$type=false) {
 			print("$update");
 			print('</textarea><br>');
 			print('<input type="submit" class="btn" value="update">');
-			print('<a href="?update">リロード</a><br>');
+			print('<a href="?update">刷新<br>');
 		}
 
 		print(nl2br($update)."\n");
@@ -772,12 +767,12 @@ EOD;
 <div style="margin:15px">
 <h4>GameData</h4>
 <div style="margin:0 20px">
-| <a href="?gamedata=job">職(Job)</a> | 
-<a href="?gamedata=item">アイテム(item)</a> | 
+| <a href="?gamedata=job">職業(Job)</a> | 
+<a href="?gamedata=item">道具(item)</a> | 
 <a href="?gamedata=judge">判定</a> | 
 <a href="?gamedata=monster">モンスター</a> | 
 </div>
-</div><?
+</div><?php 
 	switch($_GET["gamedata"]) {
 		case "job": include(GAME_DATA_JOB); break;
 		case "item": include(GAME_DATA_ITEM); break;
@@ -818,7 +813,7 @@ EOD;
 //	全ランキングの表示
 	function RankAllShow() {
 		print('<div style="margin:15px">'."\n");
-		print('<h4>Ranking - '.date("Y年n月j日 G時i分s秒").'</h4>'."\n");
+		print('<h4>Ranking - '.date("Y年n月j日 G:i:s").'</h4>'."\n");
 		include(CLASS_RANKING);
 		$Rank	= new Ranking();
 		$Rank->ShowRanking();
@@ -846,17 +841,17 @@ EOD;
 		$string	= trim($string);
 		$string	= stripslashes($string);
 		if(is_numeric(strpos($string,"\t"))) {
-			return array(false,"不正な文字");
+			return array(false,"非法字符");
 		}
 		if(is_numeric(strpos($string,"\n"))) {
-			return array(false,"不正な文字");
+			return array(false,"非法字符");
 		}
 		if (!$string) {
-			return array(false,"未入力");
+			return array(false,"不能為空");
 		}
 		$length	= strlen($string);
 		if ( 0 == $length || $maxLength < $length) {
-			return array(false,"長すぎか短すぎる");
+			return array(false,"過短或過長");
 		}
 		$string	= htmlspecialchars($string,ENT_QUOTES);
 		return array(true,$string);

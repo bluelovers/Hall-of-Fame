@@ -1,4 +1,4 @@
-<?
+<?php 
 class user {
 
 	// ファイルポインタ
@@ -10,46 +10,46 @@ class user {
 	var $money;
 	var $char;
 	var $time;
-	var $wtime;//総消費時間
+	var $wtime;//總消費時間
 	var $ip;//IPアドレス
 
 	var $party_memo;
-	var $party_rank;//ランキング用のパーティ
+	var $party_rank;//ランキング用のパ一ティ
 	var $rank_set_time;//ランキングPT設定した時間
-	var $rank_btl_time;//次のランク戦に挑戦できる時間
+	var $rank_btl_time;//次のランク戰に挑戰できる時間
 	// ランキングの成績
-	// = "総戦闘回数<>勝利数<>敗北数<>引き分け<>首位防衛";
+	// = "總戰鬥回數<>勝利數<>敗北數<>引き分け<>首位防衛";
 	var $rank_record;
-	var $union_btl_time;//次のUnion戦に挑戦できる時間
+	var $union_btl_time;//次のUnion戰に挑戰できる時間
 
 	// OPTION
 	var $record_btl_log;
 	var $no_JS_itemlist;
 	var $UserColor;
 
-	// ユーザーアイテム用の変数
+	// ユ一ザ一アイテム用の變數
 	var $fp_item;
 	var $item;
 
 //////////////////////////////////////////////////
-//	対象のIDのユーザークラスを作成
+//	對像のIDのユ一ザ一クラスを作成
 	function user($id,$noExit=false) {
 		if($id)
 		{
 			$this->id	= $id;
 			if($data = $this->LoadData($noExit)) {
-				$this->DataUpDate($data);//timeとか増やす
+				$this->DataUpDate($data);//timeとか增やす
 				$this->SetData($data);
 			}
 		}
 	}
 //////////////////////////////////////////////////
-//	IPを変更
+//	IPを變更
 	function SetIp($ip) {
 		$this->ip = $ip;
 	}
 //////////////////////////////////////////////////
-//	ユーザデータを読む
+//	ユ一ザデ一タを讀む
 	function LoadData($noExit=false) {
 		$file	= USER.$this->id."/".DATA;
 		if(file_exists($file))
@@ -97,7 +97,7 @@ class user {
 		}
 	}
 //////////////////////////////////////////////////
-//	名前を変える
+//	名前を變える
 	function ChangeName($name) {
 
 		if($this->name == $name)
@@ -107,7 +107,7 @@ class user {
 		return true;
 	}
 //////////////////////////////////////////////////
-//	Union戦闘した時間をセット
+//	Union戰鬥した時間をセット
 	function UnionSetTime() {
 		$this->union_btl_time	= time();
 	}
@@ -123,10 +123,10 @@ class user {
 		}
 	}
 //////////////////////////////////////////////////
-//	ランキング戦用のパーティ編成を返す
+//	ランキング戰用のパ一ティ編成を返す
 	function RankParty() {
 		if(!$this->name)
-			return "NOID";//超エラー。そもそもユーザーが存在しない場合。
+			return "NOID";//超エラ一。そもそもユ一ザ一が存在しない場合。
 		if(!$this->party_rank)
 			return false;
 
@@ -159,7 +159,7 @@ class user {
 					$record["defend"]++;
 				break;
 			*/
-			// 戦闘結果が挑戦者の勝ち
+			// 戰鬥結果が挑戰者の勝ち
 			case ($result === 0):
 				if($side == "CHALLENGER") {
 					$record["win"]++;
@@ -167,7 +167,7 @@ class user {
 					$record["lose"]++;
 				}
 				break;
-			// 戦闘結果が挑戦者の負け
+			// 戰鬥結果が挑戰者の負け
 			case ($result === 1):
 				if($side == "CHALLENGER") {
 					$record["lose"]++;
@@ -186,7 +186,7 @@ class user {
 		$this->rank_record	= $record["all"]."|".$record["win"]."|".$record["lose"]."|".$record["defend"];
 	}
 //////////////////////////////////////////////////
-//	ランキング戦の成績を呼び出す
+//	ランキング戰の成績を呼び出す
 	function RankRecordLoad() {
 
 		if(!$this->rank_record) {
@@ -208,13 +208,13 @@ class user {
 		return $record;
 	}
 //////////////////////////////////////////////////
-//	次のランク戦に挑戦できる時間を記録する。
+//	次のランク戰に挑戰できる時間を記錄する。
 	function SetRankBattleTime($time) {
 		$this->rank_btl_time	= $time;
 	}
 
 //////////////////////////////////////////////////
-//	ランキング挑戦できるか？(無理なら残り時間を返す)
+//	ランキング挑戰できるか？(無理なら殘り時間を返す)
 	function CanRankBattle() {
 		$now	= time();
 		if($this->rank_btl_time <= $now) {
@@ -231,7 +231,7 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	お金を増やす
+//	お金を增やす
 	function GetMoney($no) {
 		$this->money	+= $no;
 	}
@@ -248,7 +248,7 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	時間を消費する(総消費時間の加算)
+//	時間を消費する(總消費時間の加算)
 	function WasteTime($time) {
 		if($this->time < $time)
 			return false;
@@ -257,20 +257,20 @@ class user {
 		return true;
 	}
 //////////////////////////////////////////////////
-//	キャラクターを所持してる数をかぞえる。
+//	キャラクタ一を所持してる數をかぞえる。
 	function CharCount() {
 		$dir	= USER.$this->id;
 		$no		= 0;
 		foreach(glob("$dir/*") as $adr) {
 			$number	= basename($adr,".dat");
-			if(is_numeric($number)) {//キャラデータファイル
+			if(is_numeric($number)) {//キャラデ一タファイル
 				$no++;
 			}
 		}
 		return $no;
 	}
 //////////////////////////////////////////////////
-//	全所持キャラクターをファイルから読んで $this->char に格納
+//	全所持キャラクタ一をファイルから讀んで $this->char に格納
 	function CharDataLoadAll() {
 		$dir	= USER.$this->id;
 		$this->char	= array();//配列の初期化だけしておく
@@ -278,7 +278,7 @@ class user {
 			//print("substr:".substr($adr,-20,16)."<br>");//確認用
 			//$number	= substr($adr,-20,16);//↓1行と同じ結果
 			$number	= basename($adr,".dat");
-			if(is_numeric($number)) {//キャラデータファイル
+			if(is_numeric($number)) {//キャラデ一タファイル
 				//$chardata	= ParseFile($adr);// (2007/7/30 $adr -> $fp)
 				//$this->char[$number]	= new char($chardata);
 				$this->char[$number]	= new char($adr);
@@ -287,12 +287,12 @@ class user {
 		}
 	}
 //////////////////////////////////////////////////
-//	指定の所持キャラクターをファイルから読んで $this->char に格納後 "返す"。
+//	指定の所持キャラクタ一をファイルから讀んで $this->char に格納後 "返す"。
 	function CharDataLoad($CharNo) {
-		// 既に読んでる場合。
+		// 既に讀んでる場合。
 		if($this->char[$CharNo])
 			return $this->char[$CharNo];
-		// 読んで無い場合。
+		// 讀んで無い場合。
 		$file	= USER.$this->id."/".$CharNo.".dat";
 		// そんなキャラいない場合。
 		if(!file_exists($file))
@@ -322,7 +322,7 @@ class user {
 		if(!isset($this->item))//どうしたもんか…
 			$this->LoadUserItem();
 
-		// 減らす数。
+		// 減らす數。
 		if($this->item[$no] < $amount) {
 			$amount	= $this->item[$no];
 			if(!$amount)
@@ -340,10 +340,10 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	アイテムデータを読む
+//	アイテムデ一タを讀む
 	function LoadUserItem() {
 
-		// 2重に読むのを防止。
+		// 2重に讀むのを防止。
 		if(isset($this->item))
 			return false;
 
@@ -360,7 +360,7 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	アイテムデータを保存する
+//	アイテムデ一タを保存する
 	function SaveUserItem() {
 		$dir	= USER.$this->id;
 		if(!file_exists($dir))
@@ -371,7 +371,7 @@ class user {
 		if(!is_array($this->item))
 			return false;
 
-		// アイテムのソート
+		// アイテムのソ一ト
 		ksort($this->item,SORT_STRING);
 
 		foreach($this->item as $key => $val) {
@@ -389,7 +389,7 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	時間を経過させる。(Timeの増加)
+//	時間を經過させる。(Timeの增加)
 	function DataUpDate(&$data) {
 		$now	= time();
 		$diff	= $now - $data["last"];
@@ -401,7 +401,7 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	データをセットする。
+//	デ一タをセットする。
 //	※?
 	function SetData(&$data) {
 
@@ -417,7 +417,7 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	パスワードを暗号化する
+//	パスワ一ドを暗號化する
 	function CryptPassword($pass) {
 		return substr(crypt($pass,CRYPT_KEY),strlen(CRYPT_KEY));
 	}
@@ -429,7 +429,7 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	データを保存する形式に変換する。(テキスト)
+//	デ一タを保存する形式に變換する。(テキスト)
 	function DataSavingFormat() {
 
 		$Save	= array(
@@ -476,7 +476,7 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	データを保存する
+//	デ一タを保存する
 	function SaveData() {
 		$dir	= USER.$this->id;
 		$file	= USER.$this->id."/".DATA;
@@ -501,23 +501,23 @@ class user {
 		}
 	}
 /////////////////////////////////////////////////
-//	データファイル兼キャラファイルのファイルポインタも全部閉じる
+//	デ一タファイル兼キャラファイルのファイルポインタも全部閉じる
 	function fpCloseAll() {
-		// 基本データ
+		// 基本デ一タ
 		if(is_resource($this->fp))
 		{
 			fclose($this->fp);
 			unset($this->fp);
 		}
 
-		// アイテムデータ
+		// アイテムデ一タ
 		if(is_resource($this->fp_item))
 		{
 			fclose($this->fp_item);
 			unset($this->fp_item);
 		}
 
-		// キャラデータ
+		// キャラデ一タ
 		if($this->char)
 		{
 			foreach($this->char as $key => $var)
@@ -529,7 +529,7 @@ class user {
 
 	}
 //////////////////////////////////////////////////
-//	ユーザーの削除(全ファイル)
+//	ユ一ザ一の削除(全ファイル)
 	function DeleteUser($DeleteFromRank=true) {
 		//ランキングからまず消す。
 		if($DeleteFromRank) {
@@ -561,7 +561,7 @@ class user {
 		}
 	}
 //////////////////////////////////////////////////
-//	キャラデータを消す
+//	キャラデ一タを消す
 	function DeleteChar($no) {
 		$file	= USER.$this->id."/".$no.".dat";
 		if($this->char[$no]) {

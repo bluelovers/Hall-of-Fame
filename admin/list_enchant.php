@@ -2,7 +2,7 @@
 include("../data/data.create.php");
 include("../data/data.enchant.php");
 
-list($low,$high)	= ItemAbilityPossibility("Sword");
+list($low,$high)	= ItemAbilityPossibility("劍");
 print("---------------LOW<br />\n");
 foreach($low as $enchant) {
 	$item	= array();

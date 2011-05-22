@@ -16,7 +16,7 @@ foreach($ShopList as $no) {
 	print($list0->ShowSelect());
 ------------------ ↓も必要
 <form action="?" method="post">
-<div id="list"><?=$list0->ShowDefault()?></div>
+<div id="list"><?php print $list0->ShowDefault()?></div>
 <input type="submit" class="btn" name="shop_buy" value="Buy">
 </form>
 -----------------------
@@ -70,23 +70,23 @@ class JS_ItemList {
 	// アイテムの追加
 	function AddItem($item,$string) {
 		switch($item["type"]) {
-			case "Sword":
-			case "TwoHandSword":
-			case "Dagger":
-			case "Wand":
-			case "Staff":
-			case "Bow":
-			case "Whip":
+			case "劍":
+			case "雙手劍":
+			case "匕首":
+			case "魔杖":
+			case "杖":
+			case "弓":
+			case "鞭":
 				array_push($this->weapon,$string);
 				break;
-			case "Shield":
-			case "Book":
-			case "Armor":
-			case "Cloth":
-			case "Robe":
+			case "盾":
+			case "書":
+			case "甲":
+			case "衣服":
+			case "長袍":
 				array_push($this->armor,$string);
 				break;
-			case "Item":
+			case "道具":
 				array_push($this->item,$string);
 				break;
 			default:
@@ -234,8 +234,8 @@ $html = <<< HTML
 <form id="{$this->ID}"><select onchange="ChangeType{$this->ID}()" name="{$this->name}" style="margin-bottom:10px">
   <option value="weapon">武器(weapon)</option>
   <option value="armor"{$armor}>防具(armor)</option>
-  <option value="item"{$item}>アイテム(---)</option>
-  <option value="other"{$other}>その他(other)</option>
+  <option value="item"{$item}>道具(---)</option>
+  <option value="other"{$other}>其他(other)</option>
   <option value="all"{$all}>全部(all)</option>
 </select></form>
 HTML;
@@ -245,3 +245,4 @@ HTML;
 }
 
 ?>
+
