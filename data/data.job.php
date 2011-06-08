@@ -5,6 +5,12 @@
 	装備可能な物
 	"coe"	=> array(HP係数 ,SP係数),
 	"change"	=> array(転職可能な職),
+
+	職業性別名
+	職業的圖像
+	可以裝備物
+	"coe"	=> array(HP係數 ,SP係數),
+	"change"	=> array(可以轉的職),
 */
 function LoadJobData($no) {
 	switch($no) {

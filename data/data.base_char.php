@@ -1,7 +1,7 @@
 <?
 function BaseCharStatus($no) {
 	switch($no) {
-		case "1":
+		case "1"://戰士
 $stat	= array(
 "level"	=> "1",
 "exp"	=> "0",
@@ -23,7 +23,7 @@ $stat	= array(
 "position"	=> "front",
 "guard"	=> "always",
 ); break;
-		case "2":
+		case "2"://法師
 $stat	= array(
 "level"	=> "1",
 "exp"	=> "0",
@@ -44,7 +44,7 @@ $stat	= array(
 "position"	=> "back",
 "guard"	=> "never",
 ); break;
-		case "3":
+		case "3"://牧師
 $stat	= array(
 "level"	=> "1",
 "exp"	=> "0",
@@ -65,7 +65,7 @@ $stat	= array(
 "position"	=> "back",
 "guard"	=> "never",
 ); break;
-		case "4":
+		case "4"://獵人
 $stat	= array(
 "level"	=> "1",
 "exp"	=> "0",

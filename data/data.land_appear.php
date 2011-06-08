@@ -1,12 +1,12 @@
 <?php
 // まっぷの出現条件判定
+// 地圖出現條件
 function LoadMapAppear($user) {
-
 	$land	= array();
-
+	// 無條件的
 	// 無条件
 	array_push($land,"gb0","gb1","gb2");
-
+	// 需要攜帶地圖道具或特殊條件才出現的
 	// アイテムがあれば行ける。
 	if($user->item["8000"])
 		array_push($land,"ac0");
@@ -18,7 +18,6 @@ function LoadMapAppear($user) {
 		array_push($land,"ac3");
 	if($user->item["8004"])
 		array_push($land,"ac4");
-
 	if($user->item["8009"])
 		array_push($land,"snow0");
 	if($user->item["8010"])

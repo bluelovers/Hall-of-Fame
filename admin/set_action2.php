@@ -151,13 +151,14 @@ input{background-color:#dddddd;
 		print("</td></tr>\n");
 	}
 	print("</table>\n");
-	print('PatternNumber : <input type="text" name="patternNum" size="10" value="'.($_POST["patternNum"]?$_POST["patternNum"]:"5").'" /><br />'."\n");
-	print('<input type="submit" value="make" name="make">'."\n");
+	print('判定次數: <input type="text" name="patternNum" size="10" value="'.($_POST["patternNum"]?$_POST["patternNum"]:"5").'" /><br />'."\n");
+	print('<input type="submit" value="創建" name="make">'."\n");
 	print('<input type="hidden" value="make" name="make">'."\n");
-	print('<input type="submit" value="add" name="add">'."\n");
-	print('<input type="submit" value="delete" name="delete"><br />'."\n");
-	print('Load : <input type="text" name="loadMob" size="10" /> <input type="submit" value="Load" name="Load" />');
+	print('<input type="submit" value="添加" name="add">'."\n");
+	print('<input type="submit" value="刪除" name="delete"><br />'."\n");
+	print('Load : <input type="text" name="loadMob" size="10" /> <input type="submit" value="讀取" name="Load" />');
 	print("</form>\n");
 ?>
 </body>
 </html>
+  

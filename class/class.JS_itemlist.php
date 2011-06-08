@@ -70,22 +70,35 @@ class JS_ItemList {
 	// アイテムの追加
 	function AddItem($item,$string) {
 		switch($item["type"]) {
+			// 劍
 			case "Sword":
+			// 雙手劍
 			case "TwoHandSword":
+			// 匕首
 			case "Dagger":
+			// 魔杖
 			case "Wand":
+			// 杖
 			case "Staff":
+			// 弓
 			case "Bow":
+			// 鞭
 			case "Whip":
 				array_push($this->weapon,$string);
 				break;
+			// 盾
 			case "Shield":
+			// 書
 			case "Book":
+			// 甲
 			case "Armor":
+			// 衣服
 			case "Cloth":
+			// 長袍
 			case "Robe":
 				array_push($this->armor,$string);
 				break;
+			// 道具
 			case "Item":
 				array_push($this->item,$string);
 				break;
@@ -234,8 +247,8 @@ $html = <<< HTML
 <form id="{$this->ID}"><select onchange="ChangeType{$this->ID}()" name="{$this->name}" style="margin-bottom:10px">
   <option value="weapon">武器(weapon)</option>
   <option value="armor"{$armor}>防具(armor)</option>
-  <option value="item"{$item}>アイテム(---)</option>
-  <option value="other"{$other}>その他(other)</option>
+  <option value="item"{$item}>道具(---)</option>
+  <option value="other"{$other}>其他(other)</option>
   <option value="all"{$all}>全部(all)</option>
 </select></form>
 HTML;

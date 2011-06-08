@@ -9,7 +9,7 @@
 		5100,5101,5102,5103,5200,5201,5202,5203,
 		5500,5501,
 		7000,7001,7500,
-		//7510,7511,7512,7513,7520,// リセット系アイテム
+		//7510,7511,7512,7513,7520,// リセット系アイテム 重置道具
 		8000,8009,
 		);
 	}
@@ -46,36 +46,39 @@
 	}
 //////////////////////////////////////////////////
 //	期限切れアカウントの一斉削除
+//	刪除過期用戶
 	function DeleteAbandonAccount() {
 		$list	= glob(USER."*");
 		$now	= time();
-
+		// 用戶列表
 		// ユーザー一覧を取得する
 		foreach($list as $file) {
 			if(!is_dir($file)) continue;
 			$UserID	= substr($file,strrpos($file,"/")+1);
 			$user	= new user($UserID,true);
-
+			// 用戶將被刪除
 			// 消されるユーザー
 			if($user->IsAbandoned())
 			{
 				// ランキングを読む
+				// 排行榜相關
 				if(!isset($Ranking))
 				{
 					include_once(CLASS_RANKING);
 					$Ranking	= new Ranking();
-					$RankChange	= false;// ランキングデータが変更されたか
+					$RankChange	= false;// 排行榜不可被修改
 				}
-
+				// 消除排名
 				// ランキングから消す
 				if( $Ranking->DeleteRank($UserID) ) {
-					$RankChange	= true;// 変更された
+					$RankChange	= true;// 排行榜可以修改了
 				}
 
 				RecordManage(date("Y M d G:i:s",$now).": user ".$user->id." deleted.");
 				$user->DeleteUser(false);//ランキングからは消さないようにfalse
 			}
 			// 消されないユーザー
+			// 不可刪除
 				else
 			{
 				$user->fpCloseAll();
@@ -93,6 +96,7 @@
 	}
 //////////////////////////////////////////////////
 //	定期的に管理する何か
+//	定期自動管理相關
 	function RegularControl($value=null) {
 		/*
 			サーバが重(混み)そうな時間帯は後回しにする。
@@ -139,6 +143,7 @@
 	}
 //////////////////////////////////////////////////
 //	ファイルロックしたファイルポインタを返す。
+//	鎖文件並返回文件指針
 	function FileLock($file,$noExit=false) {
 
 		if(!file_exists($file))
@@ -173,6 +178,7 @@
 	}
 //////////////////////////////////////////////////
 //	ファイルに書き込む(引数:ファイルポインタ)
+//文件寫入（參數：文件指針）
 	function WriteFileFP($fp,$text,$check=false) {
 		if(!$check && !trim($text))//$textが空欄なら終わる
 			return false;
@@ -322,7 +328,7 @@ function ShowLogList() {
 	print("<div style=\"margin:15px\">\n");
 	/*// ログ少ないなら全部表示すればいい。↓
 	// common
-	print("<h4>最近の戦闘(Recent Battles)</h4>\n");
+	print("<h4>最近的戰鬥(Recent Battles)</h4>\n");
 	$log	= @glob(LOG_BATTLE_NORMAL."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file);
@@ -347,7 +353,7 @@ function ShowLogList() {
 	print("<a href=\"?rlog\">Ranking</a>");
 
 	// common
-	print("<h4>最近の戦闘 - <a href=\"?clog\">全表示</a>(Recent Battles)</h4>\n");
+	print("<h4>最近的戰鬥 - <a href=\"?clog\">全表示</a>(Recent Battles)</h4>\n");
 	$log	= @glob(LOG_BATTLE_NORMAL."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file);
@@ -369,7 +375,7 @@ function ShowLogList() {
 	}
 	// rank
 	$limit	= 0;
-	print("<h4>ランキング戦 - <a href=\"?rlog\">全表示</a>(Rank Battle Log)</h4>\n");
+	print("<h4>排名戰 - <a href=\"?rlog\">全表示</a>(Rank Battle Log)</h4>\n");
 	$log	= @glob(LOG_BATTLE_RANK."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"RANK");
@@ -391,7 +397,7 @@ function LogShowCommon() {
 	print("<a href=\"?ulog\">Union</a> ");
 	print("<a href=\"?rlog\">Ranking</a>");
 	// common
-	print("<h4>最近の戦闘 - 全ログ(Recent Battles)</h4>\n");
+	print("<h4>最近的戰鬥 - 全記錄(Recent Battles)</h4>\n");
 	$log	= @glob(LOG_BATTLE_NORMAL."*");
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file);
@@ -745,7 +751,7 @@ function ShowBattleLog($no,$type=false) {
 			print("$update");
 			print('</textarea><br>');
 			print('<input type="submit" class="btn" value="update">');
-			print('<a href="?update">リロード</a><br>');
+			print('<a href="?update">刷新<br>');
 		}
 
 		print(nl2br($update)."\n");
@@ -772,8 +778,8 @@ EOD;
 <div style="margin:15px">
 <h4>GameData</h4>
 <div style="margin:0 20px">
-| <a href="?gamedata=job">職(Job)</a> | 
-<a href="?gamedata=item">アイテム(item)</a> | 
+| <a href="?gamedata=job">職業(Job)</a> | 
+<a href="?gamedata=item">道具(item)</a> | 
 <a href="?gamedata=judge">判定</a> | 
 <a href="?gamedata=monster">モンスター</a> | 
 </div>
@@ -846,17 +852,17 @@ EOD;
 		$string	= trim($string);
 		$string	= stripslashes($string);
 		if(is_numeric(strpos($string,"\t"))) {
-			return array(false,"不正な文字");
+			return array(false,"非法字符");
 		}
 		if(is_numeric(strpos($string,"\n"))) {
-			return array(false,"不正な文字");
+			return array(false,"非法字符");
 		}
 		if (!$string) {
-			return array(false,"未入力");
+			return array(false,"不能為空");
 		}
 		$length	= strlen($string);
 		if ( 0 == $length || $maxLength < $length) {
-			return array(false,"長すぎか短すぎる");
+			return array(false,"過短或過長");
 		}
 		$string	= htmlspecialchars($string,ENT_QUOTES);
 		return array(true,$string);
