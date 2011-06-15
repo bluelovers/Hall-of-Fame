@@ -3566,6 +3566,7 @@ print("</div>\n");
 <link rel="stylesheet" href="./style.css" type="text/css">
 <script type="text/javascript" src="prototype.js"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+<script type="text/javascript" src="./static/js/jquery-core.js"></script>
 <?
 	}
 
