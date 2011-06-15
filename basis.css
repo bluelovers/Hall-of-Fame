@@ -5,6 +5,11 @@
   font-family	: Osaka,Verdana,"ＭＳ Ｐゴシック";
   overflow:inherit;
 }
+
+body, td, input, textarea, select, button {
+	font-size: 12px;
+}
+
 img{
   border:0px;
 }
