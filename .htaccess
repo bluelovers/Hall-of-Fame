@@ -1,0 +1,43 @@
+#
+#	$HeadURL$
+#	$Revision$
+#	$Author: bluelovers$
+#	$Date$
+#	$Id$
+#
+# 	@author bluelovers
+# 	@copyright 2010
+#
+
+Options All -Indexes
+
+RewriteEngine On
+#RewriteBase /
+
+RewriteRule (\.svn|\.git|user|union|log|data|class|admin)[\/\\].* templates/index.htm [NC,G,L]
+
+<Files *.dat>
+	order allow,deny
+	deny from all
+</Files>
+
+<Files 403.shtml>
+	order allow,deny
+	allow from all
+</Files>
+
+<Files *.js.gz>
+	AddEncoding gzip .js
+	ForceType application/x-javascript
+</Files>
+
+<Files *.css.gz>
+	AddEncoding gzip .css
+	ForceType text/css
+</Files>
+
+<FilesMatch "\.(ttf|otf|fon|ttc)$">
+	<IfModule mod_headers.c>
+		Header set Access-Control-Allow-Origin "*"
+	</IfModule>
+</FilesMatch>
