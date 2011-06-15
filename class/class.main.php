@@ -6,7 +6,7 @@ class main extends user {
 	var $islogin	= false;
 
 //////////////////////////////////////////////////
-//	
+//
 	function main() {
 		$this->SessionSwitch();
 		$this->Set_ID_PASS();
@@ -23,7 +23,7 @@ class main extends user {
 	}
 
 //////////////////////////////////////////////////
-//	
+//
 	function Order() {
 		// ログイン処理する前に処理するもの
 		// まだユーザデータ読んでません
@@ -995,7 +995,7 @@ HTML;
 		}
 		print("</div>\n");
 
-		
+
 		/*
 		print("\t<table><tbody><tr><td colspan=\"2\">\n");
 		print("\t<span class=\"bold u\">Stock & Allowed to Equip</span></td></tr>\n");
@@ -1109,7 +1109,7 @@ HTML;
 		foreach($party as $key => $char) {
 			$enemy[$key]	= new char();
 			$enemy[$key]->SetCharData(get_object_vars($char));
-			
+
 		}
 		foreach($enemy as $key => $doppel) {
 			//$doppel->judge	= array();//コメントを取るとドッペルが行動しない。
@@ -1148,7 +1148,7 @@ HTML;
 		}
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function SimuBattleShow($message=false) {
 		print('<div style="margin:15px">');
 		ShowError($message);
@@ -1165,7 +1165,7 @@ HTML;
 		<?
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function HuntShow() {
 		include(DATA_LAND);
 		include(DATA_LAND_APPEAR);
@@ -1332,7 +1332,7 @@ HTML;
 	}
 
 //////////////////////////////////////////////////
-//	
+//
 	function ItemShow() {
 		?>
 		<div style="margin:15px">
@@ -1452,7 +1452,7 @@ HTML;
 		}
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function ShopShow($message=NULL) {
 		?>
 	<div style="margin:15px">
@@ -1504,7 +1504,7 @@ HTML;
 			}
 			print($goods->GetJavaScript("list_sell"));
 			print($goods->ShowSelect());
-	
+
 			print('<form action="?shop" method="post">'."\n");
 			print('<div id="list_sell">'.$goods->ShowDefault().'</div>'."\n");
 			print('<input type="submit" class="btn" name="shop_sell" value="Sell">');
@@ -1564,7 +1564,7 @@ Get <?=MoneyFormat("500")?> for 100Time.
 			$amount	= (int)$_POST["amount_".$itemNo];
 			if($amount < 0)
 				$amount	= 0;
-			
+
 			//print("$itemNo x $Deleted<br>");
 			$buyPrice	= $item["buy"];
 			$Total	= $amount * $buyPrice;
@@ -1868,7 +1868,7 @@ JS_HTML;
 		}
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function RankShow(&$Ranking) {
 
 		//$ProcessResult	= $this->RankProcess($Ranking);// array();
@@ -1987,7 +1987,7 @@ JS_HTML;
 				$Gender	= $_POST["recruit_gend"]?"♀":"♂";
 			}
 			// キャラデータをクラスに入れる
-			
+
 			$plus	= array("name"=>"$name","gender"=>$_POST["recruit_gend"]);
 			$char	= new char();
 			$char->SetCharData(array_merge(BaseCharStatus($charNo),$plus));
@@ -2006,7 +2006,7 @@ JS_HTML;
 	}
 
 //////////////////////////////////////////////////
-//	
+//
 	function RecruitShow() {
 		if( MAX_CHAR <= $this->CharCount() ) {
 			?>
@@ -2179,7 +2179,7 @@ JS_HTML;
 			ShowError("Your request needs ".MoneyFormat($MoneyNeed));
 			return false;
 		}*/
-		
+
 	}
 //////////////////////////////////////////////////
 //	鍛冶屋表示
@@ -2338,7 +2338,7 @@ JS_HTML;
 
 		print("<p>");
 		print(ShowItemDetail(LoadItemData($done)));
-		
+
 		print("\n<br />ができたぜ！</p>\n");
 		return true;
 	}
@@ -2440,7 +2440,7 @@ JS_HTML;
 		return true;
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function AuctionEnter() {
 		if($this->item["9000"])//オークションメンバーカード
 			return true;
@@ -2732,7 +2732,7 @@ JS_HTML;
 </form>
 
 <?
-		
+
 	}
 //////////////////////////////////////////////////
 //	Unionモンスターの処理
@@ -3534,7 +3534,7 @@ print("</div>\n");
 			print('<a href="?log">戦闘ログ</a><span class="divide"></span>'."\n");
 			if(BBS_OUT)
 			print('<a href="'.BBS_OUT.'">総合BBS</a><span class="divide"></span>'."\n");
-			
+
 			print('</div><div id="menu2">');
 			print("Welcome to [ ".TITLE." ]");
 			print('</div>');
@@ -3565,6 +3565,7 @@ print("</div>\n");
 <link rel="stylesheet" href="./basis.css" type="text/css">
 <link rel="stylesheet" href="./style.css" type="text/css">
 <script type="text/javascript" src="prototype.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
 <?
 	}
 
@@ -3578,9 +3579,9 @@ print("</div>\n");
 	if(BBS_BOTTOM_TOGGLE)
 		print('<a href="?bbs">BBS</a> - '."\n");
 		?>
-<a href="?manual">Manual</a> - 
-<a href="?tutorial">Tutorial</a> - 
-<a href="?gamedata=job">GameData</a> - 
+<a href="?manual">Manual</a> -
+<a href="?tutorial">Tutorial</a> -
+<a href="?gamedata=job">GameData</a> -
 <a href="#top">Top</a><br>
 Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 </div>
