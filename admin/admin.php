@@ -75,7 +75,7 @@ MENU;
 	* ユーザ一覧
 	*/
 	if($_GET["menu"] === "user") {
-		$userList = glob(USER."*");
+		$userList = glob(USER."*", GLOB_ONLYDIR);
 		print("<p>ALL_USER</p>\n");
 		foreach($userList as $user) {
 			print('<form action="?" method="post">');
