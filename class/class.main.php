@@ -3462,8 +3462,8 @@ HTML;
 </div>
 <!-- 飾 -->
 <div style="width:350px;padding:15px;float:left;">
-<div style="width:350px;text-align:center">
-<img src="./image/top01.gif" style="margin-bottom:20px" />
+<div style="width:350px;text-align:center;height: 199px;overflow: hidden; margin-bottom: 20px;">
+<img src="./image/hof02.gif" style="margin-top: -1px;margin-left: -70px;" />
 </div>
 <div style="margin-left:20px">
 <div class="u">これってどんなゲーム?</div>
