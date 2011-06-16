@@ -235,7 +235,7 @@ select{
 .town{
   padding-left	: 0px;
   height:220px;
-  background-image : url(image/other/town02.gif);
+  background-image : url(image/other/town.jpg);
   /*background-position	: top left;*/
   background-position	: top right;
   background-repeat	: no-repeat;
