@@ -16,6 +16,10 @@ RewriteEngine On
 
 RewriteRule (\.svn|\.git|user|union|log|data|class)[\/\\].* templates/index.htm [NC,G,L]
 
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^image/(char|char_rev)/.*$ image/$1/NoImage.gif [L]
+
+
 <Files *.dat>
 	order allow,deny
 	deny from all
