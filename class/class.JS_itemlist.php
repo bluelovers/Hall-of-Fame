@@ -155,7 +155,8 @@ html = {$JS_other}; break;
 return(html);
 }
 function ChangeType{$this->ID}() {
-mode = document.getElementById('{$this->ID}').{$this->name}.options[document.getElementById('{$this->ID}').{$this->name}.selectedIndex].value
+mode = \$('#{$this->ID} select[name=type] option:selected').val();
+
 if(mode == 'all') {
 html = List{$this->name}('weapon') + List{$this->name}('armor') + List{$this->name}('item') + List{$this->name}('other');
 {$None}
@@ -169,7 +170,7 @@ hidden = '<input type="hidden" name="list_type" value="' + mode + '">';
 {$Table0}
 {$Table1}
 html += hidden;
-document.getElementById("{$Id}").innerHTML = html;
+\$("#{$Id}").html(html);
 }
 //--></script>
 _JS_;
