@@ -227,7 +227,7 @@ class char{
 		}
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function DelayValue() {
 		return sqrt($this->SPD) + DELAY_BASE;
 	}
@@ -374,7 +374,7 @@ class char{
 		}
 	}
 //////////////////////////////////////////////////
-//	
+//
 //	ステータス強化(+)
 	function PlusSTR($no) {
 		$this->STR	+= $no;
@@ -1097,7 +1097,7 @@ class char{
 Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 
 </div>
-<input type="checkbox" onclick="Element.toggleClassName('text<?=$flag?>','unselect')" id="box<?=$flag?>" name="char_<?=$birth?>" value="1"<?=$checked?>>
+<input type="checkbox" onclick="\$('#text<?=$flag?>').toggleClass('unselect')" id="box<?=$flag?>" name="char_<?=$birth?>" value="1"<?=$checked?>>
 
 </div><?
 	}
@@ -1226,7 +1226,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		}
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function SetJobData() {
 		if($this->job) {
 			$jobdata		= LoadJobData($this->job);
