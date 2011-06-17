@@ -1,4 +1,9 @@
 <?
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 include(CLASS_USER);
 include(GLOBAL_PHP);
 class main extends user {

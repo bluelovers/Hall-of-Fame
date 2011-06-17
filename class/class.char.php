@@ -1,5 +1,9 @@
 <?
 
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 include(DATA_JOB);
 
 class char{
@@ -227,7 +231,7 @@ class char{
 		}
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function DelayValue() {
 		return sqrt($this->SPD) + DELAY_BASE;
 	}
@@ -374,7 +378,7 @@ class char{
 		}
 	}
 //////////////////////////////////////////////////
-//	
+//
 //	ステータス強化(+)
 	function PlusSTR($no) {
 		$this->STR	+= $no;
@@ -1226,7 +1230,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 		}
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function SetJobData() {
 		if($this->job) {
 			$jobdata		= LoadJobData($this->job);

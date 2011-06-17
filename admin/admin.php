@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 	//include("./setting.php");
 	if(!defined("ADMIN_PASSWORD"))
 		exit(1);

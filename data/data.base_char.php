@@ -1,4 +1,9 @@
 <?
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 function BaseCharStatus($no) {
 	switch($no) {
 		case "1":

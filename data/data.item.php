@@ -1,4 +1,9 @@
 <?
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 if(file_exists(DATA_ENCHANT))
 	include(DATA_ENCHANT);
 

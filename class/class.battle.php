@@ -1,19 +1,24 @@
 <?
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 include(CLASS_SKILL_EFFECT);
 class battle extends ClassSkillEffect{
 /*
  * $battle	= new battle($MyParty,$EnemyParty);
  * $battle->SetTeamName($this->name,$party["name"]);
  * $battle->Process();//戦闘開始
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  */
 	// teams
 	var $team0, $team1;
@@ -87,7 +92,7 @@ class battle extends ClassSkillEffect{
 		$this->DelayResetAll();//初期化
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function SetResultType($var) {
 		$this->BattleResultType	= $var;
 	}
@@ -131,7 +136,7 @@ class battle extends ClassSkillEffect{
 		$this->NoExtends		= true;//これ以上延長はしない。
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function NoResult() {
 		$this->NoResult	= true;
 	}
@@ -301,7 +306,7 @@ HTML;
 				// (1) 生存者数が多いほうが勝ち
 				// (2) (1) が同じなら総ダメージが多いほうが勝ち
 				// (3) (2) でも同じなら引き分け…???(or防衛側の勝ち)
-	
+
 				$team0Alive	= CountAliveChars($this->team0);
 				$team1Alive	= CountAliveChars($this->team1);
 				if($team1Alive < $team0Alive) {// team0 won

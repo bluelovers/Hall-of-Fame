@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 // まっぷの出現条件判定
 function LoadMapAppear($user) {
 

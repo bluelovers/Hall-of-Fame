@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 //print("<pre>".print_r(CreateMonster(1001),1)."</pre>");
 //////////////////////////////////////////////////
 /*

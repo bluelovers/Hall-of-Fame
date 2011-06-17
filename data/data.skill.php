@@ -1,4 +1,9 @@
 <?
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 // *こちらは技に関する基本的な情報
 function LoadSkillData($no) {
 /*

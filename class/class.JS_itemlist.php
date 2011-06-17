@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 // Javascriptで種類を切り替えて表示。
 
 // サンプル

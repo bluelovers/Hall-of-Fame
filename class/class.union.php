@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 include_once("class.char.php");
 class union extends char{
 
@@ -147,7 +152,7 @@ class union extends char{
 			return false;
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function LoadData($file) {
 		if(!file_exists($file))
 			return false;

@@ -1,4 +1,9 @@
 <?
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 include_once("class.char.php");
 class monster extends char{
 
@@ -9,7 +14,7 @@ class monster extends char{
 	var $itemdrop;//落とすアイテム
 	var $summon;
 //////////////////////////////////////////////////
-//	
+//
 	function monster($data) {
 		$this->SetCharData($data);
 

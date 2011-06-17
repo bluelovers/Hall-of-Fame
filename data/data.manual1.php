@@ -1,4 +1,9 @@
 <?
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 	if(!function_exists("LoadSkillData"))
 		include(DATA_SKILL);
 ?>

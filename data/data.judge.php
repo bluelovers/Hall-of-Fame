@@ -1,4 +1,9 @@
 <?
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 //function DecideJudge($number,$My,$MyTeam,$EnemyTeam,$classBattle) {
 function DecideJudge($number,$My,$classBattle) {
 
