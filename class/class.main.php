@@ -947,13 +947,13 @@ HTML;
 	<form action="?char=<?=$_GET["char"]?>" method="post">
 	<table>
 	<tr><td class="align-right">
-	Weapon :</td><td><input type="radio" class="vcent" name="spot" value="weapon"><?ShowItemDetail(LoadItemData($char->weapon));?>
+	Weapon :</td><td><input type="radio" class="vcent" name="spot" value="weapon"><?php ShowItemDetail(LoadItemData($char->weapon));?>
 	</td></tr><tr><td class="align-right">
-	Shield :</td><td><input type="radio" class="vcent" name="spot" value="shield"><?ShowItemDetail(LoadItemData($char->shield));?>
+	Shield :</td><td><input type="radio" class="vcent" name="spot" value="shield"><?php ShowItemDetail(LoadItemData($char->shield));?>
 	</td></tr><tr><td class="align-right">
-	Armor :</td><td><input type="radio" class="vcent" name="spot" value="armor"><?ShowItemDetail(LoadItemData($char->armor));?>
+	Armor :</td><td><input type="radio" class="vcent" name="spot" value="armor"><?php ShowItemDetail(LoadItemData($char->armor));?>
 	</td></tr><tr><td class="align-right">
-	Item :</td><td><input type="radio" class="vcent" name="spot" value="item"><?ShowItemDetail(LoadItemData($char->item));?>
+	Item :</td><td><input type="radio" class="vcent" name="spot" value="item"><?php ShowItemDetail(LoadItemData($char->item));?>
 	</td></tr></tbody>
 	</table>
 	<input type="submit" class="btn" name="remove" value="Remove">
@@ -1088,7 +1088,7 @@ HTML;
 	?>
 
 	</form>
-	<?//その他キャラ
+	<?php //その他キャラ
 		print('<div  style="padding:15px">');
 		foreach($this->char as $key => $val) {
 			//if($key == $_GET["char"]) continue;//表示中キャラスキップ
@@ -1938,7 +1938,7 @@ JS_HTML;
 	<p>ランキング戦用のチーム設定。<br />
 	ここで設定したチームで戦います。</p>
 	</div>
-	<?$this->ShowCharacters($this->char,CHECKBOX,explode("<>",$this->party_rank));?>
+	<?php $this->ShowCharacters($this->char,CHECKBOX,explode("<>",$this->party_rank));?>
 
 	<div style="margin:15px">
 	<?=$left_mes?>
@@ -2047,19 +2047,19 @@ JS_HTML;
 	<h4>Sort of New Character</h4>
 	<table cellspacing="0"><tbody><tr>
 	<td class="td1" style="text-align:center">
-	<?$char[0]->ShowImage()?><?$char[1]->ShowImage()?><br>
+	<?php $char[0]->ShowImage()?><?php $char[1]->ShowImage()?><br>
 	<input type="radio" name="recruit_no" value="1" style="margin:3px"><br>
 	<?=MoneyFormat(2000)?></td>
 	<td class="td1" style="text-align:center">
-	<?$char[2]->ShowImage()?><?$char[3]->ShowImage()?><br>
+	<?php $char[2]->ShowImage()?><?php $char[3]->ShowImage()?><br>
 	<input type="radio" name="recruit_no" value="2" style="margin:3px"><br>
 	<?=MoneyFormat(2000)?></td>
 	<td class="td1" style="text-align:center">
-	<?$char[4]->ShowImage()?><?$char[5]->ShowImage()?><br>
+	<?php $char[4]->ShowImage()?><?php $char[5]->ShowImage()?><br>
 	<input type="radio" name="recruit_no" value="3" style="margin:3px"><br>
 	<?=MoneyFormat(2500)?></td>
 	<td class="td1" style="text-align:center">
-	<?$char[6]->ShowImage()?><?$char[7]->ShowImage()?><br>
+	<?php $char[6]->ShowImage()?><?php $char[7]->ShowImage()?><br>
 	<input type="radio" name="recruit_no" value="4" style="margin:3px"><br>
 	<?=MoneyFormat(4000)?></td>
 	</tr><tr>
@@ -2499,7 +2499,7 @@ JS_HTML;
 <a name="log"></a>
 <h4>オークションログ(AuctionLog)</h4>
 <div style="margin-left:20px">
-<?$ItemAuction->ShowLog();?>
+<?php $ItemAuction->ShowLog();?>
 </div><?php
 	}
 //////////////////////////////////////////////////
@@ -3552,13 +3552,13 @@ print("</div>\n");
 		?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-<head><?$this->HtmlScript();?>
+<head><?php $this->HtmlScript();?>
 <title><?=TITLE?></title>
 </head>
 <body><a name="top"></a>
 <div id="main_frame">
 <div id="title"><img src="./image/title03.gif"></div>
-<?$this->MyMenu();?><div id="contents">
+<?php $this->MyMenu();?><div id="contents">
 <?php
 	}
 
@@ -3689,7 +3689,7 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 
 		?>
 	<form action="<?=INDEX?>" method="post" style="margin:15px">
-	<?ShowError($error);?>
+	<?php ShowError($error);?>
 	<h4>Name of Team</h4>
 	<p>Decide the Name of the team.<br />
 	It should be more than 1 and less than 16 letters.<br />
