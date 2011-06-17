@@ -22,18 +22,21 @@ jQuery(function($){
 			);
 		}).resize();
 
+		$('.ttd2, .ttd1').width('50%');
+
 		$('#contents').css({
 			'min-height' : $('.btl_img').parent('tr').outerHeight(true),
 			'overflow' : 'auto'
-		}).find('table:first tr').hide().first().fadeIn(400).delay(500, function (){
-			$('#contents').scrollTop($('#contents table').first().height());
-
+		}).find('table:first tr').hide().first().fadeIn(700).delay(700, function (){
+			var _d = 700;
 			var _func = function() {
-				$(this).next().fadeIn(400).delay(500, _func);
+				$(this).next().fadeIn(700).delay(_d, _func);
 				$('#contents').scrollTop($('#contents table').first().height());
 			}
 
-			$(this).next().fadeIn(400).delay(500, _func);
+			$(this).next().fadeIn(700).delay(_d, _func);
+			$('#contents').scrollTop($('#contents table').first().height());
+
 		});
 	}
 
