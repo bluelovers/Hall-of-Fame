@@ -14,7 +14,7 @@ Options All -Indexes
 RewriteEngine On
 #RewriteBase /
 
-RewriteRule (\.svn|\.git|user|union|log|data|class)[\/\\].* templates/index.htm [NC,G,L]
+RewriteRule (\.svn|\.git|user|union|log|data|class)[\/\\].* ReadMe.html [NC,G,L]
 
 <Files *.dat>
 	order allow,deny
