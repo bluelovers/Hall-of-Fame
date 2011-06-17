@@ -546,7 +546,7 @@ HTML;
 			if(!$skill["limit"][$My->WEAPON]) {
 				print('<span class="u">'.$My->Name(bold));
 				print('<span class="dmg"> Failed </span>to ');
-				print("<img src=\"".IMG_ICON.$skill["img"]."\" class=\"vcent\"/>");
+				print("<img src=\"".IMG_ICON.'skill/'.$skill["img"]."\" class=\"vcent\"/>");
 				print($skill[name]."</span><br />\n");
 				//print($My->Name(bold)." Failed to use ".$skill["name"]."<br />\n");
 				print("(Weapon type doesnt match)<br />\n");
@@ -595,7 +595,7 @@ HTML;
 
 			// 行動内容の表示(行動する)
 			print('<div class="u">'.$My->Name(bold));
-			print("<img src=\"".IMG_ICON.$skill["img"]."\" class=\"vcent\"/>");
+			print("<img src=\"".IMG_ICON.'skill/'.$skill["img"]."\" class=\"vcent\"/>");
 			print($skill[name]."</div>\n");
 
 			// 魔法陣を消費(味方)
