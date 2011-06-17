@@ -1600,20 +1600,16 @@ print <<< JS_HTML
 <script type="text/javascript">
 <!--
 function toggleCSS(id) {
-Element.toggleClassName('i'+id+'a', 'tdToggleBg');
-Element.toggleClassName('i'+id+'b', 'tdToggleBg');
-Element.toggleClassName('i'+id+'c', 'tdToggleBg');
-Element.toggleClassName('i'+id+'d', 'tdToggleBg');
-Field.focus('text_'+id);
+	\$('#i'+id+'a').parent('tr').find('td').toggleClass('tdToggleBg');
+	\$('#text_'+id).focus();
 }
 function toggleCheckBox(id) {
-if($('check_'+id).checked) {
-  $('check_'+id).checked = false;
-} else {
-  $('check_'+id).checked = true;
-  Field.focus('text_'+id);
-}
-toggleCSS(id);
+	\$(':checkbox[name=check_'+id+']').prop('checked', function (index, oldPropertyValue){
+		if (!oldPropertyValue) \$('#text_'+id).focus();
+
+		return !oldPropertyValue;
+	});
+	toggleCSS(id);
 }
 // -->
 </script>
