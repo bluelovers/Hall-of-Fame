@@ -1694,20 +1694,15 @@ print <<< JS_HTML
 <script type="text/javascript">
 <!--
 function toggleCSS(id) {
-Element.toggleClassName('i'+id+'a', 'tdToggleBg');
-Element.toggleClassName('i'+id+'b', 'tdToggleBg');
-Element.toggleClassName('i'+id+'c', 'tdToggleBg');
-Element.toggleClassName('i'+id+'d', 'tdToggleBg');
-Field.focus('text_'+id);
+	\$('#i'+id+'a').parent('tr').find('td').toggleClass('tdToggleBg').find('#text_'+id).focus();
 }
 function toggleCheckBox(id) {
-if($('check_'+id).checked) {
-  $('check_'+id).checked = false;
-} else {
-  $('check_'+id).checked = true;
-  Field.focus('text_'+id);
-}
-toggleCSS(id);
+	\$(':checkbox[name=check_'+id+']').prop('checked', function (index, oldPropertyValue){
+		if (!oldPropertyValue) \$('#text_'+id).focus();
+
+		return !oldPropertyValue;
+	});
+	toggleCSS(id);
 }
 // -->
 </script>
@@ -3118,13 +3113,20 @@ PassWord : <input type="text" class="text" name="deletepass" size="20">
 		$width	= floor(100/$divide);//各セル横幅
 
 		if($type == "CHECKBOX") {
+			/**
+			 * 選擇出擊的隊員時
+			 *
+			 * @url index.php?common=gb0
+			 * @url index.php?union=0004
+			 **/
 print <<< HTML
 <script type="text/javascript">
 <!--
 function toggleCheckBox(id) {
-id0 = "box" + id;
-\$("box" + id).checked = \$("box" + id).checked?false:true;
-Element.toggleClassName("text"+id,'unselect');
+	\$(':checkbox#box'+id+'').prop('checked', function (index, oldPropertyValue){
+		return !oldPropertyValue;
+	});
+	\$("#text"+id).toggleClass('unselect');
 }
 // -->
 </script>
