@@ -7,7 +7,7 @@
 
 jQuery(function($){
 
-	// ÀË¬d¬O§_¬°¾Ô°«°T®§
+	// æª¢æŸ¥æ˜¯å¦ç‚ºæˆ°é¬¥è¨Šæ¯
 	if ($('.btl_img').length > 0) {
 
 		$(window).resize(function(){
