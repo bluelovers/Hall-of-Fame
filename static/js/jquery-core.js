@@ -45,26 +45,21 @@ jQuery(function($){
 			})
 			.next('div').width(480)
 				.children('div:eq(0)').width('100%')
-				/*
-					.children('img').css({
-						'margin-left' : (Math.round(Math.random() * 1) ? 0 : -500),
-						'margin-top' : -1 - Math.round(Math.random() * 4) * (200 + 1)
+					.children('img').css('margin-left', function(){
+						var _this = $(this);
+						var _func = function(){
+							_this.css({
+								'margin-left' : (Math.round(Math.random() * 1) ? 0 : -500),
+								'margin-top' : -1 - Math.round(Math.random() * 4) * (200 + 1)
+							});
+						};
+
+						_func();
+						setInterval(_func, 5000);
+
+						return _this.css('margin-left');
 					})
-				*/
-			;
-
-		$('#contents > div > div:eq(1) div img').css('margin-left', function(){
-			var _this = $(this);
-			var _func = function(){
-				_this.css({
-					'margin-left' : (Math.round(Math.random() * 1) ? 0 : -500),
-					'margin-top' : -1 - Math.round(Math.random() * 4) * (200 + 1)
-				});
-			};
-
-			setInterval(_func, 5000);
-			_func();
-		});
+		;
 	}
 
 });
