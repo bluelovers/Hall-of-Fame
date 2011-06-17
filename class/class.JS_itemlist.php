@@ -155,7 +155,7 @@ html = {$JS_other}; break;
 return(html);
 }
 function ChangeType{$this->ID}() {
-mode = \$('#{$this->ID} select[name=type] option:selected').val();
+mode = \$('#{$this->ID} select[name={$this->name}] option:selected').val();
 
 if(mode == 'all') {
 html = List{$this->name}('weapon') + List{$this->name}('armor') + List{$this->name}('item') + List{$this->name}('other');
