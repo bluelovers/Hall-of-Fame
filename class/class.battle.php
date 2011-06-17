@@ -5,15 +5,15 @@ class battle extends ClassSkillEffect{
  * $battle	= new battle($MyParty,$EnemyParty);
  * $battle->SetTeamName($this->name,$party["name"]);
  * $battle->Process();//戦闘開始
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
+ *
  */
 	// teams
 	var $team0, $team1;
@@ -87,7 +87,7 @@ class battle extends ClassSkillEffect{
 		$this->DelayResetAll();//初期化
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function SetResultType($var) {
 		$this->BattleResultType	= $var;
 	}
@@ -131,7 +131,7 @@ class battle extends ClassSkillEffect{
 		$this->NoExtends		= true;//これ以上延長はしない。
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function NoResult() {
 		$this->NoResult	= true;
 	}
@@ -301,7 +301,7 @@ HTML;
 				// (1) 生存者数が多いほうが勝ち
 				// (2) (1) が同じなら総ダメージが多いほうが勝ち
 				// (3) (2) でも同じなら引き分け…???(or防衛側の勝ち)
-	
+
 				$team0Alive	= CountAliveChars($this->team0);
 				$team1Alive	= CountAliveChars($this->team1);
 				if($team1Alive < $team0Alive) {// team0 won
@@ -546,7 +546,7 @@ HTML;
 			if(!$skill["limit"][$My->WEAPON]) {
 				print('<span class="u">'.$My->Name(bold));
 				print('<span class="dmg"> Failed </span>to ');
-				print("<img src=\"".IMG_ICON.$skill["img"]."\" class=\"vcent\"/>");
+				print("<img src=\"".IMG_ICON.'skill/'.$skill["img"]."\" class=\"vcent\"/>");
 				print($skill[name]."</span><br />\n");
 				//print($My->Name(bold)." Failed to use ".$skill["name"]."<br />\n");
 				print("(Weapon type doesnt match)<br />\n");
@@ -595,7 +595,7 @@ HTML;
 
 			// 行動内容の表示(行動する)
 			print('<div class="u">'.$My->Name(bold));
-			print("<img src=\"".IMG_ICON.$skill["img"]."\" class=\"vcent\"/>");
+			print("<img src=\"".IMG_ICON.'skill/'.$skill["img"]."\" class=\"vcent\"/>");
 			print($skill[name]."</div>\n");
 
 			// 魔法陣を消費(味方)
