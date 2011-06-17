@@ -253,7 +253,7 @@
 			return false;
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function UserAmount() {
 		static $amount;
 
@@ -265,7 +265,7 @@
 		}
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function JudgeList(){
 
 		// 自動読み込み(forでループさせてるから無駄な処理)
@@ -288,7 +288,7 @@
 1501, 1505, 1506, 1510, 1511,
 1549, 1550, 1551, 1555, 1556,
 1560, 1561, 1599, 1600, 1610,
-1611, 1612, 1613, 
+1611, 1612, 1613,
 1614, 1615, 1616, 1617, 1618,
 1699,
 1700, 1701, 1710, 1711, 1712,
@@ -298,8 +298,8 @@
 1820, 1821, 1825, 1839, 1840,
 1841, 1845, 1849, 1850, 1851,
 1855, 1899, 1900, 1901, 1902,
-1919, 1920, 1939, 1940, 
-); 
+1919, 1920, 1939, 1940,
+);
 		}
 
 	}
@@ -310,7 +310,7 @@
 		return '$&nbsp;'.number_format($number);
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function ItemSellPrice($item) {
 		$price	= (isset($item["sell"]) ? $item["sell"] : round($item["buy"]*SELLING_PRICE));
 		return $price;
@@ -385,7 +385,7 @@ function ShowLogList() {
 //	戦闘ログの表示
 function LogShowCommon() {
 	print("<div style=\"margin:15px\">\n");
-	
+
 	print("<a href=\"?log\">All</a> ");
 	print("<a href=\"?clog\" class=\"a0\">Common</a> ");
 	print("<a href=\"?ulog\">Union</a> ");
@@ -510,7 +510,7 @@ function ShowBattleLog($no,$type=false) {
 //	技の詳細を表示
 	function ShowSkillDetail($skill,$radio=false) {
 		if(!$skill) return false;
-		
+
 		if($radio)
 			print('<input type="radio" name="newskill" value="'.$skill["no"].'" class="vcent" />');
 
@@ -772,10 +772,10 @@ EOD;
 <div style="margin:15px">
 <h4>GameData</h4>
 <div style="margin:0 20px">
-| <a href="?gamedata=job">職(Job)</a> | 
-<a href="?gamedata=item">アイテム(item)</a> | 
-<a href="?gamedata=judge">判定</a> | 
-<a href="?gamedata=monster">モンスター</a> | 
+| <a href="?gamedata=job">職(Job)</a> |
+<a href="?gamedata=item">アイテム(item)</a> |
+<a href="?gamedata=judge">判定</a> |
+<a href="?gamedata=monster">モンスター</a> |
 </div>
 </div><?
 	switch($_GET["gamedata"]) {
@@ -788,7 +788,7 @@ EOD;
 
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function userNameLoad() {
 		$name	= @file(USER_NAME);
 		if($name) {
@@ -803,7 +803,7 @@ EOD;
 		}
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function userNameAdd($add) {
 		foreach(userNameLoad() as $name) {
 			$string	.= $name."\n";
@@ -825,7 +825,7 @@ EOD;
 		print('</div>'."\n");
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function RecordManage($string) {
 		$file	= MANAGE_LOG_FILE;
 
@@ -892,5 +892,12 @@ EOD;
 		function dump($array) {
 			print("<pre>".print_r($array,1)."</pre>");
 		}
+	}
+
+	function gc_date() {
+		$_args = func_get_args();
+		$_args[1] = ($_args[1] ? $_args[1] : time()) + 8 * 3600;
+
+		return call_user_func_array('date', $_args);
 	}
 ?>
