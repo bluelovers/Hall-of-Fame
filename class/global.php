@@ -1,4 +1,4 @@
-<?
+<?php
 
 if (!defined('DEBUG')) {
 	exit('Access Denied');
@@ -782,7 +782,7 @@ EOD;
 <a href="?gamedata=judge">判定</a> |
 <a href="?gamedata=monster">モンスター</a> |
 </div>
-</div><?
+</div><?php
 	switch($_GET["gamedata"]) {
 		case "job": include(GAME_DATA_JOB); break;
 		case "item": include(GAME_DATA_ITEM); break;

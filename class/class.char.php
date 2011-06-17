@@ -1,4 +1,4 @@
-<?
+<?php
 
 if (!defined('DEBUG')) {
 	exit('Access Denied');
@@ -157,7 +157,7 @@ class char{
 <tr><td style="text-align:right">LUK :&nbsp;</td><td><?=$this->luk?><?if($this->P_LUK) print(" + {$this->P_LUK}");?></td></tr>
 </table>
 </td><td valign="top">
-<?
+<?php
 	if($this->SPECIAL["PoisonResist"])
 		print("毒抵抗 +".$this->SPECIAL["PoisonResist"]."%<br />\n");
 	if($this->SPECIAL["Pierce"]["0"])
@@ -168,7 +168,7 @@ class char{
 		print("召喚力 +".$this->SPECIAL["Summon"]."%<br />\n");
 ?>
 </td></tr></table>
-<?
+<?php
 	}
 //////////////////////////////////////////////////
 //	誰のキャラか設定する
@@ -992,7 +992,7 @@ class char{
 	<?$this->ShowImage()?>
 	</div>
 	<?=$this->name?><br>Lv.<?=$this->level?>
-	</div><?
+	</div><?php
 	}
 
 //////////////////////////////////////////////////
@@ -1060,7 +1060,7 @@ class char{
 <div class="carpet_frame">
 <div class="carpet<?=$flag%2?>"><?$this->ShowImage();?></div>
 <?=$this->name?><br>Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
-</div><?
+</div><?php
 	}
 
 //////////////////////////////////////////////////
@@ -1075,7 +1075,7 @@ class char{
 <div class="carpet<?=$flag%2?>">
 <a href="?char=<?=$this->Number?>"><?$this->ShowImage();?></a></div>
 <?=$this->name?><?if($this->statuspoint)print('<span class="bold charge">*</span>');?><br>Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
-</div><?
+</div><?php
 	}
 
 //////////////////////////////////////////////////
@@ -1103,7 +1103,7 @@ Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 </div>
 <input type="checkbox" onclick="Element.toggleClassName('text<?=$flag?>','unselect')" id="box<?=$flag?>" name="char_<?=$birth?>" value="1"<?=$checked?>>
 
-</div><?
+</div><?php
 	}
 //////////////////////////////////////////////////
 //	戦闘時のチームを設定(あんまり使ってない)

@@ -29,7 +29,7 @@ td{
 -->
 </style></head>
 <body>
-<?
+<?php
 include("../data/data.item.php");
 print("<table cellspacing=\"1\"><tbody>");
 $img_f	= "../image/icon/";

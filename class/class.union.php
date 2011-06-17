@@ -173,7 +173,7 @@ class union extends char{
 	<div class="land" style="background-image : url(<?=IMG_OTHER."land_".$this->UnionLand.".gif"?>);">
 	<a href="?union=<?=$this->UnionNo?>"><?$this->ShowImage();?></a></div>
 	<div class="bold dmg"><?=$this->UnionName?></div>LvLimit:<?=$this->LevelLimit?>
-	</div><?
+	</div><?php
 	}
 //////////////////////////////////////////////////
 	function UpMAXHP($no) {
