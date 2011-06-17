@@ -514,7 +514,7 @@ function ShowBattleLog($no,$type=false) {
 		if($radio)
 			print('<input type="radio" name="newskill" value="'.$skill["no"].'" class="vcent" />');
 
-		print('<img src="'.IMG_ICON.$skill["img"].'" class="vcent">');
+		print('<img src="'.IMG_ICON.'skill/'.$skill["img"].'" class="vcent">');
 		print("{$skill[name]}");
 
 		if($radio)

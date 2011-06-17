@@ -19,7 +19,7 @@ RewriteRule (\.svn|\.git|user|union|log|data|class)[\/\\].* ReadMe.html [NC,G,L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^image/(char|char_rev)/.*$ image/$1/NoImage.png [L]
 
-RewriteRule ^image/(icon/item)/.*$ image/$1/noimage.png [L]
+RewriteRule ^image/(icon/(item|skill))/.*$ image/$1/noimage.png [L]
 
 
 <Files *.dat>
