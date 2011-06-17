@@ -89,7 +89,7 @@ class Auction {
 		}
 	}
 //////////////////////////////////////////////
-//	
+//
 	function UserGetNameFromTemp($UserID) {
 		if($this->TempUser["$UserID"]["Name"])
 			return $this->TempUser["$UserID"]["Name"];
@@ -228,7 +228,7 @@ class Auction {
 			$dif	= 900 - $left;
 			$this->Article["$ArticleNo"]["end"]	+= $dif;
 		}
-		
+
 
 		$this->Article["$ArticleNo"]["price"]	= $BidPrice;
 		$this->Article["$ArticleNo"]["TotalBid"]++;
@@ -285,7 +285,7 @@ class Auction {
 				print('<form action="?menu=auction" method="post">');
 				// 入札フォーム
 				if($bidding) {
-					print('<a href="#" onClick="Element.toggle(\'Bid'.$Article["No"].'\';return false;)">入札</a>');
+					print('<a href="#" onClick="$(\'Bid'.$Article["No"].'\').toggle()">入札</a>');
 					print('<span style="display:none" id="Bid'.$Article["No"].'">');
 					print('&nbsp;<input type="text" name="BidPrice" style="width:80px" class="text" value="'.BottomPrice($Article["price"]).'">');
 					print('<input type="submit" value="Bid" class="btn">');
@@ -357,7 +357,7 @@ class Auction {
 				print('<form action="?menu=auction" method="post">');
 				// 入札フォーム
 				if($bidding) {
-					print('<a style="margin:0 10px" href="#" onClick="Element.toggle(\'Bid'.$Article["No"].'\');return false;">入札</a>');
+					print('<a style="margin:0 10px" href="#" onClick="$(\'#Bid'.$Article["No"].'\').toggle(); return false;">入札</a>');
 					print('<span style="display:none" id="Bid'.$Article["No"].'">');
 					print('&nbsp;<input type="text" name="BidPrice" style="width:80px" class="text" value="'.BottomPrice($Article["price"]).'">');
 					print('<input type="submit" value="Bid" class="btn">');
@@ -367,7 +367,7 @@ class Auction {
 				print($Article["comment"]?$Article["comment"]:"&nbsp;");
 				print("</form>");
 				print("</td></tr>\n");
-				
+
 				print("</td></tr>\n");
 			}
 			print($exp);
@@ -469,7 +469,7 @@ class Auction {
 		$this->SaveLog();
 	}
 //////////////////////////////////////////////
-//	
+//
 	function ItemSortBy($type) {
 		switch($type) {
 			case "no":
