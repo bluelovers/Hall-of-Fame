@@ -647,7 +647,7 @@ function ShowBattleLog($no,$type=false) {
 	function ShowItemDetail($item,$amount=false,$text=false,$need=false) {
 		if(!$item) return false;
 
-		$html	= "<img src=\"".IMG_ICON.$item["img"]."\" class=\"vcent\">";
+		$html	= "<img src=\"".IMG_ICON.'item/'.$item["img"]."\" class=\"vcent\">";
 		// 精錬値
 		if($item["refine"])
 			$html	.= "+{$item[refine]} ";
