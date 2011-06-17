@@ -1600,8 +1600,7 @@ print <<< JS_HTML
 <script type="text/javascript">
 <!--
 function toggleCSS(id) {
-	\$('#i'+id+'a').parent('tr').find('td').toggleClass('tdToggleBg');
-	\$('#text_'+id).focus();
+	\$('#i'+id+'a').parent('tr').find('td').toggleClass('tdToggleBg').find('#text_'+id).focus();
 }
 function toggleCheckBox(id) {
 	\$(':checkbox[name=check_'+id+']').prop('checked', function (index, oldPropertyValue){
