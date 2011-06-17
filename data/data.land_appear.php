@@ -36,7 +36,7 @@ array_push($land,"mt0");
 array_push($land,"volc0");
 array_push($land,"volc1");
 */
-	if(date("H") == 2 && substr(date("i"),0,1)==5)
+	if(gc_date("H") == 2 && substr(gc_date("i"),0,1)==5)
 		array_push($land,"horh");
 	return $land;
 }

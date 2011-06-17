@@ -2915,7 +2915,7 @@ JS_HTML;
 			$message	= $name." > ".$_POST["message"];
 			if($this->UserColor)
 				$message	= "<span style=\"color:{$this->UserColor}\">".$message."</span>";
-			$message	.= " <span class=\"light\">(".date("Mj G:i").")</span>\n";
+			$message	.= " <span class=\"light\">(".gc_date("Mj G:i").")</span>\n";
 			array_unshift($log,$message);
 			while(50 < count($log))
 				array_pop($log);
@@ -3738,7 +3738,7 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 			$message	= $name." > ".$_POST["message"];
 			if($this->UserColor)
 				$message	= "<span style=\"color:{$this->UserColor}\">".$message."</span>";
-			$message	.= " <span class=\"light\">(".date("Mj G:i").")</span>\n";
+			$message	.= " <span class=\"light\">(".gc_date("Mj G:i").")</span>\n";
 			array_unshift($log,$message);
 			while(150 < count($log))// ログ保存行数あ
 				array_pop($log);

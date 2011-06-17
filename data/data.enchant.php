@@ -551,7 +551,7 @@ function AddEnchantData(&$item, $opt) {
 
 
 											// 特殊製作
-											// 日付や時間帯によっても効果かえれるよ date();
+											// 日付や時間帯によっても効果かえれるよ gc_date();
 		case X00:
 			if($item["type2"] == "WEAPON") {
 				$item["atk"]["0"]	+= 5;

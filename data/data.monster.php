@@ -3019,7 +3019,7 @@ $monster	= array(
 "UnionName"	=> "Breakfast",
 "LevelLimit"=> "50",
 );
-if(date("H") == 7)
+if(gc_date("H") == 7)
 	$monster["cycle"]	= 60*60*2;
 else
 	$monster["cycle"]	= 60*60*72;
@@ -3073,7 +3073,7 @@ $monster	= array(
 "UnionName"	=> "LunchTime",
 "LevelLimit"=> "50",
 );
-if(date("H") == 12)
+if(gc_date("H") == 12)
 	$monster["cycle"]	= 60*60*2;
 else
 	$monster["cycle"]	= 60*60*72;
@@ -3127,7 +3127,7 @@ $monster	= array(
 "UnionName"	=> "DinnerTime",
 "LevelLimit"=> "50",
 );
-if(date("H") == 19)
+if(gc_date("H") == 19)
 	$monster["cycle"]	= 60*60*2;
 else
 	$monster["cycle"]	= 60*60*72;
@@ -3172,7 +3172,7 @@ $monster	= array(
 "UnionName"	=> "Ape'sRevenge",
 "LevelLimit"=> "100",
 );
-if(date("H") == 19)
+if(gc_date("H") == 19)
 	$monster["cycle"]	= 60*60*2;
 else
 	$monster["cycle"]	= 60*60*72;

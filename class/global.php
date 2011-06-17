@@ -72,7 +72,7 @@
 					$RankChange	= true;// 変更された
 				}
 
-				RecordManage(date("Y M d G:i:s",$now).": user ".$user->id." deleted.");
+				RecordManage(gc_date("Y M d G:i:s",$now).": user ".$user->id." deleted.");
 				$user->DeleteUser(false);//ランキングからは消さないようにfalse
 			}
 			// 消されないユーザー
@@ -99,7 +99,7 @@
 			PM 7:00 - AM 2:00 は処理しない。
 			※時刻は or なのに注意！
 		*/
-		if(19 <= date("H") || date("H") <= 1)
+		if(19 <= gc_date("H") || gc_date("H") <= 1)
 			 return false;
 
 		$now	= time();
@@ -118,7 +118,7 @@
 		}
 
 		// 管理の処理
-		RecordManage(date("Y M d G:i:s",$now).": auto regular control by {$value}.");
+		RecordManage(gc_date("Y M d G:i:s",$now).": auto regular control by {$value}.");
 
 		DeleteAbandonAccount();//その1 放棄ユーザの掃除
 
@@ -446,7 +446,7 @@ function BattleLogDetail($log,$type=false) {
 	$act	= trim(fgets($fp));// 総行動数 6行目
 	fclose($fp);
 
-	$date	= date("m/d H:i:s",substr($time,0,10));
+	$date	= gc_date("m/d H:i:s",substr($time,0,10));
 	// 勝利チームによって色を分けて表示
 	if($type == "RANK")
 		print("[ <a href=\"?rlog={$time}\">{$date}</a> ]&nbsp;\n");
@@ -497,7 +497,7 @@ function ShowBattleLog($no,$type=false) {
 	print('<div style="padding:15px 0;width:100%;text-align:center" class="break">');
 	print("<h2>battle log*</h2>");
 	print("\nthis battle starts at<br />");
-	print(date("m/d H:i:s",substr($time,0,10)));
+	print(gc_date("m/d H:i:s",substr($time,0,10)));
 	print("</div>\n");
 	//print("</td></tr></table>\n");
 
@@ -818,7 +818,7 @@ EOD;
 //	全ランキングの表示
 	function RankAllShow() {
 		print('<div style="margin:15px">'."\n");
-		print('<h4>Ranking - '.date("Y年n月j日 G時i分s秒").'</h4>'."\n");
+		print('<h4>Ranking - '.gc_date("Y年n月j日 G時i分s秒").'</h4>'."\n");
 		include(CLASS_RANKING);
 		$Rank	= new Ranking();
 		$Rank->ShowRanking();
