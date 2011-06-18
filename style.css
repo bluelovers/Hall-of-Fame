@@ -2,7 +2,7 @@
 @import url("static/style/reset.css");
 
 *, html, body {
-	font-family: "ＭＳ Ｐゴシック","HiraKakuPro-W3",Osaka,"ヒラギノ角ゴ Pro W3";
+	font-family	: 'メイリオ',Meiryo,'ＭＳ Ｐゴシック','MS PGothic',Verdana,sans-serif;
 }
 
 body{
