@@ -16,6 +16,14 @@ class game_core {
 
 		return $ret;
 	}
+
+	function glob_del($path) {
+		if ($ret = self::glob($path)) {
+			foreach($ret as $file) {
+				unlink($file);
+			}
+		}
+	}
 }
 
 ?>
