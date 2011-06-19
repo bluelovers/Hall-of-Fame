@@ -392,7 +392,7 @@ function LogShowCommon() {
 	print("<a href=\"?rlog\">Ranking</a>");
 	// common
 	print("<h4>最近の戦闘 - 全ログ(Recent Battles)</h4>\n");
-	$log	= @glob(LOG_BATTLE_NORMAL."*");
+	$log	= game_core::glob(LOG_BATTLE_NORMAL);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file);
 	}
@@ -409,7 +409,7 @@ function LogShowUnion() {
 	print("<a href=\"?rlog\">Ranking</a>");
 	// union
 	print("<h4>ユニオン戦 - 全ログ(Union Battle Log)</h4>\n");
-	$log	= @glob(LOG_BATTLE_UNION."*");
+	$log	= game_core::glob(LOG_BATTLE_UNION);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"UNION");
 	}
@@ -426,7 +426,7 @@ function LogShowRanking() {
 	print("<a href=\"?rlog\" class=\"a0\">Ranking</a>");
 	// rank
 	print("<h4>ランキング戦 - 全ログ(Rank Battle Log)</h4>\n");
-	$log	= @glob(LOG_BATTLE_RANK."*");
+	$log	= game_core::glob(LOG_BATTLE_RANK);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"RANK");
 	}
