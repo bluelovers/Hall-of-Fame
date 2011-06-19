@@ -1,15 +1,15 @@
-<?
+<?php
 /*
 	画像合成を非常にナンセンスな方法で行う。
 	GDライブラリ→画像の水平反転が不可能。
 	PECL ImageMagic→可能。しかしPEARの知識が無く断念。
-	
+
 	従って画像合成する場合,反転済みの画像を別で用意する。
-	
+
 	sampleURL
 http://localhost/proj/hof/image.php?f11=mon_018&f12=mon_018&f13=mon_018&f14=mon_018&b11=mon_018&b12=mon_018&f21=mon_018&f22=mon_018&b21=mon_018&b22=mon_018&b23=mon_018&f23=mon_018&f24=mon_018&info=0
 	最後の[&info=0] は無くてもok
-	
+
 	※※※ 魔法陣の表示に未対応！！！！！！！！！
 */
 include("setting.php");
@@ -47,6 +47,10 @@ class image{
 
 	function SetCharFile($type) {
 		$this->char_img_type	= $type;
+
+//		$_char_no_image = preg_replace('/\.([a-z]+)$/i', $type, CHAR_NO_IMAGE);
+		$_char_no_image = CHAR_NO_IMAGE;
+
 		/*
 			f11 = team1_front[0]
 			f12 = team1_front[1]
@@ -61,12 +65,18 @@ class image{
 			if( $img = $_GET["f1".$j] ) {
 				if( strpos($img,"/") !== false ) continue;// "/"が指定された場合無視
 				$file	= IMG_CHAR.$img.".".$type;
+
+				if(!file_exists($file)) $file = IMG_CHAR.$_char_no_image;
+
 				if(file_exists($file))
 					$this->team1_front[]	= $file;
 			}
 			if( $img = $_GET["b1".$j]) {
 				if( strpos($img,"/") !== false ) continue;// "/"が指定された場合無視
 				$file	= IMG_CHAR.$img.".".$type;
+
+				if(!file_exists($file)) $file = IMG_CHAR.$_char_no_image;
+
 				if(file_exists($file))
 					$this->team1_back[]	= $file;
 			}
@@ -75,12 +85,18 @@ class image{
 			if( $img = $_GET["f2".$j] ) {
 				if( strpos($img,"/") !== false ) continue;// "/"が指定された場合無視
 				$file	= IMG_CHAR_REV.$img.".".$type;
+
+				if(!file_exists($file)) $file = IMG_CHAR_REV.$_char_no_image;
+
 				if(file_exists($file))
 					$this->team2_front[]	= $file;
 			}
 			if( $img = $_GET["b2".$j]) {
 				if( strpos($img,"/") !== false ) continue;// "/"が指定された場合無視
 				$file	= IMG_CHAR_REV.$img.".".$type;
+
+				if(!file_exists($file)) $file = IMG_CHAR_REV.$_char_no_image;
+
 				if(file_exists($file))
 					$this->team2_back[]	= $file;
 			}
@@ -119,10 +135,17 @@ class image{
 		$imgcreatefrom	= "imagecreatefrom{$this->char_img_type}";
 
 		$copy	= $imgcreatefrom($file);
+
+		imagealphablending($copy, true);
+		imagesavealpha($copy, true);
+
 		list($width, $height)	= getimagesize($file);
 		$x	-= $width/2;// キャラ幅分だけずらす
 		$y	-= $height/2;
 		imagecopy($this->image,$copy,round($x),round($y),0,0,$width,$height);
+
+		imagealphablending($this->image, true);
+		imagesavealpha($this->image, true);
 	}
 
 	function SetBackGround($type) {
@@ -137,6 +160,14 @@ class image{
 		$this->image	= $func($this->background);
 
 		list($this->img_x, $this->img_y)	= getimagesize($this->background);
+
+		imagealphablending($this->image, true);
+		imagesavealpha($this->image, true);
+
+		$color_photo = imagecreatetruecolor($this->img_x, $this->img_y);
+		imagecopy($color_photo, $this->image, 0, 0, 0, 0, $this->img_x, $this->img_y);
+
+		$this->image = $color_photo;
 	}
 
 	function Filter() {//途中
@@ -153,9 +184,11 @@ class image{
 	}
 
 	function OutPutImage($type) {
+		// 修正可直接顯示合成後圖片而不會顯示亂碼
+		@header("Content-Type: image/{$type}");
+
 		$func	= "image".$type;
 		$func($this->image);
-		header("Content-Type: image/{$type}");
 		imagedestroy($this->image);
 	}
 
