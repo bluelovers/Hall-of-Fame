@@ -348,7 +348,7 @@ function ShowLogList() {
 
 	// common
 	print("<h4>最近の戦闘 - <a href=\"?clog\">全表示</a>(Recent Battles)</h4>\n");
-	$log	= @glob(LOG_BATTLE_NORMAL."*");
+	$log	= game_core::glob(LOG_BATTLE_NORMAL);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file);
 		$limit++;
@@ -359,7 +359,7 @@ function ShowLogList() {
 	// union
 	$limit	= 0;
 	print("<h4>ユニオン戦 - <a href=\"?ulog\">全表示</a>(Union Battle Log)</h4>\n");
-	$log	= @glob(LOG_BATTLE_UNION."*");
+	$log	= game_core::glob(LOG_BATTLE_UNION);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"UNION");
 		$limit++;
@@ -370,7 +370,7 @@ function ShowLogList() {
 	// rank
 	$limit	= 0;
 	print("<h4>ランキング戦 - <a href=\"?rlog\">全表示</a>(Rank Battle Log)</h4>\n");
-	$log	= @glob(LOG_BATTLE_RANK."*");
+	$log	= game_core::glob(LOG_BATTLE_RANK);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"RANK");
 		$limit++;
@@ -900,4 +900,6 @@ EOD;
 
 		return call_user_func_array('date', $_args);
 	}
+
+	require(CLASS_DIR.'class.core.php');
 ?>
