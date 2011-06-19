@@ -230,7 +230,7 @@
 //	ファイルを読んで配列に格納
 	function ParseFile($file) {
 
-		$fp		= fopen($file,"r+");
+		$fp		= @fopen($file,"r+");
 		if(!$fp) return false;
 		flock($fp, LOCK_EX | LOCK_NB);
 		while( !feof($fp) ) {
@@ -901,5 +901,5 @@ EOD;
 		return call_user_func_array('date', $_args);
 	}
 
-	require CLASS_DIR.'class.core.php';
+	require_once CLASS_DIR.'class.core.php';
 ?>
