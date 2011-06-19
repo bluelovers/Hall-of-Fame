@@ -901,5 +901,9 @@ EOD;
 		return call_user_func_array('date', $_args);
 	}
 
+	if (!defined('BASEPATH')) {
+		include dirname(__FILE__).'/../setting.php';
+	}
+
 	require_once CLASS_DIR.'class.core.php';
 ?>
