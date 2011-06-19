@@ -901,5 +901,5 @@ EOD;
 		return call_user_func_array('date', $_args);
 	}
 
-	require(CLASS_DIR.'class.core.php');
+	require CLASS_DIR.'class.core.php';
 ?>
