@@ -202,9 +202,15 @@ class image{
 		$height	= 14;
 		$mar_l	= 6;
 		$mar_t	= 6;
-		imagestring($image, $size, $mar_l, $mar_t, "info-", $textcolor);
 
-		imagestring($image, $size, $mar_l, $mar_t + $height, "BG : ".$this->background, $textcolor);
+		$this->imagestring_echo($image, "info-", array(
+			'font-size' => $size,
+			'x' => $mar_l,
+			'y' => $mar_t,
+			'color' =>  $textcolor,
+			'line-height' => $height,
+		));
+		$this->imagestring_echo($image, "BG : ".$this->background);
 
 		$row	= 2;
 		$teams	= array(
@@ -214,14 +220,35 @@ class image{
 		"team2_back"	=> "TEAM2_B");
 		foreach($teams as $team_var => $team_pos) {
 			foreach($this->{$team_var} as $val) {
-				imagestring($image, $size, $mar_l, $mar_t + $height * $row, "$team_pos : ".$val, $textcolor);
-				$row++;
+				$this->imagestring_echo($image, "$team_pos : ".$val);
 			}
 		}
 
 		header("Content-type: image/gif");
 		imagepng($image);
 		exit();
+	}
+
+	function imagestring_echo($image, $conf, $base = null) {
+		static $_base = array(
+			'font-size'			=> 2,
+			'x'				=> 0,
+			'y'				=> 0,
+			'line-height'	=> 14,
+		);
+		if ($base) $_base = $base;
+
+		if (is_array($conf)) {
+			foreach($conf as $k => $v) {
+				$_base[$k] = $v;
+			}
+		} else {
+			$_base['string'] = $conf;
+		}
+
+		imagestring($image, $_base['font-size'], $_base['x'], $_base['y'], $_base['string'], $_base['color']);
+
+		$_base['y'] += $_base['line-height'];
 	}
 
 	function _get_file($file, $type) {
