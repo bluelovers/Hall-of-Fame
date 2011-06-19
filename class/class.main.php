@@ -1213,7 +1213,7 @@ HTML;
 		print("<div style=\"margin:0 15px\">\n");
 		print("<h4>Union Battle Log <a href=\"?ulog\">全表示</a></h4>\n");
 		print("<div style=\"margin:0 20px\">\n");
-		$log	= @glob(LOG_BATTLE_UNION."*");
+		$log	= game_core::glob(LOG_BATTLE_UNION);
 		foreach(array_reverse($log) as $file) {
 			$limit++;
 			BattleLogDetail($file,"UNION");
