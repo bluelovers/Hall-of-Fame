@@ -14,21 +14,24 @@ http://localhost/proj/hof/image.php?f11=mon_018&f12=mon_018&f13=mon_018&f14=mon_
 */
 include("setting.php");
 
+//$type = 'gif';
+$type = 'png';
+
 $img	= new image();
 // ( gif, png, jpeg )
 // gif -> 動作確認済み
 // png -> 画像の色数を保てるかどうか未確認
 // jpeg -> 動作未確認
-$img->SetBackGround("gif");// 背景画像の形式
+$img->SetBackGround($type);// 背景画像の形式
 
-$img->SetCharFile("gif");// *
+$img->SetCharFile($type);// *
 $img->ShowInfo();
 $img->CopyChar();
 $img->Filter();
 
 // 出力画像の形式
 // gif > png > jpeg の順でサイズが異なる
-$img->OutPutImage("gif");
+$img->OutPutImage($type);
 
 //////////////////////////////////////////////////////////////////////
 class image{
@@ -48,8 +51,7 @@ class image{
 	function SetCharFile($type) {
 		$this->char_img_type	= $type;
 
-//		$_char_no_image = preg_replace('/\.([a-z]+)$/i', $type, CHAR_NO_IMAGE);
-		$_char_no_image = CHAR_NO_IMAGE;
+		$_char_no_image = preg_replace('/\.(png|jpg|gif|bmp)$/i', '', CHAR_NO_IMAGE);
 
 		/*
 			f11 = team1_front[0]
@@ -64,40 +66,40 @@ class image{
 		for($j=1; $j<6; $j++) {// 1,2,3,4,5　チーム１
 			if( $img = $_GET["f1".$j] ) {
 				if( strpos($img,"/") !== false ) continue;// "/"が指定された場合無視
-				$file	= IMG_CHAR.$img.".".$type;
+				if (!$file = $this->_get_file(IMG_CHAR.$img, $type)) {
+					$file = $this->_get_file(IMG_CHAR.$_char_no_image, $type);
+				}
 
-				if(!file_exists($file)) $file = IMG_CHAR.$_char_no_image;
-
-				if(file_exists($file))
+				if($file)
 					$this->team1_front[]	= $file;
 			}
 			if( $img = $_GET["b1".$j]) {
 				if( strpos($img,"/") !== false ) continue;// "/"が指定された場合無視
-				$file	= IMG_CHAR.$img.".".$type;
+				if (!$file = $this->_get_file(IMG_CHAR.$img, $type)) {
+					$file = $this->_get_file(IMG_CHAR.$_char_no_image, $type);
+				}
 
-				if(!file_exists($file)) $file = IMG_CHAR.$_char_no_image;
-
-				if(file_exists($file))
+				if($file)
 					$this->team1_back[]	= $file;
 			}
 		}
 		for($j=1; $j<6; $j++) {// 1,2,3,4,5　チーム２
 			if( $img = $_GET["f2".$j] ) {
 				if( strpos($img,"/") !== false ) continue;// "/"が指定された場合無視
-				$file	= IMG_CHAR_REV.$img.".".$type;
+				if (!$file = $this->_get_file(IMG_CHAR_REV.$img, $type)) {
+					$file = $this->_get_file(IMG_CHAR_REV.$_char_no_image, $type);
+				}
 
-				if(!file_exists($file)) $file = IMG_CHAR_REV.$_char_no_image;
-
-				if(file_exists($file))
+				if($file)
 					$this->team2_front[]	= $file;
 			}
 			if( $img = $_GET["b2".$j]) {
 				if( strpos($img,"/") !== false ) continue;// "/"が指定された場合無視
-				$file	= IMG_CHAR_REV.$img.".".$type;
+				if (!$file = $this->_get_file(IMG_CHAR_REV.$img, $type)) {
+					$file = $this->_get_file(IMG_CHAR_REV.$_char_no_image, $type);
+				}
 
-				if(!file_exists($file)) $file = IMG_CHAR_REV.$_char_no_image;
-
-				if(file_exists($file))
+				if($file)
 					$this->team2_back[]	= $file;
 			}
 		}
@@ -132,14 +134,14 @@ class image{
 	}
 
 	function CopyImage($file,$x,$y) {
-		$imgcreatefrom	= "imagecreatefrom{$this->char_img_type}";
+		$imginfo = $this->getimagesize($file);
 
-		$copy	= $imgcreatefrom($file);
+		$copy	= $imginfo['imagecreatefromfunc']($file);
 
 		imagealphablending($copy, true);
 		imagesavealpha($copy, true);
 
-		list($width, $height)	= getimagesize($file);
+		list($width, $height)	= $imginfo;
 		$x	-= $width/2;// キャラ幅分だけずらす
 		$y	-= $height/2;
 		imagecopy($this->image,$copy,round($x),round($y),0,0,$width,$height);
@@ -149,17 +151,15 @@ class image{
 	}
 
 	function SetBackGround($type) {
-		if($_GET["bg"])//背景
-			$file	= IMG_OTHER."bg_".$_GET["bg"].".".$type;
-		if(file_exists($file))
+		if($_GET['bg'] && ($file = $this->_get_file(IMG_OTHER.'bg_'.$_GET['bg'], $type)))
 			$this->background	= $file;
 		else
-			$this->background	= IMG_OTHER."bg_grass.".$type;
+			$this->background	= $this->_get_file(IMG_OTHER.'bg_grass', $type);
 
-		$func	= "imagecreatefrom".$type;
-		$this->image	= $func($this->background);
+		$imginfo = $this->getimagesize($this->background);
+		$this->image	= $imginfo['imagecreatefromfunc']($this->background);
 
-		list($this->img_x, $this->img_y)	= getimagesize($this->background);
+		list($this->img_x, $this->img_y)	= $imginfo;
 
 		imagealphablending($this->image, true);
 		imagesavealpha($this->image, true);
@@ -222,6 +222,40 @@ class image{
 		header("Content-type: image/gif");
 		imagepng($image);
 		exit();
+	}
+
+	function _get_file($file, $type) {
+		foreach (array($type, 'png', 'gif', 'jpg', 'bmp') as $ext) {
+			if (file_exists($file.'.'.$ext)) {
+				return $file.'.'.$ext;
+			}
+		}
+
+		return false;
+	}
+
+	function getimagesize($file) {
+		$imginfo = @getimagesize($file);
+
+		$imginfo['file'] = $file;
+		$imginfo['width'] = $imginfo[0];
+		$imginfo['height'] = $imginfo[1];
+
+		$imginfo['size'] = @filesize($file);
+
+		switch($imginfo['mime']) {
+			case 'image/jpeg':
+				$imginfo['imagecreatefromfunc'] = 'imagecreatefromjpeg';
+				break;
+			case 'image/gif':
+				$imginfo['imagecreatefromfunc'] = 'imagecreatefromgif';
+				break;
+			case 'image/png':
+				$imginfo['imagecreatefromfunc'] = 'imagecreatefrompng';
+				break;
+		}
+
+		return (array)$imginfo;
 	}
 }
 
