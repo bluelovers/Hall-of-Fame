@@ -178,15 +178,15 @@ HTML;
 	function RecordLog($type=false) {
 		if($type == "RANK") {
 			$file	= LOG_BATTLE_RANK;
-			$log	= @glob(LOG_BATTLE_RANK."*");
+			$log	= game_core::glob(LOG_BATTLE_RANK);
 			$logAmount = MAX_BATTLE_LOG_RANK;
 		} else if($type == "UNION") {
 			$file	= LOG_BATTLE_UNION;
-			$log	= @glob(LOG_BATTLE_UNION."*");
+			$log	= game_core::glob(LOG_BATTLE_UNION);
 			$logAmount = MAX_BATTLE_LOG_UNION;
 		} else {
 			$file	= LOG_BATTLE_NORMAL;
-			$log	= @glob(LOG_BATTLE_NORMAL."*");
+			$log	= game_core::glob(LOG_BATTLE_NORMAL);
 			$logAmount = MAX_BATTLE_LOG;
 		}
 
