@@ -47,7 +47,7 @@
 //////////////////////////////////////////////////
 //	期限切れアカウントの一斉削除
 	function DeleteAbandonAccount() {
-		$list	= glob(USER."*");
+		$list	= game_core::glob(USER);
 		$now	= time();
 
 		// ユーザー一覧を取得する
@@ -260,7 +260,7 @@
 		if($amount) {
 			return $amount;
 		} else {
-			$amount	= count(glob(USER."*"));
+			$amount	= count(game_core::glob(USER));
 			return $amount;
 		}
 	}
@@ -348,7 +348,7 @@ function ShowLogList() {
 
 	// common
 	print("<h4>最近の戦闘 - <a href=\"?clog\">全表示</a>(Recent Battles)</h4>\n");
-	$log	= @glob(LOG_BATTLE_NORMAL."*");
+	$log	= game_core::glob(LOG_BATTLE_NORMAL);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file);
 		$limit++;
@@ -359,7 +359,7 @@ function ShowLogList() {
 	// union
 	$limit	= 0;
 	print("<h4>ユニオン戦 - <a href=\"?ulog\">全表示</a>(Union Battle Log)</h4>\n");
-	$log	= @glob(LOG_BATTLE_UNION."*");
+	$log	= game_core::glob(LOG_BATTLE_UNION);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"UNION");
 		$limit++;
@@ -370,7 +370,7 @@ function ShowLogList() {
 	// rank
 	$limit	= 0;
 	print("<h4>ランキング戦 - <a href=\"?rlog\">全表示</a>(Rank Battle Log)</h4>\n");
-	$log	= @glob(LOG_BATTLE_RANK."*");
+	$log	= game_core::glob(LOG_BATTLE_RANK);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"RANK");
 		$limit++;
@@ -392,7 +392,7 @@ function LogShowCommon() {
 	print("<a href=\"?rlog\">Ranking</a>");
 	// common
 	print("<h4>最近の戦闘 - 全ログ(Recent Battles)</h4>\n");
-	$log	= @glob(LOG_BATTLE_NORMAL."*");
+	$log	= game_core::glob(LOG_BATTLE_NORMAL);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file);
 	}
@@ -409,7 +409,7 @@ function LogShowUnion() {
 	print("<a href=\"?rlog\">Ranking</a>");
 	// union
 	print("<h4>ユニオン戦 - 全ログ(Union Battle Log)</h4>\n");
-	$log	= @glob(LOG_BATTLE_UNION."*");
+	$log	= game_core::glob(LOG_BATTLE_UNION);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"UNION");
 	}
@@ -426,7 +426,7 @@ function LogShowRanking() {
 	print("<a href=\"?rlog\" class=\"a0\">Ranking</a>");
 	// rank
 	print("<h4>ランキング戦 - 全ログ(Rank Battle Log)</h4>\n");
-	$log	= @glob(LOG_BATTLE_RANK."*");
+	$log	= game_core::glob(LOG_BATTLE_RANK);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"RANK");
 	}
@@ -900,4 +900,6 @@ EOD;
 
 		return call_user_func_array('date', $_args);
 	}
+
+	require CLASS_DIR.'class.core.php';
 ?>
