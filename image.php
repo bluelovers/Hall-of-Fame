@@ -198,17 +198,13 @@ class image{
 		$image	= imagecreate(360, 240);
 		$bg = imagecolorallocate($image, 24, 24, 128);
 		$textcolor = imagecolorallocate($image, 255, 24, 255);
-		$size	= 2;
-		$height	= 14;
-		$mar_l	= 6;
-		$mar_t	= 6;
 
 		$this->imagestring_echo($image, "info-", array(
-			'font-size' => $size,
-			'x' => $mar_l,
-			'y' => $mar_t,
+			'font-size' => 2,
+			'x' => 6,
+			'y' => 6,
 			'color' =>  $textcolor,
-			'line-height' => $height,
+			'line-height' => 14,
 		));
 		$this->imagestring_echo($image, "BG : ".$this->background);
 
