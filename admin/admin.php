@@ -315,22 +315,19 @@ DATA;
 	*/
 	else if($_POST["adminBattleLog"]) {
 		if($_POST["deleteLogCommon"]) {
-			$dir = LOG_BATTLE_NORMAL;
-			$logFile = glob($dir."*");
+			$logFile = game_core::glob(LOG_BATTLE_NORMAL);
 			foreach($logFile as $file) {
 				unlink($file);
 			}
 			print("<p>通常戦闘ログを削除しました。</p>\n");
 		} else if($_POST["deleteLogUnion"]) {
-			$dir = LOG_BATTLE_UNION;
-			$logFile = glob($dir."*");
+			$logFile = game_core::glob(LOG_BATTLE_UNION);
 			foreach($logFile as $file) {
 				unlink($file);
 			}
 			print("<p>ユニオン戦闘ログを削除しました。</p>\n");
 		} else if($_POST["deleteLogRanking"]) {
-			$dir = LOG_BATTLE_RANK;
-			$logFile = glob($dir."*");
+			$logFile = game_core::glob(LOG_BATTLE_RANK);
 			foreach($logFile as $file) {
 				unlink($file);
 			}
