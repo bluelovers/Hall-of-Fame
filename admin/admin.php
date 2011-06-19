@@ -255,9 +255,9 @@ DATA;
 		$userAmount = count($userFileList);
 		$items = array();
 		foreach($userFileList as $user) {
-			if(!$data = ParseFile($user."/item.dat"));
-			foreach($data as $itemno => $amount)
-				$items[$itemno] += $amount;
+			if($data = ParseFile($user."/item.dat"))
+				foreach($data as $itemno => $amount)
+					$items[$itemno] += $amount;
 		}
 		foreach($items as $itemno => $amount) {
 			if(strlen($itemno) != 4) continue;
