@@ -12,7 +12,7 @@ http://localhost/proj/hof/image.php?f11=mon_018&f12=mon_018&f13=mon_018&f14=mon_
 
 	※※※ 魔法陣の表示に未対応！！！！！！！！！
 */
-include("setting.php");
+include('setting.php');
 
 //$type = 'gif';
 $type = 'png';
@@ -64,8 +64,8 @@ class image{
 			b21 = team2_back[0]...
 		*/
 		for($j=1; $j<6; $j++) {// 1,2,3,4,5　チーム１
-			if( $img = $_GET["f1".$j] ) {
-				if( strpos($img,"/") !== false ) continue;// "/"が指定された場合無視
+			if( $img = $_GET['f1'.$j] ) {
+				if( strpos($img,'/') !== false ) continue;// '/'が指定された場合無視
 				if (!$file = $this->_get_file(IMG_CHAR.$img, $type)) {
 					$file = $this->_get_file(IMG_CHAR.$_char_no_image, $type);
 				}
@@ -73,8 +73,8 @@ class image{
 				if($file)
 					$this->team1_front[]	= $file;
 			}
-			if( $img = $_GET["b1".$j]) {
-				if( strpos($img,"/") !== false ) continue;// "/"が指定された場合無視
+			if( $img = $_GET['b1'.$j]) {
+				if( strpos($img,'/') !== false ) continue;// '/'が指定された場合無視
 				if (!$file = $this->_get_file(IMG_CHAR.$img, $type)) {
 					$file = $this->_get_file(IMG_CHAR.$_char_no_image, $type);
 				}
@@ -84,8 +84,8 @@ class image{
 			}
 		}
 		for($j=1; $j<6; $j++) {// 1,2,3,4,5　チーム２
-			if( $img = $_GET["f2".$j] ) {
-				if( strpos($img,"/") !== false ) continue;// "/"が指定された場合無視
+			if( $img = $_GET['f2'.$j] ) {
+				if( strpos($img,'/') !== false ) continue;// '/'が指定された場合無視
 				if (!$file = $this->_get_file(IMG_CHAR_REV.$img, $type)) {
 					$file = $this->_get_file(IMG_CHAR_REV.$_char_no_image, $type);
 				}
@@ -93,8 +93,8 @@ class image{
 				if($file)
 					$this->team2_front[]	= $file;
 			}
-			if( $img = $_GET["b2".$j]) {
-				if( strpos($img,"/") !== false ) continue;// "/"が指定された場合無視
+			if( $img = $_GET['b2'.$j]) {
+				if( strpos($img,'/') !== false ) continue;// '/'が指定された場合無視
 				if (!$file = $this->_get_file(IMG_CHAR_REV.$img, $type)) {
 					$file = $this->_get_file(IMG_CHAR_REV.$_char_no_image, $type);
 				}
@@ -187,7 +187,7 @@ class image{
 		// 修正可直接顯示合成後圖片而不會顯示亂碼
 		@header("Content-Type: image/{$type}");
 
-		$func	= "image".$type;
+		$func	= 'image'.$type;
 		$func($this->image);
 		imagedestroy($this->image);
 	}
@@ -201,38 +201,44 @@ class image{
 
 		$this->imagestring_echo($image, "info-", array(
 			'font-size' => 2,
+			'line-height' => 14,
+
 			'x' => 6,
 			'y' => 6,
+
 			'color' =>  $textcolor,
-			'line-height' => 14,
 		));
 		$this->imagestring_echo($image, "BG : ".$this->background);
 
-		$row	= 2;
-		$teams	= array(
-		"team1_front"	=> "TEAM1_F",
-		"team1_back"	=> "TEAM1_B",
-		"team2_front"	=> "TEAM2_F",
-		"team2_back"	=> "TEAM2_B");
-		foreach($teams as $team_var => $team_pos) {
+		foreach(array(
+			'team1_front'	=> 'TEAM1_F',
+			'team1_back'	=> 'TEAM1_B',
+			'team2_front'	=> 'TEAM2_F',
+			'team2_back'	=> 'TEAM2_B'
+		) as $team_var => $team_pos) {
 			foreach($this->{$team_var} as $val) {
 				$this->imagestring_echo($image, "$team_pos : ".$val);
 			}
 		}
 
-		header("Content-type: image/gif");
+		header('Content-type: image/gif');
 		imagepng($image);
 		exit();
 	}
 
 	function imagestring_echo($image, $conf, $base = null) {
 		static $_base = array(
-			'font-size'			=> 2,
+			'font-size'		=> 2,
+			'line-height'	=> 14,
+
 			'x'				=> 0,
 			'y'				=> 0,
-			'line-height'	=> 14,
 		);
-		if ($base) $_base = $base;
+		if ($base) {
+			foreach($base as $k => $v) {
+				$_base[$k] = $v;
+			}
+		}
 
 		if (is_array($conf)) {
 			foreach($conf as $k => $v) {
@@ -245,10 +251,11 @@ class image{
 		imagestring($image, $_base['font-size'], $_base['x'], $_base['y'], $_base['string'], $_base['color']);
 
 		$_base['y'] += $_base['line-height'];
+		$_base['string'] = '';
 	}
 
 	function _get_file($file, $type) {
-		foreach (array($type, 'png', 'gif', 'jpg', 'bmp') as $ext) {
+		foreach (array($type, 'png', 'gif', 'jpg') as $ext) {
 			if (file_exists($file.'.'.$ext)) {
 				return $file.'.'.$ext;
 			}
@@ -264,17 +271,22 @@ class image{
 		$imginfo['width'] = $imginfo[0];
 		$imginfo['height'] = $imginfo[1];
 
+		$imginfo['type'] = $imginfo[2];
+
 		$imginfo['size'] = @filesize($file);
 
 		switch($imginfo['mime']) {
 			case 'image/jpeg':
 				$imginfo['imagecreatefromfunc'] = 'imagecreatefromjpeg';
+				$imginfo['imagefunc'] = 'imagejpeg';
 				break;
 			case 'image/gif':
 				$imginfo['imagecreatefromfunc'] = 'imagecreatefromgif';
+				$imginfo['imagefunc'] = 'imagegif';
 				break;
 			case 'image/png':
 				$imginfo['imagecreatefromfunc'] = 'imagecreatefrompng';
+				$imginfo['imagefunc'] = 'imagepng';
 				break;
 		}
 
