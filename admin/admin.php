@@ -190,7 +190,7 @@ DATA;
 	else if($_POST["UserDataDetail"]) {
 		include(GLOBAL_PHP);
 		include(CLASS_USER);
-		$userFileList = glob(USER."*");
+		$userFileList = game_core::glob(USER);
 		foreach($userFileList as $user) {
 			$user = new user(basename($user,".dat"));
 			$totalMoney += $user->money;
@@ -205,7 +205,7 @@ DATA;
 	*/
 	else if($_POST["UserCharDetail"]) {
 		include(GLOBAL_PHP);
-		$userFileList = glob(USER."*");
+		$userFileList = game_core::glob(USER);
 		foreach($userFileList as $user) {
 			$userDir = glob($user."/*");
 			foreach($userDir as $fileName) {
@@ -251,7 +251,7 @@ DATA;
 	*/
 	else if($_POST["ItemDataDetail"]) {
 		include(GLOBAL_PHP);
-		$userFileList = glob(USER."*");
+		$userFileList = game_core::glob(USER);
 		$userAmount = count($userFileList);
 		$items = array();
 		foreach($userFileList as $user) {
@@ -270,7 +270,7 @@ DATA;
 	*/
 	else if($_POST["UserIpShow"]) {
 		include(GLOBAL_PHP);
-		$userFileList = glob(USER."*");
+		$userFileList = game_core::glob(USER);
 		$ipList = array();
 		foreach($userFileList as $user) {
 			$file = $user."/data.dat";
@@ -297,7 +297,7 @@ DATA;
 		print("<p>壊れている可能性のあるファイル<br>\n");
 		$baseSize = $_POST["brokenSize"]?(int)$_POST["brokenSize"]:100;
 		print("※{$baseSize}byte 以下のファイルを探しただけ(アイテムデータは除く).</p>");
-		$userFileList = glob(USER."*");
+		$userFileList = game_core::glob(USER);
 		foreach($userFileList as $user) {
 			$userDir = glob($user."/*");
 			if(filesize($user."/data.dat") < $baseSize)

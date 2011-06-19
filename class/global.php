@@ -47,7 +47,7 @@
 //////////////////////////////////////////////////
 //	期限切れアカウントの一斉削除
 	function DeleteAbandonAccount() {
-		$list	= glob(USER."*");
+		$list	= game_core::glob(USER);
 		$now	= time();
 
 		// ユーザー一覧を取得する
@@ -260,7 +260,7 @@
 		if($amount) {
 			return $amount;
 		} else {
-			$amount	= count(glob(USER."*"));
+			$amount	= count(game_core::glob(USER));
 			return $amount;
 		}
 	}

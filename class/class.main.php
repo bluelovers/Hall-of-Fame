@@ -1183,7 +1183,7 @@ HTML;
 
 		// Union
 		print("</div>\n");
-		$files	= glob(UNION."*");
+		$files	= game_core::glob(UNION);
 		if($files) {
 			include(CLASS_UNION);
 			include(DATA_MONSTER);
@@ -3325,7 +3325,7 @@ HTML;
 
 	function MakeNewData() {
 		// 登録者数が限界の場合
-		if(MAX_USERS <= count(glob(USER."*")))
+		if(MAX_USERS <= count(game_core::glob(USER)))
 			return array(false,"Maximum users.<br />登録者数が限界に達してしまった様です。");
 		if(isset($_POST["Newid"]))
 			trim($_POST["Newid"]);
@@ -3389,7 +3389,7 @@ HTML;
 //////////////////////////////////////////////////
 //	新規ID作成用のフォーム
 	function NewForm($error=NULL) {
-		if(MAX_USERS <= count(glob(USER."*"))) {
+		if(MAX_USERS <= count(game_core::glob(USER))) {
 			?>
 
 	<div style="margin:15px">
