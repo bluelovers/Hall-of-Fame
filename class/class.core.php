@@ -10,6 +10,9 @@ class game_core {
 			case LOG_BATTLE_UNION:
 				$ret = @glob($path.'*.dat', $flags);
 				break;
+			case USER:
+				$ret = @glob($path.'*', $flags | GLOB_ONLYDIR);
+				break;
 			default:
 				$ret = @glob($path, $flags);
 				break;
