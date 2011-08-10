@@ -98,7 +98,7 @@ class game_member {
 		// MAKE
 		if(!file_exists($file)){
 			mkdir(USER.$_POST["Newid"], 0705);
-			$this->main->RecordRegister($_POST["Newid"]);//ID記録
+			$this->RecordRegister($_POST["Newid"]);//ID記録
 			$fp=fopen("$file","w");
 			flock($fp,LOCK_EX);
 				$now	= time();
