@@ -21,7 +21,6 @@ class game_members {
 	 */
 	function Set_ID_PASS() {
 		$id	= ($_POST["id"])?$_POST["id"]:$_GET["id"];
-		//if($_POST["id"]) {
 		if($id) {
 				$this->main->id	= $id;//$_POST["id"];
 			// ↓ログイン処理した時だけ
@@ -32,7 +31,6 @@ class game_members {
 			$this->main->id	= $_SESSION["id"];
 
 		$pass	= ($_POST["pass"])?$_POST["pass"]:$_GET["pass"];
-		//if($_POST["pass"])
 		if($pass)
 			$this->main->pass	= $pass;//$_POST["pass"];
 		else if($_SESSION["pass"])
