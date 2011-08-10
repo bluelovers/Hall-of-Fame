@@ -28,7 +28,7 @@ class main extends user {
 		include BASEPATH.'./source/class/game_session.class.php';
 		$this->session = new game_session(&$this);
 
-		include BASEPATH.'./source/class/game_members.class.php';
+		include BASEPATH.'./source/class/game_member.class.php';
 		$this->member = new game_member(&$this);
 		// bluelovers
 
