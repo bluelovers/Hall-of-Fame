@@ -5,14 +5,14 @@
  * @copyright 2011
  */
 
-class game_members {
+class game_member {
 
 	/**
 	 * @abstract main
 	 */
 	var $main;
 
-	function game_members($main) {
+	function game_member($main) {
 		$this->main = &$main;
 	}
 
