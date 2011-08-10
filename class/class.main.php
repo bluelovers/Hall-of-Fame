@@ -3276,26 +3276,7 @@ HTML;
 	 * pass と id を設定する
 	 */
 	function Set_ID_PASS() {
-		$id	= ($_POST["id"])?$_POST["id"]:$_GET["id"];
-		//if($_POST["id"]) {
-		if($id) {
-				$this->id	= $id;//$_POST["id"];
-			// ↓ログイン処理した時だけ
-			if (is_registered($_POST["id"])) {
-				$_SESSION["id"]	= $this->id;
-			}
-		} else if($_SESSION["id"])
-			$this->id	= $_SESSION["id"];
-
-		$pass	= ($_POST["pass"])?$_POST["pass"]:$_GET["pass"];
-		//if($_POST["pass"])
-		if($pass)
-			$this->pass	= $pass;//$_POST["pass"];
-		else if($_SESSION["pass"])
-			$this->pass	= $_SESSION["pass"];
-
-		if($this->pass)
-			$this->pass	= $this->CryptPassword($this->pass);
+		$this->members->Set_ID_PASS();
 	}
 
 //////////////////////////////////////////////////
