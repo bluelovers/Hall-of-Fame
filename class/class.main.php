@@ -724,7 +724,7 @@ EOD;
 						$char->statuspoint	+= $dif;
 						$char->SaveCharData($this->id);
 						$this->SaveUserItem();
-						ShowResult("ポイント還元成功","margin15");
+						ShowResult("ポイント還元成功 ","margin15");
 						return true;
 					}
 				}
@@ -754,7 +754,7 @@ EOD;
 						}
 						$char->SaveCharData($this->id);
 						$this->SaveUserItem();
-						ShowResult("ポイント還元成功","margin15");
+						ShowResult("ポイント還元成功 ","margin15");
 						return true;
 					} else {
 						ShowError("ポイント還元失敗","margin15");
