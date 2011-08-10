@@ -17,8 +17,10 @@ class game_session {
 	 * 保存されているセッション番号を変更する。
 	 */
 	function SessionSwitch() {
-		// session消滅の時間(?)
-		// how about "session_set_cookie_params()"?
+		/**
+		 * session消滅の時間(?)
+		 * how about "session_set_cookie_params()"?
+		 */
 		session_cache_expire(COOKIE_EXPIRE/60);
 		if($_COOKIE["NO"])//クッキーに保存してあるセッションIDのセッションを呼び出す
 			session_id($_COOKIE["NO"]);
@@ -40,9 +42,11 @@ class game_session {
 		session_start();
 
 		if($_SESSION):
-		//	session_destroy();//Sleipnirだとおかしい...?(最初期)
-		//	unset($_SESSION);//こっちは大丈夫(やっぱりこれは駄目かも)(修正後)
-			//結局,セッションをforeachでループして1個づつunset(2007/9/14 再修正)
+			/**
+			 * session_destroy();//Sleipnirだとおかしい...?(最初期)
+			 * unset($_SESSION);//こっちは大丈夫(やっぱりこれは駄目かも)(修正後)
+			 * 結局,セッションをforeachでループして1個づつunset(2007/9/14 再修正)
+			 */
 			foreach($_SESSION as $key => $val)
 				unset($_SESSION["$key"]);
 		endif;
