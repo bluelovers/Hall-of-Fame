@@ -42,7 +42,7 @@ class main extends user {
 		$this->Head();
 		print($content);
 		$this->Debug();
-		//$this->ShowSession();
+		//$this->session->ShowSession();
 		$this->Foot();
 	}
 
@@ -3206,12 +3206,6 @@ HTML;
 	function Debug() {
 		if(DEBUG)
 			print("<pre>".print_r(get_object_vars($this),1)."</pre>");
-	}
-
-//////////////////////////////////////////////////
-//	セッション情報を表示する。
-	function ShowSession() {
-		$this->session->ShowSession();
 	}
 
 //////////////////////////////////////////////////
