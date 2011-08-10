@@ -39,7 +39,7 @@ class game_members {
 			$this->main->pass	= $_SESSION["pass"];
 
 		if($this->main->pass)
-			$this->main->pass	= $this->main->CryptPassword($this->pass);
+			$this->main->pass	= $this->main->CryptPassword($this->main->pass);
 	}
 
 	/**
