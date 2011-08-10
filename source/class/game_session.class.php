@@ -7,10 +7,13 @@
 
 class game_session {
 
+	/**
+	 * @abstract main
+	 */
 	var $main;
 
 	function game_session($main) {
-		$this->main = $main;
+		$this->main = &$main;
 	}
 
 	/**
