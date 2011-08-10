@@ -1,4 +1,9 @@
-<?
+<?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 class user {
 
 	// ファイルポインタ
@@ -458,7 +463,7 @@ class user {
 			if($this->{$val})
 				$text	.= "$val=".(is_array($this->{$val}) ? implode("<>",$this->{$val}) : $this->{$val})."\n";
 		}
-		
+
 
 		/*
 		$Save	= get_object_vars($this);
@@ -572,7 +577,7 @@ class user {
 	}
 
 //////////////////////////////////////////////////
-//	
+//
 	//function Load
 
 }

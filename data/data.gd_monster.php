@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 /*
 	どっかおかしくて画像表示されてないので必要ならば直して
 */

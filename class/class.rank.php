@@ -1,4 +1,9 @@
-<?
+<?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 class Ranking {
 /*
 処理手順(ランキング戦)

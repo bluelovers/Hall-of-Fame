@@ -5,7 +5,7 @@
 <title>JudgeLists</title>
 </head>
 <body>
-<?
+<?php
 include("../data/data.judge_setup.php");
 for($i=1000; $i<9999; $i++) {
 	$j	= LoadJudgeData($i);

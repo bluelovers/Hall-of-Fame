@@ -6,7 +6,7 @@
 </head>
 <body>
 <?php
-include("../setting.php");
+include("../config/setting.php");
 $admin	= "../";// index.php からの距離
 $users	= glob($admin.USER."/*");
 print("Users : ".count($users)." / ".MAX_USERS."<br />\n");

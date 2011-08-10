@@ -1,6 +1,6 @@
 <?php
 
-define('BASEPATH', dirname(__FILE__).'/');
+define('BASEPATH', str_replace('\\', '/', dirname(__FILE__)).'/../');
 
 // game setting
 define("TITLE","Hall of Fame");//タイトル

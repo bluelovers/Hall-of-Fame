@@ -1,4 +1,9 @@
-<?
+<?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 //////////////////////////////////////////////////
 //	店に売ってるものデータ
 	function ShopList() {
@@ -777,7 +782,7 @@ EOD;
 <a href="?gamedata=judge">判定</a> |
 <a href="?gamedata=monster">モンスター</a> |
 </div>
-</div><?
+</div><?php
 	switch($_GET["gamedata"]) {
 		case "job": include(GAME_DATA_JOB); break;
 		case "item": include(GAME_DATA_ITEM); break;
@@ -902,7 +907,7 @@ EOD;
 	}
 
 	if (!defined('BASEPATH')) {
-		include dirname(__FILE__).'/../setting.php';
+		include dirname(__FILE__).'/../config/setting.php';
 	}
 
 	require_once CLASS_DIR.'class.core.php';

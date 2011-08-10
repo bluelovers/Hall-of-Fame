@@ -1,4 +1,9 @@
-<?
+<?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 include(CLASS_SKILL_EFFECT);
 class battle extends ClassSkillEffect{
 /*
@@ -1129,7 +1134,7 @@ Total HP : <?=$team1_total_hp?>/<?=$team1_total_maxhp?>
 Total Lv : <?=$team0_total_lv?><br>
 Average Lv : <?=$team0_avelv?><br>
 Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
-</td></tr><?
+</td></tr><?php
 	}
 //////////////////////////////////////////////////
 //	戦闘終了時に表示
@@ -1139,7 +1144,7 @@ Total HP : <?=$team0_total_hp?>/<?=$team0_total_maxhp?>
 		print("</td></tr>");*/
 		?>
 </tbody></table>
-<?
+<?php
 	}
 //////////////////////////////////////////////////
 //	戦闘画像・各キャラの残りHP残りSP等を表示

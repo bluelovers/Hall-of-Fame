@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 // 鍛冶屋
 class Item {
 	var $item;
@@ -142,7 +147,7 @@ class Item {
 		// 精錬もオプションも無い場合は先頭4文字だけ返す。
 		if(!$this->refine && !$this->option0 && !$this->option1 && !$this->option2 )
 			return $this->base;
-		
+
 		// 少なくとも精錬されているか、オプションが有る場合
 		$item	= $this->base.
 				sprintf("%02d",$this->refine).

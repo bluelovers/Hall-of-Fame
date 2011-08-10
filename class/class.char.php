@@ -1,4 +1,8 @@
-<?
+<?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
 
 include(DATA_JOB);
 
@@ -140,20 +144,20 @@ class char{
 		$P_MAXSP	= round($this->maxsp * $this->M_MAXSP/100) + $this->P_MAXSP;
 		?>
 <table>
-<tr><td valign="top" style="width:180px"><?$this->ShowCharLink();?>
+<tr><td valign="top" style="width:180px"><?php $this->ShowCharLink();?>
 </td><td valign="top" style="padding-right:20px">
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td style="text-align:right">Exp :&nbsp;</td><td><?=$this->exp?>/<?=$this->CalcExpNeed()?></td></tr>
-<tr><td style="text-align:right">HP :&nbsp;</td><td><?=$this->maxhp?><?if($P_MAXHP) print(" + {$P_MAXHP}");?></td></tr>
-<tr><td style="text-align:right">SP :&nbsp;</td><td><?=$this->maxsp?><?if($P_MAXSP) print(" + {$P_MAXSP}");?></td></tr>
-<tr><td style="text-align:right">STR :&nbsp;</td><td><?=$this->str?><?if($this->P_STR) print(" + {$this->P_STR}");?></td></tr>
-<tr><td style="text-align:right">INT :&nbsp;</td><td><?=$this->int?><?if($this->P_INT) print(" + {$this->P_INT}");?></td></tr>
-<tr><td style="text-align:right">DEX :&nbsp;</td><td><?=$this->dex?><?if($this->P_DEX) print(" + {$this->P_DEX}");?></td></tr>
-<tr><td style="text-align:right">SPD :&nbsp;</td><td><?=$this->spd?><?if($this->P_SPD) print(" + {$this->P_SPD}");?></td></tr>
-<tr><td style="text-align:right">LUK :&nbsp;</td><td><?=$this->luk?><?if($this->P_LUK) print(" + {$this->P_LUK}");?></td></tr>
+<tr><td style="text-align:right">HP :&nbsp;</td><td><?=$this->maxhp?><?php if($P_MAXHP) print(" + {$P_MAXHP}");?></td></tr>
+<tr><td style="text-align:right">SP :&nbsp;</td><td><?=$this->maxsp?><?php if($P_MAXSP) print(" + {$P_MAXSP}");?></td></tr>
+<tr><td style="text-align:right">STR :&nbsp;</td><td><?=$this->str?><?php if($this->P_STR) print(" + {$this->P_STR}");?></td></tr>
+<tr><td style="text-align:right">INT :&nbsp;</td><td><?=$this->int?><?php if($this->P_INT) print(" + {$this->P_INT}");?></td></tr>
+<tr><td style="text-align:right">DEX :&nbsp;</td><td><?=$this->dex?><?php if($this->P_DEX) print(" + {$this->P_DEX}");?></td></tr>
+<tr><td style="text-align:right">SPD :&nbsp;</td><td><?=$this->spd?><?php if($this->P_SPD) print(" + {$this->P_SPD}");?></td></tr>
+<tr><td style="text-align:right">LUK :&nbsp;</td><td><?=$this->luk?><?php if($this->P_LUK) print(" + {$this->P_LUK}");?></td></tr>
 </table>
 </td><td valign="top">
-<?
+<?php
 	if($this->SPECIAL["PoisonResist"])
 		print("毒抵抗 +".$this->SPECIAL["PoisonResist"]."%<br />\n");
 	if($this->SPECIAL["Pierce"]["0"])
@@ -164,7 +168,7 @@ class char{
 		print("召喚力 +".$this->SPECIAL["Summon"]."%<br />\n");
 ?>
 </td></tr></table>
-<?
+<?php
 	}
 //////////////////////////////////////////////////
 //	誰のキャラか設定する
@@ -985,10 +989,10 @@ class char{
 		?>
 	<div class="carpet_frame">
 	<div class="land" style="background-image : url(<?=IMG_OTHER."land_".$land.".gif"?>);">
-	<?$this->ShowImage()?>
+	<?php $this->ShowImage()?>
 	</div>
 	<?=$this->name?><br>Lv.<?=$this->level?>
-	</div><?
+	</div><?php
 	}
 
 //////////////////////////////////////////////////
@@ -1054,9 +1058,9 @@ class char{
 			$flag++;
 		?>
 <div class="carpet_frame">
-<div class="carpet<?=$flag%2?>"><?$this->ShowImage();?></div>
+<div class="carpet<?=$flag%2?>"><?php $this->ShowImage();?></div>
 <?=$this->name?><br>Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
-</div><?
+</div><?php
 	}
 
 //////////////////////////////////////////////////
@@ -1069,9 +1073,9 @@ class char{
 		?>
 <div class="carpet_frame">
 <div class="carpet<?=$flag%2?>">
-<a href="?char=<?=$this->Number?>"><?$this->ShowImage();?></a></div>
-<?=$this->name?><?if($this->statuspoint)print('<span class="bold charge">*</span>');?><br>Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
-</div><?
+<a href="?char=<?=$this->Number?>"><?php $this->ShowImage();?></a></div>
+<?=$this->name?><?php if($this->statuspoint)print('<span class="bold charge">*</span>');?><br>Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
+</div><?php
 	}
 
 //////////////////////////////////////////////////
@@ -1088,18 +1092,18 @@ class char{
 		?>
 <div class="carpet_frame">
 <div class="carpet<?=$flag%2?>">
-<a href="?char=<?=$this->birth?>"><?$this->ShowImage();?></a>
+<a href="?char=<?=$this->birth?>"><?php $this->ShowImage();?></a>
 </div>
 
 <div onClick="toggleCheckBox('<?=$flag?>')" id="text<?=$flag?>" <?print($checked?null:' class="unselect"');?>>
 <?=$this->name?>
-<?if($this->statuspoint)print('<span class="bold charge">*</span>');?><br />
+<?php if($this->statuspoint)print('<span class="bold charge">*</span>');?><br />
 Lv.<?=$this->level?>&nbsp;<?=$this->job_name?>
 
 </div>
 <input type="checkbox" onclick="\$('#text<?=$flag?>').toggleClass('unselect')" id="box<?=$flag?>" name="char_<?=$birth?>" value="1"<?=$checked?>>
 
-</div><?
+</div><?php
 	}
 //////////////////////////////////////////////////
 //	戦闘時のチームを設定(あんまり使ってない)
