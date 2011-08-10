@@ -3305,7 +3305,7 @@ HTML;
 		if(strlen($_POST["Newid"]) < 4 || 16 < strlen($_POST["Newid"]))//文字制限
 			return array(false,"Bad ID");
 
-		if(is_registered($_POST["Newid"]))
+		if($this->members->is_registered($_POST["Newid"]))
 			return array(false,"This ID has been already used.");
 
 		$file = USER.$_POST["Newid"]."/".DATA;
