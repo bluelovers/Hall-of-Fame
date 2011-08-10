@@ -369,6 +369,16 @@ print("</div>\n");
 	<input class="btn" style="width:160px" type="submit" value="logout" name="logout"></form><?php
 			return true;
 	}
+
+	/**
+	 * $id を登録済みidとして記録する
+	 */
+	function RecordRegister($id) {
+		$fp=fopen(REGISTER,"a");
+		flock($fp,2);
+		fputs($fp,"$id\n");
+		fclose($fp);
+	}
 }
 
 ?>
