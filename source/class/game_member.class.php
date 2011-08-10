@@ -184,6 +184,24 @@ Users : <?=UserAmount()?> / <?=MAX_USERS?><br />
 	print(floor($Abandon/(60*60*24))."日データに変化無しでデータ消える。");
 print("</div>\n");
 	}
+
+	/**
+	 * 自分のデータとクッキーを消す
+	 */
+	function DeleteMyData() {
+		if($this->main->pass == $this->main->CryptPassword($_POST["deletepass"]) ) {
+			$this->main->DeleteUser();
+			$this->main->name	= NULL;
+			$this->main->pass	= NULL;
+			$this->main->id	= NULL;
+			$this->main->islogin= false;
+			unset($_SESSION["id"]);
+			unset($_SESSION["pass"]);
+			setcookie("NO","");
+			$this->LoginForm();
+			return true;
+		}
+	}
 }
 
 ?>
