@@ -24,7 +24,7 @@ class main extends user {
 		$this->session = new game_session(&$this);
 		// bluelovers
 
-		$this->SessionSwitch();
+		$this->session->SessionSwitch();
 		$this->Set_ID_PASS();
 		ob_start();
 		$this->Order();
