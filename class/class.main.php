@@ -302,12 +302,12 @@ class main extends user {
 				case($_POST["Make"]):
 					list($bool,$message) = $this->member->MakeNewData();
 					if( true === $bool ) {
-						$this->LoginForm($message);
+						$this->member->LoginForm($message);
 						return false;
 					}
 				case($_SERVER["QUERY_STRING"] === "newgame"):
 					$this->NewForm($message);	return false;
-				default:	$this->LoginForm($message);
+				default:	$this->member->LoginForm($message);
 			}
 		endif;
 	}
@@ -3196,7 +3196,7 @@ HTML;
 			unset($_SESSION["id"]);
 			unset($_SESSION["pass"]);
 			setcookie("NO","");
-			$this->LoginForm();
+			$this->member->LoginForm();
 			return true;
 		}
 	}
