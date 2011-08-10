@@ -3272,19 +3272,6 @@ HTML;
 		fclose($fp);
 	}
 
-	/**
-	 * pass と id を設定する
-	 */
-	function Set_ID_PASS() {
-		$this->members->Set_ID_PASS();
-	}
-
-//////////////////////////////////////////////////
-//	保存されているセッション番号を変更する。
-	function SessionSwitch() {
-		$this->session->SessionSwitch();
-	}
-
 //////////////////////////////////////////////////
 //	入力された情報が型にはまるか判定
 //	→ 新規データを作成。
