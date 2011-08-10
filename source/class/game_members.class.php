@@ -25,7 +25,7 @@ class game_members {
 		if($id) {
 				$this->main->id	= $id;//$_POST["id"];
 			// ↓ログイン処理した時だけ
-			if (is_registered($_POST["id"])) {
+			if ($this->is_registered($_POST["id"])) {
 				$_SESSION["id"]	= $this->main->id;
 			}
 		} else if($_SESSION["id"])
@@ -40,6 +40,18 @@ class game_members {
 
 		if($this->main->pass)
 			$this->main->pass	= $this->main->CryptPassword($this->pass);
+	}
+
+	/**
+	 * $id が過去登録されたかどうか
+	 */
+	function is_registered($id) {
+		if($registered = @file(REGISTER)):
+			if(array_search($id."\n",$registered)!==false && !ereg("[\.\/]+",$id) )//改行記号必須
+				return true;
+			else
+				return false;
+		endif;
 	}
 }
 
