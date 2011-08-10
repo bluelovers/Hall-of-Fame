@@ -3264,8 +3264,9 @@ HTML;
 		fclose($fp);
 	}
 
-//////////////////////////////////////////////////
-//	pass と id を設定する
+	/**
+	 * pass と id を設定する
+	 */
 	function Set_ID_PASS() {
 		$id	= ($_POST["id"])?$_POST["id"]:$_GET["id"];
 		//if($_POST["id"]) {
