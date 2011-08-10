@@ -306,7 +306,7 @@ class main extends user {
 						return false;
 					}
 				case($_SERVER["QUERY_STRING"] === "newgame"):
-					$this->NewForm($message);	return false;
+					$this->member->NewForm($message);	return false;
 				default:	$this->member->LoginForm($message);
 			}
 		endif;
@@ -3247,45 +3247,6 @@ HTML;
 		flock($fp,2);
 		fputs($fp,"$id\n");
 		fclose($fp);
-	}
-
-//////////////////////////////////////////////////
-//	新規ID作成用のフォーム
-	function NewForm($error=NULL) {
-		if(MAX_USERS <= count(game_core::glob(USER))) {
-			?>
-
-	<div style="margin:15px">
-	Maximum users.<br />
-	登録者数が限界に達しているようです。
-	</div><?php
-			return false;
-		}
-		$idset=($_POST["Newid"]?" value=$_POST[Newid]":NULL);
-		?>
-	<div style="margin:15px">
-	<?=ShowError($error);?>
-	<h4>とりあえず New Game!</h4>
-	<form action="<?=INDEX?>" method="post">
-
-	<table><tbody>
-	<tr><td colspan="2">ID & PASS must be 4 to 16 letters.<br />letters allowed a-z,A-Z,0-9<br />
-	ID と PASSは 4-16 文字以内で。半角英数字。</td></tr>
-	<tr><td><div style="text-align:right">ID:</div></td>
-	<td><input type="text" maxlength="16" class="text" name="Newid" style="width:240px"<?=$idset?>></td></tr>
-	<tr><td colspan="2"><br />Password,Re-enter.<br />PASS とその再入力です 確認用。</td></tr>
-	<tr><td><div style="text-align:right">PASS:</div></td>
-	<td><input type="password" maxlength="16" class="text" name="pass1" style="width:240px"></td></tr>
-
-	<tr><td></td>
-	<td><input type="password" maxlength="16" class="text" name="pass2" style="width:240px">(verify)</td></tr>
-
-	<tr><td></td><td><input type="submit" class="btn" name="Make" value="Make" style="width:160px"></td></tr>
-
-	</tbody></table>
-	</form>
-	</div>
-<?php
 	}
 
 //////////////////////////////////////////////////
