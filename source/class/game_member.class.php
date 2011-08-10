@@ -305,9 +305,9 @@ print("</div>\n");
 			$_POST["name"]	= htmlspecialchars($_POST["name"],ENT_QUOTES);
 			$_POST["first_name"]	= htmlspecialchars($_POST["first_name"],ENT_QUOTES);
 
-			$this->name	= $_POST["name"];
-			userNameAdd($this->name);
-			$this->SaveData();
+			$this->main->name	= $_POST["name"];
+			userNameAdd($this->main->name);
+			$this->main->SaveData();
 			switch($_POST["fjob"]){
 				case "1":
 					$job = 1; $gend = 0; break;
@@ -320,20 +320,20 @@ print("</div>\n");
 			}
 			include(DATA_BASE_CHAR);
 			$char	= new char();
-			$char->SetCharData(array_merge(BaseCharStatus($job),array("name"=>$_POST[first_name],"gender"=>"$gend")));
-			$char->SaveCharData($this->id);
+			$char->main->SetCharData(array_merge(BaseCharStatus($job),array("name"=>$_POST[first_name],"gender"=>"$gend")));
+			$char->main->SaveCharData($this->id);
 			return false;
 		}while(0);
 
 		include(DATA_BASE_CHAR);
 		$war_male	= new char();
-		$war_male->SetCharData(array_merge(BaseCharStatus("1"),array("gender"=>"0")));
+		$war_male->main->SetCharData(array_merge(BaseCharStatus("1"),array("gender"=>"0")));
 		$war_female	= new char();
-		$war_female->SetCharData(array_merge(BaseCharStatus("1"),array("gender"=>"1")));
+		$war_female->main->SetCharData(array_merge(BaseCharStatus("1"),array("gender"=>"1")));
 		$sor_male	= new char();
-		$sor_male->SetCharData(array_merge(BaseCharStatus("2"),array("gender"=>"0")));
+		$sor_male->main->SetCharData(array_merge(BaseCharStatus("2"),array("gender"=>"0")));
 		$sor_female	= new char();
-		$sor_female->SetCharData(array_merge(BaseCharStatus("2"),array("gender"=>"1")));
+		$sor_female->main->SetCharData(array_merge(BaseCharStatus("2"),array("gender"=>"1")));
 
 		?>
 	<form action="<?=INDEX?>" method="post" style="margin:15px">
