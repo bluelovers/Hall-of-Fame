@@ -65,7 +65,7 @@ class main extends user {
 				$Ranking	= new Ranking();
 				break;
 		}
-		if( true === $message = $this->CheckLogin() ):
+		if( true === $message = $this->member->CheckLogin() ):
 		//if( false ):
 		// ログイン
 			include_once(DATA_ITEM);
@@ -3189,49 +3189,6 @@ HTML;
 	function Debug() {
 		if(DEBUG)
 			print("<pre>".print_r(get_object_vars($this),1)."</pre>");
-	}
-
-//////////////////////////////////////////////////
-//	ログインしたのか、しているのか、ログアウトしたのか。
-	function CheckLogin() {
-		//logout
-		if(isset($_POST["logout"])) {
-		//	$_SESSION["pass"]	= NULL;
-		//	echo $_SESSION["pass"];
-			unset($_SESSION["pass"]);
-		//	session_destroy();
-			return false;
-		}
-
-		//session
-		$file=USER.$this->id."/".DATA;//data.dat
-		if ($data = $this->LoadData()) {
-			//echo "<div>$data[pass] == $this->pass</div>";
-			if($this->pass == NULL)
-				return false;
-			if ($data["pass"] === $this->pass) {
-				//ログイン状態
-				$this->DataUpDate($data);
-				$this->SetData($data);
-				if(RECORD_IP)
-					$this->SetIp($_SERVER['REMOTE_ADDR']);
-				$this->member->RenewLoginTime();
-
-				$pass	= ($_POST["pass"])?$_POST["pass"]:$_GET["pass"];
-				if ($pass) {//ちょうど今ログインするなら
-					$_SESSION["id"]	= $this->id;
-					$_SESSION["pass"]	= $pass;
-					setcookie("NO",session_id(),time()+COOKIE_EXPIRE);
-				}
-
-				$this->islogin	= true;//ログイン状態
-				return true;
-			} else
-				return "Wrong password!";
-		} else {
-			if($_POST["id"])
-				return "ID \"{$this->id}\" doesnt exists.";
-		}
 	}
 
 //////////////////////////////////////////////////

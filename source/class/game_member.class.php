@@ -384,7 +384,51 @@ print("</div>\n");
 	 * ログインした時間を設定する
 	 */
 	function RenewLoginTime() {
-		$this->login	= time();
+		$this->main->login	= time();
+	}
+
+	/**
+	 * ログインしたのか、しているのか、ログアウトしたのか。
+	 */
+	function CheckLogin() {
+		//logout
+		if(isset($_POST["logout"])) {
+		//	$_SESSION["pass"]	= NULL;
+		//	echo $_SESSION["pass"];
+			unset($_SESSION["pass"]);
+		//	session_destroy();
+			return false;
+		}
+
+		//session
+		$file=USER.$this->main->id."/".DATA;//data.dat
+		if ($data = $this->main->LoadData()) {
+			//echo "<div>$data[pass] == $this->pass</div>";
+			if($this->main->pass == NULL)
+				return false;
+			if ($data["pass"] === $this->main->pass) {
+				//ログイン状態
+				$this->main->DataUpDate($data);
+				$this->main->SetData($data);
+				if(RECORD_IP)
+					$this->main->SetIp($_SERVER['REMOTE_ADDR']);
+				$this->RenewLoginTime();
+
+				$pass	= ($_POST["pass"])?$_POST["pass"]:$_GET["pass"];
+				if ($pass) {//ちょうど今ログインするなら
+					$_SESSION["id"]	= $this->main->id;
+					$_SESSION["pass"]	= $pass;
+					setcookie("NO",session_id(),time()+COOKIE_EXPIRE);
+				}
+
+				$this->main->islogin	= true;//ログイン状態
+				return true;
+			} else
+				return "Wrong password!";
+		} else {
+			if($_POST["id"])
+				return "ID \"{$this->id}\" doesnt exists.";
+		}
 	}
 }
 
