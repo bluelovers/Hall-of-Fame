@@ -15,6 +15,11 @@ class main extends user {
 	 */
 	var $session;
 
+	/**
+	 * @abstract game_members
+	 */
+	var $members;
+
 //////////////////////////////////////////////////
 //
 	function main() {
@@ -22,6 +27,9 @@ class main extends user {
 		// bluelovers
 		include BASEPATH.'./source/class/game_session.class.php';
 		$this->session = new game_session(&$this);
+
+		include BASEPATH.'./source/class/game_members.class.php';
+		$this->members = new game_members(&$this);
 		// bluelovers
 
 		$this->session->SessionSwitch();
