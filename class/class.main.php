@@ -16,9 +16,9 @@ class main extends user {
 	var $session;
 
 	/**
-	 * @abstract game_members
+	 * @abstract game_member
 	 */
-	var $members;
+	var $member;
 
 //////////////////////////////////////////////////
 //
@@ -29,7 +29,7 @@ class main extends user {
 		$this->session = new game_session(&$this);
 
 		include BASEPATH.'./source/class/game_members.class.php';
-		$this->members = new game_members(&$this);
+		$this->member = new game_member(&$this);
 		// bluelovers
 
 		$this->session->SessionSwitch();
@@ -3305,7 +3305,7 @@ HTML;
 		if(strlen($_POST["Newid"]) < 4 || 16 < strlen($_POST["Newid"]))//文字制限
 			return array(false,"Bad ID");
 
-		if($this->members->is_registered($_POST["Newid"]))
+		if($this->member->is_registered($_POST["Newid"]))
 			return array(false,"This ID has been already used.");
 
 		$file = USER.$_POST["Newid"]."/".DATA;
