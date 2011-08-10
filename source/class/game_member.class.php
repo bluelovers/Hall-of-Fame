@@ -118,6 +118,72 @@ class game_member {
 			return array(true,$success);//強引...
 		}
 	}
+
+	/**
+	 * ログイン用のフォーム
+	 */
+	function LoginForm($message = NULL) {
+		?>
+<div style="width:730px;">
+<!-- ログイン -->
+<div style="width:350px;float:right">
+<h4 style="width:350px">Login</h4>
+<?=$message?>
+<form action="<?=INDEX?>" method="post" style="padding-left:20px">
+<table><tbody>
+<tr>
+<td><div style="text-align:right">ID:</div></td>
+<td><input type="text" maxlength="16" class="text" name="id" style="width:160px"<?=$_SESSION["id"]?" value=\"$_SESSION[id]\"":NULL?>></td>
+</tr>
+<tr>
+<td><div style="text-align:right">PASS:</div></td>
+<td><input type="password" maxlength="16" class="text" name="pass" style="width:160px"></td>
+</tr>
+<tr><td></td><td>
+<input type="submit" class="btn" name="Login" value="login" style="width:80px">&nbsp;
+<a href="?newgame">NewGame?</a>
+</td></tr>
+</tbody></table>
+</form>
+
+<h4 style="width:350px">Ranking</h4><?php
+	include_once(CLASS_RANKING);
+	$Rank	= new Ranking();
+	$Rank->ShowRanking(0,4);
+	?>
+</div>
+<!-- 飾 -->
+<div style="width:350px;padding:15px;float:left;">
+<div style="width:350px;text-align:center;height: 199px;overflow: hidden; margin-bottom: 20px;">
+<img src="./image/hof02.gif" style="margin-top: -1px;margin-left: -70px;" />
+</div>
+<div style="margin-left:20px">
+<div class="u">これってどんなゲーム?</div>
+<ul>
+<li>ゲームの目的はランキング1位になり、<br />1位を守る事です。</li>
+<li>冒険要素はないですが、<br />ちょっと深い戦闘システムが売りです。</li>
+</ul>
+<div class="u">戦闘はどんな感じ?</div>
+<ul>
+<li>5人のキャラクターでパーティーを編成。</li>
+<li>各キャラが行動パターンを持ち、<br />戦闘の状況に応じて技を使い分けます。</li>
+<li><a href="?log" class="a0">こちら</a>で戦闘ログが回覧できます。</li>
+</ul>
+</div>
+</div>
+<div class="c-both"></div>
+</div>
+
+<!-- -------------------------------------------------------- -->
+
+<div style="margin:15px">
+<h4>info.</h4>
+Users : <?=UserAmount()?> / <?=MAX_USERS?><br />
+<?php
+	$Abandon	= ABANDONED;
+	print(floor($Abandon/(60*60*24))."日データに変化無しでデータ消える。");
+print("</div>\n");
+	}
 }
 
 ?>
