@@ -907,7 +907,7 @@ EOD;
 	}
 
 	if (!defined('BASEPATH')) {
-		include dirname(__FILE__).'/../setting.php';
+		include dirname(__FILE__).'/../config/setting.php';
 	}
 
 	require_once CLASS_DIR.'class.core.php';
