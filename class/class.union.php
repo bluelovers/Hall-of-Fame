@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 include_once("class.char.php");
 class union extends char{
 
@@ -147,7 +152,7 @@ class union extends char{
 			return false;
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function LoadData($file) {
 		if(!file_exists($file))
 			return false;
@@ -166,9 +171,9 @@ class union extends char{
 		?>
 	<div class="carpet_frame">
 	<div class="land" style="background-image : url(<?=IMG_OTHER."land_".$this->UnionLand.".gif"?>);">
-	<a href="?union=<?=$this->UnionNo?>"><?$this->ShowImage();?></a></div>
+	<a href="?union=<?=$this->UnionNo?>"><?php $this->ShowImage();?></a></div>
 	<div class="bold dmg"><?=$this->UnionName?></div>LvLimit:<?=$this->LevelLimit?>
-	</div><?
+	</div><?php
 	}
 //////////////////////////////////////////////////
 	function UpMAXHP($no) {

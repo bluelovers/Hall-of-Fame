@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 function AddEnchantData(&$item, $opt) {
 
 /*

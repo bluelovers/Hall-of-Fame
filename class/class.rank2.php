@@ -1,5 +1,9 @@
 <?php
 
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 class Ranking {
 
 	var $fp;
@@ -112,7 +116,7 @@ class Ranking {
 
 			$Result	= $this->RankBattle($user,$Rival,$MyPlace,$RivalPlace);
 			$Return	= $this->ProcessByResult($Result,&$user,&$Rival,$DefendMatch);
-			
+
 			return $Return;
 			// 勝利なら順位交代
 			//if($message == "Battle" && $result === 0) {
@@ -142,7 +146,7 @@ class Ranking {
 			//list($message,$result)	= $this->RankBattle($MyID,$RivalID);
 			$Result	= $this->RankBattle($user,$Rival,$MyRank["0"],$RivalPlace);
 			$Return	= $this->ProcessByResult($Result,&$user,&$Rival,$DefendMatch);
-			
+
 			return $Return;
 			//if($message != "Battle")
 			//	return array($message,$result);
@@ -335,7 +339,7 @@ class Ranking {
 		$this->fpclose();
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function fpclose() {
 		if($this->fp) {
 			fclose($this->fp);
@@ -476,7 +480,7 @@ class Ranking {
 						$ranking	.= $val2["id"]."\n";
 					}
 				}
-		
+
 				WriteFileFP($this->fp,$ranking);
 			}
 		}
@@ -487,7 +491,7 @@ class Ranking {
 			return $this->UserName["$id"];
 	}
 //////////////////////////////////////////////////
-//	
+//
 	function dump() {
 		print("<pre>".print_r($this,1)."</pre>\n");
 	}

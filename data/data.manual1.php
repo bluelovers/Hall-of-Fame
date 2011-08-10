@@ -1,4 +1,9 @@
-<?
+<?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 	if(!function_exists("LoadSkillData"))
 		include(DATA_SKILL);
 ?>
@@ -42,7 +47,7 @@
 <option selected>* think over</option>
 </select>
 </td>
-<td><?ShowSkillDetail(LoadSkillData(9000))?></td>
+<td><?php ShowSkillDetail(LoadSkillData(9000))?></td>
 </tr>
 <tr>
 <td>2</td>
@@ -61,7 +66,7 @@
 <option selected>SelfRecovery</option>
 <option>* think over</option>
 </select></td>
-<td><?ShowSkillDetail(LoadSkillData(3121))?></td>
+<td><?php ShowSkillDetail(LoadSkillData(3121))?></td>
 </tr>
 <tr>
 <td>3</td>
@@ -80,7 +85,7 @@
 <option>SelfRecovery</option>
 <option>* think over</option>
 </select></td>
-<td><?ShowSkillDetail(LoadSkillData(3110))?></td>
+<td><?php ShowSkillDetail(LoadSkillData(3110))?></td>
 </tr>
 <tr>
 <td>4</td>
@@ -99,7 +104,7 @@
 <option>SelfRecovery</option>
 <option>* think over</option>
 </select></td>
-<td><?ShowSkillDetail(LoadSkillData(1017))?></td>
+<td><?php ShowSkillDetail(LoadSkillData(1017))?></td>
 </tr>
 <tr>
 <td>5</td>
@@ -118,7 +123,7 @@
 <option>SelfRecovery</option>
 <option>* think over</option>
 </select></td>
-<td><?ShowSkillDetail(LoadSkillData(1000))?></td>
+<td><?php ShowSkillDetail(LoadSkillData(1000))?></td>
 </tr>
 </tbody>
 </table>

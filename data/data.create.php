@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 //////////////////////////////////////////////////
 // コ□ョ、ヌコ□□□筅ホ・□ケ・ネ
 function CanCreate($user) {

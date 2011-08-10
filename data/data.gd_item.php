@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 include_once(DATA_ITEM);
 ?>
 <div style="margin:0 15px">

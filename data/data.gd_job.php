@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 include_once(DATA_JOB);
 ?>
 <div style="margin:15px">

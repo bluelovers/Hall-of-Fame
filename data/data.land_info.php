@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 /*
 	通常戦闘における場所の情報
 	基本的情報、出現する敵等

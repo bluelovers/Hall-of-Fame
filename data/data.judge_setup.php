@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 function LoadJudgeData($no) {
 /*
 	判断材料

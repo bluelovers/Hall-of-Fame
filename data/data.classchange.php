@@ -1,4 +1,9 @@
-<?
+<?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 // キャラがそのクラスに転職できるか(クラスの転職条件)
 function CanClassChange($char,$class) {
 	switch($class) {

@@ -1,4 +1,9 @@
 <?php
+
+if (!defined('DEBUG')) {
+	exit('Access Denied');
+}
+
 function LoadSkillTree($char) {
 /*
 	習得可能な技を返す。
