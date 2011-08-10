@@ -20,6 +20,11 @@ class main extends user {
 	 */
 	var $member;
 
+	/**
+	 * @abstract main
+	 */
+	static $instance;
+
 //////////////////////////////////////////////////
 //
 	function main() {
@@ -44,6 +49,13 @@ class main extends user {
 		$this->Debug();
 		//$this->session->ShowSession();
 		$this->Foot();
+	}
+
+	static function &instance() {
+		if (is_null(main::$instance)) {
+			main::$instance = new main;
+		}
+		return main::$instance;
 	}
 
 //////////////////////////////////////////////////
