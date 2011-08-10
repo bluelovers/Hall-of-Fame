@@ -7,6 +7,12 @@
 
 class game_session {
 
+	var $main;
+
+	function game_session($main) {
+		$this->main = $main;
+	}
+
 	/**
 	 * セッション情報を表示する。
 	 */
