@@ -10,6 +10,11 @@ class main extends user {
 
 	var $islogin	= false;
 
+	/**
+	 * @abstract game_session
+	 */
+	var $session;
+
 //////////////////////////////////////////////////
 //
 	function main() {
