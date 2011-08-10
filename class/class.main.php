@@ -13,6 +13,12 @@ class main extends user {
 //////////////////////////////////////////////////
 //
 	function main() {
+
+		// bluelovers
+		include BASEPATH.'./source/class/game_session.class.php';
+		$this->session = new game_session(&$this);
+		// bluelovers
+
 		$this->SessionSwitch();
 		$this->Set_ID_PASS();
 		ob_start();
