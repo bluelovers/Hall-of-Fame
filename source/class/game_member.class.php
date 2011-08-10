@@ -427,7 +427,7 @@ print("</div>\n");
 				return "Wrong password!";
 		} else {
 			if($_POST["id"])
-				return "ID \"{$this->id}\" doesnt exists.";
+				return "ID \"{$this->main->id}\" doesnt exists.";
 		}
 	}
 
