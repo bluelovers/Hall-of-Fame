@@ -25,7 +25,7 @@ class game_members {
 		if($id) {
 				$this->main->id	= $id;//$_POST["id"];
 			// ↓ログイン処理した時だけ
-			if ($this->is_registered($_POST["id"])) {
+			if ($this->is_registered($this->main->id)) {
 				$_SESSION["id"]	= $this->main->id;
 			}
 		} else if($_SESSION["id"])
