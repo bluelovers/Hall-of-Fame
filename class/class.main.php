@@ -29,6 +29,8 @@ class main extends user {
 //
 	function main() {
 
+		main::$instance = &$this;
+
 		// bluelovers
 		include BASEPATH.'./source/class/game_session.class.php';
 		$this->session = new game_session(&$this);
