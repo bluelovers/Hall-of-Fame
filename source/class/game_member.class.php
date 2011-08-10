@@ -248,7 +248,7 @@ print("</div>\n");
 	 */
 	function FirstLogin() {
 		// 返値:設定済み=false / 非設定=true
-		if ($this->name)
+		if ($this->main->name)
 			return false;
 
 		do {
@@ -321,7 +321,7 @@ print("</div>\n");
 			include(DATA_BASE_CHAR);
 			$char	= new char();
 			$char->SetCharData(array_merge(BaseCharStatus($job),array("name"=>$_POST[first_name],"gender"=>"$gend")));
-			$char->SaveCharData($this->id);
+			$char->SaveCharData($this->main->id);
 			return false;
 		}while(0);
 
