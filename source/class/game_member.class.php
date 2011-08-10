@@ -479,6 +479,67 @@ PassWord : <input type="text" class="text" name="deletepass" size="20">
 </div><?php
 		return $Result;
 	}
+
+	function SettingProcess() {
+		if($_POST["NewName"]) {
+			$NewName	= $_POST["NewName"];
+			if(is_numeric(strpos($NewName,"\t"))) {
+				ShowError('error1');
+				return false;
+			}
+			$NewName	= trim($NewName);
+			$NewName	= stripslashes($NewName);
+			if (!$NewName) {
+				ShowError('Name is blank.');
+				return false;
+			}
+			$length	= strlen($NewName);
+			if ( 0 == $length || 16 < $length) {
+				ShowError('1 to 16 letters?');
+				return false;
+			}
+			$userName	= userNameLoad();
+			if(in_array($NewName,$userName)) {
+				ShowError("その名前は使用されている。","margin15");
+				return false;
+			}
+			if(!$this->main->TakeMoney(NEW_NAME_COST)) {
+				ShowError('money not enough');
+				return false;
+			}
+			$OldName	= $this->name;
+			$NewName	= htmlspecialchars($NewName,ENT_QUOTES);
+			if($this->main->ChangeName($NewName)) {
+				ShowResult("Name Changed ({$OldName} -> {$NewName})","margin15");
+				//return false;
+				userNameAdd($NewName);
+				return true;
+			} else {
+				ShowError("?");//名前が同じ？
+				return false;
+			}
+		}
+
+		if($_POST["setting01"]) {
+			if($_POST["record_battle_log"])
+				$this->main->record_btl_log	= 1;
+			else
+				$this->main->record_btl_log	= false;
+
+			if($_POST["no_JS_itemlist"])
+				$this->main->no_JS_itemlist	= 1;
+			else
+				$this->main->no_JS_itemlist	= false;
+		}
+		if($_POST["color"]) {
+			if(	strlen($_POST["color"]) != 6 &&
+				!ereg("^[0369cf]{6}",$_POST["color"]))
+				return "error 12072349";
+			$this->main->UserColor	= $_POST["color"];
+			ShowResult("Setting changed.","margin15");
+			return true;
+		}
+	}
 }
 
 ?>
