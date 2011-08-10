@@ -3192,12 +3192,6 @@ HTML;
 	}
 
 //////////////////////////////////////////////////
-//	ログインした時間を設定する
-	function RenewLoginTime() {
-		$this->login	= time();
-	}
-
-//////////////////////////////////////////////////
 //	ログインしたのか、しているのか、ログアウトしたのか。
 	function CheckLogin() {
 		//logout
@@ -3221,7 +3215,7 @@ HTML;
 				$this->SetData($data);
 				if(RECORD_IP)
 					$this->SetIp($_SERVER['REMOTE_ADDR']);
-				$this->RenewLoginTime();
+				$this->member->RenewLoginTime();
 
 				$pass	= ($_POST["pass"])?$_POST["pass"]:$_GET["pass"];
 				if ($pass) {//ちょうど今ログインするなら

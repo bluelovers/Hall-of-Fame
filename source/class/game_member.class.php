@@ -379,6 +379,13 @@ print("</div>\n");
 		fputs($fp,"$id\n");
 		fclose($fp);
 	}
+
+	/**
+	 * ログインした時間を設定する
+	 */
+	function RenewLoginTime() {
+		$this->login	= time();
+	}
 }
 
 ?>
