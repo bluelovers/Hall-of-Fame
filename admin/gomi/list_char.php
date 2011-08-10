@@ -26,7 +26,7 @@ td{
 </head>
 <body>
 <?php
-include("./setting.php");
+include("./config/setting.php");
 include("./class/class.char.php");
 include("./class/global.php");
 $folder	= glob("./user/*");
@@ -53,7 +53,7 @@ foreach($chars as $file) {
 	print("Lv:".$char->level);
 	print("</td><td>");
 	print("Str:{$char->str}<br />Int:{$char->int}<br />Dex:{$char->dex}<br />Spd:{$char->spd}");
-	print("</td></tr>");	
+	print("</td></tr>");
 }
 print("</tbody></table>");
 ?>
