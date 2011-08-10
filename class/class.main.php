@@ -33,7 +33,7 @@ class main extends user {
 		// bluelovers
 
 		$this->session->SessionSwitch();
-		$this->Set_ID_PASS();
+		$this->member->Set_ID_PASS();
 		ob_start();
 		$this->Order();
 		$content	= ob_get_contents();
