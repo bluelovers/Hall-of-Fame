@@ -2863,8 +2863,9 @@ JS_HTML;
  * ShowSetting
  */
 
-//////////////////////////////////////////////////
-//	戦闘時に選択したメンバーを記憶する
+	/**
+	 * 戦闘時に選択したメンバーを記憶する
+	 */
 	function MemorizeParty() {
 		if($_POST["memory_party"]) {
 			//$temp	= $this->party_memo;//一時的に記憶
