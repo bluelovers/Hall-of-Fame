@@ -141,6 +141,25 @@ class game_party {
 			return true;
 		}
 	}
+
+	/**
+	 * 戦闘時に選択したメンバーを記憶する
+	 */
+	function MemorizeParty() {
+		if($_POST["memory_party"]) {
+			//$temp	= $this->party_memo;//一時的に記憶
+			//$this->party_memo	= array();
+			foreach($this->main->char as $key => $val) {//チェックされたやつリスト
+				if($_POST["char_".$key])
+					//$this->party_memo[]	 = $key;
+					$PartyMemo[]	= $key;
+			}
+			//if(5 < count($this->party_memo) )//5人以上は駄目
+			//	$this->party_memo	= $temp;
+			if(0 < count($PartyMemo) && count($PartyMemo) < 6)
+				$this->main->party_memo	= implode("<>",$PartyMemo);
+		}
+	}
 }
 
 ?>
