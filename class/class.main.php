@@ -366,8 +366,9 @@ class main extends user {
 		}
 	}
 
-//////////////////////////////////////////////////
-//	敵の数を返す	数～数+2(max:5)
+	/**
+	 * 敵の数を返す	数～数+2(max:5)
+	 */
 	function EnemyNumber($party) {
 		$min	= count($party);//プレイヤーのPT数
 		if($min == 5)//5人なら5匹
