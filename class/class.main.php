@@ -366,8 +366,9 @@ class main extends user {
 		}
 	}
 
-//////////////////////////////////////////////////
-//	出現する確率から敵を選んで返す
+	/**
+	 * 出現する確率から敵を選んで返す
+	 */
 	function SelectMonster($monster) {
 		foreach($monster as $val)
 			$max	+= $val[0];//確率の合計
