@@ -366,37 +366,7 @@ class main extends user {
 		}
 	}
 
-//////////////////////////////////////////////////
-//	敵のPTを作成、返す
-//	Specify=敵指定(配列)
-	function EnemyParty($Amount,$MonsterList,$Specify=false) {
 
-		// 指定モンスター
-		if($Specify) {
-			$MonsterNumbers	= $Specify;
-		}
-
-		// モンスターをとりあえず配列に全部入れる
-		$enemy	= array();
-		if(!$Amount)
-			return $enemy;
-		mt_srand();
-		for($i=0; $i<$Amount; $i++)
-			$MonsterNumbers[]	= $this->party->SelectMonster($MonsterList);
-
-		// 重複しているモンスターを調べる
-		$overlap	= array_count_values($MonsterNumbers);
-
-		// 敵情報を読んで配列に入れる。
-		include(CLASS_MONSTER);
-		foreach($MonsterNumbers as $Number) {
-			if(1 < $overlap[$Number])//1匹以上出現するなら名前に記号をつける。
-				$enemy[]	= new monster(CreateMonster($Number,true));
-			else
-				$enemy[]	= new monster(CreateMonster($Number));
-		}
-		return $enemy;
-	}
 //////////////////////////////////////////////////
 //	キャラ詳細表示から送られたリクエストを処理する
 //	長い...(100行オーバー)
@@ -1319,7 +1289,7 @@ HTML;
 			include(DATA_MONSTER);
 			list($Land,$MonsterList)	= LandInformation($_GET["common"]);
 			$EneNum	= $this->party->EnemyNumber($MyParty);
-			$EnemyParty	= $this->EnemyParty($EneNum,$MonsterList);
+			$EnemyParty	= $this->party->EnemyParty($EneNum,$MonsterList);
 
 			$this->WasteTime(NORMAL_BATTLE_TIME);//時間の消費
 			include(CLASS_BATTLE);
@@ -2801,9 +2771,9 @@ JS_HTML;
 			$EneNum	= 5;// Union含めて5に固定する。
 
 		if($UnionMob["SlaveSpecify"])
-			$EnemyParty	= $this->EnemyParty($EneNum-1, $Union->Slave, $UnionMob["SlaveSpecify"]);
+			$EnemyParty	= $this->party->EnemyParty($EneNum-1, $Union->Slave, $UnionMob["SlaveSpecify"]);
 		else
-			$EnemyParty	= $this->EnemyParty($EneNum-1, $Union->Slave, $UnionMob["SlaveSpecify"]);
+			$EnemyParty	= $this->party->EnemyParty($EneNum-1, $Union->Slave, $UnionMob["SlaveSpecify"]);
 
 		// unionMobを配列のおよそ中央に入れる
 		array_splice($EnemyParty,floor(count($EnemyParty)/2),0,array($Union));
