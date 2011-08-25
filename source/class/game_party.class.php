@@ -28,6 +28,20 @@ class game_party {
 		mt_srand();
 		return mt_rand($min,$max);
 	}
+
+	/**
+	 * 出現する確率から敵を選んで返す
+	 */
+	function SelectMonster($monster) {
+		foreach($monster as $val)
+			$max	+= $val[0];//確率の合計
+		$pos	= mt_rand(0,$max);//0～合計 の中で乱数を取る
+		foreach($monster as $monster_no => $val) {
+			$upp	+= $val[0];//その時点での確率の合計
+			if($pos <= $upp)//合計より低ければ　敵が決定される
+				return $monster_no;
+		}
+	}
 }
 
 ?>
