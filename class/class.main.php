@@ -1122,7 +1122,7 @@ HTML;
 //
 	function SimuBattleProcess() {
 		if($_POST["simu_battle"]) {
-			$this->MemorizeParty();//パーティー記憶
+			$this->party->MemorizeParty();//パーティー記憶
 			// 自分パーティー
 			foreach($this->char as $key => $val) {//チェックされたやつリスト
 				if($_POST["char_".$key])
@@ -2672,7 +2672,7 @@ JS_HTML;
 		}
 		// ユニオンモンスターのデータ
 		$UnionMob	= CreateMonster($Union->MonsterNumber);
-		$this->MemorizeParty();//パーティー記憶
+		$this->party->MemorizeParty();//パーティー記憶
 		// 自分パーティー
 		foreach($this->char as $key => $val) {//チェックされたやつリスト
 			if($_POST["char_".$key]) {
@@ -2862,25 +2862,6 @@ JS_HTML;
  * ShowRecruit
  * ShowSetting
  */
-
-	/**
-	 * 戦闘時に選択したメンバーを記憶する
-	 */
-	function MemorizeParty() {
-		if($_POST["memory_party"]) {
-			//$temp	= $this->party_memo;//一時的に記憶
-			//$this->party_memo	= array();
-			foreach($this->char as $key => $val) {//チェックされたやつリスト
-				if($_POST["char_".$key])
-					//$this->party_memo[]	 = $key;
-					$PartyMemo[]	= $key;
-			}
-			//if(5 < count($this->party_memo) )//5人以上は駄目
-			//	$this->party_memo	= $temp;
-			if(0 < count($PartyMemo) && count($PartyMemo) < 6)
-				$this->party_memo	= implode("<>",$PartyMemo);
-		}
-	}
 
 //////////////////////////////////////////////////////////////////////
 

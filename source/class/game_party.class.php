@@ -81,7 +81,7 @@ class game_party {
 	 */
 	function MonsterBattle() {
 		if($_POST["monster_battle"]) {
-			$this->main->MemorizeParty();//パーティー記憶
+			$this->MemorizeParty();//パーティー記憶
 			// そのマップで戦えるかどうか確認する。
 			include_once(DATA_LAND_APPEAR);
 			$land	= LoadMapAppear($this);
