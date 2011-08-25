@@ -42,6 +42,39 @@ class game_party {
 				return $monster_no;
 		}
 	}
+
+	/**
+	 * 敵のPTを作成、返す
+	 * Specify=敵指定(配列)
+	 */
+	function EnemyParty($Amount,$MonsterList,$Specify=false) {
+
+		// 指定モンスター
+		if($Specify) {
+			$MonsterNumbers	= $Specify;
+		}
+
+		// モンスターをとりあえず配列に全部入れる
+		$enemy	= array();
+		if(!$Amount)
+			return $enemy;
+		mt_srand();
+		for($i=0; $i<$Amount; $i++)
+			$MonsterNumbers[]	= $this->SelectMonster($MonsterList);
+
+		// 重複しているモンスターを調べる
+		$overlap	= array_count_values($MonsterNumbers);
+
+		// 敵情報を読んで配列に入れる。
+		include(CLASS_MONSTER);
+		foreach($MonsterNumbers as $Number) {
+			if(1 < $overlap[$Number])//1匹以上出現するなら名前に記号をつける。
+				$enemy[]	= new monster(CreateMonster($Number,true));
+			else
+				$enemy[]	= new monster(CreateMonster($Number));
+		}
+		return $enemy;
+	}
 }
 
 ?>
