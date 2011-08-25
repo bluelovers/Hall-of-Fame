@@ -1254,8 +1254,9 @@ HTML;
 		$this->ShowCharacters($monster,"MONSTER",$land["land"]);
 	}
 
-//////////////////////////////////////////////////
-//	モンスターとの戦闘
+	/**
+	 * モンスターとの戦闘
+	 */
 	function MonsterBattle() {
 		if($_POST["monster_battle"]) {
 			$this->MemorizeParty();//パーティー記憶
