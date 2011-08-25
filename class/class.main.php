@@ -21,6 +21,11 @@ class main extends user {
 	var $member;
 
 	/**
+	 * @abstract game_party
+	 */
+	var $party;
+
+	/**
 	 * @abstract main
 	 */
 	static $instance;
