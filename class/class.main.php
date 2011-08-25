@@ -193,7 +193,7 @@ class main extends user {
 				case($_GET["common"]):
 					$this->CharDataLoadAll();//キャラデータ読む
 					$this->LoadUserItem();//アイテムデータ読む
-					if($this->MonsterBattle()) {
+					if($this->party->MonsterBattle()) {
 						$this->SaveData();
 						$this->fpCloseAll();
 					} else {
@@ -1252,72 +1252,6 @@ HTML;
 		}
 		print('<div style="margin:15px"><h4>MonsterAppearance</h4></div>');
 		$this->ShowCharacters($monster,"MONSTER",$land["land"]);
-	}
-
-	/**
-	 * モンスターとの戦闘
-	 */
-	function MonsterBattle() {
-		if($_POST["monster_battle"]) {
-			$this->MemorizeParty();//パーティー記憶
-			// そのマップで戦えるかどうか確認する。
-			include_once(DATA_LAND_APPEAR);
-			$land	= LoadMapAppear($this);
-			if(!in_array($_GET["common"],$land)) {
-				ShowError("マップが出現して無い","margin15");
-				return false;
-			}
-
-			// Timeが足りてるかどうか確認する
-			if($this->time < NORMAL_BATTLE_TIME) {
-				ShowError("Time 不足 (必要 Time:".NORMAL_BATTLE_TIME.")","margin15");
-				return false;
-			}
-			// 自分パーティー
-			foreach($this->char as $key => $val) {//チェックされたやつリスト
-				if($_POST["char_".$key])
-					$MyParty[]	= $this->char[$key];
-			}
-			if( count($MyParty) === 0) {
-				ShowError('戦闘するには最低1人必要',"margin15");
-				return false;
-			} else if(5 < count($MyParty)) {
-				ShowError('戦闘に出せるキャラは5人まで',"margin15");
-				return false;
-			}
-			// 敵パーティー(または一匹)
-			include(DATA_LAND);
-			include(DATA_MONSTER);
-			list($Land,$MonsterList)	= LandInformation($_GET["common"]);
-			$EneNum	= $this->party->EnemyNumber($MyParty);
-			$EnemyParty	= $this->party->EnemyParty($EneNum,$MonsterList);
-
-			$this->WasteTime(NORMAL_BATTLE_TIME);//時間の消費
-			include(CLASS_BATTLE);
-			$battle	= new battle($MyParty,$EnemyParty);
-			$battle->SetBackGround($Land["land"]);//背景
-			$battle->SetTeamName($this->name,$Land["name"]);
-			$battle->Process();//戦闘開始
-			$battle->SaveCharacters();//キャラデータ保存
-			list($UserMoney)	= $battle->ReturnMoney();//戦闘で得た合計金額
-			//お金を増やす
-			$this->GetMoney($UserMoney);
-			//戦闘ログの保存
-			if($this->record_btl_log)
-				$battle->RecordLog();
-
-			// アイテムを受け取る
-			if($itemdrop	= $battle->ReturnItemGet(0)) {
-				$this->LoadUserItem();
-				foreach($itemdrop as $itemno => $amount)
-					$this->AddItem($itemno,$amount);
-				$this->SaveUserItem();
-			}
-
-			//dump($itemdrop);
-			//dump($this->item);
-			return true;
-		}
 	}
 
 //////////////////////////////////////////////////
