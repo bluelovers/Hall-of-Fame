@@ -366,19 +366,6 @@ class main extends user {
 		}
 	}
 
-	/**
-	 * 出現する確率から敵を選んで返す
-	 */
-	function SelectMonster($monster) {
-		foreach($monster as $val)
-			$max	+= $val[0];//確率の合計
-		$pos	= mt_rand(0,$max);//0～合計 の中で乱数を取る
-		foreach($monster as $monster_no => $val) {
-			$upp	+= $val[0];//その時点での確率の合計
-			if($pos <= $upp)//合計より低ければ　敵が決定される
-				return $monster_no;
-		}
-	}
 //////////////////////////////////////////////////
 //	敵のPTを作成、返す
 //	Specify=敵指定(配列)
@@ -395,7 +382,7 @@ class main extends user {
 			return $enemy;
 		mt_srand();
 		for($i=0; $i<$Amount; $i++)
-			$MonsterNumbers[]	= $this->SelectMonster($MonsterList);
+			$MonsterNumbers[]	= $this->party->SelectMonster($MonsterList);
 
 		// 重複しているモンスターを調べる
 		$overlap	= array_count_values($MonsterNumbers);
