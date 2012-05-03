@@ -38,108 +38,129 @@ td{
 </style></head>
 <body>
 <?php
+
 // Load
-if($_POST["MobNumber"]) {/*
+if ($_POST["MobNumber"])
+{
+ 	/*
 	$no	= $_POST["MobNumber"];
 	unset($_POST);
 	$_POST["MobNumber"]	= $no;*/
-	include("./data.monster.php");
-	if($monster	= CreateMonster($_POST["MobNumber"])) {
+	include ("./data.monster.php");
+	if ($monster = CreateMonster($_POST["MobNumber"]))
+	{
 		echo "<h3 style=\"color:333333\"><img src=\"../image/char/{$monster[img]}\" />$monster[name]({$_POST[MobNumber]})</h3>";
-		foreach($monster["judge"] as $key => $val) {
-			$_POST["judge".$key]	= $val;
+		foreach ($monster["judge"] as $key => $val)
+		{
+			$_POST["judge" . $key] = $val;
 		}
-		foreach($monster["action"] as $key => $val) {
-			$_POST["skill".$key]	= $val;
+		foreach ($monster["action"] as $key => $val)
+		{
+			$_POST["skill" . $key] = $val;
 		}
 	}
 }
 // 表ｦ
-if($_POST["Make"]) {
-/*
+if ($_POST["Make"])
+{
+	/*
 	$string	.= "\"judge\"	=> array(";
 	for($i=0; $i<15; $i++) {
-		if($post = $_POST["judge".$i])
-			$string	.= "{$post},";
+	if($post = $_POST["judge".$i])
+	$string	.= "{$post},";
 	}
 	$string	.= "),\n";
 	$string	.= "\"action\"	=> array(";
 	for($i=0; $i<15; $i++) {
-		if($post = $_POST["skill".$i])
-			$string	.= "{$post},";
+	if($post = $_POST["skill".$i])
+	$string	.= "{$post},";
 	}
 	$string	.= "),";
-*/
-	$string	= '"Pattern"	=> "';
-	print("<textarea style=\"width:800px;\">$string</textarea>");
+	*/
+	$string = '"Pattern"	=> "';
+	print ("<textarea style=\"width:800px;\">$string</textarea>");
 }
+
+
 ?>
 <form action="?" method="post">
 <table border="0" cellspacing="1"><tbody>
 <?php
-include("./data.skill.php");
-include("./data.judge_setup.php");
 
-for($i=0; $i<15; $i++) {
-	print("<tr><td>\n");
-	print(($i+1));
-	print("</td><td>\n");
+include ("./data.skill.php");
+include ("./data.judge_setup.php");
+
+for ($i = 0; $i < 15; $i++)
+{
+	print ("<tr><td>\n");
+	print (($i + 1));
+	print ("</td><td>\n");
 	/////////////////////////////////////////
-	print("<select name=\"judge{$i}\">");
-	print("<option></option>\n");
-	JudgeSelect($_POST["judge".$i]);
-	print("</select>\n");
-	print("</td><td>\n");
+	print ("<select name=\"judge{$i}\">");
+	print ("<option></option>\n");
+	JudgeSelect($_POST["judge" . $i]);
+	print ("</select>\n");
+	print ("</td><td>\n");
 	////////////////////////////////////////
-	print('<input type="text" size="8" class="text" name="quantity'.$i.'" value="'.$_POST["quantity".$i].'" />');
-	print("</td><td>\n");
+	print ('<input type="text" size="8" class="text" name="quantity' . $i . '" value="' . $_POST["quantity" . $i] . '" />');
+	print ("</td><td>\n");
 	////////////////////////////////////////
-	print("<select name=\"skill{$i}\">\n");
-	print("<option></option>\n");
-	SkillSelect($_POST["skill".$i]);
-	print("</select>\n");
-	print("</td></tr>\n");
+	print ("<select name=\"skill{$i}\">\n");
+	print ("<option></option>\n");
+	SkillSelect($_POST["skill" . $i]);
+	print ("</select>\n");
+	print ("</td></tr>\n");
 }
 /////////////////////////////////////////////////////////////
-function JudgeSelect($selected=false){
-	static $judge	= array();
+function JudgeSelect($selected = false)
+{
+	static $judge = array();
 
-	if(!$judge) {
-		for($j=1000; $j<4000; $j++) {
-			if($load	= LoadJudgeData($j))
-				$judge[$j]	= $load["exp"];
-				//"<option value=\"{$j}\">{$judge[exp2]}</option>";
+	if (!$judge)
+	{
+		for ($j = 1000; $j < 4000; $j++)
+		{
+			if ($load = LoadJudgeData($j)) $judge[$j] = $load["exp"];
+			//"<option value=\"{$j}\">{$judge[exp2]}</option>";
 		}
 	}
 
-	foreach($judge as $key => $val) {
-		if($key == $selected) {
-			print("<option value=\"{$key}\" selected>{$val}</option>\n");
+	foreach ($judge as $key => $val)
+	{
+		if ($key == $selected)
+		{
+			print ("<option value=\"{$key}\" selected>{$val}</option>\n");
 			continue;
 		}
-		print("<option value=\"{$key}\">{$val}</option>\n");
+		print ("<option value=\"{$key}\">{$val}</option>\n");
 	}
 }
 /////////////////////////////////////////////////////////////
-function SkillSelect($selected=false){
-	static $skill	= array();
+function SkillSelect($selected = false)
+{
+	static $skill = array();
 
-	if(!$skill) {
-		for($j=1000; $j<10000; $j++) {
-			if($load	= LoadSkillData($j))
-				$skill[$j]	= $load["name"];
-				//"<option value=\"{$j}\">{$skill[name]}</option>";
+	if (!$skill)
+	{
+		for ($j = 1000; $j < 10000; $j++)
+		{
+			if ($load = LoadSkillData($j)) $skill[$j] = $load["name"];
+			//"<option value=\"{$j}\">{$skill[name]}</option>";
 		}
 	}
 
-	foreach($skill as $key => $val) {
-		if($key == $selected) {
-			print("<option value=\"{$key}\" selected>{$val}</option>\n");
+	foreach ($skill as $key => $val)
+	{
+		if ($key == $selected)
+		{
+			print ("<option value=\"{$key}\" selected>{$val}</option>\n");
 			continue;
 		}
-		print("<option value=\"{$key}\">{$val}</option>\n");
+		print ("<option value=\"{$key}\">{$val}</option>\n");
 	}
 }
+
+
 ?>
 </tbody></table>
 Load : <input type="text" name="MobNumber"><br />
