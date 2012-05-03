@@ -31,8 +31,12 @@ Zend_Loader_Autoloader::getInstance()
 ;
 
 Zend_Loader::loadClass('HOF_Autoloader', BASE_TRUST_PATH);
+Zend_Loader::loadClass('HOF_Loader', BASE_TRUST_PATH);
 
 HOF_Autoloader::getInstance()
 	->pushAutoloader(BASE_TRUST_PATH, 'HOF_')
+	->setDefaultAutoloader(array('HOF_Loader', 'loadClass'));
 ;
+
+
 
