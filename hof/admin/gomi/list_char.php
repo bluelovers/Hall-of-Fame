@@ -26,7 +26,7 @@ td{
 </head>
 <body>
 <?php
-include("./config/setting.php");
+include("./trust_path/bootstrap.php");
 include("./class/class.char.php");
 include("./class/global.php");
 $folder	= glob("./user/*");
