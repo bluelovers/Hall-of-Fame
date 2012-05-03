@@ -140,14 +140,14 @@ define("IMG_CHAR","./image/char/");
 define("IMG_CHAR_REV","./image/char_rev/");
 define("IMG_ICON","./image/icon/");
 define("IMG_OTHER","./image/other/");
-define("USER",BASE_PATH."./user/");
-define("UNION",BASE_PATH."./union/");
+define("USER",BASE_TRUST_PATH."./user/");
+define("UNION",BASE_TRUST_PATH."./union/");
 define("DATA","data.dat");
 define("ITEM","item.dat");
 
-define("LOG_BATTLE_NORMAL",BASE_PATH."./log/normal/");
-define("LOG_BATTLE_RANK",BASE_PATH."./log/rank/");
-define("LOG_BATTLE_UNION",BASE_PATH."./log/union/");
+define("LOG_BATTLE_NORMAL",BASE_TRUST_PATH."./log/normal/");
+define("LOG_BATTLE_RANK",BASE_TRUST_PATH."./log/rank/");
+define("LOG_BATTLE_UNION",BASE_TRUST_PATH."./log/union/");
 
 // 状態定義
 define("FRONT","front");
