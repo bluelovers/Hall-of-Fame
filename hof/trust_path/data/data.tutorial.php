@@ -11,9 +11,24 @@
 メニューの <span class="bold">街(Town) → </span><a href="?recruit">人材斡旋所(Recruit)</a> から雇ってみましょ
 <span class="light">(リンクはログインしてる場合のみ有効)</span><br />
 雇った時点で、そこそこ戦えるように設定してあります。</p>
-<img src="<?=IMG_CHAR_REV?>mon_079.gif" alt="守る人" />
-<img src="<?=IMG_CHAR_REV?>mon_018.gif" alt="痛い攻撃する人" />
-<img src="<?=IMG_CHAR_REV?>mon_214.gif" alt="治す人" />
+<img src="<?=
+
+IMG_CHAR_REV
+
+
+?>mon_079.gif" alt="守る人" />
+<img src="<?=
+
+IMG_CHAR_REV
+
+
+?>mon_018.gif" alt="痛い攻撃する人" />
+<img src="<?=
+
+IMG_CHAR_REV
+
+
+?>mon_214.gif" alt="治す人" />
 <p>ではさっそく、戦闘です。<br />
 メニューの 狩り(Hunt) → <a href="?common=gb0">ゴブリンと遊ぶ</a><span class="light">(リンクはログインしてる場合のみ有効)</span><br />
 雇った人たちにチェックをつけたら、<br />
