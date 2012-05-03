@@ -30,9 +30,10 @@ td{
 </style></head>
 <body>
 <?php
-include("./data.skill.php");
 
-$det	= '<tr><td class="a">No</td>
+include ("./data.skill.php");
+
+$det = '<tr><td class="a">No</td>
 <td class="a">Name</td>
 <td class="a">IMG</td>
 <td class="a">SP</td>
@@ -45,44 +46,50 @@ $det	= '<tr><td class="a">No</td>
 <td class="a">support</td>
 <td class="a">priority</td>
 <td class="a">charge</td>
-<td class="a">exp</td></tr>'."\n";
-$img_f	= "../image/icon/";
+<td class="a">exp</td></tr>' . "\n";
+$img_f = "../image/icon/";
 
-print('<table border="0" cellspacing="1"><tbody>');
-print($det);
-$detcount=0;
-for($no=1000; $no<9999; $no++) {
+print ('<table border="0" cellspacing="1"><tbody>');
+print ($det);
+$detcount = 0;
+for ($no = 1000; $no < 9999; $no++)
+{
 	$skill = LoadSkillData($no);
-	if(!$skill) continue;
+	if (!$skill) continue;
 
 	$detcount++;
-	if($detcount%10==0) print($det);
+	if ($detcount % 10 == 0) print ($det);
 
-	print("<tr>");
-	print("<td>{$no}</td>");//no
-	print("<td style=\"font-weight:bold\">{$skill[name]}</td>");//name
-	$img	= '<img src="'.$img_f.$skill["img"].'">';
-	print("<td>$img</td>");//img
-	print("<td>{$skill[sp]}".($skill["sacrifice"]?"<span style=\"color:red\">s:{$skill[sacrifice]}</span>":"")."</td>");//sp
-	print("<td>{$skill[type]}</td>");//type
-	print("<td>{$skill[learn]}</td>");//learn
-	print("<td>{$skill[target][0]},{$skill[target][1]},{$skill[target][2]}</td>");//target
-	if($skill[summon]) {
-		print("<td>召喚:{$skill[summon]}".($skill[quick]?"(Q)":"")."</td>");
-	} else {
-		print("<td>{$skill[pow]}% x {$skill[target][2]} = ".($skill[pow]*$skill[target][2])."%</td>");//pow
+	print ("<tr>");
+	print ("<td>{$no}</td>"); //no
+	print ("<td style=\"font-weight:bold\">{$skill[name]}</td>"); //name
+	$img = '<img src="' . $img_f . $skill["img"] . '">';
+	print ("<td>$img</td>"); //img
+	print ("<td>{$skill[sp]}" . ($skill["sacrifice"] ? "<span style=\"color:red\">s:{$skill[sacrifice]}</span>" : "") . "</td>"); //sp
+	print ("<td>{$skill[type]}</td>"); //type
+	print ("<td>{$skill[learn]}</td>"); //learn
+	print ("<td>{$skill[target][0]},{$skill[target][1]},{$skill[target][2]}</td>"); //target
+	if ($skill[summon])
+	{
+		print ("<td>召喚:{$skill[summon]}" . ($skill[quick] ? "(Q)" : "") . "</td>");
 	}
-	print("<td>{$skill[hit]}</td>");//hit
-	print("<td>{$skill[invalid]}</td>");//invalid
-	print("<td>{$skill[support]}</td>");//
-	print("<td>{$skill[priority]}</td>");//
-	print("<td>{$skill[charge][0]}:{$skill[charge][1]}</td>");//charge
-	print("<td>{$skill[exp]}</td>");//
-	
-	print("</tr>\n");
+	else
+	{
+		print ("<td>{$skill[pow]}% x {$skill[target][2]} = " . ($skill[pow] * $skill[target][2]) . "%</td>"); //pow
+	}
+	print ("<td>{$skill[hit]}</td>"); //hit
+	print ("<td>{$skill[invalid]}</td>"); //invalid
+	print ("<td>{$skill[support]}</td>"); //
+	print ("<td>{$skill[priority]}</td>"); //
+	print ("<td>{$skill[charge][0]}:{$skill[charge][1]}</td>"); //charge
+	print ("<td>{$skill[exp]}</td>"); //
+
+	print ("</tr>\n");
 }
-print($det);
-print("</tbody></table>");
+print ($det);
+print ("</tbody></table>");
+
+
 ?>
 </body>
 </html>
