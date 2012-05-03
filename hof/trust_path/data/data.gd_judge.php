@@ -1,22 +1,28 @@
 <?php
 
-if (!defined('DEBUG')) {
+if (!defined('DEBUG'))
+{
 	exit('Access Denied');
 }
 
-include_once(DATA_JUDGE_SETUP);
+include_once (DATA_JUDGE_SETUP);
+
+
 ?>
 <div style="margin:0 15px">
 <h4>判定(judge)</h4>
 <?php
+
 // 一覧を表示する。
 /*
 $List	= JudgeList();
 foreach($List as $No) {
-	$Judge	= LoadJudgeData($No);
-	print($Judge["exp2"]."<br />\n");
+$Judge	= LoadJudgeData($No);
+print($Judge["exp2"]."<br />\n");
 }
 */
+
+
 ?>
 <table border="0" cellspacing="0">
   <tbody>
