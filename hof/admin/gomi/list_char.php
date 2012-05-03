@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Char List(test)</title>
-<link rel="stylesheet" href="./basis.css" type="text/css">
-<link rel="stylesheet" href="./style.css" type="text/css">
+<link rel="stylesheet" href="./static/style/basis.css" type="text/css">
+<link rel="stylesheet" href="./static/style/style.css" type="text/css">
 <style type="text/css">
 <!--
 body{
