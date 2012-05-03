@@ -68,91 +68,91 @@ li{
 .land_grass{
   padding-bottom	: 20px;
   margin	: 20px 0 3px 0;
-  background-image : url(image/other/land_grass.gif);
+  background-image : url(../image/other/land_grass.gif);
   background-position	: bottom center;
   background-repeat	: no-repeat;
 }
 .land_grass01{
   padding-bottom	: 20px;
   margin	: 20px 0 3px 0;
-  background-image : url(image/other/land_grass01.gif);
+  background-image : url(../image/other/land_grass01.gif);
   background-position	: bottom center;
   background-repeat	: no-repeat;
 }
 .land_sea{
   padding-bottom	: 20px;
   margin	: 20px 0 3px 0;
-  background-image : url(image/other/land_sea.gif);
+  background-image : url(../image/other/land_sea.gif);
   background-position	: bottom center;
   background-repeat	: no-repeat;
 }
 .land_cave{
   padding-bottom	: 20px;
   margin	: 20px 0 3px 0;
-  background-image : url(image/other/land_cave.gif);
+  background-image : url(../image/other/land_cave.gif);
   background-position	: bottom center;
   background-repeat	: no-repeat;
 }
 .land_snow{
   padding-bottom	: 20px;
   margin	: 20px 0 3px 0;
-  background-image : url(image/other/land_snow.gif);
+  background-image : url(../image/other/land_snow.gif);
   background-position	: bottom center;
   background-repeat	: no-repeat;
 }
 .land_swamp{
   padding-bottom	: 20px;
   margin	: 20px 0 3px 0;
-  background-image : url(image/other/land_swamp.gif);
+  background-image : url(../image/other/land_swamp.gif);
   background-position	: bottom center;
   background-repeat	: no-repeat;
 }
 .land_ocean{
   padding-bottom	: 20px;
   margin	: 20px 0 3px 0;
-  background-image : url(image/other/land_ocean.gif);
+  background-image : url(../image/other/land_ocean.gif);
   background-position	: bottom center;
   background-repeat	: no-repeat;
 }
 .land_sand{
   padding-bottom	: 20px;
   margin	: 20px 0 3px 0;
-  background-image : url(image/other/land_sand.gif);
+  background-image : url(../image/other/land_sand.gif);
   background-position	: bottom center;
   background-repeat	: no-repeat;
 }
 .land_mount{
   padding-bottom	: 20px;
   margin	: 20px 0 3px 0;
-  background-image : url(image/other/land_mount.gif);
+  background-image : url(../image/other/land_mount.gif);
   background-position	: bottom center;
   background-repeat	: no-repeat;
 }
 .land_lava{
   padding-bottom	: 20px;
   margin	: 20px 0 3px 0;
-  background-image : url(image/other/land_lava.gif);
+  background-image : url(../image/other/land_lava.gif);
   background-position	: bottom center;
   background-repeat	: no-repeat;
 }
 .land_pavement01{
   padding-bottom	: 20px;
   margin	: 20px 0 3px 0;
-  background-image : url(image/other/land_pavement01.gif);
+  background-image : url(../image/other/land_pavement01.gif);
   background-position	: bottom center;
   background-repeat	: no-repeat;
 }
 .land_build01{
   padding-bottom	: 20px;
   margin	: 20px 0 3px 0;
-  background-image : url(image/other/land_build01.gif);
+  background-image : url(../image/other/land_build01.gif);
   background-position	: bottom center;
   background-repeat	: no-repeat;
 }
 .land_jungle{
   padding-bottom	: 20px;
   margin	: 20px 0 3px 0;
-  background-image : url(image/other/land_jungle.gif);
+  background-image : url(../image/other/land_jungle.gif);
   background-position	: bottom center;
   background-repeat	: no-repeat;
 }

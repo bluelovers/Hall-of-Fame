@@ -1,5 +1,5 @@
 
-@import url("static/style/reset.css");
+@import url("reset.css");
 
 *, html, body {
 	font-family	: 'メイリオ',Meiryo,'ＭＳ Ｐゴシック','MS PGothic',Verdana,sans-serif;
@@ -40,14 +40,14 @@ h4{
 .carpet0{
   padding-bottom	: 20px;
   margin	: 20px 0 3px 0;
-  background-image : url(image/carpet011.gif);
+  background-image : url(../image/carpet011.gif);
   background-position	: bottom center;
   background-repeat	: no-repeat;
 }
 .carpet1{
   padding-bottom	: 20px;
   margin	: 20px 0 3px 0;
-  background-image : url(image/carpet010.gif);
+  background-image : url(../image/carpet010.gif);
   background-position	: bottom center;
   background-repeat	: no-repeat;
 }
@@ -196,7 +196,7 @@ select{
   text-align:center;
   color	: #181818;
   border:1px solid #334357;
-  background : url(image/btn_bk01.gif) repeat-x left top;
+  background : url(../image/btn_bk01.gif) repeat-x left top;
 }
 /*** 戦闘画面用 ***/
 .btl_img{
@@ -242,7 +242,7 @@ select{
 .town{
   padding-left	: 0px;
   height:220px;
-  background-image : url(image/other/town.jpg);
+  background-image : url(../image/other/town.jpg);
   /*background-position	: top left;*/
   background-position	: top right;
   background-repeat	: no-repeat;
