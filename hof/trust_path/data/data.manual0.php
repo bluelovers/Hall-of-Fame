@@ -120,7 +120,12 @@
 4. ある程度 戦闘が進み、戦闘の終了条件を満たした場合戦いが終わります。
 <p><span class="bold u">終了条件</span><br />
 1.どちらかのキャラが全員 戦闘不能になる。<br />
-2.合計 <?=BATTLE_MAX_TURNS?>回 の行動があったが決着がつかない場合、引き分け。</p>
+2.合計 <?=
+
+BATTLE_MAX_TURNS
+
+
+?>回 の行動があったが決着がつかない場合、引き分け。</p>
 <p>後に変更するかも。</p>
 </div>
 <!-- ---------------------------------------------------------------- -->
@@ -293,12 +298,19 @@ SPが49%以下なら 技その1 を使ってくれると思います。</p>
 キャラクターの持つ<span class="charge">handle</span>上限を、装備の合計<span class="charge">handle</span>が超える事はできません。<br />
 装備を制限するための値です。dexとレベルが上がると<span class="charge">handle</span>の上限は増える。</p>
 <?php
-	$sample	= array(1000,1700,5000);
-	foreach($sample as $val) {
-		include_once(DATA_ITEM);
-		ShowItemDetail(LoadItemData($val));
-		print("<br />\n");
-	}
+
+$sample = array(
+	1000,
+	1700,
+	5000);
+foreach ($sample as $val)
+{
+	include_once (DATA_ITEM);
+	ShowItemDetail(LoadItemData($val));
+	print ("<br />\n");
+}
+
+
 ?>
 <p><ul>
 <li><span class="dmg">Atk</span> - 物理攻撃力</li>
@@ -311,12 +323,22 @@ SPが49%以下なら 技その1 を使ってくれると思います。</p>
 <a name="skill"></a>
 <h4>キャラの技 <a href="#content">↑</a></h4>
 <?php
-	$sample	= array(1000,1001,1002,2300,3000,3110);
-	foreach($sample as $val) {
-		include_once(DATA_SKILL);
-		ShowSkillDetail(LoadSkillData($val));
-		print("<br />\n");
-	}
+
+$sample = array(
+	1000,
+	1001,
+	1002,
+	2300,
+	3000,
+	3110);
+foreach ($sample as $val)
+{
+	include_once (DATA_SKILL);
+	ShowSkillDetail(LoadSkillData($val));
+	print ("<br />\n");
+}
+
+
 ?>
 <p>(画像) 技の名前 / 対象 - 選択 / 消費SP / 威力%x回数 / (準備:待機時間) ... ... ...</p>
 <ul>
@@ -367,8 +389,18 @@ SPが49%以下なら 技その1 を使ってくれると思います。</p>
 <a name="sacrier"></a>
 <h4>Sacrierの攻撃方法について <a href="#content">↑</a></h4>
 <p style="margin:15px">
-<img src="<?=IMG_CHAR?>mon_100r.gif">
-<img src="<?=IMG_CHAR?>mon_012.gif"><br />
+<img src="<?=
+
+IMG_CHAR
+
+
+?>mon_100r.gif">
+<img src="<?=
+
+IMG_CHAR
+
+
+?>mon_012.gif"><br />
 Sacrierの技のほとんどはHPを消費します。<br />
 キャラクターが<span class="bold u">後列</span>に居る場合そのHP消費は<span class="bold u">2倍</span>になります。</p>
 <!-- ---------------------------------------------------------------- -->
@@ -376,9 +408,24 @@ Sacrierの技のほとんどはHPを消費します。<br />
 <h4>ランキング <a href="#content">↑</a></h4>
 <p>
 ランキングは<br />
-<img src="<?=IMG_ICON?>crown01.png" class="vcent">1位 1人<br />
-<img src="<?=IMG_ICON?>crown02.png" class="vcent">2位 2人<br />
-<img src="<?=IMG_ICON?>crown03.png" class="vcent">3位 3人<br />
+<img src="<?=
+
+IMG_ICON
+
+
+?>crown01.png" class="vcent">1位 1人<br />
+<img src="<?=
+
+IMG_ICON
+
+
+?>crown02.png" class="vcent">2位 2人<br />
+<img src="<?=
+
+IMG_ICON
+
+
+?>crown03.png" class="vcent">3位 3人<br />
 4位以下 3人<br />
 ...<br />
 と同一順位に複数存在するようになりました(2008/01/27)<br />
