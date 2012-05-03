@@ -36,6 +36,8 @@ class HOF_Autoloader extends Zend_Loader_Autoloader
 	protected function __construct()
 	{
 		Zend_Loader_Autoloader::getInstance()->unshiftAutoloader(array(__CLASS__, 'autoload'));
+
+		$this->_internalAutoloader = array($this, '_autoload');
 	}
 
 	/**
@@ -82,6 +84,8 @@ class HOF_Autoloader extends Zend_Loader_Autoloader
 			{
 				$autoloaders = $self->getNamespaceAutoloaders($ns);
 
+				$autoloaders[] = $self->_internalAutoloader;
+
 				break;
 			}
 		}
@@ -89,7 +93,7 @@ class HOF_Autoloader extends Zend_Loader_Autoloader
 		if (empty($autoloaders) || empty($ns)) return false;
 
 		// 解決 xdebug 會強制出現錯誤訊息的問題
-		ob_start();
+		//ob_start();
 
 		foreach ($autoloaders as $autoloader)
 		{
@@ -105,14 +109,15 @@ class HOF_Autoloader extends Zend_Loader_Autoloader
 				}
 				elseif (is_callable($autoloader))
 				{
-					if (call_user_func($autoloader, $class))
+					if (call_user_func($autoloader, $class, $ns))
 					{
 						return true;
 					}
 				}
 				elseif (is_string($autoloader))
 				{
-					if (@call_user_func($self->_defaultAutoloader, $class, $autoloader))
+
+					if (@call_user_func($self->_defaultAutoloader, $class, $autoloader, $ns))
 					{
 						return true;
 					}
@@ -126,7 +131,7 @@ class HOF_Autoloader extends Zend_Loader_Autoloader
 			}
 		}
 
-		ob_end_clean();
+		//ob_end_clean();
 
 		return false;
 	}
