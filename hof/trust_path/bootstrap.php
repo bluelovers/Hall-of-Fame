@@ -23,3 +23,16 @@ if (file_exists(dirname(__file__) . '/config/setting.php'))
 require dirname(__file__) . '/config/setting.dist.php';
 
 ob_start('ob_gzhandler');
+
+require_once ('Zend/Loader/Autoloader.php');
+
+Zend_Loader_Autoloader::getInstance()
+	->suppressNotFoundWarnings(true)
+;
+
+Zend_Loader::loadClass('HOF_Autoloader', BASE_TRUST_PATH);
+
+HOF_Autoloader::getInstance()
+	->pushAutoloader(BASE_TRUST_PATH, 'HOF_')
+;
+
