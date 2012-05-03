@@ -22,3 +22,4 @@ if (file_exists(dirname(__file__) . '/config/setting.php'))
 
 require dirname(__file__) . '/config/setting.dist.php';
 
+ob_start('ob_gzhandler');
