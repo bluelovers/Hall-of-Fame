@@ -14,7 +14,7 @@ Options All -Indexes
 RewriteEngine On
 #RewriteBase /
 
-RewriteRule (\.svn|\.git|user|union|log|data|class)[\/\\].* ReadMe.html [NC,G,L]
+RewriteRule (\.svn|\.git|user|union|log|data|class)[\/\\].* ReadMe.html [NC,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^static/image/(char|char_rev)/.*$ static/image/$1/NoImage.png [L]
