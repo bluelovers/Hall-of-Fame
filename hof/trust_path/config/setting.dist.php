@@ -77,7 +77,7 @@ define("UNION_BATTLE_NEXT",60*20);//Union次の戦闘までの間隔
 define("INDEX","index.php");
 
 // CLASS FILE
-define("CLASS_DIR", BASE_PATH."./class/");
+define("CLASS_DIR", BASE_TRUST_PATH."./class/");
 define("BTL_IMG_CSS", CLASS_DIR."class.css_btl_image.php");// CSS表示
 define("CLASS_MAIN", CLASS_DIR."class.main.php");
 define("CLASS_USER", CLASS_DIR."class.user.php");
