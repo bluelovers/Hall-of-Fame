@@ -906,7 +906,7 @@ EOD;
 		return call_user_func_array('date', $_args);
 	}
 
-	if (!defined('BASEPATH')) {
+	if (!defined('BASE_PATH')) {
 		include dirname(__FILE__).'/../trust_path/bootstrap.php';
 	}
 
