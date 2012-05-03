@@ -94,7 +94,7 @@ define("GLOBAL_PHP", CLASS_DIR."global.php");
 define("COLOR_FILE", CLASS_DIR."Color.dat");
 
 // DATA FILE
-define("DATA_DIR", BASE_PATH."./data/");
+define("DATA_DIR", BASE_TRUST_PATH."./data/");
 define("DATA_BASE_CHAR", DATA_DIR."data.base_char.php");
 define("DATA_JOB", DATA_DIR."data.job.php");
 define("DATA_ITEM", DATA_DIR."data.item.php");
