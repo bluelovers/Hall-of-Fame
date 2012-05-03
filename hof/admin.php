@@ -8,7 +8,7 @@
 * サーバーから消してもOK
 *
 */
-	include("config/setting.php");
+	include("trust_path/bootstrap.php");
 	define("ADMIN_DIR","./admin/");//管理用のファイル場所
 	define("ADMIN_PASSWORD","password");//パスワード
 
