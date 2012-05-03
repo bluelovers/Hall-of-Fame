@@ -91,7 +91,7 @@ define("CLASS_JS_ITEMLIST", CLASS_DIR . "class.JS_itemlist.php");
 define("CLASS_SMITHY", CLASS_DIR . "class.smithy.php");
 define("CLASS_AUCTION", CLASS_DIR . "class.auction.php");
 define("GLOBAL_PHP", CLASS_DIR . "global.php");
-define("COLOR_FILE", CLASS_DIR . "Color.dat");
+define("COLOR_FILE", BASE_TRUST_PATH . "/HOF/Resource/Color.dat");
 
 // DATA FILE
 define("DATA_DIR", BASE_TRUST_PATH . "./data/");
