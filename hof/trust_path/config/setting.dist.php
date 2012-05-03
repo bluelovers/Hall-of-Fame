@@ -120,17 +120,20 @@ define("GAME_DATA_MONSTER", DATA_DIR."data.gd_monster.php");
 
 define("TUTORIAL", DATA_DIR."data.tutorial.php");
 // DAT
-define("AUCTION_ITEM",BASE_PATH."./auction.dat");//アイテムオークション用のファイル
-define("AUCTION_ITEM_LOG",BASE_PATH."./auction_log.dat");//アイテムオークション用のログファイル
 
-define("REGISTER",BASE_PATH."./register.dat");
-define("UPDATE",BASE_PATH."./update.dat");
-define("CTRL_TIME_FILE",BASE_PATH."./ctrltime.dat");//定期管理のための時間記憶ファイル
-define("RANKING",BASE_PATH."./ranking.dat");
-define("BBS_BOTTOM",BASE_PATH."./bbs.dat");
-define("BBS_TOWN",BASE_PATH."./bbs_town.dat");
-define("MANAGE_LOG_FILE",BASE_PATH."./managed.dat");//定期管理記録ファイル
-define("USER_NAME",BASE_PATH."./username.dat");//名前保存ファイル
+define("DAT_DIR", BASE_TRUST_PATH."./dat/");
+
+define("AUCTION_ITEM",DAT_DIR."./auction.dat");//アイテムオークション用のファイル
+define("AUCTION_ITEM_LOG",DAT_DIR."./auction_log.dat");//アイテムオークション用のログファイル
+
+define("REGISTER",DAT_DIR."./register.dat");
+define("UPDATE",DAT_DIR."./update.dat");
+define("CTRL_TIME_FILE",DAT_DIR."./ctrltime.dat");//定期管理のための時間記憶ファイル
+define("RANKING",DAT_DIR."./ranking.dat");
+define("BBS_BOTTOM",DAT_DIR."./bbs.dat");
+define("BBS_TOWN",DAT_DIR."./bbs_town.dat");
+define("MANAGE_LOG_FILE",DAT_DIR."./managed.dat");//定期管理記録ファイル
+define("USER_NAME",DAT_DIR."./username.dat");//名前保存ファイル
 
 // dir
 define("IMG_CHAR","./image/char/");
