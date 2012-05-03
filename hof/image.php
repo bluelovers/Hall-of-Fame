@@ -12,7 +12,7 @@ http://localhost/proj/hof/image.php?f11=mon_018&f12=mon_018&f13=mon_018&f14=mon_
 
 	※※※ 魔法陣の表示に未対応！！！！！！！！！
 */
-include('config/setting.php');
+include('trust_path/bootstrap.php');
 
 //$type = 'gif';
 $type = 'png';
