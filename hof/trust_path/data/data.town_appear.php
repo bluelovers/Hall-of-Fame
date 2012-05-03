@@ -1,6 +1,7 @@
 <?php
 
-if (!defined('DEBUG')) {
+if (!defined('DEBUG'))
+{
 	exit('Access Denied');
 }
 
@@ -8,15 +9,16 @@ if (!defined('DEBUG')) {
 // 日付別でいける場所を変えれるとか、
 // あるアイテムがないと行けないとかできる
 // 別ファイルにする必要があったのかどうか微妙
-function TownAppear($user) {
-	$place	= array();
+function TownAppear($user)
+{
+	$place = array();
 
 	// 無条件で行ける
-	$place["Shop"]	= true;
-	$place["Recruit"]	= true;
-	$place["Smithy"]	= true;
-	$place["Auction"]	= true;
-	$place["Colosseum"]	= true;
+	$place["Shop"] = true;
+	$place["Recruit"] = true;
+	$place["Smithy"] = true;
+	$place["Auction"] = true;
+	$place["Colosseum"] = true;
 
 	// 特定のアイテムがないと行けない施設
 	//if($user->item[****])
@@ -24,4 +26,6 @@ function TownAppear($user) {
 
 	return $place;
 }
+
+
 ?>
