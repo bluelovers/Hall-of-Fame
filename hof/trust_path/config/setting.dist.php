@@ -136,10 +136,10 @@ define("MANAGE_LOG_FILE", DAT_DIR . "./managed.dat"); //定期管理記録ファ
 define("USER_NAME", DAT_DIR . "./username.dat"); //名前保存ファイル
 
 // dir
-define("IMG_CHAR", "./image/char/");
-define("IMG_CHAR_REV", "./image/char_rev/");
-define("IMG_ICON", "./image/icon/");
-define("IMG_OTHER", "./image/other/");
+define("IMG_CHAR", "./static/image/char/");
+define("IMG_CHAR_REV", "./static/image/char_rev/");
+define("IMG_ICON", "./static/image/icon/");
+define("IMG_OTHER", "./static/image/other/");
 define("USER", BASE_TRUST_PATH . "./user/");
 define("UNION", BASE_TRUST_PATH . "./union/");
 define("DATA", "data.dat");
