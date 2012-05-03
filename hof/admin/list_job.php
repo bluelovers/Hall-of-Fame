@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="../basis.css" type="text/css">
+<link rel="stylesheet" href="../static/style/basis.css" type="text/css">
 <title>JOB List</title>
 <style type="text/css">
 <!--
@@ -100,10 +100,10 @@ print("</tbody></table>");
 		define("IMG_ICON","../image/icon/");
 
 		if(!$skill) return false;
-		
+
 		if($radio)
 			print('<input type="radio" name="newskill" value="'.$skill["no"].'" class="vcent">');
-		
+
 		print('<img src="'.IMG_ICON.$skill["img"].'" class="vcent">');
 		print("{$skill[name]}");
 
