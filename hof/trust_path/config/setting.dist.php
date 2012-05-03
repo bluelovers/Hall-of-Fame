@@ -1,6 +1,8 @@
 <?php
 
-define('BASEPATH', str_replace('\\', '/', dirname(__FILE__)).'/../../');
+define('BASE_PATH', str_replace('\\', '/', dirname(__FILE__)).'/../../');
+
+define('BASE_TRUST_PATH', BASE_PATH . '/trust_path');
 
 // game setting
 define("TITLE","Hall of Fame");//タイトル
@@ -75,7 +77,7 @@ define("UNION_BATTLE_NEXT",60*20);//Union次の戦闘までの間隔
 define("INDEX","index.php");
 
 // CLASS FILE
-define("CLASS_DIR", BASEPATH."./class/");
+define("CLASS_DIR", BASE_PATH."./class/");
 define("BTL_IMG_CSS", CLASS_DIR."class.css_btl_image.php");// CSS表示
 define("CLASS_MAIN", CLASS_DIR."class.main.php");
 define("CLASS_USER", CLASS_DIR."class.user.php");
@@ -92,7 +94,7 @@ define("GLOBAL_PHP", CLASS_DIR."global.php");
 define("COLOR_FILE", CLASS_DIR."Color.dat");
 
 // DATA FILE
-define("DATA_DIR", BASEPATH."./data/");
+define("DATA_DIR", BASE_PATH."./data/");
 define("DATA_BASE_CHAR", DATA_DIR."data.base_char.php");
 define("DATA_JOB", DATA_DIR."data.job.php");
 define("DATA_ITEM", DATA_DIR."data.item.php");
@@ -118,31 +120,31 @@ define("GAME_DATA_MONSTER", DATA_DIR."data.gd_monster.php");
 
 define("TUTORIAL", DATA_DIR."data.tutorial.php");
 // DAT
-define("AUCTION_ITEM",BASEPATH."./auction.dat");//アイテムオークション用のファイル
-define("AUCTION_ITEM_LOG",BASEPATH."./auction_log.dat");//アイテムオークション用のログファイル
+define("AUCTION_ITEM",BASE_PATH."./auction.dat");//アイテムオークション用のファイル
+define("AUCTION_ITEM_LOG",BASE_PATH."./auction_log.dat");//アイテムオークション用のログファイル
 
-define("REGISTER",BASEPATH."./register.dat");
-define("UPDATE",BASEPATH."./update.dat");
-define("CTRL_TIME_FILE",BASEPATH."./ctrltime.dat");//定期管理のための時間記憶ファイル
-define("RANKING",BASEPATH."./ranking.dat");
-define("BBS_BOTTOM",BASEPATH."./bbs.dat");
-define("BBS_TOWN",BASEPATH."./bbs_town.dat");
-define("MANAGE_LOG_FILE",BASEPATH."./managed.dat");//定期管理記録ファイル
-define("USER_NAME",BASEPATH."./username.dat");//名前保存ファイル
+define("REGISTER",BASE_PATH."./register.dat");
+define("UPDATE",BASE_PATH."./update.dat");
+define("CTRL_TIME_FILE",BASE_PATH."./ctrltime.dat");//定期管理のための時間記憶ファイル
+define("RANKING",BASE_PATH."./ranking.dat");
+define("BBS_BOTTOM",BASE_PATH."./bbs.dat");
+define("BBS_TOWN",BASE_PATH."./bbs_town.dat");
+define("MANAGE_LOG_FILE",BASE_PATH."./managed.dat");//定期管理記録ファイル
+define("USER_NAME",BASE_PATH."./username.dat");//名前保存ファイル
 
 // dir
 define("IMG_CHAR","./image/char/");
 define("IMG_CHAR_REV","./image/char_rev/");
 define("IMG_ICON","./image/icon/");
 define("IMG_OTHER","./image/other/");
-define("USER",BASEPATH."./user/");
-define("UNION",BASEPATH."./union/");
+define("USER",BASE_PATH."./user/");
+define("UNION",BASE_PATH."./union/");
 define("DATA","data.dat");
 define("ITEM","item.dat");
 
-define("LOG_BATTLE_NORMAL",BASEPATH."./log/normal/");
-define("LOG_BATTLE_RANK",BASEPATH."./log/rank/");
-define("LOG_BATTLE_UNION",BASEPATH."./log/union/");
+define("LOG_BATTLE_NORMAL",BASE_PATH."./log/normal/");
+define("LOG_BATTLE_RANK",BASE_PATH."./log/rank/");
+define("LOG_BATTLE_UNION",BASE_PATH."./log/union/");
 
 // 状態定義
 define("FRONT","front");
