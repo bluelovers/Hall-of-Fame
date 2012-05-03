@@ -26,36 +26,43 @@ td{
 </head>
 <body>
 <?php
-include("./trust_path/bootstrap.php");
-include("./class/class.char.php");
-include("./class/global.php");
-$folder	= glob("./user/*");
+
+include ("./trust_path/bootstrap.php");
+include ("./class/class.char.php");
+include ("./class/global.php");
+$folder = glob("./user/*");
 //print("<pre>".print_r($folder,1)."</pre>");
-foreach($folder as $val) {
-	$UserFile	= glob($val."/*.dat");
-	foreach($UserFile as $FileName) {
-		$file	= basename($FileName,".dat");
-		if(is_numeric($file)) {
-			$chars[]	= $FileName;
+foreach ($folder as $val)
+{
+	$UserFile = glob($val . "/*.dat");
+	foreach ($UserFile as $FileName)
+	{
+		$file = basename($FileName, ".dat");
+		if (is_numeric($file))
+		{
+			$chars[] = $FileName;
 		}
 	}
-//print("<pre>".print_r($UserFile,1)."</pre>");
+	//print("<pre>".print_r($UserFile,1)."</pre>");
 }
 
-print('<table border="0" cellspacing="1"><tbody>');
-foreach($chars as $file) {
-	$char	= new char(ParseFile($file));
-	print("<tr><td>");
+print ('<table border="0" cellspacing="1"><tbody>');
+foreach ($chars as $file)
+{
+	$char = new char(ParseFile($file));
+	print ("<tr><td>");
 	$char->ShowImage();
-	print("</td><td>");
-	print($char->Name(bold));
-	print("</td><td>");
-	print("Lv:".$char->level);
-	print("</td><td>");
-	print("Str:{$char->str}<br />Int:{$char->int}<br />Dex:{$char->dex}<br />Spd:{$char->spd}");
-	print("</td></tr>");
+	print ("</td><td>");
+	print ($char->Name(bold));
+	print ("</td><td>");
+	print ("Lv:" . $char->level);
+	print ("</td><td>");
+	print ("Str:{$char->str}<br />Int:{$char->int}<br />Dex:{$char->dex}<br />Spd:{$char->spd}");
+	print ("</td></tr>");
 }
-print("</tbody></table>");
+print ("</tbody></table>");
+
+
 ?>
 </body>
 </html>
