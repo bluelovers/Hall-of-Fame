@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Monster List</title>
-<link rel="stylesheet" href="../basis.css" type="text/css">
-<link rel="stylesheet" href="../style.css" type="text/css">
+<link rel="stylesheet" href="../static/style/basis.css" type="text/css">
+<link rel="stylesheet" href="../static/style/style.css" type="text/css">
 <style type="text/css">
 <!--
 *{
@@ -61,7 +61,7 @@ for($no=1000; $no<5999; $no++) {
 	$m = CreateMonster($no);
 	if(!$m) continue;
 
-	//if($detcount%3==0) 
+	//if($detcount%3==0)
 	//$detcount++;
 	print($det);
 	print("<tr>");
@@ -115,7 +115,7 @@ for($no=1000; $no<5999; $no++) {
 			$item	= LoadItemdata($itemno);
 			ShowItemDetail($item);
 			print("</td></tr>");
-			
+
 		}
 		print("</tbody></table>");
 		print("</td></tr>");
@@ -130,13 +130,13 @@ print("</tbody></table>");
 </html>
 <?php
 //////////////////////////////////////////////////
-//	
+//
 	function ShowItemDetail2($item,$amount=false) {
 		$file	= "../image/icon/";
 		if(!$item) return false;
-		
+
 		print("\n");
-		
+
 		print("<img src=\"".$file.$item["img"]."\" class=\"vcent\">{$item[name]}");
 
 		if($item["type"])
@@ -160,10 +160,10 @@ print("</tbody></table>");
 	function ShowSkillDetail2($skill,$radio=false) {
 		$file	= "../image/icon/";
 		if(!$skill) return false;
-		
+
 		if($radio)
 			print('<input type="radio" name="newskill" value="'.$skill["no"].'" class="vcent">');
-		
+
 		print('<img src="'.$file.$skill["img"].'" class="vcent">');
 		print("{$skill[name]}");
 
