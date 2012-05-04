@@ -1,0 +1,15 @@
+no: 5057
+name: Claws
+img: skill_066.png
+sp: '0'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - individual
+    - 2
+charge:
+    - 0
+    - 70
+pow: '100'
+pierce: true
