@@ -1,0 +1,19 @@
+no: 2301
+name: PowerShoot
+img: item_042.png
+exp: ''
+sp: '10'
+type: '0'
+learn: '6'
+target:
+    - enemy
+    - individual
+    - 1
+inf: dex
+pow: '200'
+invalid: '1'
+charge:
+    - 0
+    - 30
+limit:
+    Bow: true
