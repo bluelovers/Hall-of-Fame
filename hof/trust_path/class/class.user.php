@@ -319,8 +319,14 @@ class user
 			{ //キャラデータファイル
 				//$chardata	= ParseFile($adr);// (2007/7/30 $adr -> $fp)
 				//$this->char[$number]	= new HOF_Class_Char($chardata);
+
+				/*
 				$this->char[$number] = new HOF_Class_Char($adr);
+				*/
+				$this->char[$number] = HOF_Model_Char::newCharFromFile($adr);
+
 				$this->char[$number]->SetUser($this->id); //キャラが誰のか設定する
+
 			}
 		}
 	}
@@ -338,7 +344,11 @@ class user
 		// 居る場合。
 		//$chardata	= ParseFile($file);
 		//$this->char[$CharNo]	= new HOF_Class_Char($chardata);
+		/*
 		$this->char[$CharNo] = new HOF_Class_Char($file);
+		*/
+		$this->char[$CharNo] = HOF_Model_Char::newCharFromFile($file);
+
 		$this->char[$CharNo]->SetUser($this->id); //キャラが誰のか設定する
 		return $this->char[$CharNo];
 	}
