@@ -1,0 +1,16 @@
+no: 5104
+name: HardJacket
+type: Cloth
+buy: '9000'
+img: armor_014e.png
+def:
+    - 23
+    - 7
+    - 23
+    - 7
+handle: '5'
+need:
+    6040: '10'
+    6180: '10'
+base_name: HardJacket
+type2: GUARD
