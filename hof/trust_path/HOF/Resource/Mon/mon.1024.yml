@@ -1,0 +1,41 @@
+monNo: 1024
+name: GoblinSmith
+img: mon_053r.gif
+level: '18'
+exphold: '200'
+moneyhold: '80'
+maxhp: '570'
+hp: '570'
+maxsp: '100'
+sp: '100'
+str: '70'
+int: '10'
+dex: '40'
+spd: '50'
+luk: '1'
+guard: never
+position: front
+judge:
+    - 1201
+    - 1940
+    - 1000
+quantity:
+    - 40
+    - 50
+    - 0
+action:
+    - 5031
+    - 5033
+    - 5034
+atk:
+    - 60
+    - 10
+def:
+    - 40
+    - 30
+    - 30
+    - 0
+itemtable:
+    6001: '500'
+    6002: '1000'
+    6003: '800'
