@@ -1,0 +1,15 @@
+no: 5040
+name: DarkHoly
+img: skill_066.png
+sp: '300'
+type: '1'
+learn: '99'
+target:
+    - enemy
+    - multi
+    - 6
+invalid: true
+pow: '150'
+charge:
+    - 70
+    - 0
