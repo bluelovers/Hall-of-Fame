@@ -1,0 +1,13 @@
+no: 5014
+name: PlatinumArmor
+type: Armor
+buy: '50000'
+img: armor_016b.png
+def:
+    - 52
+    - 35
+    - 30
+    - 40
+handle: '12'
+base_name: PlatinumArmor
+type2: GUARD
