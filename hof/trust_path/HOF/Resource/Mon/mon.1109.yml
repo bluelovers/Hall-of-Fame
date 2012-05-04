@@ -1,0 +1,28 @@
+monNo: 1109
+name: ElizaOgre
+img: mon_169.gif
+level: '59'
+exphold: '800'
+moneyhold: '100'
+maxhp: '700'
+hp: '700'
+maxsp: '900'
+sp: '900'
+str: '40'
+int: '180'
+dex: '50'
+spd: '90'
+luk: '50'
+guard: never
+position: back
+judge: {  }
+quantity: {  }
+action: {  }
+atk:
+    - 30
+    - 80
+def:
+    - 40
+    - 30
+    - 70
+    - 60
