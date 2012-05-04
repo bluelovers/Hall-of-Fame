@@ -1,0 +1,16 @@
+no: 3401
+name: ManaRegen
+img: skill_062x.png
+exp: SP持続回復+5%
+sp: '150'
+type: '1'
+learn: '10'
+target:
+    - friend
+    - all
+    - 1
+support: '1'
+charge:
+    - 10
+    - 0
+SpRegen: 5
