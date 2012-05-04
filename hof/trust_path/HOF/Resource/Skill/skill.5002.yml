@@ -1,0 +1,16 @@
+no: 5002
+name: BloodSuck
+img: skill_066.png
+exp: ''
+sp: '0'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '100'
+invalid: '1'
+charge:
+    - 0
+    - 0
