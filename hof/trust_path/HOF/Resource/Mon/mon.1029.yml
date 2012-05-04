@@ -1,0 +1,31 @@
+monNo: 1029
+name: SpawnPot
+img: mon_019r.gif
+level: '28'
+exphold: '400'
+moneyhold: '280'
+maxhp: '750'
+hp: '750'
+maxsp: '600'
+sp: '600'
+str: '10'
+int: '10'
+dex: '10'
+spd: '10'
+luk: '10'
+guard: never
+judge:
+    - 1000
+quantity:
+    - 0
+action:
+    - 1000
+atk:
+    - 10
+    - 10
+def:
+    - 30
+    - 20
+    - 30
+    - 30
+itemtable: {  }
