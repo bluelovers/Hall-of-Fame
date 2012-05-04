@@ -1,0 +1,9 @@
+no: gb0
+land:
+    name: ゴブリンと遊ぶ(最弱)
+    name0: 'Goblin Training'
+    land: grass
+    proper: Lv1
+monster:
+    1000: [300, 1]
+    1001: [300, 1]
