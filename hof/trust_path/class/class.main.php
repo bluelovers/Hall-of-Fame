@@ -145,8 +145,8 @@ class main extends user
 					// ユニオン
 				case ($_GET["union"]):
 					$this->CharDataLoadAll(); //キャラデータ読む
-//					include (CLASS_UNION);
-//					include (DATA_MONSTER);
+					//					include (CLASS_UNION);
+					//					include (DATA_MONSTER);
 					if ($this->UnionProcess())
 					{
 						// 戦闘する
@@ -418,7 +418,7 @@ class main extends user
 			{
 				/*
 				if (1 < $overlap[$Number]) //1匹以上出現するなら名前に記号をつける。
- 						$enemy[] = new monster(CreateMonster($Number, true));
+				$enemy[] = new monster(CreateMonster($Number, true));
 				else  $enemy[] = new monster(CreateMonster($Number));
 				*/
 
@@ -1137,7 +1137,7 @@ HTML;
 
 			// 前衛の時の後衛守り //////////////////////////////
 			$option = array(
- 				/*
+				/*
 				"always"=> "Always",
 				"never"	=> "Never",
 				"life25"	=> "If life more than 25%",
@@ -1540,8 +1540,8 @@ HTML;
 			$files = game_core::glob(UNION);
 			if ($files)
 			{
-//				include (CLASS_UNION);
-//				include (DATA_MONSTER);
+				//				include (CLASS_UNION);
+				//				include (DATA_MONSTER);
 				foreach ($files as $file)
 				{
 					$UnionMons = HOF_Model_Char::newUnionFromFile($file);
@@ -1616,8 +1616,8 @@ HTML;
 	</div></form>
 <?php
 
-//			include (DATA_MONSTER);
-//			include (CLASS_MONSTER);
+			//			include (DATA_MONSTER);
+			//			include (CLASS_MONSTER);
 			foreach ($monster_list as $id => $val)
 			{
 				if ($val[1]) $monster[] = new monster(CreateMonster($id));
@@ -1666,7 +1666,7 @@ HTML;
 					}
 				// 敵パーティー(または一匹)
 
-			//	include (DATA_MONSTER);
+				//	include (DATA_MONSTER);
 				list($Land, $MonsterList) = HOF_Model_Data::getLandInfo($_GET["common"]);
 				$EneNum = $this->EnemyNumber($MyParty);
 				$EnemyParty = $this->EnemyParty($EneNum, $MonsterList);
@@ -2537,6 +2537,8 @@ JS_HTML;
 			}
 			// bluelovers
 
+
+
 ?>
 
 	<form action="?recruit" method="post" style="margin:15px">
@@ -2545,34 +2547,40 @@ JS_HTML;
 
 	<?php
 
-		// bluelovers
-		$_money = array(2000, 2000, 2500, 4000);
+			// bluelovers
+			$_money = array(
+				2000,
+				2000,
+				2500,
+				4000);
 
-		for($i = 0; $i < 4; $i++)
-		{
-			echo '<td class="td1" style="text-align:center">';
+			for ($i = 0; $i < 4; $i++)
+			{
+				echo '<td class="td1" style="text-align:center">';
 
-			$j = $i * 2;
+				$j = $i * 2;
 
-			$char[$j]->ShowImage();
-			$char[$j+1]->ShowImage();
+				$char[$j]->ShowImage();
+				$char[$j + 1]->ShowImage();
 
-			echo '<br><input type="radio" name="recruit_no" value="'.($i+1).'" style="margin:3px"><br>';
+				echo '<br><input type="radio" name="recruit_no" value="' . ($i + 1) . '" style="margin:3px"><br>';
 
-			echo MoneyFormat($_money[$i]);
-		}
+				echo MoneyFormat($_money[$i]);
+			}
 
-		echo '</tr><tr>';
+			echo '</tr><tr>';
 
-		for($i = 1; $i <= 4; $i++)
-		{
-			$_job = HOF_Model_Char::getBaseCharStatus($i);
+			for ($i = 1; $i <= 4; $i++)
+			{
+				$_job = HOF_Model_Char::getBaseCharStatus($i);
 
-			echo '<td class="' . (($i % 2) ? 'td4' : 'td5') . '" style="text-align:center">' . $_job['jobName'] . '</td>';
-		}
-		// bluelovers
+				echo '<td class="' . (($i % 2) ? 'td4' : 'td5') . '" style="text-align:center">' . $_job['jobName'] . '</td>';
+			}
+			// bluelovers
 
-	?>
+
+
+?>
 
 	</tr>
 	</tbody></table>
@@ -4517,6 +4525,8 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 			$sor_male = HOF_Model_Char::newBaseChar(2, array("gender" => 0));
 			$sor_female = HOF_Model_Char::newBaseChar(2, array("gender" => 1));
 			// bluelovers
+
+
 
 ?>
 	<form action="<?=
