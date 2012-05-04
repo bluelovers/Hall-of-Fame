@@ -1,0 +1,40 @@
+monNo: 1020
+name: SkeltonArcher
+img: mon_143r.gif
+level: '16'
+exphold: '160'
+moneyhold: '100'
+maxhp: '340'
+hp: '340'
+maxsp: '80'
+sp: '80'
+str: '10'
+int: '10'
+dex: '40'
+spd: '15'
+luk: '1'
+guard: prob25
+position: back
+judge:
+    - 1201
+    - 1940
+    - 1000
+quantity:
+    - 30
+    - 50
+    - 0
+action:
+    - 2300
+    - 2301
+    - 2302
+atk:
+    - 40
+    - 20
+def:
+    - 20
+    - 0
+    - 20
+    - 0
+itemtable:
+    6020: '1000'
+    6021: '1000'
