@@ -1,0 +1,16 @@
+no: 1015
+name: KnockBack
+img: skill_075.png
+exp: 後衛化
+sp: '60'
+type: '0'
+learn: '10'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '150'
+charge:
+    - 40
+    - 20
+knockback: '100'
