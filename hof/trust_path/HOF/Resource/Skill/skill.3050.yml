@@ -1,0 +1,15 @@
+no: 3050
+name: Quick
+img: skill_015.png
+exp: 即行動
+sp: '150'
+type: '1'
+learn: '10'
+target:
+    - friend
+    - all
+    - 1
+support: '1'
+charge:
+    - 200
+    - 100
