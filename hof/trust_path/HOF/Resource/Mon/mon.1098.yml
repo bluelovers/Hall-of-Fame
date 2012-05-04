@@ -1,0 +1,53 @@
+monNo: 1098
+name: FaithlessMarry
+img: mon_214rzz.gif
+exphold: '700'
+moneyhold: '350'
+level: '45'
+maxhp: '630'
+hp: '630'
+maxsp: '500'
+sp: '500'
+str: '20'
+int: '100'
+dex: '50'
+spd: '55'
+luk: '20'
+guard: never
+position: back
+judge:
+    - 1221
+    - 1405
+    - 1610
+    - 1126
+    - 1902
+    - 1940
+    - 1902
+    - 1000
+quantity:
+    - 30
+    - 1
+    - 3
+    - 50
+    - 1
+    - 50
+    - 1
+    - 0
+action:
+    - 3101
+    - 3040
+    - 3030
+    - 3002
+    - 9000
+    - 3401
+    - 3220
+    - 2480
+atk:
+    - 20
+    - 70
+def:
+    - 20
+    - 20
+    - 50
+    - 50
+itemtable: {  }
