@@ -1,0 +1,16 @@
+no: 2000
+name: FireStorm
+img: skill_004a.png
+exp: ''
+sp: '70'
+type: '1'
+learn: '4'
+target:
+    - enemy
+    - multi
+    - 6
+pow: '100'
+invalid: '1'
+charge:
+    - 70
+    - 0
