@@ -1,0 +1,8 @@
+no: 6120
+name: Diamond
+type: Material
+buy: '1000'
+sell: '100'
+img: gem_02.png
+base_name: Diamond
+type2: OTHER
