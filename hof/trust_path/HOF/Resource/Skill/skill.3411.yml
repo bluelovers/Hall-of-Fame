@@ -1,0 +1,15 @@
+no: 3411
+name: DoubleMagicCircle
+img: ms_01.png
+exp: 魔法陣+2
+sp: '300'
+type: '1'
+learn: '6'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 60
+    - 0
+MagicCircleAdd: 2
