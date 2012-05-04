@@ -1,0 +1,11 @@
+no: 5600
+name: BerserkRing
+type: Item
+buy: '10000'
+img: acce_024.png
+handle: '2'
+P_STR: '100'
+M_MAXHP: '-50'
+option: 'STR+100, HP-50% ,'
+base_name: BerserkRing
+type2: OTHER
