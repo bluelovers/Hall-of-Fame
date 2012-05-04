@@ -14,7 +14,7 @@ class main extends user
 
 	//////////////////////////////////////////////////
 	//
-	function main()
+	function __construct()
 	{
 		$this->SessionSwitch();
 		$this->Set_ID_PASS();
