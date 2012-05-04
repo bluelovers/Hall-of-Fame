@@ -1,0 +1,31 @@
+monNo: 5000
+name: HealRabbit
+img: mon_111.gif
+level: '15'
+maxhp: '80'
+hp: '80'
+maxsp: '50'
+sp: '50'
+str: '5'
+int: '5'
+dex: '5'
+spd: '1'
+luk: '1'
+guard: never
+judge:
+    - 1201
+    - 1000
+quantity:
+    - 10
+    - 0
+action:
+    - 3010
+    - 5007
+atk:
+    - 20
+    - 20
+def:
+    - 5
+    - 0
+    - 15
+    - 0
