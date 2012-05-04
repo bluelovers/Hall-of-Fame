@@ -1,0 +1,16 @@
+no: 2405
+name: CallBear
+img: skill_028.png
+exp: 熊召喚
+sp: '250'
+type: '0'
+learn: '10'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 0
+    - 300
+summon: '5012'
+quick: true
