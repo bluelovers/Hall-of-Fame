@@ -1,0 +1,12 @@
+no: horh
+land:
+    name: ヘブンオアヘル
+    name0: 'Heaven or Hell'
+    land: sea
+    proper: Lv99
+monster:
+    5100: [100, 1]
+    5101: [100, 1]
+    5102: [100, 1]
+    5103: [100, 1]
+    5104: [100, 1]
