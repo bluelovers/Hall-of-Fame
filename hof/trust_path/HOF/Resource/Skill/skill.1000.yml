@@ -1,0 +1,12 @@
+no: 1000
+name: Attack
+img: skill_042.png
+exp: 通常攻撃
+sp: '0'
+type: '0'
+learn: '0'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '100'
