@@ -1,0 +1,14 @@
+no: 1702
+name: WoodenWand
+type: Wand
+buy: '4000'
+img: we_staff002.png
+atk:
+    - 8
+    - 15
+handle: '3'
+need:
+    6020: '8'
+    6002: '1'
+base_name: WoodenWand
+type2: WEAPON
