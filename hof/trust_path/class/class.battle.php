@@ -69,7 +69,7 @@ class battle extends HOF_Class_Skill_Effect
 	//	コンストラクタ。
 
 	//各チームの配列を受けとる。
-	function HOF_Class_Battle($team0, $team1)
+	function __construct($team0, $team1)
 	{
 		include (DATA_JUDGE);
 		include_once (DATA_SKILL);
