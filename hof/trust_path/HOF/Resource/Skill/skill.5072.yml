@@ -1,0 +1,15 @@
+no: 5072
+name: CallWildBoar
+img: skill_029.png
+exp: 合成獣召喚
+sp: '0'
+type: '0'
+learn: '20'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 0
+    - 0
+summon: '5014'
