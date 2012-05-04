@@ -1,0 +1,30 @@
+monNo: 1069
+name: MermaidSorcerer
+img: mon_117.gif
+exphold: '420'
+moneyhold: '230'
+level: '35'
+maxhp: '420'
+hp: '420'
+maxsp: '550'
+sp: '550'
+str: '10'
+int: '90'
+dex: '30'
+spd: '50'
+luk: '30'
+guard: never
+position: back
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 50
+    - 20
+def:
+    - 10
+    - 10
+    - 40
+    - 30
+itemtable: {  }
