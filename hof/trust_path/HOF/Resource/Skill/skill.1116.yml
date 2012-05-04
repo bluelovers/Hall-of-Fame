@@ -1,0 +1,14 @@
+no: 1116
+name: Punish
+img: skill_057.png
+exp: 減少HP分ダメージ
+sp: '100'
+type: '0'
+learn: '12'
+target:
+    - enemy
+    - individual
+    - 1
+charge:
+    - 100
+    - 100
