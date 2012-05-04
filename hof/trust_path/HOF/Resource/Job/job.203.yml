@@ -1,0 +1,15 @@
+no: 203
+name_male: Necromancer
+name_female: Necromancer
+img_male: mon_196x.gif
+img_female: mon_246y.gif
+equip:
+    - Wand
+    - Staff
+    - Book
+    - Cloth
+    - Robe
+    - Item
+coe:
+    - 2.1
+    - 1.5
