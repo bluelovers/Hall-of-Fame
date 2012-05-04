@@ -1,0 +1,28 @@
+monNo: 1110
+name: EthanOgre
+img: mon_170.gif
+level: '55'
+exphold: '800'
+moneyhold: '100'
+maxhp: '2300'
+hp: '2300'
+maxsp: '200'
+sp: '200'
+str: '240'
+int: '30'
+dex: '15'
+spd: '55'
+luk: '1'
+guard: always
+position: front
+judge: {  }
+quantity: {  }
+action: {  }
+atk:
+    - 150
+    - 20
+def:
+    - 70
+    - 50
+    - 30
+    - 30
