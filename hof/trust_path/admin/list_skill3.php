@@ -41,7 +41,7 @@ define("IMG_ICON", "../image/icon/");
 print ("<div style=\"text-align:left;padding:5px\" class=\"bgcolor\">\n");
 for ($no = 1000; $no < 9999; $no++)
 {
-	$skill = LoadSkillData($no);
+	$skill = HOF_Model_Data::getSkill($no);
 	if (!$skill) continue;
 	print ("$no:");
 	print ('<span class="bold">' . $skill["learn"] . '</span>pt');
