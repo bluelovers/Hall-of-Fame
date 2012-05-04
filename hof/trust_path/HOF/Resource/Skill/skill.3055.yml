@@ -1,0 +1,15 @@
+no: 3055
+name: CastAsist
+img: skill_016z.png
+exp: 詠唱短縮
+sp: '150'
+type: '1'
+learn: '10'
+target:
+    - friend
+    - all
+    - 1
+support: '1'
+charge:
+    - 0
+    - 100
