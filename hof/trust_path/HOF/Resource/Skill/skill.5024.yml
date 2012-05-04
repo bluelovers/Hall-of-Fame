@@ -1,0 +1,12 @@
+no: 5024
+name: Punisher
+img: skill_066.png
+exp: ''
+sp: '500'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - all
+    - 1
+pow: '500'
