@@ -1,0 +1,15 @@
+no: 1001
+name: Bash
+img: skill_032.png
+exp: ''
+sp: '8'
+type: '0'
+learn: '0'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '160'
+charge:
+    - 20
+    - 20
