@@ -97,7 +97,7 @@ class Item
 	//	精錬可能な物かどうか。
 	function CanRefine()
 	{
-		$possible = CanRefineType();
+		$possible = HOF_Model_Data::getCanRefineType();
 		if (REFINE_LIMIT <= $this->refine) return false;
 		else
 			if (in_array($this->type, $possible)) return true;
