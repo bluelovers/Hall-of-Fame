@@ -1,0 +1,17 @@
+no: 5001
+name: SonicWave
+img: skill_066.png
+exp: ''
+sp: '0'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - individual
+    - 1
+invalid: '1'
+pow: '50'
+charge:
+    - 0
+    - 0
+delay: '20'
