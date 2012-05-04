@@ -2569,11 +2569,11 @@ JS_HTML;
 
 			echo '</tr><tr>';
 
-			for ($i = 1; $i <= 4; $i++)
+			for ($i = 0; $i < 4; $i++)
 			{
-				$_job = HOF_Model_Char::getBaseCharStatus($i);
+				$j = $i * 2;
 
-				echo '<td class="' . (($i % 2) ? 'td4' : 'td5') . '" style="text-align:center">' . $_job['jobName'] . '</td>';
+				echo '<td class="' . (($i % 2) ? 'td4' : 'td5') . '" style="text-align:center">' . $char[$j]->job_name . '</td>';
 			}
 			// bluelovers
 
