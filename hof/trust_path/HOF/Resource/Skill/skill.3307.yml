@@ -1,0 +1,20 @@
+no: 3307
+name: Fortify
+img: we_other007z.png
+exp: 召喚キャラ強化
+sp: '100'
+type: '0'
+learn: '6'
+target:
+    - friend
+    - individual
+    - 1
+support: '1'
+charge:
+    - 0
+    - 50
+UpDEF: '30'
+UpMDEF: '30'
+priority: Summon
+limit:
+    Whip: true
