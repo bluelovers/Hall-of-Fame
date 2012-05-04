@@ -1,0 +1,8 @@
+no: 8009
+name: TekitoMountain
+type: Map
+buy: '500'
+sell: '100'
+img: book_003.png
+base_name: TekitoMountain
+type2: OTHER
