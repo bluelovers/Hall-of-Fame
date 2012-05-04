@@ -1,0 +1,12 @@
+no: 1020
+name: ManaBreak
+img: skill_073z.png
+exp: SPダメージ
+sp: '20'
+type: '0'
+learn: '2'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '120'
