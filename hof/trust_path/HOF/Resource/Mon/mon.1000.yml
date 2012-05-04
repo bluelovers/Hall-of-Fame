@@ -1,0 +1,43 @@
+monNo: 1000
+name: GoblinAxe
+img: mon_053.gif
+level: '1'
+exphold: '20'
+moneyhold: '40'
+maxhp: '140'
+hp: '140'
+maxsp: '80'
+sp: '80'
+str: '8'
+int: '3'
+dex: '5'
+spd: '5'
+luk: '1'
+guard: life75
+special: {  }
+judge:
+    - 1940
+    - 1205
+    - 1000
+quantity:
+    - 50
+    - 40
+    - 0
+action:
+    - 9000
+    - 1017
+    - 1000
+atk:
+    - 20
+    - 10
+def:
+    - 10
+    - 3
+    - 5
+    - 0
+itemtable:
+    6000: '1000'
+    6001: '1000'
+    6002: '600'
+    6003: '200'
+    7100: '100'
