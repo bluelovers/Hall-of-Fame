@@ -1,0 +1,16 @@
+no: 5202
+name: ElfRobe
+type: Robe
+buy: '3000'
+img: armor_012.png
+def:
+    - 3
+    - 10
+    - 40
+    - 20
+handle: '3'
+need:
+    6180: '8'
+    6184: '2'
+base_name: ElfRobe
+type2: GUARD
