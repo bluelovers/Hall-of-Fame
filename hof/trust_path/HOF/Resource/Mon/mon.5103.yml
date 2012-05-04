@@ -1,0 +1,37 @@
+monNo: 5103
+name: Ifrit
+img: mon_170rz.gif
+exphold: '0'
+moneyhold: '0'
+level: '70'
+maxhp: '1300'
+hp: '1300'
+maxsp: '800'
+sp: '800'
+str: '250'
+int: '200'
+dex: '100'
+spd: '200'
+luk: '100'
+guard: prob50
+position: front
+judge:
+    - 1902
+    - 1200
+    - 1000
+quantity:
+    - 1
+    - 10
+    - 0
+action:
+    - 5020
+    - 1017
+    - 1115
+atk:
+    - 100
+    - 100
+def:
+    - 20
+    - 50
+    - 20
+    - 10
