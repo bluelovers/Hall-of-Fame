@@ -1,0 +1,12 @@
+no: 1206
+name: AcidMist
+img: skill_079z.png
+exp: 防御低下
+sp: '60'
+type: '0'
+learn: '4'
+target:
+    - enemy
+    - all
+    - 1
+DownDEF: '15'
