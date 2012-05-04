@@ -1,0 +1,29 @@
+monNo: 1074
+name: FireLizzard
+img: mon_136.gif
+exphold: '430'
+moneyhold: '20'
+level: '35'
+maxhp: '620'
+hp: '620'
+maxsp: '300'
+sp: '300'
+str: '40'
+int: '80'
+dex: '30'
+spd: '40'
+luk: '30'
+guard: prob25
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 30
+    - 60
+def:
+    - 30
+    - 0
+    - 30
+    - 40
+itemtable: {  }
