@@ -1,0 +1,29 @@
+monNo: 1068
+name: Mermaid
+img: mon_116.gif
+exphold: '450'
+moneyhold: '210'
+level: '33'
+maxhp: '450'
+hp: '450'
+maxsp: '300'
+sp: '300'
+str: '30'
+int: '70'
+dex: '20'
+spd: '60'
+luk: '60'
+guard: prob25
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 40
+    - 40
+def:
+    - 20
+    - 10
+    - 30
+    - 30
+itemtable: {  }
