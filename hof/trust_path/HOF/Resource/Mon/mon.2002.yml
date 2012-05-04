@@ -1,0 +1,72 @@
+monNo: 2002
+name: FakeHero
+img: hero.gif
+exphold: 5075
+moneyhold: 3383
+level: '90'
+maxhp: 10150
+hp: 10150
+maxsp: '700'
+sp: '700'
+str: '200'
+int: '130'
+dex: '50'
+spd: '90'
+luk: '50'
+guard: never
+position: back
+judge:
+    - 1201
+    - 1200
+    - 1401
+    - 1200
+    - 1940
+    - 1560
+    - 1940
+    - 1401
+    - 1101
+    - 1000
+quantity:
+    - 60
+    - 60
+    - 1
+    - 50
+    - 50
+    - 1
+    - 50
+    - 1
+    - 10
+    - 0
+action:
+    - 2091
+    - 9000
+    - 2056
+    - 9000
+    - 2040
+    - 9000
+    - 2111
+    - 9000
+    - 1024
+    - 5019
+atk:
+    - 180
+    - 80
+def:
+    - 70
+    - 50
+    - 40
+    - 40
+itemtable:
+    1021: '9000'
+    6802: '1000'
+SPECIAL:
+    PoisonResist: 50
+cycle: 43200
+Slave:
+    1095: [100, 0]
+    1096: [100, 0]
+    1097: [100, 0]
+    1098: [100, 0]
+land: pavement01
+UnionName: FakeHeroes
+LevelLimit: '250'
