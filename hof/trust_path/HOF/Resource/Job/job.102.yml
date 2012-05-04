@@ -1,0 +1,15 @@
+no: 102
+name_male: Sacrier
+name_female: Sacrier
+img_male: mon_100r.gif
+img_female: mon_012.gif
+equip:
+    - Sword
+    - TwoHandSword
+    - Shield
+    - Cloth
+    - Robe
+    - Item
+coe:
+    - 5
+    - 0.2
