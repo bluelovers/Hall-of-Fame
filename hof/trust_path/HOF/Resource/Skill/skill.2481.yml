@@ -1,0 +1,16 @@
+no: 2481
+name: AdventAngel
+img: skill_038.png
+exp: 天使降臨
+sp: '160'
+type: '1'
+learn: '10'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 60
+    - 0
+summon: '5001'
+quick: true
