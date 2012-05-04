@@ -1274,7 +1274,7 @@ HTML;
 			print ("\t<div class=\"bold u\">Stock & Allowed to Equip</div>\n");
 			if ($this->item)
 			{
-				include (CLASS_JS_ITEMLIST);
+				include_once (CLASS_JS_ITEMLIST);
 				$EquipList = new JS_ItemList();
 				$EquipList->SetID("equip");
 				$EquipList->SetName("type_equip");
@@ -1461,7 +1461,6 @@ HTML;
 			//dump($enemy[0]->judge);
 			//dump($party[0]->judge);
 
-			include (CLASS_BATTLE);
 			$battle = new HOF_Class_Battle($party, $enemy);
 			$battle->SetTeamName($this->name, "ドッペル");
 			$battle->LimitTurns($turns); //最大ターン数は10
@@ -1717,7 +1716,7 @@ HTML;
 
 			if ($this->item)
 			{
-				include (CLASS_JS_ITEMLIST);
+				include_once (CLASS_JS_ITEMLIST);
 				$goods = new JS_ItemList();
 				$goods->SetID("my");
 				$goods->SetName("type");
@@ -1873,7 +1872,7 @@ HTML;
 	<div style="margin:0 20px">
 	<?php
 
-			include (CLASS_JS_ITEMLIST);
+			include_once (CLASS_JS_ITEMLIST);
 			$ShopList = HOF_Model_Data::getShopList(); //売ってるものデータ
 
 			$goods = new JS_ItemList();
@@ -2727,7 +2726,7 @@ JS_HTML;
 			// 精錬可能な物の表示
 			if ($this->item)
 			{
-				include (CLASS_JS_ITEMLIST);
+				include_once (CLASS_JS_ITEMLIST);
 				$possible = HOF_Model_Data::getCanRefineType();
 				$possible = array_flip($possible);
 				//配列の先頭の値が"0"なので1にする(isset使わずにtrueにするため)
@@ -2909,7 +2908,7 @@ JS_HTML;
 			//$result	= $this->SmithyCreateProcess();
 
 			$CanCreate = CanCreate($this);
-			include (CLASS_JS_ITEMLIST);
+			include_once (CLASS_JS_ITEMLIST);
 			$CreateList = new JS_ItemList();
 			$CreateList->SetID("create");
 			$CreateList->SetName("type_create");
@@ -3276,7 +3275,7 @@ JS_HTML;
 
 			if (!AUCTION_EXHIBIT_TOGGLE) return false;
 
-			include (CLASS_JS_ITEMLIST);
+			include_once (CLASS_JS_ITEMLIST);
 			$possible = HOF_Model_Data::getCanExhibitType();
 
 
@@ -3428,7 +3427,6 @@ JS_HTML;
 
 			$this->UnionSetTime();
 
-			include (CLASS_BATTLE);
 			$battle = new HOF_Class_Battle($MyParty, $EnemyParty);
 			$battle->SetUnionBattle();
 			$battle->SetBackGround($Union->UnionLand); //背景
