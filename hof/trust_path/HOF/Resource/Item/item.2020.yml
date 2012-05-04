@@ -1,0 +1,20 @@
+no: 2020
+name: DragonWing
+type: Bow
+dh: true
+buy: '120000'
+img: we_bow001.png
+atk:
+    - 40
+    - 0
+handle: '30'
+P_PIERCE:
+    - 40
+    - 0
+need:
+    6022: '10'
+    6182: '5'
+    6801: '1'
+option: '物理防御無視+40 ,'
+base_name: DragonWing
+type2: WEAPON
