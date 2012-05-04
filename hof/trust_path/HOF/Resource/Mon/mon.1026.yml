@@ -1,0 +1,33 @@
+monNo: 1026
+name: Gargoyle
+img: mon_104.gif
+level: '22'
+exphold: '220'
+moneyhold: '50'
+maxhp: '300'
+hp: '300'
+maxsp: '10'
+sp: '10'
+str: '40'
+int: '80'
+dex: '10'
+spd: '10'
+luk: '1'
+guard: never
+position: front
+judge:
+    - 1000
+quantity:
+    - 0
+action:
+    - 5035
+atk:
+    - 10
+    - 50
+def:
+    - 50
+    - 100
+    - 0
+    - 0
+itemtable:
+    6002: '2000'
