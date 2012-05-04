@@ -11,6 +11,7 @@ if (!defined('DEBUG'))
 //include_once (DATA_MONSTER);
 
 
+
 ?>
 <div style="margin:0 15px">
 <h4>モンスター</h4>
