@@ -218,4 +218,27 @@ class HOF_Model_Data extends HOF_Class_Data
 			);
 	}
 
+	/**
+	 * オークションに出品可能なアイテムの種類
+	 */
+	function getCanExhibitType()
+	{
+		return array(
+		"Sword" => "1",
+		"TwoHandSword" => "1",
+		"Dagger" => "1",
+		"Wand" => "1",
+		"Staff" => "1",
+		"Bow" => "1",
+		"Whip" => "1",
+		"Shield" => "1",
+		"Book" => "1",
+		"Armor" => "1",
+		"Cloth" => "1",
+		"Robe" => "1",
+		"Item" => "1",
+		"Material" => "1",
+		);
+	}
+
 }
