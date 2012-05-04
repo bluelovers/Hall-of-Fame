@@ -1,0 +1,17 @@
+no: 1812
+name: FourSeason
+type: Staff
+dh: true
+buy: '60000'
+img: we_staff008b.png
+atk:
+    - 12
+    - 40
+handle: '8'
+P_MAXSP: '130'
+option: 'SP+130 ,'
+need:
+    6020: 16
+    6021: 16
+base_name: FourSeason
+type2: WEAPON
