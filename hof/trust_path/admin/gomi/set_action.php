@@ -46,8 +46,8 @@ if ($_POST["MobNumber"])
 	$no	= $_POST["MobNumber"];
 	unset($_POST);
 	$_POST["MobNumber"]	= $no;*/
-	include ("./data.monster.php");
-	if ($monster = CreateMonster($_POST["MobNumber"]))
+	//include ("./data.monster.php");
+	if ($monster = HOF_Model_Char::getBaseMonster($_POST["MobNumber"]))
 	{
 		echo "<h3 style=\"color:333333\"><img src=\"../image/char/{$monster[img]}\" />$monster[name]({$_POST[MobNumber]})</h3>";
 		foreach ($monster["judge"] as $key => $val)
