@@ -2,7 +2,7 @@ no: 200
 name_male: Sorcerer
 name_female: Sorceress
 img_male: mon_106.gif
-img_female: mon_018.gif
+img_female: eiyusenki_018.png
 equip:
     - Wand
     - Staff
