@@ -1,0 +1,8 @@
+no: 6001
+name: Steel
+type: Material
+buy: '1000'
+sell: '10'
+img: mat_001.png
+base_name: Steel
+type2: OTHER
