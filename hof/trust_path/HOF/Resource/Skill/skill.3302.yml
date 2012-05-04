@@ -1,0 +1,18 @@
+no: 3302
+name: SpeedTraining
+img: we_other007.png
+exp: 召喚キャラ強化
+sp: '60'
+type: '0'
+learn: '4'
+target:
+    - friend
+    - all
+    - 1
+support: '1'
+charge:
+    - 0
+    - 50
+UpSPD: '50'
+limit:
+    Whip: true
