@@ -1,0 +1,29 @@
+monNo: 1072
+name: Harpe
+img: mon_125.gif
+exphold: '420'
+moneyhold: '240'
+level: '29'
+maxhp: '510'
+hp: '510'
+maxsp: '210'
+sp: '210'
+str: '40'
+int: '70'
+dex: '30'
+spd: '50'
+luk: '10'
+guard: prob25
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 30
+    - 30
+def:
+    - 20
+    - 20
+    - 30
+    - 30
+itemtable: {  }
