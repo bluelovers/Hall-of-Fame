@@ -1,0 +1,8 @@
+no: 6020
+name: Lumber
+type: Material
+buy: '1000'
+sell: '20'
+img: mat_025.png
+base_name: Lumber
+type2: OTHER
