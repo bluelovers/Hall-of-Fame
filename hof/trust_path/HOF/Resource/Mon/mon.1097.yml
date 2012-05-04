@@ -1,0 +1,53 @@
+monNo: 1097
+name: GloomyDorothy
+img: mon_018r.gif
+exphold: '800'
+moneyhold: '100'
+level: '45'
+maxhp: '480'
+hp: '480'
+maxsp: '700'
+sp: '700'
+str: '20'
+int: '140'
+dex: '40'
+spd: '50'
+luk: '10'
+guard: never
+position: back
+judge:
+    - 1201
+    - 1712
+    - 1750
+    - 1940
+    - 1750
+    - 1200
+    - 1940
+    - 1000
+quantity:
+    - 50
+    - 0
+    - 1
+    - 50
+    - 1
+    - 80
+    - 70
+    - 0
+action:
+    - 3011
+    - 2463
+    - 9000
+    - 2012
+    - 9000
+    - 9000
+    - 2015
+    - 2001
+atk:
+    - 20
+    - 110
+def:
+    - 10
+    - 20
+    - 60
+    - 40
+itemtable: {  }
