@@ -1,0 +1,19 @@
+no: 5022
+name: Fortune
+img: skill_066.png
+exp: ''
+sp: '200'
+type: '1'
+learn: '99'
+target:
+    - friend
+    - all
+    - 1
+support: '1'
+pow: '200'
+UpSTR: '100'
+UpINT: '100'
+UpDEX: '100'
+UpSPD: '100'
+UpDEF: '30'
+UpMDEF: '30'
