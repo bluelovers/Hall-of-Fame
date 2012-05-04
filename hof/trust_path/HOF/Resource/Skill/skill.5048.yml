@@ -1,0 +1,14 @@
+no: 5048
+name: CursingRoar
+img: skill_066.png
+sp: '120'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - all
+    - 1
+DownSTR: '30'
+charge:
+    - 0
+    - 50
