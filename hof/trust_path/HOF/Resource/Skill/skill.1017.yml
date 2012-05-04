@@ -1,0 +1,15 @@
+no: 1017
+name: RagingBlow
+img: skill_031.png
+exp: ''
+sp: '40'
+type: '0'
+learn: '6'
+target:
+    - enemy
+    - multi
+    - 5
+pow: '100'
+charge:
+    - 40
+    - 60
