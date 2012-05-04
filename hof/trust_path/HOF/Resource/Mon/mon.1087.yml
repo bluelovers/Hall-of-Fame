@@ -1,0 +1,30 @@
+monNo: 1087
+name: SandGorrem
+img: mon_043z.gif
+exphold: '400'
+moneyhold: '300'
+level: '25'
+maxhp: '1300'
+hp: '1300'
+maxsp: '90'
+sp: '90'
+str: '80'
+int: '20'
+dex: '20'
+spd: '20'
+luk: '20'
+guard: always
+position: front
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 40
+    - 20
+def:
+    - 20
+    - 10
+    - 20
+    - 0
+itemtable: {  }
