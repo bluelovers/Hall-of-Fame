@@ -1,0 +1,15 @@
+no: 2032
+name: DeathKnell
+img: skill_041z.png
+exp: 即死
+sp: '50'
+type: '1'
+learn: '8'
+target:
+    - enemy
+    - individual
+    - 1
+invalid: '1'
+charge:
+    - 100
+    - 0
