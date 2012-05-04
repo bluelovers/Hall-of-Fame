@@ -1,0 +1,40 @@
+monNo: 1091
+name: HunterWolf
+img: mon_184rz.gif
+exphold: '400'
+moneyhold: '100'
+level: '29'
+maxhp: '320'
+hp: '320'
+maxsp: '0'
+sp: '0'
+str: '60'
+int: '30'
+dex: '30'
+spd: '20'
+luk: '10'
+guard: prob25
+judge:
+    - 1902
+    - 1940
+    - 1940
+    - 1000
+quantity:
+    - 1
+    - 50
+    - 50
+    - 0
+action:
+    - 9000
+    - 5058
+    - 5056
+    - 5057
+atk:
+    - 40
+    - 10
+def:
+    - 20
+    - 0
+    - 15
+    - 0
+itemtable: {  }
