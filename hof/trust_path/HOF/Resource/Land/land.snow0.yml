@@ -1,0 +1,11 @@
+no: snow0
+land:
+    name: 滴凍山ふもと
+    name0: FrostyMountain(foot)
+    land: snow
+    proper: 'Lv??'
+monster:
+    1036: [100, 1]
+    1037: [100, 1]
+    1038: [100, 1]
+    1039: [100, 1]
