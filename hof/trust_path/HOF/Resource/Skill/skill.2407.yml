@@ -1,0 +1,16 @@
+no: 2407
+name: CallSnowMan
+img: skill_028.png
+exp: 雪男召喚
+sp: '250'
+type: '0'
+learn: '10'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 0
+    - 300
+summon: '5014'
+quick: true
