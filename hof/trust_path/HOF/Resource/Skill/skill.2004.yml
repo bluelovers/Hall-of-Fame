@@ -1,0 +1,15 @@
+no: 2004
+name: MeteoStorm
+img: skill_021z.png
+exp: ''
+sp: '800'
+type: '1'
+learn: '12'
+target:
+    - enemy
+    - multi
+    - 16
+pow: '140'
+charge:
+    - 200
+    - 0
