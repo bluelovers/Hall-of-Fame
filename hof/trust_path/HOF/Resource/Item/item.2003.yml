@@ -1,0 +1,16 @@
+no: 2003
+name: HunterBow
+type: Bow
+dh: true
+buy: '14000'
+img: we_bow001.png
+atk:
+    - 50
+    - 0
+handle: '16'
+need:
+    6020: '4'
+    6021: '4'
+    6181: '4'
+base_name: HunterBow
+type2: WEAPON
