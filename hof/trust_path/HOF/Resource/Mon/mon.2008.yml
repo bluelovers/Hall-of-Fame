@@ -1,0 +1,39 @@
+monNo: 2008
+name: ThunderBird
+img: mon_208r.gif
+exphold: 5050
+moneyhold: 3367
+level: '70'
+maxhp: 10100
+hp: 10100
+maxsp: '1000'
+sp: '1000'
+str: '170'
+int: '130'
+dex: '80'
+spd: '210'
+luk: '150'
+guard: never
+position: back
+judge: {  }
+quantity: {  }
+action: {  }
+atk:
+    - 70
+    - 50
+def:
+    - 60
+    - 30
+    - 30
+    - 200
+itemtable: {  }
+SPECIAL:
+    PoisonResist: 50
+cycle: 97200
+Slave:
+    1092: [100, 0]
+    1093: [100, 0]
+    1094: [100, 0]
+land: nest
+UnionName: 'Bird''sNest'
+LevelLimit: '150'
