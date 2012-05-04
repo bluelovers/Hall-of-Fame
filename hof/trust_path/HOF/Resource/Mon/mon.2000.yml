@@ -1,0 +1,73 @@
+monNo: 2000
+name: DarkDragon
+img: mon_013r.gif
+exphold: 15200
+moneyhold: 10133
+level: '250'
+maxhp: 30400
+hp: 30400
+maxsp: '3000'
+sp: '3000'
+str: '200'
+int: '180'
+dex: '100'
+spd: '150'
+luk: '50'
+guard: never
+position: back
+judge:
+    - 1201
+    - 1940
+    - 1201
+    - 1101
+    - 1920
+    - 1405
+    - 1920
+    - 1940
+    - 1940
+    - 1000
+quantity:
+    - 30
+    - 50
+    - 30
+    - 30
+    - 1
+    - 2
+    - 2
+    - 30
+    - 50
+    - 0
+action:
+    - 9000
+    - 3011
+    - 2091
+    - 9000
+    - 1116
+    - 9000
+    - 5030
+    - 2024
+    - 5014
+    - 5038
+atk:
+    - 100
+    - 70
+def:
+    - 60
+    - 30
+    - 50
+    - 30
+itemtable:
+    6800: '5000'
+    6801: '5000'
+SPECIAL:
+    PoisonResist: 50
+cycle: 259200
+Slave:
+    1028: [100, 0]
+    1030: [100, 0]
+    1031: [100, 0]
+    1032: [100, 0]
+    1033: [100, 0]
+land: swamp
+UnionName: DragonFleets
+LevelLimit: '250'
