@@ -6,27 +6,6 @@ if (!defined('DEBUG'))
 }
 
 //////////////////////////////////////////////////
-//	オークションに出品可能なアイテムの種類
-function CanExhibitType()
-{
-	return array(
-		"Sword" => "1",
-		"TwoHandSword" => "1",
-		"Dagger" => "1",
-		"Wand" => "1",
-		"Staff" => "1",
-		"Bow" => "1",
-		"Whip" => "1",
-		"Shield" => "1",
-		"Book" => "1",
-		"Armor" => "1",
-		"Cloth" => "1",
-		"Robe" => "1",
-		"Item" => "1",
-		"Material" => "1",
-		);
-}
-//////////////////////////////////////////////////
 //	精錬可能なアイテムの種類
 function CanRefineType()
 {
