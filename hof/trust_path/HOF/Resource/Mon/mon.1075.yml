@@ -1,0 +1,30 @@
+monNo: 1075
+name: LavaGorrem
+img: mon_138.gif
+exphold: '670'
+moneyhold: '370'
+level: '42'
+maxhp: '1300'
+hp: '1300'
+maxsp: '300'
+sp: '300'
+str: '130'
+int: '40'
+dex: '20'
+spd: '30'
+luk: '40'
+guard: always
+position: front
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 80
+    - 10
+def:
+    - 60
+    - 50
+    - 20
+    - 20
+itemtable: {  }
