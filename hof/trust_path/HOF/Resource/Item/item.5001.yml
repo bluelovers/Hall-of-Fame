@@ -1,0 +1,16 @@
+no: 5001
+name: ScaleArmor
+type: Armor
+buy: '2000'
+img: armor_016b.png
+def:
+    - 20
+    - 15
+    - 10
+    - 5
+handle: '2'
+need:
+    6040: '10'
+    6001: '2'
+base_name: ScaleArmor
+type2: GUARD
