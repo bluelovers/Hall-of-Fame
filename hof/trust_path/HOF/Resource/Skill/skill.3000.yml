@@ -1,0 +1,17 @@
+no: 3000
+name: Healing
+img: skill_013a.png
+exp: ''
+sp: '5'
+type: '1'
+learn: '0'
+target:
+    - friend
+    - individual
+    - 1
+pow: '200'
+support: '1'
+priority: LowHpRate
+charge:
+    - 30
+    - 0
