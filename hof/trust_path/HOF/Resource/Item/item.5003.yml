@@ -1,0 +1,16 @@
+no: 5003
+name: ChainMail
+type: Armor
+buy: '6000'
+img: armor_016b.png
+def:
+    - 30
+    - 20
+    - 15
+    - 5
+handle: '4'
+need:
+    6001: '16'
+    6002: '2'
+base_name: ChainMail
+type2: GUARD
