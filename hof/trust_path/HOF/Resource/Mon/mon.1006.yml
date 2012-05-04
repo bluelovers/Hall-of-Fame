@@ -1,0 +1,40 @@
+monNo: 1006
+name: GoblinMonk
+img: mon_205.gif
+level: '7'
+exphold: '60'
+moneyhold: '60'
+maxhp: '320'
+hp: '320'
+maxsp: '100'
+sp: '100'
+str: '25'
+int: '12'
+dex: '15'
+spd: '14'
+luk: '1'
+guard: prob50
+judge:
+    - 1201
+    - 1226
+    - 1000
+quantity:
+    - 40
+    - 50
+    - 0
+action:
+    - 3010
+    - 3101
+    - 1017
+atk:
+    - 40
+    - 10
+def:
+    - 5
+    - 30
+    - 10
+    - 20
+itemtable:
+    6180: '1000'
+    6181: '1000'
+    7100: '100'
