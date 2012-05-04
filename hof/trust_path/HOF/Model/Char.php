@@ -109,6 +109,13 @@ class HOF_Model_Char extends HOF_Class_Array
 		return $char;
 	}
 
+	function newUnionFromFile($file = null)
+	{
+		$char = new HOF_Class_Union($file);
+
+		return $char;
+	}
+
 	/**
 	 * 変数はPCキャラとほぼ同じ内容。
 	 * 返す直前に
