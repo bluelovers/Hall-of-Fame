@@ -1,0 +1,7 @@
+no: 7001
+name: LifeFlood
+img: acce_003c.png
+exp: HP+80
+learn: '9'
+passive: 1
+p_maxhp: '80'
