@@ -1,0 +1,17 @@
+no: 2504
+name: SummonThor
+img: skill_029.png
+exp: ''
+sp: '1200'
+type: '1'
+learn: '35'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 100
+    - 500
+summon: '5102'
+quick: true
+MagicCircleDeleteTeam: 5
