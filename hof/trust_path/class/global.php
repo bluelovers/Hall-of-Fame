@@ -6,25 +6,6 @@ if (!defined('DEBUG'))
 }
 
 //////////////////////////////////////////////////
-//	精錬可能なアイテムの種類
-function CanRefineType()
-{
-	return array(
-		"Sword",
-		"TwoHandSword",
-		"Dagger",
-		"Wand",
-		"Staff",
-		"Bow",
-		"Whip",
-		"Shield",
-		"Book",
-		"Armor",
-		"Cloth",
-		"Robe",
-		);
-}
-//////////////////////////////////////////////////
 //	期限切れアカウントの一斉削除
 function DeleteAbandonAccount()
 {
