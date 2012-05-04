@@ -120,7 +120,7 @@ function JudgeSelect($selected = false)
 	{
 		for ($j = 1000; $j < 4000; $j++)
 		{
-			if ($load = LoadJudgeData($j)) $judge[$j] = $load["exp"];
+			if ($load = HOF_Model_Data::getJudgeData($j)) $judge[$j] = $load["exp"];
 			//"<option value=\"{$j}\">{$judge[exp2]}</option>";
 		}
 	}
