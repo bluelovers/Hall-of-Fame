@@ -13,7 +13,7 @@ function CanCreate($user)
 	/*	// 「ィノスシィ、ヒサ□ヨ、ォ、ォ、□
 	// ・「・、・ニ・爭ヌ。シ・ソ、ヒneed、ャタ゜ト熙オ、□ニ、□筅ホ、□エ、ニシォニーシ霹タ、ケ、□
 	for($i=1000; $i<10000; $i++) {
-	$item	= LoadItemData($i);
+	$item	= HOF_Model_Data::getItemData($i);
 	if(!$item) continue;
 	if($item["need"])
 	$create[]	= $i;
