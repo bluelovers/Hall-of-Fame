@@ -1,0 +1,8 @@
+no: 6801
+name: DragonWing
+type: Material
+buy: '1000'
+sell: '10'
+img: mat_011.png
+base_name: DragonWing
+type2: OTHER
