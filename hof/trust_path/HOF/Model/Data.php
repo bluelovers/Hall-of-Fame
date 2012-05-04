@@ -346,6 +346,20 @@ class HOF_Model_Data extends HOF_Class_Data
 	}
 
 	/**
+	 * 職の男性,女性名
+	 * 職の画像
+	 * 装備可能な物
+	 * "coe"	=> array(HP係数 ,SP係数),
+	 * "change"	=> array(転職可能な職),
+	 */
+	function getJobData($no)
+	{
+		$data = self::getInstance()->_load('job', $no);
+
+		return $data;
+	}
+
+	/**
 	 * 店に売ってるものデータ
 	 * 店販売リスト
 	 */
