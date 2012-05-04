@@ -1,0 +1,16 @@
+no: 3123
+name: SelfRegeneration
+img: skill_062x.png
+exp: HP持続回復力+10%
+sp: '10'
+type: '0'
+learn: '3'
+target:
+    - self
+    - individual
+    - 1
+support: '1'
+charge:
+    - 0
+    - 30
+HpRegen: 10
