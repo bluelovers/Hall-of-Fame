@@ -1,0 +1,19 @@
+no: 3304
+name: BuildUp
+img: we_other007z.png
+exp: 召喚キャラ強化
+sp: '100'
+type: '0'
+learn: '6'
+target:
+    - friend
+    - individual
+    - 1
+support: '1'
+charge:
+    - 0
+    - 50
+UpSTR: '150'
+priority: Summon
+limit:
+    Whip: true
