@@ -1,0 +1,56 @@
+monNo: 1048
+name: ReindeerLeader
+img: mon_189r.gif
+exphold: '480'
+moneyhold: '300'
+level: '35'
+maxhp: '1050'
+hp: '1050'
+maxsp: '150'
+sp: '150'
+str: '150'
+int: '20'
+dex: '30'
+spd: '50'
+luk: '30'
+guard: prob50
+position: front
+judge:
+    - 1701
+    - 1200
+    - 1610
+    - 1200
+    - 1101
+    - 1200
+    - 1200
+    - 1000
+quantity:
+    - 0
+    - 10
+    - 1
+    - 20
+    - 50
+    - 10
+    - 30
+    - 0
+action:
+    - 9000
+    - 3112
+    - 9000
+    - 3030
+    - 9000
+    - 3121
+    - 1017
+    - 5042
+atk:
+    - 50
+    - 10
+def:
+    - 30
+    - 40
+    - 30
+    - 30
+itemtable:
+    6160: '100'
+    6022: '300'
+    6003: '400'
