@@ -1,0 +1,15 @@
+no: 2461
+name: Ghoul
+img: skill_028.png
+exp: グール
+sp: '100'
+type: '1'
+learn: '4'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 40
+    - 0
+summon: '5005'
