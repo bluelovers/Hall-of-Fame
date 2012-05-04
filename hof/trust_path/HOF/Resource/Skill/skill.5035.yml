@@ -1,0 +1,15 @@
+no: 5035
+name: FireBreath
+img: skill_066.png
+sp: '0'
+type: '1'
+learn: '99'
+target:
+    - enemy
+    - all
+    - 1
+invalid: true
+charge:
+    - 50
+    - 0
+pow: '80'
