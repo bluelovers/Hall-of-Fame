@@ -1,0 +1,39 @@
+monNo: 2010
+name: General
+img: mon_117r.gif
+exphold: 5035
+moneyhold: 3357
+level: '67'
+maxhp: 10070
+hp: 10070
+maxsp: '700'
+sp: '700'
+str: '150'
+int: '150'
+dex: '150'
+spd: '160'
+luk: '80'
+guard: never
+position: back
+judge: {  }
+quantity: {  }
+action: {  }
+atk:
+    - 90
+    - 40
+def:
+    - 50
+    - 50
+    - 50
+    - 50
+itemtable: {  }
+SPECIAL:
+    PoisonResist: 60
+cycle: 61200
+Slave:
+    1092: [100, 0]
+    1093: [100, 0]
+    1094: [100, 0]
+land: ocean
+UnionName: BlueSentinel
+LevelLimit: '150'
