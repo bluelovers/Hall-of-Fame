@@ -1,0 +1,17 @@
+no: 300
+name_male: Priest
+name_female: Priestess
+img_male: mon_213.gif
+img_female: mon_214.gif
+equip:
+    - Wand
+    - Book
+    - Cloth
+    - Robe
+    - Item
+coe:
+    - 2
+    - 0.8
+change:
+    - 301
+    - 302
