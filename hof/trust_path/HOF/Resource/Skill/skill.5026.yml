@@ -1,0 +1,12 @@
+no: 5026
+name: Destruction
+img: skill_066.png
+exp: ''
+sp: '50'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '250'
