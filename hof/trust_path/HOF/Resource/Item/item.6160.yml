@@ -1,0 +1,8 @@
+no: 6160
+name: GoldCoin
+type: Material
+buy: '1000'
+sell: '500'
+img: acce_005.png
+base_name: GoldCoin
+type2: OTHER
