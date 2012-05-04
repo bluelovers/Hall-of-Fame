@@ -1,0 +1,16 @@
+no: 2006
+name: RobinHood
+type: Bow
+dh: true
+buy: '45000'
+img: we_bow001.png
+atk:
+    - 80
+    - 0
+handle: '28'
+need:
+    6021: '4'
+    6022: '14'
+    6182: '6'
+base_name: RobinHood
+type2: WEAPON
