@@ -1,0 +1,10 @@
+no: 5530
+name: LuckyRing
+type: Item
+buy: '10000'
+img: acce_024.png
+handle: '3'
+P_LUK: '30'
+option: 'LUK+30, '
+base_name: LuckyRing
+type2: OTHER
