@@ -1,0 +1,44 @@
+monNo: 1019
+name: SkeltonSoldier
+img: mon_144.gif
+level: '20'
+exphold: '200'
+moneyhold: '150'
+maxhp: '600'
+hp: '600'
+maxsp: '100'
+sp: '100'
+str: '60'
+int: '5'
+dex: '15'
+spd: '25'
+luk: '1'
+guard: always
+position: front
+judge:
+    - 1902
+    - 1940
+    - 1200
+    - 1000
+quantity:
+    - 1
+    - 70
+    - 40
+    - 0
+action:
+    - 9000
+    - 1015
+    - 1017
+    - 1000
+atk:
+    - 40
+    - 1
+def:
+    - 45
+    - 30
+    - 10
+    - 10
+itemtable:
+    6001: '500'
+    6002: '1000'
+    6003: '1000'
