@@ -51,7 +51,7 @@ if (!function_exists("LoadSkillData")) include (DATA_SKILL);
 </td>
 <td><?php
 
-ShowSkillDetail(LoadSkillData(9000))
+ShowSkillDetail(HOF_Model_Data::getSkill(9000))
 
 
 ?></td>
@@ -75,7 +75,7 @@ ShowSkillDetail(LoadSkillData(9000))
 </select></td>
 <td><?php
 
-ShowSkillDetail(LoadSkillData(3121))
+ShowSkillDetail(HOF_Model_Data::getSkill(3121))
 
 
 ?></td>
@@ -99,7 +99,7 @@ ShowSkillDetail(LoadSkillData(3121))
 </select></td>
 <td><?php
 
-ShowSkillDetail(LoadSkillData(3110))
+ShowSkillDetail(HOF_Model_Data::getSkill(3110))
 
 
 ?></td>
@@ -123,7 +123,7 @@ ShowSkillDetail(LoadSkillData(3110))
 </select></td>
 <td><?php
 
-ShowSkillDetail(LoadSkillData(1017))
+ShowSkillDetail(HOF_Model_Data::getSkill(1017))
 
 
 ?></td>
@@ -147,7 +147,7 @@ ShowSkillDetail(LoadSkillData(1017))
 </select></td>
 <td><?php
 
-ShowSkillDetail(LoadSkillData(1000))
+ShowSkillDetail(HOF_Model_Data::getSkill(1000))
 
 
 ?></td>
