@@ -1,0 +1,15 @@
+no: 2002
+name: GreatBow
+type: Bow
+dh: true
+buy: '8000'
+img: we_bow001.png
+atk:
+    - 40
+    - 0
+handle: '12'
+need:
+    6021: '6'
+    6181: '2'
+base_name: GreatBow
+type2: WEAPON
