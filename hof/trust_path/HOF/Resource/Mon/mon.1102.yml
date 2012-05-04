@@ -1,0 +1,28 @@
+monNo: 1102
+name: Egg
+img: mon_207.gif
+level: '30'
+exphold: '300'
+moneyhold: '100'
+maxhp: '300'
+hp: '300'
+maxsp: '10'
+sp: '10'
+str: '10'
+int: '10'
+dex: '10'
+spd: '10'
+luk: '1'
+guard: never
+position: front
+judge: {  }
+quantity: {  }
+action: {  }
+atk:
+    - 10
+    - 10
+def:
+    - 90
+    - 0
+    - 70
+    - 10
