@@ -145,8 +145,8 @@ class main extends user
 					// ユニオン
 				case ($_GET["union"]):
 					$this->CharDataLoadAll(); //キャラデータ読む
-					include (CLASS_UNION);
-					include (DATA_MONSTER);
+//					include (CLASS_UNION);
+//					include (DATA_MONSTER);
 					if ($this->UnionProcess())
 					{
 						// 戦闘する
@@ -1521,8 +1521,7 @@ HTML;
 		//
 		function HuntShow()
 		{
-			include (DATA_LAND);
-			include (DATA_LAND_APPEAR);
+
 			print ('<div style="margin:15px">');
 			print ('<h4>CommonMonster</h4>');
 			print ('<div style="margin:0 20px">');
@@ -1541,8 +1540,8 @@ HTML;
 			$files = game_core::glob(UNION);
 			if ($files)
 			{
-				include (CLASS_UNION);
-				include (DATA_MONSTER);
+//				include (CLASS_UNION);
+//				include (DATA_MONSTER);
 				foreach ($files as $file)
 				{
 					$UnionMons = HOF_Model_Char::newUnionFromFile($file);
@@ -1587,8 +1586,7 @@ HTML;
 		function MonsterShow()
 		{
 			$land_id = $_GET["common"];
-			include (DATA_LAND);
-			include_once (DATA_LAND_APPEAR);
+
 			// まだ行けないマップなのに行こうとした。
 			if (!in_array($_GET["common"], HOF_Model_Data::getLandAppear($this)))
 			{
@@ -1618,8 +1616,8 @@ HTML;
 	</div></form>
 <?php
 
-			include (DATA_MONSTER);
-			include (CLASS_MONSTER);
+//			include (DATA_MONSTER);
+//			include (CLASS_MONSTER);
 			foreach ($monster_list as $id => $val)
 			{
 				if ($val[1]) $monster[] = new monster(CreateMonster($id));
@@ -1636,7 +1634,7 @@ HTML;
 			{
 				$this->MemorizeParty(); //パーティー記憶
 				// そのマップで戦えるかどうか確認する。
-				include_once (DATA_LAND_APPEAR);
+
 				$land = HOF_Model_Data::getLandAppear($this);
 				if (!in_array($_GET["common"], $land))
 				{
@@ -1667,8 +1665,8 @@ HTML;
 						return false;
 					}
 				// 敵パーティー(または一匹)
-				include (DATA_LAND);
-				include (DATA_MONSTER);
+
+			//	include (DATA_MONSTER);
 				list($Land, $MonsterList) = HOF_Model_Data::getLandInfo($_GET["common"]);
 				$EneNum = $this->EnemyNumber($MyParty);
 				$EnemyParty = $this->EnemyParty($EneNum, $MonsterList);
