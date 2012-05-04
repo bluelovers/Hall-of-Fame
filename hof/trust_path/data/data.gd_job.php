@@ -157,7 +157,7 @@ foreach ($job as $No => $exp)
 {
 	$flag = $flag ^ 1;
 	$css = $flag ? ' class="td6"' : ' style="padding:3px;"';
-	$JobData = LoadJobData($No);
+	$JobData = HOF_Model_Data::getJobData($No);
 	print ("<tr>\n");
 	print ('<td' . $css . ' valign="top"><a name="#' . $No . '"></a><span class="bold">');
 	print ($JobData["name_male"]);
