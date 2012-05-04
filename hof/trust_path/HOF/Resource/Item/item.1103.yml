@@ -1,0 +1,16 @@
+no: 1103
+name: BastardSword
+type: TwoHandSword
+dh: true
+buy: '30000'
+img: we_sword006.png
+atk:
+    - 80
+    - 0
+handle: '6'
+need:
+    6001: '2'
+    6002: '6'
+    6003: '8'
+base_name: BastardSword
+type2: WEAPON
