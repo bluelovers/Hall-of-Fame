@@ -463,7 +463,7 @@ HTML;
 			print ("<div class=\"bold\">Items</div>\n");
 			foreach ($this->team0_item as $itemno => $amount)
 			{
-				$item = LoadItemData($itemno);
+				$item = HOF_Model_Data::getItemData($itemno);
 				print ("<img src=\"" . IMG_ICON . 'item/' . $item["img"] . "\" class=\"vcent\">");
 				print ("{$item[name]} x {$amount}<br />\n");
 			}
@@ -483,7 +483,7 @@ HTML;
 			print ("<div class=\"bold\">Items</div>\n");
 			foreach ($this->team0_item as $itemno => $amount)
 			{
-				$item = LoadItemData($itemno);
+				$item = HOF_Model_Data::getItemData($itemno);
 				print ("<img src=\"" . IMG_ICON . 'item/' . $item["img"] . "\" class=\"vcent\">");
 				print ("{$item[name]} x {$amount}<br />\n");
 			}
@@ -948,7 +948,7 @@ HTML;
 				if ($item = $target[$key]->DropItem())
 				{
 					$itemdrop["$item"]++;
-					$item = LoadItemData($item);
+					$item = HOF_Model_Data::getItemData($item);
 					print ($char->Name("bold") . " dropped");
 					print ("<img src=\"" . IMG_ICON . 'item/' . $item["img"] . "\" class=\"vcent\"/>\n");
 					print ("<span class=\"bold u\">{$item[name]}</span>.<br />\n");
