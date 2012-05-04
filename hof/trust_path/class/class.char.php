@@ -1566,7 +1566,7 @@ Lv.<?=
 	{
 		$MaxStatus = MAX_STATUS; //最高ステータス(じゃなくてもいいです)
 
-		$jobdata = LoadJobData($this->job); // 2回読み込んでるから直すべき
+		$jobdata = HOF_Model_Data::getJobData($this->job); // 2回読み込んでるから直すべき
 		$coe = $jobdata["coe"];
 
 		$div = $MaxStatus * $MaxStatus;
@@ -1676,7 +1676,7 @@ Lv.<?=
 	{
 		if ($this->job)
 		{
-			$jobdata = LoadJobData($this->job);
+			$jobdata = HOF_Model_Data::getJobData($this->job);
 			$this->job_name = ($this->gender ? $jobdata["name_female"] : $jobdata["name_male"]);
 			$this->img = ($this->gender ? $jobdata["img_female"] : $jobdata["img_male"]);
 		}
