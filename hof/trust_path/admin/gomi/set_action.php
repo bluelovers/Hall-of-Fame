@@ -144,7 +144,7 @@ function SkillSelect($selected = false)
 	{
 		for ($j = 1000; $j < 10000; $j++)
 		{
-			if ($load = LoadSkillData($j)) $skill[$j] = $load["name"];
+			if ($load = HOF_Model_Data::getSkill($j)) $skill[$j] = $load["name"];
 			//"<option value=\"{$j}\">{$skill[name]}</option>";
 		}
 	}
