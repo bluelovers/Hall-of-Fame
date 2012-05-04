@@ -1,0 +1,16 @@
+no: 2203
+name: Scorpio
+type: Whip
+buy: '50000'
+img: we_other007.png
+atk:
+    - 50
+    - 0
+handle: '16'
+P_SUMMON: '25'
+need:
+    6040: '12'
+    6181: '24'
+    6000: '24'
+base_name: Scorpio
+type2: WEAPON
