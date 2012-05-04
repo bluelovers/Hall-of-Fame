@@ -1,0 +1,11 @@
+no: 1208
+name: PoisonInvasion
+img: skill_024z.png
+exp: 毒状態の相手にダメージ(int依存)
+sp: '60'
+type: '0'
+learn: '6'
+target:
+    - enemy
+    - all
+    - 1
