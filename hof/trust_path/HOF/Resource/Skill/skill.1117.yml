@@ -1,0 +1,16 @@
+no: 1117
+name: illness
+img: skill_057.png
+exp: 毒化
+sp: '32'
+type: '0'
+learn: '8'
+target:
+    - enemy
+    - all
+    - 1
+sacrifice: '20'
+charge:
+    - 0
+    - 50
+poison: '100'
