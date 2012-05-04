@@ -1,0 +1,38 @@
+monNo: 1018
+name: SkeltonWarrior
+img: mon_032.gif
+level: '16'
+exphold: '160'
+moneyhold: '130'
+maxhp: '480'
+hp: '480'
+maxsp: '80'
+sp: '80'
+str: '50'
+int: '5'
+dex: '10'
+spd: '20'
+luk: '1'
+guard: always
+position: front
+judge:
+    - 1200
+    - 1000
+quantity:
+    - 20
+    - 0
+action:
+    - 1003
+    - 1000
+atk:
+    - 20
+    - 1
+def:
+    - 40
+    - 25
+    - 0
+    - 0
+itemtable:
+    6001: '1000'
+    6002: '1000'
+    6003: '500'
