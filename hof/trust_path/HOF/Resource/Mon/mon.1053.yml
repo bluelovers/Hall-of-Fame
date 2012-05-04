@@ -1,0 +1,30 @@
+monNo: 1053
+name: SwampBerserker
+img: mon_102.gif
+exphold: '440'
+moneyhold: '40'
+level: '36'
+maxhp: '790'
+hp: '790'
+maxsp: '50'
+sp: '50'
+str: '150'
+int: '10'
+dex: '10'
+spd: '50'
+luk: '10'
+guard: prob75
+position: front
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 40
+    - 10
+def:
+    - 40
+    - 30
+    - 10
+    - 10
+itemtable: {  }
