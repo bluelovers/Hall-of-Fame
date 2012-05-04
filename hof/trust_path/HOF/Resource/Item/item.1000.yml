@@ -1,0 +1,13 @@
+no: 1000
+name: ShortSword
+type: Sword
+buy: '500'
+img: we_sword026.png
+atk:
+    - 10
+    - 0
+handle: '1'
+need:
+    6001: '4'
+base_name: ShortSword
+type2: WEAPON
