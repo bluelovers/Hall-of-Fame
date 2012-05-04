@@ -1,0 +1,30 @@
+monNo: 1080
+name: FoolHardy
+img: mon_139r.gif
+exphold: '600'
+moneyhold: '200'
+level: '41'
+maxhp: '1000'
+hp: '1000'
+maxsp: '120'
+sp: '120'
+str: '200'
+int: '10'
+dex: '10'
+spd: '30'
+luk: '30'
+guard: life50
+position: front
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 100
+    - 10
+def:
+    - 30
+    - 20
+    - 20
+    - 10
+itemtable: {  }
