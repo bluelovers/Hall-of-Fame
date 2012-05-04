@@ -1,0 +1,16 @@
+no: 3006
+name: RoundShield
+type: Shield
+buy: '10000'
+img: shield_001m.png
+def:
+    - 15
+    - 20
+    - 10
+    - 10
+handle: '5'
+need:
+    6002: '4'
+    6003: '16'
+base_name: RoundShield
+type2: GUARD
