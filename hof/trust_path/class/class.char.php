@@ -945,7 +945,7 @@ class char
 			case "Book":
 				if ($this->weapon)
 				{ //両手武器ならそれははずす
-					$weapon = LoadItemData($this->weapon);
+					$weapon = HOF_Model_Data::getItemData($this->weapon);
 					if ($weapon["dh"])
 					{
 						$return[] = $this->weapon;
@@ -971,10 +971,10 @@ class char
 		}
 
 		// handleの計算。
-		$weapon = LoadItemData($this->weapon);
-		$shield = LoadItemData($this->shield);
-		$armor = LoadItemData($this->armor);
-		$item2 = LoadItemData($this->item); // item2*
+		$weapon = HOF_Model_Data::getItemData($this->weapon);
+		$shield = HOF_Model_Data::getItemData($this->shield);
+		$armor = HOF_Model_Data::getItemData($this->armor);
+		$item2 = HOF_Model_Data::getItemData($this->item); // item2*
 
 		$handle = 0;
 		$handle = $weapon["handle"] + $shield["handle"] + $armor["handle"] + $item2["handle"];
@@ -1192,7 +1192,7 @@ class char
 			if (!$this->{$place}) continue;
 			// 武器タイプの記憶
 
-			$item = LoadItemData($this->{$place});
+			$item = HOF_Model_Data::getItemData($this->{$place});
 			if ($place == "weapon") $this->WEAPON = $item["type"];
 			$this->atk[0] += $item[atk][0]; //物理攻撃力
 			$this->atk[1] += $item[atk][1]; //魔法〃
