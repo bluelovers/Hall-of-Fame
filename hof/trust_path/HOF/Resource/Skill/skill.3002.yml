@@ -1,0 +1,17 @@
+no: 3002
+name: PartyHeal
+img: skill_013c.png
+exp: HP回復
+sp: '30'
+type: '1'
+learn: '12'
+target:
+    - friend
+    - all
+    - 1
+pow: '150'
+support: '1'
+priority: LowHpRate
+charge:
+    - 50
+    - 0
