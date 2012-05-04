@@ -1,0 +1,15 @@
+no: 5004
+name: SilverArmor
+type: Armor
+buy: '8000'
+img: armor_016b.png
+def:
+    - 35
+    - 25
+    - 18
+    - 10
+handle: '5'
+need:
+    6002: '18'
+base_name: SilverArmor
+type2: GUARD
