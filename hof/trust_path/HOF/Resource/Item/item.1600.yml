@@ -1,0 +1,11 @@
+no: 1600
+name: TomaHawk
+type: Hatchet
+buy: '1000'
+img: we_axe003.png
+atk:
+    - 17
+    - 0
+handle: '2'
+base_name: TomaHawk
+type2: OTHER
