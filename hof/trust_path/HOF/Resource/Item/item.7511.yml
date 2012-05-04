@@ -1,0 +1,8 @@
+no: 7511
+name: ResetCrystal(status30)
+type: Other
+buy: '500000'
+sell: '100'
+img: gem_03.png
+base_name: ResetCrystal(status30)
+type2: OTHER
