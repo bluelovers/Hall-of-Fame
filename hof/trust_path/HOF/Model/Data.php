@@ -338,9 +338,9 @@ class HOF_Model_Data extends HOF_Class_Data
 		}
 
 		// 付加能力
-		if ($option0) AddEnchantData($data, $option0);
-		if ($option1) AddEnchantData($data, $option1);
-		if ($option2) AddEnchantData($data, $option2);
+		if ($option0) HOF_Model_Item::addEnchantData($data, $option0);
+		if ($option1) HOF_Model_Item::addEnchantData($data, $option1);
+		if ($option2) HOF_Model_Item::addEnchantData($data, $option2);
 
 		return $data;
 	}
