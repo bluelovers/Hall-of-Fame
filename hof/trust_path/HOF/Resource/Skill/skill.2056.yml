@@ -1,0 +1,19 @@
+no: 2056
+name: ZombieRevival
+img: skill_061.png
+exp: 味方を蘇生
+sp: '300'
+type: '1'
+learn: '8'
+target:
+    - friend
+    - all
+    - 1
+charge:
+    - 50
+    - 100
+DownMAXHP: '30'
+DownDEF: '100'
+DownMDEF: '100'
+DownSPD: '50'
+priority: Dead
