@@ -1,0 +1,33 @@
+monNo: 1037
+name: SnowMan
+img: mon_181.gif
+exphold: '30'
+moneyhold: '30'
+level: '2'
+maxhp: '130'
+hp: '130'
+maxsp: '20'
+sp: '20'
+str: '8'
+int: '5'
+dex: '5'
+spd: '4'
+luk: '1'
+guard: always
+position: front
+judge:
+    - 1000
+quantity:
+    - 0
+action:
+    - 5042
+atk:
+    - 20
+    - 20
+def:
+    - 15
+    - 10
+    - 5
+    - 0
+itemtable:
+    6020: '1000'
