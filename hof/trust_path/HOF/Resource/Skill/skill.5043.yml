@@ -1,0 +1,12 @@
+no: 5043
+name: SnowBall
+img: skill_066.png
+sp: '0'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - multi
+    - 4
+invalid: true
+pow: '50'
