@@ -1,0 +1,47 @@
+monNo: 1035
+name: LordBafomet
+img: mon_210.gif
+level: '57'
+exphold: '3480'
+moneyhold: '3000'
+maxhp: '1500'
+hp: '1500'
+maxsp: '900'
+sp: '900'
+str: '170'
+int: '170'
+dex: '30'
+spd: '120'
+luk: '100'
+guard: prob25
+position: front
+judge:
+    - 1201
+    - 1902
+    - 1101
+    - 1920
+    - 1000
+quantity:
+    - 40
+    - 1
+    - 40
+    - 1
+    - 0
+action:
+    - 3011
+    - 5804
+    - 2031
+    - 5041
+    - 5040
+atk:
+    - 90
+    - 90
+def:
+    - 60
+    - 70
+    - 45
+    - 80
+itemtable:
+    6003: '700'
+    6022: '700'
+    6184: '700'
