@@ -1,0 +1,15 @@
+no: 2403
+name: CallGrandDino
+img: skill_029.png
+exp: 大怪物召喚
+sp: '350'
+type: '0'
+learn: '20'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 0
+    - 500
+summon: '5010'
