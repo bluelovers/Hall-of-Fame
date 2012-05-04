@@ -1,0 +1,17 @@
+no: 2002
+name: FirePillar
+img: skill_007a.png
+exp: 力DOWN
+sp: '40'
+type: '1'
+learn: '4'
+target:
+    - enemy
+    - multi
+    - 2
+pow: '140'
+invalid: '1'
+charge:
+    - 50
+    - 0
+DownSTR: '40'
