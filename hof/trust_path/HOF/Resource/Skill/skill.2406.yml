@@ -1,0 +1,16 @@
+no: 2406
+name: CallChimera
+img: skill_029.png
+exp: 合成獣召喚
+sp: '350'
+type: '0'
+learn: '20'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 0
+    - 500
+summon: '5013'
+quick: true
