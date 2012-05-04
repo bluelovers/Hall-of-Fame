@@ -1,0 +1,19 @@
+no: 2307
+name: HurricaneShot
+img: item_042.png
+exp: ''
+sp: '180'
+type: '0'
+learn: '16'
+target:
+    - enemy
+    - multi
+    - 16
+inf: dex
+pow: '70'
+invalid: '1'
+charge:
+    - 50
+    - 80
+limit:
+    Bow: true
