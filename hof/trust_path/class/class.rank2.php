@@ -35,7 +35,7 @@ class Ranking
 	...........
 
 	*/
-	function Ranking()
+	function __construct()
 	{
 		$file = RANKING;
 
