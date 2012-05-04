@@ -1,0 +1,15 @@
+no: 2202
+name: Anaconda
+type: Whip
+buy: '30000'
+img: we_other007.png
+atk:
+    - 40
+    - 0
+handle: '12'
+P_SUMMON: '20'
+need:
+    6040: '6'
+    6181: '16'
+base_name: Anaconda
+type2: WEAPON
