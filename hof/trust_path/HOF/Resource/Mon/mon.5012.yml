@@ -1,0 +1,34 @@
+monNo: 5012
+name: TrainedBear
+img: mon_085r.gif
+exphold: '0'
+moneyhold: '0'
+level: '10'
+maxhp: '500'
+hp: '500'
+maxsp: '80'
+sp: '80'
+str: '130'
+int: '20'
+dex: '10'
+spd: '35'
+luk: '20'
+guard: prob50
+position: front
+judge:
+    - 1940
+    - 1000
+quantity:
+    - 50
+    - 0
+action:
+    - 5011
+    - 5012
+atk:
+    - 60
+    - 10
+def:
+    - 30
+    - 20
+    - 25
+    - 20
