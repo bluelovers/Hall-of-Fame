@@ -85,7 +85,7 @@
 <!-- ---------------------------------------------------------------- -->
 <a name="menu"></a>
 <h4>メニュー(Menu) <a href="#content">↑</a></h4>
-<img src="./image/manual/003.gif">
+<img src="./static/image/manual/003.gif">
 <p><span class="u bold">ログイン後以下のメニューが表示される</span>
 <ul>
 <li><span class="bold">Top</span> - 所持キャラ一覧が表示される</li>
@@ -133,13 +133,13 @@ BATTLE_MAX_TURNS
 <h4>キャラクターの設定について <a href="#content">↑</a></h4>
 <p style="margin-left:50px">ログイン後、TOP画面のキャラ画像をクリックすると<br />
 そのキャラのステータス画面が表示されます。<br />
-<img src="./image/manual/001.gif"><br />
+<img src="./static/image/manual/001.gif"><br />
 以下の項目で詳しい設定内容を説明。</p>
 <!-- ---------------------------------------------------------------- -->
 <a name="charstat"></a>
 <h4>キャラクターの基本的な能力値について <a href="#content">↑</a></h4>
 <p style="margin-left:50px">
-<img src="./image/manual/002.gif">
+<img src="./static/image/manual/002.gif">
 <ul>
 <li /><span class="bold">Exp</span> : 次のレベルうｐまでの経験値
 <li /><span class="bold">MaxHP</span> : 最大体力。0になると戦闘中に倒れる。

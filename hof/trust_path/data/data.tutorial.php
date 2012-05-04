@@ -1,7 +1,7 @@
 <div style="margin:15px">
 <h4>チュートリアル</h4>
 <p>戦闘の基本的な戦略(イメージ:下図)</p>
-<img src="./image/manual/t001.gif" alt="いめーじ" />
+<img src="./static/image/manual/t001.gif" alt="いめーじ" />
 <p>基本は <span class="bold">戦士</span>(Warrior) のような打たれ強いキャラを <span class="bold">前衛</span>(Front) に、<br />
 <span class="bold">魔法使い</span>(Sorecerer) のような打たれ弱いキャラを <span class="bold">後衛</span>(Back) に。</p>
 <p>前衛は後衛を守り、攻撃力の高い後衛が敵を倒し、<br />
@@ -35,7 +35,7 @@ IMG_CHAR_REV
 Battle !</p>
 <p>ちゃんとできていれば、<br />戦闘結果が表示されると思います。</p>
 <h4>メニューの構成</h4>
-<img src="./image/manual/003.gif">
+<img src="./static/image/manual/003.gif">
 <h4>うんぬん</h4>
 <div class="bold u">雇える初期キャラ</div>
 <p><ul>

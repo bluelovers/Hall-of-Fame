@@ -25,7 +25,7 @@ if (!function_exists("LoadSkillData")) include (DATA_SKILL);
 <div style="margin:0 20px">
 <p>"* think over" というスキルを習得すると<br />
 条件による多重判定ができるようになります。</p>
-<p><img src="./image/char/mon_079.gif" class="vcent">戦士系の場合だと...<img src="./image/char/mon_080r.gif" class="vcent"></p>
+<p><img src="./static/image/char/mon_079.gif" class="vcent">戦士系の場合だと...<img src="./image/char/mon_080r.gif" class="vcent"></p>
 <table cellspacing="5">
 <tbody>
 <tr>
