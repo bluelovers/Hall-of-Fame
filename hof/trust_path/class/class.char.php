@@ -1122,7 +1122,7 @@ class char
 		{
 			if ($no < 7000 || 8000 <= $no) continue;
 
-			$skill = LoadSkillData($no);
+			$skill = HOF_Model_Data::getSkill($no);
 			//	能力値上昇系
 			if ($skill["P_MAXHP"]) $this->P_MAXHP += $skill["P_MAXHP"];
 			if ($skill["P_MAXSP"]) $this->P_MAXSP += $skill["P_MAXSP"];
