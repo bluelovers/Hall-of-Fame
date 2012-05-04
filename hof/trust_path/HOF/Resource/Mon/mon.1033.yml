@@ -1,0 +1,52 @@
+monNo: 1033
+name: CentaurKnight
+img: mon_129r.gif
+level: '40'
+exphold: '580'
+moneyhold: '320'
+maxhp: '1340'
+hp: '1340'
+maxsp: '120'
+sp: '120'
+str: '150'
+int: '20'
+dex: '30'
+spd: '50'
+luk: '30'
+guard: life75
+position: front
+judge:
+    - 1701
+    - 1200
+    - 1902
+    - 1940
+    - 1100
+    - 1200
+    - 1000
+quantity:
+    - 0
+    - 10
+    - 1
+    - 50
+    - 80
+    - 40
+    - 0
+action:
+    - 9000
+    - 3112
+    - 9000
+    - 3231
+    - 1114
+    - 1017
+    - 1000
+atk:
+    - 80
+    - 10
+def:
+    - 60
+    - 30
+    - 20
+    - 20
+itemtable:
+    6002: '1500'
+    6003: '500'
