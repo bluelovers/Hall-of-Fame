@@ -1,0 +1,14 @@
+no: 1001
+name: Falshion
+type: Sword
+buy: '1000'
+img: we_sword026.png
+atk:
+    - 15
+    - 0
+handle: '2'
+need:
+    6001: '6'
+    6002: '2'
+base_name: Falshion
+type2: WEAPON
