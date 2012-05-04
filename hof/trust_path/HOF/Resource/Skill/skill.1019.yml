@@ -1,0 +1,16 @@
+no: 1019
+name: PierceRush
+img: skill_077z.png
+exp: 防御力無視
+sp: '80'
+type: '0'
+learn: '10'
+target:
+    - enemy
+    - multi
+    - 6
+pow: '60'
+charge:
+    - 60
+    - 60
+pierce: true
