@@ -1,0 +1,13 @@
+no: 5011
+name: DevilArmor
+type: Armor
+buy: '20000'
+img: armor_016b.png
+def:
+    - 20
+    - 140
+    - 15
+    - 70
+handle: '8'
+base_name: DevilArmor
+type2: GUARD
