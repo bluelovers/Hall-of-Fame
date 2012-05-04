@@ -1,0 +1,27 @@
+monNo: 1103
+name: ThunderBirdy
+img: mon_208rz.gif
+level: '35'
+exphold: '500'
+moneyhold: '100'
+maxhp: '1000'
+hp: '1000'
+maxsp: '500'
+sp: '500'
+str: '130'
+int: '130'
+dex: '15'
+spd: '100'
+luk: '10'
+guard: prob50
+judge: {  }
+quantity: {  }
+action: {  }
+atk:
+    - 100
+    - 100
+def:
+    - 30
+    - 40
+    - 50
+    - 40
