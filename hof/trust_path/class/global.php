@@ -246,7 +246,7 @@ function JudgeList()
 	{
 		for ($i = 1000; $i < 2500; $i++)
 		{
-			if (LoadJudgeData($i) !== false) $list[] = $i;
+			if (HOF_Model_Data::getJudgeData($i) !== false) $list[] = $i;
 		}
 		return $list;
 		// 手動(追加した判断は自分で書き足せ)
