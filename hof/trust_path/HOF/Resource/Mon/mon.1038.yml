@@ -1,0 +1,42 @@
+monNo: 1038
+name: SnowWolf
+img: mon_184.gif
+exphold: '35'
+moneyhold: '35'
+level: '3'
+maxhp: '150'
+hp: '150'
+maxsp: '40'
+sp: '40'
+str: '14'
+int: '5'
+dex: '5'
+spd: '7'
+luk: '1'
+guard: always
+position: front
+judge:
+    - 1940
+    - 1940
+    - 1200
+    - 1000
+quantity:
+    - 30
+    - 50
+    - 90
+    - 0
+action:
+    - 5010
+    - 9000
+    - 5805
+    - 5009
+atk:
+    - 30
+    - 20
+def:
+    - 15
+    - 20
+    - 5
+    - 10
+itemtable:
+    6040: '1000'
