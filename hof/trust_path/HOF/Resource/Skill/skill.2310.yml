@@ -1,0 +1,17 @@
+no: 2310
+name: DoubleShot
+img: item_042.png
+exp: ''
+sp: '28'
+type: '0'
+learn: '0'
+target:
+    - enemy
+    - multi
+    - 2
+inf: dex
+pow: '80'
+invalid: '1'
+priority: Back
+limit:
+    Bow: true
