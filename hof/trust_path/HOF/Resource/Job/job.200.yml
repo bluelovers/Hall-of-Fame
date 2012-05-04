@@ -1,0 +1,19 @@
+no: 200
+name_male: Sorcerer
+name_female: Sorceress
+img_male: mon_106.gif
+img_female: mon_018.gif
+equip:
+    - Wand
+    - Staff
+    - Book
+    - Cloth
+    - Robe
+    - Item
+coe:
+    - 1.5
+    - 1
+change:
+    - 201
+    - 202
+    - 203
