@@ -1,0 +1,15 @@
+no: 3421
+name: CircleErase
+img: ms_02.png
+exp: 相手魔法陣-1
+sp: '240'
+type: '1'
+learn: '4'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 40
+    - 0
+MagicCircleDeleteEnemy: 1
