@@ -1,0 +1,19 @@
+no: 2309
+name: Disarm
+img: item_042.png
+exp: ''
+sp: '20'
+type: '0'
+learn: '2'
+target:
+    - enemy
+    - individual
+    - 1
+inf: dex
+pow: '80'
+invalid: '1'
+priority: Back
+DownATK: '70'
+DownMATK: '70'
+limit:
+    Bow: true
