@@ -1,0 +1,46 @@
+monNo: 1092
+name: Bandits
+img: mon_216r.gif
+exphold: '500'
+moneyhold: '60'
+level: '32'
+maxhp: '600'
+hp: '600'
+maxsp: '200'
+sp: '200'
+str: '50'
+int: '30'
+dex: '60'
+spd: '30'
+luk: '20'
+guard: life50
+judge:
+    - 1902
+    - 1940
+    - 1615
+    - 1200
+    - 1902
+    - 1000
+quantity:
+    - 1
+    - 50
+    - 4
+    - 10
+    - 1
+    - 0
+action:
+    - 9000
+    - 5060
+    - 9000
+    - 1200
+    - 1207
+    - 1000
+atk:
+    - 30
+    - 20
+def:
+    - 35
+    - 0
+    - 20
+    - 0
+itemtable: {  }
