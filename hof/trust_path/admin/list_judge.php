@@ -10,7 +10,7 @@
 include ("../data/data.judge_setup.php");
 for ($i = 1000; $i < 9999; $i++)
 {
-	$j = LoadJudgeData($i);
+	$j = HOF_Model_Data::getJudgeData($i);
 	if ($j)
 	{
 		print ("case {$i}:// {$j[exp]}<br />");
