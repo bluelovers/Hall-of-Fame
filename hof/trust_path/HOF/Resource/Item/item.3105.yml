@@ -1,0 +1,18 @@
+no: 3105
+name: WorldEncyclopedia
+type: Book
+buy: '20000'
+img: book_002.png
+atk:
+    - 5
+    - 0
+def:
+    - 10
+    - 5
+    - 7
+    - 0
+handle: '5'
+need:
+    6182: '58'
+base_name: WorldEncyclopedia
+type2: GUARD
