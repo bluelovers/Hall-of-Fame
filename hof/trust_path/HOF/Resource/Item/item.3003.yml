@@ -1,0 +1,16 @@
+no: 3003
+name: KiteShield
+type: Shield
+buy: '5000'
+img: shield_001m.png
+def:
+    - 5
+    - 20
+    - 10
+    - 5
+handle: '3'
+need:
+    6001: '2'
+    6002: '6'
+base_name: KiteShield
+type2: GUARD
