@@ -1,0 +1,30 @@
+monNo: 1081
+name: FlameQueen
+img: mon_190r.gif
+exphold: '2600'
+moneyhold: '900'
+level: '45'
+maxhp: '2300'
+hp: '2300'
+maxsp: '700'
+sp: '700'
+str: '50'
+int: '120'
+dex: '30'
+spd: '30'
+luk: '30'
+guard: never
+position: back
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 100
+    - 80
+def:
+    - 20
+    - 20
+    - 30
+    - 90
+itemtable: {  }
