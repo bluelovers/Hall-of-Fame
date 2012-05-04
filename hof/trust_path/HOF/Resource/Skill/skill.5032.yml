@@ -1,0 +1,16 @@
+no: 5032
+name: GroundStrike
+img: skill_066.png
+sp: '50'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - all
+    - 1
+invalid: true
+charge:
+    - 0
+    - 50
+pow: '50'
+delay: '30'
