@@ -1,0 +1,10 @@
+no: 5520
+name: CleverRing
+type: Item
+buy: '10000'
+img: acce_024.png
+handle: '3'
+P_DEX: '30'
+option: 'DEX+30, '
+base_name: CleverRing
+type2: OTHER
