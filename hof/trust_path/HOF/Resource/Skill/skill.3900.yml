@@ -1,0 +1,11 @@
+no: 3900
+name: GetPoison
+img: acce_003c.png
+exp: 自己毒化
+sp: '20'
+type: '0'
+learn: '0'
+target:
+    - self
+    - individual
+    - 1
