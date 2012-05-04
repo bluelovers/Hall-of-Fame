@@ -1,0 +1,21 @@
+no: 3308
+name: FullSupport
+img: we_other007z.png
+exp: 召喚キャラ強化
+sp: '200'
+type: '0'
+learn: '8'
+target:
+    - friend
+    - individual
+    - 1
+support: '1'
+charge:
+    - 0
+    - 150
+UpSTR: '100'
+UpINT: '100'
+UpSPD: '100'
+priority: Summon
+limit:
+    Whip: true
