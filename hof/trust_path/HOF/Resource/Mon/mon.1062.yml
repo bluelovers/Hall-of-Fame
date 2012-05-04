@@ -1,0 +1,29 @@
+monNo: 1062
+name: GiantKraken
+img: mon_070.gif
+exphold: '420'
+moneyhold: '230'
+level: '27'
+maxhp: '1220'
+hp: '1220'
+maxsp: '100'
+sp: '100'
+str: '80'
+int: '20'
+dex: '30'
+spd: '30'
+luk: '10'
+guard: always
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 30
+    - 30
+def:
+    - 0
+    - 10
+    - 0
+    - 10
+itemtable: {  }
