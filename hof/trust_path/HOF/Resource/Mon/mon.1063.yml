@@ -1,0 +1,29 @@
+monNo: 1063
+name: MadOctopus
+img: mon_118.gif
+exphold: '300'
+moneyhold: '120'
+level: '24'
+maxhp: '430'
+hp: '430'
+maxsp: '180'
+sp: '180'
+str: '40'
+int: '80'
+dex: '10'
+spd: '40'
+luk: '20'
+guard: never
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 20
+    - 20
+def:
+    - 20
+    - 20
+    - 20
+    - 40
+itemtable: {  }
