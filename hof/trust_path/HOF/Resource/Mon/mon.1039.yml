@@ -1,0 +1,35 @@
+monNo: 1039
+name: GoblinSkier
+img: mon_182.gif
+exphold: '30'
+moneyhold: '30'
+level: '3'
+maxhp: '130'
+hp: '130'
+maxsp: '40'
+sp: '40'
+str: '9'
+int: '5'
+dex: '5'
+spd: '14'
+luk: '1'
+guard: never
+judge:
+    - 1940
+    - 1000
+quantity:
+    - 50
+    - 0
+action:
+    - 5042
+    - 5008
+atk:
+    - 20
+    - 20
+def:
+    - 10
+    - 10
+    - 15
+    - 10
+itemtable:
+    8010: '1000'
