@@ -1,0 +1,16 @@
+no: 5007
+name: PlateMail
+type: Armor
+buy: '10000'
+img: armor_016b.png
+def:
+    - 20
+    - 100
+    - 25
+    - 20
+handle: '6'
+need:
+    6002: '16'
+    6003: '8'
+base_name: PlateMail
+type2: GUARD
