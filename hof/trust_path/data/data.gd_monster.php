@@ -8,7 +8,7 @@ if (!defined('DEBUG'))
 /*
 どっかおかしくて画像表示されてないので必要ならば直して
 */
-include_once (DATA_MONSTER);
+//include_once (DATA_MONSTER);
 
 
 ?>
