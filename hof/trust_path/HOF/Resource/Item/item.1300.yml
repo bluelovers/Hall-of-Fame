@@ -1,0 +1,12 @@
+no: 1300
+name: Partizan
+type: Spear
+dh: true
+buy: '1000'
+img: we_spear016.png
+atk:
+    - 28
+    - 0
+handle: '2'
+base_name: Partizan
+type2: OTHER
