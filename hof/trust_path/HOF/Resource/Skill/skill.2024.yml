@@ -1,0 +1,16 @@
+no: 2024
+name: ThunderStorm
+img: skill_006cz.png
+exp: ''
+sp: '400'
+type: '1'
+learn: '12'
+target:
+    - enemy
+    - multi
+    - 5
+pow: '300'
+charge:
+    - 140
+    - 0
+invalid: '1'
