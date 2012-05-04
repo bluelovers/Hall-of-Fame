@@ -13,10 +13,11 @@ if (!defined('DEBUG'))
 
 
 ?>
-<div style="margin:0 15px">
-<h4>モンスター</h4>
-<table class="align-center" style="width:740px" cellspacing="0">
-<?php
+
+	<div style="margin:0 15px">
+		<h4>モンスター</h4>
+		<table class="align-center" style="width:740px" cellspacing="0">
+			<?php
 
 $List = array(
 	1000 => array("grass", "SPがあるときは、強い攻撃をたまにしてくる程度。"),
@@ -80,5 +81,5 @@ foreach ($List as $No => $exp)
 
 
 ?>
-</table>
-</div>
+		</table>
+	</div>
