@@ -1,0 +1,13 @@
+no: ac4
+land:
+    name: 古の洞窟(B5)
+    name0: TheAncientCave5F
+    land: cave
+    proper: 'Lv??'
+monster:
+    1030: [150, 1]
+    1031: [150, 1]
+    1032: [150, 1]
+    1033: [200, 1]
+    1034: [70, 1]
+    1035: [10, 0]
