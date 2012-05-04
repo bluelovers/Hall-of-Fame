@@ -1,0 +1,16 @@
+no: 5005
+name: HalfPlate
+type: Armor
+buy: '10000'
+img: armor_016b.png
+def:
+    - 15
+    - 70
+    - 24
+    - 15
+handle: '5'
+need:
+    6002: '12'
+    6003: '6'
+base_name: HalfPlate
+type2: GUARD
