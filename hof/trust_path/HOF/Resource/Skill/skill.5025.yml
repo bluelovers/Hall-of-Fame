@@ -1,0 +1,13 @@
+no: 5025
+name: HolyStream
+img: skill_066.png
+exp: ''
+sp: '100'
+type: '1'
+learn: '99'
+target:
+    - enemy
+    - all
+    - 1
+pow: '150'
+invalid: '1'
