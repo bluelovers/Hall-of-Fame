@@ -1,0 +1,18 @@
+no: 2463
+name: ZombieControl
+img: skill_028.png
+exp: 3体召喚
+sp: '200'
+type: '1'
+learn: '8'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 50
+    - 50
+summon:
+    - 5004
+    - 5005
+    - 5004
