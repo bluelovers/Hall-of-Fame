@@ -5,8 +5,7 @@ if (!defined('DEBUG'))
 	exit('Access Denied');
 }
 
-include_once ("class.char.php");
-class union extends char
+class union extends HOF_Class_Char
 {
 
 	var $file;
