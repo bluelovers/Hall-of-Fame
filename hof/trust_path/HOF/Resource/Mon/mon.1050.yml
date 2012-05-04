@@ -1,0 +1,30 @@
+monNo: 1050
+name: DarkElfHunter
+img: mon_042r.gif
+exphold: '500'
+moneyhold: '200'
+level: '39'
+maxhp: '580'
+hp: '580'
+maxsp: '300'
+sp: '300'
+str: '20'
+int: '50'
+dex: '140'
+spd: '100'
+luk: '10'
+guard: never
+position: back
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 50
+    - 30
+def:
+    - 20
+    - 20
+    - 30
+    - 40
+itemtable: {  }
