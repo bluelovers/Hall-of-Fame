@@ -1,0 +1,15 @@
+no: 3221
+name: Protection+
+img: skill_045.png
+sp: '90'
+type: '1'
+learn: '6'
+target:
+    - friend
+    - all
+    - 1
+support: '1'
+charge:
+    - 90
+    - 0
+UpDEF: '15'
