@@ -1,0 +1,12 @@
+no: 3121
+name: SelfRecovery
+img: skill_062.png
+exp: ''
+sp: '15'
+type: '0'
+learn: '4'
+target:
+    - self
+    - individual
+    - 1
+support: '1'
