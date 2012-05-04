@@ -1,0 +1,12 @@
+no: 5049
+name: Cheer
+img: skill_066.png
+sp: '60'
+type: '0'
+learn: '99'
+target:
+    - friend
+    - all
+    - 1
+UpSTR: '40'
+UpINT: '40'
