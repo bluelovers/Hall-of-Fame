@@ -1,0 +1,12 @@
+no: 2007
+name: Varistor
+type: Bow
+dh: true
+buy: '60000'
+img: we_bow001.png
+atk:
+    - 90
+    - 0
+handle: '30'
+base_name: Varistor
+type2: WEAPON
