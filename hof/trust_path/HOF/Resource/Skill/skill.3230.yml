@@ -1,0 +1,15 @@
+no: 3230
+name: ForceShield
+img: skill_070.png
+sp: '60'
+type: '1'
+learn: '6'
+target:
+    - friend
+    - all
+    - 1
+support: '1'
+charge:
+    - 30
+    - 0
+UpMDEF: '10'
