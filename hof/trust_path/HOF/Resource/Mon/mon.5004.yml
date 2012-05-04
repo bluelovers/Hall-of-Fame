@@ -1,0 +1,31 @@
+monNo: 5004
+name: Zombie
+img: mon_141.gif
+level: '5'
+maxhp: '260'
+hp: '260'
+maxsp: '0'
+sp: '0'
+str: '100'
+int: '1'
+dex: '1'
+spd: '1'
+luk: '1'
+guard: never
+position: front
+SPECIAL:
+    Undead: true
+judge:
+    - 1000
+quantity:
+    - 0
+action:
+    - 1000
+atk:
+    - 20
+    - 10
+def:
+    - 0
+    - 0
+    - 0
+    - 0
