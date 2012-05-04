@@ -1,0 +1,33 @@
+monNo: 5006
+name: Mummy
+img: mon_146.gif
+exphold: '0'
+moneyhold: '0'
+level: '10'
+maxhp: '450'
+hp: '450'
+maxsp: '0'
+sp: '0'
+str: '450'
+int: '1'
+dex: '1'
+spd: '10'
+luk: '1'
+guard: prob50
+position: front
+SPECIAL:
+    Undead: true
+judge:
+    - 1000
+quantity:
+    - 0
+action:
+    - 1000
+atk:
+    - 20
+    - 10
+def:
+    - 10
+    - 10
+    - 0
+    - 0
