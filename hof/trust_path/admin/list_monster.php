@@ -101,7 +101,7 @@ for ($no = 1000; $no < 5999; $no++)
 		print ("</td><td>");
 		print ($m["quantity"]["$key"]);
 		print ("</td><td>");
-		$skill = LoadSkillData($m["action"]["$key"]);
+		$skill = HOF_Model_Data::getSkill($m["action"]["$key"]);
 		//print($skill[name]);
 		ShowSkillDetail($skill);
 		print ("</td></tr>");
