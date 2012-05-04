@@ -1,0 +1,11 @@
+no: 1025
+name: ManaDivision
+img: skill_073x.png
+exp: 対象とSPを分割
+sp: '10'
+type: '0'
+learn: '3'
+target:
+    - enemy
+    - individual
+    - 1
