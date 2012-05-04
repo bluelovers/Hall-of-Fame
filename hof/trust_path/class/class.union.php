@@ -287,7 +287,7 @@ class union extends char
 		$this->MonsterNumber = $data["MonsterNumber"];
 		$this->LastDefeated = $data["LastDefeated"];
 
-		$monster = CreateMonster($this->MonsterNumber);
+		$monster = HOF_Model_Char::getBaseMonster($this->MonsterNumber);
 
 		$this->UnionName = $monster["UnionName"];
 
