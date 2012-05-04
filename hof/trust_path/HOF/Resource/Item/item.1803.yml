@@ -1,0 +1,15 @@
+no: 1803
+name: SilverStaff
+type: Staff
+dh: true
+buy: '20000'
+img: we_staff008b.png
+atk:
+    - 10
+    - 60
+handle: '6'
+need:
+    6002: '12'
+    6022: '1'
+base_name: SilverStaff
+type2: WEAPON
