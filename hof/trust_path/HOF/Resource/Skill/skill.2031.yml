@@ -1,0 +1,15 @@
+no: 2031
+name: LifeSqueeze
+img: skill_078.png
+exp: HP吸収
+sp: '70'
+type: '1'
+learn: '8'
+target:
+    - enemy
+    - all
+    - 1
+pow: '120'
+charge:
+    - 30
+    - 80
