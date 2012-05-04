@@ -1,0 +1,34 @@
+monNo: 5003
+name: Skeleton
+img: mon_143.gif
+exphold: '60'
+moneyhold: '0'
+level: '10'
+maxhp: '200'
+hp: '200'
+maxsp: '50'
+sp: '50'
+str: '25'
+int: '1'
+dex: '10'
+spd: '10'
+luk: '1'
+guard: never
+position: front
+judge:
+    - 1200
+    - 1000
+quantity:
+    - 30
+    - 0
+action:
+    - 1003
+    - 1000
+atk:
+    - 20
+    - 10
+def:
+    - 0
+    - 20
+    - 0
+    - 0
