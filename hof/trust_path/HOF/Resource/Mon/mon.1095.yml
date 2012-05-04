@@ -1,0 +1,56 @@
+monNo: 1095
+name: StrongBob
+img: mon_194.gif
+exphold: '800'
+moneyhold: '300'
+level: '46'
+maxhp: '1360'
+hp: '1360'
+maxsp: '180'
+sp: '180'
+str: '180'
+int: '30'
+dex: '50'
+spd: '60'
+luk: '30'
+guard: life25
+position: front
+judge:
+    - 1902
+    - 1940
+    - 1701
+    - 1200
+    - 1101
+    - 1200
+    - 1200
+    - 1200
+    - 1000
+quantity:
+    - 1
+    - 50
+    - 0
+    - 10
+    - 40
+    - 20
+    - 50
+    - 30
+    - 0
+action:
+    - 9000
+    - 1012
+    - 9000
+    - 1022
+    - 9000
+    - 5005
+    - 1019
+    - 1017
+    - 1000
+atk:
+    - 120
+    - 20
+def:
+    - 60
+    - 30
+    - 40
+    - 10
+itemtable: {  }
