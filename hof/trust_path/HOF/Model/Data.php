@@ -99,7 +99,6 @@ class HOF_Model_Data extends HOF_Class_Data
 		 * "DownSTR"	=> "40",// IND DEX SPD LUK ATK MATK DEF MDEF HP SP
 		 * "UpSTR"
 		 * "PlusSTR"	=> 50,
-
 		 */
 		$data = self::getInstance()->_load('skill', $no);
 
