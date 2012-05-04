@@ -1,0 +1,52 @@
+monNo: 5010
+name: GrandDino
+img: mon_228.gif
+exphold: '0'
+moneyhold: '0'
+level: '10'
+maxhp: '900'
+hp: '900'
+maxsp: '150'
+sp: '150'
+str: '120'
+int: '20'
+dex: '10'
+spd: '10'
+luk: '30'
+guard: always
+position: front
+judge:
+    - 1940
+    - 1902
+    - 1101
+    - 1200
+    - 1940
+    - 1200
+    - 1940
+    - 1000
+quantity:
+    - 50
+    - 1
+    - 50
+    - 20
+    - 50
+    - 20
+    - 50
+    - 0
+action:
+    - 9000
+    - 5005
+    - 9000
+    - 3121
+    - 9000
+    - 5000
+    - 5019
+    - 5008
+atk:
+    - 100
+    - 10
+def:
+    - 45
+    - 60
+    - 35
+    - 30
