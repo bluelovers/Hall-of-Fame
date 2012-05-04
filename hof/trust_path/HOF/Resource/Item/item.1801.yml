@@ -1,0 +1,14 @@
+no: 1801
+name: LongStaff
+type: Staff
+dh: true
+buy: '5000'
+img: we_staff008b.png
+atk:
+    - 4
+    - 37
+handle: '3'
+need:
+    6021: '8'
+base_name: LongStaff
+type2: WEAPON
