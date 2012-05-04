@@ -1,0 +1,15 @@
+no: 2211
+name: SilverTail
+type: Whip
+buy: '70000'
+img: we_other007.png
+atk:
+    - 100
+    - 0
+handle: '10'
+P_SUMMON: '8'
+need:
+    6040: '12'
+    6002: '32'
+base_name: SilverTail
+type2: WEAPON
