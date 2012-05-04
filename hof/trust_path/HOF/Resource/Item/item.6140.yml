@@ -1,0 +1,8 @@
+no: 6140
+name: NoisySound
+type: Material
+buy: '1000'
+sell: '10'
+img: other_007.png
+base_name: NoisySound
+type2: OTHER
