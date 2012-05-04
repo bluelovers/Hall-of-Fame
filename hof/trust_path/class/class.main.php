@@ -418,8 +418,8 @@ class main extends user
 			{
 				/*
 				if (1 < $overlap[$Number]) //1匹以上出現するなら名前に記号をつける。
-				$enemy[] = new monster(CreateMonster($Number, true));
-				else  $enemy[] = new monster(CreateMonster($Number));
+				$enemy[] = new monster(HOF_Model_Char::getBaseMonster($Number, true));
+				else  $enemy[] = new monster(HOF_Model_Char::getBaseMonster($Number));
 				*/
 
 				$enemy[] = HOF_Model_Char::newMon($Number, (1 < $overlap[$Number]));
@@ -3380,7 +3380,7 @@ JS_HTML;
 				return false;
 			}
 			// ユニオンモンスターのデータ
-			$UnionMob = CreateMonster($Union->MonsterNumber);
+			$UnionMob = HOF_Model_Char::getBaseMonster($Union->MonsterNumber);
 			$this->MemorizeParty(); //パーティー記憶
 			// 自分パーティー
 			foreach ($this->char as $key => $val)
