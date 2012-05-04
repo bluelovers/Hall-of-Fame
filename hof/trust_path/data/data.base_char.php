@@ -7,6 +7,7 @@ if (!defined('DEBUG'))
 
 function BaseCharStatus($no)
 {
+	/*
 	switch ($no)
 	{
 		case "1":
@@ -101,9 +102,13 @@ function BaseCharStatus($no)
 				);
 			break;
 	}
+	*/
 
-	$stat += array("birth" => time() . substr(microtime(), 2, 6));
-	return $stat;
+	$char = HOF_Class_Yaml::load(BASE_TRUST_PATH.'HOF/Resource/Char/char.'.$no.'.yml');
+
+	$char['birth'] = time() . substr(microtime(), 2, 6);
+
+	return $char;
 }
 
 
