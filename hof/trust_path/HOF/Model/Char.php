@@ -109,6 +109,53 @@ class HOF_Model_Char extends HOF_Class_Array
 		return $char;
 	}
 
+	/**
+	 * 変数はPCキャラとほぼ同じ内容。
+	 * 返す直前に
+	 * "monster"	=> "1",//*モンスターと区別するため。
+	 * を追加する。
+	 * 装備等が無いため
+	 * "atk"	=> array(*,*),
+	 * "def"	=> array(*,*,*,*),
+	 * atk,def は直接指定する。
+	 * "exphold"	=> "**",//持ってる経験値
+	 * "guard"	=> "後列の防御方法",
+	 * always,never,life25,life50,life75,prob25,prob50,prob75
+
+	 * "position"	=> "FRONT or BACK",//指定する事で位置を後列or前列に固定できる。
+	 * "itemtable"	=> array("アイテム番号"=>"確立","アイテム番号2"=>"確立2"),//落とすアイテム。
+	 * 設定されていない場合 → 何も落とさない。
+	 * 設定されている場合。
+	 * 確立は x/10000
+	 * array("500"=>"1011", "1500"=>"2011", "3000"=>"10"),
+	 * 1011=500/10000(5%), 2011=1000/10000(10%), 3000=10/10000(0.01%),で落とす。
+	 * 複数個落とす事は無く、1個しか落とさない。
+
+	 * 特殊
+	 * "SPECIAL" = array(
+	 * 特殊能力(ユニオンの毒耐性とか)
+	 * );
+
+	 * ■ ユニオンモンスター専用の変数
+
+	 * "cycle" = 出現周期
+
+	 * ユニオンと一緒に出る雑魚出現確率
+	 * 2個目の変数は無視
+	 * "Slave" = array(
+	 * 敵番号 => (確立,0)
+	 * );
+	 * "land" = 土地(背景)
+
+	 * 必ず出現する雑魚を指定する
+	 * "SlaveSpecify"	=> array(敵番号, ),
+	 * "UnionName" = ユニオンの団体の名称
+	 * "LevelLimit" = レベル制限
+
+	 * 雑魚の出現数を指定する
+	 * 省略してもOK
+	 * "SlaveAmount" => "6",
+	 */
 	function getBaseMonster($no, $over = false)
 	{
 		if (!isset(self::getInstance()->char['mon'][$no]))
