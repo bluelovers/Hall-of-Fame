@@ -42,7 +42,7 @@ class Ranking
 
 	//////////////////////////////////////////////
 	// ファイルから読み込んでランキングを配列にする
-	function Ranking()
+	function __construct()
 	{
 		$file = RANKING;
 
