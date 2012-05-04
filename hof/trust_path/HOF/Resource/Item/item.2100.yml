@@ -1,0 +1,12 @@
+no: 2100
+name: Gastraphetes
+type: CrossBow
+dh: true
+buy: '1000'
+img: we_bow013.png
+atk:
+    - 25
+    - 0
+handle: '2'
+base_name: Gastraphetes
+type2: OTHER
