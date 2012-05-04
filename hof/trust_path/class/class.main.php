@@ -1091,7 +1091,7 @@ HTML;
 				print ("<select name=\"skill" . $i . "\">\n");
 				foreach ($char->skill as $val)
 				{ //技のoption
-					$skill = LoadSkillData($val);
+					$skill = HOF_Model_Data::getSkill($val);
 					print ("<option value=\"{$val}\"" . ($char->action[$i] == $val ? " selected" : NULL) . ">");
 					print ($skill["name"] . (isset($skill["sp"]) ? " - (SP:{$skill[sp]})" : NULL));
 					print ("</option>\n");
@@ -1354,7 +1354,7 @@ HTML;
 				foreach ($char->skill as $val)
 				{
 					print ("<tr><td>");
-					$skill = LoadSkillData($val);
+					$skill = HOF_Model_Data::getSkill($val);
 					ShowSkillDetail($skill);
 					print ("</td></tr>");
 				}
@@ -1366,7 +1366,7 @@ HTML;
 				foreach (array_diff($tree, $char->skill) as $val)
 				{
 					print ("<tr><td>");
-					$skill = LoadSkillData($val);
+					$skill = HOF_Model_Data::getSkill($val);
 					ShowSkillDetail($skill, 1);
 					print ("</td></tr>");
 				}
@@ -1527,10 +1527,10 @@ HTML;
 			print ('<h4>CommonMonster</h4>');
 			print ('<div style="margin:0 20px">');
 
-			$mapList = LoadMapAppear($this);
+			$mapList = HOF_Model_Data::getLandAppear($this);
 			foreach ($mapList as $map)
 			{
-				list($land) = LandInformation($map);
+				list($land) = HOF_Model_Data::getLandInfo($map);
 				print ("<p><a href=\"?common={$map}\">{$land[name]}</a>");
 				//print(" ({$land[proper]})");
 				print ("</p>");
@@ -1590,12 +1590,12 @@ HTML;
 			include (DATA_LAND);
 			include_once (DATA_LAND_APPEAR);
 			// まだ行けないマップなのに行こうとした。
-			if (!in_array($_GET["common"], LoadMapAppear($this)))
+			if (!in_array($_GET["common"], HOF_Model_Data::getLandAppear($this)))
 			{
 				print ('<div style="margin:15px">not appeared or not exist</div>');
 				return false;
 			}
-			list($land, $monster_list) = LandInformation($land_id);
+			list($land, $monster_list) = HOF_Model_Data::getLandInfo($land_id);
 			if (!$land || !$monster_list)
 			{
 				print ('<div style="margin:15px">fail to load</div>');
@@ -1637,7 +1637,7 @@ HTML;
 				$this->MemorizeParty(); //パーティー記憶
 				// そのマップで戦えるかどうか確認する。
 				include_once (DATA_LAND_APPEAR);
-				$land = LoadMapAppear($this);
+				$land = HOF_Model_Data::getLandAppear($this);
 				if (!in_array($_GET["common"], $land))
 				{
 					ShowError("マップが出現して無い", "margin15");
@@ -1669,7 +1669,7 @@ HTML;
 				// 敵パーティー(または一匹)
 				include (DATA_LAND);
 				include (DATA_MONSTER);
-				list($Land, $MonsterList) = LandInformation($_GET["common"]);
+				list($Land, $MonsterList) = HOF_Model_Data::getLandInfo($_GET["common"]);
 				$EneNum = $this->EnemyNumber($MyParty);
 				$EnemyParty = $this->EnemyParty($EneNum, $MonsterList);
 
