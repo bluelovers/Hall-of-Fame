@@ -1,0 +1,13 @@
+no: 1008
+name: Flamberge
+type: Sword
+buy: '60000'
+img: we_sword026.png
+atk:
+    - 80
+    - 0
+handle: '10'
+need:
+    6003: '32'
+base_name: Flamberge
+type2: WEAPON
