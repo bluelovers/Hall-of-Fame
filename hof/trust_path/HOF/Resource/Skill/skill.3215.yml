@@ -1,0 +1,15 @@
+no: 3215
+name: MindBreak
+img: skill_050.png
+sp: '60'
+type: '1'
+learn: '6'
+target:
+    - enemy
+    - all
+    - 1
+support: '1'
+charge:
+    - 30
+    - 0
+DownINT: '40'
