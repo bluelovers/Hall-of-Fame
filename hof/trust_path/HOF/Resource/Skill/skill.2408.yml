@@ -1,0 +1,16 @@
+no: 2408
+name: CallSprite
+img: skill_028.png
+exp: 小妖精召喚
+sp: '150'
+type: '0'
+learn: '4'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 0
+    - 100
+summon: '5015'
+quick: true
