@@ -1,0 +1,8 @@
+no: 9000
+name: AuctionMembershipCard
+type: Special
+buy: '9999'
+sell: '100'
+img: item_035.png
+base_name: AuctionMembershipCard
+type2: OTHER
