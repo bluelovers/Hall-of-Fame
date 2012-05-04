@@ -1,0 +1,34 @@
+monNo: 1099
+name: GoblinTank
+img: mon_078.gif
+level: '15'
+exphold: '100'
+moneyhold: '100'
+maxhp: '800'
+hp: '800'
+maxsp: '150'
+sp: '150'
+str: '40'
+int: '15'
+dex: '30'
+spd: '15'
+luk: '1'
+guard: always
+position: front
+judge:
+    - 1205
+    - 1000
+quantity:
+    - 20
+    - 0
+action:
+    - 2302
+    - 2300
+atk:
+    - 30
+    - 20
+def:
+    - 50
+    - 0
+    - 20
+    - 10
