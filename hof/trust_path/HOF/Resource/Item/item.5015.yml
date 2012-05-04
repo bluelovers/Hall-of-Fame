@@ -1,0 +1,13 @@
+no: 5015
+name: CrystalArmor
+type: Armor
+buy: '80000'
+img: armor_016b.png
+def:
+    - 55
+    - 35
+    - 32
+    - 45
+handle: '13'
+base_name: CrystalArmor
+type2: GUARD
