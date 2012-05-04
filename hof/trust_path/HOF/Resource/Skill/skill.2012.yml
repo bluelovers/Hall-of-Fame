@@ -1,0 +1,15 @@
+no: 2012
+name: Blizzard
+img: skill_006b.png
+exp: ''
+sp: '240'
+type: '1'
+learn: '12'
+target:
+    - enemy
+    - multi
+    - 10
+pow: '90'
+charge:
+    - 90
+    - 0
