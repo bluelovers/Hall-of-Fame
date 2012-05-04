@@ -1,0 +1,16 @@
+no: 5106
+name: NobleCoat
+type: Cloth
+buy: '18000'
+img: armor_014e.png
+def:
+    - 28
+    - 12
+    - 28
+    - 12
+handle: '7'
+need:
+    6040: '6'
+    6183: '20'
+base_name: NobleCoat
+type2: GUARD
