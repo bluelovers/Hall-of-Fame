@@ -1,0 +1,13 @@
+no: 5013
+name: GoldArmor
+type: Armor
+buy: '40000'
+img: armor_016b.png
+def:
+    - 50
+    - 35
+    - 30
+    - 35
+handle: '10'
+base_name: GoldArmor
+type2: GUARD
