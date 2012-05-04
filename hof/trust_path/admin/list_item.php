@@ -46,7 +46,7 @@ $des = '<tr><td class="a">no</td>
 $count = 0;
 for ($i = 1000; $i < 10000; $i++)
 {
-	$item = LoadItemData($i);
+	$item = HOF_Model_Data::getItemData($i);
 	if (!$item) continue;
 
 	if ($count % 6 == 0) print ($des);
@@ -76,7 +76,7 @@ for ($i = 1000; $i < 10000; $i++)
 		print ("<tr><td colspan=\"9\" style=\"text-align:left;padding-left:50px\">\n");
 		foreach ($item["need"] as $M_item => $M_amount)
 		{
-			$M = LoadItemData($M_item);
+			$M = HOF_Model_Data::getItemData($M_item);
 			print ("$M[name]");
 			print ("<img src=\"" . $img_f . $M[img] . "\">");
 			print ("x" . $M_amount . " / \n");
