@@ -1,0 +1,14 @@
+no: 1701
+name: ShortWand
+type: Wand
+buy: '2000'
+img: we_staff002.png
+atk:
+    - 5
+    - 10
+handle: '2'
+need:
+    6020: '4'
+    6001: '1'
+base_name: ShortWand
+type2: WEAPON
