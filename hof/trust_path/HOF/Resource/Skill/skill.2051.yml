@@ -1,0 +1,16 @@
+no: 2051
+name: PoisonSmog
+img: skill_079.png
+exp: 毒化
+sp: '80'
+type: '1'
+learn: '8'
+target:
+    - enemy
+    - all
+    - 1
+pow: '150'
+charge:
+    - 70
+    - 0
+poison: '100'
