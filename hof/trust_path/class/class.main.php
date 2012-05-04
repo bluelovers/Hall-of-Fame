@@ -416,9 +416,13 @@ class main extends user
 			include (CLASS_MONSTER);
 			foreach ($MonsterNumbers as $Number)
 			{
+				/*
 				if (1 < $overlap[$Number]) //1匹以上出現するなら名前に記号をつける。
  						$enemy[] = new monster(CreateMonster($Number, true));
 				else  $enemy[] = new monster(CreateMonster($Number));
+				*/
+
+				$enemy[] = HOF_Model_Char::newMon($Number, (1 < $overlap[$Number]));
 			}
 			return $enemy;
 		}
