@@ -1,0 +1,12 @@
+no: 3020
+name: ManaExtend
+img: skill_019.png
+exp: 最大SP上昇
+sp: '100'
+type: '1'
+learn: '2'
+target:
+    - self
+    - individual
+    - 1
+support: '1'
