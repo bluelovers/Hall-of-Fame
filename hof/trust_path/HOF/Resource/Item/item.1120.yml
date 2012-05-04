@@ -1,0 +1,20 @@
+no: 1120
+name: DragonSlayer
+type: TwoHandSword
+dh: true
+buy: '80000'
+img: we_sword006.png
+atk:
+    - 10
+    - 0
+handle: '10'
+need:
+    6002: '5'
+    6003: '10'
+    6800: '1'
+P_PIERCE:
+    - 50
+    - 0
+option: '物理防御無視+50 ,'
+base_name: DragonSlayer
+type2: WEAPON
