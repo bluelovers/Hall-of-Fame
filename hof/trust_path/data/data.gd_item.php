@@ -46,7 +46,7 @@ foreach ($ItemList as $Type => $ItemNoArray)
 	print ("<h4>$Type</h4>\n");
 	foreach ($ItemNoArray as $ItemNo)
 	{
-		$item = LoadItemData($ItemNo);
+		$item = HOF_Model_Data::getItemData($ItemNo);
 		ShowItemDetail($item);
 		print ("<br />\n");
 	}
