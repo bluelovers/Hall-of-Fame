@@ -1,0 +1,16 @@
+no: 2020
+name: ThunderBolt
+img: skill_030z.png
+exp: ''
+sp: '30'
+type: '1'
+learn: '1'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '400'
+invalid: '1'
+charge:
+    - 50
+    - 0
