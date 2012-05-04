@@ -1,0 +1,12 @@
+no: 5039
+name: PoisonBreath
+img: skill_066.png
+sp: '100'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - all
+    - 1
+invalid: true
+poison: '100'
