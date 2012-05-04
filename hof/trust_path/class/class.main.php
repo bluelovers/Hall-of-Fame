@@ -999,7 +999,8 @@ HTML_BYEBYE;
 			$_GET["char"]
 
 
-?>" method="post" style="padding:5px 0 0 15px"><?php
+?>" method="post" style="padding:5px 0 0 15px">
+	<?php
 
 			// その他キャラ
 			print ('<div style="padding-top:5px">');
@@ -1012,7 +1013,8 @@ HTML_BYEBYE;
 
 
 ?>
-<h4>Character Status <a href="?manual#charstat" target="_blank" class="a0">?</a></h4><?php
+	<h4>Character Status<a href="?manual#charstat" target="_blank" class="a0">?</a></h4>
+	<?php
 
 			$char->ShowCharDetail();
 			// 改名
@@ -1025,8 +1027,9 @@ HTML_BYEBYE;
 
 
 ?>
-<input type="submit" class="btn" name="byebye" value="Kick">
-</form><?php
+	<input type="submit" class="btn" name="byebye" value="Kick">
+</form>
+<?php
 
 			// ステータス上昇 ////////////////////////////
 			if (0 < $char->statuspoint)
@@ -1059,13 +1062,14 @@ HTML;
 
 
 ?>
-	<form action="?char=<?=
+<form action="?char=<?=
 
 			$_GET["char"]
 
 
 ?>" method="post" style="padding:0 15px">
-	<h4>Action Pattern <a href="?manual#jdg" target="_blank" class="a0">?</a></h4><?php
+	<h4>Action Pattern<a href="?manual#jdg" target="_blank" class="a0">?</a></h4>
+	<?php
 
 			// Action Pattern 行動判定 /////////////////////////
 			$list = JudgeList(); // 行動判定条件一覧
@@ -1105,12 +1109,12 @@ HTML;
 
 
 ?>
-<input type="submit" class="btn" value="Set Pattern" name="ChangePattern">
-<input type="submit" class="btn" value="Set & Test" name="TestBattle">
-&nbsp;<a href="?simulate">Simulate</a><br />
-<input type="submit" class="btn" value="Switch Pattern" name="PatternMemo">
-<input type="submit" class="btn" value="Add" name="AddNewPattern">
-<input type="submit" class="btn" value="Delete" name="DeletePattern">
+	<input type="submit" class="btn" value="Set Pattern" name="ChangePattern">
+	<input type="submit" class="btn" value="Set & Test" name="TestBattle">
+	&nbsp;<a href="?simulate">Simulate</a><br />
+	<input type="submit" class="btn" value="Switch Pattern" name="PatternMemo">
+	<input type="submit" class="btn" value="Add" name="AddNewPattern">
+	<input type="submit" class="btn" value="Delete" name="DeletePattern">
 </form>
 <form action="?char=<?=
 
@@ -1118,22 +1122,33 @@ HTML;
 
 
 ?>" method="post" style="padding:0 15px">
-<h4>Position & Guarding <a href="?manual#posi" target="_blank" class="a0">?</a></h4>
-<table><tbody>
-<tr><td>位置(Position) :</td><td><input type="radio" class="vcent" name="position" value="front"<?php
+	<h4>Position & Guarding<a href="?manual#posi" target="_blank" class="a0">?</a></h4>
+	<table>
+		<tbody>
+			<tr>
+				<td>位置(Position) :</td>
+				<td><input type="radio" class="vcent" name="position" value="front"<?php
 
 			($char->position == "front" ? print (" checked") : NULL)
 
 
-?>>前衛(Front)</td></tr>
-<tr><td></td><td><input type="radio" class="vcent" name="position" value="back"<?php
+?>>
+					前衛(Front)</td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="radio" class="vcent" name="position" value="back"<?php
 
 			($char->position == "back" ? print (" checked") : NULL)
 
 
-?>>後衛(Backs)</td></tr>
-<tr><td>護衛(Guarding) :</td><td>
-<select name="guard"><?php
+?>>
+					後衛(Backs)</td>
+			</tr>
+			<tr>
+				<td>護衛(Guarding) :</td>
+				<td><select name="guard">
+						<?php
 
 			// 前衛の時の後衛守り //////////////////////////////
 			$option = array(
@@ -1160,11 +1175,12 @@ HTML;
 
 
 ?>
-	</select>
-	</td></tr>
-	</tbody></table>
+					</select></td>
+			</tr>
+		</tbody>
+	</table>
 	<input type="submit" class="btn" value="Set">
-	</form>
+</form>
 <?php
 
 			// 装備中の物表示 ////////////////////////////////
@@ -1178,45 +1194,64 @@ HTML;
 
 
 ?>
-	<div style="margin:0 15px">
-	<h4>Equipment <a href="?manual#equip" target="_blank" class="a0">?</a></h4>
-	<div class="bold u">Current Equip's</div>
+<div style="margin:0 15px">
+	<h4>Equipment<a href="?manual#equip" target="_blank" class="a0">?</a></h4>
+	<div class="bold u">
+		Current Equip's
+	</div>
 	<table>
-	<tr><td class="dmg" style="text-align:right">Atk :</td><td class="dmg"><?=
+		<tr>
+			<td class="dmg" style="text-align:right">Atk :</td>
+			<td class="dmg"><?=
 
 			$char->atk[0]
 
 
-?></td></tr>
-	<tr><td class="spdmg" style="text-align:right">Matk :</td><td class="spdmg"><?=
+?></td>
+		</tr>
+		<tr>
+			<td class="spdmg" style="text-align:right">Matk :</td>
+			<td class="spdmg"><?=
 
 			$char->atk[1]
 
 
-?></td></tr>
-	<tr><td class="recover" style="text-align:right">Def :</td><td class="recover"><?=
+?></td>
+		</tr>
+		<tr>
+			<td class="recover" style="text-align:right">Def :</td>
+			<td class="recover"><?=
 
 			$char->def[0] . " + " . $char->def[1]
 
 
-?></td></tr>
-	<tr><td class="support" style="text-align:right">Mdef :</td><td class="support"><?=
+?></td>
+		</tr>
+		<tr>
+			<td class="support" style="text-align:right">Mdef :</td>
+			<td class="support"><?=
 
 			$char->def[2] . " + " . $char->def[3]
 
 
-?></td></tr>
-	<tr><td class="charge" style="text-align:right">handle :</td><td class="charge"><?=
+?></td>
+		</tr>
+		<tr>
+			<td class="charge" style="text-align:right">handle :</td>
+			<td class="charge"><?=
 
 			$handle
 
 
-?> / <?=
+?>
+				/
+				<?=
 
 			$char->GetHandle()
 
 
-?></td></tr>
+?></td>
+		</tr>
 	</table>
 	<form action="?char=<?=
 
@@ -1224,41 +1259,53 @@ HTML;
 
 
 ?>" method="post">
-	<table>
-	<tr><td class="align-right">
-	Weapon :</td><td><input type="radio" class="vcent" name="spot" value="weapon"><?php
+		<table>
+			<tr>
+				<td class="align-right">Weapon :</td>
+				<td><input type="radio" class="vcent" name="spot" value="weapon">
+					<?php
 
 			ShowItemDetail(HOF_Model_Data::getItemData($char->weapon));
 
 
-?>
-	</td></tr><tr><td class="align-right">
-	Shield :</td><td><input type="radio" class="vcent" name="spot" value="shield"><?php
+?></td>
+			</tr>
+			<tr>
+				<td class="align-right">Shield :</td>
+				<td><input type="radio" class="vcent" name="spot" value="shield">
+					<?php
 
 			ShowItemDetail(HOF_Model_Data::getItemData($char->shield));
 
 
-?>
-	</td></tr><tr><td class="align-right">
-	Armor :</td><td><input type="radio" class="vcent" name="spot" value="armor"><?php
+?></td>
+			</tr>
+			<tr>
+				<td class="align-right">Armor :</td>
+				<td><input type="radio" class="vcent" name="spot" value="armor">
+					<?php
 
 			ShowItemDetail(HOF_Model_Data::getItemData($char->armor));
 
 
-?>
-	</td></tr><tr><td class="align-right">
-	Item :</td><td><input type="radio" class="vcent" name="spot" value="item"><?php
+?></td>
+			</tr>
+			<tr>
+				<td class="align-right">Item :</td>
+				<td><input type="radio" class="vcent" name="spot" value="item">
+					<?php
 
 			ShowItemDetail(HOF_Model_Data::getItemData($char->item));
 
 
-?>
-	</td></tr></tbody>
-	</table>
-	<input type="submit" class="btn" name="remove" value="Remove">
-	<input type="submit" class="btn" name="remove_all" value="Remove All">
+?></td>
+			</tr>
+				</tbody>
+		</table>
+		<input type="submit" class="btn" name="remove" value="Remove">
+		<input type="submit" class="btn" name="remove_all" value="Remove All">
 	</form>
-	</div>
+</div>
 <?php
 
 			// 装備可能な物表示 ////////////////////////////////
@@ -1336,13 +1383,14 @@ HTML;
 
 
 ?>
-	<form action="?char=<?=
+<form action="?char=<?=
 
 			$_GET["char"]
 
 
 ?>" method="post" style="padding:0 15px">
-	<h4>Skill <a href="?manual#skill" target="_blank" class="a0">?</a></h4><?php
+	<h4>Skill<a href="?manual#skill" target="_blank" class="a0">?</a></h4>
+	<?php
 
 			// スキル表示 //////////////////////////////////////
 			//include(DATA_SKILL);//ActionPatternに移動
@@ -1382,16 +1430,18 @@ HTML;
 
 
 ?>
-
-	</form>
-	<form action="?char=<?=
+</form>
+<form action="?char=<?=
 
 				$_GET["char"]
 
 
 ?>" method="post" style="padding:0 15px">
 	<h4>ClassChange</h4>
-	<table><tbody><tr><?php
+	<table>
+		<tbody>
+			<tr>
+				<?php
 
 				foreach ($CanChange as $job)
 				{
@@ -1405,18 +1455,19 @@ HTML;
 
 
 ?>
-
-	</tr></tbody></table>
+			</tr>
+		</tbody>
+	</table>
 	<input type="submit" class="btn" name="classchange" value="ClassChange">
-	<input type="hidden" name="classchange" value="1"><?php
+	<input type="hidden" name="classchange" value="1">
+	<?php
 
 			}
 
 
 ?>
-
-	</form>
-	<?php
+</form>
+<?php
 
 			//その他キャラ
 			print ('<div  style="padding:15px">');
@@ -1508,12 +1559,15 @@ HTML;
 
 
 ?>
-	<div style="margin:15px;text-align:center">
+<div style="margin:15px;text-align:center">
 	<input type="submit" class="btn" name="simu_battle" value="Battle !">
-	<input type="reset" class="btn" value="Reset"><br>
-	Save this party:<input type="checkbox" name="memory_party" value="1">
-	</div></form>
-		<?php
+	<input type="reset" class="btn" value="Reset">
+	<br>
+	Save this party:
+	<input type="checkbox" name="memory_party" value="1">
+</div>
+</form>
+<?php
 
 		}
 		//////////////////////////////////////////////////
@@ -1608,11 +1662,14 @@ HTML;
 
 
 ?>
-	<div style="margin:15px;text-align:center">
+<div style="margin:15px;text-align:center">
 	<input type="submit" class="btn" name="monster_battle" value="Battle !">
-	<input type="reset" class="btn" value="Reset"><br>
-	Save this party:<input type="checkbox" name="memory_party" value="1">
-	</div></form>
+	<input type="reset" class="btn" value="Reset">
+	<br>
+	Save this party:
+	<input type="checkbox" name="memory_party" value="1">
+</div>
+</form>
 <?php
 
 			//			include (DATA_MONSTER);
@@ -1709,10 +1766,10 @@ HTML;
 
 
 ?>
-		<div style="margin:15px">
-		<h4>Items</h4>
-		<div style="margin:0 20px">
-<?php
+<div style="margin:15px">
+<h4>Items</h4>
+<div style="margin:0 20px">
+	<?php
 
 			if ($this->item)
 			{
@@ -1748,27 +1805,27 @@ HTML;
 
 
 ?>
-<div style="margin:15px">
-<h4>店</h4>
-
-<div style="width:600px">
-<div style="float:left;width:50px;">
-<img src="<?=
+	<div style="margin:15px">
+		<h4>店</h4>
+		<div style="width:600px">
+			<div style="float:left;width:50px;">
+				<img src="<?=
 
 			IMG_CHAR
 
 
 ?>ori_002.gif" />
-</div>
-<div style="float:right;width:550px;">
-いらっしゃいませー<br />
-<a href="?menu=buy">買う</a> / <a href="?menu=sell">売る</a><br />
-<a href="?menu=work">アルバイト</a>
-</div>
-<div style="clear:both"></div>
-</div>
-
-</div><?php
+			</div>
+			<div style="float:right;width:550px;">
+				いらっしゃいませー<br />
+				<a href="?menu=buy">買う</a>/<a href="?menu=sell">売る</a><br />
+				<a href="?menu=work">アルバイト</a>
+			</div>
+			<div style="clear:both">
+			</div>
+		</div>
+	</div>
+	<?php
 
 		}
 		//////////////////////////////////////////////////
@@ -1862,15 +1919,15 @@ HTML;
 
 ?>
 	<div style="margin:15px">
-	<?=
+		<?=
 
 			ShowError($message)
 
 
 ?>
-	<h4>Goods List</h4>
-	<div style="margin:0 20px">
-	<?php
+		<h4>Goods List</h4>
+		<div style="margin:0 20px">
+			<?php
 
 			include_once (CLASS_JS_ITEMLIST);
 			$ShopList = HOF_Model_Data::getShopList(); //売ってるものデータ
@@ -1950,18 +2007,23 @@ HTML;
 
 
 ?>
-<form action="?shop" method="post">
-<h4>Work</h4>
-<div style="margin:0 20px">
-店でアルバイトしてお金を得ます...<br />
-<input type="submit" class="btn" name="partjob" value="Work at Shop">
-Get <?=
+			<form action="?shop" method="post">
+				<h4>Work</h4>
+				<div style="margin:0 20px">
+				店でアルバイトしてお金を得ます...<br />
+				<input type="submit" class="btn" name="partjob" value="Work at Shop">
+				Get
+				<?=
 
 			MoneyFormat("500")
 
 
-?> for 100Time.
-</form></div></div><?php
+?>
+				for 100Time.
+			</form>
+		</div>
+	</div>
+	<?php
 
 		}
 
@@ -2185,32 +2247,35 @@ JS_HTML;
 
 
 ?>
-<div style="margin:15px">
-<h4>アルバイトする！</h4>
-<form method="post" action="?menu=work">
-<p>1回 100Time<br />
-給与 : <?=
+	<div style="margin:15px">
+		<h4>アルバイトする！</h4>
+		<form method="post" action="?menu=work">
+			<p>1回 100Time<br />
+				給与 :
+				<?=
 
 			MoneyFormat(500)
 
 
-?>/回</p>
-<select name="amount">
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
-<option value="10">10</option>
-</select><br />
-<input type="submit" value="Work" class="btn" />
-</form>
-</div>
-<?php
+?>
+				/回</p>
+			<select name="amount">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+				<option value="7">7</option>
+				<option value="8">8</option>
+				<option value="9">9</option>
+				<option value="10">10</option>
+			</select>
+			<br />
+			<input type="submit" value="Work" class="btn" />
+		</form>
+	</div>
+	<?php
 
 		}
 		//////////////////////////////////////////////////
@@ -2319,7 +2384,6 @@ JS_HTML;
 
 
 ?>
-
 	<div style="margin:15px">
 	<?=
 
@@ -2328,8 +2392,8 @@ JS_HTML;
 
 ?>
 	<form action="?menu=rank" method="post">
-	<h4>ランキング(Ranking) - <a href="?rank">全ランキングを見る</a>&nbsp;<a href="?manual#ranking" target="_blank" class="a0">?</a></h4>
-	<?php
+		<h4>ランキング(Ranking) -<a href="?rank">全ランキングを見る</a>&nbsp;<a href="?manual#ranking" target="_blank" class="a0">?</a></h4>
+		<?php
 
 			// 挑戦できるかどうか(時間の経過で)
 			$CanRankBattle = $this->CanRankBattle();
@@ -2367,7 +2431,7 @@ JS_HTML;
 
 
 ?>
-	<input type="submit" class="btn" value="challenge!" name="ChallengeRank" style="width:160px"<?=
+		<input type="submit" class="btn" value="challenge!" name="ChallengeRank" style="width:160px"<?=
 
 			$disableRB
 
@@ -2375,44 +2439,48 @@ JS_HTML;
 ?> />
 	</form>
 	<form action="?menu=rank" method="post">
-	<h4>チーム設定(Team Setting)</h4>
-	<p>ランキング戦用のチーム設定。<br />
-	ここで設定したチームで戦います。</p>
-	</div>
-	<?php
+		<h4>チーム設定(Team Setting)</h4>
+		<p>ランキング戦用のチーム設定。<br />
+			ここで設定したチームで戦います。</p>
+		</div>
+		<?php
 
 			$this->ShowCharacters($this->char, CHECKBOX, explode("<>", $this->party_rank));
 
 
 ?>
-
-	<div style="margin:15px">
-	<?=
+		<div style="margin:15px">
+		<?=
 
 			$left_mes
 
 
 ?>
-	<input type="submit" class="btn" style="width:160px" value="SetTeam"<?=
+		<input type="submit" class="btn" style="width:160px" value="SetTeam"<?=
 
 			$disable
 
 
 ?> />
-	<input type="hidden" name="SetRankTeam" value="1" />
-	<p>設定後、<?=
+		<input type="hidden" name="SetRankTeam" value="1" />
+		<p>設定後、
+			<?=
 
 			$reset = floor(RANK_TEAM_SET_TIME / (60 * 60))
 
 
-?>時間は変更できません。<br />Team setting disabled after <?=
+?>
+			時間は変更できません。<br />
+			Team setting disabled after
+			<?=
 
 			$reset
 
 
-?>hours once set.</p>
+?>
+			hours once set.</p>
 	</form>
-	</div>
+</div>
 <?php
 
 		}
@@ -2512,13 +2580,13 @@ JS_HTML;
 
 
 ?>
-
-	<div style="margin:15px">
+<div style="margin:15px">
 	<p>Maximum characters.<br>
-	Need to make a space to recruit new character.</p>
+		Need to make a space to recruit new character.</p>
 	<p>キャラ数が限界に達しています。<br>
-	新しいキャラを入れるには空きが必要です。</p>
-	</div><?php
+		新しいキャラを入れるには空きが必要です。</p>
+</div>
+<?php
 
 				return false;
 			}
@@ -2539,12 +2607,12 @@ JS_HTML;
 
 
 ?>
-
-	<form action="?recruit" method="post" style="margin:15px">
+<form action="?recruit" method="post" style="margin:15px">
 	<h4>Sort of New Character</h4>
-	<table cellspacing="0"><tbody><tr>
-
-	<?php
+	<table cellspacing="0">
+		<tbody>
+			<tr>
+				<?php
 
 			// bluelovers
 			$_money = array(
@@ -2580,25 +2648,31 @@ JS_HTML;
 
 
 ?>
-
-	</tr>
-	</tbody></table>
-
+			</tr>
+		</tbody>
+	</table>
 	<h4>New Character's Name &amp; Gender</h4>
-	<table><tbody><tr><td valign="top">
-	<input type="text" class="text" name="recruit_name" style="width:160px" maxlength="16"><br>
-	<div style="margin:5px 0px">
-	<input type="radio" class="vcent" name="recruit_gend" value="0">male
-	<input type="radio" class="vcent" name="recruit_gend" value="1" style="margin-left:15px;">female</div>
-	<input type="submit" class="btn" name="recruit" value="Recruit">
-	<input type="hidden" class="btn" name="recruit" value="Recruit">
-	</td><td valign="top">
-	<p>1 to 16 letters.<br>
-	Japanese characters count as 2.<br>
-	日本語は1文字 = 2 letter.
-	</p>
-	</td></tr></tbody></table>
-	</form><?php
+	<table>
+		<tbody>
+			<tr>
+				<td valign="top"><input type="text" class="text" name="recruit_name" style="width:160px" maxlength="16">
+					<br>
+					<div style="margin:5px 0px">
+						<input type="radio" class="vcent" name="recruit_gend" value="0">
+						male
+						<input type="radio" class="vcent" name="recruit_gend" value="1" style="margin-left:15px;">
+						female
+					</div>
+					<input type="submit" class="btn" name="recruit" value="Recruit">
+					<input type="hidden" class="btn" name="recruit" value="Recruit"></td>
+				<td valign="top"><p>1 to 16 letters.<br>
+						Japanese characters count as 2.<br>
+						日本語は1文字 = 2 letter.</p></td>
+			</tr>
+		</tbody>
+	</table>
+</form>
+<?php
 
 		}
 		//////////////////////////////////////////////////
@@ -2610,26 +2684,27 @@ JS_HTML;
 ?>
 <div style="margin:15px">
 <h4>鍛冶屋(Smithy)</h4>
-
 <div style="width:600px">
-<div style="float:left;width:80px;">
-<img src="<?=
+	<div style="float:left;width:80px;">
+		<img src="<?=
 
 			IMG_CHAR
 
 
 ?>mon_053r.gif" />
-</div>
-<div style="float:right;width:520px;">
-ここでは&nbsp;アイテムの精錬ができるぜ！<br />
-精錬する物と精錬回数を選んでくれ。<br />
-ただし壊れても責任は持てないぜ。<br />
-弟がやってる <span class="bold">製作工房</span> は<a href="?menu=create">アッチ</a>だ。
-</div>
-<div style="clear:both"></div>
+	</div>
+	<div style="float:right;width:520px;">
+		ここでは&nbsp;アイテムの精錬ができるぜ！<br />
+		精錬する物と精錬回数を選んでくれ。<br />
+		ただし壊れても責任は持てないぜ。<br />
+		弟がやってる<span class="bold">製作工房</span>は<a href="?menu=create">アッチ</a>だ。
+	</div>
+	<div style="clear:both">
+	</div>
 </div>
 <h4>アイテムの精錬<a name="refine"></a></h4>
-<div style="margin:0 20px"><?php
+<div style="margin:0 20px">
+	<?php
 
 		}
 		//////////////////////////////////////////////////
@@ -2795,7 +2870,7 @@ JS_HTML;
 
 
 ?>
-	</div>
+</div>
 <?php
 
 		}
@@ -2807,27 +2882,29 @@ JS_HTML;
 
 ?>
 <div style="margin:15px">
-<h4>鍛冶屋(Smithy)<a name="sm"></a></h4>
-<div style="width:600px">
-<div style="float:left;width:80px;">
-<img src="<?=
+	<h4>鍛冶屋(Smithy)<a name="sm"></a></h4>
+	<div style="width:600px">
+		<div style="float:left;width:80px;">
+			<img src="<?=
 
 			IMG_CHAR
 
 
 ?>mon_053rz.gif" />
-</div>
-<div style="float:right;width:520px;">
-ここでは&nbsp;アイテムの製作ができるぜ！<br />
-お前さんが持ってる素材から作れそうな装備を作れるぜ。<br />
-特別な素材を練り込めば特殊な武器も作れるぜ。<br />
-兄がやってる <span class="bold">精錬工房</span> は<a href="?menu=refine">コッチ</a>だ。<br />
-<a href="#mat">所持素材一覧</a>
-</div>
-<div style="clear:both"></div>
-</div>
-<h4>アイテムの製作<a name="refine"></a></h4>
-<div style="margin:0 15px"><?php
+		</div>
+		<div style="float:right;width:520px;">
+			ここでは&nbsp;アイテムの製作ができるぜ！<br />
+			お前さんが持ってる素材から作れそうな装備を作れるぜ。<br />
+			特別な素材を練り込めば特殊な武器も作れるぜ。<br />
+			兄がやってる<span class="bold">精錬工房</span>は<a href="?menu=refine">コッチ</a>だ。<br />
+			<a href="#mat">所持素材一覧</a>
+		</div>
+		<div style="clear:both">
+		</div>
+	</div>
+	<h4>アイテムの製作<a name="refine"></a></h4>
+	<div style="margin:0 15px">
+		<?php
 
 		}
 		//////////////////////////////////////////////////
@@ -2938,17 +3015,20 @@ JS_HTML;
 
 
 ?>
-<form action="?menu=create" method="post">
-<div id="list"><?=
+		<form action="?menu=create" method="post">
+			<div id="list">
+				<?=
 
 				$CreateList->ShowDefault()
 
 
-?></div>
-<input type="submit" class="btn" name="Create" value="Create">
-<input type="reset" class="btn" value="Reset">
-<input type="hidden" name="Create" value="1"><br />
-<?php
+?>
+			</div>
+			<input type="submit" class="btn" name="Create" value="Create">
+			<input type="reset" class="btn" value="Reset">
+			<input type="hidden" name="Create" value="1">
+			<br />
+			<?php
 
 				// 追加素材の表示
 				print ('<div class="bold u" style="margin-top:15px">追加素材</div>' . "\n");
@@ -2964,10 +3044,10 @@ JS_HTML;
 
 
 ?>
-<input type="submit" class="btn" name="Create" value="Create">
-<input type="reset" class="btn" value="Reset">
-</form>
-<?php
+			<input type="submit" class="btn" name="Create" value="Create">
+			<input type="reset" class="btn" value="Reset">
+		</form>
+		<?php
 
 			}
 			else
@@ -2990,7 +3070,7 @@ JS_HTML;
 
 
 ?>
-</div>
+	</div>
 </div>
 <?php
 
@@ -3035,19 +3115,19 @@ JS_HTML;
 
 ?>
 <div style="margin:15px 0 0 15px">
-<h4>オークション(Auction)</h4>
-<div style="margin-left:20px">
-
-<div style="width:500px">
-<div style="float:left;width:50px;">
-<img src="<?=
+	<h4>オークション(Auction)</h4>
+	<div style="margin-left:20px">
+		<div style="width:500px">
+			<div style="float:left;width:50px;">
+				<img src="<?=
 
 			IMG_CHAR
 
 
 ?>ori_003.gif" />
-</div>
-<div style="float:right;width:450px;"><?php
+			</div>
+			<div style="float:right;width:450px;">
+				<?php
 
 			$this->AuctionJoinMember();
 			if ($this->AuctionEnter())
@@ -3070,12 +3150,14 @@ JS_HTML;
 
 
 ?>
-</div>
-<div style="clear:both"></div>
-</div>
-</div>
-<h4>アイテム オークション(Item Auction)</h4>
-<div style="margin-left:20px"><?php
+			</div>
+			<div style="clear:both">
+			</div>
+		</div>
+	</div>
+	<h4>アイテム オークション(Item Auction)</h4>
+	<div style="margin-left:20px">
+		<?php
 
 		}
 		//////////////////////////////////////////////////
@@ -3085,17 +3167,18 @@ JS_HTML;
 
 
 ?>
-</div>
-<a name="log"></a>
-<h4>オークションログ(AuctionLog)</h4>
-<div style="margin-left:20px">
-<?php
+	</div>
+	<a name="log"></a>
+	<h4>オークションログ(AuctionLog)</h4>
+	<div style="margin-left:20px">
+		<?php
 
 			$ItemAuction->ShowLog();
 
 
 ?>
-</div><?php
+	</div>
+	<?php
 
 		}
 		//////////////////////////////////////////////////
@@ -3280,26 +3363,48 @@ JS_HTML;
 
 
 ?>
-<div class="u bold">出品方法</div>
-<ol>
-<li>出品するアイテムを選択します。</li>
-<li>2個以上出品する場合、数量を入力します。</li>
-<li>出品している時間の長さを指定します。</li>
-<li>開始価格を指定します(記入無し = 0)</li>
-<li>コメントがあれば入力します。</li>
-<li>送信する。</li>
-</ol>
-<div class="u bold">注意事項</div>
-<ul>
-<li>出品には&nbsp;手数料として$500&nbsp;必要です。</li>
-<li>ちゃんとうごいてくれなさそう</li>
-</ul>
-<a href="?menu=auction">一覧に戻る</a>
+	<div class="u bold">
+		出品方法
+	</div>
+	<ol>
+		<li>
+			出品するアイテムを選択します。
+		</li>
+		<li>
+			2個以上出品する場合、数量を入力します。
+		</li>
+		<li>
+			出品している時間の長さを指定します。
+		</li>
+		<li>
+			開始価格を指定します(記入無し = 0)
+		</li>
+		<li>
+			コメントがあれば入力します。
+		</li>
+		<li>
+			送信する。
+		</li>
+	</ol>
+	<div class="u bold">
+		注意事項
+	</div>
+	<ul>
+		<li>
+			出品には&nbsp;手数料として$500&nbsp;必要です。
+		</li>
+		<li>
+			ちゃんとうごいてくれなさそう
+		</li>
+	</ul>
+	<a href="?menu=auction">一覧に戻る</a>
 </div>
 <h4>出品する</h4>
 <div style="margin-left:20px">
-<div class="u bold">出品可能な物一覧</div>
-<?php
+	<div class="u bold">
+		出品可能な物一覧
+	</div>
+	<?php
 
 			if (!$this->item)
 			{
@@ -3324,37 +3429,49 @@ JS_HTML;
 
 
 ?>
-<form action="?menu=auction" method="post">
-<div id="list"><?=
+	<form action="?menu=auction" method="post">
+		<div id="list">
+			<?=
 
 			$ExhibitList->ShowDefault()
 
 
-?></div>
-<table><tr><td style="text-align:right">
-数量(Amount) :</td><td><input type="text" name="Amount" class="text" style="width:60px" value="1" /><br />
-</td></tr><tr><td style="text-align:right">
-時間(Time) :</td><td>
-<select name="ExhibitTime">
-<option value="24" selected>24 hour</option>
-<option value="18">18 hour</option>
-<option value="12">12 hour</option>
-<option value="6">6 hour</option>
-<option value="3">3 hour</option>
-<option value="1">1 hour</option>
-</select>
-</td></tr><tr><td>
-開始価格(Start Price) :</td><td><input type="text" name="StartPrice" class="text" style="width:240px" maxlength="10"><br />
-</td></tr><tr><td style="text-align:right">
-コメント(Comment) :</td><td>
-<input type="text" name="Comment" class="text" style="width:240px" maxlength="40">
-</td></tr><tr><td></td><td>
-<input type="submit" class="btn" value="Put Auction" name="PutAuction" style="width:240px"/>
-<input type="hidden" name="PutAuction" value="1">
-</td></tr></table>
-</form>
-
-<?php
+?>
+		</div>
+		<table>
+			<tr>
+				<td style="text-align:right">数量(Amount) :</td>
+				<td><input type="text" name="Amount" class="text" style="width:60px" value="1" />
+					<br /></td>
+			</tr>
+			<tr>
+				<td style="text-align:right">時間(Time) :</td>
+				<td><select name="ExhibitTime">
+						<option value="24" selected>24 hour</option>
+						<option value="18">18 hour</option>
+						<option value="12">12 hour</option>
+						<option value="6">6 hour</option>
+						<option value="3">3 hour</option>
+						<option value="1">1 hour</option>
+					</select></td>
+			</tr>
+			<tr>
+				<td>開始価格(Start Price) :</td>
+				<td><input type="text" name="StartPrice" class="text" style="width:240px" maxlength="10">
+					<br /></td>
+			</tr>
+			<tr>
+				<td style="text-align:right">コメント(Comment) :</td>
+				<td><input type="text" name="Comment" class="text" style="width:240px" maxlength="40"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td><input type="submit" class="btn" value="Put Auction" name="PutAuction" style="width:240px"/>
+					<input type="hidden" name="PutAuction" value="1"></td>
+			</tr>
+		</table>
+	</form>
+	<?php
 
 		}
 		//////////////////////////////////////////////////
@@ -3482,12 +3599,15 @@ JS_HTML;
 
 ?>
 	<div style="margin:15px;text-align:center">
-	<input type="submit" class="btn" value="Battle !">
-	<input type="hidden" name="union_battle" value="1">
-	<input type="reset" class="btn" value="Reset"><br>
-	Save this party:<input type="checkbox" name="memory_party" value="1">
-	</div></form>
-<?php
+		<input type="submit" class="btn" value="Battle !">
+		<input type="hidden" name="union_battle" value="1">
+		<input type="reset" class="btn" value="Reset">
+		<br>
+		Save this party:
+		<input type="checkbox" name="memory_party" value="1">
+	</div>
+	</form>
+	<?php
 
 		}
 		//////////////////////////////////////////////////
@@ -3506,14 +3626,21 @@ JS_HTML;
 
 
 ?>
-<li>店(Shop)
-<ul>
-<li><a href="?menu=buy">買う(Buy)</a></li>
-<li><a href="?menu=sell">売る(Sell)</a></li>
-<li><a href="?menu=work">アルバイト</a></li>
-</ul>
-</li>
-<?php
+	<li>
+		店(Shop)
+		<ul>
+			<li>
+				<a href="?menu=buy">買う(Buy)</a>
+			</li>
+			<li>
+				<a href="?menu=sell">売る(Sell)</a>
+			</li>
+			<li>
+				<a href="?menu=work">アルバイト</a>
+			</li>
+		</ul>
+	</li>
+	<?php
 
 			}
 			// 斡旋所
@@ -3524,13 +3651,18 @@ JS_HTML;
 
 
 ?>
-<li>鍛冶屋(Smithy)
-<ul>
-<li><a href="?menu=refine">精錬工房(Refine)</a></li>
-<li><a href="?menu=create">製作工房(Create)</a></li>
-</ul>
-</li>
-<?php
+	<li>
+		鍛冶屋(Smithy)
+		<ul>
+			<li>
+				<a href="?menu=refine">精錬工房(Refine)</a>
+			</li>
+			<li>
+				<a href="?menu=create">製作工房(Create)</a>
+			</li>
+		</ul>
+	</li>
+	<?php
 
 			}
 			// オークション会場
@@ -3552,11 +3684,11 @@ JS_HTML;
 
 
 ?>
-<form action="?town" method="post">
-<input type="text" maxlength="60" name="message" class="text" style="width:300px"/>
-<input type="submit" value="post" class="btn" style="width:100px" />
-</form>
-<?php
+	<form action="?town" method="post">
+		<input type="text" maxlength="60" name="message" class="text" style="width:300px"/>
+		<input type="submit" value="post" class="btn" style="width:100px" />
+	</form>
+	<?php
 
 			if (!file_exists($file)) return false;
 			$log = file($file);
@@ -3652,24 +3784,33 @@ JS_HTML;
 
 
 ?>
-<h4>Setting</h4>
-<form action="?setting" method="post">
-<table><tbody>
-<tr><td><input type="checkbox" name="record_battle_log" value="1" <?=
+	<h4>Setting</h4>
+	<form action="?setting" method="post">
+		<table>
+			<tbody>
+				<tr>
+					<td><input type="checkbox" name="record_battle_log" value="1" <?=
 
 			$record_btl_log
 
 
-?>></td><td>戦闘ログの記録</td></tr>
-<tr><td><input type="checkbox" name="no_JS_itemlist" value="1" <?=
+?>></td>
+					<td>戦闘ログの記録</td>
+				</tr>
+				<tr>
+					<td><input type="checkbox" name="no_JS_itemlist" value="1" <?=
 
 			$no_JS_itemlist
 
 
-?>></td><td>アイテムリストにJavaScriptを使わない</td></tr>
-</tbody></table>
-<!--<tr><td>None</td><td><input type="checkbox" name="none" value="1"></td></tr>-->
-Color : <?php
+?>></td>
+					<td>アイテムリストにJavaScriptを使わない</td>
+				</tr>
+			</tbody>
+		</table>
+		<!--<tr><td>None</td><td><input type="checkbox" name="none" value="1"></td></tr>-->
+		Color :
+		<?php
 
 			$color = file(COLOR_FILE);
 			print ('<select name="color" class="bgcolor">' . "\n");
@@ -3682,38 +3823,46 @@ Color : <?php
 			print ('</select>');
 
 
-?><br />
-<input type="submit" class="btn" name="setting01" value="modify" style="width:100px">
-<input type="hidden" name="setting01" value="1">
-</form>
-<h4>Logout</h4>
-<form action="<?=
+?>
+		<br />
+		<input type="submit" class="btn" name="setting01" value="modify" style="width:100px">
+		<input type="hidden" name="setting01" value="1">
+	</form>
+	<h4>Logout</h4>
+	<form action="<?=
 
 			INDEX
 
 
 ?>" method="post">
-<input type="submit" class="btn" name="logout" value="logout" style="width:100px">
-</form>
-<h4>チーム名の変更</h4>
-<form action="?setting" method="post">
-費用 : <?=
+		<input type="submit" class="btn" name="logout" value="logout" style="width:100px">
+	</form>
+	<h4>チーム名の変更</h4>
+	<form action="?setting" method="post">
+		費用 :
+		<?=
 
 			MoneyFormat(NEW_NAME_COST)
 
 
-?><br />
-16文字まで(全角=2文字)<br />
-新しい名前 : <input type="text" class="text" name="NewName" size="20">
-<input type="submit" class="btn" value="change" style="width:100px">
-</form>
-<h4>脱出口</h4>
-<div class="u">※データの削除</div>
-<form action="?setting" method="post">
-PassWord : <input type="text" class="text" name="deletepass" size="20">
-<input type="submit" class="btn" name="delete" value="delete" style="width:100px">
-</form>
-</div><?php
+?>
+		<br />
+		16文字まで(全角=2文字)<br />
+		新しい名前 :
+		<input type="text" class="text" name="NewName" size="20">
+		<input type="submit" class="btn" value="change" style="width:100px">
+	</form>
+	<h4>脱出口</h4>
+	<div class="u">
+		※データの削除
+	</div>
+	<form action="?setting" method="post">
+		PassWord :
+		<input type="text" class="text" name="deletepass" size="20">
+		<input type="submit" class="btn" name="delete" value="delete" style="width:100px">
+	</form>
+</div>
+<?php
 
 			return $Result;
 		}
@@ -3770,10 +3919,9 @@ PassWord : <input type="text" class="text" name="deletepass" size="20">
 
 
 ?>
-	<div style="margin:5px 15px">
-	<a href="?tutorial">チュートリアル</a> - 戦闘の基本(登録後,1時間だけ表示されます)
-	</div>
-
+<div style="margin:5px 15px">
+	<a href="?tutorial">チュートリアル</a>- 戦闘の基本(登録後,1時間だけ表示されます)
+</div>
 <?php
 
 			}
@@ -4094,11 +4242,11 @@ HTML;
 
 
 ?>
-
-	<div style="margin:15px">
+<div style="margin:15px">
 	Maximum users.<br />
 	登録者数が限界に達しているようです。
-	</div><?php
+</div>
+<?php
 
 				return false;
 			}
@@ -4106,7 +4254,7 @@ HTML;
 
 
 ?>
-	<div style="margin:15px">
+<div style="margin:15px">
 	<?=
 
 			ShowError($error);
@@ -4120,29 +4268,48 @@ HTML;
 
 
 ?>" method="post">
-
-	<table><tbody>
-	<tr><td colspan="2">ID & PASS must be 4 to 16 letters.<br />letters allowed a-z,A-Z,0-9<br />
-	ID と PASSは 4-16 文字以内で。半角英数字。</td></tr>
-	<tr><td><div style="text-align:right">ID:</div></td>
-	<td><input type="text" maxlength="16" class="text" name="Newid" style="width:240px"<?=
+		<table>
+			<tbody>
+				<tr>
+					<td colspan="2">ID & PASS must be 4 to 16 letters.<br />
+						letters allowed a-z,A-Z,0-9<br />
+						ID と PASSは 4-16 文字以内で。半角英数字。</td>
+				</tr>
+				<tr>
+					<td><div style="text-align:right">
+							ID:
+						</div></td>
+					<td><input type="text" maxlength="16" class="text" name="Newid" style="width:240px"<?=
 
 			$idset
 
 
-?>></td></tr>
-	<tr><td colspan="2"><br />Password,Re-enter.<br />PASS とその再入力です 確認用。</td></tr>
-	<tr><td><div style="text-align:right">PASS:</div></td>
-	<td><input type="password" maxlength="16" class="text" name="pass1" style="width:240px"></td></tr>
-
-	<tr><td></td>
-	<td><input type="password" maxlength="16" class="text" name="pass2" style="width:240px">(verify)</td></tr>
-
-	<tr><td></td><td><input type="submit" class="btn" name="Make" value="Make" style="width:160px"></td></tr>
-
-	</tbody></table>
+?>></td>
+				</tr>
+				<tr>
+					<td colspan="2"><br />
+						Password,Re-enter.<br />
+						PASS とその再入力です 確認用。</td>
+				</tr>
+				<tr>
+					<td><div style="text-align:right">
+							PASS:
+						</div></td>
+					<td><input type="password" maxlength="16" class="text" name="pass1" style="width:240px"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="password" maxlength="16" class="text" name="pass2" style="width:240px">
+						(verify)</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td><input type="submit" class="btn" name="Make" value="Make" style="width:160px"></td>
+				</tr>
+			</tbody>
+		</table>
 	</form>
-	</div>
+</div>
 <?php
 
 		}
@@ -4155,43 +4322,50 @@ HTML;
 
 ?>
 <div style="width:730px;">
-<!-- ログイン -->
-<div style="width:350px;float:right">
-<h4 style="width:350px">Login</h4>
-<?=
+	<!-- ログイン -->
+	<div style="width:350px;float:right">
+		<h4 style="width:350px">Login</h4>
+		<?=
 
 			$message
 
 
 ?>
-<form action="<?=
+		<form action="<?=
 
 			INDEX
 
 
 ?>" method="post" style="padding-left:20px">
-<table><tbody>
-<tr>
-<td><div style="text-align:right">ID:</div></td>
-<td><input type="text" maxlength="16" class="text" name="id" style="width:160px"<?=
+			<table>
+				<tbody>
+					<tr>
+						<td><div style="text-align:right">
+								ID:
+							</div></td>
+						<td><input type="text" maxlength="16" class="text" name="id" style="width:160px"<?=
 
 			$_SESSION["id"] ? " value=\"$_SESSION[id]\"" : NULL
 
 
 ?>></td>
-</tr>
-<tr>
-<td><div style="text-align:right">PASS:</div></td>
-<td><input type="password" maxlength="16" class="text" name="pass" style="width:160px"></td>
-</tr>
-<tr><td></td><td>
-<input type="submit" class="btn" name="Login" value="login" style="width:80px">&nbsp;
-<a href="?newgame">NewGame?</a>
-</td></tr>
-</tbody></table>
-</form>
-
-<h4 style="width:350px">Ranking</h4><?php
+					</tr>
+					<tr>
+						<td><div style="text-align:right">
+								PASS:
+							</div></td>
+						<td><input type="password" maxlength="16" class="text" name="pass" style="width:160px"></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td><input type="submit" class="btn" name="Login" value="login" style="width:80px">
+							&nbsp;<a href="?newgame">NewGame?</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</form>
+		<h4 style="width:350px">Ranking</h4>
+		<?php
 
 			include_once (CLASS_RANKING);
 			$Rank = new Ranking();
@@ -4199,44 +4373,66 @@ HTML;
 
 
 ?>
-</div>
-<!-- 飾 -->
-<div style="width:350px;padding:15px;float:left;">
-<div style="width:350px;text-align:center;height: 199px;overflow: hidden; margin-bottom: 20px;">
-<img src="./image/hof02.gif" style="margin-top: -1px;margin-left: -70px;" />
-</div>
-<div style="margin-left:20px">
-<div class="u">これってどんなゲーム?</div>
-<ul>
-<li>ゲームの目的はランキング1位になり、<br />1位を守る事です。</li>
-<li>冒険要素はないですが、<br />ちょっと深い戦闘システムが売りです。</li>
-</ul>
-<div class="u">戦闘はどんな感じ?</div>
-<ul>
-<li>5人のキャラクターでパーティーを編成。</li>
-<li>各キャラが行動パターンを持ち、<br />戦闘の状況に応じて技を使い分けます。</li>
-<li><a href="?log" class="a0">こちら</a>で戦闘ログが回覧できます。</li>
-</ul>
-</div>
-</div>
-<div class="c-both"></div>
+	</div>
+	<!-- 飾 -->
+	<div style="width:350px;padding:15px;float:left;">
+		<div style="width:350px;text-align:center;height: 199px;overflow: hidden; margin-bottom: 20px;">
+			<img src="./image/hof02.gif" style="margin-top: -1px;margin-left: -70px;" />
+		</div>
+		<div style="margin-left:20px">
+			<div class="u">
+				これってどんなゲーム?
+			</div>
+			<ul>
+				<li>
+					ゲームの目的はランキング1位になり、<br />
+					1位を守る事です。
+				</li>
+				<li>
+					冒険要素はないですが、<br />
+					ちょっと深い戦闘システムが売りです。
+				</li>
+			</ul>
+			<div class="u">
+				戦闘はどんな感じ?
+			</div>
+			<ul>
+				<li>
+					5人のキャラクターでパーティーを編成。
+				</li>
+				<li>
+					各キャラが行動パターンを持ち、<br />
+					戦闘の状況に応じて技を使い分けます。
+				</li>
+				<li>
+					<a href="?log" class="a0">こちら</a>で戦闘ログが回覧できます。
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="c-both">
+	</div>
 </div>
 
 <!-- -------------------------------------------------------- -->
 
 <div style="margin:15px">
 <h4>info.</h4>
-Users : <?=
+Users :
+<?=
 
 			UserAmount()
 
 
-?> / <?=
+?>
+/
+<?=
 
 			MAX_USERS
 
 
-?><br />
+?>
+<br />
 <?php
 
 			$Abandon = ABANDONED;
@@ -4264,34 +4460,46 @@ Users : <?=
 
 
 ?>
-	<div style="width:100%">
-	<div style="width:33%;float:left"><?=
+<div style="width:100%">
+	<div style="width:33%;float:left">
+		<?=
 
 				$this->name
 
 
-?></div>
+?>
+	</div>
 	<div style="width:67%;float:right">
-	<div style="width:50%;float:left"><span class="bold">Funds</span> : <?=
+		<div style="width:50%;float:left">
+			<span class="bold">Funds</span>:
+			<?=
 
 				MoneyFormat($this->money)
 
 
-?></div>
-	<div style="width:50%;float:right"><span class="bold">Time</span> : <?=
+?>
+		</div>
+		<div style="width:50%;float:right">
+			<span class="bold">Time</span>:
+			<?=
 
 				floor($this->time)
 
 
-?>/<?=
+?>
+			/
+			<?=
 
 				MAX_TIME
 
 
-?></div>
+?>
+		</div>
 	</div>
-	<div class="c-both"></div>
-	</div><?php
+	<div class="c-both">
+	</div>
+</div>
+<?php
 
 				print ('</div>');
 			}
@@ -4329,29 +4537,36 @@ Users : <?=
 ?>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
 <html>
-<head><?php
+<head>
+	<?php
 
 			$this->HtmlScript();
 
 
 ?>
-<title><?=
+	<title>
+	<?=
 
 			TITLE
 
 
-?></title>
+?>
+	</title>
 </head>
-<body><a name="top"></a>
-<div id="main_frame">
-<div id="title"><img src="./image/title03.gif"></div>
-<?php
+<body>
+	<a name="top"></a>
+	<div id="main_frame">
+		<div id="title">
+			<img src="./image/title03.gif">
+		</div>
+		<?php
 
 			$this->MyMenu();
 
 
-?><div id="contents">
-<?php
+?>
+		<div id="contents">
+			<?php
 
 		}
 
@@ -4362,14 +4577,12 @@ Users : <?=
 
 
 ?>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<link rel="stylesheet" href="./static/style/basis.css" type="text/css">
-<link rel="stylesheet" href="./static/style/style.css" type="text/css">
-<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
-<script type="text/javascript" src="./static/js/jquery-core.js"></script>
-
-
-<style>
+			<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+			<link rel="stylesheet" href="./static/style/basis.css" type="text/css">
+			<link rel="stylesheet" href="./static/style/style.css" type="text/css">
+			<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script> 
+			<script type="text/javascript" src="./static/js/jquery-core.js"></script>
+			<style>
 
 .flip-h {
     -moz-transform: scaleX(-1);
@@ -4381,8 +4594,7 @@ Users : <?=
 }
 
 </style>
-
-<?php
+			<?php
 
 		}
 
@@ -4393,23 +4605,22 @@ Users : <?=
 
 
 ?>
-</div>
-<div id="foot">
-<a href="?update">UpDate</a> - <?php
+		</div>
+		<div id="foot">
+			<a href="?update">UpDate</a> -
+			<?php
 
 			if (BBS_BOTTOM_TOGGLE) print ('<a href="?bbs">BBS</a> - ' . "\n");
 
 
 ?>
-<a href="?manual">Manual</a> -
-<a href="?tutorial">Tutorial</a> -
-<a href="?gamedata=job">GameData</a> -
-<a href="#top">Top</a><br>
-Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
-</div>
-</div>
+			<a href="?manual">Manual</a> - <a href="?tutorial">Tutorial</a> - <a href="?gamedata=job">GameData</a> - <a href="#top">Top</a><br>
+			Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
+		</div>
+	</div>
 </body>
-</html><?php
+</html>
+<?php
 
 		}
 
@@ -4542,7 +4753,7 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 
 
 ?>
-	<form action="<?=
+<form action="<?=
 
 			INDEX
 
@@ -4556,12 +4767,14 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 ?>
 	<h4>Name of Team</h4>
 	<p>Decide the Name of the team.<br />
-	It should be more than 1 and less than 16 letters.<br />
-	Japanese characters count as 2 letters.</p>
+		It should be more than 1 and less than 16 letters.<br />
+		Japanese characters count as 2 letters.</p>
 	<p>1-16文字でチームの名前決めてください。<br />
-	日本語でもOK。<br />
-	日本語は 1文字 = 2 letter</p>
-	<div class="bold u">TeamName</div>
+		日本語でもOK。<br />
+		日本語は 1文字 = 2 letter</p>
+	<div class="bold u">
+		TeamName
+	</div>
 	<input class="text" style="width:160px" maxlength="16" name="name"<?
 
 			print ($_POST["name"] ? "value=\"$_POST[name]\"" : "")
@@ -4570,44 +4783,87 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 ?>>
 	<h4>First Character</h4>
 	<p>Decide the name of Your First Charactor.<br>
-	more than 1 and less than 16 letters.</p>
+		more than 1 and less than 16 letters.</p>
 	<p>初期キャラの名前。</p>
-	<div class="bold u">CharacterName</div>
+	<div class="bold u">
+		CharacterName
+	</div>
 	<input class="text" type="text" name="first_name" maxlength="16" style="width:160px;margin-bottom:10px">
-	<table cellspacing="0" style="width:400px"><tbody>
-	<tr><td class="td1" valign="bottom"><div style="text-align:center"><?=
+	<table cellspacing="0" style="width:400px">
+		<tbody>
+			<tr>
+				<td class="td1" valign="bottom"><div style="text-align:center">
+						<?=
 
 			$war_male->ShowImage()
 
 
-?><br><input type="radio" name="fjob" value="1" style="margin:3px"></div></td>
-	<td class="td1" valign="bottom"><div style="text-align:center"><?=
+?>
+						<br>
+						<input type="radio" name="fjob" value="1" style="margin:3px">
+					</div></td>
+				<td class="td1" valign="bottom"><div style="text-align:center">
+						<?=
 
 			$war_female->ShowImage()
 
 
-?><br><input type="radio" name="fjob" value="2" style="margin:3px"></div></td>
-	<td class="td1" valign="bottom"><div style="text-align:center"><?=
+?>
+						<br>
+						<input type="radio" name="fjob" value="2" style="margin:3px">
+					</div></td>
+				<td class="td1" valign="bottom"><div style="text-align:center">
+						<?=
 
 			$sor_male->ShowImage()
 
 
-?><br><input type="radio" name="fjob" value="3" style="margin:3px"></div></td>
-	<td class="td1" valign="bottom"><div style="text-align:center"><?=
+?>
+						<br>
+						<input type="radio" name="fjob" value="3" style="margin:3px">
+					</div></td>
+				<td class="td1" valign="bottom"><div style="text-align:center">
+						<?=
 
 			$sor_female->ShowImage()
 
 
-?><br><input type="radio" name="fjob" value="4" style="margin:3px"></div></td></tr>
-	<tr><td class="td2"><div style="text-align:center">male</div></td><td class="td3"><div style="text-align:center">female</div></td>
-	<td class="td2"><div style="text-align:center">male</div></td><td class="td3"><div style="text-align:center">female</div></td></tr>
-	<tr><td colspan="2" class="td4"><div style="text-align:center">Warrior</div></td><td colspan="2" class="td4"><div style="text-align:center">Socerer</div></td></tr>
-	</tbody></table>
+?>
+						<br>
+						<input type="radio" name="fjob" value="4" style="margin:3px">
+					</div></td>
+			</tr>
+			<tr>
+				<td class="td2"><div style="text-align:center">
+						male
+					</div></td>
+				<td class="td3"><div style="text-align:center">
+						female
+					</div></td>
+				<td class="td2"><div style="text-align:center">
+						male
+					</div></td>
+				<td class="td3"><div style="text-align:center">
+						female
+					</div></td>
+			</tr>
+			<tr>
+				<td colspan="2" class="td4"><div style="text-align:center">
+						Warrior
+					</div></td>
+				<td colspan="2" class="td4"><div style="text-align:center">
+						Socerer
+					</div></td>
+			</tr>
+		</tbody>
+	</table>
 	<p>Choose your first character's job &amp; Gender.</p>
 	<p>最初のキャラの職と性別</p>
 	<input class="btn" style="width:160px" type="submit" value="Done" name="Done">
 	<input type="hidden" value="1" name="Done">
-	<input class="btn" style="width:160px" type="submit" value="logout" name="logout"></form><?php
+	<input class="btn" style="width:160px" type="submit" value="logout" name="logout">
+</form>
+<?php
 
 			return true;
 		}
@@ -4624,8 +4880,8 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 <h4>one line bbs</h4>
 バグ報告,バランスについての意見とかはこちらでどうぞ。
 <form action="?bbs" method="post">
-<input type="text" maxlength="60" name="message" class="text" style="width:300px"/>
-<input type="submit" value="post" class="btn" style="width:100px" />
+	<input type="text" maxlength="60" name="message" class="text" style="width:300px"/>
+	<input type="submit" value="post" class="btn" style="width:100px" />
 </form>
 <?php
 
