@@ -1,0 +1,16 @@
+no: 5203
+name: FairyRobe
+type: Robe
+buy: '5000'
+img: armor_012.png
+def:
+    - 4
+    - 10
+    - 45
+    - 25
+handle: '4'
+need:
+    6180: '12'
+    6184: '4'
+base_name: FairyRobe
+type2: GUARD
