@@ -1,0 +1,13 @@
+no: 3101
+name: Blessing
+img: skill_008.png
+exp: SP回復
+sp: '0'
+type: '1'
+learn: '0'
+target:
+    - friend
+    - all
+    - 1
+SpRecoveryRate: 3
+support: '1'
