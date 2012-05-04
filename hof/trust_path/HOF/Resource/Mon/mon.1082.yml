@@ -1,0 +1,30 @@
+monNo: 1082
+name: ThunderBird
+img: mon_208r.gif
+exphold: '1050'
+moneyhold: '300'
+level: '44'
+maxhp: '1500'
+hp: '1500'
+maxsp: '450'
+sp: '450'
+str: '70'
+int: '100'
+dex: '20'
+spd: '70'
+luk: '50'
+guard: never
+position: back
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 70
+    - 40
+def:
+    - 20
+    - 30
+    - 30
+    - 70
+itemtable: {  }
