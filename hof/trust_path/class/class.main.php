@@ -1462,7 +1462,7 @@ HTML;
 			//dump($party[0]->judge);
 
 			include (CLASS_BATTLE);
-			$battle = new battle($party, $enemy);
+			$battle = new HOF_Class_Battle($party, $enemy);
 			$battle->SetTeamName($this->name, "ドッペル");
 			$battle->LimitTurns($turns); //最大ターン数は10
 			$battle->NoResult();
@@ -1673,7 +1673,7 @@ HTML;
 
 				$this->WasteTime(NORMAL_BATTLE_TIME); //時間の消費
 				include (CLASS_BATTLE);
-				$battle = new battle($MyParty, $EnemyParty);
+				$battle = new HOF_Class_Battle($MyParty, $EnemyParty);
 				$battle->SetBackGround($Land["land"]); //背景
 				$battle->SetTeamName($this->name, $Land["name"]);
 				$battle->Process(); //戦闘開始
@@ -3421,7 +3421,7 @@ JS_HTML;
 			$this->UnionSetTime();
 
 			include (CLASS_BATTLE);
-			$battle = new battle($MyParty, $EnemyParty);
+			$battle = new HOF_Class_Battle($MyParty, $EnemyParty);
 			$battle->SetUnionBattle();
 			$battle->SetBackGround($Union->UnionLand); //背景
 			//$battle->SetTeamName($this->name,"Union:".$Union->Name());
