@@ -1,0 +1,17 @@
+no: 2110
+name: ChargeDisturb
+img: skill_016.png
+exp: チャージ(詠唱)妨害
+sp: '60'
+type: '1'
+learn: '4'
+target:
+    - enemy
+    - individual
+    - 1
+invalid: '1'
+priority: Charge
+delay: '200'
+charge:
+    - 0
+    - 40
