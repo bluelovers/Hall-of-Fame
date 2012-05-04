@@ -1,0 +1,14 @@
+no: 5058
+name: Howling
+img: skill_066.png
+sp: '0'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - all
+    - 1
+charge:
+    - 0
+    - 40
+DownSTR: '30'
