@@ -1,0 +1,18 @@
+no: 2014
+name: IcePrison
+img: skill_055.png
+exp: 防御DOWN
+sp: '40'
+type: '1'
+learn: '4'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '180'
+invalid: '1'
+charge:
+    - 40
+    - 0
+DownDEF: '30'
+DownMDEF: '30'
