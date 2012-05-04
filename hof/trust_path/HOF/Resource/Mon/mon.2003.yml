@@ -1,0 +1,60 @@
+monNo: 2003
+name: BanditsLeader
+img: mon_216.gif
+exphold: 2550
+moneyhold: 1700
+level: '76'
+maxhp: 5100
+hp: 5100
+maxsp: '500'
+sp: '500'
+str: '120'
+int: '100'
+dex: '50'
+spd: '150'
+luk: '50'
+guard: never
+position: back
+judge:
+    - 1201
+    - 1405
+    - 1920
+    - 1940
+    - 1000
+quantity:
+    - 30
+    - 3
+    - 1
+    - 50
+    - 0
+action:
+    - 3011
+    - 9000
+    - 5061
+    - 1204
+    - 5062
+atk:
+    - 60
+    - 20
+def:
+    - 60
+    - 40
+    - 40
+    - 40
+itemtable:
+    5510: '2000'
+    5515: '2000'
+    5520: '2000'
+    5525: '2000'
+    5530: '2000'
+SPECIAL:
+    PoisonResist: 50
+cycle: 36000
+Slave:
+    1092: [100, 0]
+    1093: [100, 0]
+    1094: [100, 0]
+land: sand
+SlaveAmount: '6'
+UnionName: PlundingBandits
+LevelLimit: '200'
