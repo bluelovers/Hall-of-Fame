@@ -1,0 +1,14 @@
+no: 1240
+name: Whip
+img: we_other007y.png
+exp: ''
+sp: '0'
+type: '0'
+learn: '0'
+target:
+    - enemy
+    - multi
+    - 2
+pow: '90'
+limit:
+    Whip: true
