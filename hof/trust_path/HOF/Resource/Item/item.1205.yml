@@ -1,0 +1,18 @@
+no: 1205
+name: MailBreaker
+type: Dagger
+buy: '50000'
+img: we_sword010.png
+atk:
+    - 20
+    - 0
+handle: '6'
+P_PIERCE:
+    - 20
+    - 0
+option: '物理防御無視+20 ,'
+need:
+    6003: 20
+    6022: 4
+base_name: MailBreaker
+type2: WEAPON
