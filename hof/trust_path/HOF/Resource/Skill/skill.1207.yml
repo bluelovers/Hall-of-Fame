@@ -1,0 +1,16 @@
+no: 1207
+name: PoisonBreath
+img: skill_005cz.png
+exp: 前衛化
+sp: '30'
+type: '0'
+learn: '4'
+target:
+    - enemy
+    - all
+    - 1
+umove: front
+charge:
+    - 30
+    - 30
+poison: '80'
