@@ -1,0 +1,33 @@
+monNo: 5005
+name: Ghoul
+img: mon_142.gif
+exphold: '0'
+moneyhold: '0'
+level: '10'
+maxhp: '340'
+hp: '340'
+maxsp: '0'
+sp: '0'
+str: '200'
+int: '1'
+dex: '1'
+spd: '10'
+luk: '1'
+guard: never
+position: front
+SPECIAL:
+    Undead: true
+judge:
+    - 1000
+quantity:
+    - 0
+action:
+    - 1000
+atk:
+    - 20
+    - 10
+def:
+    - 10
+    - 10
+    - 0
+    - 0
