@@ -1,0 +1,29 @@
+monNo: 1088
+name: FireElement
+img: mon_026.gif
+exphold: '1000'
+moneyhold: '1000'
+level: '40'
+maxhp: '1000'
+hp: '1000'
+maxsp: '1000'
+sp: '1000'
+str: '100'
+int: '100'
+dex: '100'
+spd: '100'
+luk: '100'
+guard: life75
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 20
+    - 20
+def:
+    - 60
+    - 0
+    - 65
+    - 0
+itemtable: {  }
