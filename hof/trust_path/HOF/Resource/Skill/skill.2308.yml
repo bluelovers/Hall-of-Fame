@@ -1,0 +1,20 @@
+no: 2308
+name: Aiming
+img: item_042.png
+exp: ''
+sp: '0'
+type: '0'
+learn: '4'
+target:
+    - enemy
+    - individual
+    - 1
+inf: dex
+pow: '130'
+invalid: '1'
+priority: Back
+charge:
+    - 0
+    - 0
+limit:
+    Bow: true
