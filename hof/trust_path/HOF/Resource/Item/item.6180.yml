@@ -1,0 +1,8 @@
+no: 6180
+name: Cotton
+type: Material
+buy: '1000'
+sell: '10'
+img: other_008.png
+base_name: Cotton
+type2: OTHER
