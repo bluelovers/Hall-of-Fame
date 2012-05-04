@@ -1,0 +1,11 @@
+no: 1021
+name: RightBringer
+type: Sword
+buy: '100000'
+img: we_sword026.png
+atk:
+    - 3
+    - 0
+handle: '1'
+base_name: RightBringer
+type2: WEAPON
