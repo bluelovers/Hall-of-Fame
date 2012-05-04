@@ -1,0 +1,18 @@
+no: 3103
+name: HolyBible
+type: Book
+buy: '10000'
+img: book_002.png
+atk:
+    - 0
+    - 4
+def:
+    - 0
+    - 0
+    - 8
+    - 3
+handle: '3'
+need:
+    6182: '36'
+base_name: HolyBible
+type2: GUARD
