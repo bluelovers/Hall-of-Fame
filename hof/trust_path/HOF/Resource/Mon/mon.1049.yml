@@ -1,0 +1,45 @@
+monNo: 1049
+name: FrostQueen
+img: mon_190.gif
+exphold: '2200'
+moneyhold: '800'
+level: '43'
+maxhp: '900'
+hp: '900'
+maxsp: '1200'
+sp: '1200'
+str: '60'
+int: '150'
+dex: '10'
+spd: '80'
+luk: '150'
+guard: never
+position: back
+judge:
+    - 1201
+    - 1902
+    - 1101
+    - 1920
+    - 1000
+quantity:
+    - 30
+    - 1
+    - 40
+    - 1
+    - 0
+action:
+    - 3011
+    - 5053
+    - 9000
+    - 5055
+    - 5054
+atk:
+    - 20
+    - 60
+def:
+    - 60
+    - 10
+    - 40
+    - 100
+itemtable:
+    6160: '2000'
