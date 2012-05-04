@@ -1,0 +1,40 @@
+monNo: 1032
+name: CentaurHunter
+img: mon_129.gif
+level: '39'
+exphold: '520'
+moneyhold: '300'
+maxhp: '670'
+hp: '670'
+maxsp: '150'
+sp: '150'
+str: '20'
+int: '30'
+dex: '160'
+spd: '70'
+luk: '20'
+guard: never
+position: back
+judge:
+    - 1201
+    - 1940
+    - 1000
+quantity:
+    - 20
+    - 70
+    - 0
+action:
+    - 2308
+    - 2302
+    - 2305
+atk:
+    - 70
+    - 10
+def:
+    - 20
+    - 30
+    - 30
+    - 30
+itemtable:
+    6021: '1500'
+    6022: '700'
