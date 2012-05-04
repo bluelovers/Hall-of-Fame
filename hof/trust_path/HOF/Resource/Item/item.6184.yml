@@ -1,0 +1,8 @@
+no: 6184
+name: Silk
+type: Material
+buy: '1000'
+sell: '10'
+img: other_008.png
+base_name: Silk
+type2: OTHER
