@@ -3501,7 +3501,7 @@ JS_HTML;
 			print ("<h4>街</h4>");
 			print ('<div class="town">' . "\n");
 			print ("<ul>\n");
-			$PlaceList = TownAppear($this);
+			$PlaceList = HOF_Model_Data::getTownAppear($this);
 			// 店
 			if ($PlaceList["Shop"])
 			{
