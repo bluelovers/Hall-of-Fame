@@ -1,0 +1,18 @@
+no: 3102
+name: SpellNote
+type: Book
+buy: '8000'
+img: book_002.png
+atk:
+    - 0
+    - 7
+def:
+    - 2
+    - 0
+    - 2
+    - 0
+handle: '3'
+need:
+    6182: '28'
+base_name: SpellNote
+type2: GUARD
