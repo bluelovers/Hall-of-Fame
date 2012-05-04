@@ -46,6 +46,8 @@ class HOF_Model_Char extends HOF_Class_Data
 	{
 		$data = self::getInstance()->_load('char', $no);
 
+		unset($data['name']);
+
 		$data['birth'] = time() . substr(microtime(), 2, 6);
 
 		if (!empty($append))
