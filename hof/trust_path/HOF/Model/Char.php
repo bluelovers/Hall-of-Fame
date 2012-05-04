@@ -96,7 +96,7 @@ class HOF_Model_Char extends HOF_Class_Array
 				$append = $append->getArrayCopy();
 			}
 
-			$char->SetCharData(get_object_vars((array)$append));
+			$char->SetCharData($append);
 		}
 
 		return $char;
