@@ -1,0 +1,16 @@
+no: 3005
+name: HeavyShield
+type: Shield
+buy: '8000'
+img: shield_001m.png
+def:
+    - 15
+    - 10
+    - 8
+    - 8
+handle: '4'
+need:
+    6002: '8'
+    6003: '8'
+base_name: HeavyShield
+type2: GUARD
