@@ -1545,7 +1545,7 @@ HTML;
 				include (DATA_MONSTER);
 				foreach ($files as $file)
 				{
-					$UnionMons = new union($file);
+					$UnionMons = HOF_Model_Char::newUnionFromFile($file);
 					if ($UnionMons->is_Alive()) $Union[] = $UnionMons;
 				}
 			}
@@ -3367,7 +3367,7 @@ JS_HTML;
 			}
 
 			if (!$_POST["union_battle"]) return false;
-			$Union = new union();
+			$Union = HOF_Model_Char::newUnionFromFile();
 			// 倒されているか、存在しない場合。
 			if (!$Union->UnionNumber($_GET["union"]) || !$Union->is_Alive())
 			{
@@ -3460,7 +3460,7 @@ JS_HTML;
 			//	return true;
 			print ('<div style="margin:15px">' . "\n");
 			print ("<h4>Union Monster</h4>\n");
-			$Union = new union();
+			$Union = HOF_Model_Char::newUnionFromFile();
 			// 倒されているか、存在しない場合。
 			if (!$Union->UnionNumber($_GET["union"]) || !$Union->is_Alive())
 			{
