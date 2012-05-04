@@ -1,0 +1,17 @@
+no: 1012
+name: ArmorBreak
+img: skill_072.png
+exp: 防御力低下
+sp: '30'
+type: '0'
+learn: '6'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '100'
+charge:
+    - 0
+    - 0
+DownDEF: '30'
+DownMDEF: '30'
