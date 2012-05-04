@@ -1,0 +1,17 @@
+no: 1810
+name: ManaStaff
+type: Staff
+dh: true
+buy: '20000'
+img: we_staff008b.png
+atk:
+    - 3
+    - 24
+handle: '4'
+P_MAXSP: '60'
+option: 'SP+60 ,'
+need:
+    6020: 8
+    6021: 8
+base_name: ManaStaff
+type2: WEAPON
