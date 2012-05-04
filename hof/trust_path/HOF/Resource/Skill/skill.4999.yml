@@ -1,0 +1,11 @@
+no: 4999
+name: '---- 5000 ----------'
+img: skill_066.png
+exp: ''
+sp: '20'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - all
+    - 1
