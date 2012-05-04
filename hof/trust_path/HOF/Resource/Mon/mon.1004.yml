@@ -1,0 +1,44 @@
+monNo: 1004
+name: GoblinKids
+img: mon_054.gif
+level: '4'
+exphold: '40'
+moneyhold: '60'
+maxhp: '250'
+hp: '250'
+maxsp: '120'
+sp: '120'
+str: '15'
+int: '10'
+dex: '15'
+spd: '8'
+luk: '10'
+guard: never
+position: back
+judge:
+    - 1201
+    - 1940
+    - 1940
+    - 1000
+quantity:
+    - 40
+    - 30
+    - 50
+    - 0
+action:
+    - 3010
+    - 2022
+    - 2020
+    - 1002
+atk:
+    - 20
+    - 20
+def:
+    - 15
+    - 1
+    - 15
+    - 1
+itemtable:
+    6020: '1000'
+    6021: '1000'
+    7100: '100'
