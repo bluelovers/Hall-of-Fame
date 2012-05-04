@@ -1,0 +1,30 @@
+monNo: 5002
+name: Mimic
+img: mon_065.gif
+level: '20'
+maxhp: '300'
+hp: '300'
+maxsp: '10'
+sp: '10'
+str: '500'
+int: '1'
+dex: '1'
+spd: '1'
+luk: '1'
+guard: never
+judge:
+    - 1000
+quantity:
+    - 0
+action:
+    - 1000
+atk:
+    - 10
+    - 20
+def:
+    - 40
+    - 30
+    - 70
+    - 10
+itemtable:
+    8002: '3000'
