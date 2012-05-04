@@ -1,0 +1,16 @@
+no: 1023
+name: BananaSword
+type: Sword
+buy: '1000'
+img: banana.png
+atk:
+    - 3
+    - 0
+P_SPD: 1
+handle: '0'
+option: 'SPD+1 ,'
+need:
+    6600: '3'
+    6602: '1'
+base_name: BananaSword
+type2: WEAPON
