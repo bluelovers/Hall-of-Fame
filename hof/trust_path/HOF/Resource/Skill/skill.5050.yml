@@ -1,0 +1,15 @@
+no: 5050
+name: IceSmash
+img: skill_066.png
+sp: '100'
+type: '1'
+learn: '99'
+target:
+    - enemy
+    - multi
+    - 3
+pow: '200'
+DownDEF: '20'
+charge:
+    - 40
+    - 0
