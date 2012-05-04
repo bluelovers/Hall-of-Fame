@@ -1,0 +1,17 @@
+no: 3001
+name: PowerHeal
+img: skill_013b.png
+exp: HP回復
+sp: '20'
+type: '1'
+learn: '4'
+target:
+    - friend
+    - multi
+    - 2
+pow: '300'
+support: '1'
+priority: LowHpRate
+charge:
+    - 50
+    - 0
