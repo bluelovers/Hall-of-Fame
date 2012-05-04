@@ -1,0 +1,13 @@
+no: 1005
+name: LongSword
+type: Sword
+buy: '14000'
+img: we_sword026.png
+atk:
+    - 40
+    - 0
+handle: '5'
+need:
+    6003: '12'
+base_name: LongSword
+type2: WEAPON
