@@ -1,0 +1,39 @@
+monNo: 2011
+name: EdgarOgre
+img: mon_168.gif
+exphold: 5040
+moneyhold: 3360
+level: '99'
+maxhp: 10080
+hp: 10080
+maxsp: '600'
+sp: '600'
+str: '170'
+int: '80'
+dex: '80'
+spd: '140'
+luk: '50'
+guard: never
+position: back
+judge: {  }
+quantity: {  }
+action: {  }
+atk:
+    - 150
+    - 20
+def:
+    - 60
+    - 40
+    - 50
+    - 50
+itemtable: {  }
+SPECIAL:
+    PoisonResist: 50
+cycle: 68400
+Slave:
+    1092: [100, 0]
+    1093: [100, 0]
+    1094: [100, 0]
+land: mount
+UnionName: OgreSquad
+LevelLimit: '150'
