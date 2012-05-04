@@ -1,0 +1,12 @@
+no: blow01
+land:
+    name: ヒルズブロウ地区
+    name0: TheBlowHills
+    land: aband
+    proper: Lv20-30
+monster:
+    1018: [100, 1]
+    1019: [100, 1]
+    1020: [100, 1]
+    1021: [100, 1]
+    1022: [30, 1]
