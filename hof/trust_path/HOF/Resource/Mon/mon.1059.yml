@@ -1,0 +1,29 @@
+monNo: 1059
+name: FloraElement
+img: mon_028.gif
+exphold: '1000'
+moneyhold: '1000'
+level: '40'
+maxhp: '1000'
+hp: '1000'
+maxsp: '1000'
+sp: '1000'
+str: '100'
+int: '100'
+dex: '100'
+spd: '100'
+luk: '100'
+guard: life75
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 50
+    - 50
+def:
+    - 40
+    - 20
+    - 50
+    - 50
+itemtable: {  }
