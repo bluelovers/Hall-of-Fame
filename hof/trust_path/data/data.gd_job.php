@@ -160,7 +160,7 @@ foreach ($job as $No => $exp)
 	print ("</div></td></tr>");
 	print ("</tr>\n");
 }
- /*
+/*
 <tr>
 <td><span class="bold">Warrior</span></td>
 <td><img src="<?=IMG_CHAR?>mon_079.gif" /><img src="<?=IMG_CHAR?>mon_080r.gif" /></td>
