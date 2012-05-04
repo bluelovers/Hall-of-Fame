@@ -1,0 +1,13 @@
+no: 1113
+name: Pain
+img: skill_057.png
+exp: ''
+sp: '0'
+type: '0'
+learn: '2'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '200'
+sacrifice: '5'
