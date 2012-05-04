@@ -1,0 +1,43 @@
+monNo: 1001
+name: GoblinWarrior
+img: mon_052.gif
+level: '1'
+exphold: '20'
+moneyhold: '40'
+maxhp: '180'
+hp: '180'
+maxsp: '50'
+sp: '50'
+str: '8'
+int: '3'
+dex: '5'
+spd: '5'
+luk: '1'
+position: front
+guard: life75
+judge:
+    - 1940
+    - 1205
+    - 1000
+quantity:
+    - 50
+    - 50
+    - 0
+action:
+    - 9000
+    - 1014
+    - 1000
+atk:
+    - 10
+    - 10
+def:
+    - 15
+    - 5
+    - 10
+    - 0
+itemtable:
+    6000: '1000'
+    6001: '1000'
+    6002: '600'
+    6003: '200'
+    7100: '100'
