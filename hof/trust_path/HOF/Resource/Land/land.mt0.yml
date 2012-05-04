@@ -1,0 +1,11 @@
+no: mt0
+land:
+    name: 火山ふもと
+    name0: ''
+    land: mount
+    proper: 'Lv??'
+monster:
+    1072: [100, 1]
+    1073: [100, 1]
+    1078: [100, 1]
+    1082: [5, 0]
