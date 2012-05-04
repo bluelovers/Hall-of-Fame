@@ -104,7 +104,7 @@ function BaseCharStatus($no)
 	}
 	*/
 
-	$char = HOF_Class_Yaml::load(BASE_TRUST_PATH.'HOF/Resource/Char/char.'.$no.'.yml');
+	$char = HOF_Class_Yaml::load(BASE_TRUST_PATH.'/HOF/Resource/Char/char.'.$no.'.yml');
 
 	$char['birth'] = time() . substr(microtime(), 2, 6);
 
