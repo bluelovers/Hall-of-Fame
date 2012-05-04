@@ -1,0 +1,13 @@
+no: 1007
+name: Shotel
+type: Sword
+buy: '35000'
+img: we_sword026.png
+atk:
+    - 60
+    - 0
+handle: '7'
+need:
+    6003: '24'
+base_name: Shotel
+type2: WEAPON
