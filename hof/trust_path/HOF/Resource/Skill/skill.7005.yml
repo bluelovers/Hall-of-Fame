@@ -1,0 +1,7 @@
+no: 7005
+name: LifeAssist3
+img: acce_003c.png
+exp: HP+150
+learn: '21'
+passive: 1
+P_MAXHP: '150'
