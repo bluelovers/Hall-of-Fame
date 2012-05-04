@@ -1,0 +1,14 @@
+no: 2200
+name: TamerWhip
+type: Whip
+buy: '1000'
+img: we_other007.png
+atk:
+    - 20
+    - 0
+handle: '4'
+P_SUMMON: '10'
+need:
+    6181: '8'
+base_name: TamerWhip
+type2: WEAPON
