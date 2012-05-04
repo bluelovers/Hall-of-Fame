@@ -1,0 +1,30 @@
+monNo: 1083
+name: SandLizard
+img: mon_036.gif
+exphold: '300'
+moneyhold: '100'
+level: '23'
+maxhp: '640'
+hp: '640'
+maxsp: '100'
+sp: '100'
+str: '60'
+int: '10'
+dex: '20'
+spd: '30'
+luk: '20'
+guard: prob50
+position: front
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 30
+    - 20
+def:
+    - 30
+    - 60
+    - 10
+    - 20
+itemtable: {  }
