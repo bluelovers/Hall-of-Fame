@@ -1,0 +1,16 @@
+no: 2091
+name: EnergyCollect
+img: skill_037.png
+exp: SP吸収
+sp: '30'
+type: '1'
+learn: '6'
+target:
+    - enemy
+    - all
+    - 1
+pow: '70'
+invalid: '1'
+charge:
+    - 100
+    - 0
