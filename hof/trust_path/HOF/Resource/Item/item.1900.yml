@@ -1,0 +1,11 @@
+no: 1900
+name: BronzeMace
+type: Mace
+buy: '1000'
+img: we_axe015b.png
+atk:
+    - 5
+    - 5
+handle: '2'
+base_name: BronzeMace
+type2: OTHER
