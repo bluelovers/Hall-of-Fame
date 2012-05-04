@@ -1,0 +1,37 @@
+monNo: 5017
+name: Dragon
+img: mon_013.gif
+exphold: '0'
+moneyhold: '0'
+level: '10'
+maxhp: '700'
+hp: '700'
+maxsp: '200'
+sp: '200'
+str: '120'
+int: '120'
+dex: '80'
+spd: '30'
+luk: '40'
+guard: prob50
+position: front
+judge:
+    - 1940
+    - 1940
+    - 1000
+quantity:
+    - 30
+    - 50
+    - 0
+action:
+    - 5019
+    - 5018
+    - 5014
+atk:
+    - 60
+    - 60
+def:
+    - 20
+    - 20
+    - 25
+    - 30
