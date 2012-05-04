@@ -1,0 +1,15 @@
+no: 3200
+name: Encourage
+img: skill_044.png
+sp: '60'
+type: '1'
+learn: '6'
+target:
+    - friend
+    - all
+    - 1
+support: '1'
+charge:
+    - 30
+    - 0
+UpSTR: '30'
