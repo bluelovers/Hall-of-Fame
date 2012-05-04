@@ -1,0 +1,15 @@
+no: 3011
+name: HiManaRecharge
+img: skill_019z.png
+exp: SP回復
+sp: '0'
+type: '1'
+learn: '2'
+target:
+    - self
+    - individual
+    - 1
+support: '1'
+charge:
+    - 30
+    - 0
