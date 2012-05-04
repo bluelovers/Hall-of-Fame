@@ -1,0 +1,13 @@
+no: 5012
+name: RockThrew
+img: skill_066.png
+exp: ''
+sp: '0'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '120'
+invalid: '1'
