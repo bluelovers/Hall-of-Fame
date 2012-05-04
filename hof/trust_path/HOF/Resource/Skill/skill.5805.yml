@@ -1,0 +1,16 @@
+no: 5805
+name: Howl
+img: skill_066.png
+exp: ''
+sp: '40'
+type: '0'
+learn: '99'
+target:
+    - self
+    - individual
+    - 1
+summon:
+    - 1038
+charge:
+    - 0
+    - 30
