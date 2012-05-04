@@ -1,0 +1,14 @@
+no: 1006
+name: BroadSword
+type: Sword
+buy: '20000'
+img: we_sword026.png
+atk:
+    - 50
+    - 0
+handle: '6'
+need:
+    6002: '4'
+    6003: '16'
+base_name: BroadSword
+type2: WEAPON
