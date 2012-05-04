@@ -1,0 +1,16 @@
+no: 103
+name_male: WitchHunt
+name_female: WitchHunt
+img_male: mon_150.gif
+img_female: mon_234.gif
+equip:
+    - Sword
+    - Dagger
+    - Shield
+    - Armor
+    - Cloth
+    - Robe
+    - Item
+coe:
+    - 3.7
+    - 1
