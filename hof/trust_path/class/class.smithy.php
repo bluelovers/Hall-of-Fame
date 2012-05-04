@@ -36,7 +36,7 @@ class Item
 		$this->option1 = substr($no, 9, 3);
 		$this->option2 = substr($no, 12, 3);
 
-		if ($item = LoadItemData($this->base))
+		if ($item = HOF_Model_Data::getItemData($this->base))
 		{
 			$this->type = $item["type"];
 		}
