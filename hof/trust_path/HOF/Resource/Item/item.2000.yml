@@ -1,0 +1,15 @@
+no: 2000
+name: ShortBow
+type: Bow
+dh: true
+buy: '1000'
+img: we_bow001.png
+atk:
+    - 20
+    - 0
+handle: '2'
+need:
+    6020: '6'
+    6181: '1'
+base_name: ShortBow
+type2: WEAPON
