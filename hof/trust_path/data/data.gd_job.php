@@ -9,40 +9,67 @@ include_once (DATA_JOB);
 
 
 ?>
-<div style="margin:15px">
-<h4>職業(Job)</h4>
-<ul>
-<li><a href="#100">Warrior</a>
-<ul>
-<li><a href="#101">RoyalGuard</a></li>
-<li><a href="#102">Sacrier</a></li>
-<li><a href="#103">WitchHunt</a></li>
-</ul>
-</li>
-<li><a href="#200">Sorcerer</a>
-<ul>
-<li><a href="#201">Warlock</a></li>
-<li><a href="#202">Summoner</a></li>
-<li><a href="#203">Necromancer</a></li>
-</ul>
-</li>
-<li><a href="#300">Priest</a>
-<ul>
-<li><a href="#301">Bishop</a></li>
-<li><a href="#302">Druid</a></li>
-</ul>
-</li>
-<li><a href="#400">Hunter</a>
-<ul>
-<li><a href="#401">Sniper</a></li>
-<li><a href="#402">BeastTamer</a></li>
-<li><a href="#403">Murderer</a></li>
-</ul>
-</li>
-</ul>
-<h4>Variety</h4>
-<table cellspacing="0" style="width:740px">
-<?php
+
+	<div style="margin:15px">
+		<h4>職業(Job)</h4>
+		<ul>
+			<li>
+				<a href="#100">Warrior</a>
+				<ul>
+					<li>
+						<a href="#101">RoyalGuard</a>
+					</li>
+					<li>
+						<a href="#102">Sacrier</a>
+					</li>
+					<li>
+						<a href="#103">WitchHunt</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#200">Sorcerer</a>
+				<ul>
+					<li>
+						<a href="#201">Warlock</a>
+					</li>
+					<li>
+						<a href="#202">Summoner</a>
+					</li>
+					<li>
+						<a href="#203">Necromancer</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#300">Priest</a>
+				<ul>
+					<li>
+						<a href="#301">Bishop</a>
+					</li>
+					<li>
+						<a href="#302">Druid</a>
+					</li>
+				</ul>
+			</li>
+			<li>
+				<a href="#400">Hunter</a>
+				<ul>
+					<li>
+						<a href="#401">Sniper</a>
+					</li>
+					<li>
+						<a href="#402">BeastTamer</a>
+					</li>
+					<li>
+						<a href="#403">Murderer</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+		<h4>Variety</h4>
+		<table cellspacing="0" style="width:740px">
+			<?php
 
 $job = array(
 	// ここでしか必要無いので 職データには書きません。
@@ -169,5 +196,5 @@ foreach ($job as $No => $exp)
 
 
 ?>
-</table>
-</div>
+		</table>
+	</div>
