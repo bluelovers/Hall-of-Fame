@@ -1,0 +1,13 @@
+no: 5023
+name: UnFortune
+img: skill_066.png
+exp: ''
+sp: '500'
+type: '1'
+learn: '99'
+target:
+    - enemy
+    - all
+    - 1
+DownMAXHP: '70'
+invalid: '1'
