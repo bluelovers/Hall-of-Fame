@@ -1,0 +1,28 @@
+monNo: 1105
+name: phantom
+img: mon_047.gif
+level: '30'
+exphold: '100'
+moneyhold: '100'
+maxhp: '900'
+hp: '900'
+maxsp: '200'
+sp: '200'
+str: '120'
+int: '15'
+dex: '100'
+spd: '80'
+luk: '1'
+guard: never
+position: front
+judge: {  }
+quantity: {  }
+action: {  }
+atk:
+    - 70
+    - 20
+def:
+    - 60
+    - 20
+    - 30
+    - 30
