@@ -1,0 +1,14 @@
+no: 1241
+name: Lashing
+img: we_other007y.png
+exp: ''
+sp: '30'
+type: '0'
+learn: '2'
+target:
+    - enemy
+    - multi
+    - 4
+pow: '90'
+limit:
+    Whip: true
