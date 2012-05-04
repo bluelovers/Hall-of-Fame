@@ -1791,7 +1791,7 @@ HTML;
 						return false;
 					}
 				case ($_POST["shop_buy"]):
-					$ShopList = ShopList(); //売ってるものデータ
+					$ShopList = HOF_Model_Data::getShopList(); //売ってるものデータ
 					if ($_POST["item_no"] && in_array($_POST["item_no"], $ShopList))
 					{
 						if (ereg("^[0-9]", $_POST["amount"]))
@@ -1874,7 +1874,7 @@ HTML;
 	<?php
 
 			include (CLASS_JS_ITEMLIST);
-			$ShopList = ShopList(); //売ってるものデータ
+			$ShopList = HOF_Model_Data::getShopList(); //売ってるものデータ
 
 			$goods = new JS_ItemList();
 			$goods->SetID("JS_buy");
@@ -1976,7 +1976,7 @@ Get <?=
 			print ("<table cellspacing=\"0\">\n");
 			print ('<tr><td class="td6" style="text-align:center">値段</td>' . '<td class="td6" style="text-align:center">数</td>' . '<td class="td6" style="text-align:center">計</td>' . '<td class="td6" style="text-align:center">アイテム</td></tr>' . "\n");
 			$moneyNeed = 0;
-			$ShopList = ShopList();
+			$ShopList = HOF_Model_Data::getShopList();
 			foreach ($ShopList as $itemNo)
 			{
 				if (!$_POST["check_" . $itemNo]) continue;
@@ -2041,7 +2041,7 @@ JS_HTML;
 			print ('<form action="?menu=buy" method="post">' . "\n");
 			print ("<table cellspacing=\"0\">\n");
 			print ('<tr><td class="td6"></td>' . '<td style="text-align:center" class="td6">値段</td>' . '<td style="text-align:center" class="td6">数</td>' . '<td style="text-align:center" class="td6">アイテム</td></tr>' . "\n");
-			$ShopList = ShopList();
+			$ShopList = HOF_Model_Data::getShopList();
 			foreach ($ShopList as $itemNo)
 			{
 				$item = LoadItemData($itemNo);
