@@ -1,0 +1,16 @@
+no: 1220
+name: BananaDagger
+type: Dagger
+buy: '1000'
+img: banana.png
+atk:
+    - 1
+    - 0
+P_SPD: 1
+handle: '0'
+option: 'SPD+1 ,'
+need:
+    6600: '3'
+    6602: '1'
+base_name: BananaDagger
+type2: WEAPON
