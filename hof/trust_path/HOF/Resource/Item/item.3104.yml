@@ -1,0 +1,19 @@
+no: 3104
+name: 'Summoner&#39;sBible'
+type: Book
+buy: '12000'
+img: book_002.png
+atk:
+    - 0
+    - 3
+def:
+    - 0
+    - 0
+    - 4
+    - 5
+handle: '3'
+P_SUMMON: '10'
+need:
+    6182: '36'
+base_name: 'Summoner&#39;sBible'
+type2: GUARD
