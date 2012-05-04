@@ -1,0 +1,14 @@
+no: 5056
+name: Bite
+img: skill_066.png
+sp: '0'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - individual
+    - 1
+charge:
+    - 0
+    - 0
+pow: '340'
