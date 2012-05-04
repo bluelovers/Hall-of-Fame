@@ -1,0 +1,16 @@
+no: 1118
+name: Pressuer
+img: skill_057.png
+exp: 敵後退
+sp: '50'
+type: '0'
+learn: '8'
+target:
+    - enemy
+    - all
+    - 1
+sacrifice: '50'
+charge:
+    - 100
+    - 100
+knockback: '100'
