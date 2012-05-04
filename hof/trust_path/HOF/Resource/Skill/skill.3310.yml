@@ -1,0 +1,23 @@
+no: 3310
+name: BeastSuppress
+img: we_other007x.png
+exp: 召喚キャラ弱体化
+sp: '100'
+type: '0'
+learn: '6'
+target:
+    - enemy
+    - individual
+    - 1
+support: '1'
+charge:
+    - 0
+    - 50
+DownSTR: '50'
+DownINT: '50'
+DownSPD: '50'
+DownDEF: '20'
+DownMDEF: '20'
+priority: Summon
+limit:
+    Whip: true
