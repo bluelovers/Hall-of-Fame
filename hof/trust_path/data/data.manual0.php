@@ -400,7 +400,7 @@ $sample = array(
 foreach ($sample as $val)
 {
 	include_once (DATA_ITEM);
-	ShowItemDetail(LoadItemData($val));
+	ShowItemDetail(HOF_Model_Data::getItemData($val));
 	print ("<br />\n");
 }
 
