@@ -1,0 +1,14 @@
+no: 1704
+name: ForceWand
+type: Wand
+buy: '10000'
+img: we_staff002.png
+atk:
+    - 10
+    - 26
+handle: '5'
+need:
+    6020: '10'
+    6002: '4'
+base_name: ForceWand
+type2: WEAPON
