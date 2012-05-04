@@ -1,0 +1,15 @@
+no: 5064
+name: BananaRocket
+img: banana.png
+exp: ''
+sp: '50'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - individual
+    - 1
+charge:
+    - 0
+    - 30
+pow: '300'
