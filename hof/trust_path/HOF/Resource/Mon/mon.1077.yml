@@ -1,0 +1,30 @@
+monNo: 1077
+name: FlareHead
+img: mon_193.gif
+exphold: '600'
+moneyhold: '200'
+level: '38'
+maxhp: '520'
+hp: '520'
+maxsp: '600'
+sp: '600'
+str: '10'
+int: '120'
+dex: '30'
+spd: '30'
+luk: '20'
+guard: never
+position: back
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 30
+    - 50
+def:
+    - 0
+    - 30
+    - 60
+    - 0
+itemtable: {  }
