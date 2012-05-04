@@ -1,0 +1,14 @@
+no: 1200
+name: PoisonBlow
+img: skill_074y.png
+exp: 相手が毒状態なら威力6倍
+sp: '10'
+type: '0'
+learn: '4'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '100'
+limit:
+    Dagger: true
