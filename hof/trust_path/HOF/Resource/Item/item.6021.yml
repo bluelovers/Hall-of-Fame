@@ -1,0 +1,8 @@
+no: 6021
+name: Oak
+type: Material
+buy: '1000'
+sell: '30'
+img: mat_025.png
+base_name: Oak
+type2: OTHER
