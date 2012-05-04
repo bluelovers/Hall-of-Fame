@@ -1,0 +1,15 @@
+no: 2042
+name: Subsidence
+img: skill_056.png
+exp: ''
+sp: '150'
+type: '1'
+learn: '8'
+target:
+    - all
+    - all
+    - 1
+pow: '350'
+charge:
+    - 130
+    - 50
