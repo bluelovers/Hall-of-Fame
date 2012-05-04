@@ -1,0 +1,37 @@
+monNo: 1030
+name: Gaze
+img: mon_105.gif
+level: '35'
+exphold: '420'
+moneyhold: '280'
+maxhp: '520'
+hp: '520'
+maxsp: '240'
+sp: '240'
+str: '10'
+int: '40'
+dex: '10'
+spd: '50'
+luk: '10'
+guard: never
+position: back
+judge:
+    - 1940
+    - 1000
+quantity:
+    - 50
+    - 0
+action:
+    - 5036
+    - 5037
+atk:
+    - 10
+    - 10
+def:
+    - 30
+    - 30
+    - 40
+    - 50
+itemtable:
+    6180: '1000'
+    6184: '1000'
