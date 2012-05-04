@@ -1,0 +1,15 @@
+no: 5033
+name: WeaponForging
+img: skill_066.png
+sp: '50'
+type: '0'
+learn: '99'
+target:
+    - friend
+    - all
+    - 1
+support: true
+charge:
+    - 0
+    - 100
+UpATK: '50'
