@@ -7,7 +7,7 @@ include ("./data.skill.php");
 
 for ($no = 1000; $no < 10000; $no++)
 {
-	$skill = LoadSkillData($no);
+	$skill = HOF_Model_Data::getSkill($no);
 	if (!$skill) continue;
 
 	//	print("<tr><td>");
