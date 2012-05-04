@@ -1,0 +1,16 @@
+no: 2404
+name: CallTrainedLion
+img: skill_028.png
+exp: 獅子召喚
+sp: '150'
+type: '0'
+learn: '4'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 0
+    - 100
+summon: '5011'
+quick: true
