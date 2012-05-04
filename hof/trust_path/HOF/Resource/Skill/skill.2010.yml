@@ -1,0 +1,15 @@
+no: 2010
+name: IceSpear
+img: skill_001b.png
+exp: ''
+sp: '20'
+type: '1'
+learn: '1'
+target:
+    - enemy
+    - individual
+    - 3
+pow: '100'
+charge:
+    - 30
+    - 0
