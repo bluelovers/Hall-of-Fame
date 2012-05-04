@@ -1,0 +1,16 @@
+no: 3007
+name: TowerShield
+type: Shield
+buy: '15000'
+img: shield_001m.png
+def:
+    - 18
+    - 15
+    - 15
+    - 10
+handle: '6'
+need:
+    6002: '8'
+    6003: '20'
+base_name: TowerShield
+type2: GUARD
