@@ -1,0 +1,68 @@
+monNo: 2001
+name: Minotaur
+img: mon_014.gif
+exphold: 7600
+moneyhold: 5067
+level: '82'
+maxhp: 15200
+hp: 15200
+maxsp: '1000'
+sp: '1000'
+str: '250'
+int: '30'
+dex: '50'
+spd: '80'
+luk: '50'
+guard: prob50
+position: front
+judge:
+    - 1201
+    - 1100
+    - 1401
+    - 1101
+    - 1700
+    - 1710
+    - 1101
+    - 1902
+    - 1000
+quantity:
+    - 30
+    - 20
+    - 1
+    - 30
+    - 0
+    - 3
+    - 80
+    - 1
+    - 0
+action:
+    - 3011
+    - 9000
+    - 1018
+    - 9000
+    - 9000
+    - 1023
+    - 9000
+    - 3111
+    - 1017
+atk:
+    - 150
+    - 20
+def:
+    - 80
+    - 50
+    - 50
+    - 70
+itemtable:
+    5500: '3000'
+    5501: '3000'
+    5600: '4000'
+SPECIAL:
+    PoisonResist: 50
+cycle: 28800
+Slave:
+    1023: [300, 0]
+    1024: [100, 0]
+land: mount
+UnionName: TaurusRush
+LevelLimit: '200'
