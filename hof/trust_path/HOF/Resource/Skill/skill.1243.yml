@@ -1,0 +1,15 @@
+no: 1243
+name: WhipBite
+img: we_other007y.png
+exp: ''
+sp: '30'
+type: '0'
+learn: '4'
+target:
+    - enemy
+    - multi
+    - 2
+pow: '80'
+delay: 50
+limit:
+    Whip: true
