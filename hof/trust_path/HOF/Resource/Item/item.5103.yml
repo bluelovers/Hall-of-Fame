@@ -1,0 +1,16 @@
+no: 5103
+name: LongCoat
+type: Cloth
+buy: '5000'
+img: armor_014e.png
+def:
+    - 18
+    - 5
+    - 18
+    - 5
+handle: '4'
+need:
+    6040: '6'
+    6180: '10'
+base_name: LongCoat
+type2: GUARD
