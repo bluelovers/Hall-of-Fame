@@ -9,8 +9,9 @@ include_once (DATA_ITEM);
 
 
 ?>
-<div style="margin:0 15px">
-<?php
+
+	<div style="margin:0 15px">
+		<?php
 
 $ItemList = array(
 	"武器(Weapon)" => array(
@@ -53,4 +54,4 @@ foreach ($ItemList as $Type => $ItemNoArray)
 
 
 ?>
-</div>
+	</div>
