@@ -128,7 +128,7 @@ for ($i = 1000; $i < 10000; $i++)
 include ("../data/data.skill.php");
 for ($i = 1000; $i < 10000; $i++)
 {
-	$skill = LoadSkillData($i);
+	$skill = HOF_Model_Data::getSkill($i);
 	if (!$skill) continue;
 	$skillList["$i"] = $i . " - " . $skill["name"] . "(sp:{$skill[sp]})";
 }
