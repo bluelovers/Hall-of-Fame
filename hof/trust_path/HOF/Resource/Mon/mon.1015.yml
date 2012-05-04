@@ -1,0 +1,44 @@
+monNo: 1015
+name: Lantern
+img: mon_034.gif
+level: '14'
+exphold: '120'
+moneyhold: '100'
+maxhp: '360'
+hp: '360'
+maxsp: '200'
+sp: '200'
+str: '10'
+int: '40'
+dex: '10'
+spd: '20'
+luk: '1'
+guard: never
+position: back
+judge:
+    - 1201
+    - 1902
+    - 1940
+    - 1200
+quantity:
+    - 40
+    - 1
+    - 50
+    - 30
+action:
+    - 3010
+    - 9000
+    - 3235
+    - 2000
+atk:
+    - 30
+    - 20
+def:
+    - 20
+    - 10
+    - 40
+    - 30
+itemtable:
+    6020: '1000'
+    6021: '600'
+    6022: '200'
