@@ -1,0 +1,8 @@
+no: 6040
+name: Leather
+type: Material
+buy: '1000'
+sell: '10'
+img: mat_024.png
+base_name: Leather
+type2: OTHER
