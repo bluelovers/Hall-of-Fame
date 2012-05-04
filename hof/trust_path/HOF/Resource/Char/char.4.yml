@@ -1,0 +1,18 @@
+jobNo: 4
+jobName: Hunter
+level: '1'
+exp: '0'
+str: '2'
+int: '2'
+dex: '10'
+spd: '6'
+luk: '1'
+job: '400'
+weapon: '2000'
+armor: '5100'
+skill:
+    - 2300
+    - 2310
+Pattern: 1205<>1000|28<>0|2310<>2300
+position: back
+guard: never
