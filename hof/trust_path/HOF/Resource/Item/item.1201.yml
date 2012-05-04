@@ -1,0 +1,14 @@
+no: 1201
+name: Kukuri
+type: Dagger
+buy: '10000'
+img: we_sword010.png
+atk:
+    - 21
+    - 0
+handle: '3'
+need:
+    6001: 12
+    6020: 4
+base_name: Kukuri
+type2: WEAPON
