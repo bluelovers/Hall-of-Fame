@@ -1,0 +1,8 @@
+no: 6162
+name: BronzeCoin
+type: Material
+buy: '1000'
+sell: '100'
+img: acce_005c.png
+base_name: BronzeCoin
+type2: OTHER
