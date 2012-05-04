@@ -1,0 +1,15 @@
+no: 3205
+name: Fear
+img: skill_048.png
+sp: '60'
+type: '1'
+learn: '6'
+target:
+    - enemy
+    - all
+    - 1
+support: '1'
+charge:
+    - 30
+    - 0
+DownSTR: '40'
