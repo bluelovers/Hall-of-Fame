@@ -1,0 +1,16 @@
+no: 2003
+name: Explosion
+img: skill_005a.png
+exp: 力DOWN
+sp: '180'
+type: '1'
+learn: '12'
+target:
+    - all
+    - all
+    - 1
+pow: '200'
+charge:
+    - 100
+    - 0
+DownSTR: '40'
