@@ -17,7 +17,7 @@ class monster extends char
 	var $summon;
 	//////////////////////////////////////////////////
 	//
-	function monster($data)
+	function __construct($data)
 	{
 		$this->SetCharData($data);
 
