@@ -1,0 +1,29 @@
+monNo: 1057
+name: SmogGorrem
+img: mon_130.gif
+exphold: '470'
+moneyhold: '10'
+level: '34'
+maxhp: '500'
+hp: '500'
+maxsp: '0'
+sp: '0'
+str: '110'
+int: '10'
+dex: '10'
+spd: '30'
+luk: '10'
+guard: always
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 50
+    - 20
+def:
+    - 90
+    - 0
+    - 0
+    - 30
+itemtable: {  }
