@@ -1,0 +1,49 @@
+monNo: 1003
+name: GoblinKnight
+img: mon_206.gif
+level: '5'
+exphold: '40'
+moneyhold: '60'
+maxhp: '320'
+hp: '320'
+maxsp: '90'
+sp: '90'
+str: '22'
+int: '10'
+dex: '10'
+spd: '12'
+luk: '1'
+guard: always
+position: front
+judge:
+    - 1902
+    - 1940
+    - 1940
+    - 1205
+    - 1000
+quantity:
+    - 1
+    - 50
+    - 50
+    - 30
+    - 0
+action:
+    - 9000
+    - 3112
+    - 9000
+    - 1012
+    - 1000
+atk:
+    - 30
+    - 10
+def:
+    - 35
+    - 8
+    - 30
+    - 10
+itemtable:
+    6001: '1000'
+    6040: '1000'
+    6002: '600'
+    6003: '300'
+    7100: '100'
