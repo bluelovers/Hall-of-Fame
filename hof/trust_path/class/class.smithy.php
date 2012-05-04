@@ -15,7 +15,7 @@ class Item
 
 	var $type;
 
-	function Item($no)
+	function __construct($no)
 	{
 		mt_srand();
 		$this->SetItem($no);
