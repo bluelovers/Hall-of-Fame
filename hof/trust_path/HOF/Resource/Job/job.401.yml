@@ -1,0 +1,13 @@
+no: 401
+name_male: Sniper
+name_female: Sniper
+img_male: mon_076z.gif
+img_female: mon_042z.gif
+equip:
+    - Bow
+    - Cloth
+    - Robe
+    - Item
+coe:
+    - 3
+    - 0.8
