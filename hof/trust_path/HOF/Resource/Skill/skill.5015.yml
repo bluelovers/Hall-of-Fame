@@ -1,0 +1,14 @@
+no: 5015
+name: SnowStorm
+img: skill_066.png
+exp: ''
+sp: '30'
+type: '1'
+learn: '99'
+target:
+    - enemy
+    - all
+    - 1
+pow: '100'
+invalid: '1'
+DownSPD: '10'
