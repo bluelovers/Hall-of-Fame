@@ -1,0 +1,15 @@
+no: 5055
+name: RadiateHeating
+img: skill_066.png
+sp: '0'
+type: '1'
+learn: '99'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 0
+    - 0
+pow: '400'
+DownDEF: '20'
