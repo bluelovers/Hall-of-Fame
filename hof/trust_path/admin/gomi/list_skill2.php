@@ -54,7 +54,7 @@ print ($det);
 $detcount = 0;
 for ($no = 1000; $no < 9999; $no++)
 {
-	$skill = LoadSkillData($no);
+	$skill = HOF_Model_Data::getSkill($no);
 	if (!$skill) continue;
 
 	$detcount++;
