@@ -1,0 +1,30 @@
+monNo: 1066
+name: Megarodon
+img: mon_227.gif
+exphold: '3100'
+moneyhold: '1200'
+level: '53'
+maxhp: '3200'
+hp: '3200'
+maxsp: '200'
+sp: '200'
+str: '210'
+int: '30'
+dex: '30'
+spd: '100'
+luk: '50'
+guard: never
+position: front
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 200
+    - 20
+def:
+    - 10
+    - 30
+    - 20
+    - 30
+itemtable: {  }
