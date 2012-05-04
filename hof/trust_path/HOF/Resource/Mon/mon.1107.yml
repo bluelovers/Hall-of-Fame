@@ -1,0 +1,28 @@
+monNo: 1107
+name: MermaidSummoner
+img: mon_116.gif
+level: '32'
+exphold: '400'
+moneyhold: '100'
+maxhp: '400'
+hp: '400'
+maxsp: '800'
+sp: '800'
+str: '10'
+int: '130'
+dex: '30'
+spd: '70'
+luk: '1'
+guard: never
+position: back
+judge: {  }
+quantity: {  }
+action: {  }
+atk:
+    - 30
+    - 60
+def:
+    - 10
+    - 0
+    - 60
+    - 60
