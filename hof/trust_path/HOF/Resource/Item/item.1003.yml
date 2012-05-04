@@ -1,0 +1,14 @@
+no: 1003
+name: Rapier
+type: Sword
+buy: '5000'
+img: we_sword026.png
+atk:
+    - 25
+    - 0
+handle: '3'
+need:
+    6001: '2'
+    6002: '8'
+base_name: Rapier
+type2: WEAPON
