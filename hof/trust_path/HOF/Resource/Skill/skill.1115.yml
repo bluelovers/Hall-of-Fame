@@ -1,0 +1,13 @@
+no: 1115
+name: Ruin
+img: skill_057.png
+exp: ''
+sp: '1'
+type: '0'
+learn: '8'
+target:
+    - enemy
+    - multi
+    - 4
+pow: '200'
+sacrifice: '30'
