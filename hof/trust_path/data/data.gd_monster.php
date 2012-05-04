@@ -46,7 +46,7 @@ foreach ($List as $No => $exp)
 	/*
 	$char = new HOF_Class_Char($monster);
 	*/
-	$char = HOF_Model_Char::newCharFromFile($monster);
+	$char = HOF_Model_Char::newChar($monster);
 
 	print ($Detail);
 	print ("</td><td class=\"td7\">\n");
