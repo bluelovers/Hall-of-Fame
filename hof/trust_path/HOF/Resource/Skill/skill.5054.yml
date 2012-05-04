@@ -1,0 +1,14 @@
+no: 5054
+name: AbsoluteZero
+img: skill_066.png
+sp: '200'
+type: '1'
+learn: '99'
+target:
+    - all
+    - all
+    - 1
+charge:
+    - 30
+    - 0
+pow: '250'
