@@ -1,0 +1,15 @@
+no: 2011
+name: IceJavelin
+img: skill_002b.png
+exp: ''
+sp: '60'
+type: '1'
+learn: '4'
+target:
+    - enemy
+    - individual
+    - 3
+pow: '150'
+charge:
+    - 40
+    - 0
