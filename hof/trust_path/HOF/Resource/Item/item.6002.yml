@@ -1,0 +1,8 @@
+no: 6002
+name: Silver
+type: Material
+buy: '1000'
+sell: '20'
+img: mat_001.png
+base_name: Silver
+type2: OTHER
