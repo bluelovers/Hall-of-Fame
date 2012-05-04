@@ -12,6 +12,14 @@ class HOF_Loader extends Zend_Loader
 	{
 		try
 		{
+			parent::loadClass($class, $dirs);
+		}
+		catch (Exception $e)
+		{
+			HOF_Autoloader::$error[$ns][] = $e->getMessage();
+		}
+
+		if (!class_exists($class, false) && !interface_exists($class, false)) {
 			if ($ns)
 			{
 				$_len = strlen($ns);
@@ -19,18 +27,10 @@ class HOF_Loader extends Zend_Loader
 				if ($ns == substr($class, 0, $_len))
 				{
 					$_class = substr($class, $_len);
+
+					parent::loadClass($_class, $dirs, $ns);
 				}
 			}
-
-			parent::loadClass($_class, $dirs, $ns);
-		}
-		catch (Exception $e)
-		{
-
-		}
-
-		if (!class_exists($class, false) && !interface_exists($class, false)) {
-			parent::loadClass($class, $dirs);
 		}
 
 		if (!class_exists($class, false) && !interface_exists($class, false)) {
