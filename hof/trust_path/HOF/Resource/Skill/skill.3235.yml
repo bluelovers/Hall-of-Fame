@@ -1,0 +1,15 @@
+no: 3235
+name: ResistDown
+img: skill_071.png
+sp: '60'
+type: '1'
+learn: '6'
+target:
+    - enemy
+    - all
+    - 1
+support: '1'
+charge:
+    - 30
+    - 0
+DownMDEF: '10'
