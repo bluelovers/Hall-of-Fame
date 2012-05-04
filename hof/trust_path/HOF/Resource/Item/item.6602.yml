@@ -1,0 +1,8 @@
+no: 6602
+name: BananaMetal
+type: Material
+buy: '100'
+sell: '50'
+img: banana.png
+base_name: BananaMetal
+type2: OTHER
