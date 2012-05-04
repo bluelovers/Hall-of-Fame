@@ -1620,7 +1620,7 @@ HTML;
 			//			include (CLASS_MONSTER);
 			foreach ($monster_list as $id => $val)
 			{
-				if ($val[1]) $monster[] = new monster(CreateMonster($id));
+				if ($val[1]) $monster[] = HOF_Model_Char::newMon($id);
 			}
 			print ('<div style="margin:15px"><h4>MonsterAppearance</h4></div>');
 			$this->ShowCharacters($monster, "MONSTER", $land["land"]);
