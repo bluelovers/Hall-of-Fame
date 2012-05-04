@@ -1,0 +1,46 @@
+monNo: 1002
+name: GoblinBoarRider
+img: mon_095.gif
+level: '3'
+exphold: '30'
+moneyhold: '40'
+maxhp: '270'
+hp: '270'
+maxsp: '70'
+sp: '70'
+str: '15'
+int: '3'
+dex: '6'
+spd: '9'
+luk: '1'
+guard: life50
+judge:
+    - 1902
+    - 1940
+    - 1940
+    - 1205
+    - 1000
+quantity:
+    - 1
+    - 50
+    - 50
+    - 60
+    - 0
+action:
+    - 9000
+    - 3110
+    - 9000
+    - 1015
+    - 1000
+atk:
+    - 30
+    - 10
+def:
+    - 20
+    - 1
+    - 20
+    - 1
+itemtable:
+    6001: '1000'
+    6040: '1500'
+    7100: '100'
