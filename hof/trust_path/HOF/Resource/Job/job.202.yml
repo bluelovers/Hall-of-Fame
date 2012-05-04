@@ -1,0 +1,14 @@
+no: 202
+name_male: Summoner
+name_female: Summoner
+img_male: mon_196y.gif
+img_female: mon_246z.gif
+equip:
+    - Wand
+    - Staff
+    - Book
+    - Robe
+    - Item
+coe:
+    - 1.5
+    - 2.5
