@@ -1,0 +1,32 @@
+monNo: 1022
+name: SpawnPot
+img: mon_019.gif
+level: '20'
+exphold: '300'
+moneyhold: '200'
+maxhp: '600'
+hp: '600'
+maxsp: '100'
+sp: '100'
+str: '10'
+int: '10'
+dex: '10'
+spd: '10'
+luk: '1'
+guard: never
+judge:
+    - 1000
+quantity:
+    - 0
+action:
+    - 5803
+atk:
+    - 10
+    - 10
+def:
+    - 20
+    - 0
+    - 20
+    - 0
+itemtable:
+    6003: '1000'
