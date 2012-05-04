@@ -1,0 +1,46 @@
+monNo: 5100
+name: ArchAngel
+img: mon_239.gif
+exphold: '0'
+moneyhold: '0'
+level: '80'
+maxhp: '1000'
+hp: '1000'
+maxsp: '1600'
+sp: '1600'
+str: '200'
+int: '300'
+dex: '200'
+spd: '200'
+luk: '100'
+guard: prob50
+position: front
+judge:
+    - 1201
+    - 1405
+    - 1200
+    - 1920
+    - 1200
+    - 1000
+quantity:
+    - 30
+    - 2
+    - 30
+    - 1
+    - 20
+    - 0
+action:
+    - 3102
+    - 9000
+    - 5030
+    - 9000
+    - 5022
+    - 5025
+atk:
+    - 50
+    - 100
+def:
+    - 20
+    - 20
+    - 20
+    - 60
