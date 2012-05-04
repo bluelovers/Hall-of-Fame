@@ -1442,7 +1442,7 @@ HTML;
 			// ↓
 			foreach ($party as $key => $char)
 			{
-				$enemy[$key] = new HOF_Model_Char();
+				$enemy[$key] = new HOF_Class_Char();
 				$enemy[$key]->SetCharData(get_object_vars($char));
 
 			}
@@ -2477,7 +2477,7 @@ JS_HTML;
 				// キャラデータをクラスに入れる
 
 				$plus = array("name" => "$name", "gender" => $_POST["recruit_gend"]);
-				$char = new HOF_Model_Char();
+				$char = new HOF_Class_Char();
 				$char->SetCharData(array_merge(BaseCharStatus($charNo), $plus));
 				//雇用金
 				if ($hire <= $this->money)
@@ -2516,21 +2516,21 @@ JS_HTML;
 				return false;
 			}
 			include_once (CLASS_MONSTER);
-			$char[0] = new HOF_Model_Char();
+			$char[0] = new HOF_Class_Char();
 			$char[0]->SetCharData(array_merge(BaseCharStatus("1"), array("gender" => "0")));
-			$char[1] = new HOF_Model_Char();
+			$char[1] = new HOF_Class_Char();
 			$char[1]->SetCharData(array_merge(BaseCharStatus("1"), array("gender" => "1")));
-			$char[2] = new HOF_Model_Char();
+			$char[2] = new HOF_Class_Char();
 			$char[2]->SetCharData(array_merge(BaseCharStatus("2"), array("gender" => "0")));
-			$char[3] = new HOF_Model_Char();
+			$char[3] = new HOF_Class_Char();
 			$char[3]->SetCharData(array_merge(BaseCharStatus("2"), array("gender" => "1")));
-			$char[4] = new HOF_Model_Char();
+			$char[4] = new HOF_Class_Char();
 			$char[4]->SetCharData(array_merge(BaseCharStatus("3"), array("gender" => "0")));
-			$char[5] = new HOF_Model_Char();
+			$char[5] = new HOF_Class_Char();
 			$char[5]->SetCharData(array_merge(BaseCharStatus("3"), array("gender" => "1")));
-			$char[6] = new HOF_Model_Char();
+			$char[6] = new HOF_Class_Char();
 			$char[6]->SetCharData(array_merge(BaseCharStatus("4"), array("gender" => "0")));
-			$char[7] = new HOF_Model_Char();
+			$char[7] = new HOF_Class_Char();
 			$char[7]->SetCharData(array_merge(BaseCharStatus("4"), array("gender" => "1")));
 
 
@@ -4535,20 +4535,20 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 						$gend = 1;
 				}
 				include (DATA_BASE_CHAR);
-				$char = new HOF_Model_Char();
+				$char = new HOF_Class_Char();
 				$char->SetCharData(array_merge(BaseCharStatus($job), array("name" => $_POST[first_name], "gender" => "$gend")));
 				$char->SaveCharData($this->id);
 				return false;
 			} while (0);
 
 			include (DATA_BASE_CHAR);
-			$war_male = new HOF_Model_Char();
+			$war_male = new HOF_Class_Char();
 			$war_male->SetCharData(array_merge(BaseCharStatus("1"), array("gender" => "0")));
-			$war_female = new HOF_Model_Char();
+			$war_female = new HOF_Class_Char();
 			$war_female->SetCharData(array_merge(BaseCharStatus("1"), array("gender" => "1")));
-			$sor_male = new HOF_Model_Char();
+			$sor_male = new HOF_Class_Char();
 			$sor_male->SetCharData(array_merge(BaseCharStatus("2"), array("gender" => "0")));
-			$sor_female = new HOF_Model_Char();
+			$sor_female = new HOF_Class_Char();
 			$sor_female->SetCharData(array_merge(BaseCharStatus("2"), array("gender" => "1")));
 
 
