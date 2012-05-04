@@ -1,0 +1,15 @@
+no: 5000
+name: 'LeatherArmor '
+type: Armor
+buy: '1000'
+img: armor_016b.png
+def:
+    - 18
+    - 15
+    - 7
+    - 0
+handle: '1'
+need:
+    6040: '8'
+base_name: 'LeatherArmor '
+type2: GUARD
