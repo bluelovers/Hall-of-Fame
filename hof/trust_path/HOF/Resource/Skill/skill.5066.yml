@@ -1,0 +1,18 @@
+no: 5066
+name: BananaRecovery
+img: banana.png
+exp: ''
+sp: '0'
+type: '1'
+learn: '10'
+target:
+    - self
+    - individual
+    - 1
+support: '1'
+charge:
+    - 0
+    - 0
+pow: '250'
+CurePoison: true
+SpRecoveryRate: 4
