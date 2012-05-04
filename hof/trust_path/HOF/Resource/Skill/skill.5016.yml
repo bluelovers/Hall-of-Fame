@@ -1,0 +1,16 @@
+no: 5016
+name: Fly
+img: skill_066.png
+exp: ''
+sp: '10'
+type: '1'
+learn: '99'
+target:
+    - friend
+    - all
+    - 1
+charge:
+    - 10
+    - 0
+support: '1'
+UpSPD: '20'
