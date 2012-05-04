@@ -1,0 +1,43 @@
+monNo: 1045
+name: SnowFairy
+img: mon_186.gif
+exphold: '600'
+moneyhold: '400'
+level: '29'
+maxhp: '800'
+hp: '800'
+maxsp: '400'
+sp: '400'
+str: '30'
+int: '120'
+dex: '10'
+spd: '80'
+luk: '50'
+guard: prob50
+position: back
+judge:
+    - 1201
+    - 1902
+    - 1940
+    - 1000
+quantity:
+    - 30
+    - 1
+    - 50
+    - 0
+action:
+    - 3010
+    - 5051
+    - 5051
+    - 5050
+atk:
+    - 70
+    - 50
+def:
+    - 20
+    - 20
+    - 40
+    - 40
+itemtable:
+    6184: '1000'
+    8011: '4000'
