@@ -1,0 +1,12 @@
+no: 3120
+name: FirstAid
+img: skill_014.png
+exp: 自己HP回復
+sp: '0'
+type: '0'
+learn: '1'
+target:
+    - self
+    - individual
+    - 1
+support: '1'
