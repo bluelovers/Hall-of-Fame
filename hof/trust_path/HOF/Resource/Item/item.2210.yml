@@ -1,0 +1,15 @@
+no: 2210
+name: Wire
+type: Whip
+buy: '50000'
+img: we_other007.png
+atk:
+    - 70
+    - 0
+handle: '8'
+P_SUMMON: '4'
+need:
+    6040: '4'
+    6001: '24'
+base_name: Wire
+type2: WEAPON
