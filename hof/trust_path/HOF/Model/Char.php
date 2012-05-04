@@ -109,26 +109,84 @@ class HOF_Model_Char extends HOF_Class_Array
 		return $char;
 	}
 
-	function getBaseMonster($no)
+	function getBaseMonster($no, $over = false)
 	{
-		$char = CreateMonster($no);
-
-		/*
 		if (!isset(self::getInstance()->char['mon'][$no]))
 		{
-			$char = HOF_Class_Yaml::load(BASE_TRUST_PATH . '/HOF/Resource/Char/char.' . $no . '.yml');
+			$char = HOF_Class_Yaml::load(BASE_TRUST_PATH . '/HOF/Resource/Mon/mon.' . $no . '.yml');
 			self::getInstance()->char['mon'][$no] = $char;
 		}
 
 		$char = self::getInstance()->char['mon'][$no];
-		*/
+
+		if (!$char) return false;
+
+		static $overlap;
+
+		///// 色々変数追加・編集 /////////////////////
+
+		if ($no < 2000)
+		{
+			$char["moneyhold"] = 100;
+		}
+
+		// 名前が重複しないように Slime(A),Slime(B)みたいにする
+		if ($over)
+		{
+			$letter = "A"; //文字(数字でもおｋ)
+			$letter = chr(ord($letter) + $overlap[$no]);
+			$overlap[$no]++; //繰上げ
+			$style = "({$letter})"; //どんな感じで加えるか これだと"(B)"みたいになる
+			$char["name"] .= $style; //実際に名前の後ろに付け加える
+		}
+
+		// 前衛後衛が設定されていなければ設定する
+		mt_srand(); //乱数初期化
+
+		if (!$char["position"])
+		{ //前列後列の設定
+			$char["position"] = (mt_rand(0, 1) ? "front" : "back");
+			$char["posed"] = true;
+		}
+
+		// 落とすアイテムをもたせる
+		if (is_array($char["itemtable"]))
+		{
+			$prob = mt_rand(1, 10000);
+			$sum = 0;
+			foreach ($char["itemtable"] as $itemno => $upp)
+			{
+				$sum += $upp;
+				if ($prob <= $sum)
+				{
+					$char["itemdrop"] = $itemno;
+					break;
+				}
+			}
+		}
+
+		$char += array("monster" => "1");
 
 		return $char;
 	}
 
-	function newCharMonster($no)
+	function newMon($no)
 	{
-		$char = HOF_Model_Char::newChar(self::getBaseMonster($no));
+		$append = self::getBaseMonster($no);
+
+		if (!empty($append))
+		{
+			if ($append instanceof HOF_Class_Array)
+			{
+				$append = $append->toArray();
+			}
+			elseif ($append instanceof ArrayObject)
+			{
+				$append = $append->getArrayCopy();
+			}
+		}
+
+		$char = new HOF_Class_Mon($append);
 
 		return $char;
 	}
