@@ -1,0 +1,12 @@
+no: 3013
+name: EnergyExchange
+img: exchange.png
+exp: 'HP,SP交換(%)'
+sp: '10'
+type: '1'
+learn: '10'
+target:
+    - self
+    - individual
+    - 1
+support: '1'
