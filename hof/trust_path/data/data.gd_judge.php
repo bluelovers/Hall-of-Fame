@@ -17,7 +17,7 @@ include_once (DATA_JUDGE_SETUP);
 /*
 $List	= JudgeList();
 foreach($List as $No) {
-$Judge	= LoadJudgeData($No);
+$Judge	= HOF_Model_Data::getJudgeData($No);
 print($Judge["exp2"]."<br />\n");
 }
 */
