@@ -1,0 +1,30 @@
+monNo: 1076
+name: Mars
+img: mon_140.gif
+exphold: '1800'
+moneyhold: '1200'
+level: '51'
+maxhp: '1400'
+hp: '1400'
+maxsp: '800'
+sp: '800'
+str: '100'
+int: '170'
+dex: '60'
+spd: '100'
+luk: '30'
+guard: never
+position: back
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 70
+    - 70
+def:
+    - 30
+    - 30
+    - 40
+    - 50
+itemtable: {  }
