@@ -1,0 +1,13 @@
+no: 5014
+name: Scratch
+img: skill_066.png
+exp: ''
+sp: '0'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - multi
+    - 3
+pow: '70'
+pierce: true
