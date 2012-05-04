@@ -1,0 +1,48 @@
+monNo: 1007
+name: GoblinMaster
+img: mon_205r.gif
+level: '10'
+exphold: '80'
+moneyhold: '80'
+maxhp: '460'
+hp: '460'
+maxsp: '140'
+sp: '140'
+str: '35'
+int: '16'
+dex: '20'
+spd: '18'
+luk: '1'
+guard: prob50
+position: front
+judge:
+    - 1201
+    - 1940
+    - 1101
+    - 1226
+    - 1000
+quantity:
+    - 30
+    - 50
+    - 60
+    - 50
+    - 0
+action:
+    - 3011
+    - 9000
+    - 3121
+    - 3101
+    - 1016
+atk:
+    - 10
+    - 10
+def:
+    - 20
+    - 10
+    - 20
+    - 10
+itemtable:
+    6180: '1000'
+    6181: '1000'
+    6182: '1000'
+    7100: '100'
