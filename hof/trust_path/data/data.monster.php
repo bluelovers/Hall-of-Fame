@@ -6248,6 +6248,8 @@ function CreateMonster($no, $over = false)
 			break;
 	}
 
+	return $monster;
+
 	if (!$monster) return false;
 
 	///// 色々変数追加・編集 /////////////////////
