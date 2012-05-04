@@ -1,0 +1,30 @@
+monNo: 1067
+name: Neptune
+img: mon_162.gif
+exphold: '2400'
+moneyhold: '3000'
+level: '45'
+maxhp: '1200'
+hp: '1200'
+maxsp: '1000'
+sp: '1000'
+str: '4'
+int: '170'
+dex: '30'
+spd: '50'
+luk: '50'
+guard: never
+position: back
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 20
+    - 80
+def:
+    - 30
+    - 20
+    - 50
+    - 50
+itemtable: {  }
