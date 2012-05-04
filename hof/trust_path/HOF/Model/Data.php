@@ -227,7 +227,7 @@ class HOF_Model_Data extends HOF_Class_Data
 	 */
 	function getItemData($no)
 	{
-		if (file_exists(DATA_ENCHANT)) include (DATA_ENCHANT);
+		@include_once (DATA_ENCHANT);
 
 		//アイテムの種類
 		$base = substr($no, 0, 4);
