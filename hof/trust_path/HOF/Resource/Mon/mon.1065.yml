@@ -1,0 +1,30 @@
+monNo: 1065
+name: Nippers
+img: mon_225.gif
+exphold: '200'
+moneyhold: '30'
+level: '21'
+maxhp: '450'
+hp: '450'
+maxsp: '100'
+sp: '100'
+str: '60'
+int: '10'
+dex: '10'
+spd: '60'
+luk: '10'
+guard: always
+position: front
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 40
+    - 10
+def:
+    - 60
+    - 10
+    - 0
+    - 30
+itemtable: {  }
