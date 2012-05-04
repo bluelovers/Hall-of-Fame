@@ -1,0 +1,16 @@
+no: 3001
+name: Baccrar
+type: Shield
+buy: '2000'
+img: shield_001m.png
+def:
+    - 8
+    - 8
+    - 3
+    - 3
+handle: '2'
+need:
+    6001: '4'
+    6020: '2'
+base_name: Baccrar
+type2: GUARD
