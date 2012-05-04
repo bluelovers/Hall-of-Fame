@@ -1,0 +1,15 @@
+no: 1102
+name: Zweihander
+type: TwoHandSword
+dh: true
+buy: '16000'
+img: we_sword006.png
+atk:
+    - 65
+    - 0
+handle: '5'
+need:
+    6001: '6'
+    6002: '8'
+base_name: Zweihander
+type2: WEAPON
