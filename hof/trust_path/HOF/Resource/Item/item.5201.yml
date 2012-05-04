@@ -1,0 +1,16 @@
+no: 5201
+name: SilverRobe
+type: Robe
+buy: '1500'
+img: armor_012.png
+def:
+    - 2
+    - 5
+    - 35
+    - 15
+handle: '2'
+need:
+    6002: '1'
+    6180: '6'
+base_name: SilverRobe
+type2: GUARD
