@@ -1,0 +1,16 @@
+no: 2100
+name: Holy
+img: skill_022.png
+exp: ''
+sp: '10'
+type: '1'
+learn: '1'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '100'
+invalid: '1'
+charge:
+    - 10
+    - 0
