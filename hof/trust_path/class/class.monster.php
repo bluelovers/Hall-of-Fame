@@ -5,8 +5,7 @@ if (!defined('DEBUG'))
 	exit('Access Denied');
 }
 
-include_once ("class.char.php");
-class monster extends char
+class monster extends HOF_Class_Char
 {
 
 	// モンスター専用の変数
