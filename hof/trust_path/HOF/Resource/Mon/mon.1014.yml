@@ -1,0 +1,39 @@
+monNo: 1014
+name: CaveLizzard
+img: mon_036z.gif
+level: '12'
+exphold: '100'
+moneyhold: '100'
+maxhp: '580'
+hp: '580'
+maxsp: '60'
+sp: '60'
+str: '55'
+int: '6'
+dex: '16'
+spd: '25'
+luk: '1'
+guard: prob50
+position: front
+judge:
+    - 1940
+    - 1940
+    - 1000
+quantity:
+    - 50
+    - 50
+    - 0
+action:
+    - 5003
+    - 5005
+    - 1000
+atk:
+    - 30
+    - 20
+def:
+    - 35
+    - 30
+    - 10
+    - 30
+itemtable:
+    6040: '1500'
