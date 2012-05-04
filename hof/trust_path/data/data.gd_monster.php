@@ -42,11 +42,12 @@ $Detail = "<tr>
 </tr>";
 foreach ($List as $No => $exp)
 {
-	$monster = CreateMonster($No);
 	/*
+	$monster = CreateMonster($No);
 	$char = new HOF_Class_Char($monster);
 	*/
-	$char = HOF_Model_Char::newChar($monster);
+	$monster = HOF_Model_Char::getBaseMonster($No);
+	$char = HOF_Model_Char::newCharMonster($No);
 
 	print ($Detail);
 	print ("</td><td class=\"td7\">\n");
