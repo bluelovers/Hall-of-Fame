@@ -105,4 +105,68 @@ class HOF_Model_Data extends HOF_Class_Data
 		return $data;
 	}
 
+	/**
+	 * まっぷの出現条件判定
+	 */
+	function getLandAppear($user)
+	{
+		$land = array();
+
+		// 無条件
+		array_push($land, "gb0", "gb1", "gb2");
+
+		// アイテムがあれば行ける。
+		if ($user->item["8000"]) array_push($land, "ac0");
+		if ($user->item["8001"]) array_push($land, "ac1");
+		if ($user->item["8002"]) array_push($land, "ac2");
+		if ($user->item["8003"]) array_push($land, "ac3");
+		if ($user->item["8004"]) array_push($land, "ac4");
+
+		if ($user->item["8009"]) array_push($land, "snow0");
+		if ($user->item["8010"]) array_push($land, "snow1");
+		if ($user->item["8011"]) array_push($land, "snow2");
+
+		/*
+		array_push($land,"sea0");
+		array_push($land,"sea1");
+		array_push($land,"ocean0");
+		array_push($land,"sand0");
+		array_push($land,"swamp0");
+		array_push($land,"swamp1");
+		array_push($land,"mt0");
+		array_push($land,"volc0");
+		array_push($land,"volc1");
+
+		array_push($land,"blow01");
+		array_push($land,"plund01");
+		array_push($land,"des01");
+		*/
+
+		if (gc_date("H") == 2 && substr(gc_date("i"), 0, 1) == 5) array_push($land, "horh");
+		return $land;
+	}
+
+	/**
+	 * 通常戦闘における場所の情報
+	 * 基本的情報、出現する敵等
+	 *
+	 * name0 = 未使用
+	 * proper = 未使用
+	 * land = 土地の画像に対応する
+	 *
+	 *** 敵の出現確率の設定について
+	 * $monster = array(
+	 * 敵番号 = array("確率",1=表示 0=隠し敵);
+	 * )
+	 *
+	 * 確率の合計は気にしなくていい。
+	 * 出現確率 = ("確率"/全体の確率合計)
+	 */
+	function getLandInfo($no)
+	{
+		$data = self::getInstance()->_load('land', $no);
+
+		return array($data['land'], $data['monster']);
+	}
+
 }
