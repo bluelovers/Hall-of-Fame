@@ -1,0 +1,16 @@
+no: 2001
+name: HellFire
+img: skill_006a.png
+exp: ''
+sp: '320'
+type: '1'
+learn: '12'
+target:
+    - enemy
+    - multi
+    - 12
+pow: '100'
+invalid: '1'
+charge:
+    - 120
+    - 0
