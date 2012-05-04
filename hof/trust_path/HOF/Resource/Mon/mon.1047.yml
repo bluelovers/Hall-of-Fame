@@ -1,0 +1,47 @@
+monNo: 1047
+name: ReindeerSoldier
+img: mon_189.gif
+exphold: '420'
+moneyhold: '210'
+level: '30'
+maxhp: '800'
+hp: '800'
+maxsp: '100'
+sp: '100'
+str: '100'
+int: '10'
+dex: '30'
+spd: '35'
+luk: '10'
+guard: always
+position: front
+judge:
+    - 1200
+    - 1940
+    - 1200
+    - 1940
+    - 1000
+quantity:
+    - 60
+    - 50
+    - 40
+    - 50
+    - 0
+action:
+    - 9000
+    - 1015
+    - 9000
+    - 1017
+    - 5043
+atk:
+    - 40
+    - 10
+def:
+    - 35
+    - 30
+    - 25
+    - 20
+itemtable:
+    6021: '300'
+    6002: '300'
+    6161: '100'
