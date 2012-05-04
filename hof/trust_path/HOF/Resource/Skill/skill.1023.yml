@@ -1,0 +1,15 @@
+no: 1023
+name: 'Hit&Away'
+img: skill_033z.png
+exp: 前列の時威力3倍+後退
+sp: '10'
+type: '0'
+learn: '4'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '100'
+charge:
+    - 0
+    - 10
