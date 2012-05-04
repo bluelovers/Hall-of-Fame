@@ -1,0 +1,15 @@
+no: 1101
+name: Claymore
+type: TwoHandSword
+dh: true
+buy: '5000'
+img: we_sword006.png
+atk:
+    - 45
+    - 0
+handle: '3'
+need:
+    6001: '6'
+    6002: '4'
+base_name: Claymore
+type2: WEAPON
