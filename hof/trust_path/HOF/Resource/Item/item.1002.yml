@@ -1,0 +1,14 @@
+no: 1002
+name: GreatSword
+type: Sword
+buy: '3000'
+img: we_sword026.png
+atk:
+    - 20
+    - 0
+handle: '2'
+need:
+    6001: '4'
+    6002: '4'
+base_name: GreatSword
+type2: WEAPON
