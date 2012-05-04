@@ -1,0 +1,14 @@
+no: 1202
+name: Spata
+type: Dagger
+buy: '20000'
+img: we_sword010.png
+atk:
+    - 28
+    - 0
+handle: '4'
+need:
+    6001: 16
+    6020: 4
+base_name: Spata
+type2: WEAPON
