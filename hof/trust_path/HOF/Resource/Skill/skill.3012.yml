@@ -1,0 +1,16 @@
+no: 3012
+name: LifeConvert
+img: skill_019y.png
+exp: SP回復
+sp: '0'
+type: '1'
+learn: '6'
+target:
+    - self
+    - individual
+    - 1
+pow: '100'
+support: '1'
+charge:
+    - 20
+    - 0
