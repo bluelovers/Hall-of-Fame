@@ -1,0 +1,20 @@
+no: 2306
+name: PierceShot
+img: item_042.png
+exp: 防御無視
+sp: '90'
+type: '0'
+learn: '8'
+target:
+    - enemy
+    - individual
+    - 1
+inf: dex
+pow: '180'
+invalid: '1'
+charge:
+    - 60
+    - 0
+pierce: true
+limit:
+    Bow: true
