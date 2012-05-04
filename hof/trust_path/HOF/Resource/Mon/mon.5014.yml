@@ -1,0 +1,34 @@
+monNo: 5014
+name: SnowMan
+img: mon_164.gif
+exphold: '0'
+moneyhold: '0'
+level: '10'
+maxhp: '350'
+hp: '350'
+maxsp: '100'
+sp: '100'
+str: '50'
+int: '100'
+dex: '20'
+spd: '20'
+luk: '20'
+guard: prob25
+position: back
+judge:
+    - 1201
+    - 1000
+quantity:
+    - 31
+    - 0
+action:
+    - 3010
+    - 5015
+atk:
+    - 40
+    - 40
+def:
+    - 0
+    - 10
+    - 30
+    - 0
