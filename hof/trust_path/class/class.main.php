@@ -2728,7 +2728,7 @@ JS_HTML;
 			if ($this->item)
 			{
 				include (CLASS_JS_ITEMLIST);
-				$possible = CanRefineType();
+				$possible = HOF_Model_Data::getCanRefineType();
 				$possible = array_flip($possible);
 				//配列の先頭の値が"0"なので1にする(isset使わずにtrueにするため)
 				$possible[key($possible)]++;
