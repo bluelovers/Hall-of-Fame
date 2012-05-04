@@ -1,0 +1,39 @@
+monNo: 2009
+name: WanderSpirit
+img: mon_238.gif
+exphold: 2515
+moneyhold: 1677
+level: '120'
+maxhp: 5030
+hp: 5030
+maxsp: '9990'
+sp: '9990'
+str: '30'
+int: '230'
+dex: '50'
+spd: '160'
+luk: '500'
+guard: never
+position: back
+judge: {  }
+quantity: {  }
+action: {  }
+atk:
+    - 20
+    - 120
+def:
+    - 90
+    - 150
+    - 40
+    - 70
+itemtable: {  }
+SPECIAL:
+    PoisonResist: 80
+cycle: 75600
+Slave:
+    1092: [100, 0]
+    1093: [100, 0]
+    1094: [100, 0]
+land: build01
+UnionName: Specters
+LevelLimit: '150'
