@@ -1,0 +1,14 @@
+no: 5804
+name: CallSlave
+img: skill_066.png
+exp: ''
+sp: '200'
+type: '0'
+learn: '99'
+target:
+    - self
+    - individual
+    - 1
+summon:
+    - 1034
+    - 1034
