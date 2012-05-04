@@ -1,0 +1,17 @@
+no: 1811
+name: HeavenStaff
+type: Staff
+dh: true
+buy: '35000'
+img: we_staff008b.png
+atk:
+    - 12
+    - 32
+handle: '6'
+P_MAXSP: '90'
+option: 'SP+90 ,'
+need:
+    6020: 12
+    6021: 12
+base_name: HeavenStaff
+type2: WEAPON
