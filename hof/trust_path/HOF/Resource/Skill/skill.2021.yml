@@ -1,0 +1,16 @@
+no: 2021
+name: LightningBall
+img: skill_054z.png
+exp: ''
+sp: '80'
+type: '1'
+learn: '6'
+target:
+    - enemy
+    - multi
+    - 3
+pow: '220'
+invalid: '1'
+charge:
+    - 70
+    - 0
