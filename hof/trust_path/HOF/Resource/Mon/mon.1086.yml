@@ -1,0 +1,29 @@
+monNo: 1086
+name: Sidewinder
+img: mon_068.gif
+exphold: '320'
+moneyhold: '200'
+level: '23'
+maxhp: '480'
+hp: '480'
+maxsp: '70'
+sp: '70'
+str: '70'
+int: '20'
+dex: '20'
+spd: '40'
+luk: '20'
+guard: never
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 50
+    - 20
+def:
+    - 20
+    - 20
+    - 20
+    - 20
+itemtable: {  }
