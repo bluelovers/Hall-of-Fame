@@ -1,0 +1,15 @@
+no: 1802
+name: MageStaff
+type: Staff
+dh: true
+buy: '14000'
+img: we_staff008b.png
+atk:
+    - 15
+    - 49
+handle: '5'
+need:
+    6002: '2'
+    6021: '8'
+base_name: MageStaff
+type2: WEAPON
