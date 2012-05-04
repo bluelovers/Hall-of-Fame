@@ -1,0 +1,15 @@
+no: 3231
+name: 'ForceShield[self]'
+img: skill_070.png
+sp: '30'
+type: '1'
+learn: '6'
+target:
+    - self
+    - individual
+    - 1
+support: '1'
+charge:
+    - 30
+    - 0
+UpMDEF: '30'
