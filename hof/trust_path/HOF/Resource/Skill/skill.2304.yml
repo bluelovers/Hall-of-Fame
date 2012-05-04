@@ -1,0 +1,20 @@
+no: 2304
+name: PoisonShot
+img: item_042.png
+exp: 毒
+sp: '15'
+type: '0'
+learn: '2'
+target:
+    - enemy
+    - multi
+    - 2
+inf: dex
+pow: '50'
+invalid: '1'
+charge:
+    - 0
+    - 0
+poison: '100'
+limit:
+    Bow: true
