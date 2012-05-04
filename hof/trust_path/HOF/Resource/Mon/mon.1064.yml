@@ -1,0 +1,30 @@
+monNo: 1064
+name: Seagul
+img: mon_223.gif
+exphold: '220'
+moneyhold: '100'
+level: '22'
+maxhp: '430'
+hp: '430'
+maxsp: '0'
+sp: '0'
+str: '50'
+int: '20'
+dex: '20'
+spd: '70'
+luk: '30'
+guard: never
+position: back
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 50
+    - 20
+def:
+    - 10
+    - 10
+    - 20
+    - 30
+itemtable: {  }
