@@ -1,0 +1,30 @@
+monNo: 1071
+name: Clerk
+img: mon_117r.gif
+exphold: '560'
+moneyhold: '300'
+level: '39'
+maxhp: '1100'
+hp: '1100'
+maxsp: '200'
+sp: '200'
+str: '120'
+int: '80'
+dex: '40'
+spd: '80'
+luk: '60'
+guard: life25
+position: front
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 60
+    - 60
+def:
+    - 40
+    - 0
+    - 30
+    - 0
+itemtable: {  }
