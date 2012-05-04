@@ -1,0 +1,15 @@
+no: 3002
+name: IronShield
+type: Shield
+buy: '4000'
+img: shield_001m.png
+def:
+    - 12
+    - 5
+    - 5
+    - 5
+handle: '3'
+need:
+    6003: '6'
+base_name: IronShield
+type2: GUARD
