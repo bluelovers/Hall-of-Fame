@@ -1,0 +1,13 @@
+no: 1114
+name: Rush
+img: skill_057.png
+exp: ''
+sp: '0'
+type: '0'
+learn: '4'
+target:
+    - enemy
+    - multi
+    - 4
+pow: '100'
+sacrifice: '15'
