@@ -1,0 +1,17 @@
+no: 5063
+name: WakeUp
+img: skill_008.png
+exp: 蘇生
+sp: '50'
+type: '1'
+learn: '10'
+target:
+    - friend
+    - individual
+    - 1
+support: '1'
+charge:
+    - 0
+    - 0
+pow: '10'
+priority: Dead
