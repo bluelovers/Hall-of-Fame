@@ -1,0 +1,52 @@
+monNo: 1027
+name: SkeleCaptain
+img: mon_144r.gif
+level: '27'
+exphold: '460'
+moneyhold: '150'
+maxhp: '1300'
+hp: '1300'
+maxsp: '110'
+sp: '110'
+str: '140'
+int: '30'
+dex: '40'
+spd: '60'
+luk: '10'
+guard: always
+position: front
+judge:
+    - 1701
+    - 1200
+    - 1200
+    - 1940
+    - 1200
+    - 1940
+    - 1000
+quantity:
+    - 0
+    - 20
+    - 30
+    - 30
+    - 90
+    - 50
+    - 0
+action:
+    - 9000
+    - 3112
+    - 9000
+    - 1020
+    - 9000
+    - 1019
+    - 1000
+atk:
+    - 70
+    - 50
+def:
+    - 50
+    - 80
+    - 20
+    - 10
+itemtable:
+    8004: '700'
+    6003: '2000'
