@@ -1,0 +1,20 @@
+no: 1119
+name: Possession
+img: skill_057.png
+exp: '?'
+sp: '70'
+type: '0'
+learn: '16'
+target:
+    - friend
+    - all
+    - 1
+sacrifice: '200'
+charge:
+    - 100
+    - 0
+UpSTR: '55'
+UpINT: '55'
+UpSPD: '55'
+UpATK: '55'
+UpMATK: '55'
