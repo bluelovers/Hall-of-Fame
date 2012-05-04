@@ -1,0 +1,15 @@
+no: 2041
+name: EarthQuake
+img: skill_056y.png
+exp: ''
+sp: '80'
+type: '1'
+learn: '6'
+target:
+    - all
+    - all
+    - 1
+pow: '200'
+charge:
+    - 100
+    - 30
