@@ -1,0 +1,16 @@
+no: 2015
+name: TidalWave
+img: skill_056z.png
+exp: 後衛化
+sp: '520'
+type: '1'
+learn: '12'
+target:
+    - enemy
+    - multi
+    - 24
+pow: '80'
+charge:
+    - 170
+    - 100
+knockback: '100'
