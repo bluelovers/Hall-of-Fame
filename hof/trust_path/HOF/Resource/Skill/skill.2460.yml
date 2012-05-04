@@ -1,0 +1,15 @@
+no: 2460
+name: RaiseDead
+img: skill_028.png
+exp: ゾンビ
+sp: '60'
+type: '1'
+learn: '2'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 30
+    - 0
+summon: '5004'
