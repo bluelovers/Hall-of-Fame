@@ -1,0 +1,29 @@
+monNo: 1058
+name: Sentry
+img: mon_174.gif
+exphold: '1000'
+moneyhold: '500'
+level: '37'
+maxhp: '1000'
+hp: '1000'
+maxsp: '300'
+sp: '300'
+str: '100'
+int: '100'
+dex: '40'
+spd: '50'
+luk: '10'
+guard: prob50
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 30
+    - 50
+def:
+    - 35
+    - 30
+    - 30
+    - 30
+itemtable: {  }
