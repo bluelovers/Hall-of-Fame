@@ -5,7 +5,7 @@
  * @copyright 2012
  */
 
-class HOF_Model_Char extends HOF_Class_Array
+class HOF_Model_Char extends HOF_Class_Data
 {
 
 	protected static $_instance;
@@ -42,33 +42,20 @@ class HOF_Model_Char extends HOF_Class_Array
 	/**
 	 * $char = HOF_Class_Yaml::load(BASE_TRUST_PATH . '/HOF/Resource/Char/char.' . $no . '.yml');
 	 */
-	function getBaseCharStatus($jobNo, $append = array())
+	function getBaseCharStatus($no, $append = array())
 	{
-		if (!isset(self::getInstance()->char['base'][$jobNo]))
-		{
-			$char = HOF_Class_Yaml::load(BASE_TRUST_PATH . '/HOF/Resource/Char/char.' . $jobNo . '.yml');
-			self::getInstance()->char['base'][$jobNo] = $char;
-		}
+		$data = self::getInstance()->_load('char', $no);
 
-		$char = self::getInstance()->char['base'][$jobNo];
-
-		$char['birth'] = time() . substr(microtime(), 2, 6);
+		$data['birth'] = time() . substr(microtime(), 2, 6);
 
 		if (!empty($append))
 		{
-			if ($append instanceof HOF_Class_Array)
-			{
-				$append = $append->toArray();
-			}
-			elseif ($append instanceof ArrayObject)
-			{
-				$append = $append->getArrayCopy();
-			}
+			$append = self::_fixArray($append);
 
-			$char = array_merge($char, (array )$append);
+			$data = array_merge($data, (array )$append);
 		}
 
-		return $char;
+		return $data;
 	}
 
 	/**
@@ -87,14 +74,7 @@ class HOF_Model_Char extends HOF_Class_Array
 
 		if (!empty($append))
 		{
-			if ($append instanceof HOF_Class_Array)
-			{
-				$append = $append->toArray();
-			}
-			elseif ($append instanceof ArrayObject)
-			{
-				$append = $append->getArrayCopy();
-			}
+			$append = self::_fixArray($append);
 
 			$char->SetCharData($append);
 		}
@@ -165,15 +145,9 @@ class HOF_Model_Char extends HOF_Class_Array
 	 */
 	function getBaseMonster($no, $over = false)
 	{
-		if (!isset(self::getInstance()->char['mon'][$no]))
-		{
-			$char = HOF_Class_Yaml::load(BASE_TRUST_PATH . '/HOF/Resource/Mon/mon.' . $no . '.yml');
-			self::getInstance()->char['mon'][$no] = $char;
-		}
+		$data = self::getInstance()->_load('mon', $no);
 
-		$char = self::getInstance()->char['mon'][$no];
-
-		if (!$char) return false;
+		if (!$data) return false;
 
 		static $overlap;
 
@@ -181,7 +155,7 @@ class HOF_Model_Char extends HOF_Class_Array
 
 		if ($no < 2000)
 		{
-			$char["moneyhold"] = 100;
+			$data["moneyhold"] = 100;
 		}
 
 		// 名前が重複しないように Slime(A),Slime(B)みたいにする
@@ -191,37 +165,37 @@ class HOF_Model_Char extends HOF_Class_Array
 			$letter = chr(ord($letter) + $overlap[$no]);
 			$overlap[$no]++; //繰上げ
 			$style = "({$letter})"; //どんな感じで加えるか これだと"(B)"みたいになる
-			$char["name"] .= $style; //実際に名前の後ろに付け加える
+			$data["name"] .= $style; //実際に名前の後ろに付け加える
 		}
 
 		// 前衛後衛が設定されていなければ設定する
 		mt_srand(); //乱数初期化
 
-		if (!$char["position"])
+		if (!$data["position"])
 		{ //前列後列の設定
-			$char["position"] = (mt_rand(0, 1) ? "front" : "back");
-			$char["posed"] = true;
+			$data["position"] = (mt_rand(0, 1) ? "front" : "back");
+			$data["posed"] = true;
 		}
 
 		// 落とすアイテムをもたせる
-		if (is_array($char["itemtable"]))
+		if (is_array($data["itemtable"]))
 		{
 			$prob = mt_rand(1, 10000);
 			$sum = 0;
-			foreach ($char["itemtable"] as $itemno => $upp)
+			foreach ($data["itemtable"] as $itemno => $upp)
 			{
 				$sum += $upp;
 				if ($prob <= $sum)
 				{
-					$char["itemdrop"] = $itemno;
+					$data["itemdrop"] = $itemno;
 					break;
 				}
 			}
 		}
 
-		$char += array("monster" => "1");
+		$data += array("monster" => "1");
 
-		return $char;
+		return $data;
 	}
 
 	function newMon($no, $over = false)
@@ -235,17 +209,7 @@ class HOF_Model_Char extends HOF_Class_Array
 			$append = $no;
 		}
 
-		if (!empty($append))
-		{
-			if ($append instanceof HOF_Class_Array)
-			{
-				$append = $append->toArray();
-			}
-			elseif ($append instanceof ArrayObject)
-			{
-				$append = $append->getArrayCopy();
-			}
-		}
+		$append = self::_fixArray($append);
 
 		$char = new HOF_Class_Mon($append);
 
