@@ -1,0 +1,14 @@
+no: 1204
+name: AssassinDagger
+type: Dagger
+buy: '50000'
+img: we_sword010.png
+atk:
+    - 40
+    - 0
+handle: '6'
+need:
+    6003: 10
+    6020: 4
+base_name: AssassinDagger
+type2: WEAPON
