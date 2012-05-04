@@ -1,0 +1,14 @@
+no: 1242
+name: WhipStorm
+img: we_other007y.png
+exp: ''
+sp: '40'
+type: '0'
+learn: '4'
+target:
+    - enemy
+    - multi
+    - 6
+pow: '90'
+limit:
+    Whip: true
