@@ -1,0 +1,41 @@
+monNo: 1017
+name: BatChief
+img: mon_147z.gif
+level: '20'
+exphold: '1500'
+moneyhold: '500'
+maxhp: '500'
+hp: '500'
+maxsp: '300'
+sp: '300'
+str: '40'
+int: '30'
+dex: '20'
+spd: '60'
+luk: '1'
+guard: prob25
+judge:
+    - 1902
+    - 1902
+    - 1940
+    - 1000
+quantity:
+    - 1
+    - 2
+    - 50
+    - 0
+action:
+    - 5801
+    - 5006
+    - 2091
+    - 2031
+atk:
+    - 30
+    - 30
+def:
+    - 30
+    - 20
+    - 30
+    - 50
+itemtable:
+    8001: '10000'
