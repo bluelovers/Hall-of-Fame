@@ -1,0 +1,15 @@
+no: 1800
+name: Staff
+type: Staff
+dh: true
+buy: '2000'
+img: we_staff008b.png
+atk:
+    - 8
+    - 25
+handle: '2'
+need:
+    6002: '2'
+    6020: '4'
+base_name: Staff
+type2: WEAPON
