@@ -1,0 +1,16 @@
+no: 1016
+name: ArmorPierce
+img: skill_077.png
+exp: 防御力無視
+sp: '30'
+type: '0'
+learn: '6'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '170'
+charge:
+    - 40
+    - 40
+pierce: true
