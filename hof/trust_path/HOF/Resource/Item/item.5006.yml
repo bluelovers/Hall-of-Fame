@@ -1,0 +1,13 @@
+no: 5006
+name: DragonArmor
+type: Armor
+buy: '14000'
+img: armor_016b.png
+def:
+    - 40
+    - 30
+    - 25
+    - 15
+handle: '6'
+base_name: DragonArmor
+type2: GUARD
