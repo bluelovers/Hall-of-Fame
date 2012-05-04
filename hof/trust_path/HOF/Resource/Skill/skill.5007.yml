@@ -1,0 +1,17 @@
+no: 5007
+name: Heal
+img: skill_066.png
+exp: ''
+sp: '5'
+type: '1'
+learn: '99'
+target:
+    - friend
+    - individual
+    - 1
+pow: '200'
+support: '1'
+priority: LowHpRate
+charge:
+    - 0
+    - 0
