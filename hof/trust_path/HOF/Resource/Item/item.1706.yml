@@ -1,0 +1,14 @@
+no: 1706
+name: SorecererWand
+type: Wand
+buy: '25000'
+img: we_staff002.png
+atk:
+    - 2
+    - 40
+handle: '7'
+need:
+    6021: '10'
+    6002: '4'
+base_name: SorecererWand
+type2: WEAPON
