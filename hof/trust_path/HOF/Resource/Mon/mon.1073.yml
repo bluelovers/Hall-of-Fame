@@ -1,0 +1,30 @@
+monNo: 1073
+name: ChargingRhino
+img: mon_134.gif
+exphold: '470'
+moneyhold: '200'
+level: '34'
+maxhp: '830'
+hp: '830'
+maxsp: '100'
+sp: '100'
+str: '120'
+int: '10'
+dex: '10'
+spd: '60'
+luk: '10'
+guard: prob75
+position: front
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 60
+    - 30
+def:
+    - 50
+    - 0
+    - 10
+    - 20
+itemtable: {  }
