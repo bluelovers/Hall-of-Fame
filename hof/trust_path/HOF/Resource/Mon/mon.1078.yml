@@ -1,0 +1,29 @@
+monNo: 1078
+name: HungryJackal
+img: mon_249.gif
+exphold: '320'
+moneyhold: '300'
+level: '32'
+maxhp: '700'
+hp: '700'
+maxsp: '80'
+sp: '80'
+str: '80'
+int: '40'
+dex: '30'
+spd: '110'
+luk: '10'
+guard: never
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 50
+    - 10
+def:
+    - 30
+    - 10
+    - 20
+    - 20
+itemtable: {  }
