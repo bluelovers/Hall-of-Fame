@@ -1,0 +1,15 @@
+no: 1013
+name: Stab
+img: skill_074.png
+exp: ''
+sp: '15'
+type: '0'
+learn: '4'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '190'
+charge:
+    - 0
+    - 40
