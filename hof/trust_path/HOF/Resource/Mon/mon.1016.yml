@@ -1,0 +1,41 @@
+monNo: 1016
+name: Hermit
+img: mon_034z.gif
+level: '14'
+exphold: '120'
+moneyhold: '100'
+maxhp: '320'
+hp: '320'
+maxsp: '180'
+sp: '180'
+str: '14'
+int: '40'
+dex: '10'
+spd: '37'
+luk: '1'
+guard: never
+position: back
+judge:
+    - 1201
+    - 1126
+    - 1000
+quantity:
+    - 40
+    - 70
+    - 0
+action:
+    - 3010
+    - 3002
+    - 3222
+atk:
+    - 30
+    - 20
+def:
+    - 20
+    - 10
+    - 20
+    - 10
+itemtable:
+    6020: '1500'
+    6021: '900'
+    6022: '300'
