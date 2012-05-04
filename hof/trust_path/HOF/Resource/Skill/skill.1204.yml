@@ -1,0 +1,14 @@
+no: 1204
+name: ScatterKnife
+img: we_sword001z.png
+sp: '30'
+type: '0'
+learn: '4'
+target:
+    - enemy
+    - multi
+    - 4
+pow: '130'
+invalid: '1'
+limit:
+    Dagger: true
