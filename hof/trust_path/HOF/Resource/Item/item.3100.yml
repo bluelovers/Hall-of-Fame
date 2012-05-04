@@ -1,0 +1,16 @@
+no: 3100
+name: TextBook
+type: Book
+buy: '200'
+img: book_002.png
+atk:
+    - 0
+    - 2
+def:
+    - 0
+    - 5
+    - 0
+    - 0
+handle: '1'
+base_name: TextBook
+type2: GUARD
