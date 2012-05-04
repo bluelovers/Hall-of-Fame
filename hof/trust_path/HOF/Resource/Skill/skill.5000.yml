@@ -1,0 +1,15 @@
+no: 5000
+name: EarthStump
+img: skill_066.png
+exp: ''
+sp: '20'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - all
+    - 1
+pow: '70'
+charge:
+    - 0
+    - 20
