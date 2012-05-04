@@ -170,6 +170,24 @@ class HOF_Model_Data extends HOF_Class_Data
 	}
 
 	/**
+	 * 判断材料
+	 * HP
+	 * SP
+	 * 人数(自分だけ生存等)
+	 * 状態(毒等)？？？
+	 * 自分の行動回数
+	 * 回数限定
+	 * 相手の状態
+	 * 単純な確率
+	 */
+	function getJudgeData($no)
+	{
+		$data = self::getInstance()->_load('judge', $no);
+
+		return $data;
+	}
+
+	/**
 	 * 店に売ってるものデータ
 	 * 店販売リスト
 	 */
