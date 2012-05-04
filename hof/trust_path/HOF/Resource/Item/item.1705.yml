@@ -1,0 +1,14 @@
+no: 1705
+name: FairlyWand
+type: Wand
+buy: '18000'
+img: we_staff002.png
+atk:
+    - 5
+    - 32
+handle: '6'
+need:
+    6021: '6'
+    6002: '4'
+base_name: FairlyWand
+type2: WEAPON
