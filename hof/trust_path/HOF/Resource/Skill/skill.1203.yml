@@ -1,0 +1,14 @@
+no: 1203
+name: KnifeThrow
+img: we_sword001.png
+sp: '0'
+type: '0'
+learn: '1'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '140'
+invalid: '1'
+limit:
+    Dagger: true
