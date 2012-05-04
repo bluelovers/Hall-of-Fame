@@ -1,0 +1,42 @@
+monNo: 1100
+name: MonkeyWarrior
+img: mon_008.gif
+level: '20'
+exphold: '200'
+moneyhold: '100'
+maxhp: '650'
+hp: '650'
+maxsp: '150'
+sp: '150'
+str: '80'
+int: '15'
+dex: '15'
+spd: '100'
+luk: '1'
+guard: always
+position: front
+judge:
+    - 1101
+    - 1206
+    - 1940
+    - 1000
+quantity:
+    - 30
+    - 49
+    - 50
+    - 0
+action:
+    - 5066
+    - 5066
+    - 5064
+    - 5065
+atk:
+    - 20
+    - 20
+def:
+    - 40
+    - 20
+    - 20
+    - 5
+itemtable:
+    6600: '3000'
