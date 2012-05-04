@@ -3235,7 +3235,7 @@ JS_HTML;
 				return false;
 			}
 			// そのアイテムが出品できない場合
-			$possible = CanExhibitType();
+			$possible = HOF_Model_Data::getCanExhibitType();
 			if (!$possible[$item["type"]])
 			{
 				ShowError("Cant put \"{$item[name]}\" to the Auction");
@@ -3277,7 +3277,7 @@ JS_HTML;
 			if (!AUCTION_EXHIBIT_TOGGLE) return false;
 
 			include (CLASS_JS_ITEMLIST);
-			$possible = CanExhibitType();
+			$possible = HOF_Model_Data::getCanExhibitType();
 
 
 ?>
