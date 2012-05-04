@@ -1,0 +1,19 @@
+no: 5017
+name: Lucky
+img: skill_066.png
+exp: ''
+sp: '0'
+type: '1'
+learn: '99'
+target:
+    - friend
+    - all
+    - 1
+charge:
+    - 0
+    - 0
+support: '1'
+UpSTR: '30'
+UpINT: '30'
+UpDEX: '30'
+UpSPD: '30'
