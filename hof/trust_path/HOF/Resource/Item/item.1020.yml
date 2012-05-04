@@ -1,0 +1,18 @@
+no: 1020
+name: DragonBuster
+type: Sword
+buy: '70000'
+img: we_sword026.png
+atk:
+    - 20
+    - 0
+handle: '8'
+P_PIERCE:
+    - 30
+    - 0
+need:
+    6002: '15'
+    6800: '1'
+option: '物理防御無視+30 ,'
+base_name: DragonBuster
+type2: WEAPON
