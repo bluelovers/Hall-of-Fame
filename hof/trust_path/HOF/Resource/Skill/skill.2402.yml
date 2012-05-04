@@ -1,0 +1,15 @@
+no: 2402
+name: CallWildBoar
+img: skill_028.png
+exp: 狂豚召喚
+sp: '250'
+type: '0'
+learn: '10'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 0
+    - 300
+summon: '5009'
