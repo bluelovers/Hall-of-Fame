@@ -1,0 +1,15 @@
+no: 5061
+name: SuperStrip
+img: skill_066.png
+sp: '100'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - all
+    - 1
+charge:
+    - 0
+    - 70
+DownATK: 70
+DownMATK: 70
