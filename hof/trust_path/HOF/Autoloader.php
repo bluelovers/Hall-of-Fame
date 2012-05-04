@@ -9,7 +9,7 @@ class HOF_Autoloader extends Zend_Loader_Autoloader
 {
 	protected static $_instance;
 
-	public $error = null;
+	static $error = null;
 
 	/**
 	 * @var array Supported namespaces 'Zend' and 'ZendX' by default.
@@ -127,7 +127,7 @@ class HOF_Autoloader extends Zend_Loader_Autoloader
 			}
 			catch (Exception $e)
 			{
-				$self->error[$ns][] = $e->getMessage();
+				self::$error[$ns][] = $e->getMessage();
 			}
 		}
 
