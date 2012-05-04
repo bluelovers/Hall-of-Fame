@@ -5,7 +5,7 @@ if (!defined('DEBUG'))
 	exit('Access Denied');
 }
 
-function LoadJudgeData($no)
+function getJudgeData($no)
 {
 	/*
 	判断材料
@@ -102,7 +102,7 @@ function LoadJudgeData($no)
 		case 1226: // 味方の 平均SPが {$Quantity}(%)以下の時
 			$judge["exp"] = "味方の 平均SPが {$Quantity}(%)以下";
 			break;
-			/*
+
 			//------------------------ STR
 			case 1299:
 			$judge["exp"]	= "STR";
@@ -193,7 +193,7 @@ function LoadJudgeData($no)
 			case 1381:// 自分のMDEFが{$Quantity} 以下
 			$judge["exp"]	= "自分のMDEFが{$Quantity} 以下";
 			break;
-			*/
+
 			//------------------------ 生死(味方)
 		case 1399:
 			$judge["exp"] = "生死";
