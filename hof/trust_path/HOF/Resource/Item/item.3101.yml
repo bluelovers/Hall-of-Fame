@@ -1,0 +1,18 @@
+no: 3101
+name: SpellDictionary
+type: Book
+buy: '5000'
+img: book_002.png
+atk:
+    - 0
+    - 5
+def:
+    - 2
+    - 2
+    - 2
+    - 2
+handle: '2'
+need:
+    6182: '28'
+base_name: SpellDictionary
+type2: GUARD
