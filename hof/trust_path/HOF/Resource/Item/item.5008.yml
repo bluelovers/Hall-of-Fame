@@ -1,0 +1,16 @@
+no: 5008
+name: SprintArmor
+type: Armor
+buy: '18000'
+img: armor_016b.png
+def:
+    - 42
+    - 35
+    - 27
+    - 20
+handle: '7'
+need:
+    6002: '24'
+    6003: '10'
+base_name: SprintArmor
+type2: GUARD
