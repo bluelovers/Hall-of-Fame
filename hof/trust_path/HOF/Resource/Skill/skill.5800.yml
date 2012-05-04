@@ -1,0 +1,15 @@
+no: 5800
+name: CallGroup
+img: skill_066.png
+exp: ''
+sp: '0'
+type: '0'
+learn: '99'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 0
+    - 0
+summon: '1012'
