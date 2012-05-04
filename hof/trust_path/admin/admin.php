@@ -277,7 +277,7 @@ DATA;
 								include (DATA_JOB);
 								foreach ($totalJob as $job => $amount)
 								{
-									$jobData = LoadJobData($job);
+									$jobData = HOF_Model_Data::getJobData($job);
 									print ($job . "({$jobData[name_male]},{$jobData[name_female]})" . " : " . $amount . "(" . ($amount / $charAmount * 100) . "%)<br>\n");
 								}
 							}
