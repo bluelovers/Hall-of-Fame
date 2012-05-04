@@ -1,0 +1,15 @@
+no: 5062
+name: KnifeDesperado
+img: we_sword001z.png
+sp: '130'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - multi
+    - 8
+pow: '100'
+charge:
+    - 0
+    - 70
+invalid: '1'
