@@ -1,0 +1,16 @@
+no: 2004
+name: SilverBow
+type: Bow
+dh: true
+buy: '20000'
+img: we_bow001.png
+atk:
+    - 60
+    - 0
+handle: '20'
+need:
+    6002: '4'
+    6021: '6'
+    6182: '2'
+base_name: SilverBow
+type2: WEAPON
