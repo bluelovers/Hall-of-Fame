@@ -1,0 +1,16 @@
+no: 5069
+name: CallSlave
+img: banana.png
+exp: ''
+sp: '0'
+type: '0'
+learn: '99'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 0
+    - 50
+summon:
+    - 1101
