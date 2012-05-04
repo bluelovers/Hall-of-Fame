@@ -1,0 +1,8 @@
+no: 6181
+name: Vine
+type: Material
+buy: '1000'
+sell: '10'
+img: other_008.png
+base_name: Vine
+type2: OTHER
