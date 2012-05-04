@@ -318,8 +318,8 @@ class user
 			if (is_numeric($number))
 			{ //キャラデータファイル
 				//$chardata	= ParseFile($adr);// (2007/7/30 $adr -> $fp)
-				//$this->char[$number]	= new char($chardata);
-				$this->char[$number] = new char($adr);
+				//$this->char[$number]	= new HOF_Model_Char($chardata);
+				$this->char[$number] = new HOF_Model_Char($adr);
 				$this->char[$number]->SetUser($this->id); //キャラが誰のか設定する
 			}
 		}
@@ -337,8 +337,8 @@ class user
 
 		// 居る場合。
 		//$chardata	= ParseFile($file);
-		//$this->char[$CharNo]	= new char($chardata);
-		$this->char[$CharNo] = new char($file);
+		//$this->char[$CharNo]	= new HOF_Model_Char($chardata);
+		$this->char[$CharNo] = new HOF_Model_Char($file);
 		$this->char[$CharNo]->SetUser($this->id); //キャラが誰のか設定する
 		return $this->char[$CharNo];
 	}
