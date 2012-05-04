@@ -1,0 +1,11 @@
+no: 1220
+name: AntiPoisoning
+img: item_026b.png
+exp: 毒耐性+50%
+sp: '80'
+type: '0'
+learn: '5'
+target:
+    - friend
+    - all
+    - 1
