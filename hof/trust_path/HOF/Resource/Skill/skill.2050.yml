@@ -1,0 +1,16 @@
+no: 2050
+name: VenomBlast
+img: skill_024.png
+exp: 毒化
+sp: '30'
+type: '1'
+learn: '4'
+target:
+    - enemy
+    - multi
+    - 2
+pow: '200'
+charge:
+    - 40
+    - 0
+poison: '100'
