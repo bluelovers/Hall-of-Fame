@@ -1,0 +1,16 @@
+no: 5105
+name: KiltedCoat
+type: Cloth
+buy: '14000'
+img: armor_014e.png
+def:
+    - 25
+    - 10
+    - 25
+    - 10
+handle: '6'
+need:
+    6040: '4'
+    6183: '12'
+base_name: KiltedCoat
+type2: GUARD
