@@ -1,0 +1,14 @@
+no: 1203
+name: Gladius
+type: Dagger
+buy: '40000'
+img: we_sword010.png
+atk:
+    - 34
+    - 0
+handle: '5'
+need:
+    6002: 12
+    6020: 4
+base_name: Gladius
+type2: WEAPON
