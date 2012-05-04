@@ -1,0 +1,41 @@
+monNo: 1023
+name: Cyclops
+img: mon_139.gif
+level: '20'
+exphold: '250'
+moneyhold: '30'
+maxhp: '680'
+hp: '680'
+maxsp: '100'
+sp: '100'
+str: '100'
+int: '10'
+dex: '20'
+spd: '35'
+luk: '1'
+guard: never
+position: front
+judge:
+    - 1200
+    - 1940
+    - 1000
+quantity:
+    - 50
+    - 30
+    - 0
+action:
+    - 9000
+    - 5032
+    - 5031
+atk:
+    - 60
+    - 10
+def:
+    - 40
+    - 30
+    - 10
+    - 0
+itemtable:
+    6001: '500'
+    6002: '800'
+    6003: '500'
