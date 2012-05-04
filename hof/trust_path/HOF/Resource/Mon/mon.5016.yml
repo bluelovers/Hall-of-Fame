@@ -1,0 +1,40 @@
+monNo: 5016
+name: FlyHippo
+img: mon_172r.gif
+exphold: '0'
+moneyhold: '0'
+level: '10'
+maxhp: '300'
+hp: '300'
+maxsp: '150'
+sp: '150'
+str: '40'
+int: '30'
+dex: '30'
+spd: '20'
+luk: '10'
+guard: prob50
+position: back
+judge:
+    - 1201
+    - 1405
+    - 1126
+    - 1000
+quantity:
+    - 40
+    - 1
+    - 70
+    - 0
+action:
+    - 3011
+    - 5063
+    - 3002
+    - 5008
+atk:
+    - 10
+    - 10
+def:
+    - 10
+    - 40
+    - 40
+    - 40
