@@ -1,5 +1,5 @@
-jobNo: 1
-jobName: Warrior
+no: 1
+name: Warrior
 level: '1'
 exp: '0'
 maxhp: '300'
