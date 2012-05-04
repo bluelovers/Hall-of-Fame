@@ -1,0 +1,8 @@
+no: 8003
+name: 'AncientCave B4'
+type: Key
+buy: '5000'
+sell: '100'
+img: item_032.png
+base_name: 'AncientCave B4'
+type2: OTHER
