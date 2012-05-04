@@ -1,0 +1,15 @@
+no: 2001
+name: CompositeBow
+type: Bow
+dh: true
+buy: '4000'
+img: we_bow001.png
+atk:
+    - 30
+    - 0
+handle: '6'
+need:
+    6020: '9'
+    6181: '2'
+base_name: CompositeBow
+type2: WEAPON
