@@ -44,13 +44,13 @@ class HOF_Model_Char extends HOF_Class_Array
 	 */
 	function getBaseCharStatus($jobNo, $append = array())
 	{
-		if (!isset(self::getInstance()->job['base'][$jobNo]))
+		if (!isset(self::getInstance()->char['base'][$jobNo]))
 		{
 			$char = HOF_Class_Yaml::load(BASE_TRUST_PATH . '/HOF/Resource/Char/char.' . $jobNo . '.yml');
-			self::getInstance()->job['base'][$jobNo] = $char;
+			self::getInstance()->char['base'][$jobNo] = $char;
 		}
 
-		$char = self::getInstance()->job['base'][$jobNo];
+		$char = self::getInstance()->char['base'][$jobNo];
 
 		$char['birth'] = time() . substr(microtime(), 2, 6);
 
@@ -105,6 +105,30 @@ class HOF_Model_Char extends HOF_Class_Array
 	function newCharFromFile($file = null)
 	{
 		$char = new HOF_Class_Char($file);
+
+		return $char;
+	}
+
+	function getBaseMonster($no)
+	{
+		$char = CreateMonster($no);
+
+		/*
+		if (!isset(self::getInstance()->char['mon'][$no]))
+		{
+			$char = HOF_Class_Yaml::load(BASE_TRUST_PATH . '/HOF/Resource/Char/char.' . $no . '.yml');
+			self::getInstance()->char['mon'][$no] = $char;
+		}
+
+		$char = self::getInstance()->char['mon'][$no];
+		*/
+
+		return $char;
+	}
+
+	function newCharMonster($no)
+	{
+		$char = HOF_Model_Char::newChar(self::getBaseMonster($no));
 
 		return $char;
 	}
