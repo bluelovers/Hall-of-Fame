@@ -1,0 +1,12 @@
+no: 1805
+name: CrystalStaff
+type: Staff
+dh: true
+buy: '35000'
+img: we_staff008b.png
+atk:
+    - 12
+    - 84
+handle: '8'
+base_name: CrystalStaff
+type2: WEAPON
