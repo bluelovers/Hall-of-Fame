@@ -1,0 +1,18 @@
+no: 2464
+name: GraveYard
+img: skill_028.png
+exp: 3体召喚
+sp: '360'
+type: '1'
+learn: '12'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 100
+    - 0
+summon:
+    - 5006
+    - 5007
+    - 5006
