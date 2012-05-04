@@ -1,0 +1,28 @@
+monNo: 1108
+name: MermaidSorcerer
+img: mon_117.gif
+level: '30'
+exphold: '400'
+moneyhold: '100'
+maxhp: '500'
+hp: '500'
+maxsp: '600'
+sp: '600'
+str: '20'
+int: '120'
+dex: '30'
+spd: '80'
+luk: '1'
+guard: never
+position: back
+judge: {  }
+quantity: {  }
+action: {  }
+atk:
+    - 30
+    - 60
+def:
+    - 20
+    - 30
+    - 60
+    - 40
