@@ -1,0 +1,14 @@
+no: 5051
+name: SnowStorm
+img: skill_066.png
+sp: '80'
+type: '1'
+learn: '99'
+target:
+    - enemy
+    - all
+    - 1
+charge:
+    - 50
+    - 0
+delay: '70'
