@@ -1,0 +1,38 @@
+monNo: 5001
+name: Angel
+img: mon_049.gif
+level: '15'
+maxhp: '180'
+hp: '180'
+maxsp: '160'
+sp: '160'
+str: '5'
+int: '36'
+dex: '15'
+spd: '20'
+luk: '1'
+guard: never
+position: back
+judge:
+    - 1201
+    - 1126
+    - 1226
+    - 1000
+quantity:
+    - 30
+    - 70
+    - 70
+    - 0
+action:
+    - 3011
+    - 3003
+    - 3102
+    - 2101
+atk:
+    - 10
+    - 20
+def:
+    - 5
+    - 10
+    - 30
+    - 20
