@@ -1,0 +1,15 @@
+no: 5053
+name: IceWall
+img: skill_066.png
+sp: '300'
+type: '1'
+learn: '99'
+target:
+    - friend
+    - all
+    - 1
+charge:
+    - 10
+    - 0
+UpDEF: '20'
+UpMDEF: '70'
