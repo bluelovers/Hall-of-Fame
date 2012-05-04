@@ -1,0 +1,18 @@
+no: 2057
+name: SelfMetamorphose
+img: skill_066.png
+exp: HP60%以下で使用可(1回制限)
+sp: '250'
+type: '1'
+learn: '8'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 0
+    - 40
+UpMAXHP: 200
+UpMATK: 100
+UpINT: 100
+UpSPD: 50
