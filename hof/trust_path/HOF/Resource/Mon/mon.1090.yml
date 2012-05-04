@@ -1,0 +1,50 @@
+monNo: 1090
+name: DarkSnowMan
+img: mon_164r.gif
+exphold: '330'
+moneyhold: '180'
+level: '23'
+maxhp: '600'
+hp: '600'
+maxsp: '240'
+sp: '240'
+str: '110'
+int: '110'
+dex: '10'
+spd: '50'
+luk: '100'
+guard: prob50
+position: back
+judge:
+    - 1902
+    - 1200
+    - 1940
+    - 1201
+    - 1200
+    - 1940
+    - 1000
+quantity:
+    - 1
+    - 50
+    - 70
+    - 20
+    - 30
+    - 50
+    - 0
+action:
+    - 9000
+    - 9000
+    - 5048
+    - 2090
+    - 9000
+    - 5044
+    - 5043
+atk:
+    - 70
+    - 50
+def:
+    - 35
+    - 0
+    - 45
+    - 0
+itemtable: {  }
