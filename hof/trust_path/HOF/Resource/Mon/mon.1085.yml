@@ -1,0 +1,29 @@
+monNo: 1085
+name: DesertScorpio
+img: mon_101.gif
+exphold: '360'
+moneyhold: '190'
+level: '24'
+maxhp: '560'
+hp: '560'
+maxsp: '20'
+sp: '20'
+str: '40'
+int: '30'
+dex: '40'
+spd: '50'
+luk: '30'
+guard: prob25
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 50
+    - 20
+def:
+    - 50
+    - 40
+    - 20
+    - 30
+itemtable: {  }
