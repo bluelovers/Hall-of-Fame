@@ -1,0 +1,8 @@
+no: 6161
+name: SilverCoin
+type: Material
+buy: '1000'
+sell: '250'
+img: acce_005b.png
+base_name: SilverCoin
+type2: OTHER
