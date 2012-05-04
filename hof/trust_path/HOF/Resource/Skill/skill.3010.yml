@@ -1,0 +1,12 @@
+no: 3010
+name: ManaRecharge
+img: skill_019.png
+exp: SP回復
+sp: '0'
+type: '1'
+learn: '0'
+target:
+    - self
+    - individual
+    - 1
+support: '1'
