@@ -1,0 +1,18 @@
+no: 3301
+name: MindTraining
+img: we_other007.png
+exp: 召喚キャラ強化
+sp: '60'
+type: '0'
+learn: '4'
+target:
+    - friend
+    - all
+    - 1
+support: '1'
+charge:
+    - 0
+    - 50
+UpINT: '80'
+limit:
+    Whip: true
