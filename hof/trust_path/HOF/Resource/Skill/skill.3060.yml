@@ -1,0 +1,15 @@
+no: 3060
+name: HolyShield
+img: skill_045z.png
+exp: ダメージ1回無効化
+sp: '100'
+type: '1'
+learn: '10'
+target:
+    - friend
+    - all
+    - 1
+support: '1'
+charge:
+    - 0
+    - 100
