@@ -1,0 +1,14 @@
+no: 1102
+name: ObtainMind
+img: skill_057.png
+exp: 知力上昇
+sp: '0'
+type: '0'
+learn: '2'
+target:
+    - self
+    - individual
+    - 1
+support: true
+sacrifice: '15'
+UpINT: '100'
