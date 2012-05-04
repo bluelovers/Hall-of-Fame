@@ -217,9 +217,16 @@ class HOF_Model_Char extends HOF_Class_Array
 		return $char;
 	}
 
-	function newMon($no)
+	function newMon($no, $over = false)
 	{
-		$append = self::getBaseMonster($no);
+		if (is_string($no) || is_numeric($no))
+		{
+			$append = self::getBaseMonster($no, $over);
+		}
+		else
+		{
+			$append = $no;
+		}
 
 		if (!empty($append))
 		{
