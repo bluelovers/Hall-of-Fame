@@ -1,0 +1,21 @@
+no: 2303
+name: PalsyShot
+img: item_042.png
+exp: ''
+sp: '10'
+type: '0'
+learn: '4'
+target:
+    - enemy
+    - individual
+    - 1
+inf: dex
+pow: '100'
+invalid: '1'
+priority: Back
+charge:
+    - 0
+    - 0
+delay: '80'
+limit:
+    Bow: true
