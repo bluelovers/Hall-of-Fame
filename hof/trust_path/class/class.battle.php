@@ -613,7 +613,7 @@ HTML;
 	//
 	function UseSkill($skill_no, &$JudgedTarget, &$My, &$MyTeam, &$Enemy)
 	{
-		$skill = LoadSkillData($skill_no); //技データ読む
+		$skill = HOF_Model_Data::getSkill($skill_no); //技データ読む
 
 		// 武器タイプ不一致
 		if ($skill["limit"] && !$My->monster)
