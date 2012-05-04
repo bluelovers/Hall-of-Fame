@@ -1,0 +1,8 @@
+no: sea1
+land:
+    name: 海(西海岸)
+    name0: ''
+    land: sea
+    proper: 99-99
+monster:
+    1065: [100, 1]
