@@ -1644,8 +1644,10 @@ Total HP : <?=
 		//	召還系スキルで呼ばれたモンスター。
 		function CreateSummon($no, $strength = false)
 		{
+			/*
 			include_once (DATA_MONSTER);
-			$monster = CreateMonster($no, 1);
+			*/
+			$monster = HOF_Model_Char::getBaseMonster($no, 1);
 
 			$monster["summon"] = true;
 			// 召喚モンスターの強化。
@@ -1665,7 +1667,10 @@ Total HP : <?=
 				$monster["atk"]["1"] = round($monster["atk"]["1"] * $strength);
 			}
 
+			/*
 			$monster = new monster($monster);
+			*/
+			$monster = HOF_Model_Char::newMon($monster);
 			$monster->SetBattleVariable();
 			return $monster;
 		}
