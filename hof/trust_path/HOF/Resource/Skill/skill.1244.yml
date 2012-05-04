@@ -1,0 +1,16 @@
+no: 1244
+name: BodyBind
+img: we_other007y.png
+exp: ''
+sp: '40'
+type: '0'
+learn: '4'
+target:
+    - enemy
+    - multi
+    - 2
+pow: '60'
+delay: 30
+DownSPD: 30
+limit:
+    Whip: true
