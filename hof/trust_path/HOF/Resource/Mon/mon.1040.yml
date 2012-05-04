@@ -1,0 +1,50 @@
+monNo: 1040
+name: SnowManJr
+img: mon_163.gif
+exphold: '250'
+moneyhold: '140'
+level: '20'
+maxhp: '400'
+hp: '400'
+maxsp: '140'
+sp: '140'
+str: '40'
+int: '55'
+dex: '10'
+spd: '30'
+luk: '80'
+guard: never
+position: back
+judge:
+    - 1940
+    - 1902
+    - 1200
+    - 1200
+    - 1940
+    - 1000
+quantity:
+    - 50
+    - 1
+    - 80
+    - 30
+    - 50
+    - 0
+action:
+    - 9000
+    - 9000
+    - 5046
+    - 9000
+    - 5045
+    - 5043
+atk:
+    - 30
+    - 30
+def:
+    - 20
+    - 10
+    - 35
+    - 20
+itemtable:
+    6181: '800'
+    6021: '200'
+    6184: '100'
