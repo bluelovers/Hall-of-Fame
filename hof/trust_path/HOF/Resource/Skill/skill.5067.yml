@@ -1,0 +1,15 @@
+no: 5067
+name: BananaProtection
+img: banana.png
+exp: ''
+sp: '50'
+type: '1'
+learn: '10'
+target:
+    - friend
+    - all
+    - 1
+charge:
+    - 0
+    - 0
+support: '1'
