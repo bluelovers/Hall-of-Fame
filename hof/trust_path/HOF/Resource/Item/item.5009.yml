@@ -1,0 +1,17 @@
+no: 5009
+name: BattleSuit
+type: Armor
+buy: '18000'
+img: armor_016b.png
+def:
+    - 60
+    - 40
+    - 0
+    - 0
+handle: '7'
+need:
+    6001: '12'
+    6002: '12'
+    6003: '12'
+base_name: BattleSuit
+type2: GUARD
