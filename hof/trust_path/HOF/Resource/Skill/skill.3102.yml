@@ -1,0 +1,16 @@
+no: 3102
+name: Benediction
+img: skill_009.png
+exp: SP回復
+sp: '20'
+type: '1'
+learn: '4'
+target:
+    - friend
+    - all
+    - 1
+SpRecoveryRate: 5
+support: '1'
+charge:
+    - 40
+    - 0
