@@ -1,0 +1,23 @@
+jobNo: 2
+jobName: Sorcerer
+level: '1'
+exp: '0'
+maxhp: '150'
+hp: '150'
+maxsp: '100'
+sp: '100'
+str: '2'
+int: '10'
+dex: '5'
+spd: '3'
+luk: '1'
+job: '200'
+weapon: '1700'
+armor: '5200'
+skill:
+    - 1000
+    - 1002
+    - 3010
+Pattern: 1206<>1000<>1000|20<>0<>0|3010<>1002<>1000
+position: back
+guard: never
