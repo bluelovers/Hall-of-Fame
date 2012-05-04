@@ -43,7 +43,7 @@ $Detail = "<tr>
 foreach ($List as $No => $exp)
 {
 	$monster = CreateMonster($No);
-	$char = new HOF_Model_Char($monster);
+	$char = new HOF_Class_Char($monster);
 	print ($Detail);
 	print ("</td><td class=\"td7\">\n");
 	//print('<img src="'.IMG_CHAR.$monster["img"].'" />'."\n");
