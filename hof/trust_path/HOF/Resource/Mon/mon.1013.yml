@@ -1,0 +1,36 @@
+monNo: 1013
+name: CaveFrog
+img: mon_126z.gif
+level: '12'
+exphold: '80'
+moneyhold: '80'
+maxhp: '450'
+hp: '450'
+maxsp: '100'
+sp: '100'
+str: '60'
+int: '50'
+dex: '16'
+spd: '20'
+luk: '1'
+guard: prob50
+judge:
+    - 1940
+    - 1000
+quantity:
+    - 50
+    - 0
+action:
+    - 5004
+    - 1000
+atk:
+    - 30
+    - 30
+def:
+    - 20
+    - 20
+    - 20
+    - 20
+itemtable:
+    6162: '1000'
+    6181: '1000'
