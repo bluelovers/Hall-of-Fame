@@ -1,0 +1,15 @@
+no: 2201
+name: LongWhip
+type: Whip
+buy: '20000'
+img: we_other007.png
+atk:
+    - 30
+    - 0
+handle: '8'
+P_SUMMON: '15'
+need:
+    6040: '4'
+    6181: '12'
+base_name: LongWhip
+type2: WEAPON
