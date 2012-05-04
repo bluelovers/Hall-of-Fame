@@ -1,0 +1,15 @@
+no: 2005
+name: SharpShooter
+type: Bow
+dh: true
+buy: '30000'
+img: we_bow001.png
+atk:
+    - 70
+    - 0
+handle: '24'
+need:
+    6021: '12'
+    6182: '4'
+base_name: SharpShooter
+type2: WEAPON
