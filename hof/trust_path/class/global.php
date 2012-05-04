@@ -707,7 +707,7 @@ function ShowItemDetail($item, $amount = false, $text = false, $need = false)
 		$html .= " /";
 		foreach ($item["need"] as $M_itemNo => $M_amount)
 		{
-			$M_item = LoadItemData($M_itemNo);
+			$M_item = HOF_Model_Data::getItemData($M_itemNo);
 			$html .= "<img src=\"" . IMG_ICON . $M_item["img"] . "\" class=\"vcent\">";
 			$html .= "{$M_item[base_name]}"; // 名前
 			$html .= " x<span class=\"bold\" style=\"font-size:80%\">{$M_amount}</span>";
