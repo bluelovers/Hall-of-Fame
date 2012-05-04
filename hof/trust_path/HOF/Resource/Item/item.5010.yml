@@ -1,0 +1,13 @@
+no: 5010
+name: FluterArmor
+type: Armor
+buy: '25000'
+img: armor_016b.png
+def:
+    - 45
+    - 35
+    - 28
+    - 20
+handle: '8'
+base_name: FluterArmor
+type2: GUARD
