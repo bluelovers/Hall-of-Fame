@@ -1,0 +1,16 @@
+no: 5006
+name: Charge!!!
+img: skill_066.png
+exp: 突撃命令
+sp: '0'
+type: '0'
+learn: '99'
+target:
+    - friend
+    - all
+    - 1
+support: '1'
+charge:
+    - 0
+    - 30
+UpSTR: '50'
