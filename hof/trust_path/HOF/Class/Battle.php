@@ -5,6 +5,8 @@
  * @copyright 2012
  */
 
+include_once CLASS_BATTLE;
+
 /**
  * $battle	= new HOF_Class_Battle($MyParty,$EnemyParty);
  * $battle->SetTeamName($this->name,$party["name"]);
