@@ -1442,9 +1442,12 @@ HTML;
 			// ↓
 			foreach ($party as $key => $char)
 			{
+				/*
 				$enemy[$key] = new HOF_Class_Char();
 				$enemy[$key]->SetCharData(get_object_vars($char));
+				*/
 
+				$enemy[$key] = HOF_Model_Char::newChar(get_object_vars($char));
 			}
 			foreach ($enemy as $key => $doppel)
 			{
@@ -2477,8 +2480,11 @@ JS_HTML;
 				// キャラデータをクラスに入れる
 
 				$plus = array("name" => "$name", "gender" => $_POST["recruit_gend"]);
+				/*
 				$char = new HOF_Class_Char();
 				$char->SetCharData(array_merge(BaseCharStatus($charNo), $plus));
+				*/
+				$char = HOF_Model_Char::newBaseChar($charNo, $plus);
 				//雇用金
 				if ($hire <= $this->money)
 				{
@@ -2516,114 +2522,56 @@ JS_HTML;
 				return false;
 			}
 			include_once (CLASS_MONSTER);
-			$char[0] = new HOF_Class_Char();
-			$char[0]->SetCharData(array_merge(BaseCharStatus("1"), array("gender" => "0")));
-			$char[1] = new HOF_Class_Char();
-			$char[1]->SetCharData(array_merge(BaseCharStatus("1"), array("gender" => "1")));
-			$char[2] = new HOF_Class_Char();
-			$char[2]->SetCharData(array_merge(BaseCharStatus("2"), array("gender" => "0")));
-			$char[3] = new HOF_Class_Char();
-			$char[3]->SetCharData(array_merge(BaseCharStatus("2"), array("gender" => "1")));
-			$char[4] = new HOF_Class_Char();
-			$char[4]->SetCharData(array_merge(BaseCharStatus("3"), array("gender" => "0")));
-			$char[5] = new HOF_Class_Char();
-			$char[5]->SetCharData(array_merge(BaseCharStatus("3"), array("gender" => "1")));
-			$char[6] = new HOF_Class_Char();
-			$char[6]->SetCharData(array_merge(BaseCharStatus("4"), array("gender" => "0")));
-			$char[7] = new HOF_Class_Char();
-			$char[7]->SetCharData(array_merge(BaseCharStatus("4"), array("gender" => "1")));
 
+			// bluelovers
+			$char = array();
+
+			for ($i = 1; $i <= 4; $i++)
+			{
+				for ($j = 0; $j <= 1; $j++)
+				{
+					$char[] = HOF_Model_Char::newBaseChar($i, array('gender' => $j));
+				}
+			}
+			// bluelovers
 
 ?>
 
 	<form action="?recruit" method="post" style="margin:15px">
 	<h4>Sort of New Character</h4>
 	<table cellspacing="0"><tbody><tr>
-	<td class="td1" style="text-align:center">
+
 	<?php
 
-			$char[0]->ShowImage()
+		// bluelovers
+		$_money = array(2000, 2000, 2500, 4000);
 
+		for($i = 0; $i < 4; $i++)
+		{
+			echo '<td class="td1" style="text-align:center">';
 
-?><?php
+			$j = $i * 2;
 
-			$char[1]->ShowImage()
+			$char[$j]->ShowImage();
+			$char[$j+1]->ShowImage();
 
+			echo '<br><input type="radio" name="recruit_no" value="'.($i+1).'" style="margin:3px"><br>';
 
-?><br>
-	<input type="radio" name="recruit_no" value="1" style="margin:3px"><br>
-	<?=
+			echo MoneyFormat($_money[$i]);
+		}
 
-			MoneyFormat(2000)
+		echo '</tr><tr>';
 
+		for($i = 1; $i <= 4; $i++)
+		{
+			$_job = HOF_Model_Char::getBaseCharStatus($i);
 
-?></td>
-	<td class="td1" style="text-align:center">
-	<?php
+			echo '<td class="' . (($i % 2) ? 'td4' : 'td5') . '" style="text-align:center">' . $_job['jobName'] . '</td>';
+		}
+		// bluelovers
 
-			$char[2]->ShowImage()
+	?>
 
-
-?><?php
-
-			$char[3]->ShowImage()
-
-
-?><br>
-	<input type="radio" name="recruit_no" value="2" style="margin:3px"><br>
-	<?=
-
-			MoneyFormat(2000)
-
-
-?></td>
-	<td class="td1" style="text-align:center">
-	<?php
-
-			$char[4]->ShowImage()
-
-
-?><?php
-
-			$char[5]->ShowImage()
-
-
-?><br>
-	<input type="radio" name="recruit_no" value="3" style="margin:3px"><br>
-	<?=
-
-			MoneyFormat(2500)
-
-
-?></td>
-	<td class="td1" style="text-align:center">
-	<?php
-
-			$char[6]->ShowImage()
-
-
-?><?php
-
-			$char[7]->ShowImage()
-
-
-?><br>
-	<input type="radio" name="recruit_no" value="4" style="margin:3px"><br>
-	<?=
-
-			MoneyFormat(4000)
-
-
-?></td>
-	</tr><tr>
-	<td class="td4" style="text-align:center">
-	Warrior</td>
-	<td class="td5" style="text-align:center">
-	Sorcerer</td>
-	<td class="td4" style="text-align:center">
-	Priest</td>
-	<td class="td5" style="text-align:center">
-	Hunter</td>
 	</tr>
 	</tbody></table>
 
@@ -4534,13 +4482,21 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 						$job = 2;
 						$gend = 1;
 				}
+
+				/*
 				include (DATA_BASE_CHAR);
 				$char = new HOF_Class_Char();
 				$char->SetCharData(array_merge(BaseCharStatus($job), array("name" => $_POST[first_name], "gender" => "$gend")));
 				$char->SaveCharData($this->id);
+				*/
+
+				$char = HOF_Model_Char::newBaseChar($job, array("name" => $_POST[first_name], "gender" => $gend));
+				$char->SaveCharData($this->id);
+
 				return false;
 			} while (0);
 
+			/*
 			include (DATA_BASE_CHAR);
 			$war_male = new HOF_Class_Char();
 			$war_male->SetCharData(array_merge(BaseCharStatus("1"), array("gender" => "0")));
@@ -4550,7 +4506,15 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 			$sor_male->SetCharData(array_merge(BaseCharStatus("2"), array("gender" => "0")));
 			$sor_female = new HOF_Class_Char();
 			$sor_female->SetCharData(array_merge(BaseCharStatus("2"), array("gender" => "1")));
+			*/
 
+			// bluelovers
+			$war_male = HOF_Model_Char::newBaseChar(1, array("gender" => 0));
+			$war_female = HOF_Model_Char::newBaseChar(1, array("gender" => 1));
+
+			$sor_male = HOF_Model_Char::newBaseChar(2, array("gender" => 0));
+			$sor_female = HOF_Model_Char::newBaseChar(2, array("gender" => 1));
+			// bluelovers
 
 ?>
 	<form action="<?=
