@@ -1,0 +1,15 @@
+no: 3112
+name: Defensive
+img: skill_059y.png
+exp: 自己強化・弱体・前衛化
+sp: '10'
+type: '0'
+learn: '6'
+target:
+    - self
+    - individual
+    - 1
+support: '1'
+UpDEF: '20'
+DownSTR: '20'
+move: front
