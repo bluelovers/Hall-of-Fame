@@ -1,0 +1,15 @@
+no: 1104
+name: Behead
+type: TwoHandSword
+dh: true
+buy: '70000'
+img: we_sword006.png
+atk:
+    - 100
+    - 0
+handle: '8'
+need:
+    6002: '10'
+    6003: '20'
+base_name: Behead
+type2: WEAPON
