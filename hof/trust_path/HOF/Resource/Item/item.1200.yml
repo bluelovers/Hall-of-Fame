@@ -1,0 +1,11 @@
+no: 1200
+name: Stiletto
+type: Dagger
+buy: '1000'
+img: we_sword010.png
+atk:
+    - 7
+    - 0
+handle: '1'
+base_name: Stiletto
+type2: WEAPON
