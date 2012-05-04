@@ -1079,7 +1079,7 @@ HTML;
 				print ("<select name=\"judge" . $i . "\">\n");
 				foreach ($list as $val)
 				{ //判断のoption
-					$exp = LoadJudgeData($val);
+					$exp = HOF_Model_Data::getJudgeData($val);
 					print ("<option value=\"{$val}\"" . ($char->judge[$i] == $val ? " selected" : NULL) . ($exp["css"] ? ' class="select0"' : NULL) . ">" . ($exp["css"] ? '&nbsp;' : '&nbsp;&nbsp;&nbsp;') . "{$exp[exp]}</option>\n");
 				}
 				print ("</select>\n");
