@@ -1,0 +1,30 @@
+monNo: 1052
+name: DarkElfShaman
+img: mon_220r.gif
+exphold: '600'
+moneyhold: '300'
+level: '41'
+maxhp: '420'
+hp: '420'
+maxsp: '820'
+sp: '820'
+str: '10'
+int: '160'
+dex: '30'
+spd: '60'
+luk: '10'
+guard: never
+position: back
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 10
+    - 70
+def:
+    - 15
+    - 10
+    - 60
+    - 60
+itemtable: {  }
