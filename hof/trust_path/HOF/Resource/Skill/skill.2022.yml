@@ -1,0 +1,15 @@
+no: 2022
+name: Flash
+img: skill_022z.png
+exp: 行動遅延
+sp: '30'
+type: '1'
+learn: '4'
+target:
+    - enemy
+    - all
+    - 1
+charge:
+    - 30
+    - 0
+delay: '25'
