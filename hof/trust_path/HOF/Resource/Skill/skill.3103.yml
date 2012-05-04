@@ -1,0 +1,19 @@
+no: 3103
+name: Sanctuary
+img: skill_010.png
+exp: 'HP,SP回復'
+sp: '150'
+type: '1'
+learn: '8'
+target:
+    - friend
+    - all
+    - 1
+pow: '500'
+SpRecoveryRate: 7
+support: '1'
+charge:
+    - 50
+    - 0
+MagicCircleDeleteTeam: 2
+CurePoison: true
