@@ -1,0 +1,28 @@
+monNo: 1106
+name: Avenger
+img: mon_116r.gif
+level: '33'
+exphold: '400'
+moneyhold: '100'
+maxhp: '880'
+hp: '880'
+maxsp: '150'
+sp: '150'
+str: '120'
+int: '70'
+dex: '50'
+spd: '110'
+luk: '1'
+guard: life25
+position: front
+judge: {  }
+quantity: {  }
+action: {  }
+atk:
+    - 60
+    - 20
+def:
+    - 50
+    - 30
+    - 30
+    - 30
