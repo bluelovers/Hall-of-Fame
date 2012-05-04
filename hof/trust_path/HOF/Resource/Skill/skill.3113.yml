@@ -1,0 +1,12 @@
+no: 3113
+name: Berserk
+img: skill_058z.png
+exp: 狂暴化
+sp: '0'
+type: '0'
+learn: '12'
+target:
+    - self
+    - individual
+    - 1
+support: '1'
