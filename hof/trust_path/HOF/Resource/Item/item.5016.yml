@@ -1,0 +1,13 @@
+no: 5016
+name: FullPlate
+type: Armor
+buy: '120000'
+img: armor_016b.png
+def:
+    - 60
+    - 40
+    - 35
+    - 45
+handle: '16'
+base_name: FullPlate
+type2: GUARD
