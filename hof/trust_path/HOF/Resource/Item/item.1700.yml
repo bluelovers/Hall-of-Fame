@@ -1,0 +1,14 @@
+no: 1700
+name: Rod
+type: Wand
+buy: '1000'
+img: we_staff002.png
+atk:
+    - 1
+    - 5
+handle: '1'
+need:
+    6020: '2'
+    6001: '1'
+base_name: Rod
+type2: WEAPON
