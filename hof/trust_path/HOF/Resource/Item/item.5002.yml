@@ -1,0 +1,15 @@
+no: 5002
+name: RingMail
+type: Armor
+buy: '5000'
+img: armor_016b.png
+def:
+    - 25
+    - 15
+    - 13
+    - 10
+handle: '3'
+need:
+    6001: '14'
+base_name: RingMail
+type2: GUARD
