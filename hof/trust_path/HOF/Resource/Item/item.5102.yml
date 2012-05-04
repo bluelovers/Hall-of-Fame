@@ -1,0 +1,16 @@
+no: 5102
+name: LightJacket
+type: Cloth
+buy: '2000'
+img: armor_014e.png
+def:
+    - 15
+    - 5
+    - 15
+    - 5
+handle: '3'
+need:
+    6040: '2'
+    6180: '8'
+base_name: LightJacket
+type2: GUARD
