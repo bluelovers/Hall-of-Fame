@@ -1,0 +1,15 @@
+no: 3210
+name: Charm
+img: skill_046.png
+sp: '60'
+type: '1'
+learn: '6'
+target:
+    - friend
+    - all
+    - 1
+support: '1'
+charge:
+    - 30
+    - 0
+UpINT: '30'
