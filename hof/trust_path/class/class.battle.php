@@ -5,11 +5,10 @@ if (!defined('DEBUG'))
 	exit('Access Denied');
 }
 
-include (CLASS_SKILL_EFFECT);
-class battle extends ClassSkillEffect
+class battle extends HOF_Class_Skill_Effect
 {
 	/*
-	* $battle	= new battle($MyParty,$EnemyParty);
+	* $battle	= new HOF_Class_Battle($MyParty,$EnemyParty);
 	* $battle->SetTeamName($this->name,$party["name"]);
 	* $battle->Process();//戦闘開始
 	*
@@ -70,7 +69,7 @@ class battle extends ClassSkillEffect
 	//	コンストラクタ。
 
 	//各チームの配列を受けとる。
-	function battle($team0, $team1)
+	function HOF_Class_Battle($team0, $team1)
 	{
 		include (DATA_JUDGE);
 		include_once (DATA_SKILL);
