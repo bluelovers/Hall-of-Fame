@@ -1,0 +1,10 @@
+no: 5510
+name: PowerRing
+type: Item
+buy: '10000'
+img: acce_024.png
+handle: '3'
+P_STR: '30'
+option: 'STR+30, '
+base_name: PowerRing
+type2: OTHER
