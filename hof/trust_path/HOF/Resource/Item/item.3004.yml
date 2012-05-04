@@ -1,0 +1,16 @@
+no: 3004
+name: ForceShield
+type: Shield
+buy: '8000'
+img: shield_001m.png
+def:
+    - 0
+    - 0
+    - 20
+    - 15
+handle: '4'
+need:
+    6002: '8'
+    6021: '4'
+base_name: ForceShield
+type2: GUARD
