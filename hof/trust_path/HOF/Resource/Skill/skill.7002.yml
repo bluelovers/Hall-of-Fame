@@ -1,0 +1,7 @@
+no: 7002
+name: LifeExceed
+img: acce_003c.png
+exp: HP+200
+learn: '21'
+passive: 1
+P_MAXHP: '200'
