@@ -1,0 +1,14 @@
+no: 1101
+name: ObtainSpeed
+img: skill_057.png
+exp: 早さ上昇
+sp: '0'
+type: '0'
+learn: '2'
+target:
+    - self
+    - individual
+    - 1
+support: true
+sacrifice: '25'
+PlusSPD: '100'
