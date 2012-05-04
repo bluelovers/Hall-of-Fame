@@ -1,0 +1,16 @@
+no: 1002
+name: FireBall
+img: skill_018.png
+exp: ''
+sp: '20'
+type: '1'
+learn: '0'
+target:
+    - enemy
+    - multi
+    - 4
+pow: '100'
+invalid: '1'
+charge:
+    - 60
+    - 0
