@@ -1,0 +1,34 @@
+monNo: 5011
+name: TrainedLion
+img: mon_114r.gif
+exphold: '0'
+moneyhold: '0'
+level: '10'
+maxhp: '350'
+hp: '350'
+maxsp: '60'
+sp: '60'
+str: '80'
+int: '10'
+dex: '10'
+spd: '30'
+luk: '10'
+guard: prob25
+position: front
+judge:
+    - 1940
+    - 1000
+quantity:
+    - 50
+    - 0
+action:
+    - 5009
+    - 5010
+atk:
+    - 70
+    - 10
+def:
+    - 30
+    - 20
+    - 20
+    - 0
