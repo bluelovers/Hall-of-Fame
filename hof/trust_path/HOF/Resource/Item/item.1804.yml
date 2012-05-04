@@ -1,0 +1,12 @@
+no: 1804
+name: GoldStaff
+type: Staff
+dh: true
+buy: '30000'
+img: we_staff008b.png
+atk:
+    - 10
+    - 72
+handle: '7'
+base_name: GoldStaff
+type2: WEAPON
