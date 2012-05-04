@@ -1,0 +1,16 @@
+no: 2410
+name: CallDragon
+img: skill_029.png
+exp: 竜召喚
+sp: '350'
+type: '0'
+learn: '20'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 0
+    - 500
+summon: '5017'
+quick: true
