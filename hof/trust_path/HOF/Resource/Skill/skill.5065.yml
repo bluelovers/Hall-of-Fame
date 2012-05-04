@@ -1,0 +1,16 @@
+no: 5065
+name: BananaShot
+img: banana.png
+exp: ''
+sp: '50'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - multi
+    - 3
+invalid: true
+charge:
+    - 0
+    - 0
+pow: '70'
