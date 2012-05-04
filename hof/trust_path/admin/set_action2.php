@@ -38,8 +38,10 @@ define("IMG", "../image/char/");
 // Load
 if ($_POST["Load"] && $_POST["loadMob"])
 {
+	/*
 	include ("../data/data.monster.php");
-	$monster = CreateMonster($_POST["loadMob"]);
+	*/
+	$monster = HOF_Model_Char::getBaseMonster($_POST["loadMob"]);
 	if ($monster)
 	{
 		for ($i = 0; $i < ROWS; $i++)
