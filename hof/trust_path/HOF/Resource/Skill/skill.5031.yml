@@ -1,0 +1,14 @@
+no: 5031
+name: HammerStrike
+img: skill_066.png
+sp: '0'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - individual
+    - 1
+charge:
+    - 0
+    - 30
+pow: '220'
