@@ -1,0 +1,8 @@
+no: 6800
+name: DragonTooth
+type: Material
+buy: '1000'
+sell: '10'
+img: mat_013.png
+base_name: DragonTooth
+type2: OTHER
