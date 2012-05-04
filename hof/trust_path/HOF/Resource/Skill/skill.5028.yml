@@ -1,0 +1,13 @@
+no: 5028
+name: DarkHoly
+img: skill_066.png
+exp: ''
+sp: '50'
+type: '1'
+learn: '99'
+target:
+    - enemy
+    - multi
+    - 3
+pow: '150'
+invalid: '1'
