@@ -1,0 +1,10 @@
+no: 5515
+name: IntelligenceRing
+type: Item
+buy: '10000'
+img: acce_024.png
+handle: '3'
+P_INT: '30'
+option: 'INT+30, '
+base_name: IntelligenceRing
+type2: OTHER
