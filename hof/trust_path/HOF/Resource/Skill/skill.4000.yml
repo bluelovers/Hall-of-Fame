@@ -1,0 +1,12 @@
+no: 4000
+name: StanceRestore
+img: inst_002.png
+exp: 隊列修正
+sp: '0'
+type: '0'
+learn: '5'
+target:
+    - friend
+    - all
+    - 1
+support: '1'
