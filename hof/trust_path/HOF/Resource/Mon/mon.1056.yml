@@ -1,0 +1,29 @@
+monNo: 1056
+name: EvilWood
+img: mon_128.gif
+exphold: '430'
+moneyhold: '210'
+level: '33'
+maxhp: '700'
+hp: '700'
+maxsp: '300'
+sp: '300'
+str: '40'
+int: '100'
+dex: '10'
+spd: '10'
+luk: '10'
+guard: prob50
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 30
+    - 30
+def:
+    - 30
+    - 0
+    - 30
+    - 0
+itemtable: {  }
