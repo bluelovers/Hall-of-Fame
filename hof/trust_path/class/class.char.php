@@ -5,8 +5,6 @@ if (!defined('DEBUG'))
 	exit('Access Denied');
 }
 
-include (DATA_JOB);
-
 class char
 {
 
