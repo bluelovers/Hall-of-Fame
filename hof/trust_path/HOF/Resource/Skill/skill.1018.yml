@@ -1,0 +1,16 @@
+no: 1018
+name: Indiscriminate
+img: skill_031z.png
+exp: ''
+sp: '65'
+type: '0'
+learn: '10'
+target:
+    - all
+    - multi
+    - 8
+pow: '100'
+invalid: true
+charge:
+    - 50
+    - 100
