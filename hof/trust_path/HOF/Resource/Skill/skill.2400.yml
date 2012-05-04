@@ -1,0 +1,15 @@
+no: 2400
+name: SummonGoblin
+img: skill_066.png
+exp: ゴブリン召喚
+sp: '100'
+type: '1'
+learn: '99'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 30
+    - 0
+summon: '1000'
