@@ -1,0 +1,11 @@
+no: 1210
+name: FrontBind
+img: skill_073x.png
+exp: 行動遅延
+sp: '100'
+type: '0'
+learn: '2'
+target:
+    - enemy
+    - all
+    - 1
