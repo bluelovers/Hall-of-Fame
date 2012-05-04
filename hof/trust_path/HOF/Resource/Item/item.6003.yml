@@ -1,0 +1,8 @@
+no: 6003
+name: Iron
+type: Material
+buy: '1000'
+sell: '30'
+img: mat_001.png
+base_name: Iron
+type2: OTHER
