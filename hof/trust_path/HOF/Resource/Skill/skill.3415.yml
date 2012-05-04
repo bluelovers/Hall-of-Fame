@@ -1,0 +1,15 @@
+no: 3415
+name: MagicCircle
+img: ms_01.png
+exp: 魔法陣+1
+sp: '200'
+type: '1'
+learn: '4'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 30
+    - 0
+MagicCircleAdd: 1
