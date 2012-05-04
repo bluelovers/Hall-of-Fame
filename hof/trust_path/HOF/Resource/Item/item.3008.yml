@@ -1,0 +1,15 @@
+no: 3008
+name: FairyShield
+type: Shield
+buy: '18000'
+img: shield_001m.png
+def:
+    - 0
+    - 0
+    - 30
+    - 20
+handle: '6'
+need:
+    6002: '32'
+base_name: FairyShield
+type2: GUARD
