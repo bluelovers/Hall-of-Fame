@@ -1,0 +1,16 @@
+no: 5205
+name: WhiteRobe
+type: Robe
+buy: '10000'
+img: armor_012.png
+def:
+    - 6
+    - 10
+    - 50
+    - 25
+handle: '6'
+need:
+    6183: '8'
+    6184: '8'
+base_name: WhiteRobe
+type2: GUARD
