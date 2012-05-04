@@ -1,0 +1,20 @@
+no: 2465
+name: Biohazard
+img: skill_028.png
+exp: 5体召喚
+sp: '560'
+type: '1'
+learn: '16'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 160
+    - 0
+summon:
+    - 5004
+    - 5006
+    - 5007
+    - 5006
+    - 5004
