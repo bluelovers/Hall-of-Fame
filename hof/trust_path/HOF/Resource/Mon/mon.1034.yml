@@ -1,0 +1,49 @@
+monNo: 1034
+name: Bafomet
+img: mon_210r.gif
+level: '46'
+exphold: '830'
+moneyhold: '400'
+maxhp: '900'
+hp: '900'
+maxsp: '780'
+sp: '780'
+str: '120'
+int: '120'
+dex: '30'
+spd: '40'
+luk: '100'
+guard: never
+judge:
+    - 1201
+    - 1101
+    - 1902
+    - 1940
+    - 1940
+    - 1000
+quantity:
+    - 40
+    - 50
+    - 1
+    - 30
+    - 50
+    - 0
+action:
+    - 3010
+    - 2030
+    - 9000
+    - 5039
+    - 5040
+    - 5038
+atk:
+    - 60
+    - 60
+def:
+    - 30
+    - 20
+    - 50
+    - 50
+itemtable:
+    6003: '700'
+    6022: '700'
+    6184: '700'
