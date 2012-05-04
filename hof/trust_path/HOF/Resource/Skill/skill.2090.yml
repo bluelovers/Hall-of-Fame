@@ -1,0 +1,16 @@
+no: 2090
+name: EnergyRob
+img: skill_037.png
+exp: SP吸収
+sp: '10'
+type: '1'
+learn: '3'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '150'
+invalid: '1'
+charge:
+    - 30
+    - 0
