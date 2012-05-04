@@ -1,0 +1,14 @@
+no: 1100
+name: ObtainPower
+img: skill_057.png
+exp: 力上昇
+sp: '5'
+type: '0'
+learn: '2'
+target:
+    - self
+    - individual
+    - 1
+support: true
+sacrifice: '15'
+UpSTR: '100'
