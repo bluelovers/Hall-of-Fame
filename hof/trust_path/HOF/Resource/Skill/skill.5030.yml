@@ -1,0 +1,17 @@
+no: 5030
+name: SoulRestore
+img: skill_008.png
+exp: 蘇生
+sp: '400'
+type: '1'
+learn: '10'
+target:
+    - friend
+    - multi
+    - 2
+support: '1'
+charge:
+    - 0
+    - 0
+pow: '400'
+priority: Dead
