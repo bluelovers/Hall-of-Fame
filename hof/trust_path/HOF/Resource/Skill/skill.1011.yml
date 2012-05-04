@@ -1,0 +1,17 @@
+no: 1011
+name: WeaponBreak
+img: skill_072.png
+exp: 攻撃力低下
+sp: '30'
+type: '0'
+learn: '6'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '100'
+charge:
+    - 0
+    - 0
+DownATK: '50'
+DownMATK: '50'
