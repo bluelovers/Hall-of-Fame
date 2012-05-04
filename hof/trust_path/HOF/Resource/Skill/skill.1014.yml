@@ -1,0 +1,15 @@
+no: 1014
+name: FatalStab
+img: skill_074z.png
+exp: ''
+sp: '50'
+type: '0'
+learn: '8'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '360'
+charge:
+    - 0
+    - 50
