@@ -1,0 +1,17 @@
+no: 1209
+name: TransPoison
+img: item_031.png
+exp: 毒状態なら能力上昇+毒解除
+sp: '80'
+type: '0'
+learn: '8'
+target:
+    - friend
+    - all
+    - 1
+PlusSTR: 50
+PlusSPD: 50
+charge:
+    - 0
+    - 100
+CurePoison: true
