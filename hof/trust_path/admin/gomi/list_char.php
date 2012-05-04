@@ -49,7 +49,7 @@ foreach ($folder as $val)
 print ('<table border="0" cellspacing="1"><tbody>');
 foreach ($chars as $file)
 {
-	$char = new HOF_Model_Char(ParseFile($file));
+	$char = new HOF_Class_Char(ParseFile($file));
 	print ("<tr><td>");
 	$char->ShowImage();
 	print ("</td><td>");
