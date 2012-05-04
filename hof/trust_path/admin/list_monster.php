@@ -96,7 +96,7 @@ for ($no = 1000; $no < 5999; $no++)
 	foreach ($m["judge"] as $key => $val)
 	{
 		print ("<tr><td>");
-		$judge = LoadJudgeData($val);
+		$judge = HOF_Model_Data::getJudgeData($val);
 		print ($judge["exp"]);
 		print ("</td><td>");
 		print ($m["quantity"]["$key"]);
