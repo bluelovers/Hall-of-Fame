@@ -1,0 +1,12 @@
+no: 5052
+name: PresentBomb
+img: skill_066.png
+sp: '0'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - individual
+    - 1
+DownMAXHP: '50'
+invalid: true
