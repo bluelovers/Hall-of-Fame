@@ -1,0 +1,16 @@
+no: 3400
+name: Regeneration
+img: skill_062x.png
+exp: HP持続回復+5%
+sp: '100'
+type: '1'
+learn: '8'
+target:
+    - friend
+    - all
+    - 1
+support: '1'
+charge:
+    - 10
+    - 0
+HpRegen: 5
