@@ -1,0 +1,11 @@
+no: 3901
+name: GetDead
+img: acce_003c.png
+exp: 死亡
+sp: '20'
+type: '0'
+learn: '0'
+target:
+    - self
+    - individual
+    - 1
