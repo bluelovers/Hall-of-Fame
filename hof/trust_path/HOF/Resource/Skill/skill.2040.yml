@@ -1,0 +1,16 @@
+no: 2040
+name: SandStorm
+img: skill_006d.png
+exp: 行動遅延
+sp: '200'
+type: '1'
+learn: '12'
+target:
+    - enemy
+    - all
+    - 1
+pow: '60'
+charge:
+    - 200
+    - 0
+delay: '80'
