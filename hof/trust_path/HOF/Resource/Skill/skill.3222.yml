@@ -1,0 +1,15 @@
+no: 3222
+name: ProtectionQ
+img: skill_045.png
+sp: '70'
+type: '1'
+learn: '6'
+target:
+    - friend
+    - all
+    - 1
+support: '1'
+charge:
+    - 0
+    - 0
+UpDEF: '5'
