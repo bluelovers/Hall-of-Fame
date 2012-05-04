@@ -657,7 +657,7 @@ class main extends user
 						return false;
 					}
 
-					$JobData = LoadJobData($char->job);
+					$JobData = HOF_Model_Data::getJobData($char->job);
 					$item = HOF_Model_Data::getItemData($item_no); //装備しようとしてる物
 					if (!in_array($item["type"], $JobData["equip"]))
 					{ //それが装備不可能なら?
@@ -977,7 +977,7 @@ HTML_BYEBYE;
 			$char->SetBattleVariable();
 
 			// 職データ
-			$JobData = LoadJobData($char->job);
+			$JobData = HOF_Model_Data::getJobData($char->job);
 
 			// 転職可能な職
 			if ($JobData["change"])
@@ -1396,7 +1396,7 @@ HTML;
 				foreach ($CanChange as $job)
 				{
 					print ("<td valign=\"bottom\" style=\"padding:5px 30px;text-align:center\">");
-					$JOB = LoadJobData($job);
+					$JOB = HOF_Model_Data::getJobData($job);
 					print ('<img src="' . IMG_CHAR . $JOB["img_" . ($char->gender ? "female" : "male")] . '">' . "<br />\n"); //画像
 					print ('<input type="radio" value="' . $job . '" name="job">' . "<br />\n");
 					print ($JOB["name_" . ($char->gender ? "female" : "male")]);
