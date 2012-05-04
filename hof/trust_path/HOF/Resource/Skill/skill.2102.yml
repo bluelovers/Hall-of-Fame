@@ -1,0 +1,16 @@
+no: 2102
+name: GrandCross
+img: item_036b.png
+exp: ''
+sp: '200'
+type: '1'
+learn: '8'
+target:
+    - enemy
+    - all
+    - 1
+pow: '200'
+charge:
+    - 70
+    - 30
+MagicCircleDeleteTeam: 1
