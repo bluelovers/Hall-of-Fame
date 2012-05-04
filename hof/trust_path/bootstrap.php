@@ -49,3 +49,5 @@ foreach($_ENV['autoloaders'] as $autoloader)
 
 unset($_ENV['autoloaders']);
 
+set_time_limit(60);
+
