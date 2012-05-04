@@ -1,0 +1,16 @@
+no: 5802
+name: RaiseDead
+img: skill_066.png
+exp: ''
+sp: '80'
+type: '0'
+learn: '99'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 30
+    - 0
+summon:
+    - 5003
