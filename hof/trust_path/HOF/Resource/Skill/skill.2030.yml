@@ -1,0 +1,16 @@
+no: 2030
+name: LifeDrain
+img: skill_062z.png
+exp: HP吸収
+sp: '50'
+type: '1'
+learn: '4'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '230'
+invalid: '1'
+charge:
+    - 10
+    - 40
