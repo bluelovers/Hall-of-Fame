@@ -1,0 +1,19 @@
+no: 2302
+name: ArrowShower
+img: item_042.png
+exp: ''
+sp: '20'
+type: '0'
+learn: '4'
+target:
+    - enemy
+    - multi
+    - 6
+inf: dex
+pow: '60'
+invalid: '1'
+charge:
+    - 0
+    - 0
+limit:
+    Bow: true
