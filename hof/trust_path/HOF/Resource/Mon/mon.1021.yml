@@ -1,0 +1,42 @@
+monNo: 1021
+name: SkullShaman
+img: mon_108.gif
+level: '15'
+exphold: '150'
+moneyhold: '80'
+maxhp: '270'
+hp: '270'
+maxsp: '210'
+sp: '210'
+str: '10'
+int: '60'
+dex: '20'
+spd: '10'
+luk: '1'
+guard: never
+position: back
+judge:
+    - 1201
+    - 1902
+    - 1101
+    - 1000
+quantity:
+    - 40
+    - 1
+    - 70
+    - 0
+action:
+    - 2090
+    - 5802
+    - 2030
+    - 2011
+atk:
+    - 30
+    - 20
+def:
+    - 20
+    - 10
+    - 60
+    - 20
+itemtable:
+    6182: '1200'
