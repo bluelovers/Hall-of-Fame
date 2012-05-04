@@ -1,0 +1,14 @@
+no: snow1
+land:
+    name: 滴凍山(中腹)
+    name0: FrostyMountain(HalfWay)
+    land: snow
+    proper: 'Lv??'
+monster:
+    1040: [100, 1]
+    1041: [100, 1]
+    1042: [100, 1]
+    1043: [100, 1]
+    1044: [40, 1]
+    1045: [15, 0]
+    1046: [10, 0]
