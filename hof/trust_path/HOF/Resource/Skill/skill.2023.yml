@@ -1,0 +1,16 @@
+no: 2023
+name: Paralysis
+img: skill_025.png
+exp: 行動遅延
+sp: '15'
+type: '1'
+learn: '4'
+target:
+    - enemy
+    - individual
+    - 1
+pow: '50'
+charge:
+    - 30
+    - 0
+delay: '120'
