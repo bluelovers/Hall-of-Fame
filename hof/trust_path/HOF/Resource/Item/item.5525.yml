@@ -1,0 +1,10 @@
+no: 5525
+name: SpeedRing
+type: Item
+buy: '10000'
+img: acce_024.png
+handle: '2'
+P_SPD: '10'
+option: 'SPD+10, '
+base_name: SpeedRing
+type2: OTHER
