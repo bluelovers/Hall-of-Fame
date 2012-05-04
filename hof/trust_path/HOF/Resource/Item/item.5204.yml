@@ -1,0 +1,16 @@
+no: 5204
+name: CrossRobe
+type: Robe
+buy: '8000'
+img: armor_012.png
+def:
+    - 5
+    - 10
+    - 48
+    - 25
+handle: '5'
+need:
+    6180: '14'
+    6184: '4'
+base_name: CrossRobe
+type2: GUARD
