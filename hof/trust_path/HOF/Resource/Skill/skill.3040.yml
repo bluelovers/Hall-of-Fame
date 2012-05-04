@@ -1,0 +1,17 @@
+no: 3040
+name: Resurrection
+img: mat_026.png
+exp: 蘇生
+sp: '120'
+type: '1'
+learn: '10'
+target:
+    - friend
+    - individual
+    - 1
+support: '1'
+charge:
+    - 40
+    - 30
+pow: '600'
+priority: Dead
