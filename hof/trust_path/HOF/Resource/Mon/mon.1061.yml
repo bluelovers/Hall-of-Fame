@@ -1,0 +1,30 @@
+monNo: 1061
+name: NubPirate
+img: mon_063.gif
+exphold: '170'
+moneyhold: '30'
+level: '16'
+maxhp: '410'
+hp: '410'
+maxsp: '30'
+sp: '30'
+str: '50'
+int: '20'
+dex: '10'
+spd: '20'
+luk: '10'
+guard: prob50
+position: front
+judge:
+    - 1000
+action:
+    - 1000
+atk:
+    - 30
+    - 10
+def:
+    - 30
+    - 10
+    - 10
+    - 10
+itemtable: {  }
