@@ -1,0 +1,15 @@
+no: 2401
+name: CallPookie
+img: skill_028.png
+exp: 子豚召喚
+sp: '150'
+type: '0'
+learn: '4'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 0
+    - 100
+summon: '5008'
