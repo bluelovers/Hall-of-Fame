@@ -1,0 +1,17 @@
+no: 3005
+name: ProgressiveHeal
+img: skill_013b.png
+exp: 対象のHP30%以下なら回復量2倍
+sp: '30'
+type: '1'
+learn: '4'
+target:
+    - friend
+    - multi
+    - 3
+pow: '125'
+support: '1'
+priority: LowHpRate
+charge:
+    - 20
+    - 0
