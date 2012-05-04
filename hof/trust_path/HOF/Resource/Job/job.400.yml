@@ -1,0 +1,17 @@
+no: 400
+name_male: Hunter
+name_female: Hunter
+img_male: mon_219rr.gif
+img_female: mon_219r.gif
+equip:
+    - Bow
+    - Cloth
+    - Robe
+    - Item
+coe:
+    - 2.2
+    - 0.7
+change:
+    - 401
+    - 402
+    - 403
