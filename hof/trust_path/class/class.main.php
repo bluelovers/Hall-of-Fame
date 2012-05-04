@@ -609,7 +609,7 @@ class main extends user
 						ShowError("指定された箇所には装備無し", "margin15");
 						return false;
 					}
-					$item = LoadItemData($char->{$_POST["spot"]});
+					$item = HOF_Model_Data::getItemData($char->{$_POST["spot"]});
 					if (!$item) return false;
 					$this->AddItem($char->{$_POST["spot"]});
 					$this->SaveUserItem();
@@ -658,7 +658,7 @@ class main extends user
 					}
 
 					$JobData = LoadJobData($char->job);
-					$item = LoadItemData($item_no); //装備しようとしてる物
+					$item = HOF_Model_Data::getItemData($item_no); //装備しようとしてる物
 					if (!in_array($item["type"], $JobData["equip"]))
 					{ //それが装備不可能なら?
 						ShowError("{$char->job_name} can't equip {$item[name]}.", "margin15");
@@ -801,7 +801,7 @@ EOD;
 					{
 						if ($this->item[$itemNo])
 						{
-							$item = LoadItemData($itemNo);
+							$item = HOF_Model_Data::getItemData($itemNo);
 							print ('<option value="' . $itemNo . '">' . $item[name] . " x" . $this->item[$itemNo] . '</option>' . "\n");
 						}
 					}
@@ -1168,10 +1168,10 @@ HTML;
 <?php
 
 			// 装備中の物表示 ////////////////////////////////
-			$weapon = LoadItemData($char->weapon);
-			$shield = LoadItemData($char->shield);
-			$armor = LoadItemData($char->armor);
-			$item = LoadItemData($char->item);
+			$weapon = HOF_Model_Data::getItemData($char->weapon);
+			$shield = HOF_Model_Data::getItemData($char->shield);
+			$armor = HOF_Model_Data::getItemData($char->armor);
+			$item = HOF_Model_Data::getItemData($char->item);
 
 			$handle = 0;
 			$handle = $weapon["handle"] + $shield["handle"] + $armor["handle"] + $item["handle"];
@@ -1228,28 +1228,28 @@ HTML;
 	<tr><td class="align-right">
 	Weapon :</td><td><input type="radio" class="vcent" name="spot" value="weapon"><?php
 
-			ShowItemDetail(LoadItemData($char->weapon));
+			ShowItemDetail(HOF_Model_Data::getItemData($char->weapon));
 
 
 ?>
 	</td></tr><tr><td class="align-right">
 	Shield :</td><td><input type="radio" class="vcent" name="spot" value="shield"><?php
 
-			ShowItemDetail(LoadItemData($char->shield));
+			ShowItemDetail(HOF_Model_Data::getItemData($char->shield));
 
 
 ?>
 	</td></tr><tr><td class="align-right">
 	Armor :</td><td><input type="radio" class="vcent" name="spot" value="armor"><?php
 
-			ShowItemDetail(LoadItemData($char->armor));
+			ShowItemDetail(HOF_Model_Data::getItemData($char->armor));
 
 
 ?>
 	</td></tr><tr><td class="align-right">
 	Item :</td><td><input type="radio" class="vcent" name="spot" value="item"><?php
 
-			ShowItemDetail(LoadItemData($char->item));
+			ShowItemDetail(HOF_Model_Data::getItemData($char->item));
 
 
 ?>
@@ -1283,7 +1283,7 @@ HTML;
 				reset($this->item); //これが無いと装備変更時に表示されない
 				foreach ($this->item as $key => $val)
 				{
-					$item = LoadItemData($key);
+					$item = HOF_Model_Data::getItemData($key);
 					// 装備できないので次
 					if (!isset($EquipAllow[$item["type"]])) continue;
 					$head = '<input type="radio" name="item_no" value="' . $key . '" class="vcent">';
@@ -1313,7 +1313,7 @@ HTML;
 			print("\t<tr><td class=\"align-right\" valign=\"top\">\n");
 			print("\t{$key} :</td><td>\n");
 			while( substr(key($this->item),0,4) <= $val && substr(current($this->item),0,4) !== false ) {
-			$item	= LoadItemData(key($this->item));
+			$item	= HOF_Model_Data::getItemData(key($this->item));
 			if(!isset( $EquipAllow[ $item["type"] ] )) {
 			next($this->item);
 			continue;
@@ -1727,7 +1727,7 @@ HTML;
 				//$goods->ListTableInsert("<tr><td>No</td><td>Item</td></tr>");
 				foreach ($this->item as $no => $val)
 				{
-					$item = LoadItemData($no);
+					$item = HOF_Model_Data::getItemData($no);
 					$string = ShowItemDetail($item, $val, 1) . "<br />";
 					//$string	= "<tr><td>".$no."</td><td>".ShowItemDetail($item,$val,1)."</td></tr>";
 					$goods->AddItem($item, $string);
@@ -1803,7 +1803,7 @@ HTML;
 						{
 							$amount = 1;
 						}
-						$item = LoadItemData($_POST["item_no"]);
+						$item = HOF_Model_Data::getItemData($_POST["item_no"]);
 						$need = $amount * $item["buy"]; //購入に必要なお金
 						if ($this->TakeMoney($need))
 						{ // お金を引けるかで判定。
@@ -1843,7 +1843,7 @@ HTML;
 						}
 						// 消した個数(超過して売られるのも防ぐ)
 						$DeletedAmount = $this->DeleteItem($_POST["item_no"], $amount);
-						$item = LoadItemData($_POST["item_no"]);
+						$item = HOF_Model_Data::getItemData($_POST["item_no"]);
 						$price = (isset($item["sell"]) ? $item["sell"] : round($item["buy"] * SELLING_PRICE));
 						$this->GetMoney($price * $DeletedAmount);
 						$this->SaveUserItem();
@@ -1883,7 +1883,7 @@ HTML;
 			if ($this->no_JS_itemlist) $goods->NoJS();
 			foreach ($ShopList as $no)
 			{
-				$item = LoadItemData($no);
+				$item = HOF_Model_Data::getItemData($no);
 				$string = '<input type="radio" name="item_no" value="' . $no . '" class="vcent">';
 				$string .= "<span style=\"padding-right:10px;width:10ex\">" . MoneyFormat($item["buy"]) . "</span>" . ShowItemDetail($item, false, 1) . "<br />";
 				$goods->AddItem($item, $string);
@@ -1909,7 +1909,7 @@ HTML;
 				if ($this->no_JS_itemlist) $goods->NoJS();
 				foreach ($this->item as $no => $val)
 				{
-					$item = LoadItemData($no);
+					$item = HOF_Model_Data::getItemData($no);
 					$price = (isset($item["sell"]) ? $item["sell"] : round($item["buy"] * SELLING_PRICE));
 					$string = '<input type="radio" class="vcent" name="item_no" value="' . $no . '">';
 					$string .= "<span style=\"padding-right:10px;width:10ex\">" . MoneyFormat($price) . "</span>" . ShowItemDetail($item, $val, 1) . "<br />";
@@ -1934,7 +1934,7 @@ HTML;
 			/*
 			if($this->item) {
 			foreach($this->item as $no => $val) {
-			$item	= LoadItemData($no);
+			$item	= HOF_Model_Data::getItemData($no);
 			$price	= (isset($item["sell"]) ? $item["sell"] : round($item["buy"]*SELLING_PRICE));
 			print('<input type="radio" class="vcent" name="item_no" value="'.$no.'">');
 			print(MoneyFormat($price));
@@ -1980,7 +1980,7 @@ Get <?=
 			foreach ($ShopList as $itemNo)
 			{
 				if (!$_POST["check_" . $itemNo]) continue;
-				$item = LoadItemData($itemNo);
+				$item = HOF_Model_Data::getItemData($itemNo);
 				if (!$item) continue;
 				$amount = (int)$_POST["amount_" . $itemNo];
 				if ($amount < 0) $amount = 0;
@@ -2044,7 +2044,7 @@ JS_HTML;
 			$ShopList = HOF_Model_Data::getShopList();
 			foreach ($ShopList as $itemNo)
 			{
-				$item = LoadItemData($itemNo);
+				$item = HOF_Model_Data::getItemData($itemNo);
 				if (!$item) continue;
 				print ("<tr><td class=\"td7\" id=\"i{$itemNo}a\">\n");
 				print ('<input type="checkbox" name="check_' . $itemNo . '" value="1" onclick="toggleCSS(\'' . $itemNo . '\')">' . "\n");
@@ -2077,7 +2077,7 @@ JS_HTML;
 			foreach ($this->item as $itemNo => $amountHave)
 			{
 				if (!$_POST["check_" . $itemNo]) continue;
-				$item = LoadItemData($itemNo);
+				$item = HOF_Model_Data::getItemData($itemNo);
 				if (!$item) continue;
 				$amount = (int)$_POST["amount_" . $itemNo];
 				if ($amount < 0) $amount = 0;
@@ -2132,7 +2132,7 @@ JS_HTML;
 			print ('<tr><td class="td6"></td>' . '<td style="text-align:center" class="td6">売値</td>' . '<td style="text-align:center" class="td6">数</td>' . '<td style="text-align:center" class="td6">アイテム</td></tr>' . "\n");
 			foreach ($this->item as $itemNo => $amount)
 			{
-				$item = LoadItemData($itemNo);
+				$item = HOF_Model_Data::getItemData($itemNo);
 				if (!$item) continue;
 				print ("<tr><td class=\"td7\" id=\"i{$itemNo}a\">\n");
 				print ('<input type="checkbox" name="check_' . $itemNo . '" value="1" onclick="toggleCSS(\'' . $itemNo . '\')">' . "\n");
@@ -2644,7 +2644,7 @@ JS_HTML;
 				return false;
 			}
 			// アイテムが読み込めない場合
-			if (!$item = LoadItemData($_POST["item_no"]))
+			if (!$item = HOF_Model_Data::getItemData($_POST["item_no"]))
 			{
 				ShowError("Failed to load item data.");
 				return false;
@@ -2744,7 +2744,7 @@ JS_HTML;
 				if ($this->no_JS_itemlist) $goods->NoJS();
 				foreach ($this->item as $no => $val)
 				{
-					$item = LoadItemData($no);
+					$item = HOF_Model_Data::getItemData($no);
 					// 精錬可能な物だけ表示させる。
 					if (!$possible[$item["type"]]) continue;
 					$price = $item["buy"] / 2;
@@ -2845,7 +2845,7 @@ JS_HTML;
 			}
 
 			// アイテムを読む
-			if (!$item = LoadItemData($_POST["ItemNo"]))
+			if (!$item = HOF_Model_Data::getItemData($_POST["ItemNo"]))
 			{
 				ShowError("error12291703");
 				return false;
@@ -2868,7 +2868,7 @@ JS_HTML;
 					return false;
 				}
 				// 追加素材のアイテムデータ
-				$ADD = LoadItemData($_POST["AddMaterial"]);
+				$ADD = HOF_Model_Data::getItemData($_POST["AddMaterial"]);
 				$this->DeleteItem($_POST["AddMaterial"]);
 			}
 
@@ -2897,7 +2897,7 @@ JS_HTML;
 			$this->SaveUserItem();
 
 			print ("<p>");
-			print (ShowItemDetail(LoadItemData($done)));
+			print (ShowItemDetail(HOF_Model_Data::getItemData($done)));
 
 			print ("\n<br />ができたぜ！</p>\n");
 			return true;
@@ -2921,7 +2921,7 @@ JS_HTML;
 			if ($this->no_JS_itemlist) $CreateList->NoJS();
 			foreach ($CanCreate as $item_no)
 			{
-				$item = LoadItemData($item_no);
+				$item = HOF_Model_Data::getItemData($item_no);
 				if (!HaveNeeds($item, $this->item)) // 素材不足なら次
  						continue;
 				// NoTable
@@ -2956,7 +2956,7 @@ JS_HTML;
 				for ($item_no = 7000; $item_no < 7200; $item_no++)
 				{
 					if (!$this->item["$item_no"]) continue;
-					if ($item = LoadItemData($item_no))
+					if ($item = HOF_Model_Data::getItemData($item_no))
 					{
 						print ('<input type="radio" name="AddMaterial" value="' . $item_no . '" class="vcent">');
 						print (ShowItemDetail($item, $this->item["$item_no"], 1) . "<br />\n");
@@ -2984,7 +2984,7 @@ JS_HTML;
 			for ($i = 6000; $i < 7000; $i++)
 			{
 				if (!$this->item["$i"]) continue;
-				$item = LoadItemData($i);
+				$item = HOF_Model_Data::getItemData($i);
 				ShowItemDetail($item, $this->item["$i"]);
 				print ("<br />\n");
 			}
@@ -3223,7 +3223,7 @@ JS_HTML;
 				return false;
 			}
 			// アイテムが読み込めない場合
-			if (!$item = LoadItemData($_POST["item_no"]))
+			if (!$item = HOF_Model_Data::getItemData($_POST["item_no"]))
 			{
 				ShowError("Failed to load item data.");
 				return false;
@@ -3314,7 +3314,7 @@ JS_HTML;
 			if ($this->no_JS_itemlist) $ExhibitList->NoJS();
 			foreach ($this->item as $no => $amount)
 			{
-				$item = LoadItemData($no);
+				$item = HOF_Model_Data::getItemData($no);
 				if (!$possible[$item["type"]]) continue;
 				$head = '<input type="radio" name="item_no" value="' . $no . '" class="vcent">';
 				$head .= ShowItemDetail($item, $amount, 1) . "<br />";
