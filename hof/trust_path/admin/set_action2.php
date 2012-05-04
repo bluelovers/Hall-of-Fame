@@ -118,7 +118,7 @@ if ($_POST["make"])
 include ("../data/data.judge_setup.php");
 for ($i = 1000; $i < 10000; $i++)
 {
-	$judge = LoadJudgeData($i);
+	$judge = HOF_Model_Data::getJudgeData($i);
 	if (!$judge) continue;
 	$judgeList["$i"]["exp"] = $judge["exp"];
 	if ($judge["css"]) $judgeList["$i"]["css"] = true;
