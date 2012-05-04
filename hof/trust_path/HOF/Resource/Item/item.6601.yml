@@ -1,0 +1,8 @@
+no: 6601
+name: GoldenBanana
+type: Material
+buy: '100'
+sell: '5000'
+img: banana.png
+base_name: GoldenBanana
+type2: OTHER
