@@ -1,0 +1,14 @@
+no: 1100
+name: Slayer
+type: TwoHandSword
+dh: true
+buy: '1000'
+img: we_sword006.png
+atk:
+    - 30
+    - 0
+handle: '2'
+need:
+    6001: '8'
+base_name: Slayer
+type2: WEAPON
