@@ -1,0 +1,13 @@
+no: 3110
+name: Reinforce
+img: skill_059.png
+exp: 自己強化
+sp: '10'
+type: '0'
+learn: '2'
+target:
+    - self
+    - individual
+    - 1
+support: '1'
+UpSTR: '30'
