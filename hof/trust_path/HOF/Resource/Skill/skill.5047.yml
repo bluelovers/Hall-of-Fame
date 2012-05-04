@@ -1,0 +1,15 @@
+no: 5047
+name: Icicle
+img: skill_066.png
+sp: '50'
+type: '1'
+learn: '99'
+target:
+    - enemy
+    - multi
+    - 3
+pow: '100'
+DownDEF: '10'
+charge:
+    - 30
+    - 0

@@ -1,0 +1,16 @@
+no: 5046
+name: IceArmor
+img: skill_066.png
+sp: '100'
+type: '1'
+learn: '99'
+target:
+    - friend
+    - all
+    - 1
+support: true
+UpDEF: '10'
+UpMDEF: '15'
+charge:
+    - 50
+    - 0

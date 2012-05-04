@@ -1,0 +1,12 @@
+no: 5045
+name: IceBreath
+img: skill_066.png
+sp: '40'
+type: '0'
+learn: '99'
+target:
+    - enemy
+    - all
+    - 1
+pow: '80'
+DownDEF: '10'
