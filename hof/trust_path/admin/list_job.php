@@ -57,7 +57,7 @@ print ('<table border="0" cellspacing="1"><tbody>');
 $detcount = 0;
 for ($no = 100; $no < 999; $no++)
 {
-	$j = LoadJobData($no);
+	$j = HOF_Model_Data::getJobData($no);
 	if (!$j) continue;
 
 	$detcount++;
