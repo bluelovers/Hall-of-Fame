@@ -64,7 +64,7 @@ class char
 	var $ActCount; //合計行動回数
 	var $JdgCount; //決定した判断の回数=array()
 	//////////////////////////////////////////////////
-	function char($file = false)
+	function __construct($file = false)
 	{
 
 		if (!$file) return 0;
