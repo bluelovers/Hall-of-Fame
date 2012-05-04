@@ -82,7 +82,7 @@ class Auction
 			// 競売時間が残っているなら次
 			if (AuctionLeftTime($Now, $Article["end"])) continue;
 			if (!function_exists("LoadItemData")) include (DATA_ITEM);
-			$item = LoadItemData($Article["item"]);
+			$item = HOF_Model_Data::getItemData($Article["item"]);
 			if ($Article["bidder"])
 			{
 				// 落札者がいるならアイテムを渡す。
@@ -271,7 +271,7 @@ class Auction
 		$this->Article["$ArticleNo"]["TotalBid"]++;
 		$this->Article["$ArticleNo"]["bidder"] = $Bidder;
 		$this->DataChange = true;
-		$item = LoadItemData($Article["item"]);
+		$item = HOF_Model_Data::getItemData($Article["item"]);
 		//$this->AddLog("No.".$Article["No"]." <span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個に ".MoneyFormat($BidPrice)." で ".$this->LoadUserName($Bidder)." が<span class=\"support\">入札しました。</span>");
 		$this->AddLog("No." . $Article["No"] . " <span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個に " . MoneyFormat($BidPrice) . " で " . $BidderName . " が<span class=\"support\">入札しました。</span>");
 		return true;
@@ -320,7 +320,7 @@ class Auction
 				print ("</td></tr>\n");
 				// アイテム
 				print ('<tr><td colspan="7" style="text-align:left;padding-left:15px" class="td6">');
-				$item = LoadItemData($Article["item"]);
+				$item = HOF_Model_Data::getItemData($Article["item"]);
 				print ('<form action="?menu=auction" method="post">');
 				// 入札フォーム
 				if ($bidding)
@@ -374,7 +374,7 @@ class Auction
 				print (MoneyFormat($Article["price"]));
 				// アイテム
 				print ('</td><td class="td7" style="text-align:left">');
-				$item = LoadItemData($Article["item"]);
+				$item = HOF_Model_Data::getItemData($Article["item"]);
 				print (ShowItemDetail($item, $Article["amount"], 1));
 				// 合計入札数
 				print ("</td><td class=\"td7\">");
@@ -474,7 +474,7 @@ class Auction
 			"IP" => $_SERVER[REMOTE_ADDR],
 			);
 		array_unshift($this->Article, $New);
-		$itemData = LoadItemData($item);
+		$itemData = HOF_Model_Data::getItemData($item);
 		$this->AddLog("No." . $this->ArticleNo . " に <img src=\"" . IMG_ICON . $itemData["img"] . "\"><span class=\"bold\">{$itemData[name]} x{$amount}</span>個が<span class=\"charge\">出品されました。</span>");
 		$this->DataChange = true;
 	}
