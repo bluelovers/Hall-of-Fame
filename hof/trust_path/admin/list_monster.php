@@ -33,7 +33,9 @@ td{
 <body>
 <?php
 
+/*
 include ("../data/data.monster.php");
+*/
 include ("../data/data.judge_setup.php");
 include ("../data/data.skill.php");
 include ("../data/data.item.php");
@@ -60,7 +62,7 @@ print ('<table border="0" cellspacing="1"><tbody>');
 $detcount = 0;
 for ($no = 1000; $no < 5999; $no++)
 {
-	$m = CreateMonster($no);
+	$m = HOF_Model_Char::getBaseMonster($no);
 	if (!$m) continue;
 
 	//if($detcount%3==0)
