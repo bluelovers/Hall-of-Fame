@@ -1,0 +1,13 @@
+no: 5807
+name: CallHunterWolf
+img: skill_066.png
+exp: ''
+sp: '0'
+type: '0'
+learn: '99'
+target:
+    - self
+    - individual
+    - 1
+summon:
+    - 1091
