@@ -1,0 +1,51 @@
+monNo: 1044
+name: Coroboccl
+img: mon_187.gif
+exphold: '360'
+moneyhold: '230'
+level: '26'
+maxhp: '340'
+hp: '340'
+maxsp: '410'
+sp: '410'
+str: '10'
+int: '130'
+dex: '40'
+spd: '50'
+luk: '100'
+guard: never
+judge:
+    - 1940
+    - 1902
+    - 1201
+    - 1200
+    - 1405
+    - 1121
+    - 1000
+quantity:
+    - 50
+    - 1
+    - 30
+    - 40
+    - 1
+    - 90
+    - 0
+action:
+    - 9000
+    - 5049
+    - 3101
+    - 9000
+    - 3040
+    - 3002
+    - 2480
+atk:
+    - 10
+    - 20
+def:
+    - 10
+    - 10
+    - 35
+    - 100
+itemtable:
+    6021: '500'
+    6160: '30'
