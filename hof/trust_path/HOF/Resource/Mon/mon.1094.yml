@@ -1,0 +1,43 @@
+monNo: 1094
+name: WolfTamer
+img: mon_217r.gif
+exphold: '420'
+moneyhold: '80'
+level: '30'
+maxhp: '480'
+hp: '480'
+maxsp: '200'
+sp: '200'
+str: '60'
+int: '30'
+dex: '60'
+spd: '10'
+luk: '30'
+guard: never
+judge:
+    - 1902
+    - 1201
+    - 1940
+    - 1940
+    - 1000
+quantity:
+    - 1
+    - 20
+    - 30
+    - 50
+    - 0
+action:
+    - 5807
+    - 1240
+    - 1242
+    - 1241
+    - 1243
+atk:
+    - 90
+    - 0
+def:
+    - 20
+    - 0
+    - 30
+    - 20
+itemtable: {  }
