@@ -1,0 +1,22 @@
+no: 1022
+name: LightBringer
+type: Sword
+buy: '160000'
+img: we_sword026.png
+atk:
+    - 80
+    - 0
+def:
+    - 5
+    - 0
+    - 5
+    - 0
+P_SPD: 5
+handle: '9'
+option: 'Def/Mdef+5 ,SPD+5 ,'
+need:
+    6002: '30'
+    6003: '10'
+    6802: '1'
+base_name: LightBringer
+type2: WEAPON
