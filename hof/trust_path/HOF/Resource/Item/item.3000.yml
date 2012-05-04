@@ -1,0 +1,16 @@
+no: 3000
+name: WoodShield
+type: Shield
+buy: '1000'
+img: shield_001m.png
+def:
+    - 5
+    - 5
+    - 0
+    - 0
+handle: '1'
+need:
+    6001: '1'
+    6020: '4'
+base_name: WoodShield
+type2: GUARD
