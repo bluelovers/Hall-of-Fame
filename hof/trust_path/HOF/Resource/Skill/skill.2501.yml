@@ -1,0 +1,17 @@
+no: 2501
+name: SummonLeviathan
+img: skill_029.png
+exp: ''
+sp: '700'
+type: '1'
+learn: '20'
+target:
+    - self
+    - individual
+    - 1
+charge:
+    - 100
+    - 300
+summon: '5104'
+quick: true
+MagicCircleDeleteTeam: 4
