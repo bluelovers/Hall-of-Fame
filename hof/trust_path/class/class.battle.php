@@ -1495,8 +1495,7 @@ Total HP : <?=
 			//	CSS戦闘画面
 			function ShowCssImage()
 			{
-				include_once (BTL_IMG_CSS);
-				$img = new cssimage();
+				$img = new HOF_Class_Battle_Style();
 				$img->SetBackGround($this->BackGround);
 				$img->SetTeams($this->team1, $this->team0);
 				$img->SetMagicCircle($this->team1_mc, $this->team0_mc);
