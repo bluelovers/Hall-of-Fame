@@ -51,7 +51,7 @@ class Auction
 
 	////////////////////////////////
 	// コンストラクタ
-	function Auction($type)
+	function __construct($type)
 	{
 		// アイテムオークション
 		if ($type == "item")
