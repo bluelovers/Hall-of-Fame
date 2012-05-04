@@ -1,0 +1,14 @@
+no: 1024
+name: LifeDivision
+img: skill_073y.png
+exp: 対象とHPを分割
+sp: '100'
+type: '0'
+learn: '10'
+target:
+    - enemy
+    - individual
+    - 1
+charge:
+    - 0
+    - 50
