@@ -17,9 +17,25 @@ class HOF_Class_Battle extends battle
 
 	function __construct($team0, $team1)
 	{
+
+		$team0 = HOF_Class_Battle_Team::newInstance($team0);
+		$team1 = HOF_Class_Battle_Team::newInstance($team1);
+
 		parent::__construct($team0, $team1);
 
 		$this->objs['view'] = new HOF_Class_Battle_View(&$this);
+
+		$this->teams[0]['team'] = &$this->team0;
+		$this->teams[1]['team'] = &$this->team1;
+
+		$this->teams[0]['mc'] = &$this->team0_mc;
+		$this->teams[1]['mc'] = &$this->team1_mc;
+
+		$this->teams[0]['name'] = &$this->team0_name;
+		$this->teams[1]['name'] = &$this->team1_name;
+
+		$this->teams[0]['team']->update();
+		$this->teams[1]['team']->update();
 	}
 
 	function outputImage()
@@ -71,6 +87,27 @@ class HOF_Class_Battle extends battle
 		$team_mc = abs(max(0, min(5, $team_mc)));
 
 		return true;
+	}
+
+	/**
+	 * 指定キャラのチームの死者数を数える(指定のチーム)ネクロマンサしか使ってない?
+	 */
+	function CountDead($who)
+	{
+		return HOF_Class_Battle_Team::CountDead($who);
+	}
+
+	/**
+	 * 全体の死者数を数える...(ネクロマンサしか使ってない?)
+	 */
+	function CountDeadAll()
+	{
+		$count = 0;
+
+		$count += HOF_Class_Battle_Team::CountDead($this->team0);
+		$count += HOF_Class_Battle_Team::CountDead($this->team1);
+
+		return $count;
 	}
 
 }
