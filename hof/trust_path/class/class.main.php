@@ -1831,12 +1831,7 @@ HTML;
 		<h4>店</h4>
 		<div style="width:600px">
 			<div style="float:left;width:50px;">
-				<img src="<?=
-
-			IMG_CHAR
-
-
-?>ori_002.gif" />
+				<img src="<?php echo HOF_Class_Icon::getIamge('ori_002', IMG_CHAR); ?>" />
 			</div>
 			<div style="float:right;width:550px;">
 				いらっしゃいませー<br />
@@ -1889,13 +1884,13 @@ HTML;
 							$this->SaveUserItem();
 							if (1 < $amount)
 							{
-								$img = "<img src=\"" . IMG_ICON . $item[img] . "\" class=\"vcent\" />";
+								$img = "<img src=\"" . HOF_Class_Icon::getIamge($item[img], IMG_ICON . 'item/') . "\" class=\"vcent\" />";
 								ShowResult("{$img}{$item[name]} を{$amount}個 購入した (" . HOF_Helper_Global::MoneyFormat($item["buy"]) . " x{$amount} = " . HOF_Helper_Global::MoneyFormat($need) . ")", "margin15");
 								return true;
 							}
 							else
 							{
-								$img = "<img src=\"" . IMG_ICON . $item[img] . "\" class=\"vcent\" />";
+								$img = "<img src=\"" . HOF_Class_Icon::getIamge($item[img], IMG_ICON . 'item/') . "\" class=\"vcent\" />";
 								ShowResult("{$img}{$item[name]} を購入した (" . HOF_Helper_Global::MoneyFormat($need) . ")", "margin15");
 								return true;
 							}
@@ -1926,7 +1921,7 @@ HTML;
 						$this->GetMoney($price * $DeletedAmount);
 						$this->SaveUserItem();
 						if ($DeletedAmount != 1) $add = " x{$DeletedAmount}";
-						$img = "<img src=\"" . IMG_ICON . $item[img] . "\" class=\"vcent\" />";
+						$img = "<img src=\"" . HOF_Class_Icon::getIamge($item[img], IMG_ICON . 'item/') . "\" class=\"vcent\" />";
 						ShowResult("{$img}{$item[name]}{$add} を " . HOF_Helper_Global::MoneyFormat($price * $DeletedAmount) . " で売った", "margin15");
 						return true;
 					}
@@ -2710,10 +2705,9 @@ JS_HTML;
 	<div style="float:left;width:80px;">
 		<img src="<?=
 
-			IMG_CHAR
+	HOF_Class_Icon::getIamge("mon_053r", IMG_CHAR)
 
-
-?>mon_053r.gif" />
+?>" />
 	</div>
 	<div style="float:right;width:520px;">
 		ここでは&nbsp;アイテムの精錬ができるぜ！<br />
@@ -2909,10 +2903,10 @@ JS_HTML;
 		<div style="float:left;width:80px;">
 			<img src="<?=
 
-			IMG_CHAR
+			HOF_Class_Icon::getIamge("mon_053rz", IMG_CHAR)
 
 
-?>mon_053rz.gif" />
+?>" />
 		</div>
 		<div style="float:right;width:520px;">
 			ここでは&nbsp;アイテムの製作ができるぜ！<br />
@@ -4394,7 +4388,7 @@ HTML;
 	<!-- 飾 -->
 	<div style="width:350px;padding:15px;float:left;">
 		<div style="width:350px;text-align:center;height: 199px;overflow: hidden; margin-bottom: 20px;">
-			<img src="./static/image/hof02.gif" style="margin-top: -1px;margin-left: -70px;" />
+			<img src="<?php echo HOF_Class_Icon::getIamge("hof02", './static/image/'); ?>" style="margin-top: -1px;margin-left: -70px;" />
 		</div>
 		<div style="margin-left:20px">
 			<div class="u">
@@ -4574,7 +4568,7 @@ Users :
 	<a name="top"></a>
 	<div id="main_frame">
 		<div id="title">
-			<img src="./static/image/title03.gif">
+			<img src="<?php echo HOF_Class_Icon::getIamge('title03', './static/image/'); ?>">
 		</div>
 		<?php
 
