@@ -15,8 +15,6 @@ class HOF_Class_Battle_View
 	 */
 	function __construct(&$battle)
 	{
-		parent::__construct($this->_data_default);
-
 		$this->battle = &$battle;
 	}
 
