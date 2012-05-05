@@ -2,7 +2,7 @@ no: 5206
 name: HolyRobe
 type: Robe
 buy: '14000'
-img: armor_012.png
+img: armor_012
 def:
     - 7
     - 10
