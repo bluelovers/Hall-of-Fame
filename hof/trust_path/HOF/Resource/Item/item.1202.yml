@@ -2,7 +2,7 @@ no: 1202
 name: Spata
 type: Dagger
 buy: '20000'
-img: we_sword010.png
+img: we_sword010
 atk:
     - 28
     - 0
