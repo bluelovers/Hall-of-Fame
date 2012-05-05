@@ -1388,6 +1388,7 @@ Total HP : <?=
 		print ("<a href=\"#s" . (++$this->Scroll) . "\">&gt;&gt;</a>\n");
 		print ('</div>');
 
+		/*
 		switch (BTL_IMG_TYPE)
 		{
 			case 0:
@@ -1400,6 +1401,11 @@ Total HP : <?=
 				$this->ShowCssImage(); //画像
 				break;
 		}
+		*/
+		// bluelovers
+		$this->outputImage();
+		// bluelovers
+
 		print ("</div>");
 		print ("</td></tr><tr><td class=\"ttd2 break\">\n");
 
