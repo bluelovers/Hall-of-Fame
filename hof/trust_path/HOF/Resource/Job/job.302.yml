@@ -1,8 +1,8 @@
 no: 302
 name_male: Druid
 name_female: Druid
-img_male: mon_213rz.gif
-img_female: mon_214rz.gif
+img_male: mon_213rz
+img_female: mon_214rz
 equip:
     - Wand
     - Book
