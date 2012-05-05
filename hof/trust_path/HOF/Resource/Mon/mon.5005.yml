@@ -1,6 +1,6 @@
 no: 5005
 name: Ghoul
-img: mon_142.gif
+img: mon_142
 exphold: '0'
 moneyhold: '0'
 level: '10'
