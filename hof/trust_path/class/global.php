@@ -358,12 +358,6 @@ function JudgeList()
 }
 
 //////////////////////////////////////////////////
-//	お金の表示方式
-function MoneyFormat($number)
-{
-	return '$&nbsp;' . number_format($number);
-}
-//////////////////////////////////////////////////
 //
 function ItemSellPrice($item)
 {
