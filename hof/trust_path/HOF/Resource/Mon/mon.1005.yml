@@ -1,6 +1,6 @@
 no: 1005
 name: GoblinMage
-img: mon_051.gif
+img: mon_051
 level: '6'
 exphold: '50'
 moneyhold: '60'
