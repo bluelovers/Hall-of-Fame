@@ -1,6 +1,6 @@
 no: 2051
 name: PoisonSmog
-img: skill_079.png
+img: skill_079
 exp: 毒化
 sp: '80'
 type: '1'
