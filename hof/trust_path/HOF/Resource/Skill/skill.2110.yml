@@ -1,6 +1,6 @@
 no: 2110
 name: ChargeDisturb
-img: skill_016.png
+img: skill_016
 exp: チャージ(詠唱)妨害
 sp: '60'
 type: '1'
