@@ -1,6 +1,6 @@
 no: 2030
 name: LifeDrain
-img: skill_062z.png
+img: skill_062z
 exp: HP吸収
 sp: '50'
 type: '1'
