@@ -2,7 +2,7 @@ no: 5205
 name: WhiteRobe
 type: Robe
 buy: '10000'
-img: armor_012.png
+img: armor_012
 def:
     - 6
     - 10
