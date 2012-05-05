@@ -1,2 +1,6 @@
 no: 1300
 exp: '自分のSTRが○○ 以上'
+tag:
+    no: '1299'
+    exp: STR
+quantity: true
