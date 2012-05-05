@@ -1,8 +1,8 @@
 no: 101
 name_male: RoyalGuard
 name_female: RoyalGuard
-img_male: mon_199r.gif
-img_female: mon_234r.gif
+img_male: mon_199r
+img_female: mon_234r
 equip:
     - Sword
     - TwoHandSword
