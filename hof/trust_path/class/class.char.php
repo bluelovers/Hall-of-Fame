@@ -69,9 +69,9 @@ class char
 
 		$this->Number = basename($file, ".dat");
 		$this->file = $file;
-		$this->fp = FileLock($file);
+		$this->fp = HOF_Class_File::FileLock($file);
 
-		$data = ParseFileFP($this->fp);
+		$data = HOF_Class_File::ParseFileFP($this->fp);
 		$this->SetCharData($data);
 	}
 	//////////////////////////////////////////////////
@@ -1274,12 +1274,12 @@ class char
 		if (file_exists($file) && $this->fp)
 		{
 			//sleep(10);//ファイルロック確認用
-			WriteFileFP($this->fp, $this->DataSavingFormat());
+			HOF_Class_File::WriteFileFP($this->fp, $this->DataSavingFormat());
 			$this->fpclose();
 		}
 		else
 		{
-			WriteFile($file, $this->DataSavingFormat());
+			HOF_Class_File::WriteFile($file, $this->DataSavingFormat());
 		}
 
 	}
