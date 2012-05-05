@@ -1,6 +1,6 @@
 <?php
 
-$f = "../image/icon/";
+$f = "../static/image/icon/";
 $files = array();
 $files = @glob($f . "*.png");
 foreach ($files as $name)
