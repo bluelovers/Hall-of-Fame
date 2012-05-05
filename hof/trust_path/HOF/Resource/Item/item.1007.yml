@@ -2,7 +2,7 @@ no: 1007
 name: Shotel
 type: Sword
 buy: '35000'
-img: we_sword026.png
+img: we_sword026
 atk:
     - 60
     - 0
