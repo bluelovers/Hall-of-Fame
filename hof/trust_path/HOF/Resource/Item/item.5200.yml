@@ -2,7 +2,7 @@ no: 5200
 name: CottonRobe
 type: Robe
 buy: '1000'
-img: armor_012.png
+img: armor_012
 def:
     - 0
     - 5
