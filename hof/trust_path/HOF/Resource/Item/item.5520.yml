@@ -2,7 +2,7 @@ no: 5520
 name: CleverRing
 type: Item
 buy: '10000'
-img: acce_024.png
+img: acce_024
 handle: '3'
 P_DEX: '30'
 option: 'DEX+30, '
