@@ -2,7 +2,7 @@ no: 2211
 name: SilverTail
 type: Whip
 buy: '70000'
-img: we_other007.png
+img: we_other007
 atk:
     - 100
     - 0
