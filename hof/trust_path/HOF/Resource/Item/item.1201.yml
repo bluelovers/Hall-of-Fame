@@ -2,7 +2,7 @@ no: 1201
 name: Kukuri
 type: Dagger
 buy: '10000'
-img: we_sword010.png
+img: we_sword010
 atk:
     - 21
     - 0
