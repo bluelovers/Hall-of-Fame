@@ -74,6 +74,8 @@ class char
 		$data = HOF_Class_File::ParseFileFP($this->fp);
 		$this->SetCharData($data);
 	}
+
+	/*
 	//////////////////////////////////////////////////
 	//	ファイルポインタが開かれていれば閉じる
 	function fpclose()
@@ -86,6 +88,8 @@ class char
 			unset($this->fp);
 		}
 	}
+	*/
+
 	//////////////////////////////////////////////////
 	//	召喚力?召喚した時の召喚モンスターの強さ
 	function SummonPower()
