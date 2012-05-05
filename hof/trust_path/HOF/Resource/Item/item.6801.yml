@@ -3,6 +3,6 @@ name: DragonWing
 type: Material
 buy: '1000'
 sell: '10'
-img: mat_011.png
+img: mat_011
 base_name: DragonWing
 type2: OTHER
