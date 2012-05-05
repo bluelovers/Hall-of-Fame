@@ -3,7 +3,7 @@ name: Staff
 type: Staff
 dh: true
 buy: '2000'
-img: we_staff008b.png
+img: we_staff008b
 atk:
     - 8
     - 25
