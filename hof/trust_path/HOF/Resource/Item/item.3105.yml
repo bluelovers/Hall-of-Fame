@@ -2,7 +2,7 @@ no: 3105
 name: WorldEncyclopedia
 type: Book
 buy: '20000'
-img: book_002.png
+img: book_002
 atk:
     - 5
     - 0
