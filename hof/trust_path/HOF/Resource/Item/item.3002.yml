@@ -2,7 +2,7 @@ no: 3002
 name: IronShield
 type: Shield
 buy: '4000'
-img: shield_001m.png
+img: shield_001m
 def:
     - 12
     - 5
