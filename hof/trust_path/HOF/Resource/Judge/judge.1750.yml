@@ -1,2 +1,6 @@
 no: 1750
 exp: '相手の 前列が○○人以上'
+tag:
+    no: '1749'
+    exp: 隊列(敵)
+quantity: true
