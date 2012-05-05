@@ -1,6 +1,6 @@
 no: 2050
 name: VenomBlast
-img: skill_024.png
+img: skill_024
 exp: 毒化
 sp: '30'
 type: '1'
