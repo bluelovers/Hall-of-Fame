@@ -739,6 +739,16 @@ class HOF_Class_Skill_Effect
 	}
 
 	/**
+	 * HPの回復
+	 */
+	function RecoverHP(&$target, $value)
+	{
+		print ($target->Name("bold") . ' <span class="recover">Recovered <span class="bold">' . $value . ' HP</span></span>');
+		$target->HpRecover($value);
+		print ("<br />\n");
+	}
+
+	/**
 	 * SPの回復
 	 */
 	function RecoverSP(&$target, $value)
