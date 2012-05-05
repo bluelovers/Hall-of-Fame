@@ -2,7 +2,7 @@ no: 1703
 name: SilverWand
 type: Wand
 buy: '6000'
-img: we_staff002.png
+img: we_staff002
 atk:
     - 6
     - 20
