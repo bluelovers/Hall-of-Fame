@@ -2,7 +2,7 @@ no: 5102
 name: LightJacket
 type: Cloth
 buy: '2000'
-img: armor_014e.png
+img: armor_014e
 def:
     - 15
     - 5
