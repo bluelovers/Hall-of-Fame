@@ -14,6 +14,8 @@ define("ABANDONED", 60 * 60 * 24 * 14); //ゲームを放棄されたとみな�
 define("CONTROL_PERIOD", 60 * 60 * 12); //定期管理の周期
 define("RECORD_IP", 1); //IPを記録するか？(0=NO 1=YES)
 
+define("NO_IMAGE", "noimage");
+
 // other
 define("DEBUG", 0); // 0=OFF
 define("CHAR_NO_IMAGE", "NoImage.png"); // キャラ画像がない場合表示される画像
