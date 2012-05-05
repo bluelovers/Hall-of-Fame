@@ -67,7 +67,7 @@ function RegularControl($value = null)
 
 	$now = time();
 
-	$fp = FileLock(CTRL_TIME_FILE, true);
+	$fp = HOF_Class_File::FileLock(CTRL_TIME_FILE, true);
 	if (!$fp) return false;
 	//$ctrltime	= file_get_contents(CTRL_TIME_FILE);
 	$ctrltime = trim(fgets($fp, 1024));
@@ -85,7 +85,7 @@ function RegularControl($value = null)
 	DeleteAbandonAccount(); //その1 放棄ユーザの掃除
 
 	// 定期管理が終わったら次の管理時刻を書き込んで終了する。
-	WriteFileFP($fp, $now + CONTROL_PERIOD);
+	HOF_Class_File::WriteFileFP($fp, $now + CONTROL_PERIOD);
 	fclose($fp);
 	unset($fp);
 }
@@ -99,9 +99,10 @@ function is_registered($id)
 		else  return false;
 	endif;
 }
+
 //////////////////////////////////////////////////
 //	ファイルロックしたファイルポインタを返す。
-function FileLock($file, $noExit = false)
+function HOF_Class_File::FileLock($file, $noExit = false)
 {
 
 	if (!file_exists($file)) return false;
@@ -141,7 +142,7 @@ function FileLock($file, $noExit = false)
 }
 //////////////////////////////////////////////////
 //	ファイルに書き込む(引数:ファイルポインタ)
-function WriteFileFP($fp, $text, $check = false)
+function HOF_Class_File::WriteFileFP($fp, $text, $check = false)
 {
 	if (!$check && !trim($text)) //$textが空欄なら終わる
  			return false;
@@ -159,7 +160,7 @@ function WriteFileFP($fp, $text, $check = false)
 
 //////////////////////////////////////////////////
 //	ファイルに書き込む
-function WriteFile($file, $text, $check = false)
+function HOF_Class_File::WriteFile($file, $text, $check = false)
 {
 	if (!$check && !$text) //$textが空欄なら終わる
  			return false;
@@ -174,7 +175,7 @@ function WriteFile($file, $text, $check = false)
 
 //////////////////////////////////////////////////
 //	ファイルを読んで配列に格納(引数:ファイルポインタ)
-function ParseFileFP($fp)
+function HOF_Class_File::ParseFileFP($fp)
 {
 
 	if (!$fp) return false;
@@ -197,7 +198,7 @@ function ParseFileFP($fp)
 }
 //////////////////////////////////////////////////
 //	ファイルを読んで配列に格納
-function ParseFile($file)
+function HOF_Class_File::ParseFile($file)
 {
 
 	$fp = @fopen($file, "r+");
