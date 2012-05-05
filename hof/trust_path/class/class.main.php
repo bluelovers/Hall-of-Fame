@@ -4399,7 +4399,7 @@ HTML;
 	<!-- 飾 -->
 	<div style="width:350px;padding:15px;float:left;">
 		<div style="width:350px;text-align:center;height: 199px;overflow: hidden; margin-bottom: 20px;">
-			<img src="./image/hof02.gif" style="margin-top: -1px;margin-left: -70px;" />
+			<img src="./static/image/hof02.gif" style="margin-top: -1px;margin-left: -70px;" />
 		</div>
 		<div style="margin-left:20px">
 			<div class="u">
@@ -4579,7 +4579,7 @@ Users :
 	<a name="top"></a>
 	<div id="main_frame">
 		<div id="title">
-			<img src="./image/title03.gif">
+			<img src="./static/image/title03.gif">
 		</div>
 		<?php
 
