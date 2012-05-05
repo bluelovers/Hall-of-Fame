@@ -246,7 +246,7 @@ class Ranking
 			$ranking .= $val["id"] . "\n";
 		}
 
-		WriteFile(RANKING, $ranking);
+		HOF_Class_File::WriteFile(RANKING, $ranking);
 	}
 
 	//////////////////////////////////////////////////
