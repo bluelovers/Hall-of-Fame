@@ -3,7 +3,7 @@ name: MagicSphere
 type: Material
 buy: '3000'
 sell: '100'
-img: item_019.png
+img: item_019
 Add: X01
 base_name: MagicSphere
 type2: OTHER
