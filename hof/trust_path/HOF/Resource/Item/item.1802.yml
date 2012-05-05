@@ -3,7 +3,7 @@ name: MageStaff
 type: Staff
 dh: true
 buy: '14000'
-img: we_staff008b.png
+img: we_staff008b
 atk:
     - 15
     - 49
