@@ -1,2 +1,6 @@
 no: 1805
 exp: '味方の 召喚キャラが ○○匹'
+tag:
+    no: '1799'
+    exp: 召喚
+quantity: true
