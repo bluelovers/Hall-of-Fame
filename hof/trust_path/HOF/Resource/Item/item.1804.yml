@@ -3,7 +3,7 @@ name: GoldStaff
 type: Staff
 dh: true
 buy: '30000'
-img: we_staff008b.png
+img: we_staff008b
 atk:
     - 10
     - 72
