@@ -1,2 +1,6 @@
 no: 1555
 exp: '詠唱中の相手が ○○人以上'
+tag:
+    no: '1549'
+    exp: チャージ+詠唱(敵)
+quantity: true
