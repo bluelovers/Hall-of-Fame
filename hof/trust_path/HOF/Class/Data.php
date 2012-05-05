@@ -39,24 +39,4 @@ class HOF_Class_Data extends HOF_Class_Array
 		return $data;
 	}
 
-	/**
-	 * @return Array
-	 */
-	function _fixArray($append = array())
-	{
-		if (!empty($append))
-		{
-			if ($append instanceof HOF_Class_Array)
-			{
-				$append = $append->toArray();
-			}
-			elseif ($append instanceof ArrayObject)
-			{
-				$append = $append->getArrayCopy();
-			}
-		}
-
-		return (array)$append;
-	}
-
 }
