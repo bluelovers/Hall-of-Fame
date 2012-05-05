@@ -3,6 +3,6 @@ name: ''
 type: Material
 buy: '1000'
 sell: '20'
-img: mat_008.png
+img: mat_008
 base_name: ''
 type2: OTHER
