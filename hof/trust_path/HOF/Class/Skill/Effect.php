@@ -467,14 +467,15 @@ class HOF_Class_Skill_Effect
 				// 魔方陣描く
 				if ($skill["MagicCircleAdd"])
 				{
-					$this->battle->MagicCircleAdd($user->team, $skill["MagicCircleAdd"]);
+					$this->battle->changeMagicCircle($user->team, $skill["MagicCircleAdd"]);
 					print ($user->Name(bold) . '<span class="support"> draw MagicCircle x' . $skill["MagicCircleAdd"] . '</span><br />' . "\n");
 				}
 				// 魔方陣消す(敵)
 				if ($skill["MagicCircleDeleteEnemy"])
 				{
-					$EnemyTeam = ($user->team == TEAM_0) ? TEAM_1 : TEAM_0; //?豢??????
-					$this->battle->MagicCircleDelete($EnemyTeam, $skill["MagicCircleDeleteEnemy"]);
+					// 相手チームを指定
+					$EnemyTeam = ($user->team == TEAM_0) ? TEAM_1 : TEAM_0;
+					$this->battle->changeMagicCircle($EnemyTeam, $skill["MagicCircleDeleteEnemy"], -1);
 					print ($user->Name(bold) . '<span class="dmg"> erased enemy MagicCircle x' . $skill["MagicCircleDeleteEnemy"] . '</span><br />' . "\n");
 				}
 				// HP持続回復
