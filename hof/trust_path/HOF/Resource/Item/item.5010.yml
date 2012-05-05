@@ -2,7 +2,7 @@ no: 5010
 name: FluterArmor
 type: Armor
 buy: '25000'
-img: armor_016b.png
+img: armor_016b
 def:
     - 45
     - 35
