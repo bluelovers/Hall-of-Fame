@@ -2,7 +2,7 @@ no: 3004
 name: ForceShield
 type: Shield
 buy: '8000'
-img: shield_001m.png
+img: shield_001m
 def:
     - 0
     - 0
