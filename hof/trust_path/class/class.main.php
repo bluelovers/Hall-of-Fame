@@ -1075,7 +1075,7 @@ HTML;
 	<?php
 
 			// Action Pattern 行動判定 /////////////////////////
-			$list = JudgeList(); // 行動判定条件一覧
+			$list = HOF_Model_Data::getJudgeList(); // 行動判定条件一覧
 			print ("<table cellspacing=\"5\"><tbody>\n");
 			for ($i = 0; $i < $char->MaxPatterns(); $i++)
 			{
