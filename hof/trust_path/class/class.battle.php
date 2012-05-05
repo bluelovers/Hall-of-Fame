@@ -236,7 +236,7 @@ HTML;
 	//	戦闘処理(これを実行して戦闘が処理される)
 	function Process()
 	{
-		$this->BattleHeader();
+		$this->objs['view']->BattleHeader();
 
 		//戦闘が終わるまで繰り返す
 		do
@@ -1260,96 +1260,7 @@ HTML;
 		$this->team1_name = $name2;
 	}
 	//////////////////////////////////////////////////
-	//	戦闘開始した時の平均レベルや合計HP等を計算・表示
-	//	戦闘の経緯は一つの表で構成されるうっう
-	function BattleHeader()
-	{
-		foreach ($this->team0 as $char)
-		{ //チーム0
-			$team0_total_lv += $char->level; //合計LV
-			$team0_total_hp += $char->HP; //合計HP
-			$team0_total_maxhp += $char->MAXHP; //合計最大HP
-		}
-		$team0_avelv = round($team0_total_lv / count($this->team0) * 10) / 10; //チーム0平均LV
-		$this->team0_ave_lv = $team0_avelv;
-		foreach ($this->team1 as $char)
-		{ //チーム1
-			$team1_total_lv += $char->level;
-			$team1_total_hp += $char->HP;
-			$team1_total_maxhp += $char->MAXHP;
-		}
-		$team1_avelv = round($team1_total_lv / count($this->team1) * 10) / 10;
-		$this->team1_ave_lv = $team1_avelv;
-		if ($this->UnionBattle)
-		{
-			$team1_total_hp = '????';
-			$team1_total_maxhp = '????';
-		}
-
-
-?>
-<table style="width:100%;" cellspacing="0"><tbody>
-<tr><td class="teams"><div class="bold"><?=
-
-		$this->team1_name
-
-
-?></div>
-Total Lv : <?=
-
-		$team1_total_lv
-
-
-?><br>
-Average Lv : <?=
-
-		$team1_avelv
-
-
-?><br>
-Total HP : <?=
-
-		$team1_total_hp
-
-
-?>/<?=
-
-		$team1_total_maxhp
-
-
-?>
-</td><td class="teams ttd1"><div class="bold"><?=
-
-		$this->team0_name
-
-
-?></div>
-Total Lv : <?=
-
-		$team0_total_lv
-
-
-?><br>
-Average Lv : <?=
-
-		$team0_avelv
-
-
-?><br>
-Total HP : <?=
-
-		$team0_total_hp
-
-
-?>/<?=
-
-		$team0_total_maxhp
-
-
-?>
-</td></tr><?php
-
-	}
+	//
 	//////////////////////////////////////////////////
 	//
 	//////////////////////////////////////////////////
