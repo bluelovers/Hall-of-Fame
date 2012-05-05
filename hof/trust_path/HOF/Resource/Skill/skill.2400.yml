@@ -1,6 +1,6 @@
 no: 2400
 name: SummonGoblin
-img: skill_066.png
+img: skill_066
 exp: ゴブリン召喚
 sp: '100'
 type: '1'
