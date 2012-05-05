@@ -3,6 +3,6 @@ name: RenameCard
 type: Other
 buy: '5000'
 sell: '100'
-img: item_035z.png
+img: item_035z
 base_name: RenameCard
 type2: OTHER
