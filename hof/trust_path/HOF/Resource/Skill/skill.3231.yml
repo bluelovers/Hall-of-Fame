@@ -1,6 +1,6 @@
 no: 3231
 name: 'ForceShield[self]'
-img: skill_070.png
+img: skill_070
 sp: '30'
 type: '1'
 learn: '6'
