@@ -1,2 +1,6 @@
 no: 1125
 exp: '味方の 平均HPが ○○(%)以上'
+tag:
+    no: '1099'
+    exp: HP
+quantity: true
