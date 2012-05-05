@@ -231,7 +231,7 @@ HTML;
 		$head .= $this->actions . "\n"; //総ターン数(6行目)
 		$head .= "\n"; // 改行(7行目)
 
-		WriteFile($file, $head . ob_get_contents());
+		HOF_Class_File::WriteFile($file, $head . ob_get_contents());
 	}
 	//////////////////////////////////////////////////
 	//	戦闘処理(これを実行して戦闘が処理される)
