@@ -572,7 +572,7 @@ function ShowSkillDetail($skill, $radio = false)
 
 	if ($radio) print ('<input type="radio" name="newskill" value="' . $skill["no"] . '" class="vcent" />');
 
-	print ('<img src="' . IMG_ICON . 'skill/' . $skill["img"] . '" class="vcent">');
+	print ('<img src="' . HOF_Class_Icon::getIamge($skill["img"], IMG_ICON . 'skill/') . '" class="vcent">');
 	print ("{$skill[name]}");
 
 	if ($radio) print (" / <span class=\"bold\">{$skill[learn]}</span>pt");
@@ -672,7 +672,7 @@ function ShowItemDetail($item, $amount = false, $text = false, $need = false)
 {
 	if (!$item) return false;
 
-	$html = "<img src=\"" . IMG_ICON . 'item/' . $item["img"] . "\" class=\"vcent\">";
+	$html = "<img src=\"" . HOF_Class_Icon::getIamge($item["img"], IMG_ICON . 'item/') . "\" class=\"vcent\">";
 	// 精錬値
 	if ($item["refine"]) $html .= "+{$item[refine]} ";
 	if ($item["AddName"]) $html .= "{$item[AddName]} ";
@@ -702,7 +702,7 @@ function ShowItemDetail($item, $amount = false, $text = false, $need = false)
 		foreach ($item["need"] as $M_itemNo => $M_amount)
 		{
 			$M_item = HOF_Model_Data::getItemData($M_itemNo);
-			$html .= "<img src=\"" . IMG_ICON . $M_item["img"] . "\" class=\"vcent\">";
+			$html .= "<img src=\"" . HOF_Class_Icon::getIamge($M_item["img"], IMG_ICON) . "\" class=\"vcent\">";
 			$html .= "{$M_item[base_name]}"; // 名前
 			$html .= " x<span class=\"bold\" style=\"font-size:80%\">{$M_amount}</span>";
 			if ($need["$M_itemNo"]) $html .= "<span class=\"light\">(" . $need["$M_itemNo"] . ")</span>";
