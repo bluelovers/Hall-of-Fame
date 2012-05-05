@@ -2,7 +2,7 @@ no: 3003
 name: KiteShield
 type: Shield
 buy: '5000'
-img: shield_001m.png
+img: shield_001m
 def:
     - 5
     - 20
