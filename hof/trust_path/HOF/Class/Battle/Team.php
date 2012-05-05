@@ -151,4 +151,11 @@ class HOF_Class_Battle_Team extends HOF_Class_Array
 		return $no;
 	}
 
+	function insert($offset, $insert)
+	{
+		parent::insert($offset, $insert);
+
+		$this->update();
+	}
+
 }
