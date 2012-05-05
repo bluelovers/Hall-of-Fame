@@ -432,13 +432,13 @@ class Ranking
 			switch ($Place)
 			{
 				case 0:
-					print ('<img src="' . IMG_ICON . 'crown01.png" class="vcent" />');
+					print ('<img src="' . HOF_Class_Icon::getIamge('crown01', IMG_ICON) . '" class="vcent" />');
 					break;
 				case 1:
-					print ('<img src="' . IMG_ICON . 'crown02.png" class="vcent" />');
+					print ('<img src="' . HOF_Class_Icon::getIamge('crown02', IMG_ICON) . '" class="vcent" />');
 					break;
 				case 2:
-					print ('<img src="' . IMG_ICON . 'crown03.png" class="vcent" />');
+					print ('<img src="' . HOF_Class_Icon::getIamge('crown03', IMG_ICON) . '" class="vcent" />');
 					break;
 				default:
 					if ($Place == $LastPlace) print ("底");
