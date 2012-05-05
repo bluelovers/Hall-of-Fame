@@ -3,6 +3,6 @@ name: 'AncientCave B2'
 type: Key
 buy: '5000'
 sell: '100'
-img: item_032.png
+img: item_032
 base_name: 'AncientCave B2'
 type2: OTHER
