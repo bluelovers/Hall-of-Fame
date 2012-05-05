@@ -2,7 +2,7 @@ no: 5007
 name: PlateMail
 type: Armor
 buy: '10000'
-img: armor_016b.png
+img: armor_016b
 def:
     - 20
     - 100
