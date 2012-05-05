@@ -1,2 +1,6 @@
 no: 1825
 exp: '相手の 召喚キャラが ○○匹'
+tag:
+    no: '1819'
+    exp: 召喚(敵)
+quantity: true
