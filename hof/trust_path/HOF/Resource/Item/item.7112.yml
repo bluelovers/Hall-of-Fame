@@ -3,7 +3,7 @@ name: 'EvilServant&#39;s Tears'
 type: Material
 buy: '3000'
 sell: '100'
-img: item_018.png
+img: item_018
 Add: ''
 base_name: 'EvilServant&#39;s Tears'
 type2: OTHER
