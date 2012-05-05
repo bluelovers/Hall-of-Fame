@@ -1,6 +1,6 @@
 no: 1052
 name: DarkElfShaman
-img: mon_220r.gif
+img: mon_220r
 exphold: '600'
 moneyhold: '300'
 level: '41'
