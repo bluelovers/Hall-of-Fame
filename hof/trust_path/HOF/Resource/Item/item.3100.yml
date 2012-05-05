@@ -2,7 +2,7 @@ no: 3100
 name: TextBook
 type: Book
 buy: '200'
-img: book_002.png
+img: book_002
 atk:
     - 0
     - 2
