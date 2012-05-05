@@ -287,6 +287,7 @@ HTML;
  				$team0Lose = true;
 		if (HOF_Class_Battle_Team::CountAlive($this->team1) == 0) //全員しぼーなら負けにする。
  				$team1Lose = true;
+
 		//勝者のチーム番号か引き分けを返す
 		if ($team0Lose && $team1Lose)
 		{
@@ -400,7 +401,7 @@ HTML;
 			}
 		}
 		//チーム0でないならチーム1
-		if (!$MyTeam)
+		if (empty($MyTeam))
 		{
 			$MyTeam = &$this->team1;
 			$EnemyTeam = &$this->team0;
