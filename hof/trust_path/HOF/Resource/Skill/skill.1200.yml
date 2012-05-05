@@ -1,6 +1,6 @@
 no: 1200
 name: PoisonBlow
-img: skill_074y.png
+img: skill_074y
 exp: 相手が毒状態なら威力6倍
 sp: '10'
 type: '0'
