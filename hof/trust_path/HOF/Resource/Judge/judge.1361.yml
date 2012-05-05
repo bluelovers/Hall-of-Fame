@@ -1,2 +1,6 @@
 no: 1361
 exp: '自分のMATKが○○ 以下'
+tag:
+    no: '1359'
+    exp: MATK
+quantity: true
