@@ -1,2 +1,6 @@
 no: 1225
 exp: '味方の 平均SPが ○○(%)以上'
+tag:
+    no: '1199'
+    exp: SP
+quantity: true
