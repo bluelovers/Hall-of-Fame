@@ -3562,7 +3562,7 @@ JS_HTML;
 			else  $EnemyParty = $this->EnemyParty($EneNum - 1, $Union->Slave, $UnionMob["SlaveSpecify"]);
 
 			// unionMobを配列のおよそ中央に入れる
-			array_splice($EnemyParty, floor(count($EnemyParty) / 2), 0, array($Union));
+			$EnemyParty->insert(floor(count($EnemyParty) / 2), array($Union));
 
 			$this->UnionSetTime();
 
