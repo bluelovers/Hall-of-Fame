@@ -12,15 +12,6 @@ class battle
 	* $battle	= new HOF_Class_Battle($MyParty,$EnemyParty);
 	* $battle->SetTeamName($this->name,$party["name"]);
 	* $battle->Process();//戦闘開始
-	*
-	*
-	*
-	*
-	*
-	*
-	*
-	*
-	*
 	*/
 	// teams
 	var $team0, $team1;
@@ -1394,15 +1385,15 @@ Total HP : <?=
 		/*
 		switch (BTL_IMG_TYPE)
 		{
-			case 0:
-				print ('<div style="text-align:center">');
-				$this->ShowGdImage(); //画像
-				print ('</div>');
-				break;
-			case 1:
-			case 2:
-				$this->ShowCssImage(); //画像
-				break;
+		case 0:
+		print ('<div style="text-align:center">');
+		$this->ShowGdImage(); //画像
+		print ('</div>');
+		break;
+		case 1:
+		case 2:
+		$this->ShowCssImage(); //画像
+		break;
 		}
 		*/
 		// bluelovers
@@ -1464,209 +1455,167 @@ Total HP : <?=
 	//	戦闘画像(画像のみ)
 	function ShowGdImage()
 	{
-		$url = BTL_IMG . "?";
+	$url = BTL_IMG . "?";
 
-		// HP=0 のキャラの画像(拡張子があればそれを取る)
-		$DeadImg = substr(DEAD_IMG, 0, strpos(DEAD_IMG, "."));
+	// HP=0 のキャラの画像(拡張子があればそれを取る)
+	$DeadImg = substr(DEAD_IMG, 0, strpos(DEAD_IMG, "."));
 
-		//チーム1
-		$f = 1;
-		$b = 1; //前衛の数・後衛の数を初期化
+	//チーム1
+	$f = 1;
+	$b = 1; //前衛の数・後衛の数を初期化
+	foreach ($this->team0 as $char)
+	{
+	//画像はキャラに設定されている画像の拡張子までの名前
+	if ($char->STATE === 1) $img = $DeadImg;
+	else  $img = substr($char->img, 0, strpos($char->img, "."));
+	if ($char->POSITION == "front"): //前衛
+	$url .= "f2{$f}=$img&";
+	$f++;
+	else:
+	$url .= "b2{$b}=$img&"; //後衛
+	$b++;
+	endif;
+	}
+	//チーム0
+	$f = 1;
+	$b = 1;
+	foreach ($this->team1 as $char)
+	{
+	if ($char->STATE === 1) $img = $DeadImg;
+	else  $img = substr($char->img, 0, strpos($char->img, "."));
+	if ($char->POSITION == "front"):
+	$url .= "f1{$f}=$img&";
+	$f++;
+	else:
+	$url .= "b1{$b}=$img&";
+	$b++;
+	endif;
+	}
+	print ('<img src="' . $url . '">'); // ←これが表示されるのみ
+	}
+	//////////////////////////////////////////////////
+	//	CSS戦闘画面
+	function ShowCssImage()
+	{
+	$img = new HOF_Class_Battle_Style();
+	$img->SetBackGround($this->BackGround);
+	$img->SetTeams($this->team1, $this->team0);
+	$img->SetMagicCircle($this->team1_mc, $this->team0_mc);
+	if (BTL_IMG_TYPE == 2) $img->NoFlip(); // CSS画像反転無し
+	$img->Show();
+	}
+	*/
+
+	//////////////////////////////////////////////////
+	//	お金を得る、一時的に変数に保存するだけ。
+	//	class内にメソッド作れー
+	function GetMoney($money, $team)
+	{
+		if (!$money) return false;
+		$money = ceil($money * MONEY_RATE);
+		if ($team === $this->team0)
+		{
+			print ("{$this->team0_name} Get " . MoneyFormat($money) . ".<br />\n");
+			$this->team0_money += $money;
+		}
+		else
+			if ($team === $this->team1)
+			{
+				print ("{$this->team1_name} Get " . MoneyFormat($money) . ".<br />\n");
+				$this->team1_money += $money;
+			}
+	}
+	//////////////////////////////////////////////////
+	//	ユーザーデータに得る合計金額を渡す
+	function ReturnMoney()
+	{
+		return array($this->team0_money, $this->team1_money);
+	}
+
+	//////////////////////////////////////////////////
+	//	全体の死者数を数える...(ネクロマンサしか使ってない?)
+	function CountDeadAll()
+	{
+		$dead = 0;
 		foreach ($this->team0 as $char)
 		{
-			//画像はキャラに設定されている画像の拡張子までの名前
-			if ($char->STATE === 1) $img = $DeadImg;
-			else  $img = substr($char->img, 0, strpos($char->img, "."));
-			if ($char->POSITION == "front"): //前衛
-				$url .= "f2{$f}=$img&";
-				$f++;
-			else:
-				$url .= "b2{$b}=$img&"; //後衛
-				$b++;
-			endif;
-			}
-			//チーム0
-			$f = 1;
-			$b = 1;
-			foreach ($this->team1 as $char)
-			{
-				if ($char->STATE === 1) $img = $DeadImg;
-				else  $img = substr($char->img, 0, strpos($char->img, "."));
-				if ($char->POSITION == "front"):
-					$url .= "f1{$f}=$img&";
-					$f++;
-				else:
-					$url .= "b1{$b}=$img&";
-					$b++;
-				endif;
-				}
-				print ('<img src="' . $url . '">'); // ←これが表示されるのみ
-			}
-			//////////////////////////////////////////////////
-			//	CSS戦闘画面
-			function ShowCssImage()
-			{
-				$img = new HOF_Class_Battle_Style();
-				$img->SetBackGround($this->BackGround);
-				$img->SetTeams($this->team1, $this->team0);
-				$img->SetMagicCircle($this->team1_mc, $this->team0_mc);
-				if (BTL_IMG_TYPE == 2) $img->NoFlip(); // CSS画像反転無し
-				$img->Show();
-			}
-			*/
-
-			//////////////////////////////////////////////////
-			//	お金を得る、一時的に変数に保存するだけ。
-			//	class内にメソッド作れー
-			function GetMoney($money, $team)
-			{
-				if (!$money) return false;
-				$money = ceil($money * MONEY_RATE);
-				if ($team === $this->team0)
-				{
-					print ("{$this->team0_name} Get " . MoneyFormat($money) . ".<br />\n");
-					$this->team0_money += $money;
-				}
-				else
-					if ($team === $this->team1)
-					{
-						print ("{$this->team1_name} Get " . MoneyFormat($money) . ".<br />\n");
-						$this->team1_money += $money;
-					}
-			}
-			//////////////////////////////////////////////////
-			//	ユーザーデータに得る合計金額を渡す
-			function ReturnMoney()
-			{
-				return array($this->team0_money, $this->team1_money);
-			}
-
-			//////////////////////////////////////////////////
-			//	全体の死者数を数える...(ネクロマンサしか使ってない?)
-			function CountDeadAll()
-			{
-				$dead = 0;
-				foreach ($this->team0 as $char)
-				{
-					if ($char->STATE === DEAD) $dead++;
-				}
-				foreach ($this->team1 as $char)
-				{
-					if ($char->STATE === DEAD) $dead++;
-				}
-				return $dead;
-			}
-
-			//////////////////////////////////////////////////
-			//	指定キャラのチームの死者数を数える(指定のチーム)ネクロマンサしか使ってない?
-			function CountDead($VarChar)
-			{
-				$dead = 0;
-
-				if ($VarChar->team == TEAM_0)
-				{
-					//	print("A".$VarChar->team."<br>");
-					$Team = $this->team0;
-				}
-				else
-				{
-					//print("B".$VarChar->team);
-					$Team = $this->team1;
-				}
-
-				foreach ($Team as $char)
-				{
-					if ($char->STATE === DEAD)
-					{
-						$dead++;
-					}
-					else
-						if ($char->SPECIAL["Undead"] == true)
-						{
-							//print("C".$VarChar->Name()."/".count($Team)."<br>");
-							$dead++;
-						}
-				}
-				return $dead;
-			}
-			//////////////////////////////////////////////////
-			//	魔方陣を追加する
-			function MagicCircleAdd($team, $amount)
-			{
-				if ($team == TEAM_0)
-				{
-					$this->team0_mc += $amount;
-					if (5 < $this->team0_mc) $this->team0_mc = 5;
-					return true;
-				}
-				else
-				{
-					$this->team1_mc += $amount;
-					if (5 < $this->team1_mc) $this->team1_mc = 5;
-					return true;
-				}
-			}
-			//////////////////////////////////////////////////
-			//	魔方陣を削除する
-			function MagicCircleDelete($team, $amount)
-			{
-				if ($team == TEAM_0)
-				{
-					if ($this->team0_mc < $amount) return false;
-					$this->team0_mc -= $amount;
-					return true;
-				}
-				else
-				{
-					if ($this->team1_mc < $amount) return false;
-					$this->team1_mc -= $amount;
-					return true;
-				}
-			}
-			// end of class. /////////////////////////////////////////////////////
+			if ($char->STATE === DEAD) $dead++;
 		}
-
-		//////////////////////////////////////////////////
-		//
-
-		//////////////////////////////////////////////////
-		//
-		//////////////////////////////////////////////////
-		//	召還系スキルで呼ばれたモンスター。
-		function HOF_Model_Char::newMonSummon($no, $strength = false)
+		foreach ($this->team1 as $char)
 		{
-			/*
-			include_once (DATA_MONSTER);
-			*/
-			$monster = HOF_Model_Char::getBaseMonster($no, 1);
-
-			$monster["summon"] = true;
-			// 召喚モンスターの強化。
-			if ($strength)
-			{
-				$monster["maxhp"] = round($monster["maxhp"] * $strength);
-				$monster["hp"] = round($monster["hp"] * $strength);
-				$monster["maxsp"] = round($monster["maxsp"] * $strength);
-				$monster["sp"] = round($monster["sp"] * $strength);
-				$monster["str"] = round($monster["str"] * $strength);
-				$monster["int"] = round($monster["int"] * $strength);
-				$monster["dex"] = round($monster["dex"] * $strength);
-				$monster["spd"] = round($monster["spd"] * $strength);
-				$monster["luk"] = round($monster["luk"] * $strength);
-
-				$monster["atk"]["0"] = round($monster["atk"]["0"] * $strength);
-				$monster["atk"]["1"] = round($monster["atk"]["1"] * $strength);
-			}
-
-			/*
-			$monster = new monster($monster);
-			*/
-			$monster = HOF_Model_Char::newMon($monster);
-			$monster->SetBattleVariable();
-			return $monster;
+			if ($char->STATE === DEAD) $dead++;
 		}
-		//////////////////////////////////////////////////
-		//
+		return $dead;
+	}
+
+	//////////////////////////////////////////////////
+	//	指定キャラのチームの死者数を数える(指定のチーム)ネクロマンサしか使ってない?
+	function CountDead($VarChar)
+	{
+		$dead = 0;
+
+		if ($VarChar->team == TEAM_0)
+		{
+			//	print("A".$VarChar->team."<br>");
+			$Team = $this->team0;
+		}
+		else
+		{
+			//print("B".$VarChar->team);
+			$Team = $this->team1;
+		}
+
+		foreach ($Team as $char)
+		{
+			if ($char->STATE === DEAD)
+			{
+				$dead++;
+			}
+			else
+				if ($char->SPECIAL["Undead"] == true)
+				{
+					//print("C".$VarChar->Name()."/".count($Team)."<br>");
+					$dead++;
+				}
+		}
+		return $dead;
+	}
+	//////////////////////////////////////////////////
+	//	魔方陣を追加する
+	function MagicCircleAdd($team, $amount)
+	{
+		if ($team == TEAM_0)
+		{
+			$this->team0_mc += $amount;
+			if (5 < $this->team0_mc) $this->team0_mc = 5;
+			return true;
+		}
+		else
+		{
+			$this->team1_mc += $amount;
+			if (5 < $this->team1_mc) $this->team1_mc = 5;
+			return true;
+		}
+	}
+	//////////////////////////////////////////////////
+	//	魔方陣を削除する
+	function MagicCircleDelete($team, $amount)
+	{
+		if ($team == TEAM_0)
+		{
+			if ($this->team0_mc < $amount) return false;
+			$this->team0_mc -= $amount;
+			return true;
+		}
+		else
+		{
+			if ($this->team1_mc < $amount) return false;
+			$this->team1_mc -= $amount;
+			return true;
+		}
+	}
+	// end of class. /////////////////////////////////////////////////////
+}
 
 
 ?>
