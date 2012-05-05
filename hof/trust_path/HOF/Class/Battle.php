@@ -34,6 +34,9 @@ class HOF_Class_Battle extends battle
 		$this->teams[0]['name'] = &$this->team0_name;
 		$this->teams[1]['name'] = &$this->team1_name;
 
+		$this->teams[0]['no'] = TEAM_0;
+		$this->teams[1]['no'] = TEAM_1;
+
 		$this->teams[0]['team']->update();
 		$this->teams[1]['team']->update();
 	}
@@ -108,6 +111,29 @@ class HOF_Class_Battle extends battle
 		$count += HOF_Class_Battle_Team::CountDead($this->team1);
 
 		return $count;
+	}
+
+	/**
+	 * 戦闘にキャラクターを途中参加させる。
+	 *
+	 * @param HOF_Class_Char|$user
+	 * @param HOF_Class_Char|$add
+	 */
+	function JoinCharacter($user, $add)
+	{
+		foreach($this->teams as &$team)
+		{
+			foreach ($team['team'] as $char)
+			{
+				if ($user === $char)
+				{
+					$team['team']->addChar($add, $team['no']);
+					$this->ChangeDelay();
+
+					return true;
+				}
+			}
+		}
 	}
 
 }
