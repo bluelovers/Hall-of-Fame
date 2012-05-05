@@ -2,7 +2,7 @@ no: 5501
 name: ManaRing
 type: Item
 buy: '10000'
-img: acce_024.png
+img: acce_024
 handle: '2'
 P_MAXSP: '20'
 option: 'MAXSP+20, '
