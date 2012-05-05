@@ -20,11 +20,22 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 {
 
 	/**
+	 * Retrieve singleton instance
+	 *
+	 * @return self
+	 */
+	public static function &newInstance()
+	{
+		return new self();
+	}
+
+	/**
+	 * CSS画像反転無し
 	 * CSSで image.flip() を使うか使わないか。
 	 */
-	function NoFlip()
+	function NoFlip($enable = true)
 	{
-		$this->NoFlip = true;
+		$this->NoFlip = $enable;
 
 		return $this;
 	}
