@@ -2,7 +2,7 @@ no: 1005
 name: LongSword
 type: Sword
 buy: '14000'
-img: we_sword026.png
+img: we_sword026
 atk:
     - 40
     - 0
