@@ -155,7 +155,7 @@ class battle
 		if (BATTLE_MAX_EXTENDS < $this->BattleMaxTurn) $this->BattleMaxTurn = BATTLE_MAX_EXTENDS;
 		if ($notice)
 		{
-			print <<< HTML
+			$this->objs['view']->output[] = <<< HTML
 	<tr><td colspan="2" class="break break-top bold" style="text-align:center;padding:20px 0;">
 	battle turns extended.
 	</td></tr>
@@ -242,7 +242,7 @@ HTML;
 		do
 		{
 			if ($this->actions % BATTLE_STAT_TURNS == 0) //一定間隔で状況を表示
- 					$this->BattleState(); //状況の表示
+ 					$this->objs['view']->BattleState(); //状況の表示
 
 			// 行動キャラ
 			if (DELAY_TYPE === 0) $char = &$this->NextActer();
@@ -257,8 +257,10 @@ HTML;
 
 		} while (!$result);
 
-		$this->ShowResult($result); //戦闘の結果表示
+		$this->objs['view']->ShowResult($result); //戦闘の結果表示
 		$this->objs['view']->BattleFoot();
+
+		echo $this->objs['view'];
 
 		//$this->SaveCharacters();
 	}
@@ -362,129 +364,17 @@ HTML;
 							else
 							{
 								$this->result = DRAW;
-								print ("error321708.<br />おかしいので報告してください。");
+								$this->objs['view']->add("error321708.<br />おかしいので報告してください。");
 								return "draw"; // エラー回避。
 							}
 
 							$this->result = DRAW;
-						print ("error321709.<br />おかしいので報告してください。");
+						$this->objs['view']->add("error321709.<br />おかしいので報告してください。");
 						return "draw"; // エラー回避。
 					}
 	}
 	//////////////////////////////////////////////////
-	//	戦闘の結果表示
-	function ShowResult($result)
-	{
-
-		// 左側のチーム(戦闘を受けた側)
-		$TotalAlive2 = 0;
-		// 残りHP / 合計HP の 表示
-		foreach ($this->team1 as $char)
-		{ //チーム1
-			if ($char->STATE !== DEAD) $TotalAlive2++;
-			$TotalHp2 += $char->HP; //合計HP
-			$TotalMaxHp2 += $char->MAXHP; //合計最大HP
-		}
-
-		// 右側のチーム(戦闘を仕掛けた側)
-		$TotalAlive1 = 0;
-		foreach ($this->team0 as $char)
-		{ //チーム0
-			if ($char->STATE !== DEAD) $TotalAlive1++;
-			$TotalHp1 += $char->HP; //合計HP
-			$TotalMaxHp1 += $char->MAXHP; //合計最大HP
-		}
-
-		// 結果を表示しない。
-		if ($this->NoResult)
-		{
-			print ('<tr><td colspan="2" style="text-align:center;padding:10px 0px" class="break break-top">');
-			//print("<a name=\"s{$this->Scroll}\"></a>");// スクロールの最後
-			print ("模擬戦終了");
-			print ("</td></tr>\n");
-			print ('<tr><td class="teams break">' . "\n");
-			// 左側チーム
-			print ("HP remain : {$TotalHp2}/{$TotalMaxHp2}<br />\n");
-			print ("Alive : {$TotalAlive2}/" . count($this->team1) . "<br />\n");
-			print ("TotalDamage : {$this->team1_dmg}<br />\n");
-			// 右側チーム
-			print ('</td><td class="teams break">' . "\n");
-			print ("HP remain : {$TotalHp1}/{$TotalMaxHp1}<br />\n");
-			print ("Alive : {$TotalAlive1}/" . count($this->team0) . "<br />\n");
-			print ("TotalDamage : {$this->team0_dmg}<br />\n");
-			print ("</td></tr>\n");
-			return false;
-		}
-
-		//if($this->actions % BATTLE_STAT_TURNS != 0 || $result == "draw")
-		//if(($this->actions + 1) % BATTLE_STAT_TURNS != 0)
-		$BreakTop = " break-top";
-		print ('<tr><td colspan="2" style="text-align:center;padding:10px 0px" class="break' . $BreakTop . '">' . "\n");
-		//print($this->actions."%".BATTLE_STAT_TURNS."<br>");
-		print ("<a name=\"s{$this->Scroll}\"></a>\n"); // スクロールの最後
-		if ($result == "draw")
-		{
-			print ("<span style=\"font-size:150%\">Draw Game</span><br />\n");
-		}
-		else
-		{
-			$Team = &$this->{$result};
-			$TeamName = $this->{$result . "_name"};
-			print ("<span style=\"font-size:200%\">{$TeamName} Wins!</span><br />\n");
-		}
-
-		print ('<tr><td class="teams">' . "\n");
-		// Unionとそうでないのでわける
-		print ("HP remain : ");
-		print ($this->UnionBattle ? "????/????" : "{$TotalHp2}/{$TotalMaxHp2}");
-		print ("<br />\n");
-		/*
-		if($this->UnionBattle) {
-		print("HP remain : ????/????<br />\n");
-		} else {
-		print("HP remain : {$TotalHp2}/{$TotalMaxHp2}<br />\n");
-		}
-		*/
-		// 左側チーム
-		print ("Alive : {$TotalAlive2}/" . count($this->team1) . "<br />\n");
-		print ("TotalDamage : {$this->team1_dmg}<br />\n");
-		if ($this->team1_exp) //得た経験値
- 				print ("TotalExp : " . $this->team1_exp . "<br />\n");
-		if ($this->team1_money) //得たお金
- 				print ("Funds : " . HOF_Helper_Global::MoneyFormat($this->team1_money) . "<br />\n");
-		if ($this->team1_item)
-		{ //得たアイテム
-			print ("<div class=\"bold\">Items</div>\n");
-			foreach ($this->team0_item as $itemno => $amount)
-			{
-				$item = HOF_Model_Data::getItemData($itemno);
-				print ("<img src=\"" . IMG_ICON . 'item/' . $item["img"] . "\" class=\"vcent\">");
-				print ("{$item[name]} x {$amount}<br />\n");
-			}
-		}
-
-		// 右側チーム
-		print ('</td><td class="teams">');
-		print ("HP remain : {$TotalHp1}/{$TotalMaxHp1}<br />\n");
-		print ("Alive : {$TotalAlive1}/" . count($this->team0) . "<br />\n");
-		print ("TotalDamage : {$this->team0_dmg}<br />\n");
-		if ($this->team0_exp) //得た経験値
- 				print ("TotalExp : " . $this->team0_exp . "<br />\n");
-		if ($this->team0_money) //得たお金
- 				print ("Funds : " . HOF_Helper_Global::MoneyFormat($this->team0_money) . "<br />\n");
-		if ($this->team0_item)
-		{ //得たアイテム
-			print ("<div class=\"bold\">Items</div>\n");
-			foreach ($this->team0_item as $itemno => $amount)
-			{
-				$item = HOF_Model_Data::getItemData($itemno);
-				print ("<img src=\"" . IMG_ICON . 'item/' . $item["img"] . "\" class=\"vcent\">");
-				print ("{$item[name]} x {$amount}<br />\n");
-			}
-		}
-		print ("</td></tr>\n");
-		//print("</td></tr>\n");//?
-	}
+	//
 
 	//////////////////////////////////////////////////
 	//	キャラの行動
@@ -499,8 +389,8 @@ HTML;
 
 		// チーム0の人はセルの右側に
 		// チーム1の人は左側に 行動内容と結果 を表示する
-		print ("<tr><td class=\"ttd2\">\n");
-		if ($char->team === TEAM_0) print ("</td><td class=\"ttd1\">\n");
+		$this->objs['view']->add("<tr><td class=\"ttd2\">\n");
+		if ($char->team === TEAM_0) $this->objs['view']->add("</td><td class=\"ttd1\">\n");
 		// 自分のチームはどちらか?
 		foreach ($this->team0 as $val)
 		{
@@ -579,7 +469,7 @@ HTML;
 		}
 		else
 		{
-			print ($char->Name(bold) . " sunk in thought and couldn't act.<br />(No more patterns)<br />\n");
+			$this->objs['view']->add($char->Name(bold) . " sunk in thought and couldn't act.<br />(No more patterns)<br />\n");
 			$char->DelayReset();
 		}
 
@@ -589,8 +479,8 @@ HTML;
 
 		//echo $char->name." ".$skill."<br>";//確認用
 		//セルの終わり
-		if ($char->team === TEAM_1) print ("</td><td class=\"ttd1\">&nbsp;\n");
-		print ("</td></tr>\n");
+		if ($char->team === TEAM_1) $this->objs['view']->add("</td><td class=\"ttd1\">&nbsp;\n");
+		$this->objs['view']->add("</td></tr>\n");
 	}
 	//////////////////////////////////////////////////
 	//	総ダメージを加算する
@@ -613,12 +503,12 @@ HTML;
 		{
 			if (!$skill["limit"][$My->WEAPON])
 			{
-				print ('<span class="u">' . $My->Name(bold));
-				print ('<span class="dmg"> Failed </span>to ');
-				print ("<img src=\"" . IMG_ICON . 'skill/' . $skill["img"] . "\" class=\"vcent\"/>");
-				print ($skill[name] . "</span><br />\n");
-				//print($My->Name(bold)." Failed to use ".$skill["name"]."<br />\n");
-				print ("(Weapon type doesnt match)<br />\n");
+				$this->objs['view']->add('<span class="u">' . $My->Name(bold));
+				$this->objs['view']->add('<span class="dmg"> Failed </span>to ');
+				$this->objs['view']->add("<img src=\"" . IMG_ICON . 'skill/' . $skill["img"] . "\" class=\"vcent\"/>");
+				$this->objs['view']->add($skill[name] . "</span><br />\n");
+				//$this->objs['view']->add($My->Name(bold)." Failed to use ".$skill["name"]."<br />\n");
+				$this->objs['view']->add("(Weapon type doesnt match)<br />\n");
 				$My->DelayReset(); // 行動順をリセット
 				return true;
 			}
@@ -627,7 +517,7 @@ HTML;
 		// SP不足
 		if ($My->SP < $skill["sp"])
 		{
-			print ($My->Name(bold) . " failed to " . $skill["name"] . "(SP shortage)");
+			$this->objs['view']->add($My->Name(bold) . " failed to " . $skill["name"] . "(SP shortage)");
 			if ($My->expect)
 			{ //もし詠唱や貯め途中でSPが不足した場合
 				$My->ResetExpect();
@@ -643,12 +533,12 @@ HTML;
 			// 物理か魔法によって文を変える
 			if ($skill["type"] == 0)
 			{ //物理
-				print ('<span class="charge">' . $My->Name(bold) . ' start charging.</span>');
+				$this->objs['view']->add('<span class="charge">' . $My->Name(bold) . ' start charging.</span>');
 				$My->expect_type = CHARGE;
 			}
 			else
 			{ //魔法
-				print ('<span class="charge">' . $My->Name(bold) . ' start casting.</span>');
+				$this->objs['view']->add('<span class="charge">' . $My->Name(bold) . ' start casting.</span>');
 				$My->expect_type = CAST;
 			}
 			$My->expect = $skill_no; //詠唱・貯め完了と同時に使用する技
@@ -656,7 +546,7 @@ HTML;
 			//$My->target_expect	= $JudgedTarget;//一応ターゲットも保存
 			//詠唱・貯め時間の設定。
 			$My->DelayByRate($skill["charge"]["0"], $this->delay, 1);
-			print ("<br />\n");
+			$this->objs['view']->add("<br />\n");
 
 			// 戦闘の総行動回数を減らす(貯めor詠唱 は行動に入れない)
 			$this->actions--;
@@ -671,21 +561,21 @@ HTML;
 			$My->ActCount++;
 
 			// 行動内容の表示(行動する)
-			print ('<div class="u">' . $My->Name(bold));
-			print ("<img src=\"" . IMG_ICON . 'skill/' . $skill["img"] . "\" class=\"vcent\"/>");
-			print ($skill[name] . "</div>\n");
+			$this->objs['view']->add('<div class="u">' . $My->Name(bold));
+			$this->objs['view']->add("<img src=\"" . IMG_ICON . 'skill/' . $skill["img"] . "\" class=\"vcent\"/>");
+			$this->objs['view']->add($skill[name] . "</div>\n");
 
 			// 魔法陣を消費(味方)
 			if ($skill["MagicCircleDeleteTeam"])
 			{
 				if ($this->MagicCircleDelete($My->team, $skill["MagicCircleDeleteTeam"]))
 				{
-					print ($My->Name(bold) . '<span class="charge"> use MagicCircle x' . $skill["MagicCircleDeleteTeam"] . '</span><br />' . "\n");
+					$this->objs['view']->add($My->Name(bold) . '<span class="charge"> use MagicCircle x' . $skill["MagicCircleDeleteTeam"] . '</span><br />' . "\n");
 					// 魔法陣消費失敗
 				}
 				else
 				{
-					print ('<span class="dmg">failed!(MagicCircle isn\'t enough)</span><br />' . "\n");
+					$this->objs['view']->add('<span class="dmg">failed!(MagicCircle isn\'t enough)</span><br />' . "\n");
 					$My->DelayReset(); // 行動順をリセット
 					return true;
 				}
@@ -786,9 +676,9 @@ HTML;
 		if ($skill["charge"]["1"])
 		{
 			$My->DelayReset();
-			print ($My->Name(bold) . " Delayed");
+			$this->objs['view']->add($My->Name(bold) . " Delayed");
 			$My->DelayByRate($skill["charge"]["1"], $this->delay, 1);
-			print ("<br />\n");
+			$this->objs['view']->add("<br />\n");
 			return false;
 		}
 
@@ -815,12 +705,12 @@ HTML;
 		$Alive = HOF_Class_Battle_Team::CountAliveChars($team);
 		if ($Alive === 0) return false;
 		$ExpGet = ceil($exp / $Alive); //生存者にだけ経験値を分ける。
-		print ("Alives get {$ExpGet}exps.<br />\n");
+		$this->objs['view']->add("Alives get {$ExpGet}exps.<br />\n");
 		foreach ($team as $key => $char)
 		{
 			if ($char->STATE === 1) continue; //死亡者にはEXPあげない
 			if ($team[$key]->GetExp($ExpGet)) //LvUpしたならtrueが返る
- 					print ("<span class=\"levelup\">" . $char->Name() . " LevelUp!</span><br />\n");
+ 					$this->objs['view']->add("<span class=\"levelup\">" . $char->Name() . " LevelUp!</span><br />\n");
 		}
 	}
 	//////////////////////////////////////////////////
@@ -860,7 +750,7 @@ HTML;
 		// 前衛 + 生存者 + HP1以上 に変更 ( 多段系攻撃で死にながら守るので [2007/9/20] )
 		foreach ($candidate as $key => $char)
 		{
-			//print("{$char->POSTION}:{$char->STATE}<br>");
+			//$this->objs['view']->add("{$char->POSTION}:{$char->STATE}<br>");
 			if ($char->POSITION == "front" && $char->STATE !== 1 && 1 < $char->HP) $fore[] = &$candidate["$key"];
 		}
 		if (count($fore) == 0) //前衛がいなけりゃ守れない。終わる
@@ -911,7 +801,7 @@ HTML;
 			// 誰かが後衛を守りに入ったのでそれを表示する
 			if ($defender)
 			{
-				print ('<span class="bold">' . $defender->name . '</span> protected <span class="bold">' . $target->name . '</span>!<br />' . "\n");
+				$this->objs['view']->add('<span class="bold">' . $defender->name . '</span> protected <span class="bold">' . $target->name . '</span>!<br />' . "\n");
 				return $defender;
 			}
 		}
@@ -930,7 +820,7 @@ HTML;
 			if ($target[$key]->CharJudgeDead())
 			{ //死んだかどうか
 				// 死亡メッセージ
-				print ("<span class=\"dmg\">" . $target[$key]->Name(bold) . " down.</span><br />\n");
+				$this->objs['view']->add("<span class=\"dmg\">" . $target[$key]->Name(bold) . " down.</span><br />\n");
 
 				//経験値の取得
 				$exp += $target[$key]->DropExp();
@@ -943,9 +833,9 @@ HTML;
 				{
 					$itemdrop["$item"]++;
 					$item = HOF_Model_Data::getItemData($item);
-					print ($char->Name("bold") . " dropped");
-					print ("<img src=\"" . IMG_ICON . 'item/' . $item["img"] . "\" class=\"vcent\"/>\n");
-					print ("<span class=\"bold u\">{$item[name]}</span>.<br />\n");
+					$this->objs['view']->add($char->Name("bold") . " dropped");
+					$this->objs['view']->add("<img src=\"" . IMG_ICON . 'item/' . $item["img"] . "\" class=\"vcent\"/>\n");
+					$this->objs['view']->add("<span class=\"bold u\">{$item[name]}</span>.<br />\n");
 				}
 
 				//召喚キャラなら消す。
@@ -1112,9 +1002,9 @@ HTML;
 		}
 		/*// エラーが出たらこれで。
 		if(!is_object($NextChar)) {
-		print("AAA");
+		$this->objs['view']->add("AAA");
 		dump($NextChar);
-		print("BBB");
+		$this->objs['view']->add("BBB");
 		}
 		*/
 
@@ -1184,9 +1074,9 @@ HTML;
 		// エラーが出たらこれでたしかめろ。
 		/*
 		if(!is_object($NextChar)) {
-		print("AAA");
+		$this->objs['view']->add("AAA");
 		dump($NextChar);
-		print("BBB");
+		$this->objs['view']->add("BBB");
 		}
 		*/
 
@@ -1264,90 +1154,7 @@ HTML;
 	//////////////////////////////////////////////////
 	//
 	//////////////////////////////////////////////////
-	//	戦闘画像・各キャラの残りHP残りSP等を表示
-	function BattleState()
-	{
-		static $last;
-		if ($last !== $this->actions) $last = $this->actions;
-		else  return false;
-
-		print ("<tr><td colspan=\"2\" class=\"btl_img\">\n");
-		// 戦闘ステップ順に自動スクロール
-		print ("<a name=\"s" . $this->Scroll . "\"></a>\n");
-		print ("<div style=\"width:100%;hight:100%;position:relative;\">\n");
-		print ('<div style="position:absolute;bottom:0px;right:0px;">' . "\n");
-		if ($this->Scroll) print ("<a href=\"#s" . ($this->Scroll - 1) . "\">&lt;&lt;</a>\n");
-		else  print ("&lt;&lt;");
-		print ("<a href=\"#s" . (++$this->Scroll) . "\">&gt;&gt;</a>\n");
-		print ('</div>');
-
-		/*
-		switch (BTL_IMG_TYPE)
-		{
-		case 0:
-		print ('<div style="text-align:center">');
-		$this->ShowGdImage(); //画像
-		print ('</div>');
-		break;
-		case 1:
-		case 2:
-		$this->ShowCssImage(); //画像
-		break;
-		}
-		*/
-		// bluelovers
-		$this->outputImage();
-		// bluelovers
-
-		print ("</div>");
-		print ("</td></tr><tr><td class=\"ttd2 break\">\n");
-
-		print ("<table style=\"width:100%\"><tbody><tr><td style=\"width:50%\">\n"); // team1-backs
-
-		// 	左側チーム後衛
-		foreach ($this->team1 as $char)
-		{
-			// 召喚キャラが死亡している場合は飛ばす
-			if ($char->STATE === DEAD && $char->summon == true) continue;
-
-			if ($char->POSITION != FRONT) $char->ShowHpSp();
-		}
-
-		// 	左側チーム前衛
-		print ("</td><td style=\"width:50%\">\n");
-		foreach ($this->team1 as $char)
-		{
-			// 召喚キャラが死亡している場合は飛ばす
-			if ($char->STATE === DEAD && $char->summon == true) continue;
-
-			if ($char->POSITION == FRONT) $char->ShowHpSp();
-		}
-
-		print ("</td></tr></tbody></table>\n");
-
-		print ("</td><td class=\"ttd1 break\">\n");
-
-		// 	右側チーム前衛
-		print ("<table style=\"width:100%\"><tbody><tr><td style=\"width:50%\">\n");
-		foreach ($this->team0 as $char)
-		{
-			// 召喚キャラが死亡している場合は飛ばす
-			if ($char->STATE === DEAD && $char->summon == true) continue;
-			if ($char->POSITION == FRONT) $char->ShowHpSp();
-		}
-
-		// 	右側チーム後衛
-		print ("</td><td style=\"width:50%\">\n");
-		foreach ($this->team0 as $char)
-		{
-			// 召喚キャラが死亡している場合は飛ばす
-			if ($char->STATE === DEAD && $char->summon == true) continue;
-			if ($char->POSITION != FRONT) $char->ShowHpSp();
-		}
-		print ("</td></tr></tbody></table>\n");
-
-		print ("</td></tr>\n");
-	}
+	//
 
 	/*
 	//////////////////////////////////////////////////
@@ -1390,7 +1197,7 @@ HTML;
 	$b++;
 	endif;
 	}
-	print ('<img src="' . $url . '">'); // ←これが表示されるのみ
+	$this->objs['view']->add('<img src="' . $url . '">'); // ←これが表示されるのみ
 	}
 	//////////////////////////////////////////////////
 	//	CSS戦闘画面
@@ -1414,13 +1221,13 @@ HTML;
 		$money = ceil($money * MONEY_RATE);
 		if ($team === $this->team0)
 		{
-			print ("{$this->team0_name} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
+			$this->objs['view']->add("{$this->team0_name} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
 			$this->team0_money += $money;
 		}
 		else
 			if ($team === $this->team1)
 			{
-				print ("{$this->team1_name} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
+				$this->objs['view']->add("{$this->team1_name} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
 				$this->team1_money += $money;
 			}
 	}
@@ -1455,12 +1262,12 @@ HTML;
 
 		if ($VarChar->team == TEAM_0)
 		{
-			//	print("A".$VarChar->team."<br>");
+			//	$this->objs['view']->add("A".$VarChar->team."<br>");
 			$Team = $this->team0;
 		}
 		else
 		{
-			//print("B".$VarChar->team);
+			//$this->objs['view']->add("B".$VarChar->team);
 			$Team = $this->team1;
 		}
 
@@ -1473,7 +1280,7 @@ HTML;
 			else
 				if ($char->SPECIAL["Undead"] == true)
 				{
-					//print("C".$VarChar->Name()."/".count($Team)."<br>");
+					//$this->objs['view']->add("C".$VarChar->Name()."/".count($Team)."<br>");
 					$dead++;
 				}
 		}
