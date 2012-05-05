@@ -742,4 +742,37 @@ class HOF_Class_Battle_Judge
 		return $target ? $target : false;
 	}
 
+	/**
+	 * 複数の判断要素での判定
+	 */
+	//function MultiFactJudge($Keys,$char,$MyTeam,$EnemyTeam) {
+	function MultiFactJudge($Keys, $char, $classBattle)
+	{
+		foreach ($Keys as $no)
+		{
+
+			//$return	= HOF_Class_Battle_Judge::DecideJudge($no,$char,$MyTeam,$EnemyTeam);
+			$return = HOF_Class_Battle_Judge::DecideJudge($no, $char, $classBattle);
+
+			// 判定が否であった場合終了。
+			if (!$return) return false;
+
+			// 配列を比較して共通項目を残す(ほぼ廃止の方向へ)
+			/*
+			if(!$compare && is_array($return))
+			$compare	= $return;
+			else if(is_array($return))
+			$compare	= array_intersect($intersect,$return);
+			*/
+
+		}
+
+		/*
+		if($compare == array())
+		$compare	= true;
+		return $compare;
+		*/
+		return true;
+	}
+
 }
