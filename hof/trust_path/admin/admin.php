@@ -246,7 +246,7 @@ DATA;
 									foreach ($userDir as $fileName)
 									{
 										if (!is_numeric(basename($fileName, ".dat"))) continue;
-										$charData = ParseFile($fileName);
+										$charData = HOF_Class_File::ParseFile($fileName);
 										$charAmount++;
 										$totalLevel += $charData["level"];
 										$totalStr += $charData["str"];
@@ -294,7 +294,7 @@ DATA;
 									$items = array();
 									foreach ($userFileList as $user)
 									{
-										if ($data = ParseFile($user . "/item.dat"))
+										if ($data = HOF_Class_File::ParseFile($user . "/item.dat"))
 											foreach ($data as $itemno => $amount) $items[$itemno] += $amount;
 									}
 									foreach ($items as $itemno => $amount)
@@ -316,7 +316,7 @@ DATA;
 										foreach ($userFileList as $user)
 										{
 											$file = $user . "/data.dat";
-											if (!$data = ParseFile($file)) continue;
+											if (!$data = HOF_Class_File::ParseFile($file)) continue;
 											$html .= "<tr><td>" . $data["id"] . "</td><td>" . $data["name"] . "</td><td>" . $data["ip"] . "</td></tr>\n";
 											$ipList[$data["ip"] ? $data["ip"] : "*UnKnown"]++;
 										}
