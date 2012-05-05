@@ -3,6 +3,6 @@ name: Stone
 type: Material
 buy: '1000'
 sell: '5'
-img: item_009z.png
+img: item_009z
 base_name: Stone
 type2: OTHER
