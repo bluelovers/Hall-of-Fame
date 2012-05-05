@@ -3,7 +3,7 @@ name: GreatBow
 type: Bow
 dh: true
 buy: '8000'
-img: we_bow001.png
+img: we_bow001
 atk:
     - 40
     - 0
