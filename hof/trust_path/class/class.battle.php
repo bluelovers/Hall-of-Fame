@@ -1633,7 +1633,7 @@ Total HP : <?=
 		//
 		//////////////////////////////////////////////////
 		//	召還系スキルで呼ばれたモンスター。
-		function CreateSummon($no, $strength = false)
+		function HOF_Model_Char::newMonSummon($no, $strength = false)
 		{
 			/*
 			include_once (DATA_MONSTER);
