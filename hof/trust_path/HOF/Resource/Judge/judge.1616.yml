@@ -1,2 +1,6 @@
 no: 1616
 exp: '毒状態の相手が ○○人以下'
+tag:
+    no: '1614'
+    exp: 毒(敵)
+quantity: true
