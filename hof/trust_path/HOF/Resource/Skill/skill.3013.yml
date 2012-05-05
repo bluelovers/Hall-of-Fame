@@ -1,6 +1,6 @@
 no: 3013
 name: EnergyExchange
-img: exchange.png
+img: exchange
 exp: 'HP,SP交換(%)'
 sp: '10'
 type: '1'
