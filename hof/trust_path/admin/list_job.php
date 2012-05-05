@@ -50,7 +50,7 @@ $det = '<tr><td class="a">No</td>
 <td class="a">priority</td>
 <td class="a">charge</td>
 <td class="a">exp</td></tr>' . "\n";
-$img_f = "../image/char/";
+$img_f = "../static/image/char/";
 
 print ('<table border="0" cellspacing="1"><tbody>');
 //print($det);
@@ -104,7 +104,7 @@ print ("</tbody></table>");
 function ShowSkillDetail($skill, $radio = false)
 {
 
-	define("IMG_ICON", "../image/icon/");
+	define("IMG_ICON", "../static/image/icon/");
 
 	if (!$skill) return false;
 
