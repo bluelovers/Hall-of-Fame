@@ -1,2 +1,6 @@
 no: 1111
 exp: '最大HP が○○以下'
+tag:
+    no: '1099'
+    exp: HP
+quantity: true
