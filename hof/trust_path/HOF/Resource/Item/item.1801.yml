@@ -3,7 +3,7 @@ name: LongStaff
 type: Staff
 dh: true
 buy: '5000'
-img: we_staff008b.png
+img: we_staff008b
 atk:
     - 4
     - 37
