@@ -10,6 +10,25 @@ class HOF_Class_File
 
 	static $data = array();
 
+	function basename($file)
+	{
+		$file = basename($file);
+
+		$ext = preg_replace('/^.*(\.[^\.]+)$/', '$1', $file);
+
+		if ($ext == $file)
+		{
+			$ext = '';
+			$name = $file;
+		}
+		else
+		{
+			$name = basename($file, $ext);
+		}
+
+		return array($name, $ext);
+	}
+
 	/**
 	 * ファイルロックしたファイルポインタを返す。
 	 */
