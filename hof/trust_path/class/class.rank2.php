@@ -109,7 +109,7 @@ class Ranking
 			//自分より1個上の人が相手。
 			$RivalRankKey = array_rand($this->Ranking[$RivalPlace]);
 			$RivalID = $this->Ranking[$RivalPlace][$RivalRankKey]["id"]; //対戦する相手のID
-			$Rival = new user($RivalID);
+			$Rival = new HOF_Class_User($RivalID);
 
 			/*
 			dump($this->Ranking);
@@ -144,7 +144,7 @@ class Ranking
 			//自分より1個上の人が相手
 			$RivalRankKey = array_rand($this->Ranking[$RivalPlace]);
 			$RivalID = $this->Ranking[$RivalPlace][$RivalRankKey]["id"];
-			$Rival = new user($RivalID);
+			$Rival = new HOF_Class_User($RivalID);
 			//$MyID		= $this->Ranking[$MyRank["0"]][$MyRank["1"]]["id"];
 			//$MyID		= $id;
 			//list($message,$result)	= $this->RankBattle($MyID,$RivalID);
@@ -517,7 +517,7 @@ class Ranking
 
 		if (!$this->UserName["$id"])
 		{
-			$User = new user($id);
+			$User = new HOF_Class_User($id);
 			$Name = $User->Name();
 			$Record = $User->RankRecordLoad();
 			if ($Name !== false)
