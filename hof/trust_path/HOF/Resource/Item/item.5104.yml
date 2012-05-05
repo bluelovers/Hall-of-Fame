@@ -2,7 +2,7 @@ no: 5104
 name: HardJacket
 type: Cloth
 buy: '9000'
-img: armor_014e.png
+img: armor_014e
 def:
     - 23
     - 7
