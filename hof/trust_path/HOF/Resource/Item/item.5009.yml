@@ -2,7 +2,7 @@ no: 5009
 name: BattleSuit
 type: Armor
 buy: '18000'
-img: armor_016b.png
+img: armor_016b
 def:
     - 60
     - 40
