@@ -1,2 +1,6 @@
 no: 1851
 exp: '相手の魔法陣の数が ○○個以下'
+tag:
+    no: '1849'
+    exp: 魔法陣(敵)
+quantity: true
