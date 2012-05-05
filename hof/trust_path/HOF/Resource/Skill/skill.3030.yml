@@ -1,6 +1,6 @@
 no: 3030
 name: Reflesh
-img: skill_008.png
+img: skill_008
 exp: 状態異常回復
 sp: '30'
 type: '1'
