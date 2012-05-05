@@ -2,7 +2,7 @@ no: 1000
 name: ShortSword
 type: Sword
 buy: '500'
-img: we_sword026.png
+img: we_sword026
 atk:
     - 10
     - 0
