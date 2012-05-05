@@ -2,7 +2,7 @@ no: 5014
 name: PlatinumArmor
 type: Armor
 buy: '50000'
-img: armor_016b.png
+img: armor_016b
 def:
     - 52
     - 35
