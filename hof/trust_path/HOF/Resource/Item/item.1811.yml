@@ -3,7 +3,7 @@ name: HeavenStaff
 type: Staff
 dh: true
 buy: '35000'
-img: we_staff008b.png
+img: we_staff008b
 atk:
     - 12
     - 32
