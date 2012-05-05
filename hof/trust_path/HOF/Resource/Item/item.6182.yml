@@ -3,6 +3,6 @@ name: Hemp
 type: Material
 buy: '1000'
 sell: '10'
-img: other_008.png
+img: other_008
 base_name: Hemp
 type2: OTHER
