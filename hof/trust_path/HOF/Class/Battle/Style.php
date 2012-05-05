@@ -22,18 +22,48 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 	/**
 	 * @return self
 	 */
-	public static function &newInstance()
+	public static function &newInstance($style = 1, $options = array())
 	{
-		return new self();
+		return new self($style, $options);
+	}
+
+	function __construct($style = 1, $options = array())
+	{
+		$this->_data_default_ = array();
+		$this->_data_default_['style'] = $style;
+		$this->_data_default_['options'] = $options;
+		$this->_data_default_['output'] = '';
+
+		parent::__construct($this->_data_default);
+
+		$this->_init();
+	}
+
+	protected function _init()
+	{
+		$this->setFlip(($this->style == 1));
+
+		$this->_options();
+
+		return $this;
+	}
+
+	protected function _options()
+	{
+		$this->_setBg();
+		$this->_setTeams();
+		$this->_setMagicCircle();
+
+		return $this;
 	}
 
 	/**
 	 * CSS画像反転無し
 	 * CSSで image.flip() を使うか使わないか。
 	 */
-	function NoFlip($enable = true)
+	function setFlip($enable = true)
 	{
-		$this->NoFlip = $enable;
+		$this->options['flip'] = $enable;
 
 		return $this;
 	}
@@ -42,36 +72,93 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 	 * 背景画像をセット。
 	 * ついでに大きさも取得する。
 	 */
-	function SetBackGround($bg)
+	function setBg($bg)
 	{
-		$this->background = IMG_OTHER . "bg_" . $bg . ".gif";
+		$this->options['bg'] = $bg;
 
-		list($this->img_x, $this->img_y) = getimagesize($this->background);
-		$this->size = "width:{$this->img_x}; height:{$this->img_y};";
+		$this->nowcast && $this->_setBg();
 
 		return $this;
+	}
+
+	function _setBg()
+	{
+		if ($this->options['bg'])
+		{
+			$this->data['bg'] = IMG_OTHER . "bg_" . $this->options['bg'] . ".gif";
+
+			if ($this->style == 0)
+			{
+				unset($this->data['css']);
+			}
+			else
+			{
+				$this->data['css']['size_x'] = $this->options['size_x'];
+				$this->data['css']['size_y'] = $this->options['size_y'];
+
+				list($this->data['css']['bg_x'], $this->data['css']['bg_y']) = getimagesize($this->data['bg']);
+
+				$this->data['css']['size_x'] = $this->data['css']['size_x'] ? $this->data['css']['size_x'] : $this->data['css']['bg_x'];
+				$this->data['css']['size_y'] = $this->data['css']['size_y'] ? $this->data['css']['size_y'] : $this->data['css']['bg_y'];
+
+				$this->data['css']['size'] = "width:{$this->data['css']['size_x']}; height:{$this->data['css']['size_y']};";
+			}
+		}
+		else
+		{
+			unset($this->data['css']);
+			unset($this->data['bg']);
+		}
 	}
 
 	/**
 	 * チームの情報をセット
 	 * 前衛後衛に分ける
 	 */
-	function SetTeams($team1, $team2)
+	function setTeams($team1, $team2)
 	{
-		foreach ($team1 as $char)
+		$this->options['team'][0]['team'] = $team1;
+		$this->options['team'][1]['team'] = $team2;
+
+		$this->nowcast && $this->_setTeams();
+
+		return $this;
+	}
+
+	function _setTeams()
+	{
+		if (empty($this->options['team']))
 		{
-			// 召喚キャラが死亡している場合は飛ばす
-			if ($char->STATE === DEAD && $char->summon == true) continue;
-			if ($char->POSITION == "front") $this->team1_front[] = $char;
-			else  $this->team1_back[] = $char;
+			unset($this->data['team']);
+
+			return $this;
 		}
 
-		foreach ($team2 as $char)
+		$this->data['team'][0]['team'] = $this->options['team'][0]['team'];
+		$this->data['team'][1]['team'] = $this->options['team'][1]['team'];
+
+		foreach ($this->data['team'] as $_idx => &$team)
 		{
-			// 召喚キャラが死亡している場合は飛ばす
-			if ($char->STATE === DEAD && $char->summon == true) continue;
-			if ($char->POSITION == "front") $this->team2_front[] = $char;
-			else  $this->team2_back[] = $char;
+			unset($team['front']);
+			unset($team['back']);
+
+			foreach ($team['team'] as &$char)
+			{
+				// 召喚キャラが死亡している場合は飛ばす
+				if ($char->STATE === DEAD && $char->summon == true)
+				{
+					continue;
+				}
+
+				if ($char->POSITION == 'front')
+				{
+					$team['front'][] = $char;
+				}
+				else
+				{
+					$team['back'][] = $char;
+				}
+			}
 		}
 
 		return $this;
@@ -80,10 +167,25 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 	/**
 	 * 魔方陣の数
 	 */
-	function SetMagicCircle($team1_mc, $team2_mc)
+	function setMagicCircle($team1_mc, $team2_mc)
 	{
+		/*
 		$this->team1_mc = $team2_mc;
 		$this->team2_mc = $team1_mc;
+		*/
+
+		$this->options['team'][0]['mc'] = $team1_mc;
+		$this->options['team'][1]['mc'] = $team2_mc;
+
+		$this->nowcast && $this->_setMagicCircle();
+
+		return $this;
+	}
+
+	function _setMagicCircle()
+	{
+		$this->data['team'][0]['mc'] = $this->options['team'][0]['mc'];
+		$this->data['team'][1]['mc'] = $this->options['team'][1]['mc'];
 
 		return $this;
 	}
@@ -101,38 +203,52 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 	 */
 	function exec()
 	{
+		$this->_options();
+
 		$this->output = '';
 
-		//print("<div style=\"postion:relative;height:{$this->img_x}px;\">\n");
+		//print("<div style=\"postion:relative;height:{$this->data['bg_x']}px;\">\n");
 		//$this->div++;
 		// 背景を表示 ( 中央表示の為に左にずらす )
-		$margin = (-1) * round($this->img_x / 2);
-		$this->output .= "<div style=\"position:relative;left:50%;margin-left:{$margin}px;{$this->size}" . $this->det($this->background, 0, 0) . "\">\n";
+		$margin = (-1) * round($this->data['css']['size_x'] / 2);
+		$this->output .= "<div style=\"position:relative;left:50%;margin-left:{$margin}px;{$this->data['css']['size']}" . $this->det($this->data['bg'], 0, 0) . "\">\n";
 		$this->div++;
 
+		/*
 		// 魔方陣を表示する
 		if (0 < $this->team1_mc)
 		{
-			$this->output .= "<div style=\"{$this->size}" . $this->det(IMG_OTHER . "mc0_" . $this->team1_mc . ".gif", 280, 0) . "\">\n";
+			$this->output .= "<div style=\"{$this->data['css']['size']}" . $this->det(IMG_OTHER . "mc0_" . $this->team1_mc . ".gif", 280, 0) . "\">\n";
 			$this->div++;
 		}
 		if (0 < $this->team2_mc)
 		{
-			$this->output .= "<div style=\"{$this->size}" . $this->det(IMG_OTHER . "mc1_" . $this->team2_mc . ".gif", 0, 0) . "\">\n";
+			$this->output .= "<div style=\"{$this->data['css']['size']}" . $this->det(IMG_OTHER . "mc1_" . $this->team2_mc . ".gif", 0, 0) . "\">\n";
 			$this->div++;
 		}
+		*/
 
-		$cell_width = ($this->img_x) / 6; //横幅を6分割した長さ
-		$y = $this->img_y / 2; //高さの中心
+		foreach ($this->data['team'] as $_idx => &$team)
+		{
+			// 魔方陣を表示する
+			if (0 < $team['mc'])
+			{
+				$this->output .= "<div style=\"{$this->data['css']['size']}" . $this->det(IMG_OTHER . "mc{$_idx}_" . $team['mc'] . ".gif", 280, 0) . "\">\n";
+				$this->div++;
+			}
+		}
+
+		$cell_width = ($this->data['css']['size_x']) / 6; //横幅を6分割した長さ
+		$y = $this->data['css']['size_y'] / 2; //高さの中心
 
 		// team1 を表示(後列→前列)
-		$this->CopyRow($this->team1_back, 0, $cell_width * 1, $cell_width, $y, $this->img_y);
-		$this->CopyRow($this->team1_front, 0, $cell_width * 2, $cell_width, $y, $this->img_y);
+		$this->CopyRow($this->data['team'][0]['back'], 0, $cell_width * 1, $cell_width, $y, $this->data['css']['size_y']);
+		$this->CopyRow($this->data['team'][0]['front'], 0, $cell_width * 2, $cell_width, $y, $this->data['css']['size_y']);
 
-		if (!$this->NoFlip)
+		if ($this->options['flip'])
 		{
 			// 反転用のCSS
-			$this->output .= "<div class=\"flip-h\">\n";
+			$this->output .= "<div style=\"{$this->data['css']['size']} ".$this->_css_filp()."\">\n";
 			$this->div++;
 			$dir = 0;
 			$backs = 1;
@@ -145,12 +261,26 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 			$fore = 4;
 		}
 
-		$this->CopyRow($this->team2_back, $dir, $cell_width * $backs, $cell_width, $y, $this->img_y);
-		$this->CopyRow($this->team2_front, $dir, $cell_width * $fore, $cell_width, $y, $this->img_y);
+		$this->CopyRow($this->data['team'][1]['back'], $dir, $cell_width * $backs, $cell_width, $y, $this->data['css']['size_y']);
+		$this->CopyRow($this->data['team'][1]['front'], $dir, $cell_width * $fore, $cell_width, $y, $this->data['css']['size_y']);
 
 		for ($i = 0; $i < $this->div; $i++) $this->output .= "</div>";
 
 		return $this;
+	}
+
+	function _css_filp()
+	{
+		$css = '
+		    -moz-transform: scaleX(-1);
+		    -o-transform: scaleX(-1);
+		    -webkit-transform: scaleX(-1);
+		    transform: scaleX(-1);
+		    filter: FlipH;
+		    -ms-filter: "FlipH";
+  		';
+
+  		return $css;
 	}
 
 	/**
@@ -183,7 +313,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 			list($img_x, $img_y) = getimagesize($img);
 			$x -= round($img_x / 2);
 			$y -= round($img_y / 2);
-			$this->output .= "<div style=\"{$this->size}" . $this->det($img, $x, $y) . "\">\n";
+			$this->output .= "<div style=\"{$this->data['css']['size']}" . $this->det($img, $x, $y) . "\">\n";
 		}
 	}
 
