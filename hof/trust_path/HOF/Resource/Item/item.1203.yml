@@ -2,7 +2,7 @@ no: 1203
 name: Gladius
 type: Dagger
 buy: '40000'
-img: we_sword010.png
+img: we_sword010
 atk:
     - 34
     - 0
