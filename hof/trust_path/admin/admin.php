@@ -137,7 +137,7 @@ MENU;
 				{
 					include (GLOBAL_PHP);
 					include (CLASS_USER);
-					$userD = new user($_POST["userID"]);
+					$userD = new HOF_Class_User($_POST["userID"]);
 					$userD->DeleteUser();
 					print ($_POST["userID"] . "を削除しました。");
 				}
@@ -224,7 +224,7 @@ DATA;
 							$userFileList = game_core::glob(USER);
 							foreach ($userFileList as $user)
 							{
-								$user = new user(basename($user, ".dat"));
+								$user = new HOF_Class_User(basename($user, ".dat"));
 								$totalMoney += $user->money;
 							}
 							print ("UserAmount :" . count($userFileList) . "<br>\n");
