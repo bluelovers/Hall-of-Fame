@@ -1,2 +1,6 @@
 no: 1320
 exp: '自分のDEXが○○ 以上'
+tag:
+    no: '1319'
+    exp: DEX
+quantity: true
