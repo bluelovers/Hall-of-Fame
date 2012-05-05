@@ -1,6 +1,6 @@
 no: 1054
 name: CursedGargoyle
-img: mon_104r.gif
+img: mon_104r
 exphold: '400'
 moneyhold: '100'
 level: '31'
