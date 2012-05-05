@@ -2,7 +2,7 @@ no: 5003
 name: ChainMail
 type: Armor
 buy: '6000'
-img: armor_016b.png
+img: armor_016b
 def:
     - 30
     - 20
