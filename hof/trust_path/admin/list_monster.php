@@ -41,7 +41,7 @@ include ("../data/data.skill.php");
 include ("../data/data.item.php");
 include ("../data/data.enchant.php");
 include ("../class/global.php");
-define("IMG_ICON", "../image/icon/");
+define("IMG_ICON", "../static/image/icon/");
 
 $det = '<tr><td class="a">No</td>
 <td class="a">Name</td>
@@ -56,7 +56,7 @@ $det = '<tr><td class="a">No</td>
 <td class="a">str / int / dex / spd / luk</td>
 <td class="a">pos</td>
 <td class="a">guard</td>' . "\n";
-$img_f = "../image/char/";
+$img_f = "../static/image/char/";
 
 print ('<table border="0" cellspacing="1"><tbody>');
 $detcount = 0;
@@ -141,7 +141,7 @@ print ("</tbody></table>");
 //
 function ShowItemDetail2($item, $amount = false)
 {
-	$file = "../image/icon/";
+	$file = "../static/image/icon/";
 	if (!$item) return false;
 
 	print ("\n");
@@ -168,7 +168,7 @@ function ShowItemDetail2($item, $amount = false)
 //	技の詳細を表示
 function ShowSkillDetail2($skill, $radio = false)
 {
-	$file = "../image/icon/";
+	$file = "../static/image/icon/";
 	if (!$skill) return false;
 
 	if ($radio) print ('<input type="radio" name="newskill" value="' . $skill["no"] . '" class="vcent">');
