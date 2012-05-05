@@ -18,6 +18,9 @@ armor: '5000'
 skill:
     - 1000
     - 1001
-Pattern: 1205<>1000|8<>0|1001<>1000
+Pattern:
+    judge: ['1205', '1000']
+    quantity: ['8', '0']
+    action: ['1001', '1000']
 position: front
 guard: always
