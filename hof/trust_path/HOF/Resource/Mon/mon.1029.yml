@@ -1,6 +1,6 @@
 no: 1029
 name: SpawnPot
-img: mon_019r.gif
+img: mon_019r
 level: '28'
 exphold: '400'
 moneyhold: '280'
