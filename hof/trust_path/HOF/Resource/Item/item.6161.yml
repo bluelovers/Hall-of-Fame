@@ -3,6 +3,6 @@ name: SilverCoin
 type: Material
 buy: '1000'
 sell: '250'
-img: acce_005b.png
+img: acce_005b
 base_name: SilverCoin
 type2: OTHER
