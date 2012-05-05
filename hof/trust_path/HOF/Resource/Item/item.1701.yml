@@ -2,7 +2,7 @@ no: 1701
 name: ShortWand
 type: Wand
 buy: '2000'
-img: we_staff002.png
+img: we_staff002
 atk:
     - 5
     - 10
