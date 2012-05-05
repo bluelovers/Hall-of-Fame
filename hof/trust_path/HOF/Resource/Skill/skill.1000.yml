@@ -1,6 +1,6 @@
 no: 1000
 name: Attack
-img: skill_042.png
+img: skill_042
 exp: 通常攻撃
 sp: '0'
 type: '0'
