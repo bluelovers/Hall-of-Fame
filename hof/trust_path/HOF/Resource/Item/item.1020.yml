@@ -2,7 +2,7 @@ no: 1020
 name: DragonBuster
 type: Sword
 buy: '70000'
-img: we_sword026.png
+img: we_sword026
 atk:
     - 20
     - 0
