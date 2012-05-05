@@ -1,45 +1,16 @@
 <?php
 
 /**
- * 画像合成を非常にナンセンスな方法で行う。
- * GDライブラリ→画像の水平反転が不可能。
- * PECL ImageMagic→可能。しかしPEARの知識が無く断念。
-
- * 従って画像合成する場合,反転済みの画像を別で用意する。
-
- * sampleURL
- * http://localhost/proj/hof/image.php?f11=mon_018&f12=mon_018&f13=mon_018&f14=mon_018&b11=mon_018&b12=mon_018&f21=mon_018&f22=mon_018&b21=mon_018&b22=mon_018&b23=mon_018&f23=mon_018&f24=mon_018&info=0
- * 最後の[&info=0] は無くてもok
-
- * ※※※ 魔法陣の表示に未対応！！！！！！！！！
+ * @author bluelovers
+ * @copyright 2012
  */
 
-include ('trust_path/bootstrap.php');
-
-//$type = 'gif';
-$type = 'png';
-
-$img = new image();
-// ( gif, png, jpeg )
-// gif -> 動作確認済み
-// png -> 画像の色数を保てるかどうか未確認
-// jpeg -> 動作未確認
-$img->SetBackGround($type); // 背景画像の形式
-
-$img->SetCharFile($type); // *
-$img->ShowInfo();
-$img->CopyChar();
-$img->Filter();
-
-// 出力画像の形式
-// gif > png > jpeg の順でサイズが異なる
-$img->OutPutImage($type);
-
-//////////////////////////////////////////////////////////////////////
-class image
+class HOF_Class_Battle_Style_Image
 {
-
 	var $image;
+
+	//キャラ画像形式
+	var $type;
 
 	var $background;
 	var $team1_front = array();
@@ -47,9 +18,15 @@ class image
 	var $team2_front = array();
 	var $team2_back = array();
 
-	var $char_img_type; //キャラ画像形式
+	//イメージ幅
+	var $img_x, $img_y;
 
-	var $img_x, $img_y; //イメージ幅
+	function __construct($type = 'png')
+	{
+		$this->type = $type;
+
+		array_unshift(HOF_Class_Icon::$map_imgtype, $this->type);
+	}
 
 	/**
 	 * f11 = team1_front[0]
@@ -61,11 +38,9 @@ class image
 	 * f21 = team2_front[0]...
 	 * b21 = team2_back[0]...
 	 */
-	function SetCharFile($type)
+	function SetCharFile($type = null)
 	{
-		array_unshift(HOF_Class_Icon::$map_imgtype, $type);
-
-		$this->char_img_type = $type;
+		$type && array_unshift(HOF_Class_Icon::$map_imgtype, $type);
 
 		foreach (array(
 			1 => IMG_CHAR,
@@ -143,8 +118,16 @@ class image
 		imagesavealpha($this->image, true);
 	}
 
-	function SetBackGround($type)
+	/**
+	 * ( gif, png, jpeg )
+gif -> 動作確認済み
+png -> 画像の色数を保てるかどうか未確認
+jpeg -> 動作未確認
+*/
+	function SetBackGround($type = null)
 	{
+		$type && array_unshift(HOF_Class_Icon::$map_imgtype, $type);
+
 		$this->background = HOF_Class_Icon::getIamge(array($_GET['bg'], 'bg_'), IMG_OTHER);
 
 		$imginfo = $this->getimagesize($this->background);
@@ -177,8 +160,14 @@ class image
 		//$this->image	= $image_p;
 	}
 
-	function OutPutImage($type)
+	/**
+	 * 出力画像の形式
+	 * gif > png > jpeg の順でサイズが異なる
+	 */
+	function OutPutImage($type = null)
 	{
+		$type = $type ? $type : $this;
+
 		// 修正可直接顯示合成後圖片而不會顯示亂碼
 		@header("Content-Type: image/{$type}");
 		@header('Content-Disposition: filename=battle' . gmdate('YmdHis', time()) . '.png');
@@ -289,7 +278,5 @@ class image
 
 		return (array )$imginfo;
 	}
+
 }
-
-
-?>
