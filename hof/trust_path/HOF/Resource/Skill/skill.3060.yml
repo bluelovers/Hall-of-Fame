@@ -1,6 +1,6 @@
 no: 3060
 name: HolyShield
-img: skill_045z.png
+img: skill_045z
 exp: ダメージ1回無効化
 sp: '100'
 type: '1'
