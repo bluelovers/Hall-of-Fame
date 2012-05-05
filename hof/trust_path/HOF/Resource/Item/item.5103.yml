@@ -2,7 +2,7 @@ no: 5103
 name: LongCoat
 type: Cloth
 buy: '5000'
-img: armor_014e.png
+img: armor_014e
 def:
     - 18
     - 5
