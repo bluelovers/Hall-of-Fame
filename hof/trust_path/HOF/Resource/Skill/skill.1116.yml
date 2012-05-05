@@ -1,6 +1,6 @@
 no: 1116
 name: Punish
-img: skill_057.png
+img: skill_057
 exp: 減少HP分ダメージ
 sp: '100'
 type: '0'
