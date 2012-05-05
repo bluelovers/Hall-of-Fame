@@ -2,7 +2,7 @@ no: 5000
 name: 'LeatherArmor '
 type: Armor
 buy: '1000'
-img: armor_016b.png
+img: armor_016b
 def:
     - 18
     - 15
