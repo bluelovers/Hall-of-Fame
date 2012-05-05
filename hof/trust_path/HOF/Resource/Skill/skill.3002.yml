@@ -1,6 +1,6 @@
 no: 3002
 name: PartyHeal
-img: skill_013c.png
+img: skill_013c
 exp: HP回復
 sp: '30'
 type: '1'
