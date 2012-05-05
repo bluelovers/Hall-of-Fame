@@ -1,2 +1,6 @@
 no: 1400
 exp: '味方の生存者が ○○人以上'
+tag:
+    no: '1399'
+    exp: 生死
+quantity: true
