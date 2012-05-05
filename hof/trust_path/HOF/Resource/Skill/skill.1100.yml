@@ -1,6 +1,6 @@
 no: 1100
 name: ObtainPower
-img: skill_057.png
+img: skill_057
 exp: 力上昇
 sp: '5'
 type: '0'
