@@ -3,6 +3,6 @@ name: GoldCoin
 type: Material
 buy: '1000'
 sell: '500'
-img: acce_005.png
+img: acce_005
 base_name: GoldCoin
 type2: OTHER
