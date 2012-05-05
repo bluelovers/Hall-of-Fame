@@ -2,7 +2,7 @@ no: 5004
 name: SilverArmor
 type: Armor
 buy: '8000'
-img: armor_016b.png
+img: armor_016b
 def:
     - 35
     - 25
