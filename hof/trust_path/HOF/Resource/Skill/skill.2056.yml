@@ -1,6 +1,6 @@
 no: 2056
 name: ZombieRevival
-img: skill_061.png
+img: skill_061
 exp: 味方を蘇生
 sp: '300'
 type: '1'
