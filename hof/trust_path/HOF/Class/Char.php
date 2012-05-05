@@ -39,4 +39,14 @@ class HOF_Class_Char extends char
 		return $output;
 	}
 
+	function setTeamObj(&$team)
+	{
+		$this->team_obj = &$team;
+	}
+
+	function &getTeamObj()
+	{
+		return $this->team_obj;
+	}
+
 }
