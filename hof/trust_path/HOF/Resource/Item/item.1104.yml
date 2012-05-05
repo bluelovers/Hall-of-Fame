@@ -3,7 +3,7 @@ name: Behead
 type: TwoHandSword
 dh: true
 buy: '70000'
-img: we_sword006.png
+img: we_sword006
 atk:
     - 100
     - 0
