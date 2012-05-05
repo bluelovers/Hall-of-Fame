@@ -1,6 +1,6 @@
 no: 3235
 name: ResistDown
-img: skill_071.png
+img: skill_071
 sp: '60'
 type: '1'
 learn: '6'
