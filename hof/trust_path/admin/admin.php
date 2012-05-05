@@ -228,8 +228,8 @@ DATA;
 								$totalMoney += $user->money;
 							}
 							print ("UserAmount :" . count($userFileList) . "<br>\n");
-							print ("TotalMoney :" . MoneyFormat($totalMoney) . "<br>\n");
-							print ("AveMoney :" . MoneyFormat($totalMoney / count($userFileList)) . "<br>\n");
+							print ("TotalMoney :" . HOF_Helper_Global::MoneyFormat($totalMoney) . "<br>\n");
+							print ("AveMoney :" . HOF_Helper_Global::MoneyFormat($totalMoney / count($userFileList)) . "<br>\n");
 						}
 
 	/*
