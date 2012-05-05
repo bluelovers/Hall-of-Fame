@@ -2,7 +2,7 @@ no: 5101
 name: LeatherJacket
 type: Cloth
 buy: '1000'
-img: armor_014e.png
+img: armor_014e
 def:
     - 10
     - 0
