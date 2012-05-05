@@ -1224,8 +1224,7 @@ class char
 	<div class="carpet_frame">
 	<div class="land" style="background-image : url(<?=
 
-		IMG_OTHER . "land_" . $land . ".gif"
-
+		HOF_Class_Icon::getIamge("land_" . $land, IMG_OTHER)
 
 ?>);">
 	<?php
