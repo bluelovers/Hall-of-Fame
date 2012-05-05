@@ -1,6 +1,6 @@
 no: 1023
 name: 'Hit&Away'
-img: skill_033z.png
+img: skill_033z
 exp: 前列の時威力3倍+後退
 sp: '10'
 type: '0'
