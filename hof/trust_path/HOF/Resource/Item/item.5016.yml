@@ -2,7 +2,7 @@ no: 5016
 name: FullPlate
 type: Armor
 buy: '120000'
-img: armor_016b.png
+img: armor_016b
 def:
     - 60
     - 40
