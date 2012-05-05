@@ -1,6 +1,6 @@
 no: 2057
 name: SelfMetamorphose
-img: skill_066.png
+img: skill_066
 exp: HP60%以下で使用可(1回制限)
 sp: '250'
 type: '1'
