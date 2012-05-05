@@ -7,7 +7,7 @@
 
 include_once (CLASS_USER);
 
-class HOF_Class_User
+class HOF_Class_User extends user
 {
 
 }
