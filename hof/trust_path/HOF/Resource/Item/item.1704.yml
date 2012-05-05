@@ -2,7 +2,7 @@ no: 1704
 name: ForceWand
 type: Wand
 buy: '10000'
-img: we_staff002.png
+img: we_staff002
 atk:
     - 10
     - 26
