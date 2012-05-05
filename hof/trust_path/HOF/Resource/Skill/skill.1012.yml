@@ -1,6 +1,6 @@
 no: 1012
 name: ArmorBreak
-img: skill_072.png
+img: skill_072
 exp: 防御力低下
 sp: '30'
 type: '0'
