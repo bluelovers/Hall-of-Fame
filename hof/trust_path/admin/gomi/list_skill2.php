@@ -47,7 +47,7 @@ $det = '<tr><td class="a">No</td>
 <td class="a">priority</td>
 <td class="a">charge</td>
 <td class="a">exp</td></tr>' . "\n";
-$img_f = "../image/icon/";
+$img_f = "../static/image/icon/";
 
 print ('<table border="0" cellspacing="1"><tbody>');
 print ($det);
