@@ -1,6 +1,6 @@
 no: 3000
 name: Healing
-img: skill_013a.png
+img: skill_013a
 exp: ''
 sp: '5'
 type: '1'
