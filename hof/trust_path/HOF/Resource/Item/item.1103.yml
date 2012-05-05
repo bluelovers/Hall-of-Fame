@@ -3,7 +3,7 @@ name: BastardSword
 type: TwoHandSword
 dh: true
 buy: '30000'
-img: we_sword006.png
+img: we_sword006
 atk:
     - 80
     - 0
