@@ -86,9 +86,19 @@ class HOF_Class_Battle extends battle
 
 	function ShowCssImage()
 	{
-		$output = HOF_Class_Battle_Style::newInstance(BTL_IMG_TYPE)->SetBackGround($this->BackGround)->SetTeams($this->team1, $this->team0)->SetMagicCircle($this->team1_mc, $this->team0_mc)->NoFlip((BTL_IMG_TYPE == 2))->exec();
+		$output = HOF_Class_Battle_Style::newInstance(BTL_IMG_TYPE)
+			->setBg($this->BackGround)
+			->setTeams($this->team1, $this->team0)
+			->setMagicCircle($this->team1_mc, $this->team0_mc)
+			->exec();
 
 		echo $output;
+
+		echo '<pre>';
+		var_dump($output);
+		echo '</pre>';
+
+		exit();
 	}
 
 }
