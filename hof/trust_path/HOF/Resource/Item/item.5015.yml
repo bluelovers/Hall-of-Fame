@@ -2,7 +2,7 @@ no: 5015
 name: CrystalArmor
 type: Armor
 buy: '80000'
-img: armor_016b.png
+img: armor_016b
 def:
     - 55
     - 35
