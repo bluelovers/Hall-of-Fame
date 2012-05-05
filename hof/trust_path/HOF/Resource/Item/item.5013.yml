@@ -2,7 +2,7 @@ no: 5013
 name: GoldArmor
 type: Armor
 buy: '40000'
-img: armor_016b.png
+img: armor_016b
 def:
     - 50
     - 35
