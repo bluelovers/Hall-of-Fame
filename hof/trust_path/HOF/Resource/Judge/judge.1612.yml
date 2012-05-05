@@ -1,2 +1,6 @@
 no: 1612
 exp: '毒状態の味方が ○○% 以上'
+tag:
+    no: '1599'
+    exp: 毒
+quantity: true
