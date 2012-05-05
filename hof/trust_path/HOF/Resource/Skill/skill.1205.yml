@@ -1,6 +1,6 @@
 no: 1205
 name: SulfaricAcid
-img: item_027.png
+img: item_027
 exp: 防御低下
 sp: '30'
 type: '0'
