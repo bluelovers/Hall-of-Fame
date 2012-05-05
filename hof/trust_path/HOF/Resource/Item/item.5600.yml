@@ -2,7 +2,7 @@ no: 5600
 name: BerserkRing
 type: Item
 buy: '10000'
-img: acce_024.png
+img: acce_024
 handle: '2'
 P_STR: '100'
 M_MAXHP: '-50'
