@@ -1,8 +1,8 @@
 no: 203
 name_male: Necromancer
 name_female: Necromancer
-img_male: mon_196x.gif
-img_female: mon_246y.gif
+img_male: mon_196x
+img_female: mon_246y
 equip:
     - Wand
     - Staff
