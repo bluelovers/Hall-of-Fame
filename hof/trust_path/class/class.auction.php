@@ -117,7 +117,7 @@ class Auction
 	{
 		if (!$this->TempUser["$UserID"]["user"])
 		{
-			$this->TempUser["$UserID"]["user"] = new user($UserID);
+			$this->TempUser["$UserID"]["user"] = new HOF_Class_User($UserID);
 			$this->TempUser["$UserID"]["Name"] = $this->TempUser["$UserID"]["user"]->Name();
 		}
 
@@ -130,7 +130,7 @@ class Auction
 	{
 		if (!$this->TempUser["$UserID"]["user"])
 		{
-			$this->TempUser["$UserID"]["user"] = new user($UserID);
+			$this->TempUser["$UserID"]["user"] = new HOF_Class_User($UserID);
 			$this->TempUser["$UserID"]["Name"] = $this->TempUser["$UserID"]["user"]->Name();
 		}
 
@@ -201,7 +201,7 @@ class Auction
 		}
 		else
 		{
-			$User = new user($id);
+			$User = new HOF_Class_User($id);
 			$Name = $User->Name();
 			if ($Name)
 			{
