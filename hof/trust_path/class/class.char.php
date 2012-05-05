@@ -737,7 +737,7 @@ class char
 		$this->judge = array();
 		$this->action = array();
 		$max = $this->MaxPatterns(); //最低判断数
-		$judge_list = array_flip(JudgeList());
+		$judge_list = array_flip(HOF_Model_Data::getJudgeList());
 		$skill_list = array_flip($this->skill);
 		for ($i = 0; $i < $max; $i++)
 		{ //判断順に記憶
