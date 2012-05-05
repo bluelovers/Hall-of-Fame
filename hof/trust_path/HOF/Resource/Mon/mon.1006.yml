@@ -1,6 +1,6 @@
 no: 1006
 name: GoblinMonk
-img: mon_205.gif
+img: mon_205
 level: '7'
 exphold: '60'
 moneyhold: '60'
