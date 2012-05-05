@@ -1,6 +1,6 @@
 no: 1025
 name: ManaDivision
-img: skill_073x.png
+img: skill_073x
 exp: 対象とSPを分割
 sp: '10'
 type: '0'
