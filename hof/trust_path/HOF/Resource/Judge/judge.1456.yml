@@ -1,2 +1,6 @@
 no: 1456
 exp: '相手の死者が ○○人以下'
+tag:
+    no: '1449'
+    exp: 生死(敵)
+quantity: true
