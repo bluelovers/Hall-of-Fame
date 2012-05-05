@@ -1,2 +1,6 @@
 no: 1121
 exp: '味方に HPが○○(%)以下のキャラ がいる'
+tag:
+    no: '1099'
+    exp: HP
+quantity: true
