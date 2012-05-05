@@ -1,6 +1,6 @@
 no: 5003
 name: Skeleton
-img: mon_143.gif
+img: mon_143
 exphold: '60'
 moneyhold: '0'
 level: '10'
