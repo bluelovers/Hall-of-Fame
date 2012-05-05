@@ -2,7 +2,7 @@ no: 5202
 name: ElfRobe
 type: Robe
 buy: '3000'
-img: armor_012.png
+img: armor_012
 def:
     - 3
     - 10
