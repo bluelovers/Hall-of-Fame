@@ -2,7 +2,7 @@ no: 5008
 name: SprintArmor
 type: Armor
 buy: '18000'
-img: armor_016b.png
+img: armor_016b
 def:
     - 42
     - 35
