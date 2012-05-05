@@ -33,7 +33,7 @@ td{
 
 include ("../data/data.item.php");
 print ("<table cellspacing=\"1\"><tbody>");
-$img_f = "../image/icon/";
+$img_f = "../static/image/icon/";
 $des = '<tr><td class="a">no</td>
 <td class="a">img</td>
 <td class="a">name</td>
