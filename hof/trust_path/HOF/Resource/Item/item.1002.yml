@@ -2,7 +2,7 @@ no: 1002
 name: GreatSword
 type: Sword
 buy: '3000'
-img: we_sword026.png
+img: we_sword026
 atk:
     - 20
     - 0
