@@ -144,8 +144,12 @@ define("IMG_ICON", "./static/image/icon/");
 define("IMG_OTHER", "./static/image/other/");
 define("USER", BASE_TRUST_PATH . "./user/");
 define("UNION", BASE_TRUST_PATH . "./union/");
+/*
 define("DATA", "data.dat");
 define("ITEM", "item.dat");
+*/
+define("DATA", "data");
+define("ITEM", "item");
 
 define("LOG_BATTLE_NORMAL", BASE_TRUST_PATH . "./log/normal/");
 define("LOG_BATTLE_RANK", BASE_TRUST_PATH . "./log/rank/");
