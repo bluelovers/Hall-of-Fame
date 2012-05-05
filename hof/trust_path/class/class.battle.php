@@ -72,11 +72,13 @@ class battle
 	//各チームの配列を受けとる。
 	function __construct($team0, $team1)
 	{
+		/*
 		include (DATA_JUDGE);
 		include_once (DATA_SKILL);
 
 		//モンスターが参戦してなくても召喚される場合があるので
 		include_once (CLASS_MONSTER);
+		*/
 
 		$this->team0 = $team0;
 		$this->team1 = $team1;
