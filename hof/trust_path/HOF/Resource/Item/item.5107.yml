@@ -2,7 +2,7 @@ no: 5107
 name: CoatOfLord
 type: Cloth
 buy: '22000'
-img: armor_014e.png
+img: armor_014e
 def:
     - 30
     - 15
