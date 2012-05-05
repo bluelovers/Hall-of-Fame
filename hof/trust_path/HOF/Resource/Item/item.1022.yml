@@ -2,7 +2,7 @@ no: 1022
 name: LightBringer
 type: Sword
 buy: '160000'
-img: we_sword026.png
+img: we_sword026
 atk:
     - 80
     - 0
