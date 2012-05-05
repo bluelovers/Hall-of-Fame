@@ -51,66 +51,45 @@ class image
 
 	var $img_x, $img_y; //イメージ幅
 
+	/**
+	 * f11 = team1_front[0]
+	 * f12 = team1_front[1]
+	 * f13 = team1_front[2]
+	 * f14 = team1_front[3]
+	 * f15 = team1_front[4]
+	 * b11 = team1_back[0]...
+	 * f21 = team2_front[0]...
+	 * b21 = team2_back[0]...
+	 */
 	function SetCharFile($type)
 	{
+		array_unshift(HOF_Class_Icon::$map_imgtype, $type);
+
 		$this->char_img_type = $type;
 
-		$_char_no_image = preg_replace('/\.(png|jpg|gif|bmp)$/i', '', CHAR_NO_IMAGE);
-
-		/*
-		f11 = team1_front[0]
-		f12 = team1_front[1]
-		f13 = team1_front[2]
-		f14 = team1_front[3]
-		f15 = team1_front[4]
-		b11 = team1_back[0]...
-		f21 = team2_front[0]...
-		b21 = team2_back[0]...
-		*/
-		for ($j = 1; $j < 6; $j++)
-		{ // 1,2,3,4,5　チーム１
-			if ($img = $_GET['f1' . $j])
+		foreach (array(
+			1 => IMG_CHAR,
+			2 => IMG_CHAR_REV,
+			) as $_idx => $dir)
+		{
+			for ($j = 1; $j < 6; $j++)
 			{
-				if (strpos($img, '/') !== false) continue; // '/'が指定された場合無視
-				if (!$file = $this->_get_file(IMG_CHAR . $img, $type))
+				if ($img = $_GET['f' . $_idx . $j])
 				{
-					$file = $this->_get_file(IMG_CHAR . $_char_no_image, $type);
-				}
+					if (strpos($img, '/') !== false) continue; // '/'が指定された場合無視
 
-				if ($file) $this->team1_front[] = $file;
-			}
-			if ($img = $_GET['b1' . $j])
-			{
-				if (strpos($img, '/') !== false) continue; // '/'が指定された場合無視
-				if (!$file = $this->_get_file(IMG_CHAR . $img, $type))
+					$file = HOF_Class_Icon::getIamge($img, $dir);
+
+					if ($file) $this->{"team{$_idx}_front"}[] = $file;
+				}
+				if ($img = $_GET['b' . $_idx . $j])
 				{
-					$file = $this->_get_file(IMG_CHAR . $_char_no_image, $type);
-				}
+					if (strpos($img, '/') !== false) continue; // '/'が指定された場合無視
 
-				if ($file) $this->team1_back[] = $file;
-			}
-		}
-		for ($j = 1; $j < 6; $j++)
-		{ // 1,2,3,4,5　チーム２
-			if ($img = $_GET['f2' . $j])
-			{
-				if (strpos($img, '/') !== false) continue; // '/'が指定された場合無視
-				if (!$file = $this->_get_file(IMG_CHAR_REV . $img, $type))
-				{
-					$file = $this->_get_file(IMG_CHAR_REV . $_char_no_image, $type);
-				}
+					$file = HOF_Class_Icon::getIamge($img, $dir);
 
-				if ($file) $this->team2_front[] = $file;
-			}
-			if ($img = $_GET['b2' . $j])
-			{
-				if (strpos($img, '/') !== false) continue; // '/'が指定された場合無視
-				if (!$file = $this->_get_file(IMG_CHAR_REV . $img, $type))
-				{
-					$file = $this->_get_file(IMG_CHAR_REV . $_char_no_image, $type);
+					if ($file) $this->{"team{$_idx}_back"}[] = $file;
 				}
-
-				if ($file) $this->team2_back[] = $file;
 			}
 		}
 	}
@@ -166,8 +145,7 @@ class image
 
 	function SetBackGround($type)
 	{
-		if ($_GET['bg'] && ($file = $this->_get_file(IMG_OTHER . 'bg_' . $_GET['bg'], $type))) $this->background = $file;
-		else  $this->background = $this->_get_file(IMG_OTHER . 'bg_grass', $type);
+		$this->background = HOF_Class_Icon::getIamge(array($_GET['bg'], 'bg_'), IMG_OTHER);
 
 		$imginfo = $this->getimagesize($this->background);
 		$this->image = $imginfo['imagecreatefromfunc']($this->background);
@@ -203,7 +181,7 @@ class image
 	{
 		// 修正可直接顯示合成後圖片而不會顯示亂碼
 		@header("Content-Type: image/{$type}");
-		@header('Content-Disposition: filename=battle'.gmdate('YmdHis', time()).'.png');
+		@header('Content-Disposition: filename=battle' . gmdate('YmdHis', time()) . '.png');
 
 		$func = 'image' . $type;
 		$func($this->image);
@@ -279,23 +257,6 @@ class image
 
 		$_base['y'] += $_base['line-height'];
 		$_base['string'] = '';
-	}
-
-	function _get_file($file, $type)
-	{
-		foreach (array(
-			$type,
-			'png',
-			'gif',
-			'jpg') as $ext)
-		{
-			if (file_exists($file . '.' . $ext))
-			{
-				return $file . '.' . $ext;
-			}
-		}
-
-		return false;
 	}
 
 	function getimagesize($file)

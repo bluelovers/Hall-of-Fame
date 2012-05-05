@@ -22,13 +22,21 @@ class HOF_Class_Icon
 	{
 		$dir = rtrim($dir, '/').'/';
 
-		if (!isset(self::$cache[$dir][$no]))
+		$pre = '';
+
+		if (is_array($no))
+		{
+			$pre = (string)$no[1];
+			$no = (string)$no[0];
+		}
+
+		if (!isset(self::$cache[$dir][$pre.$no]))
 		{
 			$file = false;
 
 			foreach (self::$map_imgtype as $ext)
 			{
-				$_file = $dir . $no . '.' . $ext;
+				$_file = $dir . $pre.$no . '.' . $ext;
 				if (file_exists(BASE_PATH.$_file))
 				{
 					$file = $_file;
@@ -36,16 +44,16 @@ class HOF_Class_Icon
 				}
 			}
 
-			self::$cache[$dir][$no] = $file;
+			self::$cache[$dir][$pre.$no] = $file;
 		}
 
-		if (self::$cache[$dir][$no])
+		if (self::$cache[$dir][$pre.$no])
 		{
-			$ret = self::$cache[$dir][$no];
+			$ret = self::$cache[$dir][$pre.$no];
 		}
 		else
 		{
-			$ret = $dir . ($return_true ? $no : NO_IMAGE) . '.' . reset(self::$map_imgtype);
+			$ret = $dir . $pre.($return_true ? $no : NO_IMAGE) . '.' . reset(self::$map_imgtype);
 		}
 
 		return $ret;
