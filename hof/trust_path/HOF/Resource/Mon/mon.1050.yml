@@ -1,6 +1,6 @@
 no: 1050
 name: DarkElfHunter
-img: mon_042r.gif
+img: mon_042r
 exphold: '500'
 moneyhold: '200'
 level: '39'
