@@ -1,6 +1,6 @@
 no: 3011
 name: HiManaRecharge
-img: skill_019z.png
+img: skill_019z
 exp: SP回復
 sp: '0'
 type: '1'
