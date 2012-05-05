@@ -3,6 +3,6 @@ name: BananaMetal
 type: Material
 buy: '100'
 sell: '50'
-img: banana.png
+img: banana
 base_name: BananaMetal
 type2: OTHER
