@@ -1,2 +1,6 @@
 no: 1410
 exp: '(初期設定が)前衛の生存者 ○○人以上'
+tag:
+    no: '1399'
+    exp: 生死
+quantity: true
