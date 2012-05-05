@@ -1,6 +1,6 @@
 no: 3102
 name: Benediction
-img: skill_009.png
+img: skill_009
 exp: SP回復
 sp: '20'
 type: '1'
