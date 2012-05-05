@@ -1,6 +1,6 @@
 no: 1025
 name: MimicMonster
-img: mon_066.gif
+img: mon_066
 level: '22'
 exphold: '100'
 moneyhold: '300'
