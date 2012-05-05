@@ -1,8 +1,8 @@
 no: 403
 name_male: Murderer
 name_female: Murderer
-img_male: mon_216y.gif
-img_female: mon_217rz.gif
+img_male: mon_216y
+img_female: mon_217rz
 equip:
     - Dagger
     - Bow
