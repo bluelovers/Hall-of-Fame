@@ -90,7 +90,7 @@ class Auction
 				$this->UserGetItem($Article["bidder"], $Article["item"], $Article["amount"]);
 				$this->UserGetMoney($Article["exhibitor"], $Article["price"]);
 				// 結果をログに残せ
-				$this->AddLog("No.{$Article[No]} <img src=\"" . IMG_ICON . $item["img"] . "\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個 を " . $this->UserGetNameFromTemp($Article["bidder"]) . " が " . MoneyFormat($Article["price"]) . " で<span class=\"recover\">落札しました。</span>");
+				$this->AddLog("No.{$Article[No]} <img src=\"" . IMG_ICON . $item["img"] . "\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個 を " . $this->UserGetNameFromTemp($Article["bidder"]) . " が " . HOF_Helper_Global::MoneyFormat($Article["price"]) . " で<span class=\"recover\">落札しました。</span>");
 			}
 			else
 			{
@@ -272,8 +272,8 @@ class Auction
 		$this->Article["$ArticleNo"]["bidder"] = $Bidder;
 		$this->DataChange = true;
 		$item = HOF_Model_Data::getItemData($Article["item"]);
-		//$this->AddLog("No.".$Article["No"]." <span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個に ".MoneyFormat($BidPrice)." で ".$this->LoadUserName($Bidder)." が<span class=\"support\">入札しました。</span>");
-		$this->AddLog("No." . $Article["No"] . " <span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個に " . MoneyFormat($BidPrice) . " で " . $BidderName . " が<span class=\"support\">入札しました。</span>");
+		//$this->AddLog("No.".$Article["No"]." <span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個に ".HOF_Helper_Global::MoneyFormat($BidPrice)." で ".$this->LoadUserName($Bidder)." が<span class=\"support\">入札しました。</span>");
+		$this->AddLog("No." . $Article["No"] . " <span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個に " . HOF_Helper_Global::MoneyFormat($BidPrice) . " で " . $BidderName . " が<span class=\"support\">入札しました。</span>");
 		return true;
 	}
 	//////////////////////////////////////////////
@@ -298,7 +298,7 @@ class Auction
 				print ($Article["No"]);
 				print ("</td><td class=\"td7\">");
 				// 現在入札価格
-				print (MoneyFormat($Article["price"]));
+				print (HOF_Helper_Global::MoneyFormat($Article["price"]));
 				print ("</td><td class=\"td7\">");
 				// 入札者
 				if (!$Article["bidder"]) $bidder = "-";
@@ -371,7 +371,7 @@ class Auction
 				print (AuctionLeftTime($Now, $Article["end"]));
 				// 現在入札価格
 				print ("</td><td class=\"td7\">");
-				print (MoneyFormat($Article["price"]));
+				print (HOF_Helper_Global::MoneyFormat($Article["price"]));
 				// アイテム
 				print ('</td><td class="td7" style="text-align:left">');
 				$item = HOF_Model_Data::getItemData($Article["item"]);
