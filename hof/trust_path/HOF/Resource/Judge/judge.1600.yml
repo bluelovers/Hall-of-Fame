@@ -1,2 +1,6 @@
 no: 1600
 exp: '自分が 毒状態'
+tag:
+    no: '1599'
+    exp: 毒
+quantity: false
