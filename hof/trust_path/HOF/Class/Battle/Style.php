@@ -217,6 +217,9 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 		return $this;
 	}
 
+	/**
+	 * 戦闘画像(画像のみ)
+	 */
 	function exec_img()
 	{
 		$this->output = '';
@@ -306,6 +309,9 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 		return $this;
 	}
 
+	/**
+	 * CSS戦闘画面
+	 */
 	function exec_css()
 	{
 		$this->output = '';
