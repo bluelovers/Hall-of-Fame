@@ -169,10 +169,10 @@ class union extends HOF_Class_Char
 		if (!file_exists($file)) return false;
 
 		$this->file = $file;
-		$this->fp = FileLock($this->file);
+		$this->fp = HOF_Class_File::FileLock($this->file);
 
 		$this->UnionNo = substr(basename($file), 0, 4);
-		$data = ParseFileFP($this->fp);
+		$data = HOF_Class_File::ParseFileFP($this->fp);
 		$this->SetCharData($data);
 		return true;
 	}
@@ -387,7 +387,7 @@ class union extends HOF_Class_Char
 		$string .= "HP=" . $this->HP . "\n";
 		$string .= "SP=" . $this->SP . "\n";
 
-		WriteFileFP($this->fp, $string);
+		HOF_Class_File::WriteFileFP($this->fp, $string);
 		fclose($this->fp);
 		unset($this->fp);
 	}
