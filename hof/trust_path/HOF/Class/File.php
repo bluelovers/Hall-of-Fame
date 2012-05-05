@@ -8,6 +8,8 @@
 class HOF_Class_File
 {
 
+	static $data = array();
+
 	/**
 	 * ファイルロックしたファイルポインタを返す。
 	 */
@@ -18,11 +20,20 @@ class HOF_Class_File
 		$fp = @fopen($file, "r+") or die("Error!");
 		if (!$fp) return false;
 
+		self::$data[$file] = array(
+			'fp' => $fp,
+			'file' => $file,
+		);
+
+		self::$data[$file]['lock'] = 0;
+
 		$i = 0;
 		do
 		{
 			if (flock($fp, LOCK_EX | LOCK_NB))
 			{
+				self::$data[$file]['lock'] = 1;
+
 				stream_set_write_buffer($fp, 0);
 				return $fp;
 			}
@@ -32,6 +43,11 @@ class HOF_Class_File
 				$i++;
 			}
 		} while ($i < 5);
+
+		if (!self::$data[$file]['lock'])
+		{
+			self::$data[$file]['lock'] = -1;
+		}
 
 		if ($noExit)
 		{
@@ -138,6 +154,30 @@ class HOF_Class_File
 		//print("</pre>");
 		if ($data) return $data;
 		else  return false;
+	}
+
+	function &_findFp($fp)
+	{
+		foreach (self::$data as &$data)
+		{
+			if ($data['fp'] == $fp)
+			{
+				return $data;
+			}
+		}
+
+		return false;
+	}
+
+	function fileClose($fp)
+	{
+		$data = self::_findFp($fp);
+		$data['fclose'] = true;
+
+		if (is_resource($fp))
+		{
+			fclose($fp);
+		}
 	}
 
 }
