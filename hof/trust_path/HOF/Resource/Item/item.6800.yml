@@ -3,6 +3,6 @@ name: DragonTooth
 type: Material
 buy: '1000'
 sell: '10'
-img: mat_013.png
+img: mat_013
 base_name: DragonTooth
 type2: OTHER
