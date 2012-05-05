@@ -1,3 +1,6 @@
 no: 1319
 exp: DEX
 css: true
+subs:
+    1320: { no: 1320, exp: '自分のDEXが○○ 以上', tag: { no: '1319', exp: DEX }, quantity: true }
+    1321: { no: 1321, exp: '自分のDEXが○○ 以下', tag: { no: '1319', exp: DEX }, quantity: true }
