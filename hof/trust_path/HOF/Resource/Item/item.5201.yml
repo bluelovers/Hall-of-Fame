@@ -2,7 +2,7 @@ no: 5201
 name: SilverRobe
 type: Robe
 buy: '1500'
-img: armor_012.png
+img: armor_012
 def:
     - 2
     - 5
