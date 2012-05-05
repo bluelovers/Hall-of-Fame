@@ -3,6 +3,6 @@ name: Cypress
 type: Material
 buy: '1000'
 sell: '40'
-img: mat_025.png
+img: mat_025
 base_name: Cypress
 type2: OTHER
