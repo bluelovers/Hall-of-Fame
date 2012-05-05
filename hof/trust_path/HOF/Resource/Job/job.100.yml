@@ -1,8 +1,8 @@
 no: 100
 name_male: Warrior
 name_female: Warrior
-img_male: mon_079.gif
-img_female: mon_080r.gif
+img_male: mon_079
+img_female: mon_080r
 equip:
     - Sword
     - TwoHandSword
