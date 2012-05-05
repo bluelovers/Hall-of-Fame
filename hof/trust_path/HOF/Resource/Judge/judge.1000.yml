@@ -1,2 +1,6 @@
 no: 1000
 exp: 必ず
+tag:
+    no: '900'
+    exp: 基礎
+quantity: false
