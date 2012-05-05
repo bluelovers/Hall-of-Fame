@@ -1,6 +1,6 @@
 no: 1023
 name: Cyclops
-img: mon_139.gif
+img: mon_139
 level: '20'
 exphold: '250'
 moneyhold: '30'
