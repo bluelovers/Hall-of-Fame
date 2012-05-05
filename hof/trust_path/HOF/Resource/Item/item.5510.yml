@@ -2,7 +2,7 @@ no: 5510
 name: PowerRing
 type: Item
 buy: '10000'
-img: acce_024.png
+img: acce_024
 handle: '3'
 P_STR: '30'
 option: 'STR+30, '
