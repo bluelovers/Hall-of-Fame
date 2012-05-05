@@ -3,7 +3,7 @@ name: Slayer
 type: TwoHandSword
 dh: true
 buy: '1000'
-img: we_sword006.png
+img: we_sword006
 atk:
     - 30
     - 0
