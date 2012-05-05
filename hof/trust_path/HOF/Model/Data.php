@@ -210,12 +210,14 @@ class HOF_Model_Data extends HOF_Class_Data
 
 			$regex = HOF_Class_Data::_filename('judge', '*');
 
-			$regex = '/^'.str_replace('\*', '(.+)', preg_quote($regex)).'$/i';
+			$regex = '/^'.str_replace('\*', '(.+)', preg_quote($regex, '/')).'$/i';
 
 			foreach(glob(HOF_Class_Data::_filename('judge', '*')) as $file)
 			{
 				$list[] = preg_replace($regex, '$1', $file);
 			}
+
+			return $list;
 		}
 		else
 		{
