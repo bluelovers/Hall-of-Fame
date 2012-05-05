@@ -2,7 +2,7 @@ no: 1023
 name: BananaSword
 type: Sword
 buy: '1000'
-img: banana.png
+img: banana
 atk:
     - 3
     - 0
