@@ -2,7 +2,7 @@ no: 3102
 name: SpellNote
 type: Book
 buy: '8000'
-img: book_002.png
+img: book_002
 atk:
     - 0
     - 7
