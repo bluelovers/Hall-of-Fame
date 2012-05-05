@@ -1,2 +1,6 @@
 no: 1001
 exp: 次の判断へ
+tag:
+    no: '900'
+    exp: 基礎
+quantity: false
