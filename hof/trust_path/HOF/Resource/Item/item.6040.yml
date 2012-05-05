@@ -3,6 +3,6 @@ name: Leather
 type: Material
 buy: '1000'
 sell: '10'
-img: mat_024.png
+img: mat_024
 base_name: Leather
 type2: OTHER
