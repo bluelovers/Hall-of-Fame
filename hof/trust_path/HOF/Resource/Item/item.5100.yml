@@ -2,7 +2,7 @@ no: 5100
 name: CottonShirt
 type: Cloth
 buy: '500'
-img: armor_014e.png
+img: armor_014e
 def:
     - 5
     - 5
