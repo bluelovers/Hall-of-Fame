@@ -1,6 +1,6 @@
 no: 5053
 name: IceWall
-img: skill_066.png
+img: skill_066
 sp: '300'
 type: '1'
 learn: '99'
