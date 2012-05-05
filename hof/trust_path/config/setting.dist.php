@@ -37,6 +37,9 @@ define("REFINE_LIMIT", 10); //精錬限界値
 define("EXP_RATE", 1); //経験値もらえる倍率
 define("MONEY_RATE", 1); //お金もらえる倍率
 
+// open all land
+define("DEBUG_LANDAPPEAR_ALL", 0);
+
 define("NEW_NAME_COST", 300000); //新しい名前に変更するのに必要なお金
 define("BBS_OUT", ""); //外部BBSがあればそのアドレス、無ければ空欄→""
 define("BBS_BOTTOM_TOGGLE", 0); // 下にあった一行掲示板(0=OFF)
