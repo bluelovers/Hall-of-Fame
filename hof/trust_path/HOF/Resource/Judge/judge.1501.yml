@@ -1,2 +1,6 @@
 no: 1501
 exp: 'チャージ中のキャラが ○○人以下'
+tag:
+    no: '1499'
+    exp: チャージ+詠唱
+quantity: true
