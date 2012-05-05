@@ -227,7 +227,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 		//$url .= 'bg='.$this->data['bg'].'&';
 		$params['bg'] = $this->options['bg'];
 
-		foreach($this->data['team'] as $_idx => $team)
+		foreach((array)$this->data['team'] as $_idx => $team)
 		{
 			//$k = 2 - $_idx;
 			$k = 1 + $_idx;
@@ -245,7 +245,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 					continue;
 				}
 
-				foreach ($team[$p] as $char)
+				foreach ((array)$team[$p] as $char)
 				{
 					// 画像はキャラに設定されている画像の拡張子までの名前
 					if ($char->STATE === DEAD)
@@ -331,7 +331,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 		}
 		*/
 
-		foreach ($this->data['team'] as $_idx => &$team)
+		foreach ((array)$this->data['team'] as $_idx => $team)
 		{
 			// 魔方陣を表示する
 			if (0 < $team['mc'])
