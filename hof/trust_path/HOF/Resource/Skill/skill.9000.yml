@@ -2,7 +2,7 @@ no: 9000
 name: '* think over'
 name2: '* 次も考慮する'
 exp: 複数判定
-img: skill_040.png
+img: skill_040
 learn: '4'
 type: false
 pow: false
