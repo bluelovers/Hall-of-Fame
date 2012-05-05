@@ -2,7 +2,7 @@ no: 1004
 name: Cutlass
 type: Sword
 buy: '8000'
-img: we_sword026.png
+img: we_sword026
 atk:
     - 30
     - 0
