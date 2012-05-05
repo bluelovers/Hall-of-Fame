@@ -10,9 +10,16 @@ class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 
 	function load($file)
 	{
-		$data = file_get_contents($file);
+		if (file_exists($file))
+		{
+			$data = file_get_contents($file);
 
-		$yaml = self::parse($data);
+			$yaml = self::parse($data);
+		}
+		else
+		{
+			$yaml = false;
+		}
 
 		return $yaml;
 	}
