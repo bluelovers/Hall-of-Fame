@@ -1,6 +1,6 @@
 no: 1026
 name: Gargoyle
-img: mon_104.gif
+img: mon_104
 level: '22'
 exphold: '220'
 moneyhold: '50'
