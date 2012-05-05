@@ -1,6 +1,6 @@
 no: 3101
 name: Blessing
-img: skill_008.png
+img: skill_008
 exp: SP回復
 sp: '0'
 type: '1'
