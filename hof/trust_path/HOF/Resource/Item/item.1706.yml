@@ -2,7 +2,7 @@ no: 1706
 name: SorecererWand
 type: Wand
 buy: '25000'
-img: we_staff002.png
+img: we_staff002
 atk:
     - 2
     - 40
