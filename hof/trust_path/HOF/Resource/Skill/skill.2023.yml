@@ -1,6 +1,6 @@
 no: 2023
 name: Paralysis
-img: skill_025.png
+img: skill_025
 exp: 行動遅延
 sp: '15'
 type: '1'
