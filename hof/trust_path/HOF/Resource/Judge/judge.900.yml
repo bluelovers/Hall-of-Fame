@@ -1,0 +1,6 @@
+no: 900
+exp: 基礎
+css: true
+subs:
+    1000: { no: 1000, exp: 必ず, tag: { no: '900', exp: 基礎 }, quantity: false }
+    1001: { no: 1001, exp: 次の判断へ, tag: { no: '900', exp: 基礎 }, quantity: false }
