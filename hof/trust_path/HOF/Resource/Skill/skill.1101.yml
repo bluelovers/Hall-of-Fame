@@ -1,6 +1,6 @@
 no: 1101
 name: ObtainSpeed
-img: skill_057.png
+img: skill_057
 exp: 早さ上昇
 sp: '0'
 type: '0'
