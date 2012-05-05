@@ -3,6 +3,6 @@ name: 'Map to the depth(滴凍山)'
 type: Map
 buy: '5000'
 sell: '100'
-img: book_003.png
+img: book_003
 base_name: 'Map to the depth(滴凍山)'
 type2: OTHER
