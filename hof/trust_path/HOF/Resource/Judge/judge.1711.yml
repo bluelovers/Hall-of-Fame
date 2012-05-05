@@ -1,2 +1,6 @@
 no: 1711
 exp: '味方の 前列が○○人以下'
+tag:
+    no: '1699'
+    exp: 隊列
+quantity: true
