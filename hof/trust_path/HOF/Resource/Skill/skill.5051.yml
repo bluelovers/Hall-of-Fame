@@ -1,6 +1,6 @@
 no: 5051
 name: SnowStorm
-img: skill_066.png
+img: skill_066
 sp: '80'
 type: '1'
 learn: '99'
