@@ -292,9 +292,9 @@ HTML;
 	//	全員死んでる=draw(?)
 	function BattleResult()
 	{
-		if (CountAlive($this->team0) == 0) //全員しぼーなら負けにする。
+		if (HOF_Class_Battle_Team::CountAlive($this->team0) == 0) //全員しぼーなら負けにする。
  				$team0Lose = true;
-		if (CountAlive($this->team1) == 0) //全員しぼーなら負けにする。
+		if (HOF_Class_Battle_Team::CountAlive($this->team1) == 0) //全員しぼーなら負けにする。
  				$team1Lose = true;
 		//勝者のチーム番号か引き分けを返す
 		if ($team0Lose && $team1Lose)
@@ -322,12 +322,12 @@ HTML;
 						// 生存者数の差。
 						/*
 						// 生存者数の差が1人以上なら延長
-						$AliveNumDiff	= abs(CountAlive($this->team0) - CountAlive($this->team1));
+						$AliveNumDiff	= abs(HOF_Class_Battle_Team::CountAlive($this->team0) - HOF_Class_Battle_Team::CountAlive($this->team1));
 						if(0 < $AliveNumDiff && $this->BattleMaxTurn < BATTLE_MAX_EXTENDS) {
 						*/
-						$AliveNumDiff = abs(CountAlive($this->team0) - CountAlive($this->team1));
-						$Not5 = (CountAlive($this->team0) != 5 && CountAlive($this->team1) != 5);
-						//$lessThan4	= ( CountAlive($this->team0) < 5 || CountAlive($this->team1) < 5 );
+						$AliveNumDiff = abs(HOF_Class_Battle_Team::CountAlive($this->team0) - HOF_Class_Battle_Team::CountAlive($this->team1));
+						$Not5 = (HOF_Class_Battle_Team::CountAlive($this->team0) != 5 && HOF_Class_Battle_Team::CountAlive($this->team1) != 5);
+						//$lessThan4	= ( HOF_Class_Battle_Team::CountAlive($this->team0) < 5 || HOF_Class_Battle_Team::CountAlive($this->team1) < 5 );
 						//if( ( $lessThan4 || 0 < $AliveNumDiff ) && $this->BattleMaxTurn < BATTLE_MAX_EXTENDS ) {
 						if (($Not5 || 0 < $AliveNumDiff) && $this->BattleMaxTurn < BATTLE_MAX_EXTENDS)
 						{
@@ -1627,16 +1627,7 @@ Total HP : <?=
 		}
 
 		//////////////////////////////////////////////////
-		//	生存者数を数えて返す
-		function CountAlive($team)
-		{
-			$no = 0; //初期化
-			foreach ($team as $char)
-			{
-				if ($char->STATE !== 1) $no++;
-			}
-			return $no;
-		}
+		//
 
 		//////////////////////////////////////////////////
 		//	初期キャラ生存数を数えて返す
