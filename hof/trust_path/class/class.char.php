@@ -1533,6 +1533,7 @@ Lv.<?=
 	//	IMGタグで画像を表示するのみ
 	function GetImageURL($dir)
 	{
+		/*
 		if (file_exists(IMG_CHAR . $this->img))
 		{
 			if ($this->STATE === DEAD)
@@ -1549,6 +1550,10 @@ Lv.<?=
 		{
 			return $dir . CHAR_NO_IMAGE;
 		}
+		*/
+		$ret = HOF_Class_Icon::getIamge($this->img, IMG_CHAR);
+
+		return $ret;
 	}
 	//////////////////////////////////////////////////
 	//	IMGタグで画像を表示するのみ
