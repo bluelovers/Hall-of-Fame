@@ -3,7 +3,7 @@ name: DragonSlayer
 type: TwoHandSword
 dh: true
 buy: '80000'
-img: we_sword006.png
+img: we_sword006
 atk:
     - 10
     - 0
