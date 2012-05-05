@@ -1,6 +1,6 @@
 no: 1020
 name: SkeltonArcher
-img: mon_143r.gif
+img: mon_143r
 level: '16'
 exphold: '160'
 moneyhold: '100'
