@@ -102,7 +102,7 @@ function is_registered($id)
 
 //////////////////////////////////////////////////
 //	ファイルロックしたファイルポインタを返す。
-function HOF_Class_File::FileLock($file, $noExit = false)
+function FileLock($file, $noExit = false)
 {
 
 	if (!file_exists($file)) return false;
@@ -142,7 +142,7 @@ function HOF_Class_File::FileLock($file, $noExit = false)
 }
 //////////////////////////////////////////////////
 //	ファイルに書き込む(引数:ファイルポインタ)
-function HOF_Class_File::WriteFileFP($fp, $text, $check = false)
+function WriteFileFP($fp, $text, $check = false)
 {
 	if (!$check && !trim($text)) //$textが空欄なら終わる
  			return false;
@@ -160,7 +160,7 @@ function HOF_Class_File::WriteFileFP($fp, $text, $check = false)
 
 //////////////////////////////////////////////////
 //	ファイルに書き込む
-function HOF_Class_File::WriteFile($file, $text, $check = false)
+function WriteFile($file, $text, $check = false)
 {
 	if (!$check && !$text) //$textが空欄なら終わる
  			return false;
@@ -175,7 +175,7 @@ function HOF_Class_File::WriteFile($file, $text, $check = false)
 
 //////////////////////////////////////////////////
 //	ファイルを読んで配列に格納(引数:ファイルポインタ)
-function HOF_Class_File::ParseFileFP($fp)
+function ParseFileFP($fp)
 {
 
 	if (!$fp) return false;
@@ -198,7 +198,7 @@ function HOF_Class_File::ParseFileFP($fp)
 }
 //////////////////////////////////////////////////
 //	ファイルを読んで配列に格納
-function HOF_Class_File::ParseFile($file)
+function ParseFile($file)
 {
 
 	$fp = @fopen($file, "r+");
