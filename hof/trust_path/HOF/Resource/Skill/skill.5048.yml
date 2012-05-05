@@ -1,6 +1,6 @@
 no: 5048
 name: CursingRoar
-img: skill_066.png
+img: skill_066
 sp: '120'
 type: '0'
 learn: '99'
