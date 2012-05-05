@@ -1,2 +1,6 @@
 no: 1330
 exp: '自分のSPDが○○ 以上'
+tag:
+    no: '1329'
+    exp: SPD
+quantity: true
