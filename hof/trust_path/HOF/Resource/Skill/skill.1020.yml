@@ -1,6 +1,6 @@
 no: 1020
 name: ManaBreak
-img: skill_073z.png
+img: skill_073z
 exp: SPダメージ
 sp: '20'
 type: '0'
