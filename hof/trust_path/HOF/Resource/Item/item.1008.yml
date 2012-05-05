@@ -2,7 +2,7 @@ no: 1008
 name: Flamberge
 type: Sword
 buy: '60000'
-img: we_sword026.png
+img: we_sword026
 atk:
     - 80
     - 0
