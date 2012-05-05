@@ -33,7 +33,7 @@ function UserAmount()
 
 // 行数
 define("ROWS", $_POST["patternNum"] ? $_POST["patternNum"] : 5);
-define("IMG", "../image/char/");
+define("IMG", "../static/image/char/");
 
 // Load
 if ($_POST["Load"] && $_POST["loadMob"])
