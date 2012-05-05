@@ -3,7 +3,7 @@ name: GreatAxe
 type: Axe
 dh: true
 buy: '1000'
-img: we_axe013b.png
+img: we_axe013b
 atk:
     - 35
     - 0
