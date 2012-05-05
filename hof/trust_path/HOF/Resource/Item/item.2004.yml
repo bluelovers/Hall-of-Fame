@@ -3,7 +3,7 @@ name: SilverBow
 type: Bow
 dh: true
 buy: '20000'
-img: we_bow001.png
+img: we_bow001
 atk:
     - 60
     - 0
