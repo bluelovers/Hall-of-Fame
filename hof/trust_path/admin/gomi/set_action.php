@@ -49,7 +49,7 @@ if ($_POST["MobNumber"])
 	//include ("./data.monster.php");
 	if ($monster = HOF_Model_Char::getBaseMonster($_POST["MobNumber"]))
 	{
-		echo "<h3 style=\"color:333333\"><img src=\"../image/char/{$monster[img]}\" />$monster[name]({$_POST[MobNumber]})</h3>";
+		echo "<h3 style=\"color:333333\"><img src=\"../static/image/char/{$monster[img]}\" />$monster[name]({$_POST[MobNumber]})</h3>";
 		foreach ($monster["judge"] as $key => $val)
 		{
 			$_POST["judge" . $key] = $val;
