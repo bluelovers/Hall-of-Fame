@@ -110,7 +110,7 @@ function ShowSkillDetail($skill, $radio = false)
 
 	if ($radio) print ('<input type="radio" name="newskill" value="' . $skill["no"] . '" class="vcent">');
 
-	print ('<img src="' . IMG_ICON . $skill["img"] . '" class="vcent">');
+	print ('<img src="' . HOF_Class_Icon::getIamge($skill["img"], IMG_ICON) . '" class="vcent">');
 	print ("{$skill[name]}");
 
 	if ($radio) print (" / <span class=\"bold\">{$skill[learn]}</span>pt");
