@@ -2,7 +2,7 @@ no: 3000
 name: WoodShield
 type: Shield
 buy: '1000'
-img: shield_001m.png
+img: shield_001m
 def:
     - 5
     - 5
