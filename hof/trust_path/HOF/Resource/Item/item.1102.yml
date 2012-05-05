@@ -3,7 +3,7 @@ name: Zweihander
 type: TwoHandSword
 dh: true
 buy: '16000'
-img: we_sword006.png
+img: we_sword006
 atk:
     - 65
     - 0
