@@ -216,7 +216,7 @@ class HOF_Model_Char extends HOF_Class_Data
 		}
 		// bluelovers
 
-		$data += array("monster" => "1");
+		$data["monster"] = "1";
 
 		return $data;
 	}
