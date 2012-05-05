@@ -1,6 +1,6 @@
 no: 1037
 name: SnowMan
-img: mon_181.gif
+img: mon_181
 exphold: '30'
 moneyhold: '30'
 level: '2'
