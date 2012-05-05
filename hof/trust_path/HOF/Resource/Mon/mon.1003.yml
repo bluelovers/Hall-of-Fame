@@ -1,6 +1,6 @@
 no: 1003
 name: GoblinKnight
-img: mon_206.gif
+img: mon_206
 level: '5'
 exphold: '40'
 moneyhold: '60'
