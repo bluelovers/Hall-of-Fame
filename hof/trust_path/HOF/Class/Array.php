@@ -45,4 +45,24 @@ class HOF_Class_Array extends ArrayObject
 		return $this->getArrayCopy();
 	}
 
+	/**
+	 * @return Array
+	 */
+	function _fixArray($append = array())
+	{
+		if (!empty($append))
+		{
+			if ($append instanceof HOF_Class_Array)
+			{
+				$append = $append->toArray();
+			}
+			elseif ($append instanceof ArrayObject)
+			{
+				$append = $append->getArrayCopy();
+			}
+		}
+
+		return (array)$append;
+	}
+
 }
