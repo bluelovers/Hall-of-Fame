@@ -2,7 +2,7 @@ no: 1400
 name: Javelin
 type: Pike
 buy: '1000'
-img: we_spear012.png
+img: we_spear012
 atk:
     - 14
     - 0
