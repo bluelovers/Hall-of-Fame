@@ -2,7 +2,7 @@ no: 3101
 name: SpellDictionary
 type: Book
 buy: '5000'
-img: book_002.png
+img: book_002
 atk:
     - 0
     - 5
