@@ -1564,7 +1564,7 @@ HTML;
 			print ('<span class="bold">模擬戦</span>');
 			print ('<h4>Teams</h4></div>');
 			print ('<form action="' . INDEX . '?simulate" method="post">');
-			$this->ShowCharacters($this->char, CHECKBOX, explode("<>", $this->party_memo));
+			$this->ShowCharacters($this->char, CHECKBOX, $this->party_memo);
 
 
 ?>
@@ -1667,7 +1667,7 @@ HTML;
 			print ('<span class="bold">' . $land["name"] . '</span>');
 			print ('<h4>Teams</h4></div>');
 			print ('<form action="' . INDEX . '?common=' . $_GET["common"] . '" method="post">');
-			$this->ShowCharacters($this->char, "CHECKBOX", explode("<>", $this->party_memo));
+			$this->ShowCharacters($this->char, "CHECKBOX", $this->party_memo);
 
 
 ?>
@@ -3605,7 +3605,7 @@ JS_HTML;
 			print ("<h4>Teams</h4>\n");
 			print ("</div>");
 			print ('<form action="' . INDEX . '?union=' . $_GET["union"] . '" method="post">');
-			$this->ShowCharacters($this->char, CHECKBOX, explode("<>", $this->party_memo));
+			$this->ShowCharacters($this->char, CHECKBOX, $this->party_memo);
 
 
 ?>
@@ -3903,7 +3903,13 @@ JS_HTML;
 				}
 				//if(5 < count($this->party_memo) )//5人以上は駄目
 				//	$this->party_memo	= $temp;
-				if (0 < count($PartyMemo) && count($PartyMemo) < 6) $this->party_memo = implode("<>", $PartyMemo);
+				if (0 < count($PartyMemo) && count($PartyMemo) < 6)
+				{
+					/*
+					$this->party_memo = implode("<>", $PartyMemo);
+					*/
+					$this->party_memo = $PartyMemo;
+				}
 			}
 		}
 
