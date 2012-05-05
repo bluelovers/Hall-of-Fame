@@ -2,7 +2,7 @@ no: 1205
 name: MailBreaker
 type: Dagger
 buy: '50000'
-img: we_sword010.png
+img: we_sword010
 atk:
     - 20
     - 0
