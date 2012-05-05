@@ -2,7 +2,7 @@ no: 5106
 name: NobleCoat
 type: Cloth
 buy: '18000'
-img: armor_014e.png
+img: armor_014e
 def:
     - 28
     - 12
