@@ -3,7 +3,7 @@ name: FourSeason
 type: Staff
 dh: true
 buy: '60000'
-img: we_staff008b.png
+img: we_staff008b
 atk:
     - 12
     - 40
