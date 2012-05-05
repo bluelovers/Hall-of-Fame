@@ -1,6 +1,6 @@
 no: 5032
 name: GroundStrike
-img: skill_066.png
+img: skill_066
 sp: '50'
 type: '0'
 learn: '99'
