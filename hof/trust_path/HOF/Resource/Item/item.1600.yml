@@ -2,7 +2,7 @@ no: 1600
 name: TomaHawk
 type: Hatchet
 buy: '1000'
-img: we_axe003.png
+img: we_axe003
 atk:
     - 17
     - 0
