@@ -1,2 +1,6 @@
 no: 1200
 exp: '自分のSP が○○(%)以上'
+tag:
+    no: '1199'
+    exp: SP
+quantity: true
