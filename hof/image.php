@@ -203,6 +203,7 @@ class image
 	{
 		// 修正可直接顯示合成後圖片而不會顯示亂碼
 		@header("Content-Type: image/{$type}");
+		@header('Content-Disposition: filename=battle'.gmdate('YmdHis', time()).'.png');
 
 		$func = 'image' . $type;
 		$func($this->image);
