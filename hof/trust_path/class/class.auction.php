@@ -498,13 +498,13 @@ class Auction
 		//print($string);
 		if (file_exists(AUCTION_ITEM) && $this->fp)
 		{
-			WriteFileFP($this->fp, $string, true);
+			HOF_Class_File::WriteFileFP($this->fp, $string, true);
 			fclose($this->fp);
 			unset($this->fp);
 		}
 		else
 		{
-			WriteFile(AUCTION_ITEM, $string, true);
+			HOF_Class_File::WriteFile(AUCTION_ITEM, $string, true);
 		}
 		$this->SaveLog();
 	}
@@ -549,7 +549,7 @@ class Auction
 		if (file_exists(AUCTION_ITEM))
 		{
 			//$fp	= fopen(AUCTION_ITEM,"r+");
-			$this->fp = FileLock(AUCTION_ITEM);
+			$this->fp = HOF_Class_File::FileLock(AUCTION_ITEM);
 			//if(!$fp) return false;
 			//flock($fp,LOCK_EX);
 			// 競売番号を先読みする
@@ -625,7 +625,7 @@ class Auction
 			{
 				$string .= $log . "\n";
 			}
-			WriteFile(AUCTION_ITEM_LOG, $string);
+			HOF_Class_File::WriteFile(AUCTION_ITEM_LOG, $string);
 		}
 	}
 	//////////////////////////////////////////////////
