@@ -1,6 +1,6 @@
 no: 3230
 name: ForceShield
-img: skill_070.png
+img: skill_070
 sp: '60'
 type: '1'
 learn: '6'
