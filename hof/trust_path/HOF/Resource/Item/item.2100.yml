@@ -3,7 +3,7 @@ name: Gastraphetes
 type: CrossBow
 dh: true
 buy: '1000'
-img: we_bow013.png
+img: we_bow013
 atk:
     - 25
     - 0
