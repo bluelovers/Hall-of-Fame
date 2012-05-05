@@ -1,2 +1,6 @@
 no: 1940
 exp: '○○%の 確率で'
+tag:
+    no: '1939'
+    exp: 確率
+quantity: true
