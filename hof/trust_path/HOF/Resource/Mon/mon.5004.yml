@@ -1,6 +1,6 @@
 no: 5004
 name: Zombie
-img: mon_141.gif
+img: mon_141
 level: '5'
 maxhp: '260'
 hp: '260'
