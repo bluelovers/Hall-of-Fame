@@ -1,6 +1,6 @@
 no: 2304
 name: PoisonShot
-img: item_042.png
+img: item_042
 exp: 毒
 sp: '15'
 type: '0'
