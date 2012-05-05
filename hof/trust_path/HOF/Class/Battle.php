@@ -43,4 +43,34 @@ class HOF_Class_Battle extends battle
 		return $this->objs['SkillEffect']->SkillEffect($skill, $skill_no, &$user, &$target);
 	}
 
+	/**
+	 * 魔方陣を追加する
+	 *
+	 * @param bool|$del 魔方陣を削除する
+	 */
+	function changeMagicCircle($team, $amount, $del = 0)
+	{
+		$amount *= ($del ? -1 : 1);
+
+		if ($team == TEAM_0)
+		{
+			$team_mc = &$this->team0_mc;
+		}
+		else
+		{
+			$team_mc = &$this->team1_mc;
+		}
+
+		if ($del)
+		{
+			if ($team_mc < $amount) return false;
+		}
+
+		$team_mc += $amount;
+
+		$team_mc = abs(max(0, min(5, $team_mc)));
+
+		return true;
+	}
+
 }
