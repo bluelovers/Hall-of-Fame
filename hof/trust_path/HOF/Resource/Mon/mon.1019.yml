@@ -1,6 +1,6 @@
 no: 1019
 name: SkeltonSoldier
-img: mon_144.gif
+img: mon_144
 level: '20'
 exphold: '200'
 moneyhold: '150'
