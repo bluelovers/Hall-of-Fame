@@ -2,7 +2,7 @@ no: 5002
 name: RingMail
 type: Armor
 buy: '5000'
-img: armor_016b.png
+img: armor_016b
 def:
     - 25
     - 15
