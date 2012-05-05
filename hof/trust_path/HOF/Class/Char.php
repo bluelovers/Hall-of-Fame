@@ -49,4 +49,14 @@ class HOF_Class_Char extends char
 		return $this->team_obj;
 	}
 
+	/**
+	 * ファイルポインタが開かれていれば閉じる
+	 */
+	function fpclose()
+	{
+		HOF_Class_File::fileClose($this->fp);
+
+		unset($this->fp);
+	}
+
 }
