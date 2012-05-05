@@ -1,6 +1,6 @@
 no: 1209
 name: TransPoison
-img: item_031.png
+img: item_031
 exp: 毒状態なら能力上昇+毒解除
 sp: '80'
 type: '0'
