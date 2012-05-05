@@ -1,6 +1,6 @@
 no: 5045
 name: IceBreath
-img: skill_066.png
+img: skill_066
 sp: '40'
 type: '0'
 learn: '99'
