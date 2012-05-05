@@ -493,20 +493,31 @@ class HOF_Class_Skill_Effect
 				}
 				// チャージ(詠唱)中のキャラのみに適応する技。
 				if ($skill["priority"] == "Charge" && !$target->expect) break;
+
 				// 召喚系の処理
-				if ($skill["summon"])
+				if (!empty($skill["summon"]))
 				{
+					/*
 					// 配列じゃなかったら要素1個の配列にしちゃう。
 					if (!is_array($skill["summon"])) $skill["summon"] = array($skill["summon"]);
+					*/
+
 					foreach ($skill["summon"] as $SummonNo)
 					{
-						$Strength = $user->SUmmonPower(); //召喚力?
+						// 召喚力?
+						$Strength = $user->SUmmonPower();
 						$add = HOF_Model_Char::newMonSummon($SummonNo, $Strength);
-						if ($skill["quick"]) // 速攻
- 								$add->Quick($this->battle->delay * 2);
+
+						// 速攻
+						if ($skill["quick"])
+						{
+ 							$add->Quick($this->battle->delay * 2);
+						}
+
 						//break;//ここ取るとエラー無くなる(?)。
 						$this->battle->JoinCharacter($user, $add);
 						$add->ShowImage(vcent);
+
 						print ($add->Name(bold) . " joined to the team.<br />\n");
 					}
 					return true;
