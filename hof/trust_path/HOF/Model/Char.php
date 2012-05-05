@@ -218,4 +218,40 @@ class HOF_Model_Char extends HOF_Class_Data
 		return $char;
 	}
 
+	/**
+	 * 召還系スキルで呼ばれたモンスター。
+	 */
+	function newMonSummon($no, $strength = false)
+	{
+		/*
+		include_once (DATA_MONSTER);
+		*/
+		$monster = HOF_Model_Char::getBaseMonster($no, 1);
+
+		$monster["summon"] = true;
+		// 召喚モンスターの強化。
+		if ($strength)
+		{
+			$monster["maxhp"] = round($monster["maxhp"] * $strength);
+			$monster["hp"] = round($monster["hp"] * $strength);
+			$monster["maxsp"] = round($monster["maxsp"] * $strength);
+			$monster["sp"] = round($monster["sp"] * $strength);
+			$monster["str"] = round($monster["str"] * $strength);
+			$monster["int"] = round($monster["int"] * $strength);
+			$monster["dex"] = round($monster["dex"] * $strength);
+			$monster["spd"] = round($monster["spd"] * $strength);
+			$monster["luk"] = round($monster["luk"] * $strength);
+
+			$monster["atk"]["0"] = round($monster["atk"]["0"] * $strength);
+			$monster["atk"]["1"] = round($monster["atk"]["1"] * $strength);
+		}
+
+		/*
+		$monster = new monster($monster);
+		*/
+		$monster = HOF_Model_Char::newMon($monster);
+		$monster->SetBattleVariable();
+		return $monster;
+	}
+
 }
