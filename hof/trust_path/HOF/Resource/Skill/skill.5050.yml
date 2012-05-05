@@ -1,6 +1,6 @@
 no: 5050
 name: IceSmash
-img: skill_066.png
+img: skill_066
 sp: '100'
 type: '1'
 learn: '99'
