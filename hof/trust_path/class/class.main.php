@@ -3141,12 +3141,7 @@ JS_HTML;
 	<div style="margin-left:20px">
 		<div style="width:500px">
 			<div style="float:left;width:50px;">
-				<img src="<?=
-
-			IMG_CHAR
-
-
-?>ori_003.gif" />
+				<img src="<?php echo HOF_Class_Icon::getIamge('ori_003', IMG_CHAR); ?>" />
 			</div>
 			<div style="float:right;width:450px;">
 				<?php
