@@ -1,6 +1,6 @@
 no: 1011
 name: WeaponBreak
-img: skill_072.png
+img: skill_072
 exp: 攻撃力低下
 sp: '30'
 type: '0'
