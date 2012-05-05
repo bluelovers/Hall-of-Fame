@@ -2,7 +2,7 @@ no: 1021
 name: RightBringer
 type: Sword
 buy: '100000'
-img: we_sword026.png
+img: we_sword026
 atk:
     - 3
     - 0
