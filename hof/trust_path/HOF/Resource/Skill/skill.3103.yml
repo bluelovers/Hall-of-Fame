@@ -1,6 +1,6 @@
 no: 3103
 name: Sanctuary
-img: skill_010.png
+img: skill_010
 exp: 'HP,SP回復'
 sp: '150'
 type: '1'
