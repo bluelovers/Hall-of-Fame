@@ -1,7 +1,7 @@
 <div style="margin:15px">
 		<h4>チュートリアル</h4>
 		<p>戦闘の基本的な戦略(イメージ:下図)</p>
-		<img src="./static/image/manual/t001.gif" alt="いめーじ" />
+		<img src="<?php echo HOF_Class_Icon::getIamge('t001', "./static/image/manual/"); ?>" alt="いめーじ" />
 		<p>基本は <span class="bold">戦士</span>(Warrior) のような打たれ強いキャラを <span class="bold">前衛</span>(Front) に、<br />
 			<span class="bold">魔法使い</span>(Sorecerer) のような打たれ弱いキャラを <span class="bold">後衛</span>(Back) に。</p>
 		<p>前衛は後衛を守り、攻撃力の高い後衛が敵を倒し、<br />
@@ -12,20 +12,18 @@
 			雇った時点で、そこそこ戦えるように設定してあります。</p>
 		<img src="<?=
 
-IMG_CHAR_REV
+HOF_Class_Icon::getIamge('mon_079', IMG_CHAR_REV)
+
+?>" alt="守る人" /> <img src="<?=
 
 
-?>mon_079.gif" alt="守る人" /> <img src="<?=
+HOF_Class_Icon::getIamge('mon_018', IMG_CHAR_REV);
 
-IMG_CHAR_REV
+?>" alt="痛い攻撃する人" /> <img src="<?=
 
+HOF_Class_Icon::getIamge('mon_214', IMG_CHAR_REV)
 
-?>mon_018.gif" alt="痛い攻撃する人" /> <img src="<?=
-
-IMG_CHAR_REV
-
-
-?>mon_214.gif" alt="治す人" />
+?>" alt="治す人" />
 		<p>ではさっそく、戦闘です。<br />
 			メニューの 狩り(Hunt) → <a href="?common=gb0">ゴブリンと遊ぶ</a><span class="light">(リンクはログインしてる場合のみ有効)</span><br />
 			雇った人たちにチェックをつけたら、<br />
@@ -33,7 +31,7 @@ IMG_CHAR_REV
 		<p>ちゃんとできていれば、<br />
 			戦闘結果が表示されると思います。</p>
 		<h4>メニューの構成</h4>
-		<img src="./static/image/manual/003.gif">
+		<img src="<?= HOF_Class_Icon::getIamge('003', './static/image/manual/')?>">
 		<h4>うんぬん</h4>
 		<div class="bold u">
 			雇える初期キャラ
