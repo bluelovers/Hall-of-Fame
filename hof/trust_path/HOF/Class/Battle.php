@@ -15,6 +15,13 @@ include_once CLASS_BATTLE;
 class HOF_Class_Battle extends battle
 {
 
+	function __construct($team0, $team1)
+	{
+		parent::__construct($team0, $team1);
+
+		$this->objs['view'] = new HOF_Class_Battle_View(&$this);
+	}
+
 	function outputImage()
 	{
 		$output = HOF_Class_Battle_Style::newInstance(BTL_IMG_TYPE)
