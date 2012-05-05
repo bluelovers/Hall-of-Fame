@@ -120,10 +120,10 @@ class HOF_Class_Battle_Style_Image
 
 	/**
 	 * ( gif, png, jpeg )
-gif -> 動作確認済み
-png -> 画像の色数を保てるかどうか未確認
-jpeg -> 動作未確認
-*/
+	 * gif -> 動作確認済み
+	 * png -> 画像の色数を保てるかどうか未確認
+	 * jpeg -> 動作未確認
+	 */
 	function SetBackGround($type = null)
 	{
 		$type && array_unshift(HOF_Class_Icon::$map_imgtype, $type);
