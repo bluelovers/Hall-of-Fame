@@ -2,7 +2,7 @@ no: 5001
 name: ScaleArmor
 type: Armor
 buy: '2000'
-img: armor_016b.png
+img: armor_016b
 def:
     - 20
     - 15
