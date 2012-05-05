@@ -1,6 +1,6 @@
 no: 2091
 name: EnergyCollect
-img: skill_037.png
+img: skill_037
 exp: SP吸収
 sp: '30'
 type: '1'
