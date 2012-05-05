@@ -1,6 +1,6 @@
 no: 1024
 name: LifeDivision
-img: skill_073y.png
+img: skill_073y
 exp: 対象とHPを分割
 sp: '100'
 type: '0'
