@@ -1,6 +1,6 @@
 no: 5039
 name: PoisonBreath
-img: skill_066.png
+img: skill_066
 sp: '100'
 type: '0'
 learn: '99'
