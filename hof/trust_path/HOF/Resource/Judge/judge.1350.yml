@@ -1,2 +1,6 @@
 no: 1350
 exp: '自分のATKが○○ 以上'
+tag:
+    no: '1349'
+    exp: ATK
+quantity: true
