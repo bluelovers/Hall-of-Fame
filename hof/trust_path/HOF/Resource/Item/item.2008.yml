@@ -3,7 +3,7 @@ name: Altemis
 type: Bow
 dh: true
 buy: '100000'
-img: we_bow001.png
+img: we_bow001
 atk:
     - 140
     - 0
