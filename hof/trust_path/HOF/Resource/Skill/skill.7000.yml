@@ -1,6 +1,6 @@
 no: 7000
 name: LifeBoost
-img: acce_003c.png
+img: acce_003c
 exp: HP+30
 learn: '2'
 passive: 1
