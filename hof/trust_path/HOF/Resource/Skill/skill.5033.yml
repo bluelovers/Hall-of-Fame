@@ -1,6 +1,6 @@
 no: 5033
 name: WeaponForging
-img: skill_066.png
+img: skill_066
 sp: '50'
 type: '0'
 learn: '99'
