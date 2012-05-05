@@ -1,8 +1,8 @@
 no: 201
 name_male: Warlock
 name_female: Warlock
-img_male: mon_196z.gif
-img_female: mon_246r.gif
+img_male: mon_196z
+img_female: mon_246r
 equip:
     - Wand
     - Staff
