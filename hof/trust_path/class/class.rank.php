@@ -137,9 +137,9 @@ class Ranking
 	// 戦わせる
 	function RankBattle($ChallengerID, $DefendID)
 	{
-		$challenger = new user($ChallengerID);
+		$challenger = new HOF_Class_User($ChallengerID);
 		$challenger->CharDataLoadAll();
-		$defender = new user($DefendID);
+		$defender = new HOF_Class_User($DefendID);
 		$defender->CharDataLoadAll();
 		//print($ChallengerID."<br>".$DefendID."<br>");
 
@@ -276,7 +276,7 @@ class Ranking
 			{
 				for ($from; $from < $to; $from++)
 				{
-					$user = new user($this->Ranking["$from"]["id"]);
+					$user = new HOF_Class_User($this->Ranking["$from"]["id"]);
 					$place = ($from == $last ? "位(最下位)" : "位");
 					if ($bold === $from)
 					{
@@ -293,7 +293,7 @@ class Ranking
 				{
 					foreach ($this->Ranking as $key => $val)
 					{
-						$user = new user($val["id"]);
+						$user = new HOF_Class_User($val["id"]);
 						echo ($key + 1) . "位 : " . $user->name . "<br />";
 					}
 				}
