@@ -1,6 +1,6 @@
 no: 1084
 name: WindElement
-img: mon_030.gif
+img: mon_030
 exphold: '1000'
 moneyhold: '1000'
 level: '40'
