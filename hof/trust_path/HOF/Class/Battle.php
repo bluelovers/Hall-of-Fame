@@ -26,4 +26,14 @@ class HOF_Class_Battle extends battle
 		echo $output;
 	}
 
+	function SkillEffect($skill, $skill_no, &$user, &$target)
+	{
+		if (!isset($this->objs['SkillEffect']))
+		{
+			$this->objs['SkillEffect'] = new HOF_Class_Skill_Effect(&$this);
+		}
+
+		return $this->objs['SkillEffect']->SkillEffect($skill, $skill_no, &$user, &$target);
+	}
+
 }
