@@ -20,8 +20,6 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 {
 
 	/**
-	 * Retrieve singleton instance
-	 *
 	 * @return self
 	 */
 	public static function &newInstance()
