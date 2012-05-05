@@ -1,6 +1,6 @@
 no: 1009
 name: GoblinTank
-img: mon_078.gif
+img: mon_078
 level: '15'
 exphold: '100'
 moneyhold: '100'
