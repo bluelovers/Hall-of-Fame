@@ -3,7 +3,7 @@ name: RobinHood
 type: Bow
 dh: true
 buy: '45000'
-img: we_bow001.png
+img: we_bow001
 atk:
     - 80
     - 0
