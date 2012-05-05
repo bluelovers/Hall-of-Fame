@@ -258,7 +258,10 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 					}
 					else
 					{
+						/*
 						$img = substr($char->img, 0, strpos($char->img, "."));
+						*/
+						$img = $char->img;
 					}
 
 					//$url .= "{$u}{$k}{${$u}}={$img}&";
