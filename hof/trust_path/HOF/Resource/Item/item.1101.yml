@@ -3,7 +3,7 @@ name: Claymore
 type: TwoHandSword
 dh: true
 buy: '5000'
-img: we_sword006.png
+img: we_sword006
 atk:
     - 45
     - 0
