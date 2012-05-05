@@ -1,6 +1,6 @@
 no: 1016
 name: ArmorPierce
-img: skill_077.png
+img: skill_077
 exp: 防御力無視
 sp: '30'
 type: '0'
