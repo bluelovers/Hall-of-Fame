@@ -1,6 +1,6 @@
 no: 3400
 name: Regeneration
-img: skill_062x.png
+img: skill_062x
 exp: HP持続回復+5%
 sp: '100'
 type: '1'
