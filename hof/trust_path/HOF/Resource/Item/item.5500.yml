@@ -2,7 +2,7 @@ no: 5500
 name: LifeRing
 type: Item
 buy: '10000'
-img: acce_024.png
+img: acce_024
 handle: '2'
 P_MAXHP: '50'
 option: 'MAXHP+50, '
