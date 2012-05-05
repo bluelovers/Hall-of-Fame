@@ -3,7 +3,7 @@ name: SharpShooter
 type: Bow
 dh: true
 buy: '30000'
-img: we_bow001.png
+img: we_bow001
 atk:
     - 70
     - 0
