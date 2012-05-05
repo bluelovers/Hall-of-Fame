@@ -1,6 +1,6 @@
 no: 2090
 name: EnergyRob
-img: skill_037.png
+img: skill_037
 exp: SP吸収
 sp: '10'
 type: '1'
