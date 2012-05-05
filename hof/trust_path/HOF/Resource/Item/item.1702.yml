@@ -2,7 +2,7 @@ no: 1702
 name: WoodenWand
 type: Wand
 buy: '4000'
-img: we_staff002.png
+img: we_staff002
 atk:
     - 8
     - 15
