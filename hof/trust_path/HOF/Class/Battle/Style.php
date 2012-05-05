@@ -205,6 +205,109 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 	{
 		$this->_options();
 
+		if ($this->style)
+		{
+			$this->exec_css();
+		}
+		else
+		{
+			$this->exec_img();
+		}
+
+		return $this;
+	}
+
+	function exec_img()
+	{
+		$this->output = '';
+
+		// HP=0 のキャラの画像(拡張子があればそれを取る)
+		$DeadImg = substr(DEAD_IMG, 0, strpos(DEAD_IMG, "."));
+
+		//$url .= 'bg='.$this->data['bg'].'&';
+		$params['bg'] = $this->options['bg'];
+
+		foreach($this->data['team'] as $_idx => $team)
+		{
+			//$k = 2 - $_idx;
+			$k = 1 + $_idx;
+
+			foreach(array(
+				'f' => 'front',
+				'b' => 'back',
+			) as $u => $p)
+			{
+				// 前衛の数・後衛の数を初期化
+				${$u} = 1;
+
+				if (empty($team[$p]))
+				{
+					continue;
+				}
+
+				foreach ($team[$p] as $char)
+				{
+					// 画像はキャラに設定されている画像の拡張子までの名前
+					if ($char->STATE === DEAD)
+					{
+						$img = $DeadImg;
+					}
+					else
+					{
+						$img = substr($char->img, 0, strpos($char->img, "."));
+					}
+
+					//$url .= "{$u}{$k}{${$u}}={$img}&";
+					$params[$u.$k.${$u}] = $img;
+
+					${$u}++;
+				}
+			}
+
+			/*
+			foreach ($team['team'] as $char)
+			{
+				// 画像はキャラに設定されている画像の拡張子までの名前
+				if ($char->STATE === 1)
+				{
+					$img = $DeadImg;
+				}
+				else
+				{
+					$img = substr($char->img, 0, strpos($char->img, "."));
+				}
+
+				if ($char->POSITION == "front")
+				{
+					// 前衛
+					$url .= "f{$k}{$f}=$img&";
+					$f++;
+				}
+				else
+				{
+					// 後衛
+					$url .= "b{$k}{$b}=$img&";
+					$b++;
+				}
+			}
+			*/
+		}
+
+		$url = BTL_IMG;
+
+		$param = http_build_query($params);
+		$url .= '?' . $param;
+
+		// ←これが表示されるのみ
+		$this->output = '<img src="' . $url . '">';
+
+		$this->output = '<div style="text-align:center">'.$this->output.'</div>';
+
+		return $this;
+	}
+
+	function exec_css()
+	{
 		$this->output = '';
 
 		//print("<div style=\"postion:relative;height:{$this->data['bg_x']}px;\">\n");
