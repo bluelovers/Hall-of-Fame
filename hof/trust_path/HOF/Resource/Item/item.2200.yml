@@ -2,7 +2,7 @@ no: 2200
 name: TamerWhip
 type: Whip
 buy: '1000'
-img: we_other007.png
+img: we_other007
 atk:
     - 20
     - 0
