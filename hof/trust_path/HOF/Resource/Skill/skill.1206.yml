@@ -1,6 +1,6 @@
 no: 1206
 name: AcidMist
-img: skill_079z.png
+img: skill_079z
 exp: 防御低下
 sp: '60'
 type: '0'
