@@ -1,6 +1,6 @@
 no: 1022
 name: ChargeAttack
-img: skill_033.png
+img: skill_033
 exp: 後列の時威力4倍+前進
 sp: '10'
 type: '0'
