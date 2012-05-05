@@ -2,7 +2,7 @@ no: 1705
 name: FairlyWand
 type: Wand
 buy: '18000'
-img: we_staff002.png
+img: we_staff002
 atk:
     - 5
     - 32
