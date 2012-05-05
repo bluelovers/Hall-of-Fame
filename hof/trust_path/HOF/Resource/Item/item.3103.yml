@@ -2,7 +2,7 @@ no: 3103
 name: HolyBible
 type: Book
 buy: '10000'
-img: book_002.png
+img: book_002
 atk:
     - 0
     - 4
