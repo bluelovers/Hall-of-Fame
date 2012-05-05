@@ -2,7 +2,7 @@ no: 5204
 name: CrossRobe
 type: Robe
 buy: '8000'
-img: armor_012.png
+img: armor_012
 def:
     - 5
     - 10
