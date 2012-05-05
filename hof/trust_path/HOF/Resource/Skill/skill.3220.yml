@@ -1,6 +1,6 @@
 no: 3220
 name: ProtectionField
-img: skill_045.png
+img: skill_045
 sp: '60'
 type: '1'
 learn: '6'
