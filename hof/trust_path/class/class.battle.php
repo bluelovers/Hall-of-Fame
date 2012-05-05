@@ -5,7 +5,8 @@ if (!defined('DEBUG'))
 	exit('Access Denied');
 }
 
-class battle extends HOF_Class_Skill_Effect
+//class battle extends HOF_Class_Skill_Effect
+class battle
 {
 	/*
 	* $battle	= new HOF_Class_Battle($MyParty,$EnemyParty);
