@@ -29,7 +29,7 @@ class HOF_Class_Icon
 			foreach (self::$map_imgtype as $ext)
 			{
 				$_file = $dir . $no . '.' . $ext;
-				if (file_exists($_file))
+				if (file_exists(BASE_PATH.$_file))
 				{
 					$file = $_file;
 					break;
