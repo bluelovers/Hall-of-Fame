@@ -1,2 +1,6 @@
 no: 1900
 exp: '自分の行動が ○○回以上'
+tag:
+    no: '1899'
+    exp: 指定行動回数
+quantity: true
