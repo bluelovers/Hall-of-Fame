@@ -96,7 +96,7 @@ EOM
 	 */
 	function BattleFoot()
 	{
-		$this->output[] = '</tbody></table>';
+		$this->footer[] = '</tbody></table>';
 	}
 
 }
