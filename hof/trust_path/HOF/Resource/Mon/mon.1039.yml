@@ -1,6 +1,6 @@
 no: 1039
 name: GoblinSkier
-img: mon_182.gif
+img: mon_182
 exphold: '30'
 moneyhold: '30'
 level: '3'
