@@ -2,7 +2,7 @@ no: 2201
 name: LongWhip
 type: Whip
 buy: '20000'
-img: we_other007.png
+img: we_other007
 atk:
     - 30
     - 0
