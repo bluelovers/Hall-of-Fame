@@ -214,8 +214,9 @@ class HOF_Class_Skill_Effect
 					break;
 				}
 				print ($target->GetSpecial("Metamo", true));
-				if ($target->gender == 0) $target->img = "mon_110r.gif"; //♂
-				else  $target->img = "mon_149r.gif"; //♀
+				if ($target->gender == 0) $target->img = "mon_110"; //♂
+				else  $target->img = "mon_149"; //♀
+
 				$this->StatusChanges($skill, $target);
 				self::RecoverHP($target, round($target->MAXHP / 2));
 				break;
