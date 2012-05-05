@@ -1,2 +1,6 @@
 no: 1381
 exp: '自分のMDEFが○○ 以下'
+tag:
+    no: '1379'
+    exp: MDEF
+quantity: true
