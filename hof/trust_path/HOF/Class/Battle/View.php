@@ -5,7 +5,7 @@
  * @copyright 2012
  */
 
-class HOF_Class_Battle_View extends HOF_Class_Array
+class HOF_Class_Battle_View
 {
 
 	protected $battle = null;
@@ -18,23 +18,6 @@ class HOF_Class_Battle_View extends HOF_Class_Array
 		parent::__construct($this->_data_default);
 
 		$this->battle = &$battle;
-	}
-
-	function output()
-	{
-		return $this->__toString();
-	}
-
-	function add($output)
-	{
-		$this->output[] = $output;
-	}
-
-	function __toString()
-	{
-		$output = array_merge((array )$this->header, (array )$this->output, (array )$this->footer);
-
-		return implode('', (array )$output);
 	}
 
 	/**
@@ -75,7 +58,7 @@ class HOF_Class_Battle_View extends HOF_Class_Array
 			$team1_total_maxhp = '????';
 		}
 
-		$this->header[] = <<< EOM
+		echo <<< EOM
 <table style="width:100%;" cellspacing="0">
 	<tbody>
 		<tr>
@@ -103,7 +86,7 @@ EOM
 	 */
 	function BattleFoot()
 	{
-		$this->footer[] = '</tbody></table>';
+		echo '</tbody></table>';
 	}
 
 	/**
@@ -115,23 +98,23 @@ EOM
 		if ($last !== $this->battle->actions) $last = $this->battle->actions;
 		else  return false;
 
-		$this->add("<tr><td colspan=\"2\" class=\"btl_img\">\n");
+		echo("<tr><td colspan=\"2\" class=\"btl_img\">\n");
 		// 戦闘ステップ順に自動スクロール
-		$this->add("<a name=\"s" . $this->battle->Scroll . "\"></a>\n");
-		$this->add("<div style=\"width:100%;hight:100%;position:relative;\">\n");
-		$this->add('<div style="position:absolute;bottom:0px;right:0px;">' . "\n");
-		if ($this->battle->Scroll) $this->add("<a href=\"#s" . ($this->battle->Scroll - 1) . "\">&lt;&lt;</a>\n");
-		else  $this->add("&lt;&lt;");
-		$this->add("<a href=\"#s" . (++$this->battle->Scroll) . "\">&gt;&gt;</a>\n");
-		$this->add('</div>');
+		echo("<a name=\"s" . $this->battle->Scroll . "\"></a>\n");
+		echo("<div style=\"width:100%;hight:100%;position:relative;\">\n");
+		echo('<div style="position:absolute;bottom:0px;right:0px;">' . "\n");
+		if ($this->battle->Scroll) echo("<a href=\"#s" . ($this->battle->Scroll - 1) . "\">&lt;&lt;</a>\n");
+		else  echo("&lt;&lt;");
+		echo("<a href=\"#s" . (++$this->battle->Scroll) . "\">&gt;&gt;</a>\n");
+		echo('</div>');
 
 		/*
 		switch (BTL_IMG_TYPE)
 		{
 		case 0:
-		$this->add('<div style="text-align:center">');
+		echo('<div style="text-align:center">');
 		$this->battle->ShowGdImage(); //画像
-		$this->add('</div>');
+		echo('</div>');
 		break;
 		case 1:
 		case 2:
@@ -143,10 +126,10 @@ EOM
 		$this->battle->outputImage();
 		// bluelovers
 
-		$this->add("</div>");
-		$this->add("</td></tr><tr><td class=\"ttd2 break\">\n");
+		echo("</div>");
+		echo("</td></tr><tr><td class=\"ttd2 break\">\n");
 
-		$this->add("<table style=\"width:100%\"><tbody><tr><td style=\"width:50%\">\n"); // team1-backs
+		echo("<table style=\"width:100%\"><tbody><tr><td style=\"width:50%\">\n"); // team1-backs
 
 		// 	左側チーム後衛
 		foreach ($this->battle->team1 as $char)
@@ -154,43 +137,43 @@ EOM
 			// 召喚キャラが死亡している場合は飛ばす
 			if ($char->STATE === DEAD && $char->summon == true) continue;
 
-			if ($char->POSITION != FRONT) $char->ShowHpSp();
+			if ($char->POSITION != FRONT) echo $char->ShowHpSp();
 		}
 
 		// 	左側チーム前衛
-		$this->add("</td><td style=\"width:50%\">\n");
+		echo("</td><td style=\"width:50%\">\n");
 		foreach ($this->battle->team1 as $char)
 		{
 			// 召喚キャラが死亡している場合は飛ばす
 			if ($char->STATE === DEAD && $char->summon == true) continue;
 
-			if ($char->POSITION == FRONT) $char->ShowHpSp();
+			if ($char->POSITION == FRONT) echo $char->ShowHpSp();
 		}
 
-		$this->add("</td></tr></tbody></table>\n");
+		echo("</td></tr></tbody></table>\n");
 
-		$this->add("</td><td class=\"ttd1 break\">\n");
+		echo("</td><td class=\"ttd1 break\">\n");
 
 		// 	右側チーム前衛
-		$this->add("<table style=\"width:100%\"><tbody><tr><td style=\"width:50%\">\n");
+		echo("<table style=\"width:100%\"><tbody><tr><td style=\"width:50%\">\n");
 		foreach ($this->battle->team0 as $char)
 		{
 			// 召喚キャラが死亡している場合は飛ばす
 			if ($char->STATE === DEAD && $char->summon == true) continue;
-			if ($char->POSITION == FRONT) $char->ShowHpSp();
+			if ($char->POSITION == FRONT) echo $char->ShowHpSp();
 		}
 
 		// 	右側チーム後衛
-		$this->add("</td><td style=\"width:50%\">\n");
+		echo("</td><td style=\"width:50%\">\n");
 		foreach ($this->battle->team0 as $char)
 		{
 			// 召喚キャラが死亡している場合は飛ばす
 			if ($char->STATE === DEAD && $char->summon == true) continue;
-			if ($char->POSITION != FRONT) $char->ShowHpSp();
+			if ($char->POSITION != FRONT) echo $char->ShowHpSp();
 		}
-		$this->add("</td></tr></tbody></table>\n");
+		echo("</td></tr></tbody></table>\n");
 
-		$this->add("</td></tr>\n");
+		echo("</td></tr>\n");
 	}
 
 	/**
@@ -223,94 +206,94 @@ EOM
 		// 結果を表示しない。
 		if ($this->battle->NoResult)
 		{
-			$this->add('<tr><td colspan="2" style="text-align:center;padding:10px 0px" class="break break-top">');
-			//$this->add("<a name=\"s{$this->battle->Scroll}\"></a>");// スクロールの最後
-			$this->add("模擬戦終了");
-			$this->add("</td></tr>\n");
-			$this->add('<tr><td class="teams break">' . "\n");
+			echo('<tr><td colspan="2" style="text-align:center;padding:10px 0px" class="break break-top">');
+			//echo("<a name=\"s{$this->battle->Scroll}\"></a>");// スクロールの最後
+			echo("模擬戦終了");
+			echo("</td></tr>\n");
+			echo('<tr><td class="teams break">' . "\n");
 			// 左側チーム
-			$this->add("HP remain : {$TotalHp2}/{$TotalMaxHp2}<br />\n");
-			$this->add("Alive : {$TotalAlive2}/" . count($this->battle->team1) . "<br />\n");
-			$this->add("TotalDamage : {$this->battle->team1_dmg}<br />\n");
+			echo("HP remain : {$TotalHp2}/{$TotalMaxHp2}<br />\n");
+			echo("Alive : {$TotalAlive2}/" . count($this->battle->team1) . "<br />\n");
+			echo("TotalDamage : {$this->battle->team1_dmg}<br />\n");
 			// 右側チーム
-			$this->add('</td><td class="teams break">' . "\n");
-			$this->add("HP remain : {$TotalHp1}/{$TotalMaxHp1}<br />\n");
-			$this->add("Alive : {$TotalAlive1}/" . count($this->battle->team0) . "<br />\n");
-			$this->add("TotalDamage : {$this->battle->team0_dmg}<br />\n");
-			$this->add("</td></tr>\n");
+			echo('</td><td class="teams break">' . "\n");
+			echo("HP remain : {$TotalHp1}/{$TotalMaxHp1}<br />\n");
+			echo("Alive : {$TotalAlive1}/" . count($this->battle->team0) . "<br />\n");
+			echo("TotalDamage : {$this->battle->team0_dmg}<br />\n");
+			echo("</td></tr>\n");
 			return false;
 		}
 
 		//if($this->battle->actions % BATTLE_STAT_TURNS != 0 || $result == "draw")
 		//if(($this->battle->actions + 1) % BATTLE_STAT_TURNS != 0)
 		$BreakTop = " break-top";
-		$this->add('<tr><td colspan="2" style="text-align:center;padding:10px 0px" class="break' . $BreakTop . '">' . "\n");
-		//$this->add($this->battle->actions."%".BATTLE_STAT_TURNS."<br>");
-		$this->add("<a name=\"s{$this->battle->Scroll}\"></a>\n"); // スクロールの最後
+		echo('<tr><td colspan="2" style="text-align:center;padding:10px 0px" class="break' . $BreakTop . '">' . "\n");
+		//echo($this->battle->actions."%".BATTLE_STAT_TURNS."<br>");
+		echo("<a name=\"s{$this->battle->Scroll}\"></a>\n"); // スクロールの最後
 		if ($result == "draw")
 		{
-			$this->add("<span style=\"font-size:150%\">Draw Game</span><br />\n");
+			echo("<span style=\"font-size:150%\">Draw Game</span><br />\n");
 		}
 		else
 		{
 			$Team = &$this->battle->{$result};
 			$TeamName = $this->battle->{$result . "_name"};
-			$this->add("<span style=\"font-size:200%\">{$TeamName} Wins!</span><br />\n");
+			echo("<span style=\"font-size:200%\">{$TeamName} Wins!</span><br />\n");
 		}
 
-		$this->add('<tr><td class="teams">' . "\n");
+		echo('<tr><td class="teams">' . "\n");
 		// Unionとそうでないのでわける
-		$this->add("HP remain : ");
-		$this->add($this->battle->UnionBattle ? "????/????" : "{$TotalHp2}/{$TotalMaxHp2}");
-		$this->add("<br />\n");
+		echo("HP remain : ");
+		echo($this->battle->UnionBattle ? "????/????" : "{$TotalHp2}/{$TotalMaxHp2}");
+		echo("<br />\n");
 		/*
 		if($this->battle->UnionBattle) {
-		$this->add("HP remain : ????/????<br />\n");
+		echo("HP remain : ????/????<br />\n");
 		} else {
-		$this->add("HP remain : {$TotalHp2}/{$TotalMaxHp2}<br />\n");
+		echo("HP remain : {$TotalHp2}/{$TotalMaxHp2}<br />\n");
 		}
 		*/
 		// 左側チーム
-		$this->add("Alive : {$TotalAlive2}/" . count($this->battle->team1) . "<br />\n");
-		$this->add("TotalDamage : {$this->battle->team1_dmg}<br />\n");
+		echo("Alive : {$TotalAlive2}/" . count($this->battle->team1) . "<br />\n");
+		echo("TotalDamage : {$this->battle->team1_dmg}<br />\n");
 		if ($this->battle->team1_exp) //得た経験値
- 				$this->add("TotalExp : " . $this->battle->team1_exp . "<br />\n");
+ 				echo("TotalExp : " . $this->battle->team1_exp . "<br />\n");
 		if ($this->battle->team1_money) //得たお金
- 				$this->add("Funds : " . HOF_Helper_Global::MoneyFormat($this->battle->team1_money) . "<br />\n");
+ 				echo("Funds : " . HOF_Helper_Global::MoneyFormat($this->battle->team1_money) . "<br />\n");
 		if ($this->battle->team1_item)
 		{
 			//得たアイテム
-			$this->add("<div class=\"bold\">Items</div>\n");
+			echo("<div class=\"bold\">Items</div>\n");
 			foreach ($this->battle->team0_item as $itemno => $amount)
 			{
 				$item = HOF_Model_Data::getItemData($itemno);
-				$this->add("<img src=\"" . IMG_ICON . 'item/' . $item["img"] . "\" class=\"vcent\">");
-				$this->add("{$item[name]} x {$amount}<br />\n");
+				echo("<img src=\"" . IMG_ICON . 'item/' . $item["img"] . "\" class=\"vcent\">");
+				echo("{$item[name]} x {$amount}<br />\n");
 			}
 		}
 
 		// 右側チーム
-		$this->add('</td><td class="teams">');
-		$this->add("HP remain : {$TotalHp1}/{$TotalMaxHp1}<br />\n");
-		$this->add("Alive : {$TotalAlive1}/" . count($this->battle->team0) . "<br />\n");
-		$this->add("TotalDamage : {$this->battle->team0_dmg}<br />\n");
+		echo('</td><td class="teams">');
+		echo("HP remain : {$TotalHp1}/{$TotalMaxHp1}<br />\n");
+		echo("Alive : {$TotalAlive1}/" . count($this->battle->team0) . "<br />\n");
+		echo("TotalDamage : {$this->battle->team0_dmg}<br />\n");
 		if ($this->battle->team0_exp) //得た経験値
- 				$this->add("TotalExp : " . $this->battle->team0_exp . "<br />\n");
+ 				echo("TotalExp : " . $this->battle->team0_exp . "<br />\n");
 		if ($this->battle->team0_money) //得たお金
- 				$this->add("Funds : " . HOF_Helper_Global::MoneyFormat($this->battle->team0_money) . "<br />\n");
+ 				echo("Funds : " . HOF_Helper_Global::MoneyFormat($this->battle->team0_money) . "<br />\n");
 		if ($this->battle->team0_item)
 		{
 			//得たアイテム
-			$this->add("<div class=\"bold\">Items</div>\n");
+			echo("<div class=\"bold\">Items</div>\n");
 			foreach ($this->battle->team0_item as $itemno => $amount)
 			{
 				$item = HOF_Model_Data::getItemData($itemno);
-				$this->add("<img src=\"" . IMG_ICON . 'item/' . $item["img"] . "\" class=\"vcent\">");
-				$this->add("{$item[name]} x {$amount}<br />\n");
+				echo("<img src=\"" . IMG_ICON . 'item/' . $item["img"] . "\" class=\"vcent\">");
+				echo("{$item[name]} x {$amount}<br />\n");
 			}
 		}
-		$this->add("</td></tr>\n");
-		//$this->add("</td></tr>\n");//?
+		echo("</td></tr>\n");
+		//echo("</td></tr>\n");//?
 	}
 
 }
