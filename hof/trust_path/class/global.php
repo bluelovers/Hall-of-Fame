@@ -17,7 +17,7 @@ function DeleteAbandonAccount()
 	{
 		if (!is_dir($file)) continue;
 		$UserID = substr($file, strrpos($file, "/") + 1);
-		$user = new user($UserID, true);
+		$user = new HOF_Class_User($UserID, true);
 
 		// 消されるユーザー
 		if ($user->IsAbandoned())
