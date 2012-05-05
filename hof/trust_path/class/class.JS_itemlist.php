@@ -14,7 +14,7 @@ $list0->SetID("buy");//引数なんでもいい
 $list0->SetName("type_buy");//引数なんでもいい
 foreach($ShopList as $no) {
 $item	= HOF_Model_Data::getItemData($no);
-$head	= '<input type="radio" name="item_no" value="'.$no.'" class="vcent">'.MoneyFormat($item["buy"]);
+$head	= '<input type="radio" name="item_no" value="'.$no.'" class="vcent">'.HOF_Helper_Global::MoneyFormat($item["buy"]);
 $head	.= ShowItemDetail($item,false,1);
 $list0->AddItem($item,$head);
 }
