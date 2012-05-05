@@ -1,6 +1,6 @@
 no: 5002
 name: Mimic
-img: mon_065.gif
+img: mon_065
 level: '20'
 maxhp: '300'
 hp: '300'
