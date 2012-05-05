@@ -2,7 +2,7 @@ no: 2210
 name: Wire
 type: Whip
 buy: '50000'
-img: we_other007.png
+img: we_other007
 atk:
     - 70
     - 0
