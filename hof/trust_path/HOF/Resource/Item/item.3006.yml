@@ -2,7 +2,7 @@ no: 3006
 name: RoundShield
 type: Shield
 buy: '10000'
-img: shield_001m.png
+img: shield_001m
 def:
     - 15
     - 20
