@@ -1,6 +1,6 @@
 no: 1058
 name: Sentry
-img: mon_174.gif
+img: mon_174
 exphold: '1000'
 moneyhold: '500'
 level: '37'
