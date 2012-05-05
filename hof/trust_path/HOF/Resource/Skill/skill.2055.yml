@@ -1,6 +1,6 @@
 no: 2055
 name: SoulRevenge
-img: skill_065.png
+img: skill_065
 exp: 死者の数だけダメージ増加
 sp: '340'
 type: '1'
