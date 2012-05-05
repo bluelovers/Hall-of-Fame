@@ -1,6 +1,6 @@
 no: 1100
 name: MonkeyWarrior
-img: mon_008.gif
+img: mon_008
 level: '20'
 exphold: '200'
 moneyhold: '100'
