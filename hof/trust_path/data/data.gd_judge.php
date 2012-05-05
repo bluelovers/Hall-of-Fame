@@ -16,7 +16,7 @@ include_once (DATA_JUDGE_SETUP);
 
 // 一覧を表示する。
 /*
-$List	= JudgeList();
+$List	= HOF_Model_Data::getJudgeList();
 foreach($List as $No) {
 $Judge	= HOF_Model_Data::getJudgeData($No);
 print($Judge["exp2"]."<br />\n");
