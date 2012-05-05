@@ -1,3 +1,6 @@
 no: 1349
 exp: ATK
 css: true
+subs:
+    1350: { no: 1350, exp: '自分のATKが○○ 以上', tag: { no: '1349', exp: ATK }, quantity: true }
+    1351: { no: 1351, exp: '自分のATKが○○ 以下', tag: { no: '1349', exp: ATK }, quantity: true }
