@@ -2,7 +2,7 @@ no: 5011
 name: DevilArmor
 type: Armor
 buy: '20000'
-img: armor_016b.png
+img: armor_016b
 def:
     - 20
     - 140
