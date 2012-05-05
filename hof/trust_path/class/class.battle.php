@@ -568,7 +568,7 @@ HTML;
 			foreach($char->judge as $key => $judge){
 			// $return は true,false,配列のいづれか
 			// 配列の場合は判定の条件に一致したキャラが返る(ハズ)。
-			$return	=& DecideJudge($judge,$char,$MyTeam,$EnemyTeam,$key);
+			$return	=& HOF_Class_Battle_Judge::DecideJudge($judge,$char,$MyTeam,$EnemyTeam,$key);
 			if($return) {
 			$skill	= $char->action["$key"];
 			$char->JdgCount[$key]++;//決定した判断のカウントうｐ
@@ -1693,8 +1693,8 @@ Total HP : <?=
 			foreach ($Keys as $no)
 			{
 
-				//$return	= DecideJudge($no,$char,$MyTeam,$EnemyTeam);
-				$return = DecideJudge($no, $char, $classBattle);
+				//$return	= HOF_Class_Battle_Judge::DecideJudge($no,$char,$MyTeam,$EnemyTeam);
+				$return = HOF_Class_Battle_Judge::DecideJudge($no, $char, $classBattle);
 
 				// 判定が否であった場合終了。
 				if (!$return) return false;
