@@ -2,7 +2,7 @@ no: 3001
 name: Baccrar
 type: Shield
 buy: '2000'
-img: shield_001m.png
+img: shield_001m
 def:
     - 8
     - 8
