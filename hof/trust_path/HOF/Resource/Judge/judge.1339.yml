@@ -1,3 +1,6 @@
 no: 1339
 exp: LUK
 css: true
+subs:
+    1340: { no: 1340, exp: '自分のLUKが○○ 以上', tag: { no: '1339', exp: LUK }, quantity: true }
+    1341: { no: 1341, exp: '自分のLUKが○○ 以下', tag: { no: '1339', exp: LUK }, quantity: true }
