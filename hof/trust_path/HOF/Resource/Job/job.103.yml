@@ -1,8 +1,8 @@
 no: 103
 name_male: WitchHunt
 name_female: WitchHunt
-img_male: mon_150.gif
-img_female: mon_234.gif
+img_male: mon_150
+img_female: mon_234
 equip:
     - Sword
     - Dagger
