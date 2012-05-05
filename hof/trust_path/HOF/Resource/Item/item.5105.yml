@@ -2,7 +2,7 @@ no: 5105
 name: KiltedCoat
 type: Cloth
 buy: '14000'
-img: armor_014e.png
+img: armor_014e
 def:
     - 25
     - 10
