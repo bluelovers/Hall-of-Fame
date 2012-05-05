@@ -2,7 +2,7 @@ no: 5012
 name: CoatOfPlate
 type: Armor
 buy: '25000'
-img: armor_016b.png
+img: armor_016b
 def:
     - 47
     - 35
