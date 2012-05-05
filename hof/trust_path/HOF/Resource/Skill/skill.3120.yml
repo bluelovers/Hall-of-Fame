@@ -1,6 +1,6 @@
 no: 3120
 name: FirstAid
-img: skill_014.png
+img: skill_014
 exp: 自己HP回復
 sp: '0'
 type: '0'
