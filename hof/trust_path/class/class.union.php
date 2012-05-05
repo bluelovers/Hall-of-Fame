@@ -187,8 +187,7 @@ class union extends HOF_Class_Char
 	<div class="carpet_frame">
 	<div class="land" style="background-image : url(<?=
 
-		IMG_OTHER . "land_" . $this->UnionLand . ".gif"
-
+		HOF_Class_Icon::getIamge("land_" . $this->UnionLand, IMG_OTHER)
 
 ?>);">
 	<a href="?union=<?=
