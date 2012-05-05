@@ -2,7 +2,7 @@ no: 1220
 name: BananaDagger
 type: Dagger
 buy: '1000'
-img: banana.png
+img: banana
 atk:
     - 1
     - 0
