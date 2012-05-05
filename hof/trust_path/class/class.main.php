@@ -5,9 +5,9 @@ if (!defined('DEBUG'))
 	exit('Access Denied');
 }
 
-include (CLASS_USER);
 include (GLOBAL_PHP);
-class main extends user
+
+class main extends HOF_Class_User
 {
 
 	var $islogin = false;
