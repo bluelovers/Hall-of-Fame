@@ -1,2 +1,6 @@
 no: 1701
 exp: '自分が 後列'
+tag:
+    no: '1699'
+    exp: 隊列
+quantity: false
