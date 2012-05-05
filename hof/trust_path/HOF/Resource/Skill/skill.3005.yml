@@ -1,6 +1,6 @@
 no: 3005
 name: ProgressiveHeal
-img: skill_013b.png
+img: skill_013b
 exp: 対象のHP30%以下なら回復量2倍
 sp: '30'
 type: '1'
