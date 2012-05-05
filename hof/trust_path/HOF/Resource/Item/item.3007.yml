@@ -2,7 +2,7 @@ no: 3007
 name: TowerShield
 type: Shield
 buy: '15000'
-img: shield_001m.png
+img: shield_001m
 def:
     - 18
     - 15
