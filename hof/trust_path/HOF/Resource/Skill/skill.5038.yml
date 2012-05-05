@@ -1,6 +1,6 @@
 no: 5038
 name: DarkBreath
-img: skill_066.png
+img: skill_066
 sp: '200'
 type: '1'
 learn: '99'
