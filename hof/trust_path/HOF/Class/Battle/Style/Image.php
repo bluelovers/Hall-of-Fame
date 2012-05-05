@@ -166,7 +166,7 @@ class HOF_Class_Battle_Style_Image
 	 */
 	function OutPutImage($type = null)
 	{
-		$type = $type ? $type : $this;
+		$type = $type ? $type : $this->type;
 
 		// 修正可直接顯示合成後圖片而不會顯示亂碼
 		@header("Content-Type: image/{$type}");
