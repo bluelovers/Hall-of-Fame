@@ -1,8 +1,8 @@
 no: 401
 name_male: Sniper
 name_female: Sniper
-img_male: mon_076z.gif
-img_female: mon_042z.gif
+img_male: mon_076z
+img_female: mon_042z
 equip:
     - Bow
     - Cloth
