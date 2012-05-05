@@ -1,6 +1,6 @@
 no: 1007
 name: GoblinMaster
-img: mon_205r.gif
+img: mon_205r
 level: '10'
 exphold: '80'
 moneyhold: '80'
