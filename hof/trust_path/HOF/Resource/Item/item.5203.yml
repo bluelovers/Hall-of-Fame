@@ -2,7 +2,7 @@ no: 5203
 name: FairyRobe
 type: Robe
 buy: '5000'
-img: armor_012.png
+img: armor_012
 def:
     - 4
     - 10
