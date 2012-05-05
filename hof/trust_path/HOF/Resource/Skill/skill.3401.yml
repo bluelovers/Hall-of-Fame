@@ -1,6 +1,6 @@
 no: 3401
 name: ManaRegen
-img: skill_062x.png
+img: skill_062x
 exp: SP持続回復+5%
 sp: '150'
 type: '1'
