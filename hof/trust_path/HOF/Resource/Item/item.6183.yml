@@ -3,6 +3,6 @@ name: Wool
 type: Material
 buy: '1000'
 sell: '10'
-img: other_008.png
+img: other_008
 base_name: Wool
 type2: OTHER
