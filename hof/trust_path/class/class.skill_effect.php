@@ -417,7 +417,7 @@ class ClassSkillEffect
 					1021,
 					5002);
 				$mob = $spawn[array_rand($spawn)];
-				$add = CreateSummon($mob);
+				$add = HOF_Model_Char::newMonSummon($mob);
 				$this->JoinCharacter($user, $add);
 				$add->ShowImage(vcent);
 				print ($add->Name(bold) . " joined to the team.<br />\n");
@@ -463,7 +463,7 @@ class ClassSkillEffect
 					foreach ($skill["summon"] as $SummonNo)
 					{
 						$Strength = $user->SUmmonPower(); //召喚力?
-						$add = CreateSummon($SummonNo, $Strength);
+						$add = HOF_Model_Char::newMonSummon($SummonNo, $Strength);
 						if ($skill["quick"]) // 速攻
  								$add->Quick($this->delay * 2);
 						//break;//ここ取るとエラー無くなる(?)。
