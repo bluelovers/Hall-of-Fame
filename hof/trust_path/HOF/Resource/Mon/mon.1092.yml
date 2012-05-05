@@ -1,6 +1,6 @@
 no: 1092
 name: Bandits
-img: mon_216r.gif
+img: mon_216r
 exphold: '500'
 moneyhold: '60'
 level: '32'
