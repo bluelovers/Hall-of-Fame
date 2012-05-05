@@ -104,6 +104,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		if (isset($data['summon']))
 		{
+			// 配列じゃなかったら要素1個の配列にしちゃう。
 			$data['summon'] = (array)$data['summon'];
 		}
 
