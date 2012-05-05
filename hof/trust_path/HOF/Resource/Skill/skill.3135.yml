@@ -1,6 +1,6 @@
 no: 3135
 name: HolyShield
-img: skill_062x.png
+img: skill_062x
 exp: ダメージ1回無効化
 sp: '10'
 type: '0'
