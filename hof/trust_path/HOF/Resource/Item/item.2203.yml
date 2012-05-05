@@ -2,7 +2,7 @@ no: 2203
 name: Scorpio
 type: Whip
 buy: '50000'
-img: we_other007.png
+img: we_other007
 atk:
     - 50
     - 0
