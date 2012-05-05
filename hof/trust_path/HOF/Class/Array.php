@@ -65,4 +65,46 @@ class HOF_Class_Array extends ArrayObject
 		return (array)$append;
 	}
 
+	/**
+	 * array_splice
+	 */
+	function insert($offset, $insert)
+	{
+		$array = $this->toArray();
+
+		$new = array();
+
+		$j = 0;
+		$do = true;
+
+		foreach($array as $k => &$v)
+		{
+			if ($do && ($k == $offset || ($offset == 0 && $j == 0) || $offset === $j))
+			{
+				$do = false;
+
+				foreach($insert as &$i)
+				{
+					$new[] = $i;
+				}
+			}
+
+			$new[] = $v;
+
+			$j++;
+		}
+
+		if ($do)
+		{
+			$do = false;
+
+			foreach($insert as &$i)
+			{
+				$new[] = $i;
+			}
+		}
+
+		$this->exchangeArray($new);
+	}
+
 }
