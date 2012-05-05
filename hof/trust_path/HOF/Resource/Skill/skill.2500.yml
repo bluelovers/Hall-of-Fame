@@ -1,6 +1,6 @@
 no: 2500
 name: SummonIfrit
-img: skill_029.png
+img: skill_029
 exp: ''
 sp: '700'
 type: '1'
