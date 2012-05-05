@@ -2,7 +2,7 @@ no: 1003
 name: Rapier
 type: Sword
 buy: '5000'
-img: we_sword026.png
+img: we_sword026
 atk:
     - 25
     - 0
