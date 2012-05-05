@@ -1,8 +1,8 @@
 no: 400
 name_male: Hunter
 name_female: Hunter
-img_male: mon_219rr.gif
-img_female: mon_219r.gif
+img_male: mon_219rr
+img_female: mon_219r
 equip:
     - Bow
     - Cloth
