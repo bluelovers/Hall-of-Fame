@@ -1838,7 +1838,7 @@ HTML;
 					if ($this->WasteTime(100))
 					{
 						$this->GetMoney(500);
-						ShowResult("働いて " . MoneyFormat(500) . " げっとした!", "margin15");
+						ShowResult("働いて " . HOF_Helper_Global::MoneyFormat(500) . " げっとした!", "margin15");
 						return true;
 					}
 					else
@@ -1868,19 +1868,19 @@ HTML;
 							if (1 < $amount)
 							{
 								$img = "<img src=\"" . IMG_ICON . $item[img] . "\" class=\"vcent\" />";
-								ShowResult("{$img}{$item[name]} を{$amount}個 購入した (" . MoneyFormat($item["buy"]) . " x{$amount} = " . MoneyFormat($need) . ")", "margin15");
+								ShowResult("{$img}{$item[name]} を{$amount}個 購入した (" . HOF_Helper_Global::MoneyFormat($item["buy"]) . " x{$amount} = " . HOF_Helper_Global::MoneyFormat($need) . ")", "margin15");
 								return true;
 							}
 							else
 							{
 								$img = "<img src=\"" . IMG_ICON . $item[img] . "\" class=\"vcent\" />";
-								ShowResult("{$img}{$item[name]} を購入した (" . MoneyFormat($need) . ")", "margin15");
+								ShowResult("{$img}{$item[name]} を購入した (" . HOF_Helper_Global::MoneyFormat($need) . ")", "margin15");
 								return true;
 							}
 						}
 						else
 						{ //資金不足
-							ShowError("資金不足(Need " . MoneyFormat($need) . ")", "margin15");
+							ShowError("資金不足(Need " . HOF_Helper_Global::MoneyFormat($need) . ")", "margin15");
 							return false;
 						}
 					}
@@ -1905,7 +1905,7 @@ HTML;
 						$this->SaveUserItem();
 						if ($DeletedAmount != 1) $add = " x{$DeletedAmount}";
 						$img = "<img src=\"" . IMG_ICON . $item[img] . "\" class=\"vcent\" />";
-						ShowResult("{$img}{$item[name]}{$add} を " . MoneyFormat($price * $DeletedAmount) . " で売った", "margin15");
+						ShowResult("{$img}{$item[name]}{$add} を " . HOF_Helper_Global::MoneyFormat($price * $DeletedAmount) . " で売った", "margin15");
 						return true;
 					}
 					break;
@@ -1941,7 +1941,7 @@ HTML;
 			{
 				$item = HOF_Model_Data::getItemData($no);
 				$string = '<input type="radio" name="item_no" value="' . $no . '" class="vcent">';
-				$string .= "<span style=\"padding-right:10px;width:10ex\">" . MoneyFormat($item["buy"]) . "</span>" . ShowItemDetail($item, false, 1) . "<br />";
+				$string .= "<span style=\"padding-right:10px;width:10ex\">" . HOF_Helper_Global::MoneyFormat($item["buy"]) . "</span>" . ShowItemDetail($item, false, 1) . "<br />";
 				$goods->AddItem($item, $string);
 			}
 			print ($goods->GetJavaScript("list_buy"));
@@ -1968,8 +1968,8 @@ HTML;
 					$item = HOF_Model_Data::getItemData($no);
 					$price = (isset($item["sell"]) ? $item["sell"] : round($item["buy"] * SELLING_PRICE));
 					$string = '<input type="radio" class="vcent" name="item_no" value="' . $no . '">';
-					$string .= "<span style=\"padding-right:10px;width:10ex\">" . MoneyFormat($price) . "</span>" . ShowItemDetail($item, $val, 1) . "<br />";
-					$head = '<input type="radio" name="item_no" value="' . $no . '" class="vcent">' . MoneyFormat($item["buy"]);
+					$string .= "<span style=\"padding-right:10px;width:10ex\">" . HOF_Helper_Global::MoneyFormat($price) . "</span>" . ShowItemDetail($item, $val, 1) . "<br />";
+					$head = '<input type="radio" name="item_no" value="' . $no . '" class="vcent">' . HOF_Helper_Global::MoneyFormat($item["buy"]);
 					$goods->AddItem($item, $string);
 				}
 				print ($goods->GetJavaScript("list_sell"));
@@ -1993,7 +1993,7 @@ HTML;
 			$item	= HOF_Model_Data::getItemData($no);
 			$price	= (isset($item["sell"]) ? $item["sell"] : round($item["buy"]*SELLING_PRICE));
 			print('<input type="radio" class="vcent" name="item_no" value="'.$no.'">');
-			print(MoneyFormat($price));
+			print(HOF_Helper_Global::MoneyFormat($price));
 			print("&nbsp;&nbsp;&nbsp;{$val}x");
 			ShowItemDetail($item);
 			print("<br>");
@@ -2015,7 +2015,7 @@ HTML;
 				Get
 				<?=
 
-			MoneyFormat("500")
+			HOF_Helper_Global::MoneyFormat("500")
 
 
 ?>
@@ -2051,17 +2051,17 @@ HTML;
 				$Total = $amount * $buyPrice;
 				$moneyNeed += $Total;
 				print ("<tr><td class=\"td7\">");
-				print (MoneyFormat($buyPrice) . "\n");
+				print (HOF_Helper_Global::MoneyFormat($buyPrice) . "\n");
 				print ("</td><td class=\"td7\">");
 				print ("x {$amount}\n");
 				print ("</td><td class=\"td7\">");
-				print ("= " . MoneyFormat($Total) . "\n");
+				print ("= " . HOF_Helper_Global::MoneyFormat($Total) . "\n");
 				print ("</td><td class=\"td8\">");
 				print (ShowItemDetail($item) . "\n");
 				print ("</td></tr>\n");
 				$this->AddItem($itemNo, $amount);
 			}
-			print ("<tr><td colspan=\"4\" class=\"td8\">合計 : " . MoneyFormat($moneyNeed) . "</td></tr>");
+			print ("<tr><td colspan=\"4\" class=\"td8\">合計 : " . HOF_Helper_Global::MoneyFormat($moneyNeed) . "</td></tr>");
 			print ("</table>\n");
 			print ("</div>");
 			if ($this->TakeMoney($moneyNeed))
@@ -2112,7 +2112,7 @@ JS_HTML;
 				print ("</td><td class=\"td7\" id=\"i{$itemNo}b\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
 				// 買値
 				$price = $item["buy"];
-				print (MoneyFormat($price));
+				print (HOF_Helper_Global::MoneyFormat($price));
 				print ("</td><td class=\"td7\" id=\"i{$itemNo}c\">\n");
 				print ('<input type="text" id="text_' . $itemNo . '" name="amount_' . $itemNo . '" value="1" style="width:60px" class="text">' . "\n");
 				print ("</td><td class=\"td8\" id=\"i{$itemNo}d\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
@@ -2148,16 +2148,16 @@ JS_HTML;
 				$Total = $Deleted * $sellPrice;
 				$getMoney += $Total;
 				print ("<tr><td class=\"td7\">");
-				print (MoneyFormat($sellPrice) . "\n");
+				print (HOF_Helper_Global::MoneyFormat($sellPrice) . "\n");
 				print ("</td><td class=\"td7\">");
 				print ("x {$Deleted}\n");
 				print ("</td><td class=\"td7\">");
-				print ("= " . MoneyFormat($Total) . "\n");
+				print ("= " . HOF_Helper_Global::MoneyFormat($Total) . "\n");
 				print ("</td><td class=\"td8\">");
 				print (ShowItemDetail($item) . "\n");
 				print ("</td></tr>\n");
 			}
-			print ("<tr><td colspan=\"4\" class=\"td8\">合計 : " . MoneyFormat($getMoney) . "</td></tr>");
+			print ("<tr><td colspan=\"4\" class=\"td8\">合計 : " . HOF_Helper_Global::MoneyFormat($getMoney) . "</td></tr>");
 			print ("</table>\n");
 			print ("</div>");
 			$this->SaveUserItem();
@@ -2200,7 +2200,7 @@ JS_HTML;
 				print ("</td><td class=\"td7\" id=\"i{$itemNo}b\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
 				// 売値
 				$price = ItemSellPrice($item);
-				print (MoneyFormat($price));
+				print (HOF_Helper_Global::MoneyFormat($price));
 				print ("</td><td class=\"td7\" id=\"i{$itemNo}c\">\n");
 				print ('<input type="text" id="text_' . $itemNo . '" name="amount_' . $itemNo . '" value="' . $amount . '" style="width:60px" class="text">' . "\n");
 				print ("</td><td class=\"td8\" id=\"i{$itemNo}d\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
@@ -2228,7 +2228,7 @@ JS_HTML;
 					$money = $amount * 500;
 					if ($this->WasteTime($time))
 					{
-						ShowResult(MoneyFormat($money) . " げっとした！", "margin15");
+						ShowResult(HOF_Helper_Global::MoneyFormat($money) . " げっとした！", "margin15");
 						$this->GetMoney($money);
 						return true;
 					}
@@ -2254,7 +2254,7 @@ JS_HTML;
 				給与 :
 				<?=
 
-			MoneyFormat(500)
+			HOF_Helper_Global::MoneyFormat(500)
 
 
 ?>
@@ -2632,7 +2632,7 @@ JS_HTML;
 
 				echo '<br><input type="radio" name="recruit_no" value="' . ($i + 1) . '" style="margin:3px"><br>';
 
-				echo MoneyFormat($_money[$i]);
+				echo HOF_Helper_Global::MoneyFormat($_money[$i]);
 			}
 
 			echo '</tr><tr>';
@@ -2779,14 +2779,14 @@ JS_HTML;
 					$this->AddItem($obj_item->ReturnItem());
 				}
 			}
-			print ("Money Used : " . MoneyFormat($Price) . " x " . $Trys . " = " . MoneyFormat($MoneySum) . "<br />\n");
+			print ("Money Used : " . HOF_Helper_Global::MoneyFormat($Price) . " x " . $Trys . " = " . HOF_Helper_Global::MoneyFormat($MoneySum) . "<br />\n");
 			$this->SaveUserItem();
 			return true;
 			/*// お金が足りてるか計算
 			$Price	= round($item["buy"]/2);
 			$MoneyNeed	= $times * $Price;
 			if($this->money < $MoneyNeed) {
-			ShowError("Your request needs ".MoneyFormat($MoneyNeed));
+			ShowError("Your request needs ".HOF_Helper_Global::MoneyFormat($MoneyNeed));
 			return false;
 			}*/
 
@@ -2824,11 +2824,11 @@ JS_HTML;
 					$price = $item["buy"] / 2;
 					// NoTable
 					//			$string	= '<input type="radio" class="vcent" name="item_no" value="'.$no.'">';
-					//			$string	.= "<span style=\"padding-right:10px;width:10ex\">".MoneyFormat($price)."</span>".ShowItemDetail($item,$val,1)."<br />";
+					//			$string	.= "<span style=\"padding-right:10px;width:10ex\">".HOF_Helper_Global::MoneyFormat($price)."</span>".ShowItemDetail($item,$val,1)."<br />";
 
 					$string = '<tr>';
 					$string .= '<td class="td7"><input type="radio" class="vcent" name="item_no" value="' . $no . '">';
-					$string .= '</td><td class="td7">' . MoneyFormat($price) . '</td><td class="td8">' . ShowItemDetail($item, $val, 1) . "<td>";
+					$string .= '</td><td class="td7">' . HOF_Helper_Global::MoneyFormat($price) . '</td><td class="td8">' . ShowItemDetail($item, $val, 1) . "<td>";
 					$string .= "</tr>";
 
 					$goods->AddItem($item, $string);
@@ -2954,7 +2954,7 @@ JS_HTML;
 			$Price = 0;
 			if (!$this->TakeMoney($Price))
 			{
-				ShowError("お金が足りません。" . MoneyFormat($Price) . "必要です。");
+				ShowError("お金が足りません。" . HOF_Helper_Global::MoneyFormat($Price) . "必要です。");
 				return false;
 			}
 			// 素材を減らす
@@ -3005,7 +3005,7 @@ JS_HTML;
 				//$CreatePrice	= $item["buy"];
 				$CreatePrice = 0; //
 				$head = '<tr><td class="td7"><input type="radio" name="ItemNo" value="' . $item_no . '"></td>';
-				$head .= '<td class="td7">' . MoneyFormat($CreatePrice) . '</td><td class="td8">' . ShowItemDetail($item, false, 1, $this->item) . "</td>";
+				$head .= '<td class="td7">' . HOF_Helper_Global::MoneyFormat($CreatePrice) . '</td><td class="td8">' . ShowItemDetail($item, false, 1, $this->item) . "</td>";
 				$CreateList->AddItem($item, $head);
 			}
 			if ($head)
@@ -3139,7 +3139,7 @@ JS_HTML;
 			else
 			{
 				print ("オークションへの出品・入札には入会が必要です。<br />\n");
-				print ("入会費は&nbsp;" . MoneyFormat(round(START_MONEY * 1.10)) . "&nbsp;です。<br />\n");
+				print ("入会費は&nbsp;" . HOF_Helper_Global::MoneyFormat(round(START_MONEY * 1.10)) . "&nbsp;です。<br />\n");
 				print ("入会しますか?<br />\n");
 				print ('<form action="" method="post">' . "\n");
 				print ('<input type="submit" value="入会する" name="JoinMember" class="btn"/>' . "\n");
@@ -3212,7 +3212,7 @@ JS_HTML;
 			if ($BidPrice < $Bottom)
 			{
 				ShowError("最低入札価格を下回っています。");
-				ShowError("提示入札価格:" . MoneyFormat($BidPrice) . "&nbsp;最低入札価格:" . MoneyFormat($Bottom));
+				ShowError("提示入札価格:" . HOF_Helper_Global::MoneyFormat($BidPrice) . "&nbsp;最低入札価格:" . HOF_Helper_Global::MoneyFormat($Bottom));
 				return false;
 			}
 			// 金持ってるか確認する
@@ -3225,7 +3225,7 @@ JS_HTML;
 			// 実際に入札する。
 			if ($ItemAuction->ItemBid($ArticleNo, $BidPrice, $this->id, $this->name))
 			{
-				ShowResult("No:{$ArticleNo}&nbsp;に&nbsp;" . MoneyFormat($BidPrice) . "&nbsp;で入札しました。<br />\n");
+				ShowResult("No:{$ArticleNo}&nbsp;に&nbsp;" . HOF_Helper_Global::MoneyFormat($BidPrice) . "&nbsp;で入札しました。<br />\n");
 				return true;
 			}
 		}
@@ -3301,7 +3301,7 @@ JS_HTML;
 			// 出品費用
 			if (!$this->TakeMoney(500))
 			{
-				ShowError("Need " . MoneyFormat(500) . " to exhibit auction.");
+				ShowError("Need " . HOF_Helper_Global::MoneyFormat(500) . " to exhibit auction.");
 				return false;
 			}
 			// アイテムが読み込めない場合
@@ -3842,7 +3842,7 @@ JS_HTML;
 		費用 :
 		<?=
 
-			MoneyFormat(NEW_NAME_COST)
+			HOF_Helper_Global::MoneyFormat(NEW_NAME_COST)
 
 
 ?>
@@ -4474,7 +4474,7 @@ Users :
 			<span class="bold">Funds</span>:
 			<?=
 
-				MoneyFormat($this->money)
+				HOF_Helper_Global::MoneyFormat($this->money)
 
 
 ?>
