@@ -1,6 +1,6 @@
 no: 5000
 name: HealRabbit
-img: mon_111.gif
+img: mon_111
 level: '15'
 maxhp: '80'
 hp: '80'
