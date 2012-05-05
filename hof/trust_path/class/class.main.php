@@ -3714,7 +3714,7 @@ JS_HTML;
 				$message .= " <span class=\"light\">(" . gc_date("Mj G:i") . ")</span>\n";
 				array_unshift($log, $message);
 				while (50 < count($log)) array_pop($log);
-				WriteFile($file, implode(null, $log));
+				HOF_Class_File::WriteFile($file, implode(null, $log));
 			}
 			foreach ($log as $mes) print (nl2br($mes));
 		}
@@ -4910,7 +4910,7 @@ Users :
 				array_unshift($log, $message);
 				while (150 < count($log)) // ログ保存行数あ
  						array_pop($log);
-				WriteFile($file, implode(null, $log));
+				HOF_Class_File::WriteFile($file, implode(null, $log));
 			}
 			foreach ($log as $mes) print (nl2br($mes));
 			print ('</div>');
