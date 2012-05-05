@@ -1,6 +1,6 @@
 no: 1203
 name: KnifeThrow
-img: we_sword001.png
+img: we_sword001
 sp: '0'
 type: '0'
 learn: '1'
