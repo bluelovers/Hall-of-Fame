@@ -66,10 +66,10 @@ class user
 		if (file_exists($file))
 		{
 			$this->file = $file;
-			$this->fp = FileLock($file, $noExit);
+			$this->fp = HOF_Class_File::FileLock($file, $noExit);
 			if (!$this->fp) return false;
-			$data = ParseFileFP($this->fp);
-			//$data	= ParseFile($file);// (2007/7/30 追加)
+			$data = HOF_Class_File::ParseFileFP($this->fp);
+			//$data	= HOF_Class_File::ParseFile($file);// (2007/7/30 追加)
 			/*
 			$Array	= array("party_memo","party_rank");
 			foreach($Array as $val)
@@ -317,7 +317,7 @@ class user
 			$number = basename($adr, ".dat");
 			if (is_numeric($number))
 			{ //キャラデータファイル
-				//$chardata	= ParseFile($adr);// (2007/7/30 $adr -> $fp)
+				//$chardata	= HOF_Class_File::ParseFile($adr);// (2007/7/30 $adr -> $fp)
 				//$this->char[$number]	= new HOF_Class_Char($chardata);
 
 				/*
@@ -342,7 +342,7 @@ class user
 		if (!file_exists($file)) return false;
 
 		// 居る場合。
-		//$chardata	= ParseFile($file);
+		//$chardata	= HOF_Class_File::ParseFile($file);
 		//$this->char[$CharNo]	= new HOF_Class_Char($chardata);
 		/*
 		$this->char[$CharNo] = new HOF_Class_Char($file);
@@ -396,8 +396,8 @@ class user
 
 		if (file_exists($file))
 		{
-			$this->fp_item = FileLock($file);
-			$this->item = ParseFileFP($this->fp_item);
+			$this->fp_item = HOF_Class_File::FileLock($file);
+			$this->item = HOF_Class_File::ParseFileFP($this->fp_item);
 			if ($this->item === false) $this->item = array();
 		}
 		else
@@ -427,14 +427,14 @@ class user
 
 		if (file_exists($file) && $this->fp_item)
 		{
-			WriteFileFP($this->fp_item, $text, 1); //$textが空でも保存する
+			HOF_Class_File::WriteFileFP($this->fp_item, $text, 1); //$textが空でも保存する
 			fclose($this->fp_item);
 			unset($this->fp_item);
 		}
 		else
 		{
 			// $textが空でも保存する
-			WriteFile($file, $text, 1);
+			HOF_Class_File::WriteFile($file, $text, 1);
 		}
 	}
 
@@ -545,17 +545,17 @@ class user
 			//$fp	= fopen($file,"w+");
 			//flock($fp,LOCK_EX);
 			//fputs($this->fp,$this->DataSavingFormat());
-			WriteFileFP($this->fp, $this->DataSavingFormat());
+			HOF_Class_File::WriteFileFP($this->fp, $this->DataSavingFormat());
 			fclose($this->fp);
 			unset($this->fp);
-			//WriteFile("./user/1234/data2.dat",$this->DataSavingFormat());
-			//WriteFile($file,$this->DataSavingFormat());
-			//WriteFileFP($this->fp,$this->DataSavingFormat());
+			//HOF_Class_File::WriteFile("./user/1234/data2.dat",$this->DataSavingFormat());
+			//HOF_Class_File::WriteFile($file,$this->DataSavingFormat());
+			//HOF_Class_File::WriteFileFP($this->fp,$this->DataSavingFormat());
 			//fclose($this->fp);
 		}
 		else
 		{
-			if (file_exists($file)) WriteFile($file, $this->DataSavingFormat());
+			if (file_exists($file)) HOF_Class_File::WriteFile($file, $this->DataSavingFormat());
 		}
 	}
 	/////////////////////////////////////////////////
