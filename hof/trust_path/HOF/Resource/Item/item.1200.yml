@@ -2,7 +2,7 @@ no: 1200
 name: Stiletto
 type: Dagger
 buy: '1000'
-img: we_sword010.png
+img: we_sword010
 atk:
     - 7
     - 0
