@@ -1,2 +1,6 @@
 no: 1405
 exp: '味方の死者が ○○人以上'
+tag:
+    no: '1399'
+    exp: 生死
+quantity: true
