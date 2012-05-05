@@ -3,6 +3,6 @@ name: ResetCrystal(skill)
 type: Other
 buy: '500000'
 sell: '100'
-img: gem_03.png
+img: gem_03
 base_name: ResetCrystal(skill)
 type2: OTHER
