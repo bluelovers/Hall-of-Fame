@@ -102,6 +102,11 @@ class HOF_Model_Data extends HOF_Class_Data
 		 */
 		$data = self::getInstance()->_load('skill', $no);
 
+		if (isset($data['summon']))
+		{
+			$data['summon'] = (array)$data['summon'];
+		}
+
 		return $data;
 	}
 
