@@ -10,6 +10,75 @@ include_once (CLASS_UNION);
 class HOF_Class_Union extends union
 {
 
+	function LoadData($file)
+	{
+		if (!file_exists($file)) return false;
+
+		list($this->file_name, $this->file_ext) = HOF_Class_File::basename($file);
+
+		$this->file = $file;
+		$this->fp = HOF_Class_File::FileLock($this->file);
+
+		$this->UnionNo = substr(basename($file), 0, 4);
+
+		if ($this->file_ext == '.dat')
+		{
+			$data = HOF_Class_File::ParseFileFP($this->fp);
+		}
+		else
+		{
+			$data = HOF_Class_Yaml::parse(stream_get_contents($this->fp));
+		}
+
+		$this->SetCharData($data);
+
+		return true;
+	}
+
+	/**
+	 * キャラデータの保存
+	 */
+	function SaveCharData()
+	{
+		if (!file_exists($this->file)) return false;
+
+		$Save = array(
+			"MonsterNumber",
+			"LastDefeated",
+			"HP",
+			"SP",
+			);
+
+		$data = array();
+
+		foreach ($Save as $k)
+		{
+			if (!isset($this->{$k})) continue;
+
+			if ($this->file_ext == '.dat')
+			{
+				$data[$k] = "$k=" . (is_array($this->{$k}) ? implode("<>", $this->{$k}) : $this->{$k});
+			}
+			else
+			{
+				$data[$k] = $this->{$k};
+			}
+		}
+
+		if ($this->file_ext == '.dat')
+		{
+			$text = implode("\n", $data);
+		}
+		else
+		{
+			$text = HOF_Class_Yaml::dump($data);
+		}
+
+		HOF_Class_File::WriteFileFP($this->fp, $text);
+		fclose($this->fp);
+		unset($this->fp);
+	}
+
 	/**
 	 * 戦闘中のキャラ名,HP,SP を色を分けて表示する
 	 * それ以外にも必要な物があれば表示するようにした。
