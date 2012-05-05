@@ -2,7 +2,7 @@ no: 5006
 name: DragonArmor
 type: Armor
 buy: '14000'
-img: armor_016b.png
+img: armor_016b
 def:
     - 40
     - 30
