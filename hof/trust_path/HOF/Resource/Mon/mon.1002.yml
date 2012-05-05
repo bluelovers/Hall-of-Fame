@@ -1,6 +1,6 @@
 no: 1002
 name: GoblinBoarRider
-img: mon_095.gif
+img: mon_095
 level: '3'
 exphold: '30'
 moneyhold: '40'
