@@ -1,6 +1,6 @@
 no: 1021
 name: SkullShaman
-img: mon_108.gif
+img: mon_108
 level: '15'
 exphold: '150'
 moneyhold: '80'
