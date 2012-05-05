@@ -258,7 +258,7 @@ HTML;
 		} while (!$result);
 
 		$this->ShowResult($result); //戦闘の結果表示
-		$this->BattleFoot();
+		$this->objs['view']->BattleFoot();
 
 		//$this->SaveCharacters();
 	}
@@ -1351,19 +1351,7 @@ Total HP : <?=
 
 	}
 	//////////////////////////////////////////////////
-	//	戦闘終了時に表示
-	function BattleFoot()
-	{
-		/*	print("<tr><td>");
-		dump($this->team0);
-		print("</td></tr>");*/
-
-
-?>
-</tbody></table>
-<?php
-
-	}
+	//
 	//////////////////////////////////////////////////
 	//	戦闘画像・各キャラの残りHP残りSP等を表示
 	function BattleState()
