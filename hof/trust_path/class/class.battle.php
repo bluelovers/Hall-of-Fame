@@ -103,6 +103,7 @@ class battle
 	{
 		$this->BackGround = $bg;
 	}
+	/*
 	//////////////////////////////////////////////////
 	//	戦闘にキャラクターを途中参加させる。
 	function JoinCharacter($user, $add)
@@ -112,10 +113,6 @@ class battle
 			if ($user === $char)
 			{
 				//array_unshift($this->team0,$add);
-				/*
-				$add->SetTeam(TEAM_0);
-				array_push($this->team0, $add);
-				*/
 				$this->team0->addChar($add, TEAM_0);
 
 				//dump($this->team0);
@@ -128,16 +125,13 @@ class battle
 			if ($user === $char)
 			{
 				//array_unshift($this->team1,$add);
-				/*
-				$add->SetTeam(TEAM_1);
-				array_push($this->team1, $add);
-				*/
 				$this->team1->addChar($add, TEAM_1);
 				$this->ChangeDelay();
 				return 0;
 			}
 		}
 	}
+	*/
 	//////////////////////////////////////////////////
 	//	限界ターン数を決めちゃう。
 	function LimitTurns($no)
