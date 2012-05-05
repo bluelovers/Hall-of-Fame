@@ -1,6 +1,6 @@
 no: 3020
 name: ManaExtend
-img: skill_019.png
+img: skill_019
 exp: 最大SP上昇
 sp: '100'
 type: '1'
