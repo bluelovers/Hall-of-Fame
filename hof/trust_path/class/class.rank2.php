@@ -43,7 +43,7 @@ class Ranking
 
 		// ファイルから読んで配列にいれる
 
-		$this->fp = FileLock($file);
+		$this->fp = HOF_Class_File::FileLock($file);
 		$Place = 0;
 		while ($line = fgets($this->fp))
 		{
@@ -370,7 +370,7 @@ class Ranking
 			}
 		}
 
-		WriteFileFP($this->fp, $ranking);
+		HOF_Class_File::WriteFileFP($this->fp, $ranking);
 		$this->fpclose();
 	}
 	//////////////////////////////////////////////////
@@ -539,7 +539,7 @@ class Ranking
 					}
 				}
 
-				WriteFileFP($this->fp, $ranking);
+				HOF_Class_File::WriteFileFP($this->fp, $ranking);
 			}
 		}
 
