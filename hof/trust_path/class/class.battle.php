@@ -451,7 +451,7 @@ HTML;
 		if ($this->team1_exp) //得た経験値
  				print ("TotalExp : " . $this->team1_exp . "<br />\n");
 		if ($this->team1_money) //得たお金
- 				print ("Funds : " . MoneyFormat($this->team1_money) . "<br />\n");
+ 				print ("Funds : " . HOF_Helper_Global::MoneyFormat($this->team1_money) . "<br />\n");
 		if ($this->team1_item)
 		{ //得たアイテム
 			print ("<div class=\"bold\">Items</div>\n");
@@ -471,7 +471,7 @@ HTML;
 		if ($this->team0_exp) //得た経験値
  				print ("TotalExp : " . $this->team0_exp . "<br />\n");
 		if ($this->team0_money) //得たお金
- 				print ("Funds : " . MoneyFormat($this->team0_money) . "<br />\n");
+ 				print ("Funds : " . HOF_Helper_Global::MoneyFormat($this->team0_money) . "<br />\n");
 		if ($this->team0_item)
 		{ //得たアイテム
 			print ("<div class=\"bold\">Items</div>\n");
@@ -1515,13 +1515,13 @@ Total HP : <?=
 		$money = ceil($money * MONEY_RATE);
 		if ($team === $this->team0)
 		{
-			print ("{$this->team0_name} Get " . MoneyFormat($money) . ".<br />\n");
+			print ("{$this->team0_name} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
 			$this->team0_money += $money;
 		}
 		else
 			if ($team === $this->team1)
 			{
-				print ("{$this->team1_name} Get " . MoneyFormat($money) . ".<br />\n");
+				print ("{$this->team1_name} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
 				$this->team1_money += $money;
 			}
 	}
