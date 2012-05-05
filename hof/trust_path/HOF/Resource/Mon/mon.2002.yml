@@ -1,6 +1,6 @@
 no: 2002
 name: FakeHero
-img: hero.gif
+img: hero
 exphold: 5075
 moneyhold: 3383
 level: '90'
