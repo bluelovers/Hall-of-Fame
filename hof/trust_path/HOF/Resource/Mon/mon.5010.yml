@@ -1,6 +1,6 @@
 no: 5010
 name: GrandDino
-img: mon_228.gif
+img: mon_228
 exphold: '0'
 moneyhold: '0'
 level: '10'
