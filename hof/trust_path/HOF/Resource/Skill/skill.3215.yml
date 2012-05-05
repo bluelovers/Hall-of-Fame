@@ -1,6 +1,6 @@
 no: 3215
 name: MindBreak
-img: skill_050.png
+img: skill_050
 sp: '60'
 type: '1'
 learn: '6'
