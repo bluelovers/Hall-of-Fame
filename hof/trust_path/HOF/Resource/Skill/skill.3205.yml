@@ -1,6 +1,6 @@
 no: 3205
 name: Fear
-img: skill_048.png
+img: skill_048
 sp: '60'
 type: '1'
 learn: '6'
