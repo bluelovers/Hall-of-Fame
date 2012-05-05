@@ -3,6 +3,6 @@ name: Diamond
 type: Material
 buy: '1000'
 sell: '100'
-img: gem_02.png
+img: gem_02
 base_name: Diamond
 type2: OTHER
