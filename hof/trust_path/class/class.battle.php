@@ -349,8 +349,8 @@ HTML;
 								// (2) (1) が同じなら総ダメージが多いほうが勝ち
 								// (3) (2) でも同じなら引き分け…???(or防衛側の勝ち)
 
-								$team0Alive = CountAliveChars($this->team0);
-								$team1Alive = CountAliveChars($this->team1);
+								$team0Alive = HOF_Class_Battle_Team::CountAliveChars($this->team0);
+								$team1Alive = HOF_Class_Battle_Team::CountAliveChars($this->team1);
 								if ($team1Alive < $team0Alive)
 								{ // team0 won
 									$this->result = TEAM_0;
@@ -821,7 +821,7 @@ HTML;
 			$this->team1_exp += $exp;
 		}
 
-		$Alive = CountAliveChars($team);
+		$Alive = HOF_Class_Battle_Team::CountAliveChars($team);
 		if ($Alive === 0) return false;
 		$ExpGet = ceil($exp / $Alive); //生存者にだけ経験値を分ける。
 		print ("Alives get {$ExpGet}exps.<br />\n");
@@ -1630,18 +1630,7 @@ Total HP : <?=
 		//
 
 		//////////////////////////////////////////////////
-		//	初期キャラ生存数を数えて返す
-		function CountAliveChars($team)
-		{
-			$no = 0; //初期化
-			foreach ($team as $char)
-			{
-				if ($char->STATE === 1) continue;
-				if ($char->monster) continue;
-				$no++;
-			}
-			return $no;
-		}
+		//
 		//////////////////////////////////////////////////
 		//	召還系スキルで呼ばれたモンスター。
 		function CreateSummon($no, $strength = false)
