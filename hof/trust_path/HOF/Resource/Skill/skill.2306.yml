@@ -1,6 +1,6 @@
 no: 2306
 name: PierceShot
-img: item_042.png
+img: item_042
 exp: 防御無視
 sp: '90'
 type: '0'
