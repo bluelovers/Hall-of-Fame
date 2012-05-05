@@ -3,6 +3,6 @@ name: BrokenSword
 type: Material
 buy: '1000'
 sell: '10'
-img: we_sword026.png
+img: we_sword026
 base_name: BrokenSword
 type2: OTHER
