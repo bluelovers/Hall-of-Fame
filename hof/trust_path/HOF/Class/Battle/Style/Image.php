@@ -194,6 +194,8 @@ class HOF_Class_Battle_Style_Image
 
 			'color' => $textcolor,
 			));
+
+		$this->imagestring_echo($image, "Type : " . $this->type);
 		$this->imagestring_echo($image, "BG : " . $this->background);
 
 		foreach (array(
