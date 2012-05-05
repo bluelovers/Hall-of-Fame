@@ -1,6 +1,6 @@
 no: 1021
 name: SoulBreak
-img: skill_072z.png
+img: skill_072z
 exp: SP+HPダメージ
 sp: '50'
 type: '0'
