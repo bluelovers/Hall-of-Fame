@@ -2,7 +2,7 @@ no: 2202
 name: Anaconda
 type: Whip
 buy: '30000'
-img: we_other007.png
+img: we_other007
 atk:
     - 40
     - 0
