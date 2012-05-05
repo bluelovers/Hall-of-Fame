@@ -1,8 +1,8 @@
 no: 301
 name_male: Bishop
 name_female: Bishop
-img_male: mon_213r.gif
-img_female: mon_214r.gif
+img_male: mon_213r
+img_female: mon_214r
 equip:
     - Wand
     - Book
