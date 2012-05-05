@@ -1,6 +1,6 @@
 no: 1055
 name: EvilPlant
-img: mon_127.gif
+img: mon_127
 exphold: '390'
 moneyhold: '90'
 level: '29'
