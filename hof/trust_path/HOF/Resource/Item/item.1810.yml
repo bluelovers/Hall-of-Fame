@@ -3,7 +3,7 @@ name: ManaStaff
 type: Staff
 dh: true
 buy: '20000'
-img: we_staff008b.png
+img: we_staff008b
 atk:
     - 3
     - 24
