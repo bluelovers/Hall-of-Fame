@@ -405,6 +405,7 @@ class main extends user
 
 			// モンスターをとりあえず配列に全部入れる
 			$enemy = array();
+
 			if (!$Amount) return $enemy;
 			mt_srand();
 			for ($i = 0; $i < $Amount; $i++) $MonsterNumbers[] = $this->SelectMonster($MonsterList);
@@ -413,7 +414,6 @@ class main extends user
 			$overlap = array_count_values($MonsterNumbers);
 
 			// 敵情報を読んで配列に入れる。
-			include (CLASS_MONSTER);
 			foreach ($MonsterNumbers as $Number)
 			{
 				/*
@@ -424,6 +424,9 @@ class main extends user
 
 				$enemy[] = HOF_Model_Char::newMon($Number, (1 < $overlap[$Number]));
 			}
+
+			$enemy = HOF_Class_Battle_Team::newInstance($enemy);
+
 			return $enemy;
 		}
 		//////////////////////////////////////////////////
@@ -1495,6 +1498,9 @@ HTML;
 			//これが無いとPHP4or5 で違う結果になるんです
 			//$enemy	= unserialize(serialize($enemy));
 			// ↓
+
+			$enemy = array();
+
 			foreach ($party as $key => $char)
 			{
 				/*
@@ -1511,6 +1517,9 @@ HTML;
 			}
 			//dump($enemy[0]->judge);
 			//dump($party[0]->judge);
+
+			$enemy = HOF_Class_Battle_Team::newInstance($enemy);
+			$party = HOF_Class_Battle_Team::newInstance($party);
 
 			$battle = new HOF_Class_Battle($party, $enemy);
 			$battle->SetTeamName($this->name, "ドッペル");
@@ -1704,22 +1713,35 @@ HTML;
 					ShowError("Time 不足 (必要 Time:" . NORMAL_BATTLE_TIME . ")", "margin15");
 					return false;
 				}
+
+				// bluelovers
+				$MyParty = array();
+				// bluelovers
+
 				// 自分パーティー
 				foreach ($this->char as $key => $val)
 				{ //チェックされたやつリスト
 					if ($_POST["char_" . $key]) $MyParty[] = $this->char[$key];
 				}
+
 				if (count($MyParty) === 0)
 				{
 					ShowError('戦闘するには最低1人必要', "margin15");
 					return false;
 				}
 				else
+				{
 					if (5 < count($MyParty))
 					{
 						ShowError('戦闘に出せるキャラは5人まで', "margin15");
 						return false;
 					}
+				}
+
+				// bluelovers
+				$MyParty = HOF_Class_Battle_Team::newInstance($MyParty);
+				// bluelovers
+
 				// 敵パーティー(または一匹)
 
 				//	include (DATA_MONSTER);
@@ -1728,7 +1750,7 @@ HTML;
 				$EnemyParty = $this->EnemyParty($EneNum, $MonsterList);
 
 				$this->WasteTime(NORMAL_BATTLE_TIME); //時間の消費
-				include (CLASS_BATTLE);
+
 				$battle = new HOF_Class_Battle($MyParty, $EnemyParty);
 				$battle->SetBackGround($Land["land"]); //背景
 				$battle->SetTeamName($this->name, $Land["name"]);
