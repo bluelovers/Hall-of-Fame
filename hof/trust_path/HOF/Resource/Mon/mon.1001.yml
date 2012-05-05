@@ -1,6 +1,6 @@
 no: 1001
 name: GoblinWarrior
-img: mon_052.gif
+img: mon_052
 level: '1'
 exphold: '20'
 moneyhold: '40'
