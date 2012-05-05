@@ -1,6 +1,6 @@
 no: 3900
 name: GetPoison
-img: acce_003c.png
+img: acce_003c
 exp: 自己毒化
 sp: '20'
 type: '0'
