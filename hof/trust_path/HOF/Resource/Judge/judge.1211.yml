@@ -1,2 +1,6 @@
 no: 1211
 exp: '最大SP が○○以下'
+tag:
+    no: '1199'
+    exp: SP
+quantity: true
