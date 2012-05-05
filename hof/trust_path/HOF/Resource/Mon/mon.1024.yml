@@ -1,6 +1,6 @@
 no: 1024
 name: GoblinSmith
-img: mon_053r.gif
+img: mon_053r
 level: '18'
 exphold: '200'
 moneyhold: '80'
