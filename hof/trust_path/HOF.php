@@ -43,4 +43,38 @@ class HOF
 		return htmlspecialchars((string )$string, ENT_QUOTES);
 	}
 
+	public static function addslashes($var)
+	{
+		if (is_string($var))
+		{
+			$var = addslashes($var);
+		}
+		elseif (is_array($var))
+		{
+			foreach ($var as $k => &$v)
+			{
+				$v = self::addslashes($v);
+			}
+		}
+
+		return $var;
+	}
+
+	public static function stripslashes($var)
+	{
+		if (is_string($var))
+		{
+			$var = stripslashes($var);
+		}
+		elseif (is_array($var))
+		{
+			foreach ($var as $k => &$v)
+			{
+				$v = self::stripslashes($v);
+			}
+		}
+
+		return $var;
+	}
+
 }
