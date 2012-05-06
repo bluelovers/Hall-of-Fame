@@ -32,6 +32,8 @@ class HOF_Class_View
 	{
 		$_this = new self(&$controller, &$output, $template);
 
+		$_this->controller->view['render'][$_this->template][] = $_this;
+
 		$_this->content = $content;
 
 		$content = $_this->_view();
@@ -60,7 +62,11 @@ class HOF_Class_View
 
 	function slot($name, $content = null)
 	{
-		return self::render($this->controller, $this->output, self::_getTplFile($name), $content);
+		$view = self::render($this->controller, $this->output, self::_getTplFile($name), $content);
+
+		$this->controller->view['slot'][$name][] = $view;
+
+		return $view;
 	}
 
 	function _getTplFile($name)
@@ -80,6 +86,8 @@ class HOF_Class_View
 	function extend($name)
 	{
 		$this->extend = $name;
+
+		$this->controller->view['extend'][$this->extend][] = $this->extend;
 	}
 
 	protected function _view()
