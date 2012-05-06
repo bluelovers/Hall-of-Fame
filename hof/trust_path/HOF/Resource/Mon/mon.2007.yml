@@ -54,8 +54,12 @@ SPECIAL:
     PoisonResist: 50
 cycle: 259200
 Slave:
-    1100: [100, 0]
-    1101: [100, 0]
+    1100:
+        - 100
+        - 0
+    1101:
+        - 100
+        - 0
 land: jungle
 UnionName: 'Ape''sRevenge'
 LevelLimit: '100'
