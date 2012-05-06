@@ -14,8 +14,14 @@ skill:
     - 2300
     - 2310
 Pattern:
-    judge: ['1205', '1000']
-    quantity: ['28', '0']
-    action: ['2310', '2300']
+    judge:
+        - '1205'
+        - '1000'
+    quantity:
+        - '28'
+        - '0'
+    action:
+        - '2310'
+        - '2300'
 position: back
 guard: never
