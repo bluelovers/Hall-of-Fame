@@ -4,9 +4,11 @@ define('BASE_URL', 'http' . ($_SERVER['HTTPS'] ? 's' : '') . '://' . $_SERVER['S
 
 define('BASE_PATH', str_replace('\\', '/', dirname(__FILE__)) . '/../../');
 
-define('BASE_TRUST_PATH', BASE_PATH . '/trust_path');
+define('BASE_TRUST_PATH', BASE_PATH . '/trust_path/');
 
 define('BASE_PATH_STATIC', BASE_PATH . 'static/');
+
+define('BASE_PATH_TPL', BASE_TRUST_PATH . 'tpl/');
 
 // game setting
 define("TITLE", "Hall of Fame"); //タイトル
