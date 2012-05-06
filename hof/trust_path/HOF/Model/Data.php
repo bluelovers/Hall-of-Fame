@@ -217,6 +217,8 @@ class HOF_Model_Data extends HOF_Class_Data
 				$list[] = preg_replace($regex, '$1', $file);
 			}
 
+			sort($list, SORT_NUMERIC);
+
 			return $list;
 		}
 		else
