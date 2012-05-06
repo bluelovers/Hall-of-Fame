@@ -1,4 +1,4 @@
-no: 201
+no: '201'
 name_male: Warlock
 name_female: Warlock
 img_male: mon_196z
@@ -13,3 +13,5 @@ equip:
 coe:
     - 2.1
     - 2
+info:
+    desc: "魔法系上級職。\nさらに強力な魔法が使えるようになる。"
