@@ -111,46 +111,160 @@ class HOF_Model_Data extends HOF_Class_Data
 		return $data;
 	}
 
+	function getLandList()
+	{
+		$_key = 'land';
+
+		$regex = HOF_Class_Data::_filename($_key, '*');
+
+		$regex = '/^'.str_replace('\*', '(.+)', preg_quote($regex, '/')).'$/i';
+
+		foreach(glob(HOF_Class_Data::_filename($_key, '*')) as $file)
+		{
+			$list[] = preg_replace($regex, '$1', $file);
+		}
+
+		return $list;
+	}
+
 	/**
 	 * まっぷの出現条件判定
 	 */
 	function getLandAppear($user)
 	{
-		$land = array();
+		$list = array();
+
+		if ($lands = self::getLandList())
+		{
+			foreach($lands as $no)
+			{
+				if ($land = self::getLandInfo($no))
+				{
+					$allow = 1;
+
+					if ($land['trigger'])
+					{
+						$allow = -1;
+
+						if ($allow != 0)
+						{
+							foreach ((array)$land['trigger']['item'] as $_data)
+							{
+								$ok = -1;
+
+								foreach ($_data as $_k => $_v)
+								{
+									$ok = 1;
+
+									if (!$user->item[$_k] || $user->item[$_k] < $_v)
+									{
+										$ok = 0;
+										break;
+									}
+								}
+
+								if ($ok > 0)
+								{
+									$allow = abs($allow) + 1;
+
+									break;
+								}
+
+								$allow = 0;
+							}
+						}
+
+						if ($allow != 0)
+						{
+							foreach ((array)$land['trigger']['time'] as $_data)
+							{
+								$ok = -1;
+
+								foreach ($_data as $_k => $_v)
+								{
+									$ok = 1;
+
+									if (gc_date($_k) != $_v)
+									{
+										$ok = 0;
+										break;
+									}
+								}
+
+								if ($ok > 0)
+								{
+									$allow = abs($allow) + 1;
+
+									break;
+								}
+
+								$allow = 0;
+							}
+						}
+					}
+
+					/**
+					 * @global DEBUG_LANDAPPEAR_ALL - force allow land
+					 *
+					 * @var $allow
+					 * 			=0 => fail
+					 * 			>0 => ok
+					 * 			<0 => error
+					 */
+					if (DEBUG_LANDAPPEAR_ALL)
+					{
+						$land['_cache']['allow'] = $allow;
+
+						$allow = DEBUG_LANDAPPEAR_ALL;
+					}
+
+					if ($allow > 0)
+					{
+						$list[$no] = $land;
+					}
+				}
+			}
+		}
+
+		return $list;
+
+		/*
 
 		// 無条件
-		array_push($land, "gb0", "gb1", "gb2");
+		array_push($list, "gb0", "gb1", "gb2");
 
 		// アイテムがあれば行ける。
-		if (DEBUG_LANDAPPEAR_ALL || $user->item["8000"]) array_push($land, "ac0");
-		if (DEBUG_LANDAPPEAR_ALL || $user->item["8001"]) array_push($land, "ac1");
-		if (DEBUG_LANDAPPEAR_ALL || $user->item["8002"]) array_push($land, "ac2");
-		if (DEBUG_LANDAPPEAR_ALL || $user->item["8003"]) array_push($land, "ac3");
-		if (DEBUG_LANDAPPEAR_ALL || $user->item["8004"]) array_push($land, "ac4");
+		if (DEBUG_LANDAPPEAR_ALL || $user->item["8000"]) array_push($list, "ac0");
+		if (DEBUG_LANDAPPEAR_ALL || $user->item["8001"]) array_push($list, "ac1");
+		if (DEBUG_LANDAPPEAR_ALL || $user->item["8002"]) array_push($list, "ac2");
+		if (DEBUG_LANDAPPEAR_ALL || $user->item["8003"]) array_push($list, "ac3");
+		if (DEBUG_LANDAPPEAR_ALL || $user->item["8004"]) array_push($list, "ac4");
 
-		if (DEBUG_LANDAPPEAR_ALL || $user->item["8009"]) array_push($land, "snow0");
-		if (DEBUG_LANDAPPEAR_ALL || $user->item["8010"]) array_push($land, "snow1");
-		if (DEBUG_LANDAPPEAR_ALL || $user->item["8011"]) array_push($land, "snow2");
+		if (DEBUG_LANDAPPEAR_ALL || $user->item["8009"]) array_push($list, "snow0");
+		if (DEBUG_LANDAPPEAR_ALL || $user->item["8010"]) array_push($list, "snow1");
+		if (DEBUG_LANDAPPEAR_ALL || $user->item["8011"]) array_push($list, "snow2");
 
 		if (DEBUG_LANDAPPEAR_ALL)
 		{
-			array_push($land, "sea0");
-			array_push($land, "sea1");
-			array_push($land, "ocean0");
-			array_push($land, "sand0");
-			array_push($land, "swamp0");
-			array_push($land, "swamp1");
-			array_push($land, "mt0");
-			array_push($land, "volc0");
-			array_push($land, "volc1");
+			array_push($list, "sea0");
+			array_push($list, "sea1");
+			array_push($list, "ocean0");
+			array_push($list, "sand0");
+			array_push($list, "swamp0");
+			array_push($list, "swamp1");
+			array_push($list, "mt0");
+			array_push($list, "volc0");
+			array_push($list, "volc1");
 
-			array_push($land, "blow01");
-			array_push($land, "plund01");
-			array_push($land, "des01");
+			array_push($list, "blow01");
+			array_push($list, "plund01");
+			array_push($list, "des01");
 		}
 
-		if (DEBUG_LANDAPPEAR_ALL || gc_date("H") == 2 && substr(gc_date("i"), 0, 1) == 5) array_push($land, "horh");
-		return $land;
+		if (DEBUG_LANDAPPEAR_ALL || gc_date("H") == 2 && substr(gc_date("i"), 0, 1) == 5) array_push($list, "horh");
+		return $list;
+
+		*/
 	}
 
 	/**
@@ -173,7 +287,10 @@ class HOF_Model_Data extends HOF_Class_Data
 	{
 		$data = self::getInstance()->_load('land', $no);
 
+		/*
 		return array($data['land'], $data['monster']);
+		*/
+		return $data;
 	}
 
 	/**
