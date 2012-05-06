@@ -39,11 +39,9 @@ class HOF_Model_Main extends HOF_Class_Main
 				;
 				return true;
 
+			/*
 			case ($_SERVER["QUERY_STRING"] === "log"):
-				/*
 				ShowLogList();
-				*/
-				HOF_Class_Controller::newInstance('log')->main();
 				return true;
 			case ($_SERVER["QUERY_STRING"] === "clog"):
 				LogShowCommon();
@@ -54,9 +52,6 @@ class HOF_Model_Main extends HOF_Class_Main
 			case ($_SERVER["QUERY_STRING"] === "rlog"):
 				LogShowRanking();
 				return true;
-			case ($_GET["gamedata"]):
-				ShowGameData();
-				return true;
 			case ($_GET["log"]):
 				ShowBattleLog($_GET["log"]);
 				return true;
@@ -65,6 +60,22 @@ class HOF_Model_Main extends HOF_Class_Main
 				return true;
 			case ($_GET["rlog"]):
 				ShowBattleLog($_GET["rlog"], "RANK");
+				return true;
+			*/
+			case ($_SERVER["QUERY_STRING"] === "log"):
+			case ($_SERVER["QUERY_STRING"] === "clog"):
+			case ($_SERVER["QUERY_STRING"] === "ulog"):
+			case ($_SERVER["QUERY_STRING"] === "rlog"):
+				HOF_Class_Controller::newInstance('log')->main();
+				return true;
+			case ($_GET["log"]):
+			case ($_GET["clog"]):
+			case ($_GET["ulog"]):
+			case ($_GET["rlog"]):
+				HOF_Class_Controller::newInstance('log', 'log')->main();
+				return true;
+			case ($_GET["gamedata"]):
+				ShowGameData();
 				return true;
 		}
 	}
