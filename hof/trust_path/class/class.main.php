@@ -1324,8 +1324,8 @@ HTML;
 			print ("\t<div class=\"bold u\">Stock & Allowed to Equip</div>\n");
 			if ($this->item)
 			{
-				include_once (CLASS_JS_ITEMLIST);
-				$EquipList = new JS_ItemList();
+				
+				$EquipList = new HOF_Class_Item_Style_List();
 				$EquipList->SetID("equip");
 				$EquipList->SetName("type_equip");
 				// JSを使用しない。
@@ -1818,8 +1818,8 @@ HTML;
 
 			if ($this->item)
 			{
-				include_once (CLASS_JS_ITEMLIST);
-				$goods = new JS_ItemList();
+				
+				$goods = new HOF_Class_Item_Style_List();
 				$goods->SetID("my");
 				$goods->SetName("type");
 				// JSを使用しない。
@@ -1969,10 +1969,10 @@ HTML;
 		<div style="margin:0 20px">
 			<?php
 
-			include_once (CLASS_JS_ITEMLIST);
+			
 			$ShopList = HOF_Model_Data::getShopList(); //売ってるものデータ
 
-			$goods = new JS_ItemList();
+			$goods = new HOF_Class_Item_Style_List();
 			$goods->SetID("JS_buy");
 			$goods->SetName("type_buy");
 			// JSを使用しない。
@@ -1998,7 +1998,7 @@ HTML;
 			print ('<div style="margin:0 20px">' . "\n");
 			if ($this->item)
 			{
-				$goods = new JS_ItemList();
+				$goods = new HOF_Class_Item_Style_List();
 				$goods->SetID("JS_sell");
 				$goods->SetName("type_sell");
 				// JSを使用しない。
@@ -2840,13 +2840,13 @@ JS_HTML;
 			// 精錬可能な物の表示
 			if ($this->item)
 			{
-				include_once (CLASS_JS_ITEMLIST);
+				
 				$possible = HOF_Model_Data::getCanRefineType();
 				$possible = array_flip($possible);
 				//配列の先頭の値が"0"なので1にする(isset使わずにtrueにするため)
 				$possible[key($possible)]++;
 
-				$goods = new JS_ItemList();
+				$goods = new HOF_Class_Item_Style_List();
 				$goods->SetID("my");
 				$goods->SetName("type");
 
@@ -3024,8 +3024,8 @@ JS_HTML;
 			//$result	= $this->SmithyCreateProcess();
 
 			$CanCreate = CanCreate($this);
-			include_once (CLASS_JS_ITEMLIST);
-			$CreateList = new JS_ItemList();
+			
+			$CreateList = new HOF_Class_Item_Style_List();
 			$CreateList->SetID("create");
 			$CreateList->SetName("type_create");
 
@@ -3392,7 +3392,7 @@ JS_HTML;
 
 			if (!AUCTION_EXHIBIT_TOGGLE) return false;
 
-			include_once (CLASS_JS_ITEMLIST);
+			
 			$possible = HOF_Model_Data::getCanExhibitType();
 
 
@@ -3445,7 +3445,7 @@ JS_HTML;
 				print ("No items<br />\n");
 				return false;
 			}
-			$ExhibitList = new JS_ItemList();
+			$ExhibitList = new HOF_Class_Item_Style_List();
 			$ExhibitList->SetID("auc");
 			$ExhibitList->SetName("type_auc");
 			// JSを使用しない。
