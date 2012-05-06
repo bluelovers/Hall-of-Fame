@@ -2,5 +2,17 @@ no: 1379
 exp: MDEF
 css: true
 subs:
-    1380: { no: 1380, exp: '自分のMDEFが○○ 以上', tag: { no: '1379', exp: MDEF }, quantity: true }
-    1381: { no: 1381, exp: '自分のMDEFが○○ 以下', tag: { no: '1379', exp: MDEF }, quantity: true }
+    1380:
+        no: 1380
+        exp: '自分のMDEFが○○ 以上'
+        tag:
+            no: '1379'
+            exp: MDEF
+        quantity: true
+    1381:
+        no: 1381
+        exp: '自分のMDEFが○○ 以下'
+        tag:
+            no: '1379'
+            exp: MDEF
+        quantity: true
