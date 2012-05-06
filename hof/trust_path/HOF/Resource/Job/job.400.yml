@@ -1,4 +1,4 @@
-no: 400
+no: '400'
 name_male: Hunter
 name_female: Hunter
 img_male: mon_219rr
@@ -15,3 +15,5 @@ change:
     - 401
     - 402
     - 403
+info:
+    desc: "弓系基本職。\n相手の前衛に影響されずに攻撃できる。"
