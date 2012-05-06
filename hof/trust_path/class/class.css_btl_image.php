@@ -44,7 +44,7 @@ class cssimage
 	function SetBackGround($bg)
 	{
 		//$this->background = IMG_OTHER . "bg_" . $bg . ".gif";
-		$this->background = HOF_Class_Icon::getIamge("bg_" . $bg, IMG_OTHER);
+		$this->background = HOF_Class_Icon::getImage("bg_" . $bg, IMG_OTHER);
 
 		list($this->img_x, $this->img_y) = getimagesize($this->background);
 		$this->size = "width:{$this->img_x};height:{$this->img_y};";
