@@ -332,7 +332,7 @@ class Auction
 					print ('<input type="hidden" name="ArticleNo" value="' . $Article["No"] . '">');
 					print ('</span>');
 				}
-				print (ShowItemDetail($item, $Article["amount"], 1));
+				print (HOF_Class_Item::ShowItemDetail($item, $Article["amount"], 1));
 				print ("</form>");
 				print ("</td></tr>\n");
 			}
@@ -375,7 +375,7 @@ class Auction
 				// アイテム
 				print ('</td><td class="td7" style="text-align:left">');
 				$item = HOF_Model_Data::getItemData($Article["item"]);
-				print (ShowItemDetail($item, $Article["amount"], 1));
+				print (HOF_Class_Item::ShowItemDetail($item, $Article["amount"], 1));
 				// 合計入札数
 				print ("</td><td class=\"td7\">");
 				print ($Article["TotalBid"]);
