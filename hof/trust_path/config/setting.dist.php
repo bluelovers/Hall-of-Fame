@@ -1,8 +1,12 @@
 <?php
 
+define('BASE_URL', 'http' . ($_SERVER['HTTPS'] ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . (((!$_SERVER['HTTPS'] && $_SERVER['SERVER_PORT'] == 80) || ($_SERVER['HTTPS'] && $_SERVER['SERVER_PORT'] == 8080)) ? '' : ':' . $_SERVER['SERVER_PORT']) . dirname($_SERVER["PHP_SELF"]));
+
 define('BASE_PATH', str_replace('\\', '/', dirname(__FILE__)) . '/../../');
 
 define('BASE_TRUST_PATH', BASE_PATH . '/trust_path');
+
+define('BASE_PATH_STATIC', BASE_PATH . 'static/');
 
 // game setting
 define("TITLE", "Hall of Fame"); //タイトル
