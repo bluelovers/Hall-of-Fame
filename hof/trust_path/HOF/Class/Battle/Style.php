@@ -87,7 +87,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 		{
 			//$this->data['bg'] = IMG_OTHER . "bg_" . $this->options['bg'] . ".gif";
 			$this->data['bg'] = HOF_Class_Icon::getImageUrl("bg_" . $this->options['bg'], IMG_OTHER);
-			$this->data['bg_file'] = HOF_Class_Icon::getIamge("bg_" . $this->options['bg'], IMG_OTHER);
+			$this->data['bg_file'] = HOF_Class_Icon::getImage("bg_" . $this->options['bg'], IMG_OTHER);
 
 			if ($this->style == 0)
 			{
