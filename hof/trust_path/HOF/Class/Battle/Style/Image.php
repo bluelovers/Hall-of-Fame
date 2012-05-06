@@ -53,7 +53,7 @@ class HOF_Class_Battle_Style_Image
 				{
 					if (strpos($img, '/') !== false) continue; // '/'が指定された場合無視
 
-					$file = HOF_Class_Icon::getIamge($img, $dir);
+					$file = HOF_Class_Icon::getImage($img, $dir);
 
 					if ($file) $this->{"team{$_idx}_front"}[] = $file;
 				}
@@ -61,7 +61,7 @@ class HOF_Class_Battle_Style_Image
 				{
 					if (strpos($img, '/') !== false) continue; // '/'が指定された場合無視
 
-					$file = HOF_Class_Icon::getIamge($img, $dir);
+					$file = HOF_Class_Icon::getImage($img, $dir);
 
 					if ($file) $this->{"team{$_idx}_back"}[] = $file;
 				}
@@ -128,7 +128,7 @@ class HOF_Class_Battle_Style_Image
 	{
 		$type && array_unshift(HOF_Class_Icon::$map_imgtype, $type);
 
-		$this->background = HOF_Class_Icon::getIamge(array($_GET['bg'], 'bg_'), IMG_OTHER);
+		$this->background = HOF_Class_Icon::getImage(array($_GET['bg'], 'bg_'), IMG_OTHER);
 
 		$imginfo = $this->getimagesize($this->background);
 		$this->image = $imginfo['imagecreatefromfunc']($this->background);
