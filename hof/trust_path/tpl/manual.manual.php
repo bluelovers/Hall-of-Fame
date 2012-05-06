@@ -440,7 +440,7 @@ $sample = array(
 foreach ($sample as $val)
 {
 	include_once (DATA_SKILL);
-	ShowSkillDetail(HOF_Model_Data::getSkill($val));
+	HOF_Class_Skill::ShowSkillDetail(HOF_Model_Data::getSkill($val));
 	print ("<br />\n");
 }
 
