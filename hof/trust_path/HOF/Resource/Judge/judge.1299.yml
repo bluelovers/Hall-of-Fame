@@ -2,5 +2,17 @@ no: 1299
 exp: STR
 css: true
 subs:
-    1300: { no: 1300, exp: '自分のSTRが○○ 以上', tag: { no: '1299', exp: STR }, quantity: true }
-    1301: { no: 1301, exp: '自分のSTRが○○ 以下', tag: { no: '1299', exp: STR }, quantity: true }
+    1300:
+        no: 1300
+        exp: '自分のSTRが○○ 以上'
+        tag:
+            no: '1299'
+            exp: STR
+        quantity: true
+    1301:
+        no: 1301
+        exp: '自分のSTRが○○ 以下'
+        tag:
+            no: '1299'
+            exp: STR
+        quantity: true
