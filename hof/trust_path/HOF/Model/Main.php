@@ -40,7 +40,10 @@ class HOF_Model_Main extends HOF_Class_Main
 				return true;
 
 			case ($_SERVER["QUERY_STRING"] === "log"):
+				/*
 				ShowLogList();
+				*/
+				HOF_Class_Controller::newInstance('log')->main();
 				return true;
 			case ($_SERVER["QUERY_STRING"] === "clog"):
 				LogShowCommon();
