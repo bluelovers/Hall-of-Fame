@@ -1,4 +1,4 @@
-no: 102
+no: '102'
 name_male: Sacrier
 name_female: Sacrier
 img_male: mon_100r
@@ -13,3 +13,5 @@ equip:
 coe:
     - 5
     - 0.2
+info:
+    desc: "戦士系上級職。\n攻撃に特化した戦士。\n自分の体力を犠牲に強力な技が使える。"
