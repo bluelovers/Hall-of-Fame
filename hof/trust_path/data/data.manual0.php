@@ -110,7 +110,7 @@
 		<!-- ---------------------------------------------------------------- -->
 		<a name="menu"></a>
 		<h4>メニュー(Menu) <a href="#content">↑</a></h4>
-		<img src="<?php echo HOF_Class_Icon::getIamge('003', './static/image/manual/'); ?>">
+		<img src="<?php echo HOF_Class_Icon::getIamgeUrl('003', './static/image/manual/'); ?>">
 		<p><span class="u bold">ログイン後以下のメニューが表示される</span>
 		<ul>
 			<li>
@@ -189,12 +189,12 @@ BATTLE_MAX_TURNS
 		<h4>キャラクターの設定について <a href="#content">↑</a></h4>
 		<p style="margin-left:50px">ログイン後、TOP画面のキャラ画像をクリックすると<br />
 			そのキャラのステータス画面が表示されます。<br />
-			<img src="<?php echo HOF_Class_Icon::getIamge('001', './static/image/manual/'); ?>"><br />
+			<img src="<?php echo HOF_Class_Icon::getIamgeUrl('001', './static/image/manual/'); ?>"><br />
 			以下の項目で詳しい設定内容を説明。</p>
 		<!-- ---------------------------------------------------------------- -->
 		<a name="charstat"></a>
 		<h4>キャラクターの基本的な能力値について <a href="#content">↑</a></h4>
-		<p style="margin-left:50px"> <img src="<?php echo HOF_Class_Icon::getIamge('002', './static/image/manual/'); ?>">
+		<p style="margin-left:50px"> <img src="<?php echo HOF_Class_Icon::getIamgeUrl('002', './static/image/manual/'); ?>">
 		<ul>
 			<li />
 			<span class="bold">Exp</span> : 次のレベルうｐまでの経験値
@@ -519,11 +519,11 @@ foreach ($sample as $val)
 		<p style="margin:15px"> <img src="<?=
 
 
-HOF_Class_Icon::getIamge('mon_100r', IMG_CHAR);
+HOF_Class_Icon::getIamgeUrl('mon_100r', IMG_CHAR);
 
 ?>"> <img src="<?=
 
-HOF_Class_Icon::getIamge('mon_012', IMG_CHAR);
+HOF_Class_Icon::getIamgeUrl('mon_012', IMG_CHAR);
 
 
 ?>"><br />
@@ -536,18 +536,18 @@ HOF_Class_Icon::getIamge('mon_012', IMG_CHAR);
 			<img src="<?=
 
 
-HOF_Class_Icon::getIamge('crown01', IMG_ICON)
+HOF_Class_Icon::getIamgeUrl('crown01', IMG_ICON)
 
 ?>" class="vcent">1位 1人<br />
 			<img src="<?=
 
-HOF_Class_Icon::getIamge('crown02', IMG_ICON)
+HOF_Class_Icon::getIamgeUrl('crown02', IMG_ICON)
 
 
 ?>" class="vcent">2位 2人<br />
 			<img src="<?=
 
-HOF_Class_Icon::getIamge('crown03', IMG_ICON)
+HOF_Class_Icon::getIamgeUrl('crown03', IMG_ICON)
 
 
 ?>" class="vcent">3位 3人<br />
