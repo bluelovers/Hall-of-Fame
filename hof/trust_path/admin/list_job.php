@@ -83,7 +83,7 @@ for ($no = 100; $no < 999; $no++)
 		{
 			print ("<tr><td class=\"b\">");
 			$skill = LoadSKillData($skill);
-			ShowSkillDetail($skill);
+			HOF_Class_Skill::ShowSkillDetail($skill);
 			print ("</td></tr>");
 		}
 		print ("</tbody></table>");
@@ -101,7 +101,7 @@ print ("</tbody></table>");
 
 //////////////////////////////////////////////////
 //	技の詳細を表示
-function ShowSkillDetail($skill, $radio = false)
+function HOF_Class_Skill::ShowSkillDetail($skill, $radio = false)
 {
 
 	define("IMG_ICON", "../static/image/icon/");
