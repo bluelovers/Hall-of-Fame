@@ -311,6 +311,24 @@ class HOF_Model_Data extends HOF_Class_Data
 		return $data;
 	}
 
+	function getJobList()
+	{
+		$_key = 'job';
+
+		$regex = HOF_Class_Data::_filename($_key, '*');
+
+		$regex = '/^'.str_replace('\*', '(.+)', preg_quote($regex, '/')).'$/i';
+
+		foreach(glob(HOF_Class_Data::_filename($_key, '*')) as $file)
+		{
+			$list[] = preg_replace($regex, '$1', $file);
+		}
+
+		sort($list, SORT_NUMERIC);
+
+		return $list;
+	}
+
 	function getJudgeList()
 	{
 		// 自動読み込み(forでループさせてるから無駄な処理)
