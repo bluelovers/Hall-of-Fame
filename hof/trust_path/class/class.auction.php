@@ -90,14 +90,14 @@ class Auction
 				$this->UserGetItem($Article["bidder"], $Article["item"], $Article["amount"]);
 				$this->UserGetMoney($Article["exhibitor"], $Article["price"]);
 				// 結果をログに残せ
-				$this->AddLog("No.{$Article[No]} <img src=\"" . HOF_Class_Icon::getIamge($item["img"], IMG_ICON.'item/') . "\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個 を " . $this->UserGetNameFromTemp($Article["bidder"]) . " が " . HOF_Helper_Global::MoneyFormat($Article["price"]) . " で<span class=\"recover\">落札しました。</span>");
+				$this->AddLog("No.{$Article[No]} <img src=\"" . HOF_Class_Icon::getIamgeUrl($item["img"], IMG_ICON.'item/') . "\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個 を " . $this->UserGetNameFromTemp($Article["bidder"]) . " が " . HOF_Helper_Global::MoneyFormat($Article["price"]) . " で<span class=\"recover\">落札しました。</span>");
 			}
 			else
 			{
 				// 入札が無かった場合、出品者に返却。
 				$this->UserGetItem($Article["exhibitor"], $Article["item"], $Article["amount"]);
 				// 結果をログに残せ
-				$this->AddLog("No.{$Article[No]} <img src=\"" . HOF_Class_Icon::getIamge($item["img"], IMG_ICON.'item/') . "\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個 は<span class=\"dmg\">入札者無しで流れました。</span>");
+				$this->AddLog("No.{$Article[No]} <img src=\"" . HOF_Class_Icon::getIamgeUrl($item["img"], IMG_ICON.'item/') . "\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個 は<span class=\"dmg\">入札者無しで流れました。</span>");
 			}
 			// 最後に消す
 			unset($this->Article["$no"]);
@@ -475,7 +475,7 @@ class Auction
 			);
 		array_unshift($this->Article, $New);
 		$itemData = HOF_Model_Data::getItemData($item);
-		$this->AddLog("No." . $this->ArticleNo . " に <img src=\"" . HOF_Class_Icon::getIamge($itemData["img"], IMG_ICON.'item/') . "\"><span class=\"bold\">{$itemData[name]} x{$amount}</span>個が<span class=\"charge\">出品されました。</span>");
+		$this->AddLog("No." . $this->ArticleNo . " に <img src=\"" . HOF_Class_Icon::getIamgeUrl($itemData["img"], IMG_ICON.'item/') . "\"><span class=\"bold\">{$itemData[name]} x{$amount}</span>個が<span class=\"charge\">出品されました。</span>");
 		$this->DataChange = true;
 	}
 	//////////////////////////////////////////////
