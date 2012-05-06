@@ -128,4 +128,50 @@ class HOF_Controller_Gamedata extends HOF_Class_Controller
 		$this->options['escapeHtml'] = false;
 	}
 
+	function _main_action_item()
+	{
+		$ItemList = array(
+			"武器(Weapon)" => array(
+				1000,
+				1100,
+				1700,
+				1800,
+				2000),
+			"盾(Shield)" => array(
+				3000,
+				3001,
+				3100,
+				3101),
+			"鎧(Armor)" => array(
+				5000,
+				5001,
+				5100,
+				5101,
+				5200,
+				5202),
+			"アイテム(Item)" => array(5500, 5501),
+			"素材(Material)" => array(
+				6000,
+				6001,
+				6040,
+				6180,
+				6800,
+				7000),
+			);
+
+		$list = array();
+
+		foreach ($ItemList as $Type => $ItemNoArray)
+		{
+			foreach ($ItemNoArray as $ItemNo)
+			{
+				$item = HOF_Model_Data::getItemData($ItemNo);
+
+				$list[$Type][$ItemNo] = $item;
+			}
+		}
+
+		$this->output->list = $list;
+	}
+
 }
