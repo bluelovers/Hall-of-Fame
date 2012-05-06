@@ -30,7 +30,7 @@ class HOF_Class_Icon
 		);
 
 	/**
-	 * @example HOF_Class_Icon::getIamgeUrl('ori_003', IMG_CHAR)
+	 * @example HOF_Class_Icon::getImageUrl('ori_003', IMG_CHAR)
 	 */
 	function getImageUrl($no, $dir, $return_true = false)
 	{
