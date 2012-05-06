@@ -1278,7 +1278,7 @@ HTML;
 				<td><input type="radio" class="vcent" name="spot" value="weapon">
 					<?php
 
-			ShowItemDetail(HOF_Model_Data::getItemData($char->weapon));
+			HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($char->weapon));
 
 
 ?></td>
@@ -1288,7 +1288,7 @@ HTML;
 				<td><input type="radio" class="vcent" name="spot" value="shield">
 					<?php
 
-			ShowItemDetail(HOF_Model_Data::getItemData($char->shield));
+			HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($char->shield));
 
 
 ?></td>
@@ -1298,7 +1298,7 @@ HTML;
 				<td><input type="radio" class="vcent" name="spot" value="armor">
 					<?php
 
-			ShowItemDetail(HOF_Model_Data::getItemData($char->armor));
+			HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($char->armor));
 
 
 ?></td>
@@ -1308,7 +1308,7 @@ HTML;
 				<td><input type="radio" class="vcent" name="spot" value="item">
 					<?php
 
-			ShowItemDetail(HOF_Model_Data::getItemData($char->item));
+			HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($char->item));
 
 
 ?></td>
@@ -1347,7 +1347,7 @@ HTML;
 					// 装備できないので次
 					if (!isset($EquipAllow[$item["type"]])) continue;
 					$head = '<input type="radio" name="item_no" value="' . $key . '" class="vcent">';
-					$head .= ShowItemDetail($item, $val, true) . "<br />";
+					$head .= HOF_Class_Item::ShowItemDetail($item, $val, true) . "<br />";
 					$EquipList->AddItem($item, $head);
 				}
 				print ($EquipList->GetJavaScript("list0"));
@@ -1382,7 +1382,7 @@ HTML;
 			print('<input type="radio" class="vcent" name="item_no" value="'.key($this->item).'">');
 			print("\n\t");
 			print(current($this->item)."x");
-			ShowItemDetail($item);
+			HOF_Class_Item::ShowItemDetail($item);
 			print("<br>\n");
 			next($this->item);
 			}
@@ -1839,8 +1839,8 @@ HTML;
 				foreach ($this->item as $no => $val)
 				{
 					$item = HOF_Model_Data::getItemData($no);
-					$string = ShowItemDetail($item, $val, 1) . "<br />";
-					//$string	= "<tr><td>".$no."</td><td>".ShowItemDetail($item,$val,1)."</td></tr>";
+					$string = HOF_Class_Item::ShowItemDetail($item, $val, 1) . "<br />";
+					//$string	= "<tr><td>".$no."</td><td>".HOF_Class_Item::ShowItemDetail($item,$val,1)."</td></tr>";
 					$goods->AddItem($item, $string);
 				}
 				print ($goods->GetJavaScript("list"));
@@ -1991,7 +1991,7 @@ HTML;
 			{
 				$item = HOF_Model_Data::getItemData($no);
 				$string = '<input type="radio" name="item_no" value="' . $no . '" class="vcent">';
-				$string .= "<span style=\"padding-right:10px;width:10ex\">" . HOF_Helper_Global::MoneyFormat($item["buy"]) . "</span>" . ShowItemDetail($item, false, 1) . "<br />";
+				$string .= "<span style=\"padding-right:10px;width:10ex\">" . HOF_Helper_Global::MoneyFormat($item["buy"]) . "</span>" . HOF_Class_Item::ShowItemDetail($item, false, 1) . "<br />";
 				$goods->AddItem($item, $string);
 			}
 			print ($goods->GetJavaScript("list_buy"));
@@ -2018,7 +2018,7 @@ HTML;
 					$item = HOF_Model_Data::getItemData($no);
 					$price = (isset($item["sell"]) ? $item["sell"] : round($item["buy"] * SELLING_PRICE));
 					$string = '<input type="radio" class="vcent" name="item_no" value="' . $no . '">';
-					$string .= "<span style=\"padding-right:10px;width:10ex\">" . HOF_Helper_Global::MoneyFormat($price) . "</span>" . ShowItemDetail($item, $val, 1) . "<br />";
+					$string .= "<span style=\"padding-right:10px;width:10ex\">" . HOF_Helper_Global::MoneyFormat($price) . "</span>" . HOF_Class_Item::ShowItemDetail($item, $val, 1) . "<br />";
 					$head = '<input type="radio" name="item_no" value="' . $no . '" class="vcent">' . HOF_Helper_Global::MoneyFormat($item["buy"]);
 					$goods->AddItem($item, $string);
 				}
@@ -2045,7 +2045,7 @@ HTML;
 			print('<input type="radio" class="vcent" name="item_no" value="'.$no.'">');
 			print(HOF_Helper_Global::MoneyFormat($price));
 			print("&nbsp;&nbsp;&nbsp;{$val}x");
-			ShowItemDetail($item);
+			HOF_Class_Item::ShowItemDetail($item);
 			print("<br>");
 			}
 			} else
@@ -2107,7 +2107,7 @@ HTML;
 				print ("</td><td class=\"td7\">");
 				print ("= " . HOF_Helper_Global::MoneyFormat($Total) . "\n");
 				print ("</td><td class=\"td8\">");
-				print (ShowItemDetail($item) . "\n");
+				print (HOF_Class_Item::ShowItemDetail($item) . "\n");
 				print ("</td></tr>\n");
 				$this->AddItem($itemNo, $amount);
 			}
@@ -2166,7 +2166,7 @@ JS_HTML;
 				print ("</td><td class=\"td7\" id=\"i{$itemNo}c\">\n");
 				print ('<input type="text" id="text_' . $itemNo . '" name="amount_' . $itemNo . '" value="1" style="width:60px" class="text">' . "\n");
 				print ("</td><td class=\"td8\" id=\"i{$itemNo}d\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
-				print (ShowItemDetail($item));
+				print (HOF_Class_Item::ShowItemDetail($item));
 				print ("</td></tr>\n");
 			}
 			print ("</table>\n");
@@ -2204,7 +2204,7 @@ JS_HTML;
 				print ("</td><td class=\"td7\">");
 				print ("= " . HOF_Helper_Global::MoneyFormat($Total) . "\n");
 				print ("</td><td class=\"td8\">");
-				print (ShowItemDetail($item) . "\n");
+				print (HOF_Class_Item::ShowItemDetail($item) . "\n");
 				print ("</td></tr>\n");
 			}
 			print ("<tr><td colspan=\"4\" class=\"td8\">合計 : " . HOF_Helper_Global::MoneyFormat($getMoney) . "</td></tr>");
@@ -2254,7 +2254,7 @@ JS_HTML;
 				print ("</td><td class=\"td7\" id=\"i{$itemNo}c\">\n");
 				print ('<input type="text" id="text_' . $itemNo . '" name="amount_' . $itemNo . '" value="' . $amount . '" style="width:60px" class="text">' . "\n");
 				print ("</td><td class=\"td8\" id=\"i{$itemNo}d\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
-				print (ShowItemDetail($item, $amount));
+				print (HOF_Class_Item::ShowItemDetail($item, $amount));
 				print ("</td></tr>\n");
 			}
 			print ("</table>\n");
@@ -2873,11 +2873,11 @@ JS_HTML;
 					$price = $item["buy"] / 2;
 					// NoTable
 					//			$string	= '<input type="radio" class="vcent" name="item_no" value="'.$no.'">';
-					//			$string	.= "<span style=\"padding-right:10px;width:10ex\">".HOF_Helper_Global::MoneyFormat($price)."</span>".ShowItemDetail($item,$val,1)."<br />";
+					//			$string	.= "<span style=\"padding-right:10px;width:10ex\">".HOF_Helper_Global::MoneyFormat($price)."</span>".HOF_Class_Item::ShowItemDetail($item,$val,1)."<br />";
 
 					$string = '<tr>';
 					$string .= '<td class="td7"><input type="radio" class="vcent" name="item_no" value="' . $no . '">';
-					$string .= '</td><td class="td7">' . HOF_Helper_Global::MoneyFormat($price) . '</td><td class="td8">' . ShowItemDetail($item, $val, 1) . "<td>";
+					$string .= '</td><td class="td7">' . HOF_Helper_Global::MoneyFormat($price) . '</td><td class="td8">' . HOF_Class_Item::ShowItemDetail($item, $val, 1) . "<td>";
 					$string .= "</tr>";
 
 					$goods->AddItem($item, $string);
@@ -3022,7 +3022,7 @@ JS_HTML;
 			$this->SaveUserItem();
 
 			print ("<p>");
-			print (ShowItemDetail(HOF_Model_Data::getItemData($done)));
+			print (HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($done)));
 
 			print ("\n<br />ができたぜ！</p>\n");
 			return true;
@@ -3050,11 +3050,11 @@ JS_HTML;
 				if (!HaveNeeds($item, $this->item)) // 素材不足なら次
  						continue;
 				// NoTable
-				//$head	= '<input type="radio" name="ItemNo" value="'.$item_no.'">'.ShowItemDetail($item,false,1,$this->item)."<br />";
+				//$head	= '<input type="radio" name="ItemNo" value="'.$item_no.'">'.HOF_Class_Item::ShowItemDetail($item,false,1,$this->item)."<br />";
 				//$CreatePrice	= $item["buy"];
 				$CreatePrice = 0; //
 				$head = '<tr><td class="td7"><input type="radio" name="ItemNo" value="' . $item_no . '"></td>';
-				$head .= '<td class="td7">' . HOF_Helper_Global::MoneyFormat($CreatePrice) . '</td><td class="td8">' . ShowItemDetail($item, false, 1, $this->item) . "</td>";
+				$head .= '<td class="td7">' . HOF_Helper_Global::MoneyFormat($CreatePrice) . '</td><td class="td8">' . HOF_Class_Item::ShowItemDetail($item, false, 1, $this->item) . "</td>";
 				$CreateList->AddItem($item, $head);
 			}
 			if ($head)
@@ -3087,7 +3087,7 @@ JS_HTML;
 					if ($item = HOF_Model_Data::getItemData($item_no))
 					{
 						print ('<input type="radio" name="AddMaterial" value="' . $item_no . '" class="vcent">');
-						print (ShowItemDetail($item, $this->item["$item_no"], 1) . "<br />\n");
+						print (HOF_Class_Item::ShowItemDetail($item, $this->item["$item_no"], 1) . "<br />\n");
 					}
 				}
 
@@ -3113,7 +3113,7 @@ JS_HTML;
 			{
 				if (!$this->item["$i"]) continue;
 				$item = HOF_Model_Data::getItemData($i);
-				ShowItemDetail($item, $this->item["$i"]);
+				HOF_Class_Item::ShowItemDetail($item, $this->item["$i"]);
 				print ("<br />\n");
 			}
 
@@ -3465,7 +3465,7 @@ JS_HTML;
 				$item = HOF_Model_Data::getItemData($no);
 				if (!$possible[$item["type"]]) continue;
 				$head = '<input type="radio" name="item_no" value="' . $no . '" class="vcent">';
-				$head .= ShowItemDetail($item, $amount, 1) . "<br />";
+				$head .= HOF_Class_Item::ShowItemDetail($item, $amount, 1) . "<br />";
 				$ExhibitList->AddItem($item, $head);
 			}
 			print ($ExhibitList->GetJavaScript("list"));
