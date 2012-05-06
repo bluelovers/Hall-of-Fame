@@ -2777,7 +2777,7 @@ JS_HTML;
 				return false;
 			}
 			include (CLASS_SMITHY);
-			$obj_item = new Item($_POST["item_no"]);
+			$obj_item = new Smithy($_POST["item_no"]);
 			// そのアイテムが精錬できない場合
 			if (!$obj_item->CanRefine())
 			{
@@ -3002,7 +3002,7 @@ JS_HTML;
 				$this->DeleteItem($M_item, $M_amount);
 			}
 			include (CLASS_SMITHY);
-			$item = new item($_POST["ItemNo"]);
+			$item = new Smithy($_POST["ItemNo"]);
 			$item->CreateItem();
 			// 付加効果
 			if ($ADD["Add"]) $item->AddSpecial($ADD["Add"]);
