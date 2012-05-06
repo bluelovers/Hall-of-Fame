@@ -49,5 +49,8 @@ foreach($_ENV['autoloaders'] as $autoloader)
 
 unset($_ENV['autoloaders']);
 
+HOF_Loader::loadFile('syntax.func.php', BASE_TRUST_PATH.'HOF/Syntax', true);
+HOF_Loader::loadFile('syntax.json.php', BASE_TRUST_PATH.'HOF/Syntax', true);
+
 set_time_limit(60);
 
