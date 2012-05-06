@@ -118,7 +118,7 @@ for ($no = 1000; $no < 5999; $no++)
 			print (($prob / 100) . "%");
 			print ("</td><td>");
 			$item = LoadItemdata($itemno);
-			ShowItemDetail($item);
+			HOF_Class_Item::ShowItemDetail($item);
 			print ("</td></tr>");
 
 		}
