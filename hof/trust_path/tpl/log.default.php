@@ -1,26 +1,32 @@
 
 	<div style="margin:15px">
 
-		<a href="?log" class="a0">All</a>
-		<a href="?clog">Common</a>
-		<a href="?ulog">Union</a>
-		<a href="?rlog">Ranking</a>
+		<a href="?log" <?php if ($this->output->idx == 'log') e(' class="a0"'); ?>>All</a>
+		<a href="?clog" <?php if ($this->output->idx == 'clog') e(' class="a0"'); ?>>Common</a>
+		<a href="?ulog" <?php if ($this->output->idx == 'ulog') e(' class="a0"'); ?>>Union</a>
+		<a href="?rlog" <?php if ($this->output->idx == 'rlog') e(' class="a0"'); ?>>Ranking</a>
 
 		<!-- common -->
 
 		<?php foreach($this->output->logs as $_k => $logs): ?>
 
-			<?php $_u = 'log'; ?>
+			<h4>
 
-			<?php if ($_k == LOG_BATTLE_NORMAL): ?>
-				<h4>最近の戦闘 - <a href="?clog">全表示</a>(Recent Battles)</h4>
-			<?php elseif ($_k == LOG_BATTLE_UNION): ?>
-				<h4>ユニオン戦 - <a href="?ulog">全表示</a>(Union Battle Log)</h4>
-				<?php $_u = 'ulog'; ?>
-			<?php elseif ($_k == LOG_BATTLE_RANK): ?>
-				<h4>ランキング戦 - <a href="?rlog">全表示</a>(Rank Battle Log)</h4>
-				<?php $_u = 'rlog'; ?>
-			<?php endif; ?>
+				<?php if ($_k == LOG_BATTLE_UNION): ?>
+					ユニオン戦 - (Union Battle Log)
+					<?php $_u = 'ulog'; ?>
+				<?php elseif ($_k == LOG_BATTLE_RANK): ?>
+					ランキング戦 - (Rank Battle Log)
+					<?php $_u = 'rlog'; ?>
+				<?php else: ?>
+					最近の戦闘 - (Recent Battles)
+					<?php $_u = 'clog'; ?>
+				<?php endif; ?>
+
+				<?php if (!$this->output->full_log): ?>
+					<a href="?<?php e($_u) ?>">全表示</a>
+				<?php endif; ?>
+			</h4>
 
 			<?php foreach($logs as $log): ?>
 
