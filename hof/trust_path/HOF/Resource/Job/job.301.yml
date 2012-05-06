@@ -1,4 +1,4 @@
-no: 301
+no: '301'
 name_male: Bishop
 name_female: Bishop
 img_male: mon_213r
@@ -12,3 +12,5 @@ equip:
 coe:
     - 2.7
     - 1.4
+info:
+    desc: "聖職上級職。\n味方の能力値も上げれるようになる。"
