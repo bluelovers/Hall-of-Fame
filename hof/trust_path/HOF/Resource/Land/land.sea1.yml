@@ -5,4 +5,6 @@ land:
     land: sea
     proper: 99-99
 monster:
-    1065: [100, 1]
+    1065:
+        - 100
+        - 1
