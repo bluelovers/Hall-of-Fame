@@ -14,15 +14,15 @@ unset($_ENV['autoloaders']);
 
 if (file_exists(dirname(__file__) . '/bootstrap.options.php'))
 {
-	include (dirname(__file__) . '/bootstrap.options.php');
+	@include (dirname(__file__) . '/bootstrap.options.php');
 }
 
 if (file_exists(dirname(__file__) . '/config/setting.php'))
 {
-	require dirname(__file__) . '/config/setting.php';
+	@require dirname(__file__) . '/config/setting.php';
 }
 
-require dirname(__file__) . '/config/setting.dist.php';
+@require dirname(__file__) . '/config/setting.dist.php';
 
 ob_start('ob_gzhandler');
 
