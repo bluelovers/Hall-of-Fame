@@ -2,5 +2,17 @@ no: 1359
 exp: MATK
 css: true
 subs:
-    1360: { no: 1360, exp: '自分のMATKが○○ 以上', tag: { no: '1359', exp: MATK }, quantity: true }
-    1361: { no: 1361, exp: '自分のMATKが○○ 以下', tag: { no: '1359', exp: MATK }, quantity: true }
+    1360:
+        no: 1360
+        exp: '自分のMATKが○○ 以上'
+        tag:
+            no: '1359'
+            exp: MATK
+        quantity: true
+    1361:
+        no: 1361
+        exp: '自分のMATKが○○ 以下'
+        tag:
+            no: '1359'
+            exp: MATK
+        quantity: true
