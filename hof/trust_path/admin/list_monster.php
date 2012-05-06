@@ -103,7 +103,7 @@ for ($no = 1000; $no < 5999; $no++)
 		print ("</td><td>");
 		$skill = HOF_Model_Data::getSkill($m["action"]["$key"]);
 		//print($skill[name]);
-		ShowSkillDetail($skill);
+		HOF_Class_Skill::ShowSkillDetail($skill);
 		print ("</td></tr>");
 	}
 	// 落とすアイテム
