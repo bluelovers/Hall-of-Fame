@@ -63,10 +63,18 @@ SPECIAL:
     PoisonResist: 50
 cycle: 43200
 Slave:
-    1095: [100, 0]
-    1096: [100, 0]
-    1097: [100, 0]
-    1098: [100, 0]
+    1095:
+        - 100
+        - 0
+    1096:
+        - 100
+        - 0
+    1097:
+        - 100
+        - 0
+    1098:
+        - 100
+        - 0
 land: pavement01
 UnionName: FakeHeroes
 LevelLimit: '250'
