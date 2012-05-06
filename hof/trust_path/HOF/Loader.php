@@ -42,8 +42,17 @@ class HOF_Loader extends Zend_Loader
 			}
 		}
 
-		if (!self::$_suppressNotFoundWarnings && !class_exists($class, false) && !interface_exists($class, false)) {
-			throw new Zend_Exception("File \"$file\" does not exist or class \"$class\" was not found in the file");
+		if (!class_exists($class, false) && !interface_exists($class, false)) {
+			if (!self::$_suppressNotFoundWarnings)
+			{
+				throw new Zend_Exception("File \"$file\" does not exist or class \"$class\" was not found in the file");
+			}
+
+			return false;
+		}
+		else
+		{
+			return true;
 		}
 	}
 
