@@ -2,5 +2,17 @@ no: 1309
 exp: INT
 css: true
 subs:
-    1310: { no: 1310, exp: '自分のINTが○○ 以上', tag: { no: '1309', exp: INT }, quantity: true }
-    1311: { no: 1311, exp: '自分のINTが○○ 以下', tag: { no: '1309', exp: INT }, quantity: true }
+    1310:
+        no: 1310
+        exp: '自分のINTが○○ 以上'
+        tag:
+            no: '1309'
+            exp: INT
+        quantity: true
+    1311:
+        no: 1311
+        exp: '自分のINTが○○ 以下'
+        tag:
+            no: '1309'
+            exp: INT
+        quantity: true
