@@ -164,8 +164,8 @@ foreach ($job as $No => $exp)
 	if ($JobData["name_male"] !== $JobData["name_female"]) print ("<br />(" . $JobData["name_female"] . ")");
 	print ('</span></td>' . "\n");
 	print ("<td$css>");
-	print ('<img src="' . HOF_Class_Icon::getIamge($JobData["img_male"], IMG_CHAR) . '" />');
-	print ('<img src="' . HOF_Class_Icon::getIamge($JobData["img_female"], IMG_CHAR) . '" />');
+	print ('<img src="' . HOF_Class_Icon::getIamgeUrl($JobData["img_male"], IMG_CHAR) . '" />');
+	print ('<img src="' . HOF_Class_Icon::getIamgeUrl($JobData["img_female"], IMG_CHAR) . '" />');
 	print ("</td>");
 	print ("<td$css>$exp");
 	print ("</td>");
