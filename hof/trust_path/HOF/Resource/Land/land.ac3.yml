@@ -5,5 +5,13 @@ land:
     land: cave
     proper: 'Lv??'
 monster:
-    1027: [20, 1]
-    1028: [80, 1]
+    1027:
+        - 20
+        - 1
+    1028:
+        - 80
+        - 1
+trigger:
+    item:
+        -
+            8003: 1
