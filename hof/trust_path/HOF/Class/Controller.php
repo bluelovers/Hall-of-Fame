@@ -20,19 +20,21 @@ class HOF_Class_Controller
 
 	public $autoView = true;
 
+	public $view = null;
+
 	const DEFAULT_CONTROLLER = 'default';
 	const DEFAULT_ACTION = 'default';
 
-	public static function &newInstance($controller, $action)
+	public static function &newInstance($controller, $action = null)
 	{
 		$controller = $controller ? $controller : self::DEFAULT_CONTROLLER;
 		$action = $action ? $action : self::DEFAULT_ACTION;
 
-		$Controller = self::putintoClassParts($controller);
-		$Action = self::putintoClassParts($action);
+		$Controller = HOF::putintoClassParts($controller);
+		$Action = HOF::putintoClassParts($action);
 
-		$controller = self::putintoPathParts($Controller);
-		$action = self::putintoPathParts($Action);
+		$controller = HOF::putintoPathParts($Controller);
+		$action = HOF::putintoPathParts($Action);
 
 		$Action[0] = strtolower($Action[0]);
 
@@ -48,31 +50,13 @@ class HOF_Class_Controller
 		return $instance;
 	}
 
-	public static function putintoClassParts($str)
-	{
-		$str = preg_replace('/[^a-z0-9_]/', '', $str);
-		$str = explode('_', $str);
-		$str = array_map('trim', $str);
-		$str = array_diff($str, array(''));
-		$str = array_map('ucfirst', $str);
-		$str = implode('', $str);
-		return $str;
-	}
-
-	public static function putintoPathParts($str)
-	{
-		$str = preg_replace('/[^a-zA-Z0-9]/', '', $str);
-		$str = preg_replace('/([A-Z])/', '_$1', $str);
-		$str = strtolower($str);
-		$str = substr($str, 1, strlen($str));
-		return $str;
-	}
-
-	public function __construct($controller, $action)
+	public function __construct($controller, $action = null)
 	{
 
 		$this->controller = $controller;
 		$this->action = $action;
+
+		$this->output = new HOF_Class_Array($this->output);
 
 		return $this;
 
@@ -124,18 +108,33 @@ class HOF_Class_Controller
 		return $template;
 	}
 
+	protected function _escapeHtml(&$vars)
+	{
+		foreach ($vars as $key => &$var)
+		{
+			if (is_array($var))
+			{
+				$this->_escapeHtml($var);
+			}
+			elseif (!is_object($var))
+			{
+				$var = HOF::escapeHtml($var);
+			}
+		}
+	}
+
 	protected function _view()
 	{
 
 		if (!$this->template)
 		{
-			$this->template = BASE_PATH_TPL . '/' . $this->controller . '.' . $this->action . '.php';
+			$this->template = BASE_PATH_TPL . $this->controller . '.' . $this->action . '.php';
 		}
 
 		// debug new tpl
 		$this->template = $this->_getTplFile($this->template);
 
-		$this->_escapeHtml($this->output);
+		$this->_escapeHtml(&$this->output);
 
 		/*
 		ob_start();
@@ -162,21 +161,6 @@ class HOF_Class_Controller
 		echo HOF_Class_View::render($this, $dura, $this->_getTplFile(BASE_PATH_TPL . '/theme.php'), $content);
 
 		return $this;
-	}
-
-	protected function _escapeHtml(&$vars)
-	{
-		foreach ($vars as $key => &$var)
-		{
-			if (is_array($var))
-			{
-				$this->_escapeHtml($var);
-			}
-			elseif (!is_object($var))
-			{
-				$var = htmlspecialchars((string )$var, ENT_QUOTES);
-			}
-		}
 	}
 
 }
