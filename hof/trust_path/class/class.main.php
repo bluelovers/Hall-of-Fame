@@ -1416,7 +1416,7 @@ HTML;
 				{
 					print ("<tr><td>");
 					$skill = HOF_Model_Data::getSkill($val);
-					ShowSkillDetail($skill);
+					HOF_Class_Skill::ShowSkillDetail($skill);
 					print ("</td></tr>");
 				}
 				print ("</tbody></table>");
@@ -1428,7 +1428,7 @@ HTML;
 				{
 					print ("<tr><td>");
 					$skill = HOF_Model_Data::getSkill($val);
-					ShowSkillDetail($skill, 1);
+					HOF_Class_Skill::ShowSkillDetail($skill, 1);
 					print ("</td></tr>");
 				}
 				print ("</tbody></table>");
