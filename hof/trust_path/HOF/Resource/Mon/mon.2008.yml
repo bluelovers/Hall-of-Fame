@@ -31,9 +31,15 @@ SPECIAL:
     PoisonResist: 50
 cycle: 97200
 Slave:
-    1092: [100, 0]
-    1093: [100, 0]
-    1094: [100, 0]
+    1092:
+        - 100
+        - 0
+    1093:
+        - 100
+        - 0
+    1094:
+        - 100
+        - 0
 land: nest
 UnionName: 'Bird''sNest'
 LevelLimit: '150'
