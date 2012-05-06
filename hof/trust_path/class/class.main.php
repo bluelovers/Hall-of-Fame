@@ -330,11 +330,19 @@ class main extends HOF_Class_User
 				case ($_SERVER["QUERY_STRING"] === "bbs"):
 					$this->bbs01();
 					return true;
+					/*
 				case ($_SERVER["QUERY_STRING"] === "manual"):
 					ShowManual();
 					return true;
 				case ($_SERVER["QUERY_STRING"] === "manual2"):
 					ShowManual2();
+					return true;
+					*/
+				case ($_SERVER["QUERY_STRING"] === "manual"):
+				case ($_SERVER["QUERY_STRING"] === "manual2"):
+					HOF_Class_Controller::newInstance('manual', $_SERVER["QUERY_STRING"])
+						->main();
+					;
 					return true;
 				case ($_SERVER["QUERY_STRING"] === "tutorial"):
 					ShowTutorial();
@@ -1324,7 +1332,7 @@ HTML;
 			print ("\t<div class=\"bold u\">Stock & Allowed to Equip</div>\n");
 			if ($this->item)
 			{
-				
+
 				$EquipList = new HOF_Class_Item_Style_List();
 				$EquipList->SetID("equip");
 				$EquipList->SetName("type_equip");
@@ -1818,7 +1826,7 @@ HTML;
 
 			if ($this->item)
 			{
-				
+
 				$goods = new HOF_Class_Item_Style_List();
 				$goods->SetID("my");
 				$goods->SetName("type");
@@ -1969,7 +1977,7 @@ HTML;
 		<div style="margin:0 20px">
 			<?php
 
-			
+
 			$ShopList = HOF_Model_Data::getShopList(); //売ってるものデータ
 
 			$goods = new HOF_Class_Item_Style_List();
@@ -2840,7 +2848,7 @@ JS_HTML;
 			// 精錬可能な物の表示
 			if ($this->item)
 			{
-				
+
 				$possible = HOF_Model_Data::getCanRefineType();
 				$possible = array_flip($possible);
 				//配列の先頭の値が"0"なので1にする(isset使わずにtrueにするため)
@@ -3024,7 +3032,7 @@ JS_HTML;
 			//$result	= $this->SmithyCreateProcess();
 
 			$CanCreate = CanCreate($this);
-			
+
 			$CreateList = new HOF_Class_Item_Style_List();
 			$CreateList->SetID("create");
 			$CreateList->SetName("type_create");
@@ -3392,7 +3400,7 @@ JS_HTML;
 
 			if (!AUCTION_EXHIBIT_TOGGLE) return false;
 
-			
+
 			$possible = HOF_Model_Data::getCanExhibitType();
 
 
