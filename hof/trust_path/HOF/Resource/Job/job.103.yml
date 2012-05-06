@@ -1,4 +1,4 @@
-no: 103
+no: '103'
 name_male: WitchHunt
 name_female: WitchHunt
 img_male: mon_150
@@ -14,3 +14,5 @@ equip:
 coe:
     - 3.7
     - 1
+info:
+    desc: "戦士系上級職。\n相手の魔力を奪ったりする、やや変則的な戦士。"
