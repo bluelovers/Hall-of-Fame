@@ -43,8 +43,8 @@ class cssimage
 	//	ついでに大きさも取得する。
 	function SetBackGround($bg)
 	{
-		//$this->background = IMG_OTHER . "bg_" . $bg . ".gif";
-		$this->background = HOF_Class_Icon::getImage("bg_" . $bg, IMG_OTHER);
+		//$this->background = HOF_Class_Icon::IMG_LAND . "bg_" . $bg . ".gif";
+		$this->background = HOF_Class_Icon::getImage("bg_" . $bg, HOF_Class_Icon::IMG_LAND);
 
 		list($this->img_x, $this->img_y) = getimagesize($this->background);
 		$this->size = "width:{$this->img_x};height:{$this->img_y};";
@@ -98,12 +98,12 @@ class cssimage
 		// 魔方陣を表示する
 		if (0 < $this->team1_mc)
 		{
-			print ("<div style=\"{$this->size}" . $this->det(IMG_OTHER . "mc0_" . $this->team1_mc . ".gif", 280, 0) . "\">\n");
+			print ("<div style=\"{$this->size}" . $this->det(HOF_Class_Icon::IMG_OTHER . "mc0_" . $this->team1_mc . ".gif", 280, 0) . "\">\n");
 			$this->div++;
 		}
 		if (0 < $this->team2_mc)
 		{
-			print ("<div style=\"{$this->size}" . $this->det(IMG_OTHER . "mc1_" . $this->team2_mc . ".gif", 0, 0) . "\">\n");
+			print ("<div style=\"{$this->size}" . $this->det(HOF_Class_Icon::IMG_OTHER . "mc1_" . $this->team2_mc . ".gif", 0, 0) . "\">\n");
 			$this->div++;
 		}
 
