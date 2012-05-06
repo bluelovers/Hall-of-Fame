@@ -94,7 +94,7 @@
 				<td <?php e($css) ?> colspan="3">
 					<div style="padding-left:30px">
 						<?php foreach($data['skill'] as $skill): ?>
-							<?php ShowSkillDetail($skill); ?>
+							<?php HOF_Class_Skill::ShowSkillDetail($skill); ?>
 							<br />
 						<?php endforeach; ?>
 					</div>
