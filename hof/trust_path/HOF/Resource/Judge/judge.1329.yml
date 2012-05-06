@@ -2,5 +2,17 @@ no: 1329
 exp: SPD
 css: true
 subs:
-    1330: { no: 1330, exp: '自分のSPDが○○ 以上', tag: { no: '1329', exp: SPD }, quantity: true }
-    1331: { no: 1331, exp: '自分のSPDが○○ 以下', tag: { no: '1329', exp: SPD }, quantity: true }
+    1330:
+        no: 1330
+        exp: '自分のSPDが○○ 以上'
+        tag:
+            no: '1329'
+            exp: SPD
+        quantity: true
+    1331:
+        no: 1331
+        exp: '自分のSPDが○○ 以下'
+        tag:
+            no: '1329'
+            exp: SPD
+        quantity: true
