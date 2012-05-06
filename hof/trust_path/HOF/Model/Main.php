@@ -80,7 +80,7 @@ class HOF_Model_Main extends HOF_Class_Main
 				return true;
 
 			case ($_GET["gamedata"]):
-				HOF_Class_Controller::newInstance('gamedata')->main();
+				HOF_Class_Controller::newInstance('gamedata', $_GET["gamedata"])->main();
 				return true;
 
 		}
