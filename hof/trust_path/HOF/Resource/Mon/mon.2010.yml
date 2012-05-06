@@ -31,9 +31,15 @@ SPECIAL:
     PoisonResist: 60
 cycle: 61200
 Slave:
-    1092: [100, 0]
-    1093: [100, 0]
-    1094: [100, 0]
+    1092:
+        - 100
+        - 0
+    1093:
+        - 100
+        - 0
+    1094:
+        - 100
+        - 0
 land: ocean
 UnionName: BlueSentinel
 LevelLimit: '150'
