@@ -181,7 +181,7 @@ foreach ($job as $No => $exp)
 	foreach ($JobSkill["$No"] as $SkillNo)
 	{
 		$skill = HOF_Model_Data::getSkill($SkillNo);
-		ShowSkillDetail($skill);
+		HOF_Class_Skill::ShowSkillDetail($skill);
 		print ("<br />\n");
 	}
 	print ("</div></td></tr>");
