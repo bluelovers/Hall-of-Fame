@@ -2,4 +2,10 @@ no: 8999
 exp: Lv
 css: true
 subs:
-    9000: { no: 9000, exp: '相手チームに Lv○○以上が居る', tag: { no: '8999', exp: Lv }, quantity: true }
+    9000:
+        no: 9000
+        exp: '相手チームに Lv○○以上が居る'
+        tag:
+            no: '8999'
+            exp: Lv
+        quantity: true
