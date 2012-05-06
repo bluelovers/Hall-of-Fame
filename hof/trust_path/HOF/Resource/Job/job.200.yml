@@ -1,4 +1,4 @@
-no: 200
+no: '200'
 name_male: Sorcerer
 name_female: Sorceress
 img_male: mon_106
@@ -17,3 +17,5 @@ change:
     - 201
     - 202
     - 203
+info:
+    desc: "魔法系基本職。\n撃たれ弱いが強い魔法が使える。"
