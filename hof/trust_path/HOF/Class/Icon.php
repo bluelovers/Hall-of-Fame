@@ -15,11 +15,12 @@ class HOF_Class_Icon
 		'bmp',
 		);
 
-	const IMG_IMAGE = 'image/';
-	const IMG_ICON = 'image/icon/';
-	const IMG_CHAR = 'image/char/';
-	const IMG_CHAR_REV = 'image/char_rev/';
-	const IMG_OTHER = 'image/other/';
+	const IMG_IMAGE = 'static/image/';
+	const IMG_ICON = 'static/image/icon/';
+	const IMG_CHAR = 'static/image/char/';
+	const IMG_CHAR_REV = 'static/image/char_rev/';
+	const IMG_OTHER = 'static/image/other/';
+	const IMG_LAND = 'static/image/land/';
 
 	static $map_dir = array(
 		self::IMG_IMAGE,
@@ -27,6 +28,7 @@ class HOF_Class_Icon
 		self::IMG_CHAR,
 		self::IMG_CHAR_REV,
 		self::IMG_OTHER,
+		self::IMG_LAND,
 		);
 
 	/**
@@ -53,20 +55,19 @@ class HOF_Class_Icon
 			$pre = (string )$no[1];
 			$no = (string )$no[0];
 		}
+		elseif (is_string($no) && $dir == self::IMG_LAND)
+		{
+			$no = explode('_', $no, 2);
+
+			$pre = (string )$no[0].'_';
+			$no = (string )$no[1];
+		}
 
 		if (!isset(self::$cache[$dir][$pre . $no]))
 		{
 			$file = false;
 
-			$_dir = $dir;
-			if (in_array($dir, self::$map_dir))
-			{
-				$_dir = BASE_PATH_STATIC . $_dir;
-			}
-			else
-			{
-				$_dir = BASE_PATH . $_dir;
-			}
+			$_dir = BASE_PATH . $dir;
 
 			foreach (self::$map_imgtype as $ext)
 			{
