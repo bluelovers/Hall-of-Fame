@@ -5,9 +5,7 @@
  * @copyright 2012
  */
 
-include_once (CLASS_MAIN);
-
-class HOF_Model_Main extends main
+class HOF_Model_Main extends HOF_Class_Main
 {
 
 	/**
@@ -23,10 +21,16 @@ class HOF_Model_Main extends main
 				RankAllShow();
 				return true;
 			case ($_SERVER["QUERY_STRING"] === "update"):
+				/*
 				ShowUpDate();
+				*/
+				HOF_Class_Controller::newInstance('log', $_SERVER["QUERY_STRING"])->main();
 				return true;
 			case ($_SERVER["QUERY_STRING"] === "bbs"):
+				/*
 				$this->bbs01();
+				*/
+				HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
 				return true;
 			case ($_SERVER["QUERY_STRING"] === "manual"):
 			case ($_SERVER["QUERY_STRING"] === "manual2"):
