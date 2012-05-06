@@ -31,9 +31,15 @@ SPECIAL:
     PoisonResist: 50
 cycle: 68400
 Slave:
-    1092: [100, 0]
-    1093: [100, 0]
-    1094: [100, 0]
+    1092:
+        - 100
+        - 0
+    1093:
+        - 100
+        - 0
+    1094:
+        - 100
+        - 0
 land: mount
 UnionName: OgreSquad
 LevelLimit: '150'
