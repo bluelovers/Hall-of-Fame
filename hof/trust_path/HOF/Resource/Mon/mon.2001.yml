@@ -61,8 +61,12 @@ SPECIAL:
     PoisonResist: 50
 cycle: 28800
 Slave:
-    1023: [300, 0]
-    1024: [100, 0]
+    1023:
+        - 300
+        - 0
+    1024:
+        - 100
+        - 0
 land: mount
 UnionName: TaurusRush
 LevelLimit: '200'
