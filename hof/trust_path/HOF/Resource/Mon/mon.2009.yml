@@ -31,9 +31,15 @@ SPECIAL:
     PoisonResist: 80
 cycle: 75600
 Slave:
-    1092: [100, 0]
-    1093: [100, 0]
-    1094: [100, 0]
+    1092:
+        - 100
+        - 0
+    1093:
+        - 100
+        - 0
+    1094:
+        - 100
+        - 0
 land: build01
 UnionName: Specters
 LevelLimit: '150'
