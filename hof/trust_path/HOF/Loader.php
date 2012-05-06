@@ -8,11 +8,13 @@
 class HOF_Loader extends Zend_Loader
 {
 
+	protected static $_suppressNotFoundWarnings = true;
+
 	public static function loadClass($class, $dirs = null, $ns = null)
 	{
 		try
 		{
-			parent::loadClass($class, $dirs);
+			@parent::loadClass($class, $dirs);
 		}
 		catch (Exception $e)
 		{
@@ -28,12 +30,19 @@ class HOF_Loader extends Zend_Loader
 				{
 					$_class = substr($class, $_len);
 
-					parent::loadClass($_class, $dirs, $ns);
+					if (self::$_suppressNotFoundWarnings)
+					{
+						@parent::loadClass($_class, $dirs, $ns);
+					}
+					else
+					{
+						parent::loadClass($_class, $dirs, $ns);
+					}
 				}
 			}
 		}
 
-		if (!class_exists($class, false) && !interface_exists($class, false)) {
+		if (!self::$_suppressNotFoundWarnings && !class_exists($class, false) && !interface_exists($class, false)) {
 			throw new Zend_Exception("File \"$file\" does not exist or class \"$class\" was not found in the file");
 		}
 	}
