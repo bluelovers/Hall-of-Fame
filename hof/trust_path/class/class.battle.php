@@ -505,7 +505,7 @@ HTML;
 			{
 				echo('<span class="u">' . $My->Name(bold));
 				echo('<span class="dmg"> Failed </span>to ');
-				echo("<img src=\"" . HOF_Class_Icon::getIamge($skill["img"], IMG_ICON. 'skill/') . "\" class=\"vcent\"/>");
+				echo("<img src=\"" . HOF_Class_Icon::getIamgeUrl($skill["img"], IMG_ICON. 'skill/') . "\" class=\"vcent\"/>");
 				echo($skill[name] . "</span><br />\n");
 				//echo($My->Name(bold)." Failed to use ".$skill["name"]."<br />\n");
 				echo("(Weapon type doesnt match)<br />\n");
@@ -562,7 +562,7 @@ HTML;
 
 			// 行動内容の表示(行動する)
 			echo('<div class="u">' . $My->Name(bold));
-			echo("<img src=\"" . HOF_Class_Icon::getIamge($skill["img"], IMG_ICON. 'skill/') . "\" class=\"vcent\"/>");
+			echo("<img src=\"" . HOF_Class_Icon::getIamgeUrl($skill["img"], IMG_ICON. 'skill/') . "\" class=\"vcent\"/>");
 			echo($skill[name] . "</div>\n");
 
 			// 魔法陣を消費(味方)
@@ -834,7 +834,7 @@ HTML;
 					$itemdrop["$item"]++;
 					$item = HOF_Model_Data::getItemData($item);
 					echo($char->Name("bold") . " dropped");
-					echo("<img src=\"" . HOF_Class_Icon::getIamge($item["img"], IMG_ICON . 'item/') . "\" class=\"vcent\"/>\n");
+					echo("<img src=\"" . HOF_Class_Icon::getIamgeUrl($item["img"], IMG_ICON . 'item/') . "\" class=\"vcent\"/>\n");
 					echo("<span class=\"bold u\">{$item[name]}</span>.<br />\n");
 				}
 
