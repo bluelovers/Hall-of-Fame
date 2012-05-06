@@ -25,6 +25,10 @@ class HOF_Class_Controller
 	const DEFAULT_CONTROLLER = 'default';
 	const DEFAULT_ACTION = 'default';
 
+	public $options = array(
+		'escapeHtml' => true,
+	);
+
 	public static function &newInstance($controller, $action = null)
 	{
 		$controller = $controller ? $controller : self::DEFAULT_CONTROLLER;
@@ -134,7 +138,10 @@ class HOF_Class_Controller
 		// debug new tpl
 		$this->template = $this->_getTplFile($this->template);
 
-		$this->_escapeHtml(&$this->output);
+		if ($this->options['escapeHtml'])
+		{
+			$this->_escapeHtml(&$this->output);
+		}
 
 		/*
 		ob_start();
