@@ -1,4 +1,4 @@
-no: 403
+no: '403'
 name_male: Murderer
 name_female: Murderer
 img_male: mon_216y
@@ -12,3 +12,5 @@ equip:
 coe:
     - 3.6
     - 0.7
+info:
+    desc: "弓系上級職。\n毒の扱いに長けた職業。"
