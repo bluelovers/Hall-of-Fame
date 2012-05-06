@@ -9,7 +9,7 @@ if (!defined('DEBUG'))
 
 // サンプル
 /*
-$list0	= new JS_ItemList();
+$list0	= new HOF_Class_Item_Style_List();
 $list0->SetID("buy");//引数なんでもいい
 $list0->SetName("type_buy");//引数なんでもいい
 foreach($ShopList as $no) {
