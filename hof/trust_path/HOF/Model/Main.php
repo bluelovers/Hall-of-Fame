@@ -61,6 +61,9 @@ class HOF_Model_Main extends HOF_Class_Main
 			case ($_GET["rlog"]):
 				ShowBattleLog($_GET["rlog"], "RANK");
 				return true;
+			case ($_GET["gamedata"]):
+				ShowGameData();
+				return true;
 			*/
 			case ($_SERVER["QUERY_STRING"] === "log"):
 			case ($_SERVER["QUERY_STRING"] === "clog"):
@@ -68,15 +71,18 @@ class HOF_Model_Main extends HOF_Class_Main
 			case ($_SERVER["QUERY_STRING"] === "rlog"):
 				HOF_Class_Controller::newInstance('log')->main();
 				return true;
+
 			case ($_GET["log"]):
 			case ($_GET["clog"]):
 			case ($_GET["ulog"]):
 			case ($_GET["rlog"]):
 				HOF_Class_Controller::newInstance('log', 'log')->main();
 				return true;
+
 			case ($_GET["gamedata"]):
-				ShowGameData();
+				HOF_Class_Controller::newInstance('gamedata')->main();
 				return true;
+
 		}
 	}
 
