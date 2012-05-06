@@ -1579,8 +1579,7 @@ HTML;
 <?php
 
 		}
-		//////////////////////////////////////////////////
-		//
+
 		function HuntShow()
 		{
 
@@ -1589,11 +1588,20 @@ HTML;
 			print ('<div style="margin:0 20px">');
 
 			$mapList = HOF_Model_Data::getLandAppear($this);
-			foreach ($mapList as $map)
+			foreach ($mapList as $map => $land )
 			{
-				list($land) = HOF_Model_Data::getLandInfo($map);
-				print ("<p><a href=\"?common={$map}\">{$land[name]}</a>");
-				//print(" ({$land[proper]})");
+				/*
+				$land = HOF_Model_Data::getLandInfo($map);
+				*/
+
+				print ("<p><a href=\"?common={$map}\">{$land[land][name]}</a>");
+				print(" ({$land[land][proper]}) ");
+
+				if (isset($land['_cache']['allow']))
+				{
+					print(" - Allow: {$land[_cache][allow]} ");
+				}
+
 				print ("</p>");
 			}
 
@@ -1650,12 +1658,19 @@ HTML;
 			$land_id = $_GET["common"];
 
 			// まだ行けないマップなのに行こうとした。
-			if (!in_array($_GET["common"], HOF_Model_Data::getLandAppear($this)))
+			if (!array_key_exists($_GET["common"], HOF_Model_Data::getLandAppear($this)))
 			{
 				print ('<div style="margin:15px">not appeared or not exist</div>');
 				return false;
 			}
+			/*
 			list($land, $monster_list) = HOF_Model_Data::getLandInfo($land_id);
+			*/
+			$land_data = HOF_Model_Data::getLandInfo($land_id);
+
+			$land = $land_data['land'];
+			$monster_list = $land_data['monster'];
+
 			if (!$land || !$monster_list)
 			{
 				print ('<div style="margin:15px">fail to load</div>');
@@ -1701,7 +1716,7 @@ HTML;
 				// そのマップで戦えるかどうか確認する。
 
 				$land = HOF_Model_Data::getLandAppear($this);
-				if (!in_array($_GET["common"], $land))
+				if (!array_key_exists($_GET["common"], $land))
 				{
 					ShowError("マップが出現して無い", "margin15");
 					return false;
@@ -1745,7 +1760,15 @@ HTML;
 				// 敵パーティー(または一匹)
 
 				//	include (DATA_MONSTER);
+				/*
 				list($Land, $MonsterList) = HOF_Model_Data::getLandInfo($_GET["common"]);
+				*/
+
+				$land_data = HOF_Model_Data::getLandInfo($_GET["common"]);
+
+				$Land = $land_data['land'];
+				$MonsterList = $land_data['monster'];
+
 				$EneNum = $this->EnemyNumber($MyParty);
 				$EnemyParty = $this->EnemyParty($EneNum, $MonsterList);
 
