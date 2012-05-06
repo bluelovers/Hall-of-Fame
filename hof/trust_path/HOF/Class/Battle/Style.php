@@ -86,7 +86,8 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 		if ($this->options['bg'])
 		{
 			//$this->data['bg'] = IMG_OTHER . "bg_" . $this->options['bg'] . ".gif";
-			$this->data['bg'] = HOF_Class_Icon::getIamge("bg_" . $this->options['bg'], IMG_OTHER);
+			$this->data['bg'] = HOF_Class_Icon::getIamgeUrl("bg_" . $this->options['bg'], IMG_OTHER);
+			$this->data['bg_file'] = HOF_Class_Icon::getIamge("bg_" . $this->options['bg'], IMG_OTHER);
 
 			if ($this->style == 0)
 			{
@@ -97,7 +98,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 				$this->data['css']['size_x'] = $this->options['size_x'];
 				$this->data['css']['size_y'] = $this->options['size_y'];
 
-				list($this->data['css']['bg_x'], $this->data['css']['bg_y']) = getimagesize($this->data['bg']);
+				list($this->data['css']['bg_x'], $this->data['css']['bg_y']) = getimagesize($this->data['bg_file']);
 
 				$this->data['css']['size_x'] = $this->data['css']['size_x'] ? $this->data['css']['size_x'] : $this->data['css']['bg_x'];
 				$this->data['css']['size_y'] = $this->data['css']['size_y'] ? $this->data['css']['size_y'] : $this->data['css']['bg_y'];
@@ -109,6 +110,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 		{
 			unset($this->data['css']);
 			unset($this->data['bg']);
+			unset($this->data['bg_file']);
 		}
 	}
 
@@ -346,7 +348,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 			// 魔方陣を表示する
 			if (0 < $team['mc'])
 			{
-				$this->output .= "<div style=\"{$this->data['css']['size']}" . $this->det(HOF_Class_Icon::getIamge("mc{$_idx}_" . $team['mc'], IMG_OTHER), 280, 0) . "\">\n";
+				$this->output .= "<div style=\"{$this->data['css']['size']}" . $this->det(HOF_Class_Icon::getIamgeUrl("mc{$_idx}_" . $team['mc'], IMG_OTHER), 280, 0) . "\">\n";
 				$this->div++;
 			}
 		}
