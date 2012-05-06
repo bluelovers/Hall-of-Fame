@@ -39,8 +39,8 @@ class main extends HOF_Class_User
 		switch (true)
 		{
 			case ($_GET["menu"] === "auction"):
-				include (CLASS_AUCTION);
-				$ItemAuction = new Auction(item);
+
+				$ItemAuction = new HOF_Class_Item_Auction(item);
 				$ItemAuction->AuctionHttpQuery("auction");
 				$ItemAuction->ItemCheckSuccess(); // 競売が終了した品物を調べる
 				$ItemAuction->UserSaveData(); // 競売品と金額を各IDに配って保存する
@@ -3267,8 +3267,8 @@ JS_HTML;
 		//	アイテムオークション用のオブジェクトを読んで返す
 		/*
 		function AuctionItemLoadData() {
-		include(CLASS_AUCTION);
-		$ItemAuction	= new Auction(item);
+
+		$ItemAuction	= new HOF_Class_Item_Auction(item);
 		$ItemAuction->ItemCheckSuccess();// 競売が終了した品物を調べる
 		$ItemAuction->UserSaveData();// 競売品と金額を各IDに配って保存する
 
@@ -3380,7 +3380,7 @@ JS_HTML;
 			$this->SaveUserItem();
 
 			// 出品する
-			// $ItemAuction	= new Auction(item);// (2008/2/28:コメント化)
+			// $ItemAuction	= new HOF_Class_Item_Auction(item);// (2008/2/28:コメント化)
 			$ItemAuction->ItemAddArticle($_POST["item_no"], $amount, $this->id, $_POST["ExhibitTime"], $_POST["StartPrice"], $_POST["Comment"]);
 			print ($item["name"] . "&nbsp;を&nbsp;{$amount}個&nbsp;出品しました。");
 			return true;
