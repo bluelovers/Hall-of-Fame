@@ -1,4 +1,4 @@
-no: 202
+no: '202'
 name_male: Summoner
 name_female: Summoner
 img_male: mon_196y
@@ -12,3 +12,5 @@ equip:
 coe:
     - 1.5
     - 2.5
+info:
+    desc: "魔法系上級職。\n時間はかかるが強力な召喚獣を呼べる。"
