@@ -337,16 +337,18 @@ class main extends HOF_Class_User
 				case ($_SERVER["QUERY_STRING"] === "manual2"):
 					ShowManual2();
 					return true;
+				case ($_SERVER["QUERY_STRING"] === "tutorial"):
+					ShowTutorial();
+					return true;
 					*/
 				case ($_SERVER["QUERY_STRING"] === "manual"):
 				case ($_SERVER["QUERY_STRING"] === "manual2"):
+				case ($_SERVER["QUERY_STRING"] === "tutorial"):
 					HOF_Class_Controller::newInstance('manual', $_SERVER["QUERY_STRING"])
 						->main();
 					;
 					return true;
-				case ($_SERVER["QUERY_STRING"] === "tutorial"):
-					ShowTutorial();
-					return true;
+
 				case ($_SERVER["QUERY_STRING"] === "log"):
 					ShowLogList();
 					return true;
