@@ -34,15 +34,15 @@ class HOF_Class_Icon
 	 */
 	function getImageUrl($no, $dir, $return_true = false)
 	{
-		$file = self::getIamge($no, $dir, $return_true);
+		$file = self::getImage($no, $dir, $return_true);
 
 		return BASE_URL.'/'.$file;
 	}
 
 	/**
-	 * @example HOF_Class_Icon::getIamge('ori_003', IMG_CHAR)
+	 * @example HOF_Class_Icon::getImage('ori_003', IMG_CHAR)
 	 */
-	function getIamge($no, $dir, $return_true = false)
+	function getImage($no, $dir, $return_true = false)
 	{
 		$dir = rtrim($dir, '/') . '/';
 
