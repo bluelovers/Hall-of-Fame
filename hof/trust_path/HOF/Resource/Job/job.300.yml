@@ -1,4 +1,4 @@
-no: 300
+no: '300'
 name_male: Priest
 name_female: Priestess
 img_male: mon_213
@@ -15,3 +15,5 @@ coe:
 change:
     - 301
     - 302
+info:
+    desc: "聖職基本職。\n味方のHP,SPの回復ができる。"
