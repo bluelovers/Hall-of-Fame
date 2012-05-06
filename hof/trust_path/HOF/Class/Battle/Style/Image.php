@@ -128,7 +128,7 @@ class HOF_Class_Battle_Style_Image
 	{
 		$type && array_unshift(HOF_Class_Icon::$map_imgtype, $type);
 
-		$this->background = HOF_Class_Icon::getImage(array($_GET['bg'], 'bg_'), IMG_OTHER);
+		$this->background = HOF_Class_Icon::getImage(array($_GET['bg'], 'bg_'), HOF_Class_Icon::IMG_LAND);
 
 		$imginfo = $this->getimagesize($this->background);
 		$this->image = $imginfo['imagecreatefromfunc']($this->background);
