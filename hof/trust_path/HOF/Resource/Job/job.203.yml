@@ -1,4 +1,4 @@
-no: 203
+no: '203'
 name_male: Necromancer
 name_female: Necromancer
 img_male: mon_196x
@@ -13,3 +13,5 @@ equip:
 coe:
     - 2.1
     - 1.5
+info:
+    desc: "魔法系上級職。\n相手の能力を下げたり、ゾンビを作ったり出来る。\n毒も扱える。"
