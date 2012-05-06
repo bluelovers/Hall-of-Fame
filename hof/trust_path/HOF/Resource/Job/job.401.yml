@@ -1,4 +1,4 @@
-no: 401
+no: '401'
 name_male: Sniper
 name_female: Sniper
 img_male: mon_076z
@@ -11,3 +11,5 @@ equip:
 coe:
     - 3
     - 0.8
+info:
+    desc: "弓系上級職。\nさらに強力な攻撃が可能。"
