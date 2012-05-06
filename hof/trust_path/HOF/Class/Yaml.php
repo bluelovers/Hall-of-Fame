@@ -9,6 +9,7 @@ class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 {
 
 	const INLINE = 6;
+	static $auto_addslashes = false;
 
 	public static function load($file, $enablePhpParsing = false)
 	{
@@ -17,6 +18,11 @@ class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 		if (file_exists($file))
 		{
 			$yaml = self::parse($file);
+
+			if (self::$auto_addslashes)
+			{
+				$data = HOF::stripslashes($data);
+			}
 		}
 		else
 		{
@@ -30,6 +36,11 @@ class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 
 	public static function save($file, $data, $inline = HOF_Class_Yaml::INLINE)
 	{
+		if (self::$auto_addslashes)
+		{
+			$data = HOF::addslashes($data);
+		}
+
 		return file_put_contents($file, self::dump($data, $inline), LOCK_EX);
 	}
 
