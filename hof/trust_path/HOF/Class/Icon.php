@@ -22,13 +22,16 @@ class HOF_Class_Icon
 	const IMG_OTHER = 'image/other/';
 
 	static $map_dir = array(
-		IMG_IMAGE,
-		IMG_ICON,
-		IMG_CHAR,
-		IMG_CHAR_REV,
-		IMG_OTHER,
+		self::IMG_IMAGE,
+		self::IMG_ICON,
+		self::IMG_CHAR,
+		self::IMG_CHAR_REV,
+		self::IMG_OTHER,
 		);
 
+	/**
+	 * @example HOF_Class_Icon::getIamgeUrl('ori_003', IMG_CHAR)
+	 */
 	function getImageUrl($no, $dir, $return_true = false)
 	{
 		$file = self::getIamge($no, $dir, $return_true);
@@ -70,6 +73,8 @@ class HOF_Class_Icon
 				$_file = $_dir . $pre . $no . '.' . $ext;
 				if (file_exists($_file))
 				{
+					$_file = $dir . $pre . $no . '.' . $ext;
+
 					$file = $_file;
 					break;
 				}
@@ -86,6 +91,24 @@ class HOF_Class_Icon
 		{
 			$ret = $dir . $pre . ($return_true ? $no : NO_IMAGE) . '.' . reset(self::$map_imgtype);
 		}
+
+		/*
+		if ($no == 'eiyusenki_018')
+		{
+			var_dump(array(
+				$no,
+				$dir,
+				$_dir,
+				$pre,
+				$return_true,
+				$ret,
+				in_array($dir, self::$map_dir),
+				BASE_PATH_STATIC,
+				BASE_PATH,
+			));
+			exit();
+		}
+		*/
 
 		return $ret;
 	}
