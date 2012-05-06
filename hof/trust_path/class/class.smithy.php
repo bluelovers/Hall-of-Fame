@@ -6,7 +6,7 @@ if (!defined('DEBUG'))
 }
 
 // 鍛冶屋
-class Item
+class Smithy
 {
 	var $item;
 
