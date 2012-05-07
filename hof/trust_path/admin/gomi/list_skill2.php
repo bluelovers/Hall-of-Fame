@@ -31,8 +31,6 @@ td{
 <body>
 <?php
 
-include ("./data.skill.php");
-
 $det = '<tr><td class="a">No</td>
 <td class="a">Name</td>
 <td class="a">IMG</td>
