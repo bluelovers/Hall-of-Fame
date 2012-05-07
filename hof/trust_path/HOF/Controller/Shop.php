@@ -24,6 +24,8 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 
 		$this->user->LoadUserItem();
 
+		$this->output->npc_no = HOF_Class_Icon::getRandNo(HOF_Class_Icon::IMG_CHAR, 'ori_002');
+
 		//error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 	}
 
