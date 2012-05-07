@@ -40,10 +40,22 @@ class main extends HOF_Class_User
 		{
 			case ($_GET["menu"] === "auction"):
 
+				/*
 				$ItemAuction = new HOF_Class_Item_Auction(item);
 				$ItemAuction->AuctionHttpQuery("auction");
 				$ItemAuction->ItemCheckSuccess(); // 競売が終了した品物を調べる
 				$ItemAuction->UserSaveData(); // 競売品と金額を各IDに配って保存する
+				*/
+
+				$_c = HOF_Class_Controller::newInstance('auction')
+					->main()
+				;
+
+				if (!$_c->_stop)
+				{
+					return 0;
+				}
+
 				break;
 
 			case ($_GET["menu"] === "rank"):
@@ -75,48 +87,6 @@ class main extends HOF_Class_User
 
 					$this->fpCloseAll();
 					$this->SettingShow();
-					return 0;
-
-					// オークション
-				case ($_GET["menu"] === "auction"):
-					$this->LoadUserItem(); //アイテムデータ読む
-					$this->AuctionHeader();
-
-					/*
-					* 出品用のフォーム
-					* 表示を要求した場合か、
-					* 出品に失敗した場合表示する。
-					*/
-					$ResultExhibit = $this->AuctionItemExhibitProcess($ItemAuction);
-					$ResultBidding = $this->AuctionItemBiddingProcess($ItemAuction);
-					$ItemAuction->ItemSaveData(); // 変更があった場合だけ保存する。
-
-					// 出品リストを表示する
-					if ($_POST["ExhibitItemForm"])
-					{
-						$this->fpCloseAll();
-						$this->AuctionItemExhibitForm($ItemAuction);
-
-						// 出品か入札に成功した場合はデータを保存する
-					}
-					else
-						if ($ResultExhibit !== false)
-						{
-
-							if ($ResultExhibit === true || $ResultBidding === true) $this->SaveData();
-
-							$this->fpCloseAll();
-							$this->AuctionItemBiddingForm($ItemAuction);
-
-							// それ以外
-						}
-						else
-						{
-							$this->fpCloseAll();
-							$this->AuctionItemExhibitForm($ItemAuction);
-						}
-
-						$this->AuctionFoot($ItemAuction);
 					return 0;
 
 					// 狩場
@@ -331,21 +301,20 @@ class main extends HOF_Class_User
 					$this->bbs01();
 					return true;
 					/*
-				case ($_SERVER["QUERY_STRING"] === "manual"):
+					case ($_SERVER["QUERY_STRING"] === "manual"):
 					ShowManual();
 					return true;
-				case ($_SERVER["QUERY_STRING"] === "manual2"):
+					case ($_SERVER["QUERY_STRING"] === "manual2"):
 					ShowManual2();
 					return true;
-				case ($_SERVER["QUERY_STRING"] === "tutorial"):
+					case ($_SERVER["QUERY_STRING"] === "tutorial"):
 					ShowTutorial();
 					return true;
 					*/
 				case ($_SERVER["QUERY_STRING"] === "manual"):
 				case ($_SERVER["QUERY_STRING"] === "manual2"):
 				case ($_SERVER["QUERY_STRING"] === "tutorial"):
-					HOF_Class_Controller::newInstance('manual', $_SERVER["QUERY_STRING"])
-						->main();
+					HOF_Class_Controller::newInstance('manual', $_SERVER["QUERY_STRING"])->main();
 					;
 					return true;
 
@@ -453,7 +422,7 @@ class main extends HOF_Class_User
 					$Sum = abs($_POST["upStr"]) + abs($_POST["upInt"]) + abs($_POST["upDex"]) + abs($_POST["upSpd"]) + abs($_POST["upLuk"]);
 					if ($char->statuspoint < $Sum)
 					{
-						ShowError("ステータスポイント超過", "margin15");
+						HOF_Helper_Global::ShowError("ステータスポイント超過", "margin15");
 						return false;
 					}
 
@@ -469,7 +438,7 @@ class main extends HOF_Class_User
 					{ //最大値を超えないかチェック
 						if (MAX_STATUS < ($char->{strtolower($val)} + $_POST["up" . $val]))
 						{
-							ShowError("最大ステータス超過(" . MAX_STATUS . ")", "margin15");
+							HOF_Helper_Global::ShowError("最大ステータス超過(" . MAX_STATUS . ")", "margin15");
 							return false;
 						}
 					}
@@ -556,7 +525,7 @@ class main extends HOF_Class_User
 						ShowResult("パターン設定保存 完了", "margin15");
 						return true;
 					}
-					ShowError("失敗したなんで？報告してみてください 03050242", "margin15");
+					HOF_Helper_Global::ShowError("失敗したなんで？報告してみてください 03050242", "margin15");
 					return false;
 					break;
 					//	行動設定 兼 模擬戦
@@ -614,12 +583,12 @@ class main extends HOF_Class_User
 				case ($_POST["remove"]):
 					if (!$_POST["spot"])
 					{
-						ShowError("装備をはずす箇所が選択されていない", "margin15");
+						HOF_Helper_Global::ShowError("装備をはずす箇所が選択されていない", "margin15");
 						return false;
 					}
 					if (!$char->{$_POST["spot"]})
 					{ // $this と $char の区別注意！
-						ShowError("指定された箇所には装備無し", "margin15");
+						HOF_Helper_Global::ShowError("指定された箇所には装備無し", "margin15");
 						return false;
 					}
 					$item = HOF_Model_Data::getItemData($char->{$_POST["spot"]});
@@ -666,7 +635,7 @@ class main extends HOF_Class_User
 					$item_no = $_POST["item_no"];
 					if (!$this->item["$item_no"])
 					{ //そのアイテムを所持しているか
-						ShowError("Item not exists.", "margin15");
+						HOF_Helper_Global::ShowError("Item not exists.", "margin15");
 						return false;
 					}
 
@@ -674,13 +643,13 @@ class main extends HOF_Class_User
 					$item = HOF_Model_Data::getItemData($item_no); //装備しようとしてる物
 					if (!in_array($item["type"], $JobData["equip"]))
 					{ //それが装備不可能なら?
-						ShowError("{$char->job_name} can't equip {$item[name]}.", "margin15");
+						HOF_Helper_Global::ShowError("{$char->job_name} can't equip {$item[name]}.", "margin15");
 						return false;
 					}
 
 					if (false === $return = $char->Equip($item))
 					{
-						ShowError("Handle Over.", "margin15");
+						HOF_Helper_Global::ShowError("Handle Over.", "margin15");
 						return false;
 					}
 					else
@@ -701,7 +670,7 @@ class main extends HOF_Class_User
 				case ($_POST["learnskill"]):
 					if (!$_POST["newskill"])
 					{
-						ShowError("スキル未選択", "margin15");
+						HOF_Helper_Global::ShowError("スキル未選択", "margin15");
 						return false;
 					}
 
@@ -714,14 +683,14 @@ class main extends HOF_Class_User
 					}
 					else
 					{
-						ShowError($message, "margin15");
+						HOF_Helper_Global::ShowError($message, "margin15");
 					}
 					return true;
 					// クラスチェンジ(転職)
 				case ($_POST["classchange"]):
 					if (!$_POST["job"])
 					{
-						ShowError("職 未選択", "margin15");
+						HOF_Helper_Global::ShowError("職 未選択", "margin15");
 						return false;
 					}
 					if ($char->ClassChange($_POST["job"]))
@@ -756,7 +725,7 @@ class main extends HOF_Class_User
 						ShowResult("転職 完了", "margin15");
 						return true;
 					}
-					ShowError("failed.", "margin15");
+					HOF_Helper_Global::ShowError("failed.", "margin15");
 					return false;
 					//	改名(表示)
 				case ($_POST["rename"]):
@@ -776,7 +745,7 @@ EOD;
 					list($result, $return) = CheckString($_POST["NewName"], 16);
 					if ($result === false)
 					{
-						ShowError($return, "margin15");
+						HOF_Helper_Global::ShowError($return, "margin15");
 						return false;
 					}
 					else
@@ -792,7 +761,7 @@ EOD;
 							}
 							else
 							{
-								ShowError("アイテムがありません。", "margin15");
+								HOF_Helper_Global::ShowError("アイテムがありません。", "margin15");
 								return false;
 							}
 							return true;
@@ -851,7 +820,7 @@ EOD;
 					{
 						if ($this->DeleteItem(6000) == 0)
 						{
-							ShowError("アイテムがありません。", "margin15");
+							HOF_Helper_Global::ShowError("アイテムがありません。", "margin15");
 							return false;
 						}
 						if (1 < $char->spd)
@@ -869,7 +838,7 @@ EOD;
 					{
 						if (!$this->item[$_POST["itemUse"]])
 						{
-							ShowError("アイテムがありません。", "margin15");
+							HOF_Helper_Global::ShowError("アイテムがありません。", "margin15");
 							return false;
 						}
 						if ($lowLimit < $char->str)
@@ -906,7 +875,7 @@ EOD;
 						{
 							if ($this->DeleteItem($_POST["itemUse"]) == 0)
 							{
-								ShowError("アイテムがありません。", "margin15");
+								HOF_Helper_Global::ShowError("アイテムがありません。", "margin15");
 								return false;
 							}
 							$char->statuspoint += $pointBack;
@@ -942,7 +911,7 @@ EOD;
 						}
 						else
 						{
-							ShowError("ポイント還元失敗", "margin15");
+							HOF_Helper_Global::ShowError("ポイント還元失敗", "margin15");
 							return false;
 						}
 					}
@@ -1552,13 +1521,13 @@ HTML;
 				}
 				if (count($MyParty) === 0)
 				{
-					ShowError('戦闘するには最低1人必要', "margin15");
+					HOF_Helper_Global::ShowError('戦闘するには最低1人必要', "margin15");
 					return false;
 				}
 				else
 					if (5 < count($MyParty))
 					{
-						ShowError('戦闘に出せるキャラは5人まで', "margin15");
+						HOF_Helper_Global::ShowError('戦闘に出せるキャラは5人まで', "margin15");
 						return false;
 					}
 				$this->DoppelBattle($MyParty, 50);
@@ -1570,7 +1539,7 @@ HTML;
 		function SimuBattleShow($message = false)
 		{
 			print ('<div style="margin:15px">');
-			ShowError($message);
+			HOF_Helper_Global::ShowError($message);
 			print ('<span class="bold">模擬戦</span>');
 			print ('<h4>Teams</h4></div>');
 			print ('<form action="' . INDEX . '?simulate" method="post">');
@@ -1598,18 +1567,18 @@ HTML;
 			print ('<div style="margin:0 20px">');
 
 			$mapList = HOF_Model_Data::getLandAppear($this);
-			foreach ($mapList as $map => $land )
+			foreach ($mapList as $map => $land)
 			{
 				/*
 				$land = HOF_Model_Data::getLandInfo($map);
 				*/
 
 				print ("<p><a href=\"?common={$map}\">{$land[land][name]}</a>");
-				print(" ({$land[land][proper]}) ");
+				print (" ({$land[land][proper]}) ");
 
 				if (isset($land['_cache']['allow']))
 				{
-					print(" - Allow: {$land[_cache][allow]} ");
+					print (" - Allow: {$land[_cache][allow]} ");
 				}
 
 				print ("</p>");
@@ -1688,7 +1657,7 @@ HTML;
 			}
 
 			print ('<div style="margin:15px">');
-			ShowError($message);
+			HOF_Helper_Global::ShowError($message);
 			print ('<span class="bold">' . $land["name"] . '</span>');
 			print ('<h4>Teams</h4></div>');
 			print ('<form action="' . INDEX . '?common=' . $_GET["common"] . '" method="post">');
@@ -1728,14 +1697,14 @@ HTML;
 				$land = HOF_Model_Data::getLandAppear($this);
 				if (!array_key_exists($_GET["common"], $land))
 				{
-					ShowError("マップが出現して無い", "margin15");
+					HOF_Helper_Global::ShowError("マップが出現して無い", "margin15");
 					return false;
 				}
 
 				// Timeが足りてるかどうか確認する
 				if ($this->time < NORMAL_BATTLE_TIME)
 				{
-					ShowError("Time 不足 (必要 Time:" . NORMAL_BATTLE_TIME . ")", "margin15");
+					HOF_Helper_Global::ShowError("Time 不足 (必要 Time:" . NORMAL_BATTLE_TIME . ")", "margin15");
 					return false;
 				}
 
@@ -1751,14 +1720,14 @@ HTML;
 
 				if (count($MyParty) === 0)
 				{
-					ShowError('戦闘するには最低1人必要', "margin15");
+					HOF_Helper_Global::ShowError('戦闘するには最低1人必要', "margin15");
 					return false;
 				}
 				else
 				{
 					if (5 < count($MyParty))
 					{
-						ShowError('戦闘に出せるキャラは5人まで', "margin15");
+						HOF_Helper_Global::ShowError('戦闘に出せるキャラは5人まで', "margin15");
 						return false;
 					}
 				}
@@ -1864,7 +1833,12 @@ HTML;
 		<h4>店</h4>
 		<div style="width:600px">
 			<div style="float:left;width:50px;">
-				<img src="<?php echo HOF_Class_Icon::getImageUrl('ori_002', IMG_CHAR); ?>" />
+				<img src="<?php
+
+			echo HOF_Class_Icon::getImageUrl('ori_002', IMG_CHAR);
+
+
+?>" />
 			</div>
 			<div style="float:right;width:550px;">
 				いらっしゃいませー<br />
@@ -1893,7 +1867,7 @@ HTML;
 					}
 					else
 					{
-						ShowError("時間が無い。働くなんてもったいない。", "margin15");
+						HOF_Helper_Global::ShowError("時間が無い。働くなんてもったいない。", "margin15");
 						return false;
 					}
 				case ($_POST["shop_buy"]):
@@ -1930,7 +1904,7 @@ HTML;
 						}
 						else
 						{ //資金不足
-							ShowError("資金不足(Need " . HOF_Helper_Global::MoneyFormat($need) . ")", "margin15");
+							HOF_Helper_Global::ShowError("資金不足(Need " . HOF_Helper_Global::MoneyFormat($need) . ")", "margin15");
 							return false;
 						}
 					}
@@ -1971,14 +1945,13 @@ HTML;
 	<div style="margin:15px">
 		<?=
 
-			ShowError($message)
+			HOF_Helper_Global::ShowError($message)
 
 
 ?>
 		<h4>Goods List</h4>
 		<div style="margin:0 20px">
 			<?php
-
 
 			$ShopList = HOF_Model_Data::getShopList(); //売ってるものデータ
 
@@ -2121,7 +2094,7 @@ HTML;
 			}
 			else
 			{
-				ShowError("お金が足りません", "margin15");
+				HOF_Helper_Global::ShowError("お金が足りません", "margin15");
 				return false;
 			}
 		}
@@ -2284,7 +2257,7 @@ JS_HTML;
 					}
 					else
 					{
-						ShowError("時間が足りません。", "margin15");
+						HOF_Helper_Global::ShowError("時間が足りません。", "margin15");
 						return false;
 					}
 				}
@@ -2337,13 +2310,13 @@ JS_HTML;
 			{
 				if (!$this->party_rank)
 				{
-					ShowError("チームが設定されていません", "margin15");
+					HOF_Helper_Global::ShowError("チームが設定されていません", "margin15");
 					return false;
 				}
 				$result = $this->CanRankBattle();
 				if (is_array($result))
 				{
-					ShowError("待機時間がまだ残ってます", "margin15");
+					HOF_Helper_Global::ShowError("待機時間がまだ残ってます", "margin15");
 					return false;
 				}
 
@@ -2390,7 +2363,7 @@ JS_HTML;
 					$hour = floor($left / 3600) % 24;
 					$min = floor(($left % 3600) / 60);
 					$sec = floor(($left % 3600) % 60);
-					ShowError("チーム再設定まで あと 残り {$day}日 と {$hour}時間 {$min}分 {$sec}秒", "margin15");
+					HOF_Helper_Global::ShowError("チーム再設定まで あと 残り {$day}日 と {$hour}時間 {$min}分 {$sec}秒", "margin15");
 					return false;
 				}
 				foreach ($this->char as $key => $val)
@@ -2400,7 +2373,7 @@ JS_HTML;
 				// 設定キャラ数が多いか少なすぎる
 				if (count($checked) == 0 || 5 < count($checked))
 				{
-					ShowError("チーム人数は 1人以上 5人以下 でないといけない", "margin15");
+					HOF_Helper_Global::ShowError("チーム人数は 1人以上 5人以下 でないといけない", "margin15");
 					return false;
 				}
 
@@ -2437,7 +2410,7 @@ JS_HTML;
 	<div style="margin:15px">
 	<?=
 
-			ShowError($message)
+			HOF_Helper_Global::ShowError($message)
 
 
 ?>
@@ -2564,7 +2537,7 @@ JS_HTML;
 						$charNo = 4;
 						break;
 					default:
-						ShowError("キャラ 未選択", "margin15");
+						HOF_Helper_Global::ShowError("キャラ 未選択", "margin15");
 						return false;
 				}
 				// 名前処理
@@ -2576,20 +2549,20 @@ JS_HTML;
 					$len = strlen($name);
 					if (0 == $len || 16 < $len)
 					{
-						ShowError("名前が短すぎるか長すぎです", "margin15");
+						HOF_Helper_Global::ShowError("名前が短すぎるか長すぎです", "margin15");
 						return false;
 					}
 					$name = htmlspecialchars($name, ENT_QUOTES);
 				}
 				else
 				{
-					ShowError("名前が空欄です", "margin15");
+					HOF_Helper_Global::ShowError("名前が空欄です", "margin15");
 					return false;
 				}
 				//性別
 				if (!isset($_POST["recruit_gend"]))
 				{
-					ShowError("性別 未選択", "margin15");
+					HOF_Helper_Global::ShowError("性別 未選択", "margin15");
 					return false;
 				}
 				else
@@ -2611,7 +2584,7 @@ JS_HTML;
 				}
 				else
 				{
-					ShowError("お金が足りません", "margin15");
+					HOF_Helper_Global::ShowError("お金が足りません", "margin15");
 					return false;
 				}
 				// キャラを保存する
@@ -2738,7 +2711,8 @@ JS_HTML;
 	<div style="float:left;width:80px;">
 		<img src="<?=
 
-	HOF_Class_Icon::getImageUrl("mon_053r", IMG_CHAR)
+			HOF_Class_Icon::getImageUrl("mon_053r", IMG_CHAR)
+
 
 ?>" />
 	</div>
@@ -2763,19 +2737,19 @@ JS_HTML;
 			if (!$_POST["refine"]) return false;
 			if (!$_POST["item_no"])
 			{
-				ShowError("Select Item.");
+				HOF_Helper_Global::ShowError("Select Item.");
 				return false;
 			}
 			// アイテムが読み込めない場合
 			if (!$item = HOF_Model_Data::getItemData($_POST["item_no"]))
 			{
-				ShowError("Failed to load item data.");
+				HOF_Helper_Global::ShowError("Failed to load item data.");
 				return false;
 			}
 			// アイテムを所持していない場合
 			if (!$this->item[$_POST["item_no"]])
 			{
-				ShowError("Item \"{$item[name]}\" doesn't exists.");
+				HOF_Helper_Global::ShowError("Item \"{$item[name]}\" doesn't exists.");
 				return false;
 			}
 			// 回数が指定されていない場合
@@ -2783,7 +2757,7 @@ JS_HTML;
 			else  $times = $_POST["timesA"];
 			if (!$times || $times < 1 || (REFINE_LIMIT) < $times)
 			{
-				ShowError("times?");
+				HOF_Helper_Global::ShowError("times?");
 				return false;
 			}
 
@@ -2791,7 +2765,7 @@ JS_HTML;
 			// そのアイテムが精錬できない場合
 			if (!$obj_item->CanRefine())
 			{
-				ShowError("Cant refine \"{$item[name]}\"");
+				HOF_Helper_Global::ShowError("Cant refine \"{$item[name]}\"");
 				return false;
 			}
 			// ここから精錬を始める処理
@@ -2818,7 +2792,7 @@ JS_HTML;
 				}
 				else
 				{
-					ShowError("Not enough money.<br />\n");
+					HOF_Helper_Global::ShowError("Not enough money.<br />\n");
 					$this->AddItem($obj_item->ReturnItem());
 					break;
 				}
@@ -2835,7 +2809,7 @@ JS_HTML;
 			$Price	= round($item["buy"]/2);
 			$MoneyNeed	= $times * $Price;
 			if($this->money < $MoneyNeed) {
-			ShowError("Your request needs ".HOF_Helper_Global::MoneyFormat($MoneyNeed));
+			HOF_Helper_Global::ShowError("Your request needs ".HOF_Helper_Global::MoneyFormat($MoneyNeed));
 			return false;
 			}*/
 
@@ -2965,21 +2939,21 @@ JS_HTML;
 			// アイテムが選択されていない
 			if (!$_POST["ItemNo"])
 			{
-				ShowError("製作するアイテムを選んでください");
+				HOF_Helper_Global::ShowError("製作するアイテムを選んでください");
 				return false;
 			}
 
 			// アイテムを読む
 			if (!$item = HOF_Model_Data::getItemData($_POST["ItemNo"]))
 			{
-				ShowError("error12291703");
+				HOF_Helper_Global::ShowError("error12291703");
 				return false;
 			}
 
 			// 作れるアイテムかどうかたしかめる
 			if (!HaveNeeds($item, $this->item))
 			{
-				ShowError($item["name"] . " を製作する素材が足りません。");
+				HOF_Helper_Global::ShowError($item["name"] . " を製作する素材が足りません。");
 				return false;
 			}
 
@@ -2989,7 +2963,7 @@ JS_HTML;
 				// 所持していない場合
 				if (!$this->item[$_POST["AddMaterial"]])
 				{
-					ShowError("その追加素材はありません。");
+					HOF_Helper_Global::ShowError("その追加素材はありません。");
 					return false;
 				}
 				// 追加素材のアイテムデータ
@@ -3003,7 +2977,7 @@ JS_HTML;
 			$Price = 0;
 			if (!$this->TakeMoney($Price))
 			{
-				ShowError("お金が足りません。" . HOF_Helper_Global::MoneyFormat($Price) . "必要です。");
+				HOF_Helper_Global::ShowError("お金が足りません。" . HOF_Helper_Global::MoneyFormat($Price) . "必要です。");
 				return false;
 			}
 			// 素材を減らす
@@ -3125,399 +3099,7 @@ JS_HTML;
 
 			return $result;
 		}
-		//////////////////////////////////////////////////
-		//	メンバーになる処理
-		function AuctionJoinMember()
-		{
-			if (!$_POST["JoinMember"]) return false;
-			if ($this->item["9000"])
-			{ //既に会員
-				//ShowError("You are already a member.\n");
-				return false;
-			}
-			// お金が足りない
-			if (!$this->TakeMoney(round(START_MONEY * 1.10)))
-			{
-				ShowError("お金が足りません<br />\n");
-				return false;
-			}
-			// アイテムを足す
-			$this->AddItem(9000);
-			$this->SaveUserItem();
-			$this->SaveData();
-			ShowResult("オークション会員になりました。<br />\n");
-			return true;
-		}
-		//////////////////////////////////////////////////
-		//
-		function AuctionEnter()
-		{
-			if ($this->item["9000"]) //オークションメンバーカード
- 					return true;
-			else  return false;
-		}
-		//////////////////////////////////////////////////
-		//	オークションの表示(header)
-		function AuctionHeader()
-		{
 
-
-?>
-<div style="margin:15px 0 0 15px">
-	<h4>オークション(Auction)</h4>
-	<div style="margin-left:20px">
-		<div style="width:500px">
-			<div style="float:left;width:50px;">
-				<img src="<?php echo HOF_Class_Icon::getImageUrl('ori_003', IMG_CHAR); ?>" />
-			</div>
-			<div style="float:right;width:450px;">
-				<?php
-
-			$this->AuctionJoinMember();
-			if ($this->AuctionEnter())
-			{
-				print ("お客様は会員証をお持ちですね。<br />\n");
-				print ("ようこそオークション会場へ。<br />\n");
-				print ("<a href=\"#log\">記録の回覧</a>\n");
-			}
-			else
-			{
-				print ("オークションへの出品・入札には入会が必要です。<br />\n");
-				print ("入会費は&nbsp;" . HOF_Helper_Global::MoneyFormat(round(START_MONEY * 1.10)) . "&nbsp;です。<br />\n");
-				print ("入会しますか?<br />\n");
-				print ('<form action="" method="post">' . "\n");
-				print ('<input type="submit" value="入会する" name="JoinMember" class="btn"/>' . "\n");
-				print ("</form>\n");
-			}
-			if (!AUCTION_TOGGLE) ShowError("機能停止中");
-			if (!AUCTION_EXHIBIT_TOGGLE) ShowError("出品停止中");
-
-
-?>
-			</div>
-			<div style="clear:both">
-			</div>
-		</div>
-	</div>
-	<h4>アイテム オークション(Item Auction)</h4>
-	<div style="margin-left:20px">
-		<?php
-
-		}
-		//////////////////////////////////////////////////
-		//	オークションの表示
-		function AuctionFoot(&$ItemAuction)
-		{
-
-
-?>
-	</div>
-	<a name="log"></a>
-	<h4>オークションログ(AuctionLog)</h4>
-	<div style="margin-left:20px">
-		<?php
-
-			$ItemAuction->ShowLog();
-
-
-?>
-	</div>
-	<?php
-
-		}
-		//////////////////////////////////////////////////
-		//	入札処理
-		function AuctionItemBiddingProcess(&$ItemAuction)
-		{
-			if (!$this->AuctionEnter()) return false;
-			if (!isset($_POST["ArticleNo"])) return false;
-
-			$ArticleNo = $_POST["ArticleNo"];
-			$BidPrice = (int)$_POST["BidPrice"];
-			if ($BidPrice < 1)
-			{
-				ShowError("入札価格に誤りがあります。");
-				return false;
-			}
-			// まだ出品中かどうか確認する。
-			if (!$ItemAuction->ItemArticleExists($ArticleNo))
-			{
-				ShowError("その競売品の出品が確認できません。");
-				return false;
-			}
-			// 自分が入札できる人かどうかの確認
-			if (!$ItemAuction->ItemBidRight($ArticleNo, $this->id))
-			{
-				ShowError("No." . $ArticleNo . "&nbsp;は入札済みか出品者です。");
-				return false;
-			}
-			// 最低入札価格を割っていないか確認する。
-			$Bottom = $ItemAuction->ItemBottomPrice($ArticleNo);
-			if ($BidPrice < $Bottom)
-			{
-				ShowError("最低入札価格を下回っています。");
-				ShowError("提示入札価格:" . HOF_Helper_Global::MoneyFormat($BidPrice) . "&nbsp;最低入札価格:" . HOF_Helper_Global::MoneyFormat($Bottom));
-				return false;
-			}
-			// 金持ってるか確認する
-			if (!$this->TakeMoney($BidPrice))
-			{
-				ShowError("所持金が足りないようです。");
-				return false;
-			}
-
-			// 実際に入札する。
-			if ($ItemAuction->ItemBid($ArticleNo, $BidPrice, $this->id, $this->name))
-			{
-				ShowResult("No:{$ArticleNo}&nbsp;に&nbsp;" . HOF_Helper_Global::MoneyFormat($BidPrice) . "&nbsp;で入札しました。<br />\n");
-				return true;
-			}
-		}
-		//////////////////////////////////////////////////
-		//	アイテムオークション用のオブジェクトを読んで返す
-		/*
-		function AuctionItemLoadData() {
-
-		$ItemAuction	= new HOF_Class_Item_Auction(item);
-		$ItemAuction->ItemCheckSuccess();// 競売が終了した品物を調べる
-		$ItemAuction->UserSaveData();// 競売品と金額を各IDに配って保存する
-
-		return $ItemAuction;
-		}
-		*/
-		//////////////////////////////////////////////////
-		//	入札用フォーム(画面)
-		function AuctionItemBiddingForm(&$ItemAuction)
-		{
-
-			if (!AUCTION_TOGGLE) return false;
-
-			// 出品用フォームにいくボタン
-			if ($this->AuctionEnter())
-			{
-				// 入会してた場合　入札できるように
-				$ItemAuction->ItemSortBy($_GET["sort"]);
-				$ItemAuction->ItemShowArticle2(true);
-
-				if (AUCTION_EXHIBIT_TOGGLE)
-				{
-					print ("<form action=\"?menu=auction\" method=\"post\">\n");
-					print ('<input type="submit" value="Put Auction" name="ExhibitItemForm" class="btn" style="width:160px">' . "\n");
-					print ("</form>\n");
-				}
-
-			}
-			else
-			{
-				// 入札できない
-				$ItemAuction->ItemShowArticle2(false);
-			}
-		}
-		//////////////////////////////////////////////////
-		//	アイテム出品処理
-		function AuctionItemExhibitProcess(&$ItemAuction)
-		{
-
-			if (!AUCTION_EXHIBIT_TOGGLE) return "BIDFORM"; // 出品凍結
-
-			// 保存しないで出品リストを表示する
-			if (!$this->AuctionEnter()) return "BIDFORM";
-			if (!$_POST["PutAuction"]) return "BIDFORM";
-
-			if (!$_POST["item_no"])
-			{
-				ShowError("Select Item.");
-				return false;
-			}
-			// セッションによる30秒間の出品拒否
-			$SessionLeft = 30 - (time() - $_SESSION["AuctionExhibit"]);
-			if ($_SESSION["AuctionExhibit"] && 0 < $SessionLeft)
-			{
-				ShowError("Wait {$SessionLeft}seconds to ReExhibit.");
-				return false;
-			}
-			// 同時出品数の制限
-			if (AUCTION_MAX <= $ItemAuction->ItemAmount())
-			{
-				ShowError("出品数が限界に達しています。(" . $ItemAuction->ItemAmount() . "/" . AUCTION_MAX . ")");
-				return false;
-			}
-			// 出品費用
-			if (!$this->TakeMoney(500))
-			{
-				ShowError("Need " . HOF_Helper_Global::MoneyFormat(500) . " to exhibit auction.");
-				return false;
-			}
-			// アイテムが読み込めない場合
-			if (!$item = HOF_Model_Data::getItemData($_POST["item_no"]))
-			{
-				ShowError("Failed to load item data.");
-				return false;
-			}
-			// アイテムを所持していない場合
-			if (!$this->item[$_POST["item_no"]])
-			{
-				ShowError("Item \"{$item[name]}\" doesn't exists.");
-				return false;
-			}
-			// そのアイテムが出品できない場合
-			$possible = HOF_Model_Data::getCanExhibitType();
-			if (!$possible[$item["type"]])
-			{
-				ShowError("Cant put \"{$item[name]}\" to the Auction");
-				return false;
-			}
-			// 出品時間の確認
-			if (!($_POST["ExhibitTime"] === '1' || $_POST["ExhibitTime"] === '3' || $_POST["ExhibitTime"] === '6' || $_POST["ExhibitTime"] === '12' || $_POST["ExhibitTime"] === '18' || $_POST["ExhibitTime"] === '24'))
-			{
-				var_dump($_POST);
-				ShowError("time?");
-				return false;
-			}
-			// 数量の確認
-			if (ereg("^[0-9]", $_POST["Amount"]))
-			{
-				$amount = (int)$_POST["Amount"];
-				if ($amount == 0) $amount = 1;
-			}
-			else
-			{
-				$amount = 1;
-			}
-			// 減らす(所持数より多く指定された場合その数を調節する)
-			$_SESSION["AuctionExhibit"] = time(); //セッションで2重出品を防ぐ
-			$amount = $this->DeleteItem($_POST["item_no"], $amount);
-			$this->SaveUserItem();
-
-			// 出品する
-			// $ItemAuction	= new HOF_Class_Item_Auction(item);// (2008/2/28:コメント化)
-			$ItemAuction->ItemAddArticle($_POST["item_no"], $amount, $this->id, $_POST["ExhibitTime"], $_POST["StartPrice"], $_POST["Comment"]);
-			print ($item["name"] . "&nbsp;を&nbsp;{$amount}個&nbsp;出品しました。");
-			return true;
-		}
-		//////////////////////////////////////////////////
-		//	出品用フォーム
-		function AuctionItemExhibitForm()
-		{
-
-			if (!AUCTION_EXHIBIT_TOGGLE) return false;
-
-
-			$possible = HOF_Model_Data::getCanExhibitType();
-
-
-?>
-	<div class="u bold">
-		出品方法
-	</div>
-	<ol>
-		<li>
-			出品するアイテムを選択します。
-		</li>
-		<li>
-			2個以上出品する場合、数量を入力します。
-		</li>
-		<li>
-			出品している時間の長さを指定します。
-		</li>
-		<li>
-			開始価格を指定します(記入無し = 0)
-		</li>
-		<li>
-			コメントがあれば入力します。
-		</li>
-		<li>
-			送信する。
-		</li>
-	</ol>
-	<div class="u bold">
-		注意事項
-	</div>
-	<ul>
-		<li>
-			出品には&nbsp;手数料として$500&nbsp;必要です。
-		</li>
-		<li>
-			ちゃんとうごいてくれなさそう
-		</li>
-	</ul>
-	<a href="?menu=auction">一覧に戻る</a>
-</div>
-<h4>出品する</h4>
-<div style="margin-left:20px">
-	<div class="u bold">
-		出品可能な物一覧
-	</div>
-	<?php
-
-			if (!$this->item)
-			{
-				print ("No items<br />\n");
-				return false;
-			}
-			$ExhibitList = new HOF_Class_Item_Style_List();
-			$ExhibitList->SetID("auc");
-			$ExhibitList->SetName("type_auc");
-			// JSを使用しない。
-			if ($this->no_JS_itemlist) $ExhibitList->NoJS();
-			foreach ($this->item as $no => $amount)
-			{
-				$item = HOF_Model_Data::getItemData($no);
-				if (!$possible[$item["type"]]) continue;
-				$head = '<input type="radio" name="item_no" value="' . $no . '" class="vcent">';
-				$head .= HOF_Class_Item::ShowItemDetail($item, $amount, 1) . "<br />";
-				$ExhibitList->AddItem($item, $head);
-			}
-			print ($ExhibitList->GetJavaScript("list"));
-			print ($ExhibitList->ShowSelect());
-
-
-?>
-	<form action="?menu=auction" method="post">
-		<div id="list">
-			<?=
-
-			$ExhibitList->ShowDefault()
-
-
-?>
-		</div>
-		<table>
-			<tr>
-				<td style="text-align:right">数量(Amount) :</td>
-				<td><input type="text" name="Amount" class="text" style="width:60px" value="1" />
-					<br /></td>
-			</tr>
-			<tr>
-				<td style="text-align:right">時間(Time) :</td>
-				<td><select name="ExhibitTime">
-						<option value="24" selected>24 hour</option>
-						<option value="18">18 hour</option>
-						<option value="12">12 hour</option>
-						<option value="6">6 hour</option>
-						<option value="3">3 hour</option>
-						<option value="1">1 hour</option>
-					</select></td>
-			</tr>
-			<tr>
-				<td>開始価格(Start Price) :</td>
-				<td><input type="text" name="StartPrice" class="text" style="width:240px" maxlength="10">
-					<br /></td>
-			</tr>
-			<tr>
-				<td style="text-align:right">コメント(Comment) :</td>
-				<td><input type="text" name="Comment" class="text" style="width:240px" maxlength="40"></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type="submit" class="btn" value="Put Auction" name="PutAuction" style="width:240px"/>
-					<input type="hidden" name="PutAuction" value="1"></td>
-			</tr>
-		</table>
-	</form>
-	<?php
-
-		}
 		//////////////////////////////////////////////////
 		//	Unionモンスターの処理
 		function UnionProcess()
@@ -3554,23 +3136,23 @@ JS_HTML;
 			// 合計レベル制限
 			if ($UnionMob["LevelLimit"] < $TotalLevel)
 			{
-				ShowError('合計レベルオーバー(' . $TotalLevel . '/' . $UnionMob["LevelLimit"] . ')', "margin15");
+				HOF_Helper_Global::ShowError('合計レベルオーバー(' . $TotalLevel . '/' . $UnionMob["LevelLimit"] . ')', "margin15");
 				return false;
 			}
 			if (count($MyParty) === 0)
 			{
-				ShowError('戦闘するには最低1人必要', "margin15");
+				HOF_Helper_Global::ShowError('戦闘するには最低1人必要', "margin15");
 				return false;
 			}
 			else
 				if (5 < count($MyParty))
 				{
-					ShowError('戦闘に出せるキャラは5人まで', "margin15");
+					HOF_Helper_Global::ShowError('戦闘に出せるキャラは5人まで', "margin15");
 					return false;
 				}
 			if (!$this->WasteTime(UNION_BATTLE_TIME))
 			{
-				ShowError('Time Shortage.', "margin15");
+				HOF_Helper_Global::ShowError('Time Shortage.', "margin15");
 				return false;
 			}
 
@@ -3629,7 +3211,7 @@ JS_HTML;
 			// 倒されているか、存在しない場合。
 			if (!$Union->UnionNumber($_GET["union"]) || !$Union->is_Alive())
 			{
-				ShowError("Defeated or not Exists.");
+				HOF_Helper_Global::ShowError("Defeated or not Exists.");
 				return false;
 			}
 			print ('</div>');
@@ -3759,31 +3341,31 @@ JS_HTML;
 				$NewName = $_POST["NewName"];
 				if (is_numeric(strpos($NewName, "\t")))
 				{
-					ShowError('error1');
+					HOF_Helper_Global::ShowError('error1');
 					return false;
 				}
 				$NewName = trim($NewName);
 				$NewName = stripslashes($NewName);
 				if (!$NewName)
 				{
-					ShowError('Name is blank.');
+					HOF_Helper_Global::ShowError('Name is blank.');
 					return false;
 				}
 				$length = strlen($NewName);
 				if (0 == $length || 16 < $length)
 				{
-					ShowError('1 to 16 letters?');
+					HOF_Helper_Global::ShowError('1 to 16 letters?');
 					return false;
 				}
 				$userName = userNameLoad();
 				if (in_array($NewName, $userName))
 				{
-					ShowError("その名前は使用されている。", "margin15");
+					HOF_Helper_Global::ShowError("その名前は使用されている。", "margin15");
 					return false;
 				}
 				if (!$this->TakeMoney(NEW_NAME_COST))
 				{
-					ShowError('money not enough');
+					HOF_Helper_Global::ShowError('money not enough');
 					return false;
 				}
 				$OldName = $this->name;
@@ -3797,7 +3379,7 @@ JS_HTML;
 				}
 				else
 				{
-					ShowError("?"); //名前が同じ？
+					HOF_Helper_Global::ShowError("?"); //名前が同じ？
 					return false;
 				}
 			}
@@ -4307,7 +3889,7 @@ HTML;
 <div style="margin:15px">
 	<?=
 
-			ShowError($error);
+			HOF_Helper_Global::ShowError($error);
 
 
 ?>
@@ -4427,7 +4009,12 @@ HTML;
 	<!-- 飾 -->
 	<div style="width:350px;padding:15px;float:left;">
 		<div style="width:350px;text-align:center;height: 199px;overflow: hidden; margin-bottom: 20px;">
-			<img src="<?php echo HOF_Class_Icon::getImageUrl("hof02", './static/image/'); ?>" style="margin-top: -1px;margin-left: -70px;" />
+			<img src="<?php
+
+			echo HOF_Class_Icon::getImageUrl("hof02", './static/image/');
+
+
+?>" style="margin-top: -1px;margin-left: -70px;" />
 		</div>
 		<div style="margin-left:20px">
 			<div class="u">
@@ -4607,7 +4194,12 @@ Users :
 	<a name="top"></a>
 	<div id="main_frame">
 		<div id="title">
-			<img src="<?php echo HOF_Class_Icon::getImageUrl('title03', './static/image/'); ?>">
+			<img src="<?php
+
+			echo HOF_Class_Icon::getImageUrl('title03', './static/image/');
+
+
+?>">
 		</div>
 		<?php
 
@@ -4811,7 +4403,7 @@ Users :
 ?>" method="post" style="margin:15px">
 	<?php
 
-			ShowError($error);
+			HOF_Helper_Global::ShowError($error);
 
 
 ?>
