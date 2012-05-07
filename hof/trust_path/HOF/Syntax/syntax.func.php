@@ -15,7 +15,7 @@ function e($string, $escape = false)
 	}
 	elseif (is_object($string) && method_exists($string, '__toString'))
 	{
-		$string = (string)$string;
+		echo (string)$string;
 	}
 	elseif (is_array($string))
 	{
@@ -27,3 +27,12 @@ function e($string, $escape = false)
 	}
 }
 
+function debug($var)
+{
+	var_dump(a($var));
+}
+
+function a($var)
+{
+	return HOF_Class_Array::_fixArray($var);
+}
