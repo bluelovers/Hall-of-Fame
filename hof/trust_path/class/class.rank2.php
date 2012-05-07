@@ -182,7 +182,7 @@ class Ranking
 		*/
 		if ($Rival->is_exist() == false)
 		{
-			ShowError("相手が既に存在していませんでした(不戦勝)");
+			HOF_Helper_Global::ShowError("相手が既に存在していませんでした(不戦勝)");
 			$this->DeleteRank($DefendID);
 			$this->SaveRanking();
 			//return array(true);
@@ -197,7 +197,7 @@ class Ranking
 		// ランク用パーティーがありません！！！
 		if ($Party_Challenger === false)
 		{
-			ShowError("戦うメンバーがいません。");
+			HOF_Helper_Global::ShowError("戦うメンバーがいません。");
 			return "CHALLENGER_NO_PARTY";
 		}
 
@@ -206,7 +206,7 @@ class Ranking
 		{
 			//$defender->RankRecord(0,"DEFEND",$DefendMatch);
 			//$defender->SaveData();
-			ShowError($Rival->name . " は対戦キャラが設定されていませんでした<br />(不戦勝)");
+			HOF_Helper_Global::ShowError($Rival->name . " は対戦キャラが設定されていませんでした<br />(不戦勝)");
 			return "DEFENDER_NO_PARTY"; //不戦勝とする
 		}
 
