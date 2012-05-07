@@ -8,6 +8,13 @@
 class HOF_Model_Main extends HOF_Class_Main
 {
 
+	function __construct()
+	{
+		HOF::getInstance();
+
+		parent::__construct();
+	}
+
 	/**
 	 * UpDate,BBS,Manual等
 	 */
