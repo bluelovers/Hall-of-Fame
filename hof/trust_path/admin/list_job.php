@@ -79,7 +79,7 @@ for ($no = 100; $no < 999; $no++)
 		foreach ($j[learn] as $skill)
 		{
 			print ("<tr><td class=\"b\">");
-			$skill = LoadSKillData($skill);
+			$skill = HOF_Model_Data::getSkill($skill);
 			HOF_Class_Skill::ShowSkillDetail($skill);
 			print ("</td></tr>");
 		}
