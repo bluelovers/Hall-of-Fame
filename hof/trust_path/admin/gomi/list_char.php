@@ -28,8 +28,7 @@ td{
 <?php
 
 include ("./trust_path/bootstrap.php");
-include ("./class/class.char.php");
-include ("./class/global.php");
+
 $folder = glob("./user/*");
 //print("<pre>".print_r($folder,1)."</pre>");
 foreach ($folder as $val)
