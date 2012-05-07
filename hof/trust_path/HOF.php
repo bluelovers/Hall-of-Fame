@@ -23,8 +23,6 @@ class HOF
 		{
 			die('error!!');
 		}
-
-		parent::__construct();
 	}
 
 	public static function &getInstance()
