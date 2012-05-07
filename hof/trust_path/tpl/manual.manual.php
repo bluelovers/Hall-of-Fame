@@ -399,7 +399,6 @@ $sample = array(
 	5000);
 foreach ($sample as $val)
 {
-	include_once (DATA_ITEM);
 	HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($val));
 	print ("<br />\n");
 }
@@ -439,7 +438,6 @@ $sample = array(
 	3110);
 foreach ($sample as $val)
 {
-	include_once (DATA_SKILL);
 	HOF_Class_Skill::ShowSkillDetail(HOF_Model_Data::getSkill($val));
 	print ("<br />\n");
 }
