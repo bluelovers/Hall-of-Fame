@@ -18,6 +18,8 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	function _init()
 	{
 		$this->user = &HOF_Model_Main::getInstance();
+
+		$this->options['escapeHtml'] = false;
 	}
 
 	function _main_before()
@@ -25,6 +27,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		$this->_input();
 
 		$this->user->LoadUserItem();
+		$this->user->CharDataLoadAll();
 
 		$this->_cache['lands'] = HOF_Model_Data::getLandAppear($this->user);
 	}
@@ -93,8 +96,6 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		$this->output->logs = $logs;
 
-		$this->options['escapeHtml'] = false;
-
 		$this->user->fpCloseAll();
 	}
 
@@ -108,8 +109,6 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		$this->output['battle.target.id'] = $this->input->common;
 		$this->output['battle.target.from.action'] = INDEX . '?common=' . $this->output['battle.target.id'];
-
-		$this->user->CharDataLoadAll();
 
 		if ($this->_check_land())
 		{
@@ -142,8 +141,53 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		$this->output->monster_battle = $this->_cache['MonsterBattle'];
 
 		$this->user->fpCloseAll();
+	}
 
-		$this->options['escapeHtml'] = false;
+	function _main_action_simulate()
+	{
+		$this->input->monster_battle = HOF::$input->post->monster_battle;
+
+		$this->output->land['name'] = '模擬戦';
+		$this->output['battle.target.from.action'] = INDEX . '?simulate';
+	}
+
+	function _simulate()
+	{
+		if ($this->_cache['Process'] = $this->SimuBattleProcess())
+		{
+			$this->user->SaveData();
+		}
+
+		$this->user->fpCloseAll();
+	}
+
+	function SimuBattleProcess()
+	{
+		if ($this->input->monster_battle)
+		{
+			$this->user->MemorizeParty(); //パーティー記憶
+			// 自分パーティー
+			foreach ($this->user->char as $key => $val)
+			{
+				//チェックされたやつリスト
+				if (HOF::$input->post["char_" . $key]) $MyParty[] = $this->user->char[$key];
+			}
+			if (count($MyParty) === 0)
+			{
+				$this->_error('戦闘するには最低1人必要', "margin15");
+				return false;
+			}
+			else
+			{
+				if (5 < count($MyParty))
+				{
+					$this->_error('戦闘に出せるキャラは5人まで', "margin15");
+					return false;
+				}
+			}
+			$this->user->DoppelBattle($MyParty, 50);
+			return true;
+		}
 	}
 
 	function _error($s, $a = null)
