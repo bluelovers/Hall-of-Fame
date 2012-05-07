@@ -57,8 +57,16 @@ class HOF_Class_View
 	{
 		$output = $this->__toString();
 
-		$output = preg_replace('/^[\s\n]*|[\s\n]*$/i', '', $output);
-		$output = preg_replace('/[\s\r\n]*(\n)[\s\r\n]*/i', '\\1', $output);
+//		$output = preg_replace('/^[\s\n]*|[\s\n]*$/is', '', $output);
+//		$output = preg_replace('/[ \t\r]*(\n)/is', '\\1', $output);
+//		$output = preg_replace('/(\n)[ \t\r]*/is', '\\1', $output);
+//		$output = preg_replace('/[\t\s\r\n]*(\n)[\t\s\r\n]*/is', '\\1', $output);
+
+		$output = preg_replace('/^[\s\t\n]*|[\s\n\t]*$/is', '', $output);
+		$output = preg_replace('/\s*(\t)\s*/is', "\\1\n", $output);
+  		$output = preg_replace('/[ \t\r]+(\n)/is', '\\1', $output);
+  		$output = preg_replace('/(\n)[ \t\r]+/is', '\\1', $output);
+  		$output = preg_replace('/(\n)\s+/is', '\\1', $output);
 
 		echo $output;
 
