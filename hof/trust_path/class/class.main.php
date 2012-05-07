@@ -88,9 +88,14 @@ class main extends HOF_Class_User
 
 					// 狩場
 				case ($_SERVER["QUERY_STRING"] === "hunt"):
+				/*
 					$this->LoadUserItem(); //アイテムデータ読む
 					$this->fpCloseAll();
 					$this->HuntShow();
+					*/
+
+					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
+
 					return 0;
 
 					// 街
@@ -1579,77 +1584,7 @@ HTML;
 
 		}
 
-		function HuntShow()
-		{
 
-			print ('<div style="margin:15px">');
-			print ('<h4>CommonMonster</h4>');
-			print ('<div style="margin:0 20px">');
-
-			$mapList = HOF_Model_Data::getLandAppear($this);
-			foreach ($mapList as $map => $land)
-			{
-				/*
-				$land = HOF_Model_Data::getLandInfo($map);
-				*/
-
-				print ("<p><a href=\"?common={$map}\">{$land[land][name]}</a>");
-				print (" ({$land[land][proper]}) ");
-
-				if (isset($land['_cache']['allow']))
-				{
-					print (" - Allow: {$land[_cache][allow]} ");
-				}
-
-				print ("</p>");
-			}
-
-			// Union
-			print ("</div>\n");
-			$files = game_core::glob(UNION);
-			if ($files)
-			{
-				//				include (CLASS_UNION);
-				//				include (DATA_MONSTER);
-				foreach ($files as $file)
-				{
-					$UnionMons = HOF_Model_Char::newUnionFromFile($file);
-					if ($UnionMons->is_Alive()) $Union[] = $UnionMons;
-				}
-			}
-			if ($Union)
-			{
-				print ('<h4>UnionMonster</h4>');
-				$result = $this->CanUnionBattle();
-				if ($result !== true)
-				{
-					$left_minute = floor($result / 60);
-					$left_second = $result % 60;
-					print ('<div style="margin:0 20px">');
-					print ('Time left to next battle : <span class="bold">' . $left_minute . ":" . sprintf("%02d", $left_second) . "</span>");
-					print ("</div>");
-				}
-				print ("</div>");
-				$this->ShowCharacters($Union);
-			}
-			else
-			{
-				print ("</div>");
-			}
-
-			// union
-			print ("<div style=\"margin:0 15px\">\n");
-			print ("<h4>Union Battle Log <a href=\"?ulog\">全表示</a></h4>\n");
-			print ("<div style=\"margin:0 20px\">\n");
-			$log = game_core::glob(LOG_BATTLE_UNION);
-			foreach (array_reverse($log) as $file)
-			{
-				$limit++;
-				BattleLogDetail($file, "UNION");
-				if (15 <= $limit) break;
-			}
-			print ("</div></div>\n");
-		}
 		//////////////////////////////////////////////////
 		//	モンスターの表示
 		function MonsterShow()
