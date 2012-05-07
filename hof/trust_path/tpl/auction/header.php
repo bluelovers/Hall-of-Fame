@@ -1,11 +1,7 @@
-<div style="margin:15px 0 0 15px">
-	<h4>オークション(Auction)</h4>
-	<div style="margin-left:20px">
-		<div style="width:500px">
-			<div style="float:left;width:50px;">
-				<img src="<?php e(HOF_Class_Icon::getImageUrl('ori_003', IMG_CHAR)); ?>" />
-			</div>
-			<div style="float:right;width:450px;">
+
+<?php $this->set('npc.talk.title', 'オークション(Auction)') ?>
+	<?php $this->set('npc.talk.no', $this->get('npc_no', 'ori_003')) ?>
+	<?php ob_start(); ?>
 				<?php if ($this->controller->AuctionEnter()): ?>
 
 					お客様は会員証をお持ちですね。
@@ -30,10 +26,10 @@
 					</form>
 
 				<?php endif; ?>
-			</div>
-			<div style="clear:both">
-			</div>
-		</div>
-	</div>
+	<?php $content = ob_get_clean(); ?>
+
+	<?php e($this->slot('layout/npc.talk.1', $content)) ?>
+
+<div style="margin:15px 0 0 15px">
 	<h4>アイテム オークション(Item Auction)</h4>
 	<div style="margin-left:20px">
