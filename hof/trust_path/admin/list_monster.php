@@ -33,14 +33,6 @@ td{
 <body>
 <?php
 
-/*
-include ("../data/data.monster.php");
-*/
-include ("../data/data.judge_setup.php");
-include ("../data/data.skill.php");
-include ("../data/data.item.php");
-include ("../data/data.enchant.php");
-include ("../class/global.php");
 define("IMG_ICON", "../static/image/icon/");
 
 $det = '<tr><td class="a">No</td>
