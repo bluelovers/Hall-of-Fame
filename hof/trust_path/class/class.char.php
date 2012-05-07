@@ -1601,7 +1601,7 @@ Lv.<?=
 
 		//習得可能技に覚えようとしてるヤツなけりゃ終了
 		if (!in_array($_POST["newskill"], $tree)) return array(false, "スキルツリーに無い");
-		$skill = LoadSKillData($no);
+		$skill = HOF_Model_Data::getSkill($no);
 		//もし習得済みなら?
 		if (in_array($no, $this->skill)) return array(false, "{$skill[name]} は修得済み.");
 		if ($this->UseSkillPoint($skill["learn"]))
