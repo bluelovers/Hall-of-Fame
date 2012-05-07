@@ -263,10 +263,15 @@ class main extends HOF_Class_User
 
 					// 雇用
 				case ($_SERVER["QUERY_STRING"] === "recruit"):
+				/*
 					if ($this->RecruitProcess()) $this->SaveData();
 
 					$this->fpCloseAll();
 					$this->RecruitShow($result);
+					*/
+
+					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
+
 					return 0;
 
 					// それ以外(トップ)
@@ -2248,194 +2253,7 @@ HTML;
 
 		}
 		//////////////////////////////////////////////////
-		function RecruitProcess()
-		{
 
-			// 雇用数限界
-			if (MAX_CHAR <= count($this->char)) return false;
-
-			if ($_POST["recruit"])
-			{
-				// キャラのタイプ
-				switch ($_POST["recruit_no"])
-				{
-					case "1":
-						$hire = 2000;
-						$charNo = 1;
-						break;
-					case "2":
-						$hire = 2000;
-						$charNo = 2;
-						break;
-					case "3":
-						$hire = 2500;
-						$charNo = 3;
-						break;
-					case "4":
-						$hire = 4000;
-						$charNo = 4;
-						break;
-					default:
-						HOF_Helper_Global::ShowError("キャラ 未選択", "margin15");
-						return false;
-				}
-				// 名前処理
-				if ($_POST["recruit_name"])
-				{
-					if (is_numeric(strpos($_POST["recruit_name"], "\t"))) return "error.";
-					$name = trim($_POST["recruit_name"]);
-					$name = stripslashes($name);
-					$len = strlen($name);
-					if (0 == $len || 16 < $len)
-					{
-						HOF_Helper_Global::ShowError("名前が短すぎるか長すぎです", "margin15");
-						return false;
-					}
-					$name = htmlspecialchars($name, ENT_QUOTES);
-				}
-				else
-				{
-					HOF_Helper_Global::ShowError("名前が空欄です", "margin15");
-					return false;
-				}
-				//性別
-				if (!isset($_POST["recruit_gend"]))
-				{
-					HOF_Helper_Global::ShowError("性別 未選択", "margin15");
-					return false;
-				}
-				else
-				{
-					$Gender = $_POST["recruit_gend"] ? "♀" : "♂";
-				}
-				// キャラデータをクラスに入れる
-
-				$plus = array("name" => "$name", "gender" => $_POST["recruit_gend"]);
-				/*
-				$char = new HOF_Class_Char();
-				$char->SetCharData(array_merge(BaseCharStatus($charNo), $plus));
-				*/
-				$char = HOF_Model_Char::newBaseChar($charNo, $plus);
-				//雇用金
-				if ($hire <= $this->money)
-				{
-					$this->TakeMoney($hire);
-				}
-				else
-				{
-					HOF_Helper_Global::ShowError("お金が足りません", "margin15");
-					return false;
-				}
-				// キャラを保存する
-				$char->SaveCharData($this->id);
-				ShowResult($char->Name() . "($char->job_name:{$Gender}) が仲間になった！", "margin15");
-				return true;
-			}
-		}
-
-		//////////////////////////////////////////////////
-		//
-		function RecruitShow()
-		{
-			if (MAX_CHAR <= $this->CharCount())
-			{
-
-
-?>
-<div style="margin:15px">
-	<p>Maximum characters.<br>
-		Need to make a space to recruit new character.</p>
-	<p>キャラ数が限界に達しています。<br>
-		新しいキャラを入れるには空きが必要です。</p>
-</div>
-<?php
-
-				return false;
-			}
-
-			// bluelovers
-			$char = array();
-
-			for ($i = 1; $i <= 4; $i++)
-			{
-				for ($j = 0; $j <= 1; $j++)
-				{
-					$char[] = HOF_Model_Char::newBaseChar($i, array('gender' => $j));
-				}
-			}
-			// bluelovers
-
-
-
-?>
-<form action="?recruit" method="post" style="margin:15px">
-	<h4>Sort of New Character</h4>
-	<table cellspacing="0">
-		<tbody>
-			<tr>
-				<?php
-
-			// bluelovers
-			$_money = array(
-				2000,
-				2000,
-				2500,
-				4000);
-
-			for ($i = 0; $i < 4; $i++)
-			{
-				echo '<td class="td1" style="text-align:center">';
-
-				$j = $i * 2;
-
-				$char[$j]->ShowImage();
-				$char[$j + 1]->ShowImage();
-
-				echo '<br><input type="radio" name="recruit_no" value="' . ($i + 1) . '" style="margin:3px"><br>';
-
-				echo HOF_Helper_Global::MoneyFormat($_money[$i]);
-			}
-
-			echo '</tr><tr>';
-
-			for ($i = 0; $i < 4; $i++)
-			{
-				$j = $i * 2;
-
-				echo '<td class="' . (($i % 2) ? 'td4' : 'td5') . '" style="text-align:center">' . $char[$j]->job_name . '</td>';
-			}
-			// bluelovers
-
-
-
-?>
-			</tr>
-		</tbody>
-	</table>
-	<h4>New Character's Name &amp; Gender</h4>
-	<table>
-		<tbody>
-			<tr>
-				<td valign="top"><input type="text" class="text" name="recruit_name" style="width:160px" maxlength="16">
-					<br>
-					<div style="margin:5px 0px">
-						<input type="radio" class="vcent" name="recruit_gend" value="0">
-						male
-						<input type="radio" class="vcent" name="recruit_gend" value="1" style="margin-left:15px;">
-						female
-					</div>
-					<input type="submit" class="btn" name="recruit" value="Recruit">
-					<input type="hidden" class="btn" name="recruit" value="Recruit"></td>
-				<td valign="top"><p>1 to 16 letters.<br>
-						Japanese characters count as 2.<br>
-						日本語は1文字 = 2 letter.</p></td>
-			</tr>
-		</tbody>
-	</table>
-</form>
-<?php
-
-		}
 		//////////////////////////////////////////////////
 		//
 
