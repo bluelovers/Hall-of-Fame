@@ -33,7 +33,15 @@ class HOF_Class_Request extends HOF_Class_Array
 				'server' => (array)$_SERVER,
 			);
 
-			$input['request'] = array_merge_recursive(array(), (array)$_GET, (array)$_POST);
+			foreach($input['get'] as $k => $v)
+			{
+				if (isset($input['post'][$k]))
+				{
+					$input['get'][$k] = $input['post'][$k];
+				}
+			}
+
+			$input['request'] = array_merge(array(), (array)$input['get'], (array)$input['post']);
 		}
 
 		$this->exchangeArray($input);
