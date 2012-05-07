@@ -33,8 +33,6 @@ td{
 <body>
 <?php
 
-include ("../data/data.skill.php");
-include ("../class/global.php");
 define("IMG_ICON", "../static/image/icon/");
 
 
