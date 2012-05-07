@@ -184,8 +184,10 @@ class HOF_Class_Item_Create
 	/**
 	 * アイテムに付与される可能性のある能力(を返す)
 	 */
-	function HOF_Class_Item_Create::ItemAbilityPossibility($type)
+	function ItemAbilityPossibility($type)
 	{
+		$type = HOF::putintoClassParts($type);
+
 		switch ($type)
 		{
 			case "Sword":
