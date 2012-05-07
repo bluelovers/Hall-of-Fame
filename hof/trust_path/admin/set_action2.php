@@ -38,9 +38,6 @@ define("IMG", "../static/image/char/");
 // Load
 if ($_POST["Load"] && $_POST["loadMob"])
 {
-	/*
-	include ("../data/data.monster.php");
-	*/
 	$monster = HOF_Model_Char::getBaseMonster($_POST["loadMob"]);
 	if ($monster)
 	{
@@ -115,7 +112,6 @@ if ($_POST["make"])
 }
 
 // 判定の種類
-include ("../data/data.judge_setup.php");
 for ($i = 1000; $i < 10000; $i++)
 {
 	$judge = HOF_Model_Data::getJudgeData($i);
@@ -125,7 +121,7 @@ for ($i = 1000; $i < 10000; $i++)
 }
 
 // 全スキル
-include ("../data/data.skill.php");
+
 for ($i = 1000; $i < 10000; $i++)
 {
 	$skill = HOF_Model_Data::getSkill($i);
