@@ -8,6 +8,35 @@
 class HOF
 {
 
+	public static $input = null;
+
+	protected static $instance;
+
+	function __construct()
+	{
+		if (!isset(self::$instance))
+		{
+			self::$instance = $this;
+			self::$input = new HOF_Class_Request;
+		}
+		else
+		{
+			die('error!!');
+		}
+
+		parent::__construct();
+	}
+
+	public static function &getInstance()
+	{
+		if (!isset(self::$instance))
+		{
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+
 	public static function putintoClassParts($str)
 	{
 		// 支援 將 AbcDef => abc_def
