@@ -66,10 +66,7 @@ class main extends HOF_Class_User
 		if (true === $message = $this->CheckLogin()):
 			//if( false ):
 			// ログイン
-			include_once (DATA_ITEM);
-			/*
-			include (CLASS_CHAR);
-			*/
+
 			if ($this->FirstLogin()) return 0;
 
 			switch (true)
@@ -115,8 +112,7 @@ class main extends HOF_Class_User
 					// ユニオン
 				case ($_GET["union"]):
 					$this->CharDataLoadAll(); //キャラデータ読む
-					//					include (CLASS_UNION);
-					//					include (DATA_MONSTER);
+
 					if ($this->UnionProcess())
 					{
 						// 戦闘する
@@ -150,8 +146,7 @@ class main extends HOF_Class_User
 					// キャラステ
 				case ($_GET["char"]):
 					$this->CharDataLoadAll(); //キャラデータ読む
-					include (DATA_SKILL);
-					include (DATA_JUDGE_SETUP);
+
 					$this->LoadUserItem(); //アイテムデータ読む
 					$this->CharStatProcess();
 					$this->fpCloseAll();
@@ -180,7 +175,7 @@ class main extends HOF_Class_User
 				case ($_GET["menu"] === "create"):
 					$this->LoadUserItem();
 					$this->SmithyCreateHeader();
-					include (DATA_CREATE); //製作できるものデータ等
+
 					if ($this->SmithyCreateProcess()) $this->SaveData();
 
 					$this->fpCloseAll();
@@ -2514,7 +2509,6 @@ JS_HTML;
 			// 雇用数限界
 			if (MAX_CHAR <= count($this->char)) return false;
 
-			include (DATA_BASE_CHAR);
 			if ($_POST["recruit"])
 			{
 				// キャラのタイプ
@@ -2613,7 +2607,6 @@ JS_HTML;
 
 				return false;
 			}
-			include_once (CLASS_MONSTER);
 
 			// bluelovers
 			$char = array();
@@ -3240,7 +3233,7 @@ JS_HTML;
 		//	町の表示
 		function TownShow()
 		{
-			include (DATA_TOWN);
+
 			print ('<div style="margin:15px">' . "\n");
 			print ("<h4>街</h4>");
 			print ('<div class="town">' . "\n");
