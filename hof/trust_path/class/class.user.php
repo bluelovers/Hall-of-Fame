@@ -563,14 +563,14 @@ class user
 	function fpCloseAll()
 	{
 		// 基本データ
-		if (is_resource($this->fp))
+		if (@is_resource($this->fp))
 		{
 			fclose($this->fp);
 			unset($this->fp);
 		}
 
 		// アイテムデータ
-		if (is_resource($this->fp_item))
+		if (@is_resource($this->fp_item))
 		{
 			fclose($this->fp_item);
 			unset($this->fp_item);
