@@ -18,9 +18,9 @@ class HOF_Class_View
 
 	protected static $_suppressNotFoundWarnings = false;
 
-	function __construct(&$controller, &$output, $template = null)
+	function __construct($controller, &$output, $template = null)
 	{
-		$this->controller = &$controller;
+		$this->controller = $controller;
 
 		$this->output = &$output;
 		$this->template = $template;
@@ -33,11 +33,11 @@ class HOF_Class_View
 		return (string)$this->body;
 	}
 
-	static function render(&$controller, $output, $template = null, $content = null)
+	static function render($controller, $output, $template = null, $content = null)
 	{
-		$_this = new self(&$controller, &$output, $template);
+		$_this = new self($controller, &$output, $template);
 
-		$_this->controller->view['render'][$_this->template][] = $_this;
+		if ($_this->controller) $_this->controller->view['render'][$_this->template][] = $_this;
 
 		$_this->content = $content;
 
@@ -77,7 +77,7 @@ class HOF_Class_View
 	{
 		$view = self::render($this->controller, &$this->output, $name, $content);
 
-		$this->controller->view['slot'][$name][] = $view;
+		if ($this->controller) $this->controller->view['slot'][$name][] = $view;
 
 		return $view;
 	}
@@ -100,7 +100,7 @@ class HOF_Class_View
 	{
 		$this->extend = $name;
 
-		$this->controller->view['extend'][$this->extend][] = $this->extend;
+		if ($this->controller) $this->controller->view['extend'][$this->extend][] = $this->extend;
 	}
 
 	protected function _view()
@@ -148,7 +148,7 @@ class HOF_Class_View
 
 	function callMethod($func)
 	{
-		if ($this->controller->allowCallMethod())
+		if ($this->controller && $this->controller->allowCallMethod())
 		{
 			$args = func_get_args();
 
