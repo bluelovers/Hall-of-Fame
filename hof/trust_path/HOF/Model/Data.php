@@ -117,9 +117,9 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		$regex = HOF_Class_Data::_filename($_key, '*');
 
-		$regex = '/^'.str_replace('\*', '(.+)', preg_quote($regex, '/')).'$/i';
+		$regex = '/^' . str_replace('\*', '(.+)', preg_quote($regex, '/')) . '$/i';
 
-		foreach(glob(HOF_Class_Data::_filename($_key, '*')) as $file)
+		foreach (glob(HOF_Class_Data::_filename($_key, '*')) as $file)
 		{
 			$list[] = preg_replace($regex, '$1', $file);
 		}
@@ -136,7 +136,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		if ($lands = self::getLandList())
 		{
-			foreach($lands as $no)
+			foreach ($lands as $no)
 			{
 				if ($land = self::getLandInfo($no))
 				{
@@ -148,7 +148,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 						if ($allow != 0)
 						{
-							foreach ((array)$land['trigger']['item'] as $_data)
+							foreach ((array )$land['trigger']['item'] as $_data)
 							{
 								$ok = -1;
 
@@ -176,7 +176,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 						if ($allow != 0)
 						{
-							foreach ((array)$land['trigger']['time'] as $_data)
+							foreach ((array )$land['trigger']['time'] as $_data)
 							{
 								$ok = -1;
 
@@ -246,19 +246,19 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		if (DEBUG_LANDAPPEAR_ALL)
 		{
-			array_push($list, "sea0");
-			array_push($list, "sea1");
-			array_push($list, "ocean0");
-			array_push($list, "sand0");
-			array_push($list, "swamp0");
-			array_push($list, "swamp1");
-			array_push($list, "mt0");
-			array_push($list, "volc0");
-			array_push($list, "volc1");
+		array_push($list, "sea0");
+		array_push($list, "sea1");
+		array_push($list, "ocean0");
+		array_push($list, "sand0");
+		array_push($list, "swamp0");
+		array_push($list, "swamp1");
+		array_push($list, "mt0");
+		array_push($list, "volc0");
+		array_push($list, "volc1");
 
-			array_push($list, "blow01");
-			array_push($list, "plund01");
-			array_push($list, "des01");
+		array_push($list, "blow01");
+		array_push($list, "plund01");
+		array_push($list, "des01");
 		}
 
 		if (DEBUG_LANDAPPEAR_ALL || gc_date("H") == 2 && substr(gc_date("i"), 0, 1) == 5) array_push($list, "horh");
@@ -317,9 +317,9 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		$regex = HOF_Class_Data::_filename($_key, '*');
 
-		$regex = '/^'.str_replace('\*', '(.+)', preg_quote($regex, '/')).'$/i';
+		$regex = '/^' . str_replace('\*', '(.+)', preg_quote($regex, '/')) . '$/i';
 
-		foreach(glob(HOF_Class_Data::_filename($_key, '*')) as $file)
+		foreach (glob(HOF_Class_Data::_filename($_key, '*')) as $file)
 		{
 			$list[] = preg_replace($regex, '$1', $file);
 		}
@@ -337,7 +337,7 @@ class HOF_Model_Data extends HOF_Class_Data
 			/*
 			for ($i = 1000; $i < 2500; $i++)
 			{
-				if (HOF_Model_Data::getJudgeData($i) !== false) $list[] = $i;
+			if (HOF_Model_Data::getJudgeData($i) !== false) $list[] = $i;
 			}
 			return $list;
 			// 手動(追加した判断は自分で書き足せ)
@@ -345,9 +345,9 @@ class HOF_Model_Data extends HOF_Class_Data
 
 			$regex = HOF_Class_Data::_filename('judge', '*');
 
-			$regex = '/^'.str_replace('\*', '(.+)', preg_quote($regex, '/')).'$/i';
+			$regex = '/^' . str_replace('\*', '(.+)', preg_quote($regex, '/')) . '$/i';
 
-			foreach(glob(HOF_Class_Data::_filename('judge', '*')) as $file)
+			foreach (glob(HOF_Class_Data::_filename('judge', '*')) as $file)
 			{
 				$list[] = preg_replace($regex, '$1', $file);
 			}
@@ -711,18 +711,18 @@ class HOF_Model_Data extends HOF_Class_Data
 	function getCanRefineType()
 	{
 		return array(
-			"Sword",
-			"TwoHandSword",
-			"Dagger",
-			"Wand",
-			"Staff",
-			"Bow",
-			"Whip",
-			"Shield",
-			"Book",
-			"Armor",
-			"Cloth",
-			"Robe",
+			'sword' => 'Sword',
+			'two_hand_sword' => 'TwoHandSword',
+			'dagger' => 'Dagger',
+			'wand' => 'Wand',
+			'staff' => 'Staff',
+			'bow' => 'Bow',
+			'whip' => 'Whip',
+			'shield' => 'Shield',
+			'book' => 'Book',
+			'armor' => 'Armor',
+			'cloth' => 'Cloth',
+			'robe' => 'Robe',
 			);
 	}
 
@@ -731,8 +731,10 @@ class HOF_Model_Data extends HOF_Class_Data
 	 * 日付別でいける場所を変えれるとか、
 	 * あるアイテムがないと行けないとかできる
 	 * 別ファイルにする必要があったのかどうか微妙
+	 *
+	 * @param HOF_Class_User
 	 */
-	function getTownAppear($user)
+	function getTownAppear($user = null)
 	{
 		$place = array();
 
