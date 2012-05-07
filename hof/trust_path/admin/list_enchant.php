@@ -1,6 +1,6 @@
 <?php
 
-list($low, $high) = ItemAbilityPossibility("Sword");
+list($low, $high) = HOF_Class_Item_Create::ItemAbilityPossibility("Sword");
 print ("---------------LOW<br />\n");
 foreach ($low as $enchant)
 {
