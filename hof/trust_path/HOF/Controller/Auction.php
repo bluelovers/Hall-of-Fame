@@ -70,6 +70,10 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		$this->input->Amount = max(0, intval($_POST["Amount"]));
 		$this->input->StartPrice = max(0, intval($_POST["StartPrice"]));
 		$this->input->Comment = $_POST["Comment"];
+
+		$this->input->_timestamp = $_POST['_timestamp'];
+
+		$this->output['form._timestamp'] = time();
 	}
 
 	function _main()
@@ -276,6 +280,15 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 			HOF_Helper_Global::ShowError("Wait {$SessionLeft}seconds to ReExhibit.");
 			return false;
 		}
+		elseif (
+			!$this->input->_timestamp
+			|| $this->input->_timestamp >= REQUEST_TIME
+			|| ($_SESSION["AuctionExhibit"] && $this->input->_timestamp <= $_SESSION["AuctionExhibit"])
+		)
+		{
+			HOF_Helper_Global::ShowError("Unknow Error!!");
+			return false;
+		}
 
 		// 同時出品数の制限
 		if (AUCTION_MAX <= $this->ItemAuction->ItemAmount())
@@ -332,7 +345,8 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		}
 
 		// 減らす(所持数より多く指定された場合その数を調節する)
-		$_SESSION["AuctionExhibit"] = time(); //セッションで2重出品を防ぐ
+		$_SESSION["AuctionExhibit"] = REQUEST_TIME; //セッションで2重出品を防ぐ
+
 		$amount = $this->user->DeleteItem($this->input->item_no, $amount);
 		$this->user->SaveUserItem();
 
