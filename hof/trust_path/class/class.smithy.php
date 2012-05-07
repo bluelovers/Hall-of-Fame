@@ -49,7 +49,7 @@ class Smithy
 		$this->option0 = false;
 		$this->option1 = false;
 		$this->option2 = false;
-		list($low, $high) = ItemAbilityPossibility($this->type);
+		list($low, $high) = HOF_Class_Item_Create::ItemAbilityPossibility($this->type);
 
 		// 2:3:4
 		// 付加能力がつく確率。
