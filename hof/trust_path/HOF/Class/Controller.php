@@ -11,10 +11,13 @@ class HOF_Class_Controller
 	var $controller;
 	var $action;
 
+	protected $input = array();
 	protected $output = array();
 	protected $template = null;
 
 	protected $error = null;
+
+	public $_stop = null;
 
 	public $allowActions = array();
 
@@ -61,8 +64,16 @@ class HOF_Class_Controller
 		$this->action = $action;
 
 		$this->output = new HOF_Class_Array($this->output);
+		$this->input = new HOF_Class_Array($this->input);
+
+		$this->_init();
 
 		return $this;
+
+	}
+
+	function _init()
+	{
 
 	}
 
@@ -70,6 +81,11 @@ class HOF_Class_Controller
 	{
 		// bluelovers
 		$this->_main_before();
+
+		if ($this->_stop)
+		{
+			return $this;
+		}
 
 		if (!empty($this->action))
 		{
@@ -87,7 +103,17 @@ class HOF_Class_Controller
 			}
 		}
 
+		if ($this->_stop)
+		{
+			return $this;
+		}
+
 		$this->_main_after();
+
+		if ($this->_stop)
+		{
+			return $this;
+		}
 
 		return $this;
 	}
@@ -105,11 +131,6 @@ class HOF_Class_Controller
 		}
 
 		return $this;
-	}
-
-	function _getTplFile($template)
-	{
-		return $template;
 	}
 
 	protected function _escapeHtml(&$vars)
@@ -132,40 +153,35 @@ class HOF_Class_Controller
 
 		if (!$this->template)
 		{
-			$this->template = BASE_PATH_TPL . $this->controller . '.' . $this->action . '.php';
+			$this->template = $this->controller . '.' . $this->action;
 		}
 
-		// debug new tpl
-		$this->template = $this->_getTplFile($this->template);
+		$this->template = $this->template;
 
 		if ($this->options['escapeHtml'])
 		{
 			$this->_escapeHtml(&$this->output);
 		}
 
-		/*
-		ob_start();
-		$this->_display($this->output);
-		$content = ob_get_contents();
-		ob_end_clean();
-		*/
-		$content = HOF_Class_View::render($this, $this->output, $this->template);
+		$content = HOF_Class_View::render($this, &$this->output, $this->template);
 
 		$content->output();
 
 		return $this;
 	}
 
-	protected function _display($dura)
+	protected function _render($template, $output = null, $content = null)
 	{
-		require $this->template;
+		if ($output !== null)
+		{
+			$content = HOF_Class_View::render($this, $output, $template, $content);
+		}
+		else
+		{
+			$content = HOF_Class_View::render($this, &$this->output, $template, $content);
+		}
 
-		return $this;
-	}
-
-	protected function _render($content, $dura)
-	{
-		echo HOF_Class_View::render($this, $dura, $this->_getTplFile(BASE_PATH_TPL . '/theme.php'), $content);
+		$content->output();
 
 		return $this;
 	}
