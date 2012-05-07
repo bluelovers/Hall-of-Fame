@@ -138,6 +138,7 @@ class main extends HOF_Class_User
 					return 0;
 
 					// 一般モンスター
+					/*
 				case ($_GET["common"]):
 					$this->CharDataLoadAll(); //キャラデータ読む
 					$this->LoadUserItem(); //アイテムデータ読む
@@ -151,6 +152,10 @@ class main extends HOF_Class_User
 						$this->fpCloseAll();
 						$this->MonsterShow();
 					}
+					return 0;
+					*/
+				case ($_GET["common"]):
+					HOF_Class_Controller::newInstance('Battle', 'common')->main();
 					return 0;
 
 					// キャラステ
@@ -1586,152 +1591,10 @@ HTML;
 
 
 
-		//	モンスターの表示
-		function MonsterShow()
-		{
-			$land_id = $_GET["common"];
-
-			// まだ行けないマップなのに行こうとした。
-			if (!array_key_exists($_GET["common"], HOF_Model_Data::getLandAppear($this)))
-			{
-				print ('<div style="margin:15px">not appeared or not exist</div>');
-				return false;
-			}
-			/*
-			list($land, $monster_list) = HOF_Model_Data::getLandInfo($land_id);
-			*/
-			$land_data = HOF_Model_Data::getLandInfo($land_id);
-
-			$land = $land_data['land'];
-			$monster_list = $land_data['monster'];
-
-			if (!$land || !$monster_list)
-			{
-				print ('<div style="margin:15px">fail to load</div>');
-				return false;
-			}
-
-			print ('<div style="margin:15px">');
-			HOF_Helper_Global::ShowError($message);
-			print ('<span class="bold">' . $land["name"] . '</span>');
-			print ('<h4>Teams</h4></div>');
-			print ('<form action="' . INDEX . '?common=' . $_GET["common"] . '" method="post">');
-			$this->ShowCharacters($this->char, "CHECKBOX", $this->party_memo);
+		//
 
 
-?>
-<div style="margin:15px;text-align:center">
-	<input type="submit" class="btn" name="monster_battle" value="Battle !">
-	<input type="reset" class="btn" value="Reset">
-	<br>
-	Save this party:
-	<input type="checkbox" name="memory_party" value="1">
-</div>
-</form>
-<?php
-
-			//			include (DATA_MONSTER);
-			//			include (CLASS_MONSTER);
-			foreach ($monster_list as $id => $val)
-			{
-				if ($val[1]) $monster[] = HOF_Model_Char::newMon($id);
-			}
-			print ('<div style="margin:15px"><h4>MonsterAppearance</h4></div>');
-			$this->ShowCharacters($monster, "MONSTER", $land["land"]);
-		}
-
-
-		//	モンスターとの戦闘
-		function MonsterBattle()
-		{
-			if ($_POST["monster_battle"])
-			{
-				$this->MemorizeParty(); //パーティー記憶
-				// そのマップで戦えるかどうか確認する。
-
-				$land = HOF_Model_Data::getLandAppear($this);
-				if (!array_key_exists($_GET["common"], $land))
-				{
-					HOF_Helper_Global::ShowError("マップが出現して無い", "margin15");
-					return false;
-				}
-
-				// Timeが足りてるかどうか確認する
-				if ($this->time < NORMAL_BATTLE_TIME)
-				{
-					HOF_Helper_Global::ShowError("Time 不足 (必要 Time:" . NORMAL_BATTLE_TIME . ")", "margin15");
-					return false;
-				}
-
-				// bluelovers
-				$MyParty = array();
-				// bluelovers
-
-				// 自分パーティー
-				foreach ($this->char as $key => $val)
-				{ //チェックされたやつリスト
-					if ($_POST["char_" . $key]) $MyParty[] = $this->char[$key];
-				}
-
-				if (count($MyParty) === 0)
-				{
-					HOF_Helper_Global::ShowError('戦闘するには最低1人必要', "margin15");
-					return false;
-				}
-				else
-				{
-					if (5 < count($MyParty))
-					{
-						HOF_Helper_Global::ShowError('戦闘に出せるキャラは5人まで', "margin15");
-						return false;
-					}
-				}
-
-				// bluelovers
-				$MyParty = HOF_Class_Battle_Team::newInstance($MyParty);
-				// bluelovers
-
-				// 敵パーティー(または一匹)
-
-				//	include (DATA_MONSTER);
-				/*
-				list($Land, $MonsterList) = HOF_Model_Data::getLandInfo($_GET["common"]);
-				*/
-
-				$land_data = HOF_Model_Data::getLandInfo($_GET["common"]);
-
-				$Land = $land_data['land'];
-				$MonsterList = $land_data['monster'];
-
-				$EneNum = $this->EnemyNumber($MyParty);
-				$EnemyParty = $this->EnemyParty($EneNum, $MonsterList);
-
-				$this->WasteTime(NORMAL_BATTLE_TIME); //時間の消費
-
-				$battle = new HOF_Class_Battle($MyParty, $EnemyParty);
-				$battle->SetBackGround($Land["land"]); //背景
-				$battle->SetTeamName($this->name, $Land["name"]);
-				$battle->Process(); //戦闘開始
-				$battle->SaveCharacters(); //キャラデータ保存
-				list($UserMoney) = $battle->ReturnMoney(); //戦闘で得た合計金額
-				//お金を増やす
-				$this->GetMoney($UserMoney);
-				//戦闘ログの保存
-				if ($this->record_btl_log) $battle->RecordLog();
-
-				// アイテムを受け取る
-				if ($itemdrop = $battle->ReturnItemGet(0))
-				{
-					$this->LoadUserItem();
-					foreach ($itemdrop as $itemno => $amount) $this->AddItem($itemno, $amount);
-					$this->SaveUserItem();
-				}
-
-				//dump($itemdrop);
-				//dump($this->item);
-				return true;
-			}
-		}
+		//
 
 
 		function ItemProcess()
