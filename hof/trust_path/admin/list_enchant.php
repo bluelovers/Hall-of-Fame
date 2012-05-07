@@ -1,8 +1,5 @@
 <?php
 
-include ("../data/data.create.php");
-include ("../data/data.enchant.php");
-
 list($low, $high) = ItemAbilityPossibility("Sword");
 print ("---------------LOW<br />\n");
 foreach ($low as $enchant)
