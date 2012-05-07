@@ -124,6 +124,7 @@ class main extends HOF_Class_User
 
 					// ユニオン
 				case ($_GET["union"]):
+					/*
 					$this->CharDataLoadAll(); //キャラデータ読む
 
 					if ($this->UnionProcess())
@@ -138,6 +139,8 @@ class main extends HOF_Class_User
 						$this->fpCloseAll();
 						$this->UnionShow();
 					}
+					*/
+					HOF_Class_Controller::newInstance('Battle', 'union')->main();
 					return 0;
 
 					// 一般モンスター
@@ -2010,141 +2013,6 @@ HTML;
 
 		//
 
-		//	Unionモンスターの処理
-		function UnionProcess()
-		{
-
-			if ($this->CanUnionBattle() !== true)
-			{
-				$host = $_SERVER['HTTP_HOST'];
-				$uri = rtrim(dirname($_SERVER['PHP_SELF']));
-				$extra = INDEX;
-				header("Location: http://$host$uri/$extra?hunt");
-				exit;
-			}
-
-			if (!$_POST["union_battle"]) return false;
-			$Union = HOF_Model_Char::newUnionFromFile();
-			// 倒されているか、存在しない場合。
-			if (!$Union->UnionNumber($_GET["union"]) || !$Union->is_Alive())
-			{
-				return false;
-			}
-			// ユニオンモンスターのデータ
-			$UnionMob = HOF_Model_Char::getBaseMonster($Union->MonsterNumber);
-			$this->MemorizeParty(); //パーティー記憶
-			// 自分パーティー
-			foreach ($this->char as $key => $val)
-			{ //チェックされたやつリスト
-				if ($_POST["char_" . $key])
-				{
-					$MyParty[] = $this->char[$key];
-					$TotalLevel += $this->char[$key]->level; //自分PTの合計レベル
-				}
-			}
-			// 合計レベル制限
-			if ($UnionMob["LevelLimit"] < $TotalLevel)
-			{
-				HOF_Helper_Global::ShowError('合計レベルオーバー(' . $TotalLevel . '/' . $UnionMob["LevelLimit"] . ')', "margin15");
-				return false;
-			}
-			if (count($MyParty) === 0)
-			{
-				HOF_Helper_Global::ShowError('戦闘するには最低1人必要', "margin15");
-				return false;
-			}
-			else
-				if (5 < count($MyParty))
-				{
-					HOF_Helper_Global::ShowError('戦闘に出せるキャラは5人まで', "margin15");
-					return false;
-				}
-			if (!$this->WasteTime(UNION_BATTLE_TIME))
-			{
-				HOF_Helper_Global::ShowError('Time Shortage.', "margin15");
-				return false;
-			}
-
-			// 敵PT数
-
-			// ランダム敵パーティー
-			if ($UnionMob["SlaveAmount"]) $EneNum = $UnionMob["SlaveAmount"] + 1; //PTメンバと同じ数だけ。
-			else  $EneNum = 5; // Union含めて5に固定する。
-
-			if ($UnionMob["SlaveSpecify"]) $EnemyParty = $this->EnemyParty($EneNum - 1, $Union->Slave, $UnionMob["SlaveSpecify"]);
-			else  $EnemyParty = $this->EnemyParty($EneNum - 1, $Union->Slave, $UnionMob["SlaveSpecify"]);
-
-			// unionMobを配列のおよそ中央に入れる
-			$EnemyParty->insert(floor(count($EnemyParty) / 2), array($Union));
-
-			$this->UnionSetTime();
-
-			$battle = new HOF_Class_Battle($MyParty, $EnemyParty);
-			$battle->SetUnionBattle();
-			$battle->SetBackGround($Union->UnionLand); //背景
-			//$battle->SetTeamName($this->name,"Union:".$Union->Name());
-			$battle->SetTeamName($this->name, $UnionMob["UnionName"]);
-			$battle->Process(); //戦闘開始
-
-			$battle->SaveCharacters(); //キャラデータ保存
-			list($UserMoney) = $battle->ReturnMoney(); //戦闘で得た合計金額
-			$this->GetMoney($UserMoney); //お金を増やす
-			$battle->RecordLog("UNION");
-			// アイテムを受け取る
-			if ($itemdrop = $battle->ReturnItemGet(0))
-			{
-				$this->LoadUserItem();
-				foreach ($itemdrop as $itemno => $amount) $this->AddItem($itemno, $amount);
-				$this->SaveUserItem();
-			}
-
-			return true;
-		}
-
-		//	Unionモンスターの表示
-		function UnionShow()
-		{
-			if ($this->CanUnionBattle() !== true)
-			{
-				$host = $_SERVER['HTTP_HOST'];
-				$uri = rtrim(dirname($_SERVER['PHP_SELF']));
-				$extra = INDEX;
-				header("Location: http://$host$uri/$extra?hunt");
-				exit;
-			}
-			//if($Result	= $this->UnionProcess())
-			//	return true;
-			print ('<div style="margin:15px">' . "\n");
-			print ("<h4>Union Monster</h4>\n");
-			$Union = HOF_Model_Char::newUnionFromFile();
-			// 倒されているか、存在しない場合。
-			if (!$Union->UnionNumber($_GET["union"]) || !$Union->is_Alive())
-			{
-				HOF_Helper_Global::ShowError("Defeated or not Exists.");
-				return false;
-			}
-			print ('</div>');
-			HOF_Class_Char_View::ShowCharacters(array($Union), false, "sea");
-			print ('<div style="margin:15px">' . "\n");
-			print ("<h4>Teams</h4>\n");
-			print ("</div>");
-			print ('<form action="' . INDEX . '?union=' . $_GET["union"] . '" method="post">');
-			HOF_Class_Char_View::ShowCharacters($this->char, CHECKBOX, $this->party_memo);
-
-
-?>
-	<div style="margin:15px;text-align:center">
-		<input type="submit" class="btn" value="Battle !">
-		<input type="hidden" name="union_battle" value="1">
-		<input type="reset" class="btn" value="Reset">
-		<br>
-		Save this party:
-		<input type="checkbox" name="memory_party" value="1">
-	</div>
-	</form>
-	<?php
-
-		}
 
 		//
 
