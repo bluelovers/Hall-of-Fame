@@ -32,17 +32,20 @@
 					</tr>
 					<tr>
 						<td>開始価格(Start Price) :</td>
-						<td><input type="text" name="StartPrice" class="text" style="width:240px" maxlength="10">
+						<td><input type="text" name="StartPrice" class="text" style="width:240px" maxlength="10"/>
 							<br /></td>
 					</tr>
 					<tr>
 						<td style="text-align:right">コメント(Comment) :</td>
-						<td><input type="text" name="Comment" class="text" style="width:240px" maxlength="40"></td>
+						<td><input type="text" name="Comment" class="text" style="width:240px" maxlength="40"/></td>
 					</tr>
 					<tr>
 						<td></td>
-						<td><input type="submit" class="btn" value="Put Auction" name="PutAuction" style="width:240px"/>
-							<input type="hidden" name="PutAuction" value="1"></td>
+						<td>
+							<input type="submit" class="btn" value="Put Auction" name="PutAuction" style="width:240px"/>
+							<input type="hidden" name="PutAuction" value="1"/>
+							<input type="hidden" name="_timestamp" value="<?php e($this->get('form._timestamp', REQUEST_TIME)) ?>"/>
+						</td>
 					</tr>
 				</table>
 			</form>
