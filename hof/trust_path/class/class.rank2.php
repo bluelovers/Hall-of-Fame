@@ -212,7 +212,7 @@ class Ranking
 
 		//dump($Party_Challenger);
 		//dump($Party_Defender);
-		include (CLASS_BATTLE);
+
 		$battle = new HOF_Class_Battle($Party_Challenger, $Party_Defender);
 		$battle->SetBackGround("colosseum");
 		$battle->SetResultType(1); // 決着つかない場合は生存者の数で決めるようにする
