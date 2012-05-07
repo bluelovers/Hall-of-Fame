@@ -203,6 +203,8 @@ class main extends HOF_Class_User
 					$this->ShopShow();
 					return 0;
 					*/
+
+					/*
 					// ショップ(買う)
 				case ($_GET["menu"] === "buy"):
 					$this->LoadUserItem(); //アイテムデータ読む
@@ -220,13 +222,19 @@ class main extends HOF_Class_User
 					$this->fpCloseAll();
 					$this->ShopSellShow();
 					return 0;
-
 					// ショップ(働く)
 				case ($_GET["menu"] === "work"):
 					$this->ShopHeader();
 					if ($this->WorkProcess()) $this->SaveData();
 					$this->fpCloseAll();
 					$this->WorkShow();
+					return 0;
+					*/
+				case ($_GET["menu"] === "buy"):
+				case ($_GET["menu"] === "sell"):
+				case ($_GET["menu"] === "work"):
+					HOF_Class_Controller::newInstance('shop', $_GET["menu"])->main();
+
 					return 0;
 
 					// ランキング
@@ -1830,35 +1838,7 @@ HTML;
 			print ("</div></div>");
 		}
 		//////////////////////////////////////////////////
-		//	店ヘッダ
-		function ShopHeader()
-		{
-
-
-?>
-	<div style="margin:15px">
-		<h4>店</h4>
-		<div style="width:600px">
-			<div style="float:left;width:50px;">
-				<img src="<?php
-
-			echo HOF_Class_Icon::getImageUrl('ori_002', IMG_CHAR);
-
-
-?>" />
-			</div>
-			<div style="float:right;width:550px;">
-				いらっしゃいませー<br />
-				<a href="?menu=buy">買う</a>/<a href="?menu=sell">売る</a><br />
-				<a href="?menu=work">アルバイト</a>
-			</div>
-			<div style="clear:both">
-			</div>
-		</div>
-	</div>
-	<?php
-
-		}
+		//
 		//////////////////////////////////////////////////
 		//
 		function ShopProcess()
@@ -2058,256 +2038,9 @@ HTML;
 		}
 
 		//////////////////////////////////////////////////
-		function ShopBuyProcess()
-		{
-			//dump($_POST);
-			if (!$_POST["ItemBuy"]) return false;
 
-			print ("<div style=\"margin:15px\">");
-			print ("<table cellspacing=\"0\">\n");
-			print ('<tr><td class="td6" style="text-align:center">値段</td>' . '<td class="td6" style="text-align:center">数</td>' . '<td class="td6" style="text-align:center">計</td>' . '<td class="td6" style="text-align:center">アイテム</td></tr>' . "\n");
-			$moneyNeed = 0;
-			$ShopList = HOF_Model_Data::getShopList();
-			foreach ($ShopList as $itemNo)
-			{
-				if (!$_POST["check_" . $itemNo]) continue;
-				$item = HOF_Model_Data::getItemData($itemNo);
-				if (!$item) continue;
-				$amount = (int)$_POST["amount_" . $itemNo];
-				if ($amount < 0) $amount = 0;
-
-				//print("$itemNo x $Deleted<br>");
-				$buyPrice = $item["buy"];
-				$Total = $amount * $buyPrice;
-				$moneyNeed += $Total;
-				print ("<tr><td class=\"td7\">");
-				print (HOF_Helper_Global::MoneyFormat($buyPrice) . "\n");
-				print ("</td><td class=\"td7\">");
-				print ("x {$amount}\n");
-				print ("</td><td class=\"td7\">");
-				print ("= " . HOF_Helper_Global::MoneyFormat($Total) . "\n");
-				print ("</td><td class=\"td8\">");
-				print (HOF_Class_Item::ShowItemDetail($item) . "\n");
-				print ("</td></tr>\n");
-				$this->AddItem($itemNo, $amount);
-			}
-			print ("<tr><td colspan=\"4\" class=\"td8\">合計 : " . HOF_Helper_Global::MoneyFormat($moneyNeed) . "</td></tr>");
-			print ("</table>\n");
-			print ("</div>");
-			if ($this->TakeMoney($moneyNeed))
-			{
-				$this->SaveUserItem();
-				return true;
-			}
-			else
-			{
-				HOF_Helper_Global::ShowError("お金が足りません", "margin15");
-				return false;
-			}
-		}
 		//////////////////////////////////////////////////
-		function ShopBuyShow()
-		{
-			print ('<div style="margin:15px">' . "\n");
-			print ("<h4>買う</h4>\n");
-
-			print <<< JS_HTML
-<script type="text/javascript">
-<!--
-function toggleCSS(id) {
-	\$('#i'+id+'a').parent('tr').find('td').toggleClass('tdToggleBg').find('#text_'+id).focus();
-}
-function toggleCheckBox(id) {
-	\$(':checkbox[name=check_'+id+']').prop('checked', function (index, oldPropertyValue){
-		if (!oldPropertyValue) \$('#text_'+id).focus();
-
-		return !oldPropertyValue;
-	});
-	toggleCSS(id);
-}
-// -->
-</script>
-JS_HTML;
-
-			print ('<form action="?menu=buy" method="post">' . "\n");
-			print ("<table cellspacing=\"0\">\n");
-			print ('<tr><td class="td6"></td>' . '<td style="text-align:center" class="td6">値段</td>' . '<td style="text-align:center" class="td6">数</td>' . '<td style="text-align:center" class="td6">アイテム</td></tr>' . "\n");
-			$ShopList = HOF_Model_Data::getShopList();
-			foreach ($ShopList as $itemNo)
-			{
-				$item = HOF_Model_Data::getItemData($itemNo);
-				if (!$item) continue;
-				print ("<tr><td class=\"td7\" id=\"i{$itemNo}a\">\n");
-				print ('<input type="checkbox" name="check_' . $itemNo . '" value="1" onclick="toggleCSS(\'' . $itemNo . '\')">' . "\n");
-				print ("</td><td class=\"td7\" id=\"i{$itemNo}b\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
-				// 買値
-				$price = $item["buy"];
-				print (HOF_Helper_Global::MoneyFormat($price));
-				print ("</td><td class=\"td7\" id=\"i{$itemNo}c\">\n");
-				print ('<input type="text" id="text_' . $itemNo . '" name="amount_' . $itemNo . '" value="1" style="width:60px" class="text">' . "\n");
-				print ("</td><td class=\"td8\" id=\"i{$itemNo}d\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
-				print (HOF_Class_Item::ShowItemDetail($item));
-				print ("</td></tr>\n");
-			}
-			print ("</table>\n");
-			print ('<input type="submit" name="ItemBuy" value="Buy" class="btn">' . "\n");
-			print ("</form>\n");
-
-			print ("</div>\n");
-		}
-		//////////////////////////////////////////////////
-		function ShopSellProcess()
-		{
-			//dump($_POST);
-			if (!$_POST["ItemSell"]) return false;
-
-			$GetMoney = 0;
-			print ("<div style=\"margin:15px\">");
-			print ("<table cellspacing=\"0\">\n");
-			print ('<tr><td class="td6" style="text-align:center">売値</td>' . '<td class="td6" style="text-align:center">数</td>' . '<td class="td6" style="text-align:center">計</td>' . '<td class="td6" style="text-align:center">アイテム</td></tr>' . "\n");
-			foreach ($this->item as $itemNo => $amountHave)
-			{
-				if (!$_POST["check_" . $itemNo]) continue;
-				$item = HOF_Model_Data::getItemData($itemNo);
-				if (!$item) continue;
-				$amount = (int)$_POST["amount_" . $itemNo];
-				if ($amount < 0) $amount = 0;
-				$Deleted = $this->DeleteItem($itemNo, $amount);
-				//print("$itemNo x $Deleted<br>");
-				$sellPrice = ItemSellPrice($item);
-				$Total = $Deleted * $sellPrice;
-				$getMoney += $Total;
-				print ("<tr><td class=\"td7\">");
-				print (HOF_Helper_Global::MoneyFormat($sellPrice) . "\n");
-				print ("</td><td class=\"td7\">");
-				print ("x {$Deleted}\n");
-				print ("</td><td class=\"td7\">");
-				print ("= " . HOF_Helper_Global::MoneyFormat($Total) . "\n");
-				print ("</td><td class=\"td8\">");
-				print (HOF_Class_Item::ShowItemDetail($item) . "\n");
-				print ("</td></tr>\n");
-			}
-			print ("<tr><td colspan=\"4\" class=\"td8\">合計 : " . HOF_Helper_Global::MoneyFormat($getMoney) . "</td></tr>");
-			print ("</table>\n");
-			print ("</div>");
-			$this->SaveUserItem();
-			$this->GetMoney($getMoney);
-			return true;
-		}
-		//////////////////////////////////////////////////
-		function ShopSellShow()
-		{
-			print ('<div style="margin:15px">' . "\n");
-			print ("<h4>売る</h4>\n");
-
-			print <<< JS_HTML
-<script type="text/javascript">
-<!--
-function toggleCSS(id) {
-	\$('#i'+id+'a').parent('tr').find('td').toggleClass('tdToggleBg').find('#text_'+id).focus();
-}
-function toggleCheckBox(id) {
-	\$(':checkbox[name=check_'+id+']').prop('checked', function (index, oldPropertyValue){
-		if (!oldPropertyValue) \$('#text_'+id).focus();
-
-		return !oldPropertyValue;
-	});
-	toggleCSS(id);
-}
-// -->
-</script>
-JS_HTML;
-
-			print ('<form action="?menu=sell" method="post">' . "\n");
-			print ("<table cellspacing=\"0\">\n");
-			print ('<tr><td class="td6"></td>' . '<td style="text-align:center" class="td6">売値</td>' . '<td style="text-align:center" class="td6">数</td>' . '<td style="text-align:center" class="td6">アイテム</td></tr>' . "\n");
-			foreach ($this->item as $itemNo => $amount)
-			{
-				$item = HOF_Model_Data::getItemData($itemNo);
-				if (!$item) continue;
-				print ("<tr><td class=\"td7\" id=\"i{$itemNo}a\">\n");
-				print ('<input type="checkbox" name="check_' . $itemNo . '" value="1" onclick="toggleCSS(\'' . $itemNo . '\')">' . "\n");
-				print ("</td><td class=\"td7\" id=\"i{$itemNo}b\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
-				// 売値
-				$price = ItemSellPrice($item);
-				print (HOF_Helper_Global::MoneyFormat($price));
-				print ("</td><td class=\"td7\" id=\"i{$itemNo}c\">\n");
-				print ('<input type="text" id="text_' . $itemNo . '" name="amount_' . $itemNo . '" value="' . $amount . '" style="width:60px" class="text">' . "\n");
-				print ("</td><td class=\"td8\" id=\"i{$itemNo}d\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
-				print (HOF_Class_Item::ShowItemDetail($item, $amount));
-				print ("</td></tr>\n");
-			}
-			print ("</table>\n");
-			print ('<input type="submit" name="ItemSell" value="Sell" class="btn" />' . "\n");
-			print ('<input type="hidden" name="ItemSell" value="1" />' . "\n");
-			print ("</form>\n");
-
-			print ("</div>\n");
-		}
-		//////////////////////////////////////////////////
-		//	アルバイト処理
-		function WorkProcess()
-		{
-			if ($_POST["amount"])
-			{
-				$amount = (int)$_POST["amount"];
-				// 1以上10以下
-				if (0 < $amount && $amount < 11)
-				{
-					$time = $amount * 100;
-					$money = $amount * 500;
-					if ($this->WasteTime($time))
-					{
-						ShowResult(HOF_Helper_Global::MoneyFormat($money) . " げっとした！", "margin15");
-						$this->GetMoney($money);
-						return true;
-					}
-					else
-					{
-						HOF_Helper_Global::ShowError("時間が足りません。", "margin15");
-						return false;
-					}
-				}
-			}
-		}
-		//////////////////////////////////////////////////
-		//	アルバイト表示
-		function WorkShow()
-		{
-
-
-?>
-	<div style="margin:15px">
-		<h4>アルバイトする！</h4>
-		<form method="post" action="?menu=work">
-			<p>1回 100Time<br />
-				給与 :
-				<?=
-
-			HOF_Helper_Global::MoneyFormat(500)
-
-
-?>
-				/回</p>
-			<select name="amount">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-				<option value="6">6</option>
-				<option value="7">7</option>
-				<option value="8">8</option>
-				<option value="9">9</option>
-				<option value="10">10</option>
-			</select>
-			<br />
-			<input type="submit" value="Work" class="btn" />
-		</form>
-	</div>
-	<?php
-
-		}
+		//
 		//////////////////////////////////////////////////
 		function RankProcess(&$Ranking)
 		{
