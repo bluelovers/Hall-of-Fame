@@ -65,7 +65,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			}
 
 			ob_start();
-			$this->user->ShowCharacters($Union);
+			HOF_Class_Char_View::ShowCharacters($Union);
 			$union_showchar = ob_get_clean();
 
 		}
@@ -106,25 +106,44 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		$this->input->monster_battle = HOF::$input->post->monster_battle;
 		$this->input->common = HOF::$input->request['common'];
 
+		$this->output['battle.target.id'] = $this->input->common;
+		$this->output['battle.target.from.action'] = INDEX . '?common=' . $this->output['battle.target.id'];
+
 		$this->user->CharDataLoadAll();
 
 		if ($this->_check_land())
 		{
+			$land_data = HOF_Model_Data::getLandInfo($this->input->common);
+			$land = $land_data['land'];
+
 			if ($this->_cache['MonsterBattle'] = $this->MonsterBattle())
 			{
 				$this->user->SaveData();
 			}
+			else
+			{
+				$monster_list = $land_data['monster'];
+
+				foreach ($monster_list as $id => $val)
+				{
+					if ($val[1]) $monster[] = HOF_Model_Char::newMon($id);
+				}
+
+				ob_start();
+
+				HOF_Class_Char_View::ShowCharacters($monster, "MONSTER", $land["land"]);
+
+				$this->output->monster_show = ob_get_clean();
+			}
+
+			$this->output->land = $land;
 		}
+
+		$this->output->monster_battle = $this->_cache['MonsterBattle'];
 
 		$this->user->fpCloseAll();
-	}
 
-	function _common()
-	{
-		if (!$this->_cache['MonsterBattle'] && !$this->error)
-		{
-			$this->MonsterShow();
-		}
+		$this->options['escapeHtml'] = false;
 	}
 
 	function _error($s, $a = null)
@@ -235,51 +254,6 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		}
 
 		return true;
-	}
-
-	/**
-	 * モンスターの表示
-	 */
-	function MonsterShow()
-	{
-		$land_id = $this->input->common;
-
-		$land_data = HOF_Model_Data::getLandInfo($land_id);
-
-		$land = $land_data['land'];
-		$monster_list = $land_data['monster'];
-
-		if (!$land || !$monster_list)
-		{
-			print ('<div style="margin:15px">fail to load</div>');
-			return false;
-		}
-
-		print ('<div style="margin:15px">');
-		print ('<span class="bold">' . $land["name"] . '</span>');
-		print ('<h4>Teams</h4></div>');
-		print ('<form action="' . INDEX . '?common=' . $this->input->common . '" method="post">');
-		$this->user->ShowCharacters($this->user->char, "CHECKBOX", $this->user->party_memo);
-
-?>
-<div style="margin:15px;text-align:center">
-	<input type="submit" class="btn" name="monster_battle" value="Battle !">
-	<input type="reset" class="btn" value="Reset">
-	<br>
-	Save this party:
-	<input type="checkbox" name="memory_party" value="1">
-</div>
-</form>
-<?php
-
-		//			include (DATA_MONSTER);
-		//			include (CLASS_MONSTER);
-		foreach ($monster_list as $id => $val)
-		{
-			if ($val[1]) $monster[] = HOF_Model_Char::newMon($id);
-		}
-		print ('<div style="margin:15px"><h4>MonsterAppearance</h4></div>');
-		$this->user->ShowCharacters($monster, "MONSTER", $land["land"]);
 	}
 
 }
