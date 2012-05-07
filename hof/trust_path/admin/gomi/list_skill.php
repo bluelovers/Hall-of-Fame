@@ -1,8 +1,6 @@
 
 <?php
 
-include ("./data.skill.php");
-
 //print("<table><tbody>");
 
 for ($no = 1000; $no < 10000; $no++)
