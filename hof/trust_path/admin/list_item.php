@@ -31,7 +31,6 @@ td{
 <body>
 <?php
 
-include ("../data/data.item.php");
 print ("<table cellspacing=\"1\"><tbody>");
 $img_f = "../static/image/icon/";
 $des = '<tr><td class="a">no</td>
