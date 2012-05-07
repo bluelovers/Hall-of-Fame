@@ -95,9 +95,14 @@ class main extends HOF_Class_User
 
 					// 街
 				case ($_SERVER["QUERY_STRING"] === "town"):
+					/*
 					$this->LoadUserItem(); //アイテムデータ読む
 					$this->fpCloseAll();
 					$this->TownShow();
+					*/
+
+					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
+
 					return 0;
 
 					// シミュれ
@@ -2837,102 +2842,10 @@ JS_HTML;
 
 		}
 		//////////////////////////////////////////////////
-		//	町の表示
-		function TownShow()
-		{
-
-			print ('<div style="margin:15px">' . "\n");
-			print ("<h4>街</h4>");
-			print ('<div class="town">' . "\n");
-			print ("<ul>\n");
-			$PlaceList = HOF_Model_Data::getTownAppear($this);
-			// 店
-			if ($PlaceList["Shop"])
-			{
-
-
-?>
-	<li>
-		店(Shop)
-		<ul>
-			<li>
-				<a href="?menu=buy">買う(Buy)</a>
-			</li>
-			<li>
-				<a href="?menu=sell">売る(Sell)</a>
-			</li>
-			<li>
-				<a href="?menu=work">アルバイト</a>
-			</li>
-		</ul>
-	</li>
-	<?php
-
-			}
-			// 斡旋所
-			if ($PlaceList["Recruit"]) print ("<li><p><a href=\"?recruit\">人材斡旋所(Recruit)</a></p></li>");
-			// 鍛冶屋
-			if ($PlaceList["Smithy"])
-			{
-
-
-?>
-	<li>
-		鍛冶屋(Smithy)
-		<ul>
-			<li>
-				<a href="?menu=refine">精錬工房(Refine)</a>
-			</li>
-			<li>
-				<a href="?menu=create">製作工房(Create)</a>
-			</li>
-		</ul>
-	</li>
-	<?php
-
-			}
-			// オークション会場
-			if ($PlaceList["Auction"] && AUCTION_TOGGLE) print ("<li><a href=\"?menu=auction\">オークション会場(Auction)</li>");
-			// コロシアム
-			if ($PlaceList["Colosseum"]) print ("<li><a href=\"?menu=rank\">コロシアム(Colosseum)</a></li>");
-			print ("</ul>\n");
-			print ("</div>\n");
-			print ("<h4>広場</h4>");
-			$this->TownBBS();
-			print ("</div>\n");
-		}
+		//
 
 		//////////////////////////////////////////////////
-		//	普通の1行掲示板
-		function TownBBS()
-		{
-			$file = BBS_TOWN;
-
-
-?>
-	<form action="?town" method="post">
-		<input type="text" maxlength="60" name="message" class="text" style="width:300px"/>
-		<input type="submit" value="post" class="btn" style="width:100px" />
-	</form>
-	<?php
-
-			if (!file_exists($file)) return false;
-			$log = file($file);
-			if ($_POST["message"] && strlen($_POST["message"]) < 121)
-			{
-				$_POST["message"] = htmlspecialchars($_POST["message"], ENT_QUOTES);
-				$_POST["message"] = stripslashes($_POST["message"]);
-
-				$name = "<span class=\"bold\">{$this->name}</span>";
-				$message = $name . " > " . $_POST["message"];
-				if ($this->UserColor) $message = "<span style=\"color:{$this->UserColor}\">" . $message . "</span>";
-				$message .= " <span class=\"light\">(" . gc_date("Mj G:i") . ")</span>\n";
-				array_unshift($log, $message);
-				while (50 < count($log)) array_pop($log);
-				HOF_Class_File::WriteFile($file, implode(null, $log));
-			}
-			foreach ($log as $mes) print (nl2br($mes));
-		}
+		//
 		//////////////////////////////////////////////////
 		function SettingProcess()
 		{
