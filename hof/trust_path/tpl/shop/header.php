@@ -1,18 +1,12 @@
 
 	<!-- 店ヘッダ -->
 
-	<div style="margin:15px">
-		<h4>店</h4>
-		<div style="width:600px">
-			<div style="float:left;width:50px;">
-				<img src="<?php e(HOF_Class_Icon::getImageUrl('ori_002', HOF_Class_Icon::IMG_CHAR)); ?>" />
-			</div>
-			<div style="float:right;width:550px;">
+	<?php $this->set('npc.talk.title', '店') ?>
+	<?php $this->set('npc.talk.no', $this->get('npc_no', 'ori_002')) ?>
+	<?php ob_start(); ?>
 				いらっしゃいませー<br />
 				<a href="?menu=buy">買う</a>/<a href="?menu=sell">売る</a><br />
 				<a href="?menu=work">アルバイト</a>
-			</div>
-			<div style="clear:both">
-			</div>
-		</div>
-	</div>
+	<?php $content = ob_get_clean(); ?>
+
+	<?php e($this->slot('layout/npc.talk.1', $content)) ?>
