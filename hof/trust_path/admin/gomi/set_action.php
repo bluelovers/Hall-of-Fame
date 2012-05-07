@@ -46,7 +46,7 @@ if ($_POST["MobNumber"])
 	$no	= $_POST["MobNumber"];
 	unset($_POST);
 	$_POST["MobNumber"]	= $no;*/
-	//include ("./data.monster.php");
+
 	if ($monster = HOF_Model_Char::getBaseMonster($_POST["MobNumber"]))
 	{
 		echo "<h3 style=\"color:333333\"><img src=\"../static/image/char/{$monster[img]}\" />$monster[name]({$_POST[MobNumber]})</h3>";
@@ -86,9 +86,6 @@ if ($_POST["Make"])
 <form action="?" method="post">
 <table border="0" cellspacing="1"><tbody>
 <?php
-
-include ("./data.skill.php");
-include ("./data.judge_setup.php");
 
 for ($i = 0; $i < 15; $i++)
 {
