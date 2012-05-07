@@ -13,6 +13,8 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	 */
 	var $user;
 
+	protected $_cache;
+
 	function _init()
 	{
 		$this->user = &HOF_Model_Main::getInstance();
@@ -23,6 +25,8 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		$this->_input();
 
 		$this->user->LoadUserItem();
+
+		$this->_cache['lands'] = HOF_Model_Data::getLandAppear($this->user);
 	}
 
 	function _input()
@@ -36,7 +40,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	 */
 	function _main_action_hunt()
 	{
-		$mapList = HOF_Model_Data::getLandAppear($this->user);
+		$mapList = $this->_cache['lands'];
 
 		$Union = array();
 
@@ -99,28 +103,34 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	 */
 	function _main_action_common()
 	{
-		$this->input->monster_battle = HOF::$input->post['monster_battle'];
+		$this->input->monster_battle = HOF::$input->post->monster_battle;
 		$this->input->common = HOF::$input->request['common'];
 
 		$this->user->CharDataLoadAll();
 
-		if ($this->_cache['MonsterBattle'] = $this->MonsterBattle())
+		if ($this->_check_land())
 		{
-			$this->user->SaveData();
-			$this->user->fpCloseAll();
+			if ($this->_cache['MonsterBattle'] = $this->MonsterBattle())
+			{
+				$this->user->SaveData();
+			}
 		}
-		else
-		{
-			$this->user->fpCloseAll();
-		}
+
+		$this->user->fpCloseAll();
 	}
 
 	function _common()
 	{
-		if (!$this->_cache['MonsterBattle'])
+		if (!$this->_cache['MonsterBattle'] && !$this->error)
 		{
 			$this->MonsterShow();
 		}
+	}
+
+	function _error($s, $a = null)
+	{
+		$this->output->error[] = array($s, $a);
+		$this->error[] = $s;
 	}
 
 	/**
@@ -133,17 +143,12 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			$this->user->MemorizeParty(); //パーティー記憶
 			// そのマップで戦えるかどうか確認する。
 
-			$land = HOF_Model_Data::getLandAppear($this->user);
-			if (!array_key_exists($this->input->common, $land))
-			{
-				HOF_Helper_Global::ShowError("マップが出現して無い", "margin15");
-				return false;
-			}
+			$land = $this->_cache['lands'];
 
 			// Timeが足りてるかどうか確認する
 			if ($this->user->time < NORMAL_BATTLE_TIME)
 			{
-				HOF_Helper_Global::ShowError("Time 不足 (必要 Time:" . NORMAL_BATTLE_TIME . ")", "margin15");
+				$this->_error("Time 不足 (必要 Time:" . NORMAL_BATTLE_TIME . ")", "margin15");
 				return false;
 			}
 
@@ -159,14 +164,14 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 			if (count($MyParty) === 0)
 			{
-				HOF_Helper_Global::ShowError('戦闘するには最低1人必要', "margin15");
+				$this->_error('戦闘するには最低1人必要', "margin15");
 				return false;
 			}
 			else
 			{
 				if (5 < count($MyParty))
 				{
-					HOF_Helper_Global::ShowError('戦闘に出せるキャラは5人まで', "margin15");
+					$this->_error('戦闘に出せるキャラは5人まで', "margin15");
 					return false;
 				}
 			}
@@ -218,23 +223,27 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	}
 
 	/**
+	 * まだ行けないマップなのに行こうとした。
+	 */
+	function _check_land()
+	{
+		if (!array_key_exists($this->input->common, $this->_cache['lands']))
+		{
+			$this->_error('マップが出現して無い (not appeared or not exist)', 'margin15');
+
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * モンスターの表示
 	 */
 	function MonsterShow()
 	{
 		$land_id = $this->input->common;
 
-		var_dump($this->input);
-
-		// まだ行けないマップなのに行こうとした。
-		if (!array_key_exists($this->input->common, HOF_Model_Data::getLandAppear($this->user)))
-		{
-			print ('<div style="margin:15px">not appeared or not exist</div>'.$this->input->common);
-			return false;
-		}
-		/*
-		list($land, $monster_list) = HOF_Model_Data::getLandInfo($land_id);
-		*/
 		$land_data = HOF_Model_Data::getLandInfo($land_id);
 
 		$land = $land_data['land'];
@@ -247,12 +256,10 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		}
 
 		print ('<div style="margin:15px">');
-		HOF_Helper_Global::ShowError($message);
 		print ('<span class="bold">' . $land["name"] . '</span>');
 		print ('<h4>Teams</h4></div>');
 		print ('<form action="' . INDEX . '?common=' . $this->input->common . '" method="post">');
 		$this->user->ShowCharacters($this->user->char, "CHECKBOX", $this->user->party_memo);
-
 
 ?>
 <div style="margin:15px;text-align:center">

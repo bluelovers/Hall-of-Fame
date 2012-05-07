@@ -42,6 +42,11 @@ class HOF_Class_Request extends HOF_Class_Array
 			}
 
 			$input['request'] = array_merge(array(), (array)$input['get'], (array)$input['post']);
+
+			foreach ($input as $k => $v)
+			{
+				$input[$k] = new self($v);
+			}
 		}
 
 		$this->exchangeArray($input);
