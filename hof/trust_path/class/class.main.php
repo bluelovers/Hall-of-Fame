@@ -1969,7 +1969,7 @@ HTML;
 		</div>
 		<?php
 
-			HOF_Class_Char_View::ShowCharacters($this->char, CHECKBOX, explode("<>", $this->party_rank));
+			HOF_Class_Char_View::ShowCharacters($this->char, CHECKBOX, $this->party_rank);
 
 
 ?>
