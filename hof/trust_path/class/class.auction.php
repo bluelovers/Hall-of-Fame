@@ -232,13 +232,13 @@ class Auction
 		// IPが同じ
 		if ($Article["IP"] == $_SERVER[REMOTE_ADDR])
 		{
-			ShowError("IP制限.");
+			HOF_Helper_Global::ShowError("IP制限.");
 			return false;
 		}
 		// 携帯端末を禁止する。
 		if (isMobile == "i")
 		{
-			ShowError("mobile forbid.");
+			HOF_Helper_Global::ShowError("mobile forbid.");
 			return false;
 		}
 		// 最低入札価格を割っている場合
