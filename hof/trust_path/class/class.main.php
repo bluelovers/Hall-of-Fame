@@ -2944,7 +2944,7 @@ JS_HTML;
 			}
 
 			// 作れるアイテムかどうかたしかめる
-			if (!HaveNeeds($item, $this->item))
+			if (!HOF_Class_Item_Create::HaveNeeds($item, $this->item))
 			{
 				HOF_Helper_Global::ShowError($item["name"] . " を製作する素材が足りません。");
 				return false;
@@ -3000,7 +3000,7 @@ JS_HTML;
 		{
 			//$result	= $this->SmithyCreateProcess();
 
-			$CanCreate = CanCreate($this);
+			$CanCreate = HOF_Class_Item_Create::CanCreate($this);
 
 			$CreateList = new HOF_Class_Item_Style_List();
 			$CreateList->SetID("create");
@@ -3014,7 +3014,7 @@ JS_HTML;
 			foreach ($CanCreate as $item_no)
 			{
 				$item = HOF_Model_Data::getItemData($item_no);
-				if (!HaveNeeds($item, $this->item)) // 素材不足なら次
+				if (!HOF_Class_Item_Create::HaveNeeds($item, $this->item)) // 素材不足なら次
  						continue;
 				// NoTable
 				//$head	= '<input type="radio" name="ItemNo" value="'.$item_no.'">'.HOF_Class_Item::ShowItemDetail($item,false,1,$this->item)."<br />";
