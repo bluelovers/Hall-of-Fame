@@ -7,6 +7,9 @@
 
 /**
  *
+ * @method void setFlags
+ * @method void exchangeArray
+ *
  * @example
  * $a = new Dura_Class_Array();
 
