@@ -1,5 +1,4 @@
 @charset "utf-8";
-
 /* CSS Document
 Elements CSS Framework by Ben Henschel
 Blueprint CSS Framework 0.9
@@ -11,10 +10,7 @@ Mass Reset*/
 	margin: 0;
 	padding: 0;
 }
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dd, dl, dt, li, ol, ul, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, dialog, figure, footer, header,
-hgroup, menu, nav, section,
-time, mark, audio, video {
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dd, dl, dt, li, ol, ul, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, dialog, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
 	background:transparent;
 	margin:0;
 	padding:0;
@@ -25,9 +21,7 @@ time, mark, audio, video {
 	font-family:inherit;
 	font-size:100%;
 	white-space: normal;
-	word-break: break-all;
-
-	/*
+	word-break: break-all;/*
 	text-align:left;
 	vertical-align:inherit;
 	*/
@@ -35,7 +29,6 @@ time, mark, audio, video {
 html {
 	overflow: auto;
 	height:auto;
-
 	border:0;
 	outline:0;
 }
@@ -49,42 +42,43 @@ body {
 	line-height:1.33em;
 	overflow: visible;
 	height:100%;
-
 	vertical-align:text-bottom;
-	*vertical-align: baseline;
+ *vertical-align: baseline;
 }
-
 /* 52framework */
-article, aside, dialog, figure, footer, header, hgroup, nav, section { display:block; }
-
-blockquote, q { quotes:none; }
-
+article, aside, dialog, figure, footer, header, hgroup, nav, section {
+	display:block;
+}
+blockquote, q {
+	quotes:none;
+}
 blockquote:before, blockquote:after, q:before, q:after {
 	content: '';
 	content: none;
 }
-
-:focus { outline:0; }
-
+:focus {
+	outline:0;
+}
 table {
 	border-collapse:collapse;
 	border-spacing:0;
 }
-table caption, table th { text-align: center; }
-table, th, td {vertical-align:middle;}
-
+table caption, table th {
+	text-align: center;
+}
+table, th, td {
+	vertical-align:middle;
+}
 a img {
 	/* 這個選取器會移除某些瀏覽器在影像由連結所圍繞時，影像周圍所顯示的預設藍色邊框 */
 	border:none;
 }
-
 /* ~~ 網站連結的樣式設定必須保持此順序，包括建立滑過 (Hover) 效果的選取器群組在內。~~ */
 a {
 	text-decoration: underline;
 	/* 除非您要設定非常獨特的連結樣式，否則最好提供底線，以便快速看出 */
 
 	cursor:pointer;
-
 	/* 52framework */
 	vertical-align:baseline;
 }
@@ -92,14 +86,27 @@ a:hover, a:active, a:focus {
 	/* 這個選取器群組可以讓使用鍵盤導覽的使用者，也和使用滑鼠的使用者一樣擁有相同的滑過體驗。 */
 	text-decoration: none;
 }
-
-html { font-size:100.01%; }
-h1 { font-size:1.9em; }
-h2 { font-size:1.7em; }
-h3 { font-size:1.5em; }
-h4 { font-size:1.3em; }
-h5 { font-size:1.2em; }
-h6 { font-size:1em; }
+html {
+	font-size:100.01%;
+}
+h1 {
+	font-size:1.9em;
+}
+h2 {
+	font-size:1.7em;
+}
+h3 {
+	font-size:1.5em;
+}
+h4 {
+	font-size:1.3em;
+}
+h5 {
+	font-size:1.2em;
+}
+h6 {
+	font-size:1em;
+}
 h1, h2, h3, h4, h5, h6 {
 	line-height:1.75em;
 	margin-bottom:0.1em;
@@ -108,23 +115,51 @@ h1, h2, h3, h4, h5, h6 {
 	margin-right: 0.25em;
 	margin-left: 0.25em;
 }
-strong, th, thead td, b { font-weight:bold; }
-blockquote, ul, ol, dl { margin:1em; }
-ol, ul, dl { margin-left:2em; }
-ol li { list-style: decimal outside; }
-ul li { list-style: disc outside; }
-ul, ol, dl, dd { margin-left:30px; }
-dt { font-weight:bold; }
-ul, ol { margin-bottom:.7em; }
-ul { list-style:disc; }
-ol { list-style:decimal; }
-ins { text-decoration:none; }
-del { text-decoration:line-through; }
-cite, em, dfn { font-style: italic; }
-
-dfn { font-weight:bold; }
-
-code, kbd, samp, pre, tt, var { font-family: 'andale mono', "Bitstream Vera Sans Mono", 'lucida console', "Courier New", Courier, monospace; }
+strong, th, thead td, b {
+	font-weight:bold;
+}
+blockquote, ul, ol, dl {
+	margin:1em;
+}
+ol, ul, dl {
+	margin-left:2em;
+}
+ol li {
+	list-style: decimal outside;
+}
+ul li {
+	list-style: disc outside;
+}
+ul, ol, dl, dd {
+	margin-left:30px;
+}
+dt {
+	font-weight:bold;
+}
+ul, ol {
+	margin-bottom:.7em;
+}
+ul {
+	list-style:disc;
+}
+ol {
+	list-style:decimal;
+}
+ins {
+	text-decoration:none;
+}
+del {
+	text-decoration:line-through;
+}
+cite, em, dfn {
+	font-style: italic;
+}
+dfn {
+	font-weight:bold;
+}
+code, kbd, samp, pre, tt, var {
+	font-family: 'andale mono', "Bitstream Vera Sans Mono", 'lucida console', "Courier New", Courier, monospace;
+}
 pre, code {
 	width:inherit;
 	word-break: break-all;
@@ -132,34 +167,44 @@ pre, code {
 	white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
 	white-space: -pre-wrap;      /* Opera 4-6 */
 	white-space: -o-pre-wrap;    /* Opera 7 */
-	*white-space: pre;           /* IE */
+ *white-space: pre;           /* IE */
 	word-wrap: break-word;       /* Internet Explorer 5.5+ */
 }
-small, sup, sub { font-size: 85%; }
+small, sup, sub {
+	font-size: 85%;
+}
 abbr, acronym {
 	text-transform: uppercase;
 	font-size: 85%;
 	letter-spacing: .1em;
-
 	border-bottom:1px dashed #CCC;
 }
-a abbr, a acronym { border: none; }
+a abbr, a acronym {
+	border: none;
+}
 abbr[title], acronym[title], dfn[title] {
 	cursor: help;
 	border-bottom: 1px dashed #666;
 }
-sup { vertical-align: super; }
-sub { vertical-align: sub; }
+sup {
+	vertical-align: super;
+}
+sub {
+	vertical-align: sub;
+}
 /*** QUOTES ***/
-blockquote *:first-child:before { content: "\201C"; }
-blockquote *:first-child:after { content: "\201D"; }
+blockquote *:first-child:before {
+	content: "\201C";
+}
+blockquote *:first-child:after {
+	content: "\201D";
+}
 /*** FORMS ***/
 
 fieldset {
 	-webkit-border-radius: 6px;
 	-moz-border-radius: 6px;
 	border-radius: 6px;
-
 	padding:1.4em;
 	margin: 0.1em 0.3em 0.1em 0.3em;
 	border: 1px solid #ccc;
@@ -168,54 +213,56 @@ legend {
 	/*font-weight: bold;*/
 	font-weight:inherit;
 	font-size:1.2em;
-
 	display:inline-block;
 }
 label {
 	/*font-weight: bold;*/
 	font-weight:inherit;
 }
-textarea, input[type='text'], input[type='password'], select { border: 1px solid #dedede; outline: 1px none #dedede; }
-select:hover { border-color: #aaa; }
+textarea, input[type='text'], input[type='password'], select {
+	border: 1px solid #dedede;
+	outline: 1px none #dedede;
+}
+select:hover {
+	border-color: #aaa;
+}
 select:focus {
 	border-color: #333333;
 }
-textarea:hover, input[type='text']:hover, input[type='password']:hover { border-color: #aaa; }
-textarea:active, input[type='text']:active, input[type='password']:active,
-textarea:focus, input[type='text']:focus, input[type='password']:focus {
+textarea:hover, input[type='text']:hover, input[type='password']:hover {
+	border-color: #aaa;
+}
+textarea:active, input[type='text']:active, input[type='password']:active, textarea:focus, input[type='text']:focus, input[type='password']:focus {
 	border-color: #333333;
 }
-input, select { cursor: pointer; }
-input[type='text'], input[type='password'] { cursor: text; }
-
+input, select {
+	cursor: pointer;
+}
+input[type='text'], input[type='password'] {
+	cursor: text;
+}
 select {
 	display:inline-block;
 	margin-right:1px;
 	vertical-align:middle;
 }
-
 input[type='radio'], input[type='checkbox'] {
 	display:inline-block;
 	margin-right:1px;
 	vertical-align:middle;
 }
-
 /*** STYLES FOR BUTTONS ***/
 input[type='button'], input[type='reset'], input[type='submit'] {
 	display: inline-block;
 	margin:2px 7px 8px 2px;
 	padding:5px 10px 5px 7px;   /*** Links ***/
-
 	font-family:"Liberation Sans", Helvetica, Arial, sans-serif;
 	font-size:100%;
 	line-height:130%;
 	text-decoration:none;
-
 	/*font-weight:bold;*/
 	font-weight:normal;
-
 	cursor:pointer;
-
 	width:auto;
 	overflow:visible;
 	padding:4px 10px 3px 7px;
@@ -223,7 +270,6 @@ input[type='button'], input[type='reset'], input[type='submit'] {
 /*** STANDARD BUTTONS ***/
 input[type='button'], input[type='reset'], input[type='submit'] {
 	background-color:#f5f5f5;
-
 	/*
 	border:1px solid #dedede;
 	border-top:1px solid #eee;
@@ -232,50 +278,37 @@ input[type='button'], input[type='reset'], input[type='submit'] {
 	border:1px solid #999;
 	border-top:1px solid #FFF;
 	border-left:1px solid #FFF;
-
 	outline:1px none #666;
-
 	color:#565656;
 }
 input[type='button']:hover, input[type='reset']:hover, input[type='submit']:hover {
 	background-color:#dff4ff;
-
 	border:1px solid #FFF;
 	border-right:1px solid #336699;
 	border-bottom:1px solid #336699;
-
 	outline: 1px solid #336699;
-
 	color:#336699;
 }
 input[type='button']:active, input[type='reset']:active, input[type='submit']:active {
 	background-color:#6299c5;
-
 	border:1px solid #FFF;
 	border-right:1px solid #336699;
 	border-bottom:1px solid #336699;
-
 	color:#fff;
 }
 input[type='button']:active, input[type='reset']:active, input[type='submit']:active, input[type='button']:focus, input[type='reset']:focus, input[type='submit']:focus {
 	outline: 1px solid #333333;
 }
-
 input[type='submit']:hover, button[type='submit']:hover, input[type='submit']:focus, button[type='submit']:focus {
 	background-color:#FFF8C5;
-
 	border-color:#FFFDEE #FDB939 #FDB939 #FFFDEE;
-
 	outline: 1px solid #333333;
-
 	color:#FDB939;
 }
-
 input[type='submit']:active, button[type='submit']:active {
 	border-color:#FDB939 #FE673A #FE673A #FDB939;
 	color:#FF6600;
 }
-
 button img {
 	margin:0 3px -3px 0;
 	padding:0;
@@ -284,23 +317,18 @@ button img {
 	height:16px;
 	float:none;
 }
-
 /*** STYLES FOR BUTTONS ***/
 button {
 	display: inline-block;
 	margin:2px 7px 8px 2px;
 	padding:5px 10px 5px 7px;   /*** Links ***/
-
 	font-family:"Liberation Sans", Helvetica, Arial, sans-serif;
 	font-size:100%;
 	line-height:130%;
 	text-decoration:none;
-
 	/*font-weight:bold;*/
 	font-weight:normal;
-
 	cursor:pointer;
-
 	width:auto;
 	overflow:visible;
 	padding:4px 10px 3px 7px;
@@ -308,7 +336,6 @@ button {
 /*** STANDARD BUTTONS ***/
 button {
 	background-color:#f5f5f5;
-
 	/*
 	border:1px solid #dedede;
 	border-top:1px solid #eee;
@@ -317,39 +344,37 @@ button {
 	border:1px solid #999;
 	border-top:1px solid #FFF;
 	border-left:1px solid #FFF;
-
 	outline:1px none #666;
-
 	color:#565656;
 }
 button:hover {
 	background-color:#dff4ff;
-
 	border:1px solid #FFF;
 	border-right:1px solid #336699;
 	border-bottom:1px solid #336699;
-
 	outline: 1px solid #336699;
-
 	color:#336699;
 }
 button:active {
 	background-color:#6299c5;
-
 	border:1px solid #FFF;
 	border-right:1px solid #336699;
 	border-bottom:1px solid #336699;
-
 	color:#fff;
 }
 button:active, button:focus {
 	outline: 1px solid #333333;
 }
-
 /* Hides from IE-mac \*/
-.clearfix { display: inline-block; }
-* html .clearfix { height: 1%; }
-.clearfix { display: block; }
+.clearfix {
+	display: inline-block;
+}
+* html .clearfix {
+	height: 1%;
+}
+.clearfix {
+	display: block;
+}
 .clearfix:after {
 	content: ".";
 	display: block;
@@ -358,10 +383,15 @@ button:active, button:focus {
 	line-height: 0;
 	height: 0;
 }
-.clearfix { display: inline-block; }
-html[xmlns] .clearfix { display: block; }
-* html .clearfix { height: 1%; }
-
+.clearfix {
+	display: inline-block;
+}
+html[xmlns] .clearfix {
+	display: block;
+}
+* html .clearfix {
+	height: 1%;
+}
 /* End hide from IE-mac */
 
 ::selection {
@@ -369,58 +399,65 @@ html[xmlns] .clearfix { display: block; }
 	color: #FFFFFF;
 }
 ::-moz-selection {
-	background-color: #DD0044;
-	color: #FFFFFF;
+ background-color: #DD0044;
+ color: #FFFFFF;
 }
-
 /* ~~~~~~~~~~~~ */
 
 ruby {
 	display: inline-table;
 	vertical-align:text-bottom;
-	*vertical-align: baseline;
-
+ *vertical-align: baseline;
 	border-collapse:collapse;
 	border-spacing:0;
 }
 ruby * {
-display: inline;
-line-height: 1.2;
+	display: inline;
+	line-height: 1.2;
 *line-height: 100%;
-text-indent: 0;
-text-align: center;
-white-space: nowrap;
+	text-indent: 0;
+	text-align: center;
+	white-space: nowrap;
 }
 ruby > * {
-display: table-row-group;
+	display: table-row-group;
 }
 ruby > rt, ruby rtc {
-display: table-header-group;
-font-size: 60%;
+	display: table-header-group;
+	font-size: 60%;
 }
-ruby rtc + rtc { display: table-footer-group }
-ruby rbc > *, ruby rtc > * { display: table-cell }
+ruby rtc + rtc {
+	display: table-footer-group
+}
+ruby rbc > *, ruby rtc > * {
+	display: table-cell
+}
 /* this only works when an rt spans across all rb */
-ruby rtc > *[rbspan] { display: table-caption }
-ruby rp { display: none }
-ruby rb { text-align: center; }
+ruby rtc > *[rbspan] {
+	display: table-caption
+}
+ruby rp {
+	display: none
+}
+ruby rb {
+	text-align: center;
+}
 
 /* ~~~~~~~~~~~~ */
 
 @namespace url(http://www.w3.org/1999/xhtml);
 @-moz-document url-prefix(http), url-prefix(file) {
-	img:-moz-broken {
-		-moz-force-broken-image-icon:1;
-		min-width:24px;
-		min-height:24px;
-	}
+ img:-moz-broken {
+ -moz-force-broken-image-icon:1;
+ min-width:24px;
+ min-height:24px;
 }
-
+}
 hr {
-    display:block;
-    height:1px;
-    border:0;
-    border-top:1px solid #cccccc;
-    margin:1em 0;
-    padding:0;
+	display:block;
+	height:1px;
+	border:0;
+	border-top:1px solid #cccccc;
+	margin:1em 0;
+	padding:0;
 }
