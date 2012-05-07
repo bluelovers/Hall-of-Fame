@@ -9,11 +9,14 @@ class HOF_Class_View
 {
 	var $output = array();
 	var $template = null;
+	var $template_file = null;
 	var $content = null;
 	var $extend = null;
 	var $body = null;
 
 	var $controller;
+
+	protected static $_suppressNotFoundWarnings = true;
 
 	function __construct(&$controller, &$output, $template = null)
 	{
@@ -21,6 +24,8 @@ class HOF_Class_View
 
 		$this->output = &$output;
 		$this->template = $template;
+
+		$this->template_file = self::_getTplFile($this->template);
 	}
 
 	function __toString()
@@ -28,7 +33,7 @@ class HOF_Class_View
 		return (string)$this->body;
 	}
 
-	static function render(&$controller, &$output, $template = null, $content = null)
+	static function render(&$controller, $output, $template = null, $content = null)
 	{
 		$_this = new self(&$controller, &$output, $template);
 
@@ -40,7 +45,7 @@ class HOF_Class_View
 
 		if ($_this->extend)
 		{
-			$content = self::render($_this->controller, $_this->output, self::_getTplFile($_this->extend), $content);
+			$content = self::render($_this->controller, &$_this->output, $_this->extend, $content);
 		}
 
 		$_this->body = $content;
@@ -62,7 +67,7 @@ class HOF_Class_View
 
 	function slot($name, $content = null)
 	{
-		$view = self::render($this->controller, $this->output, self::_getTplFile($name), $content);
+		$view = self::render($this->controller, &$this->output, $name, $content);
 
 		$this->controller->view['slot'][$name][] = $view;
 
@@ -100,9 +105,25 @@ class HOF_Class_View
 		return $content;
 	}
 
-	protected function _display($dura)
+	public static function suppressNotFoundWarnings($flag = null)
+    {
+        if (null !== $flag) {
+        	self::$_suppressNotFoundWarnings = (bool) $flag;
+       	}
+
+        return self::$_suppressNotFoundWarnings;
+    }
+
+	protected function _display($tplcache)
 	{
-		@include($this->template);
+		if (self::$_suppressNotFoundWarnings && !file_exists($this->template_file))
+		{
+
+		}
+		else
+		{
+			require($this->template_file);
+		}
 	}
 
 	function set($k, $v)
