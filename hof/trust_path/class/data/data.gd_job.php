@@ -152,7 +152,7 @@ $JobSkill = array(
 		1207,
 		1204),
 	);
-include (DATA_SKILL);
+
 foreach ($job as $No => $exp)
 {
 	$flag = $flag ^ 1;
