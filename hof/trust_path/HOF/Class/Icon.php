@@ -16,17 +16,28 @@ class HOF_Class_Icon
 		);
 
 	const IMG_IMAGE = 'static/image/';
+
 	const IMG_ICON = 'static/image/icon/';
+	const IMG_ITEM = 'static/image/icon/item/';
+	const IMG_SKILL = 'static/image/icon/skill/';
+
 	const IMG_CHAR = 'static/image/char/';
 	const IMG_CHAR_REV = 'static/image/char_rev/';
+
 	const IMG_OTHER = 'static/image/other/';
+
 	const IMG_LAND = 'static/image/land/';
 
 	static $map_dir = array(
 		self::IMG_IMAGE,
+
 		self::IMG_ICON,
+		self::IMG_ITEM,
+		self::IMG_SKILL,
+
 		self::IMG_CHAR,
 		self::IMG_CHAR_REV,
+
 		self::IMG_OTHER,
 		self::IMG_LAND,
 		);
