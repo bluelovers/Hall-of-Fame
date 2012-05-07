@@ -32,6 +32,8 @@ class HOF_Class_Controller
 		'escapeHtml' => true,
 	);
 
+	protected $allowCallMethod = true;
+
 	public static function &newInstance($controller, $action = null)
 	{
 		$controller = $controller ? $controller : self::DEFAULT_CONTROLLER;
@@ -49,7 +51,7 @@ class HOF_Class_Controller
 
 		if (!class_exists($class))
 		{
-			die("Invalid Access");
+			die("Invalid Access {$Controller}::$Action");
 		}
 
 		$instance = new $class($controller, $action);
@@ -185,5 +187,16 @@ class HOF_Class_Controller
 
 		return $this;
 	}
+
+	function allowCallMethod($flag = null)
+    {
+    	$_attr = __FUNCTION__;
+
+        if (null !== $flag) {
+        	$this->$_attr = (bool) $flag;
+       	}
+
+        return $this->$_attr;
+    }
 
 }
