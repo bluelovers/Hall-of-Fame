@@ -1,26 +1,21 @@
 <?php
 
-if (!defined('DEBUG'))
-{
-	exit('Access Denied');
-}
-
 //////////////////////////////////////////////////
-// コ□ョ、ヌコ□□□筅ホ・□ケ・ネ
+// 作成で作れるものリスト
 function CanCreate($user)
 {
 
-	/*	// 「ィノスシィ、ヒサ□ヨ、ォ、ォ、□
-	// ・「・、・ニ・爭ヌ。シ・ソ、ヒneed、ャタ゜ト熙オ、□ニ、□筅ホ、□エ、ニシォニーシ霹タ、ケ、□
+	/*	// ※表示に時間かかる
+	// アイテムデータにneedが設定されてるものを全て自動取得する
 	for($i=1000; $i<10000; $i++) {
-	$item	= HOF_Model_Data::getItemData($i);
+	$item	= LoadItemData($i);
 	if(!$item) continue;
 	if($item["need"])
 	$create[]	= $i;
 	}
 	return $create;
 	*/
-	// キ□
+	// 剣
 	$create = array(
 		1000,
 		1001,
@@ -34,7 +29,7 @@ function CanCreate($user)
 		1020,
 		1022,
 		1023);
-	// ホセシ□□
+	// 両手剣
 	$create = array_merge($create, array(
 		1100,
 		1101,
@@ -42,7 +37,7 @@ function CanCreate($user)
 		1103,
 		1104,
 		1120));
-	// テサキ□
+	// 短剣
 	$create = array_merge($create, array(
 		1201,
 		1202,
@@ -51,7 +46,7 @@ function CanCreate($user)
 		1205,
 		1220,
 		));
-	// セ□
+	// 杖
 	$create = array_merge($create, array(
 		1700,
 		1701,
@@ -61,7 +56,7 @@ function CanCreate($user)
 		1705,
 		1706,
 		));
-	// ホセシ□□
+	// 両手杖
 	$create = array_merge($create, array(
 		1800,
 		1801,
@@ -71,7 +66,7 @@ function CanCreate($user)
 		1811,
 		1812,
 		));
-	// オン
+	// 弓
 	$create = array_merge($create, array(
 		2000,
 		2001,
@@ -82,7 +77,7 @@ function CanCreate($user)
 		2006,
 		2020,
 		));
-	// ハワ
+	// 鞭
 	$create = array_merge($create, array(
 		2200,
 		2201,
@@ -92,7 +87,7 @@ function CanCreate($user)
 		2211,
 		));
 
-	// ス□
+	// 盾
 	$create = array_merge($create, array(
 		3000,
 		3001,
@@ -104,7 +99,7 @@ function CanCreate($user)
 		3007,
 		3008,
 		));
-	// ヒワ
+	// 本
 	$create = array_merge($create, array(
 		3101,
 		3102,
@@ -112,7 +107,7 @@ function CanCreate($user)
 		3104,
 		3105,
 		));
-	// ウサ
+	// 鎧
 	$create = array_merge($create, array(
 		5000,
 		5001,
@@ -124,7 +119,7 @@ function CanCreate($user)
 		5008,
 		5009,
 		));
-	// ノ□
+	// 服
 	$create = array_merge($create, array(
 		5100,
 		5101,
@@ -135,7 +130,7 @@ function CanCreate($user)
 		5106,
 		5107,
 		));
-	// ー□
+	// 衣
 	$create = array_merge($create, array(
 		5200,
 		5201,
@@ -149,12 +144,12 @@ function CanCreate($user)
 	return $create;
 }
 //////////////////////////////////////////////////
-// コ□□□ォチヌコ爨ャ、「、□ォフ荀ヲ
+// 作れるか素材があるか問う
 function HaveNeeds($item, $UserItem)
 {
-	// ・譯シ・カ。シ、ホ・「・、・ニ・爨ャフオ、、セ□遉マフオヘ□
+	// ユーザーのアイテムが無い場合は無理
 	if (!$UserItem) return false;
-	// コ□ョ、ヌ、ュ、ハ、、ノ□□ノカ□マフオヘ□
+	// 作成できない武器防具は無理
 	if (!$item["need"]) return false;
 
 	foreach ($item["need"] as $NeedNo => $Amount)
@@ -165,7 +160,7 @@ function HaveNeeds($item, $UserItem)
 }
 
 //////////////////////////////////////////////////
-//	・「・、・ニ・爨ヒノユヘソ、オ、□□トヌスタュ、ホ、「、□スホマ(、□ヨ、ケ)
+//	アイテムに付与される可能性のある能力(を返す)
 function ItemAbilityPossibility($type)
 {
 	switch ($type)
