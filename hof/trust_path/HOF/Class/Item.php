@@ -15,7 +15,7 @@ class HOF_Class_Item
 	{
 		if (!$item) return false;
 
-		$html = "<img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], IMG_ICON . 'item/') . "\" class=\"vcent\">";
+		$html = "<img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\" class=\"vcent\">";
 		// 精錬値
 		if ($item["refine"]) $html .= "+{$item[refine]} ";
 		if ($item["AddName"]) $html .= "{$item[AddName]} ";
@@ -45,7 +45,7 @@ class HOF_Class_Item
 			foreach ($item["need"] as $M_itemNo => $M_amount)
 			{
 				$M_item = HOF_Model_Data::getItemData($M_itemNo);
-				$html .= "<img src=\"" . HOF_Class_Icon::getImageUrl($M_item["img"], IMG_ICON) . "\" class=\"vcent\">";
+				$html .= "<img src=\"" . HOF_Class_Icon::getImageUrl($M_item["img"], HOF_Class_Icon::IMG_ITEM) . "\" class=\"vcent\">";
 				$html .= "{$M_item[base_name]}"; // 名前
 				$html .= " x<span class=\"bold\" style=\"font-size:80%\">{$M_amount}</span>";
 				if ($need["$M_itemNo"]) $html .= "<span class=\"light\">(" . $need["$M_itemNo"] . ")</span>";
