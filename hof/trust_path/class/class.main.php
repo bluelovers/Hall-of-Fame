@@ -112,11 +112,14 @@ class main extends HOF_Class_User
 
 					// シミュれ
 				case ($_SERVER["QUERY_STRING"] === "simulate"):
+					/*
 					$this->CharDataLoadAll(); //キャラデータ読む
 					if ($this->SimuBattleProcess()) $this->SaveData();
 
 					$this->fpCloseAll();
 					$this->SimuBattleShow($result);
+					*/
+					HOF_Class_Controller::newInstance('Battle', $_SERVER["QUERY_STRING"])->main();
 					return 0;
 
 					// ユニオン
@@ -1539,55 +1542,7 @@ HTML;
 		}
 
 		//
-		function SimuBattleProcess()
-		{
-			if ($_POST["simu_battle"])
-			{
-				$this->MemorizeParty(); //パーティー記憶
-				// 自分パーティー
-				foreach ($this->char as $key => $val)
-				{ //チェックされたやつリスト
-					if ($_POST["char_" . $key]) $MyParty[] = $this->char[$key];
-				}
-				if (count($MyParty) === 0)
-				{
-					HOF_Helper_Global::ShowError('戦闘するには最低1人必要', "margin15");
-					return false;
-				}
-				else
-					if (5 < count($MyParty))
-					{
-						HOF_Helper_Global::ShowError('戦闘に出せるキャラは5人まで', "margin15");
-						return false;
-					}
-				$this->DoppelBattle($MyParty, 50);
-				return true;
-			}
-		}
 
-		//
-		function SimuBattleShow($message = false)
-		{
-			print ('<div style="margin:15px">');
-			HOF_Helper_Global::ShowError($message);
-			print ('<span class="bold">模擬戦</span>');
-			print ('<h4>Teams</h4></div>');
-			print ('<form action="' . INDEX . '?simulate" method="post">');
-			HOF_Class_Char_View::ShowCharacters($this->char, CHECKBOX, $this->party_memo);
-
-
-?>
-<div style="margin:15px;text-align:center">
-	<input type="submit" class="btn" name="simu_battle" value="Battle !">
-	<input type="reset" class="btn" value="Reset">
-	<br>
-	Save this party:
-	<input type="checkbox" name="memory_party" value="1">
-</div>
-</form>
-<?php
-
-		}
 
 
 
