@@ -5,7 +5,6 @@ if (!defined('DEBUG'))
 	exit('Access Denied');
 }
 
-//include("./setting.php");
 if (!defined("ADMIN_PASSWORD")) exit(1);
 /*
 * ログイン
@@ -135,8 +134,6 @@ MENU;
 			{
 				if ($_POST["deletePass"] == ADMIN_PASSWORD)
 				{
-					include (GLOBAL_PHP);
-					include (CLASS_USER);
 					$userD = new HOF_Class_User($_POST["userID"]);
 					$userD->DeleteUser();
 					print ($_POST["userID"] . "を削除しました。");
@@ -219,8 +216,6 @@ DATA;
 					else
 						if ($_POST["UserDataDetail"])
 						{
-							include (GLOBAL_PHP);
-							include (CLASS_USER);
 							$userFileList = game_core::glob(USER);
 							foreach ($userFileList as $user)
 							{
@@ -238,7 +233,6 @@ DATA;
 						else
 							if ($_POST["UserCharDetail"])
 							{
-								include (GLOBAL_PHP);
 								$userFileList = game_core::glob(USER);
 								foreach ($userFileList as $user)
 								{
@@ -274,7 +268,7 @@ DATA;
 
 								print ("--- Job<br>\n");
 								arsort($totalJob);
-								include (DATA_JOB);
+
 								foreach ($totalJob as $job => $amount)
 								{
 									$jobData = HOF_Model_Data::getJobData($job);
@@ -288,7 +282,6 @@ DATA;
 							else
 								if ($_POST["ItemDataDetail"])
 								{
-									include (GLOBAL_PHP);
 									$userFileList = game_core::glob(USER);
 									$userAmount = count($userFileList);
 									$items = array();
@@ -310,7 +303,6 @@ DATA;
 								else
 									if ($_POST["UserIpShow"])
 									{
-										include (GLOBAL_PHP);
 										$userFileList = game_core::glob(USER);
 										$ipList = array();
 										foreach ($userFileList as $user)
