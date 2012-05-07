@@ -4,3 +4,5 @@ tag:
     no: '900'
     exp: 基礎
 quantity: false
+info:
+    desc: 必ず実行される
