@@ -11,6 +11,9 @@ h4 {
 	margin : 10px 0px;
 	border-left : 15px solid #cad3df;
 	border-bottom : 1px solid #cad3df;
+
+	display: inline-block;
+
 	/*
 	width : 740px;
 	*/
