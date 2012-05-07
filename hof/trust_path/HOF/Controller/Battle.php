@@ -5,7 +5,7 @@
  * @copyright 2012
  */
 
-class HOF_Controller_Hunt extends HOF_Class_Controller
+class HOF_Controller_Battle extends HOF_Class_Controller
 {
 
 	/**
@@ -23,7 +23,6 @@ class HOF_Controller_Hunt extends HOF_Class_Controller
 		$this->_input();
 
 		$this->user->LoadUserItem();
-		$this->user->fpCloseAll();
 	}
 
 	function _input()
@@ -31,7 +30,7 @@ class HOF_Controller_Hunt extends HOF_Class_Controller
 
 	}
 
-	function _main_action_default()
+	function _main_action_hunt()
 	{
 		$mapList = HOF_Model_Data::getLandAppear($this->user);
 
@@ -87,6 +86,8 @@ class HOF_Controller_Hunt extends HOF_Class_Controller
 		$this->output->logs = $logs;
 
 		$this->options['escapeHtml'] = false;
+
+		$this->user->fpCloseAll();
 	}
 
 }
