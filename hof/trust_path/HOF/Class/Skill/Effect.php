@@ -5,10 +5,6 @@
  * @copyright 2012
  */
 
-/*
-include (CLASS_SKILL_EFFECT);
-*/
-
 /**
  * スキル使用対象者(被側)は基本的に
  * ■全員
