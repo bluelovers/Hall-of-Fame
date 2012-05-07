@@ -35,6 +35,14 @@ class HOF_Controller_Gamedata extends HOF_Class_Controller
 
 	}
 
+	function _main_before()
+	{
+		if ($this->action == self::DEFAULT_ACTION)
+		{
+			$this->action = 'job';
+		}
+	}
+
 	function _main_action_job()
 	{
 		$list = HOF_Model_Data::getJobList();
@@ -168,6 +176,29 @@ class HOF_Controller_Gamedata extends HOF_Class_Controller
 				$item = HOF_Model_Data::getItemData($ItemNo);
 
 				$list[$Type][$ItemNo] = $item;
+			}
+		}
+
+		$this->output->list = $list;
+	}
+
+	function _main_action_judge()
+	{
+		$_list = HOF_Model_Data::getJudgeList();
+
+		$list = array();
+
+		foreach($_list as $no)
+		{
+			$data = HOF_Model_Data::getJudgeData($no);
+
+			if ($data['tag']['no'])
+			{
+				$list[$data['tag']['no']]['list'][$no] = $data;
+			}
+			else
+			{
+				$list[$no]['tag'] = $data;
 			}
 		}
 
