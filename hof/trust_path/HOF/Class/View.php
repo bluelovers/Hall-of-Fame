@@ -16,7 +16,7 @@ class HOF_Class_View
 
 	var $controller;
 
-	protected static $_suppressNotFoundWarnings = true;
+	protected static $_suppressNotFoundWarnings = false;
 
 	function __construct(&$controller, &$output, $template = null)
 	{
@@ -122,7 +122,7 @@ class HOF_Class_View
 		}
 		else
 		{
-			require($this->template_file);
+			include($this->template_file);
 		}
 	}
 
@@ -136,5 +136,21 @@ class HOF_Class_View
 	function get($k, $default = null)
 	{
 		return (!isset($default) || isset($this->output[$k])) ? $this->output[$k] : $default;
+	}
+
+	function callMethod($func)
+	{
+		if ($this->controller->allowCallMethod())
+		{
+			$args = func_get_args();
+
+			$callback = array_shift($args);
+
+			return call_user_func_array(array($this->controller, $callback), $args);
+		}
+		else
+		{
+			throw new Exception("Can't Call Method!");
+		}
 	}
 }
