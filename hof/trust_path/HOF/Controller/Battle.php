@@ -151,6 +151,143 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		$this->output['battle.target.from.action'] = INDEX . '?simulate';
 	}
 
+	function _main_action_union()
+	{
+		if ($this->user->CanUnionBattle() !== true)
+		{
+			$host = $_SERVER['HTTP_HOST'];
+			$uri = rtrim(dirname($_SERVER['PHP_SELF']));
+			$extra = INDEX;
+			header("Location: http://$host$uri/$extra?hunt");
+			exit;
+		}
+
+		$this->_cache['union'] = HOF_Model_Char::newUnionFromFile();
+
+		$this->input->monster_battle = HOF::$input->post->monster_battle;
+		$this->input->union = HOF::$input->request->union;
+
+		$this->output->land['name'] = 'Union Monster';
+		$this->output['battle.target.from.action'] = INDEX . '?union=' . $_GET["union"];
+	}
+
+	function _check_union()
+	{
+		// 倒されているか、存在しない場合。
+		if (!$this->_cache['union']->UnionNumber($this->input->union) || !$this->_cache['union']->is_Alive())
+		{
+			$this->_error("Defeated or not Exists.");
+			return false;
+		}
+
+		return true;
+	}
+
+	function _union()
+	{
+		if ($this->_check_union())
+		{
+			if ($this->output->monster_battle = $this->UnionProcess())
+			{
+				// 戦闘する
+				$this->user->SaveData();
+			}
+			else
+			{
+				// 表示
+				$this->UnionShow();
+			}
+		}
+
+		$this->user->fpCloseAll();
+	}
+
+	//	Unionモンスターの処理
+	function UnionProcess()
+	{
+		if (!$this->input->monster_battle) return false;
+
+		$Union = $this->_cache['union'];
+
+		// ユニオンモンスターのデータ
+		$UnionMob = HOF_Model_Char::getBaseMonster($Union->MonsterNumber);
+		$this->user->MemorizeParty(); //パーティー記憶
+		// 自分パーティー
+		foreach ($this->user->char as $key => $val)
+		{ //チェックされたやつリスト
+			if (HOF::$input->post["char_" . $key])
+			{
+				$MyParty[] = $this->user->char[$key];
+				$TotalLevel += $this->user->char[$key]->level; //自分PTの合計レベル
+			}
+		}
+		// 合計レベル制限
+		if ($UnionMob["LevelLimit"] < $TotalLevel)
+		{
+			$this->_error('合計レベルオーバー(' . $TotalLevel . '/' . $UnionMob["LevelLimit"] . ')', "margin15");
+			return false;
+		}
+		if (count($MyParty) === 0)
+		{
+			$this->_error('戦闘するには最低1人必要', "margin15");
+			return false;
+		}
+		else
+			if (5 < count($MyParty))
+			{
+				$this->_error('戦闘に出せるキャラは5人まで', "margin15");
+				return false;
+			}
+		if (!$this->user->WasteTime(UNION_BATTLE_TIME))
+		{
+			$this->_error('Time Shortage.', "margin15");
+			return false;
+		}
+
+		// 敵PT数
+
+		// ランダム敵パーティー
+		if ($UnionMob["SlaveAmount"]) $EneNum = $UnionMob["SlaveAmount"] + 1; //PTメンバと同じ数だけ。
+		else  $EneNum = 5; // Union含めて5に固定する。
+
+		if ($UnionMob["SlaveSpecify"]) $EnemyParty = $this->user->EnemyParty($EneNum - 1, $Union->Slave, $UnionMob["SlaveSpecify"]);
+		else  $EnemyParty = $this->user->EnemyParty($EneNum - 1, $Union->Slave, $UnionMob["SlaveSpecify"]);
+
+		// unionMobを配列のおよそ中央に入れる
+		$EnemyParty->insert(floor(count($EnemyParty) / 2), array($Union));
+
+		$this->user->UnionSetTime();
+
+		$battle = new HOF_Class_Battle($MyParty, $EnemyParty);
+		$battle->SetUnionBattle();
+		$battle->SetBackGround($Union->UnionLand); //背景
+		//$battle->SetTeamName($this->user->name,"Union:".$Union->Name());
+		$battle->SetTeamName($this->user->name, $UnionMob["UnionName"]);
+		$battle->Process(); //戦闘開始
+
+		$battle->SaveCharacters(); //キャラデータ保存
+		list($UserMoney) = $battle->ReturnMoney(); //戦闘で得た合計金額
+		$this->user->GetMoney($UserMoney); //お金を増やす
+		$battle->RecordLog("UNION");
+		// アイテムを受け取る
+		if ($itemdrop = $battle->ReturnItemGet(0))
+		{
+			$this->user->LoadUserItem();
+			foreach ($itemdrop as $itemno => $amount) $this->user->AddItem($itemno, $amount);
+			$this->user->SaveUserItem();
+		}
+
+		return true;
+	}
+
+	//	Unionモンスターの表示
+	function UnionShow()
+	{
+		$Union = $this->_cache['union'];
+
+		HOF_Class_Char_View::ShowCharacters(array($Union), false, "sea");
+	}
+
 	function _simulate()
 	{
 		if ($this->_cache['Process'] = $this->SimuBattleProcess())
