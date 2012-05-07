@@ -6,6 +6,9 @@ if (!defined('DEBUG'))
 }
 
 if (!defined("ADMIN_PASSWORD")) exit(1);
+
+HOF::getInstance();
+
 /*
 * ログイン
 */
