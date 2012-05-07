@@ -42,6 +42,34 @@ class HOF_Class_Icon
 		self::IMG_LAND,
 		);
 
+	function getRandNo($dir, $default = NO_IMAGE)
+	{
+		$_dir = BASE_PATH . $dir;
+
+		$files = glob($_dir.'*', GLOB_NOSORT);
+
+		while(!$no)
+		{
+			$t = (array)array_rand($files, min(count($files) - 1, 5));
+			shuffle($t);
+
+			foreach ($t as $v)
+			{
+				list($name, $ext) = HOF_Class_File::basename($files[$v]);
+
+				if (in_array(ltrim($ext, '.'), self::$map_imgtype))
+				{
+					$no = $name;
+					break 2;
+				}
+			}
+
+			$no = $default;
+		}
+
+		return $no;
+	}
+
 	/**
 	 * @example HOF_Class_Icon::getImageUrl('ori_003', IMG_CHAR)
 	 */
