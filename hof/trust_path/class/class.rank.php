@@ -173,7 +173,7 @@ class Ranking
 
 		//dump($Party_Challenger);
 		//dump($Party_Defender);
-		include (CLASS_BATTLE);
+
 		$battle = new HOF_Class_Battle($Party_Challenger, $Party_Defender);
 		$battle->SetBackGround("colosseum");
 		$battle->SetTeamName($challenger->name, $defender->name);
