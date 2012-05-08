@@ -88,6 +88,7 @@ class HOF_Class_Controller
 
 		$this->output = new HOF_Class_Array($this->output);
 		$this->input = new HOF_Class_Array($this->input);
+		$this->_cache = new HOF_Class_Array($this->_cache);
 
 		$this->_main_call('_init');
 
@@ -149,13 +150,13 @@ class HOF_Class_Controller
 
 	protected function _main_call_once($func)
 	{
-		if (!$this->_controller_cache[$func] || $this->options['skip_chk_call'][$func])
+		if (!$this->_controller_cache['call'][$func] || $this->options['skip_chk_call'][$func])
 		{
 			$args = func_get_args();
 
 			call_user_func_array(array($this, '_main_call'), (array )$args);
 
-			return $this->_controller_cache[$func];
+			return $this->_controller_cache['call'][$func];
 		}
 
 		return false;
@@ -168,6 +169,19 @@ class HOF_Class_Controller
 		$this->action = $_s['action'];
 
 		return $this;
+	}
+
+	public function _main_exec_once($action = null)
+	{
+		$_s = self::_setup_fix($this->controller, $action);
+
+		if ($this->_controller_cache['event'][$_s['action']] > 0)
+		{
+			return $this;
+		}
+
+		$args = func_get_args();
+		return call_user_func_array(array($this, '_main_exec'), (array )$args);
 	}
 
 	public function _main_exec($action = null)
@@ -199,6 +213,8 @@ class HOF_Class_Controller
 
 			array_unshift($args, $_method);
 
+			$this->_controller_cache['event'][$this->action]++;
+
 			if (method_exists($this, $_method))
 			{
 				call_user_func_array(array($this, '_main_call'), (array )$args);
@@ -224,7 +240,7 @@ class HOF_Class_Controller
 	{
 		$this->_controller_cache['call'][__FUNCTION__ ]++;
 
-		$this->_main_call('_main_exec', $this->action);
+		$this->_main_exec_once($this->action);
 
 		return $this;
 	}
