@@ -29,7 +29,7 @@ function e($string, $escape = false)
 
 function debug($var)
 {
-	var_dump(a($var));
+	var_dump(a($var, 1));
 }
 
 function a($var)
