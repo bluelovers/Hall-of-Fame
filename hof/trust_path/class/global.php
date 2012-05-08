@@ -223,7 +223,7 @@ function ItemSellPrice($item)
 
 //////////////////////////////////////////////////
 //	戦闘ログを回覧する
-function HOF_Helper_Global::getLogBattle($no, $type = false)
+function ShowBattleLog($no, $type = false)
 {
 	if ($type == "RANK") $file = LOG_BATTLE_RANK . $no . ".dat";
 	else
@@ -434,17 +434,7 @@ function userNameAdd($add)
 	fwrite($fp, $string);
 	fclose($fp);
 }
-//////////////////////////////////////////////////
-//	全ランキングの表示
-function RankAllShow()
-{
-	print ('<div style="margin:15px">' . "\n");
-	print ('<h4>Ranking - ' . gc_date("Y年n月j日 G時i分s秒") . '</h4>' . "\n");
-	include (CLASS_RANKING);
-	$Rank = new Ranking();
-	$Rank->ShowRanking();
-	print ('</div>' . "\n");
-}
+
 //////////////////////////////////////////////////
 //
 function RecordManage($string)
