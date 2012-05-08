@@ -14,7 +14,24 @@ class HOF_Model_Main extends HOF_Class_Main
 
 		if (!isset($flag) || $over)
 		{
-			$flag = !HOF_Class_Controller::getInstance('game', 'FirstLogin')->main()->_main_stop();
+			$flag = !HOF_Class_Controller::getInstance('game', __FUNCTION__)->main()->_main_stop();
+		}
+
+		return $flag;
+	}
+
+	/**
+	 * ログインしたのか、しているのか、ログアウトしたのか。
+	 */
+	function CheckLogin($over = false)
+	{
+		static $flag;
+
+		if (!isset($flag) || $over)
+		{
+			HOF_Class_Controller::getInstance('game', __FUNCTION__)->main()->_main_stop();
+
+			$flag = $this->islogin;
 		}
 
 		return $flag;
@@ -23,13 +40,13 @@ class HOF_Model_Main extends HOF_Class_Main
 	function __destruct()
 	{
 		$this->fpCloseAll();
+
+		HOF_Class_File::fpCloseAll();
 	}
 
 	function fpCloseAll()
 	{
 		parent::fpCloseAll();
-
-  		HOF_Class_File::fpCloseAll();
 	}
 
 	function __construct()
@@ -70,32 +87,32 @@ class HOF_Model_Main extends HOF_Class_Main
 				;
 				return true;
 
-			/*
-			case ($_SERVER["QUERY_STRING"] === "log"):
+				/*
+				case ($_SERVER["QUERY_STRING"] === "log"):
 				ShowLogList();
 				return true;
-			case ($_SERVER["QUERY_STRING"] === "clog"):
+				case ($_SERVER["QUERY_STRING"] === "clog"):
 				LogShowCommon();
 				return true;
-			case ($_SERVER["QUERY_STRING"] === "ulog"):
+				case ($_SERVER["QUERY_STRING"] === "ulog"):
 				LogShowUnion();
 				return true;
-			case ($_SERVER["QUERY_STRING"] === "rlog"):
+				case ($_SERVER["QUERY_STRING"] === "rlog"):
 				LogShowRanking();
 				return true;
-			case ($_GET["log"]):
+				case ($_GET["log"]):
 				ShowBattleLog($_GET["log"]);
 				return true;
-			case ($_GET["ulog"]):
+				case ($_GET["ulog"]):
 				ShowBattleLog($_GET["ulog"], "UNION");
 				return true;
-			case ($_GET["rlog"]):
+				case ($_GET["rlog"]):
 				ShowBattleLog($_GET["rlog"], "RANK");
 				return true;
-			case ($_GET["gamedata"]):
+				case ($_GET["gamedata"]):
 				ShowGameData();
 				return true;
-			*/
+				*/
 			case ($_SERVER["QUERY_STRING"] === "log"):
 			case ($_SERVER["QUERY_STRING"] === "clog"):
 			case ($_SERVER["QUERY_STRING"] === "ulog"):
