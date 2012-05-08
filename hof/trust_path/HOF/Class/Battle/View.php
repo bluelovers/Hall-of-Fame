@@ -177,7 +177,7 @@ EOM
 	/**
 	 * 戦闘の結果表示
 	 */
-	function HOF_Helper_Global::ShowResult($result)
+	function ShowResult($result)
 	{
 
 		// 左側のチーム(戦闘を受けた側)
