@@ -106,9 +106,6 @@ class HOF_Model_Main extends HOF_Class_Main
 
 		switch (true)
 		{
-			case ($_SERVER["QUERY_STRING"] === "rank"):
-				RankAllShow();
-				return true;
 			case ($_SERVER["QUERY_STRING"] === "update"):
 				/*
 				ShowUpDate();
