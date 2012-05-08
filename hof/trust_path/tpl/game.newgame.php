@@ -7,7 +7,7 @@
 		<?php endforeach; ?>
 
 		<?php if (!$this->output->user_full): ?>
-			<form action="<?php e(INDEX) ?>" method="post">
+			<form action="<?php e(INDEX) ?>?newgame" method="post">
 				<table>
 					<tbody>
 						<tr>
