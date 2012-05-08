@@ -16,6 +16,25 @@ class HOF_Helper_Global
 		return $pre . number_format($number);
 	}
 
+	function ShowResult($message, $add = false)
+	{
+		if ($add) $add = " " . $add;
+
+		if (is_object($message) && method_exists($message, '__toString'))
+		{
+			$message = (string)$message;
+		}
+		elseif (is_array($message))
+		{
+			$message = implode('<p>', $message);
+		}
+
+		if ($message)
+		{
+			print ('<div class="result' . $add . '">' . $message . '</div>' . "\n");
+		}
+	}
+
 	/**
 	 * 赤い警告文でエラー表示
 	 */
