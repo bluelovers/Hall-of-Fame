@@ -2117,7 +2117,7 @@ HTML;
 			{
 				$this->id = $id; //$_POST["id"];
 				// ↓ログイン処理した時だけ
-				if (is_registered($_POST["id"]))
+				if (HOF_Controller_Game::is_registered($_POST["id"]))
 				{
 					$_SESSION["id"] = $this->id;
 				}
