@@ -32,14 +32,17 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 	function _main_before()
 	{
-		$this->user->fpCloseAll();
+		if ($this->action != 'first_login')
+		{
+			$this->user->fpCloseAll();
+		}
 
 		$this->_input();
 	}
 
 	function _main_action_default($message = null)
 	{
-		$this->_main_action_login($message);
+		$this->_main_exec('login', $message);
 	}
 
 	/**
@@ -49,7 +52,24 @@ class HOF_Controller_Game extends HOF_Class_Controller
 	{
 		if (!$this->FirstLogin())
 		{
-			$this->_stop = true;
+			$this->_main_stop(true);
+		}
+		else
+		{
+			$this->user->fpCloseAll();
+		}
+	}
+
+	function _main_action_delete_my_data()
+	{
+		if (!$this->DeleteMyData())
+		{
+			$this->_main_stop(true);
+		}
+		else
+		{
+			$this->user->fpCloseAll();
+			$this->_main_exec('login', $message);
 		}
 	}
 
@@ -85,7 +105,8 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 			if (true === $bool)
 			{
-				$this->_main_action_login($message);
+				$this->_main_exec('login', $message);
+
 				return false;
 			}
 		}
@@ -341,244 +362,164 @@ Users :
 		// 返値:設定済み=false / 非設定=true
 		if ($this->user->name) return false;
 
+		$chars = array();
+		$k = 1;
+
+		for ($i = 1; $i <= 4; $i++)
+		{
+			for ($j = 0; $j <= 1; $j++)
+			{
+				$chars[$k] = HOF_Model_Char::newBaseChar($i, array('gender' => $j));
+
+				$Gender = $j ? "♀" : "♂";
+
+				$chars[$k]->job_name .= $Gender;
+
+				$k++;
+			}
+		}
+
+		$this->input->recruit_no = HOF::$input->post->recruit_no;
+		$this->input->team_name = trim(HOF::$input->post->team_name, ENT_QUOTES);;
+		$this->input->char_name = trim(HOF::$input->post->char_name, ENT_QUOTES);
+
+		$this->input->done = HOF::$input->post->Done;
+
+		$this->output->recruit_no = $this->input->recruit_no;
+		$this->output->team_name = $this->input->team_name;
+		$this->output->char_name = $this->input->char_name;
+
 		do
 		{
-			if (!$_POST["Done"]) break;
-			if (is_numeric(strpos($_POST["name"], "\t")))
+			if (!$this->input->done) break;
+
+			if (
+				is_numeric(strpos($this->input->team_name, "\t"))
+				|| is_numeric(strpos($this->input->char_name, "\t"))
+			)
 			{
-				$error = 'error1';
+				$this->_error('error1');
 				break;
 			}
-			if (is_numeric(strpos($_POST["name"], "\n")))
+			if (
+				is_numeric(strpos($this->input->team_name, "\n"))
+				|| is_numeric(strpos($this->input->char_name, "\n"))
+			)
 			{
-				$error = 'error';
+				$this->_error('error');
 				break;
 			}
-			$_POST["name"] = trim($_POST["name"]);
-			$_POST["name"] = stripslashes($_POST["name"]);
-			if (!$_POST["name"])
-			{
-				$error = 'Name is blank.';
-				break;
-			}
-			$length = strlen($_POST["name"]);
-			if (0 == $length || 16 < $length)
-			{
-				$error = '1 to 16 letters?';
-				break;
-			}
-			$userName = userNameLoad();
-			if (in_array($_POST["name"], $userName))
-			{
-				$error = 'その名前は使用されています。';
-				break;
-			}
+
+			$this->input->team_name = stripslashes($this->input->team_name);
+
 			// 最初のキャラの名前
-			$_POST["first_name"] = trim($_POST["first_name"]);
-			$_POST["first_name"] = stripslashes($_POST["first_name"]);
-			if (is_numeric(strpos($_POST["first_name"], "\t")))
-			{
-				$error = 'error';
-				break;
-			}
-			if (is_numeric(strpos($_POST["first_name"], "\n")))
-			{
-				$error = 'error';
-				break;
-			}
-			if (!$_POST["first_name"])
-			{
-				$error = 'Character name is blank.';
-				break;
-			}
-			$length = strlen($_POST["first_name"]);
-			if (0 == $length || 16 < $length)
-			{
-				$error = '1 to 16 letters?';
-				break;
-			}
-			if (!$_POST["fjob"])
-			{
-				$error = 'Select characters job.';
-				break;
-			}
-			$_POST["name"] = htmlspecialchars($_POST["name"], ENT_QUOTES);
-			$_POST["first_name"] = htmlspecialchars($_POST["first_name"], ENT_QUOTES);
+			$this->input->char_name = stripslashes($this->input->char_name);
 
-			$this->user->name = $_POST["name"];
+			if (!$this->input->team_name)
+			{
+				$this->_error('Name is blank.');
+			}
+
+			if (!$this->input->char_name)
+			{
+				$this->_error('Character name is blank.');
+			}
+
+			if (!$this->input->recruit_no)
+			{
+				$this->_error('Select characters job.');
+				break;
+			}
+
+			if (!empty($this->error))
+			{
+				break;
+			}
+
+			$length = strlen($this->input->team_name);
+			$length1 = strlen($this->input->char_name);
+			if (
+				0 == $length || 16 < $length
+				||
+				0 == $length1 || 16 < $length1
+
+			)
+			{
+				$this->_error('1 to 16 letters?');
+				break;
+			}
+
+			$userName = userNameLoad();
+			if (in_array($this->input->team_name, $userName))
+			{
+				$this->_error('その名前は使用されています。');
+				break;
+			}
+
+			$char = null;
+
+			if ($this->input->recruit_no && $chars[$this->input->recruit_no] instanceof HOF_Class_Char)
+			{
+				$char = HOF_Model_Char::newBaseChar(ceil($this->input->recruit_no / 2), array("name" => $this->input->char_name, "gender" => $chars[$this->input->recruit_no]->gender));
+			}
+			else
+			{
+				$this->_error('Select characters job.');
+				break;
+			}
+
+			if (!$char)
+			{
+				$this->_error('error');
+			}
+
+			if (!empty($this->error))
+			{
+				break;
+			}
+
+			$this->input->team_name = htmlspecialchars($this->input->team_name, ENT_QUOTES);;
+			$this->input->char_name = htmlspecialchars($this->input->char_name, ENT_QUOTES);
+
+			$this->user->name = $this->input->team_name;
+
 			userNameAdd($this->user->name);
+
 			$this->user->SaveData();
-			switch ($_POST["fjob"])
-			{
-				case "1":
-					$job = 1;
-					$gend = 0;
-					break;
-				case "2":
-					$job = 1;
-					$gend = 1;
-					break;
-				case "3":
-					$job = 2;
-					$gend = 0;
-					break;
-				default:
-					$job = 2;
-					$gend = 1;
-			}
 
-			/*
-			include (DATA_BASE_CHAR);
-			$char = new HOF_Class_Char();
-			$char->SetCharData(array_merge(BaseCharStatus($job), array("name" => $_POST[first_name], "gender" => "$gend")));
-			$char->SaveCharData($this->id);
-			*/
-
-			$char = HOF_Model_Char::newBaseChar($job, array("name" => $_POST[first_name], "gender" => $gend));
 			$char->SaveCharData($this->user->id);
 
 			return false;
 		} while (0);
 
-		/*
-		include (DATA_BASE_CHAR);
-		$war_male = new HOF_Class_Char();
-		$war_male->SetCharData(array_merge(BaseCharStatus("1"), array("gender" => "0")));
-		$war_female = new HOF_Class_Char();
-		$war_female->SetCharData(array_merge(BaseCharStatus("1"), array("gender" => "1")));
-		$sor_male = new HOF_Class_Char();
-		$sor_male->SetCharData(array_merge(BaseCharStatus("2"), array("gender" => "0")));
-		$sor_female = new HOF_Class_Char();
-		$sor_female->SetCharData(array_merge(BaseCharStatus("2"), array("gender" => "1")));
-		*/
+		$k = 0;
+		foreach ($chars as $i => $char)
+		{
+			$this->output->char_recruit[$k][$i] = $char;
 
-		// bluelovers
-		$war_male = HOF_Model_Char::newBaseChar(1, array("gender" => 0));
-		$war_female = HOF_Model_Char::newBaseChar(1, array("gender" => 1));
-
-		$sor_male = HOF_Model_Char::newBaseChar(2, array("gender" => 0));
-		$sor_female = HOF_Model_Char::newBaseChar(2, array("gender" => 1));
-		// bluelovers
-
-
-
-?>
-<form action="<?=
-
-		INDEX
-
-
-?>" method="post" style="margin:15px">
-	<?php
-
-		HOF_Helper_Global::ShowError($error);
-
-
-?>
-	<h4>Name of Team</h4>
-	<p>Decide the Name of the team.<br />
-		It should be more than 1 and less than 16 letters.<br />
-		Japanese characters count as 2 letters.</p>
-	<p>1-16文字でチームの名前決めてください。<br />
-		日本語でもOK。<br />
-		日本語は 1文字 = 2 letter</p>
-	<div class="bold u">
-		TeamName
-	</div>
-	<input class="text" style="width:160px" maxlength="16" name="name"<?
-
-		print ($_POST["name"] ? "value=\"$_POST[name]\"" : "")
-
-
-?>>
-	<h4>First Character</h4>
-	<p>Decide the name of Your First Charactor.<br>
-		more than 1 and less than 16 letters.</p>
-	<p>初期キャラの名前。</p>
-	<div class="bold u">
-		CharacterName
-	</div>
-	<input class="text" type="text" name="first_name" maxlength="16" style="width:160px;margin-bottom:10px">
-	<table cellspacing="0" style="width:400px">
-		<tbody>
-			<tr>
-				<td class="td1" valign="bottom"><div style="text-align:center">
-						<?=
-
-		$war_male->ShowImage()
-
-
-?>
-						<br>
-						<input type="radio" name="fjob" value="1" style="margin:3px">
-					</div></td>
-				<td class="td1" valign="bottom"><div style="text-align:center">
-						<?=
-
-		$war_female->ShowImage()
-
-
-?>
-						<br>
-						<input type="radio" name="fjob" value="2" style="margin:3px">
-					</div></td>
-				<td class="td1" valign="bottom"><div style="text-align:center">
-						<?=
-
-		$sor_male->ShowImage()
-
-
-?>
-						<br>
-						<input type="radio" name="fjob" value="3" style="margin:3px">
-					</div></td>
-				<td class="td1" valign="bottom"><div style="text-align:center">
-						<?=
-
-		$sor_female->ShowImage()
-
-
-?>
-						<br>
-						<input type="radio" name="fjob" value="4" style="margin:3px">
-					</div></td>
-			</tr>
-			<tr>
-				<td class="td2"><div style="text-align:center">
-						male
-					</div></td>
-				<td class="td3"><div style="text-align:center">
-						female
-					</div></td>
-				<td class="td2"><div style="text-align:center">
-						male
-					</div></td>
-				<td class="td3"><div style="text-align:center">
-						female
-					</div></td>
-			</tr>
-			<tr>
-				<td colspan="2" class="td4"><div style="text-align:center">
-						Warrior
-					</div></td>
-				<td colspan="2" class="td4"><div style="text-align:center">
-						Socerer
-					</div></td>
-			</tr>
-		</tbody>
-	</table>
-	<p>Choose your first character's job &amp; Gender.</p>
-	<p>最初のキャラの職と性別</p>
-	<input class="btn" style="width:160px" type="submit" value="Done" name="Done">
-	<input type="hidden" value="1" name="Done">
-	<input class="btn" style="width:160px" type="submit" value="logout" name="logout">
-</form>
-<?php
+			if (!($i % 4)) $k++;
+		}
 
 		return true;
+	}
+
+	//	自分のデータとクッキーを消す
+	function DeleteMyData()
+	{
+		if ($this->user->pass == $this->user->CryptPassword($_POST["deletepass"]))
+		{
+			$this->user->DeleteUser();
+			$this->user->name = NULL;
+			$this->user->pass = NULL;
+			$this->user->id = NULL;
+			$this->user->islogin = false;
+			unset($_SESSION["id"]);
+			unset($_SESSION["pass"]);
+			setcookie("NO", "");
+			return true;
+		}
 	}
 
 }
 
 
-?>
