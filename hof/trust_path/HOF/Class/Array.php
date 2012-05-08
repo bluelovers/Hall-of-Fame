@@ -51,7 +51,7 @@ class HOF_Class_Array extends ArrayObject
 	/**
 	 * @return Array
 	 */
-	function _fixArray($append = array())
+	function _fixArray($append = array(), $debug = false)
 	{
 		if (!empty($append))
 		{
@@ -65,7 +65,7 @@ class HOF_Class_Array extends ArrayObject
 			}
 		}
 
-		return (array)$append;
+		return $debug ? (is_array($append) ? $append : array($append)) : (array)$append;
 	}
 
 	/**
