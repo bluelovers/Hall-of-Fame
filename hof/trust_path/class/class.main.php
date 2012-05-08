@@ -47,26 +47,27 @@ class main extends HOF_Class_User
 				$ItemAuction->UserSaveData(); // 競売品と金額を各IDに配って保存する
 				*/
 
-				if (!HOF_Class_Controller::newInstance('auction')->main()->_main_stop())
-				{
-					return 0;
-				}
+				HOF_Class_Controller::newInstance('auction')->main()->_main_stop();
+				return 0;
 
 				break;
 
 			case ($_GET["menu"] === "rank"):
+				/*
 				include (CLASS_RANKING);
 				$Ranking = new Ranking();
+				*/
+
+				HOF_Class_Controller::newInstance($_GET["menu"])->main()->_main_stop();
+				return 0;
+
 				break;
 		}
 		if (true === $message = $this->CheckLogin()):
 			//if( false ):
 			// ログイン
 
-			/*
-			if ($this->FirstLogin()) return 0;
-			*/
-			if (!HOF_Class_Controller::newInstance('game', 'FirstLogin')->main()->_main_stop())
+			if ($this->FirstLogin())
 			{
 				return 0;
 			}
@@ -262,6 +263,7 @@ class main extends HOF_Class_User
 					return 0;
 
 					// ランキング
+				/*
 				case ($_GET["menu"] === "rank"):
 					$this->CharDataLoadAll(); //キャラデータ読む
 					$RankProcess = $this->RankProcess($Ranking);
@@ -283,7 +285,7 @@ class main extends HOF_Class_User
 							$this->fpCloseAll();
 							$this->RankShow($Ranking);
 						}
-						return 0;
+						return 0;*/
 
 					// 雇用
 				case ($_SERVER["QUERY_STRING"] === "recruit"):
@@ -1837,214 +1839,7 @@ HTML;
 
 		//
 
-		function RankProcess(&$Ranking)
-		{
 
-			// RankBattle
-			if ($_POST["ChallengeRank"])
-			{
-				if (!$this->party_rank)
-				{
-					HOF_Helper_Global::ShowError("チームが設定されていません", "margin15");
-					return false;
-				}
-				$result = $this->CanRankBattle();
-				if (is_array($result))
-				{
-					HOF_Helper_Global::ShowError("待機時間がまだ残ってます", "margin15");
-					return false;
-				}
-
-				/*
-				$BattleResult = 0;//勝利
-				$BattleResult = 1;//敗北
-				$BattleResult = "d";//引分
-				*/
-				//list($message,$BattleResult)	= $Rank->Challenge(&$this);
-				$Result = $Ranking->Challenge(&$this);
-
-				//if($Result === "Battle")
-				//	$this->RankRecord($BattleResult,"CHALLENGE",false);
-
-				/*
-				// 勝敗によって次までの戦闘の時間を設定する
-				//勝利
-				if($BattleResult === 0) {
-				$this->SetRankBattleTime(time() + RANK_BATTLE_NEXT_WIN);
-
-				//敗北
-				} else if($BattleResult === 1) {
-				$this->SetRankBattleTime(time() + RANK_BATTLE_NEXT_LOSE);
-
-				//引分け
-				} else if($BattleResult === "d") {
-				$this->SetRankBattleTime(time() + RANK_BATTLE_NEXT_LOSE);
-
-				}
-				*/
-
-				return $Result; // 戦闘していれば $Result = "Battle";
-			}
-
-			// ランキング用のチーム登録
-			if ($_POST["SetRankTeam"])
-			{
-				$now = time();
-				// まだ設定時間が残っている。
-				if (($now - $this->rank_set_time) < RANK_TEAM_SET_TIME)
-				{
-					$left = RANK_TEAM_SET_TIME - ($now - $this->rank_set_time);
-					$day = floor($left / 3600 / 24);
-					$hour = floor($left / 3600) % 24;
-					$min = floor(($left % 3600) / 60);
-					$sec = floor(($left % 3600) % 60);
-					HOF_Helper_Global::ShowError("チーム再設定まで あと 残り {$day}日 と {$hour}時間 {$min}分 {$sec}秒", "margin15");
-					return false;
-				}
-				foreach ($this->char as $key => $val)
-				{ //チェックされたやつリスト
-					if ($_POST["char_" . $key]) $checked[] = $key;
-				}
-				// 設定キャラ数が多いか少なすぎる
-				if (count($checked) == 0 || 5 < count($checked))
-				{
-					HOF_Helper_Global::ShowError("チーム人数は 1人以上 5人以下 でないといけない", "margin15");
-					return false;
-				}
-
-				/*
-				$this->party_rank = implode("<>", $checked);
-				*/
-				$this->party_rank = $checked;
-				$this->rank_set_time = $now;
-				ShowResult("チーム設定 完了", "margin15");
-				return true;
-			}
-		}
-
-		//
-		function RankShow(&$Ranking)
-		{
-
-			//$ProcessResult	= $this->RankProcess($Ranking);// array();
-
-			//戦闘が行われたので表示しない。
-			//if($ProcessResult === "BATTLE")
-			//	return true;
-
-			// チーム再設定の残り時間計算
-			$now = time();
-			if (($now - $this->rank_set_time) < RANK_TEAM_SET_TIME)
-			{
-				$left = RANK_TEAM_SET_TIME - ($now - $this->rank_set_time);
-				$hour = floor($left / 3600);
-				$min = floor(($left % 3600) / 60);
-				$left_mes = "<div class=\"bold\">{$hour}Hour {$min}minutes left to set again.</div>\n";
-				$disable = " disabled";
-			}
-
-
-?>
-	<div style="margin:15px">
-	<?=
-
-			HOF_Helper_Global::ShowError($message)
-
-
-?>
-	<form action="?menu=rank" method="post">
-		<h4>ランキング(Ranking) -<a href="?rank">全ランキングを見る</a>&nbsp;<a href="?manual#ranking" target="_blank" class="a0">?</a></h4>
-		<?php
-
-			// 挑戦できるかどうか(時間の経過で)
-			$CanRankBattle = $this->CanRankBattle();
-			if ($CanRankBattle !== true)
-			{
-				print ('<p>Time left to Next : <span class="bold">');
-				print ($CanRankBattle[0] . ":" . sprintf("%02d", $CanRankBattle[1]) . ":" . sprintf("%02d", $CanRankBattle[2]));
-				print ("</span></p>\n");
-				$disableRB = " disabled";
-			}
-
-			print ("<div style=\"width:100%;padding-left:30px\">\n");
-			print ("<div style=\"float:left;width:50%\">\n");
-			print ("<div class=\"u\">TOP 5</div>\n");
-			$Ranking->ShowRanking(0, 4);
-			print ("</div>\n");
-			print ("<div style=\"float:right;width:50%\">\n");
-			print ("<div class=\"u\">NEAR 5</div>\n");
-			$Ranking->ShowRankingRange($this->id, 5);
-			print ("</div>\n");
-			print ("<div style=\"clear:both\"></div>\n");
-			print ("</div>\n");
-
-			// 旧ランク用
-			//$Rank->dump();
-			/*
-			print("<table><tbody><tr><td style=\"padding:0 50px 0 0\">\n");
-			print("<div class=\"bold u\">RANKING</div>");
-			$Rank->ShowRanking(0,10);
-			print("</td><td>");
-			print("<div class=\"bold u\">Nearly</div>");
-			$Rank->ShowNearlyRank($this->id);
-			print("</td></tr></tbody></table>\n");
-			*/
-
-
-?>
-		<input type="submit" class="btn" value="challenge!" name="ChallengeRank" style="width:160px"<?=
-
-			$disableRB
-
-
-?> />
-	</form>
-	<form action="?menu=rank" method="post">
-		<h4>チーム設定(Team Setting)</h4>
-		<p>ランキング戦用のチーム設定。<br />
-			ここで設定したチームで戦います。</p>
-		</div>
-		<?php
-
-			HOF_Class_Char_View::ShowCharacters($this->char, CHECKBOX, $this->party_rank);
-
-
-?>
-		<div style="margin:15px">
-		<?=
-
-			$left_mes
-
-
-?>
-		<input type="submit" class="btn" style="width:160px" value="SetTeam"<?=
-
-			$disable
-
-
-?> />
-		<input type="hidden" name="SetRankTeam" value="1" />
-		<p>設定後、
-			<?=
-
-			$reset = floor(RANK_TEAM_SET_TIME / (60 * 60))
-
-
-?>
-			時間は変更できません。<br />
-			Team setting disabled after
-			<?=
-
-			$reset
-
-
-?>
-			hours once set.</p>
-	</form>
-</div>
-<?php
-
-		}
 
 
 
