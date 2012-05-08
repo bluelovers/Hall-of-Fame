@@ -8,6 +8,21 @@
 class HOF_Helper_Global
 {
 
+	function UserAmount()
+	{
+		static $amount;
+
+		if ($amount)
+		{
+			return $amount;
+		}
+		else
+		{
+			$amount = count(game_core::glob(USER));
+			return $amount;
+		}
+	}
+
 	/**
 	 * お金の表示方式
 	 */
@@ -22,7 +37,7 @@ class HOF_Helper_Global
 
 		if (is_object($message) && method_exists($message, '__toString'))
 		{
-			$message = (string)$message;
+			$message = (string )$message;
 		}
 		elseif (is_array($message))
 		{
@@ -44,7 +59,7 @@ class HOF_Helper_Global
 
 		if (is_object($message) && method_exists($message, '__toString'))
 		{
-			$message = (string)$message;
+			$message = (string )$message;
 		}
 		elseif (is_array($message))
 		{
