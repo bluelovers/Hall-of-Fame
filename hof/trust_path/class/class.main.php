@@ -47,11 +47,7 @@ class main extends HOF_Class_User
 				$ItemAuction->UserSaveData(); // 競売品と金額を各IDに配って保存する
 				*/
 
-				$_c = HOF_Class_Controller::newInstance('auction')
-					->main()
-				;
-
-				if (!$_c->_stop)
+				if (!HOF_Class_Controller::newInstance('auction')->main()->_main_stop())
 				{
 					return 0;
 				}
@@ -70,7 +66,7 @@ class main extends HOF_Class_User
 			/*
 			if ($this->FirstLogin()) return 0;
 			*/
-			if (!HOF_Class_Controller::newInstance('game', 'FirstLogin')->main()->_stop)
+			if (!HOF_Class_Controller::newInstance('game', 'FirstLogin')->main()->_main_stop())
 			{
 				return 0;
 			}
@@ -85,7 +81,7 @@ class main extends HOF_Class_User
 					/*
 					if ($this->DeleteMyData()) return 0;
 					*/
-					if (!HOF_Class_Controller::newInstance('game', 'DeleteMyData')->main()->_stop)
+					if (!HOF_Class_Controller::newInstance('game', 'DeleteMyData')->main()->_main_stop())
 					{
 						return 0;
 					}
@@ -372,9 +368,9 @@ class main extends HOF_Class_User
 				case ($_SERVER["QUERY_STRING"] === "manual2"):
 				case ($_SERVER["QUERY_STRING"] === "tutorial"):
 					HOF_Class_Controller::newInstance('manual', $_SERVER["QUERY_STRING"])->main();
-					;
 					return true;
 
+				/*
 				case ($_SERVER["QUERY_STRING"] === "log"):
 					ShowLogList();
 					return true;
@@ -387,9 +383,20 @@ class main extends HOF_Class_User
 				case ($_SERVER["QUERY_STRING"] === "rlog"):
 					LogShowRanking();
 					return true;
-				case ($_GET["gamedata"]):
-					ShowGameData();
+				*/
+				case ($_SERVER["QUERY_STRING"] === "log"):
+				case ($_SERVER["QUERY_STRING"] === "clog"):
+				case ($_SERVER["QUERY_STRING"] === "ulog"):
+				case ($_SERVER["QUERY_STRING"] === "rlog"):
+					HOF_Class_Controller::newInstance('log')->main();
 					return true;
+				case ($_GET["gamedata"]):
+					/*
+					ShowGameData();
+					*/
+					HOF_Class_Controller::newInstance('gamedata', $_GET["gamedata"])->main();
+					return true;
+					/*
 				case ($_GET["log"]):
 					ShowBattleLog($_GET["log"]);
 					return true;
@@ -398,6 +405,13 @@ class main extends HOF_Class_User
 					return true;
 				case ($_GET["rlog"]):
 					ShowBattleLog($_GET["rlog"], "RANK");
+					return true;
+					*/
+				case ($_GET["log"]):
+				case ($_GET["clog"]):
+				case ($_GET["ulog"]):
+				case ($_GET["rlog"]):
+					HOF_Class_Controller::newInstance('log', 'log')->main();
 					return true;
 			}
 		}
