@@ -79,7 +79,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		{
 			$limit++;
 
-			$logs[] = $file;
+			$logs[] = HOF_Model_Data::getLogBattleFile($file);
 
 			if (15 <= $limit) break;
 		}
