@@ -47,6 +47,8 @@ class HOF_Class_Controller
 
 	protected $_controller_cache = array();
 
+	protected static $instance = array();
+
 	public static function &newInstance($controller, $action = null)
 	{
 		$_s = self::_setup_fix($controller, $action);
@@ -58,9 +60,23 @@ class HOF_Class_Controller
 			die("Invalid Access {$_s[Controller]}::{$_s[Action]}");
 		}
 
-		$instance = new $class($_s['controller'], $_s['action']);
+		self::$instance[$_s['controller']] = new $class($_s['controller'], $_s['action']);
 
-		return $instance;
+		return self::$instance[$_s['controller']];
+	}
+
+	public static function &getInstance($controller, $action = null)
+	{
+		$_s = self::_setup_fix($controller, $action);
+
+		if (isset(self::$instance[$_s['controller']]))
+		{
+			return self::$instance[$_s['controller']]->_main_setup($_s['action']);
+		}
+		else
+		{
+			return self::newInstance($_s['controller'], $_s['action']);
+		}
 	}
 
 	public function __construct($controller, $action = null)
@@ -79,7 +95,7 @@ class HOF_Class_Controller
 
 	}
 
-	function _setup_fix($controller = null, $action = null)
+	public function _setup_fix($controller = null, $action = null)
 	{
 		$controller = $controller ? $controller : self::DEFAULT_CONTROLLER;
 		$action = $action ? $action : self::DEFAULT_ACTION;
@@ -100,12 +116,12 @@ class HOF_Class_Controller
 			);
 	}
 
-	function _main_input()
+	protected function _main_input()
 	{
 
 	}
 
-	function _main_call($func)
+	protected function _main_call($func)
 	{
 		$this->_controller_cache['call'][$func]++;
 
@@ -115,7 +131,7 @@ class HOF_Class_Controller
 		return call_user_func_array(array($this, $func), (array )$args);
 	}
 
-	function _main_stop($flag = null)
+	public function _main_stop($flag = null)
 	{
 		if ($flag !== null)
 		{
@@ -131,7 +147,7 @@ class HOF_Class_Controller
 		return $this->_stop;
 	}
 
-	function _main_call_once($func)
+	protected function _main_call_once($func)
 	{
 		if (!$this->_controller_cache[$func] || $this->options['skip_chk_call'][$func])
 		{
@@ -145,16 +161,25 @@ class HOF_Class_Controller
 		return false;
 	}
 
-	function _main_setup($action = null)
+	public function _main_setup($action = null)
 	{
 		$_s = self::_setup_fix($this->controller, $action);
 
 		$this->action = $_s['action'];
+
+		return $this;
 	}
 
-	function _main_exec($action = null)
+	public function _main_exec($action = null)
 	{
 		$this->_main_call('_main_setup', $action);
+
+		$this->_main_call_once('_main_before');
+
+		if ($this->_main_stop())
+		{
+			return $this;
+		}
 
 		$this->_main_call_once('_main_input');
 
@@ -190,7 +215,7 @@ class HOF_Class_Controller
 		return $this;
 	}
 
-	function _init()
+	protected function _init()
 	{
 
 	}
@@ -199,31 +224,19 @@ class HOF_Class_Controller
 	{
 		$this->_controller_cache['call'][__FUNCTION__ ]++;
 
-		$this->_main_call('_main_before');
-
-		if ($this->_main_stop())
-		{
-			return $this;
-		}
-
 		$this->_main_call('_main_exec', $this->action);
-
-		if ($this->_main_stop())
-		{
-			return $this;
-		}
 
 		return $this;
 	}
 
-	function _main_before()
+	protected function _main_before()
 	{
 		$this->_main_call_once('_main_input');
 
 		return $this;
 	}
 
-	function _main_after()
+	protected function _main_after()
 	{
 		if ($this->options['autoView'])
 		{
@@ -251,7 +264,7 @@ class HOF_Class_Controller
 	/**
 	 * @return HOF_Class_View
 	 */
-	function view()
+	public function view()
 	{
 		return $this->content;
 	}
