@@ -8,6 +8,11 @@
 class HOF_Model_Main extends HOF_Class_Main
 {
 
+	function __destruct()
+	{
+		$this->fpCloseAll();
+	}
+
 	function __construct()
 	{
 		HOF::getInstance();
