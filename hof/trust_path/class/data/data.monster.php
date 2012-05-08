@@ -4483,7 +4483,7 @@ function CreateMonster($no, $over = false)
 
 			//----------------------------------- 2000 -union
 		case 2000:
-			$hp = 30000 + 400 * UserAmount();
+			$hp = 30000 + 400 * HOF_Helper_Global::UserAmount();
 			$exp = round($hp / 2);
 			$money = round($hp / 3);
 			$monster = array(
@@ -4566,7 +4566,7 @@ function CreateMonster($no, $over = false)
 			break;
 
 		case 2001:
-			$hp = 15000 + 200 * UserAmount();
+			$hp = 15000 + 200 * HOF_Helper_Global::UserAmount();
 			$exp = round($hp / 2);
 			$money = round($hp / 3);
 			$monster = array(
@@ -4644,7 +4644,7 @@ function CreateMonster($no, $over = false)
 			break;
 
 		case 2002:
-			$hp = 10000 + 150 * UserAmount();
+			$hp = 10000 + 150 * HOF_Helper_Global::UserAmount();
 			$exp = round($hp / 2);
 			$money = round($hp / 3);
 			$monster = array(
@@ -4726,7 +4726,7 @@ function CreateMonster($no, $over = false)
 			break;
 
 		case 2003:
-			$hp = 5000 + 100 * UserAmount();
+			$hp = 5000 + 100 * HOF_Helper_Global::UserAmount();
 			$exp = round($hp / 2);
 			$money = round($hp / 3);
 			$monster = array(
@@ -4796,7 +4796,7 @@ function CreateMonster($no, $over = false)
 			break;
 
 		case 2004:
-			$hp = 1000 + 20 * UserAmount();
+			$hp = 1000 + 20 * HOF_Helper_Global::UserAmount();
 			$exp = round($hp / 2);
 			$money = round($hp / 3);
 			$monster = array(
@@ -4897,7 +4897,7 @@ function CreateMonster($no, $over = false)
 			break;
 
 		case 2005:
-			$hp = 1000 + 20 * UserAmount();
+			$hp = 1000 + 20 * HOF_Helper_Global::UserAmount();
 			$exp = round($hp / 2);
 			$money = round($hp / 3);
 			$monster = array(
@@ -4998,7 +4998,7 @@ function CreateMonster($no, $over = false)
 			break;
 
 		case 2006:
-			$hp = 1000 + 30 * UserAmount();
+			$hp = 1000 + 30 * HOF_Helper_Global::UserAmount();
 			$exp = round($hp / 2);
 			$money = round($hp / 3);
 			$monster = array(
@@ -5099,7 +5099,7 @@ function CreateMonster($no, $over = false)
 			break;
 
 		case 2007:
-			$hp = 3000 + 60 * UserAmount();
+			$hp = 3000 + 60 * HOF_Helper_Global::UserAmount();
 			$exp = round($hp / 2);
 			$money = round($hp / 3);
 			$monster = array(
@@ -5173,7 +5173,7 @@ function CreateMonster($no, $over = false)
 			break;
 
 		case 2008:
-			$hp = 10000 + 100 * UserAmount();
+			$hp = 10000 + 100 * HOF_Helper_Global::UserAmount();
 			$exp = round($hp / 2);
 			$money = round($hp / 3);
 			$monster = array(
@@ -5218,7 +5218,7 @@ function CreateMonster($no, $over = false)
 			break;
 
 		case 2009:
-			$hp = 5000 + 30 * UserAmount();
+			$hp = 5000 + 30 * HOF_Helper_Global::UserAmount();
 			$exp = round($hp / 2);
 			$money = round($hp / 3);
 			$monster = array(
@@ -5263,7 +5263,7 @@ function CreateMonster($no, $over = false)
 			break;
 
 		case 2010:
-			$hp = 10000 + 70 * UserAmount();
+			$hp = 10000 + 70 * HOF_Helper_Global::UserAmount();
 			$exp = round($hp / 2);
 			$money = round($hp / 3);
 			$monster = array(
@@ -5308,7 +5308,7 @@ function CreateMonster($no, $over = false)
 			break;
 
 		case 2011:
-			$hp = 10000 + 80 * UserAmount();
+			$hp = 10000 + 80 * HOF_Helper_Global::UserAmount();
 			$exp = round($hp / 2);
 			$money = round($hp / 3);
 			$monster = array(
