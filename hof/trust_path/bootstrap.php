@@ -7,8 +7,12 @@
 
 error_reporting(0);
 
-define('REQUEST_TIME', time());
+$t = microtime(true);
+
+define('REQUEST_TIME', (!$_SERVER['REQUEST_TIME'] || $_SERVER['REQUEST_TIME'] > $t) ? $t : $_SERVER['REQUEST_TIME'] );
 $_SERVER['REQUEST_TIME'] = REQUEST_TIME;
+
+unset($t);
 
 unset($_ENV['autoloaders']);
 
