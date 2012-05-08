@@ -176,37 +176,11 @@ class main extends HOF_Class_User
 			case ($_SERVER["QUERY_STRING"] === "bbs"):
 				$this->bbs01();
 				return true;
-				/*
-				case ($_SERVER["QUERY_STRING"] === "manual"):
-				ShowManual();
-				return true;
-				case ($_SERVER["QUERY_STRING"] === "manual2"):
-				ShowManual2();
-				return true;
-				case ($_SERVER["QUERY_STRING"] === "tutorial"):
-				ShowTutorial();
-				return true;
-				*/
 			case ($_SERVER["QUERY_STRING"] === "manual"):
 			case ($_SERVER["QUERY_STRING"] === "manual2"):
 			case ($_SERVER["QUERY_STRING"] === "tutorial"):
 				HOF_Class_Controller::newInstance('manual', $_SERVER["QUERY_STRING"])->main();
 				return true;
-
-				/*
-				case ($_SERVER["QUERY_STRING"] === "log"):
-				ShowLogList();
-				return true;
-				case ($_SERVER["QUERY_STRING"] === "clog"):
-				LogShowCommon();
-				return true;
-				case ($_SERVER["QUERY_STRING"] === "ulog"):
-				LogShowUnion();
-				return true;
-				case ($_SERVER["QUERY_STRING"] === "rlog"):
-				LogShowRanking();
-				return true;
-				*/
 			case ($_SERVER["QUERY_STRING"] === "log"):
 			case ($_SERVER["QUERY_STRING"] === "clog"):
 			case ($_SERVER["QUERY_STRING"] === "ulog"):
@@ -218,23 +192,8 @@ class main extends HOF_Class_User
 				HOF_Class_Controller::newInstance('log')->main();
 				return true;
 			case ($_GET["gamedata"]):
-				/*
-				ShowGameData();
-				*/
 				HOF_Class_Controller::newInstance('gamedata', $_GET["gamedata"])->main();
 				return true;
-				/*
-				case ($_GET["log"]):
-				HOF_Helper_Global::getLogBattle($_GET["log"]);
-				return true;
-				case ($_GET["ulog"]):
-				HOF_Helper_Global::getLogBattle($_GET["ulog"], "UNION");
-				return true;
-				case ($_GET["rlog"]):
-				HOF_Helper_Global::getLogBattle($_GET["rlog"], "RANK");
-				return true;
-				*/
-
 		}
 	}
 
