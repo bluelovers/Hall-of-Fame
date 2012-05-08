@@ -139,11 +139,16 @@ class HOF_Class_Controller
 		return false;
 	}
 
-	function _main_exec($action)
+	function _main_setup($action = null)
 	{
 		$_s = self::_setup_fix($this->controller, $action);
 
 		$this->action = $_s['action'];
+	}
+
+	function _main_exec($action = null)
+	{
+		$this->_main_call('_main_setup', $action);
 
 		$this->_main_call_once('_main_input');
 
