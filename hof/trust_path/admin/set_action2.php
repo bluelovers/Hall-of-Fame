@@ -26,7 +26,7 @@ input{background-color:#dddddd;
 <body>
 <?php
 
-function UserAmount()
+function HOF_Helper_Global::UserAmount()
 {
 	return 1;
 }
