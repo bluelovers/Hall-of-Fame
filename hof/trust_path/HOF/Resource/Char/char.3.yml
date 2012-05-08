@@ -27,6 +27,6 @@ Pattern:
         - '0'
     action:
         - '3000'
-        - '3101'
+        - '1000'
 position: back
 guard: never
