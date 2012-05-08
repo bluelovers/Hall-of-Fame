@@ -523,11 +523,11 @@ class main extends HOF_Class_User
 
 					$char->statuspoint -= $Sum; //ポイントを減らす。
 					print ("<div class=\"margin15\">\n");
-					if ($_POST["upStr"]) ShowResult("STR が <span class=\"bold\">" . $_POST[upStr] . "</span> 上がった。" . ($char->str - $_POST["upStr"]) . " -> " . $char->str . "<br />\n");
-					if ($_POST["upInt"]) ShowResult("INT が <span class=\"bold\">" . $_POST[upInt] . "</span> 上がった。" . ($char->int - $_POST["upInt"]) . " -> " . $char->int . "<br />\n");
-					if ($_POST["upDex"]) ShowResult("DEX が <span class=\"bold\">" . $_POST[upDex] . "</span> 上がった。" . ($char->dex - $_POST["upDex"]) . " -> " . $char->dex . "<br />\n");
-					if ($_POST["upSpd"]) ShowResult("SPD が <span class=\"bold\">" . $_POST[upSpd] . "</span> 上がった。" . ($char->spd - $_POST["upSpd"]) . " -> " . $char->spd . "<br />\n");
-					if ($_POST["upLuk"]) ShowResult("LUK が <span class=\"bold\">" . $_POST[upLuk] . "</span> 上がった。" . ($char->luk - $_POST["upLuk"]) . " -> " . $char->luk . "<br />\n");
+					if ($_POST["upStr"]) HOF_Helper_Global::ShowResult("STR が <span class=\"bold\">" . $_POST[upStr] . "</span> 上がった。" . ($char->str - $_POST["upStr"]) . " -> " . $char->str . "<br />\n");
+					if ($_POST["upInt"]) HOF_Helper_Global::ShowResult("INT が <span class=\"bold\">" . $_POST[upInt] . "</span> 上がった。" . ($char->int - $_POST["upInt"]) . " -> " . $char->int . "<br />\n");
+					if ($_POST["upDex"]) HOF_Helper_Global::ShowResult("DEX が <span class=\"bold\">" . $_POST[upDex] . "</span> 上がった。" . ($char->dex - $_POST["upDex"]) . " -> " . $char->dex . "<br />\n");
+					if ($_POST["upSpd"]) HOF_Helper_Global::ShowResult("SPD が <span class=\"bold\">" . $_POST[upSpd] . "</span> 上がった。" . ($char->spd - $_POST["upSpd"]) . " -> " . $char->spd . "<br />\n");
+					if ($_POST["upLuk"]) HOF_Helper_Global::ShowResult("LUK が <span class=\"bold\">" . $_POST[upLuk] . "</span> 上がった。" . ($char->luk - $_POST["upLuk"]) . " -> " . $char->luk . "<br />\n");
 					print ("</div>\n");
 					$char->SaveCharData($this->id);
 					return true;
@@ -573,7 +573,7 @@ class main extends HOF_Class_User
 							break;
 					}
 					$char->SaveCharData($this->id);
-					ShowResult($char->Name() . " の配置を {$pos} に。<br />前衛の時 {$guard} ように設定。\n", "margin15");
+					HOF_Helper_Global::ShowResult($char->Name() . " の配置を {$pos} に。<br />前衛の時 {$guard} ように設定。\n", "margin15");
 					return true;
 					//行動設定
 				case ($_POST["ChangePattern"]):
@@ -594,7 +594,7 @@ class main extends HOF_Class_User
 					if ($char->PatternSave($judge, $quantity, $action))
 					{
 						$char->SaveCharData($this->id);
-						ShowResult("パターン設定保存 完了", "margin15");
+						HOF_Helper_Global::ShowResult("パターン設定保存 完了", "margin15");
 						return true;
 					}
 					HOF_Helper_Global::ShowError("失敗したなんで？報告してみてください 03050242", "margin15");
@@ -627,7 +627,7 @@ class main extends HOF_Class_User
 					if ($char->ChangePatternMemo())
 					{
 						$char->SaveCharData($this->id);
-						ShowResult("パターン交換 完了", "margin15");
+						HOF_Helper_Global::ShowResult("パターン交換 完了", "margin15");
 						return true;
 					}
 					break;
@@ -637,7 +637,7 @@ class main extends HOF_Class_User
 					if ($char->AddPattern($_POST["PatternNumber"]))
 					{
 						$char->SaveCharData($this->id);
-						ShowResult("パターン追加 完了", "margin15");
+						HOF_Helper_Global::ShowResult("パターン追加 完了", "margin15");
 						return true;
 					}
 					break;
@@ -647,7 +647,7 @@ class main extends HOF_Class_User
 					if ($char->DeletePattern($_POST["PatternNumber"]))
 					{
 						$char->SaveCharData($this->id);
-						ShowResult("パターン削除 完了", "margin15");
+						HOF_Helper_Global::ShowResult("パターン削除 完了", "margin15");
 						return true;
 					}
 					break;
@@ -698,7 +698,7 @@ class main extends HOF_Class_User
 						}
 						$this->SaveUserItem();
 						$char->SaveCharData($this->id);
-						ShowResult($char->Name() . " の装備を 全部解除した", "margin15");
+						HOF_Helper_Global::ShowResult($char->Name() . " の装備を 全部解除した", "margin15");
 						return true;
 					}
 					break;
@@ -735,7 +735,7 @@ class main extends HOF_Class_User
 
 					$this->SaveUserItem();
 					$char->SaveCharData($this->id);
-					ShowResult("{$char->name} は {$item[name]} を装備した.", "margin15");
+					HOF_Helper_Global::ShowResult("{$char->name} は {$item[name]} を装備した.", "margin15");
 					return true;
 					break;
 					// スキル習得
@@ -751,7 +751,7 @@ class main extends HOF_Class_User
 					if ($result)
 					{
 						$char->SaveCharData();
-						ShowResult($message, "margin15");
+						HOF_Helper_Global::ShowResult($message, "margin15");
 					}
 					else
 					{
@@ -794,7 +794,7 @@ class main extends HOF_Class_User
 						}
 						// 保存
 						$char->SaveCharData($this->id);
-						ShowResult("転職 完了", "margin15");
+						HOF_Helper_Global::ShowResult("転職 完了", "margin15");
 						return true;
 					}
 					HOF_Helper_Global::ShowError("failed.", "margin15");
@@ -825,7 +825,7 @@ EOD;
 						{
 							if ($this->DeleteItem("7500", 1) == 1)
 							{
-								ShowResult($char->Name() . " から " . $return . " へ改名しました。", "margin15");
+								HOF_Helper_Global::ShowResult($char->Name() . " から " . $return . " へ改名しました。", "margin15");
 								$char->ChangeName($return);
 								$char->SaveCharData($this->id);
 								$this->SaveUserItem();
@@ -902,7 +902,7 @@ EOD;
 							$char->statuspoint += $dif;
 							$char->SaveCharData($this->id);
 							$this->SaveUserItem();
-							ShowResult("ポイント還元成功", "margin15");
+							HOF_Helper_Global::ShowResult("ポイント還元成功", "margin15");
 							return true;
 						}
 					}
@@ -974,11 +974,11 @@ EOD;
 									$this->AddItem($char->item);
 									$char->item = NULL;
 								}
-								ShowResult($char->Name() . " の装備を 全部解除した", "margin15");
+								HOF_Helper_Global::ShowResult($char->Name() . " の装備を 全部解除した", "margin15");
 							}
 							$char->SaveCharData($this->id);
 							$this->SaveUserItem();
-							ShowResult("ポイント還元成功", "margin15");
+							HOF_Helper_Global::ShowResult("ポイント還元成功", "margin15");
 							return true;
 						}
 						else
@@ -1646,7 +1646,7 @@ HTML;
 					if ($this->WasteTime(100))
 					{
 						$this->GetMoney(500);
-						ShowResult("働いて " . HOF_Helper_Global::MoneyFormat(500) . " げっとした!", "margin15");
+						HOF_Helper_Global::ShowResult("働いて " . HOF_Helper_Global::MoneyFormat(500) . " げっとした!", "margin15");
 						return true;
 					}
 					else
@@ -1676,13 +1676,13 @@ HTML;
 							if (1 < $amount)
 							{
 								$img = "<img src=\"" . HOF_Class_Icon::getImageUrl($item[img], IMG_ICON . 'item/') . "\" class=\"vcent\" />";
-								ShowResult("{$img}{$item[name]} を{$amount}個 購入した (" . HOF_Helper_Global::MoneyFormat($item["buy"]) . " x{$amount} = " . HOF_Helper_Global::MoneyFormat($need) . ")", "margin15");
+								HOF_Helper_Global::ShowResult("{$img}{$item[name]} を{$amount}個 購入した (" . HOF_Helper_Global::MoneyFormat($item["buy"]) . " x{$amount} = " . HOF_Helper_Global::MoneyFormat($need) . ")", "margin15");
 								return true;
 							}
 							else
 							{
 								$img = "<img src=\"" . HOF_Class_Icon::getImageUrl($item[img], IMG_ICON . 'item/') . "\" class=\"vcent\" />";
-								ShowResult("{$img}{$item[name]} を購入した (" . HOF_Helper_Global::MoneyFormat($need) . ")", "margin15");
+								HOF_Helper_Global::ShowResult("{$img}{$item[name]} を購入した (" . HOF_Helper_Global::MoneyFormat($need) . ")", "margin15");
 								return true;
 							}
 						}
@@ -1713,7 +1713,7 @@ HTML;
 						$this->SaveUserItem();
 						if ($DeletedAmount != 1) $add = " x{$DeletedAmount}";
 						$img = "<img src=\"" . HOF_Class_Icon::getImageUrl($item[img], IMG_ICON . 'item/') . "\" class=\"vcent\" />";
-						ShowResult("{$img}{$item[name]}{$add} を " . HOF_Helper_Global::MoneyFormat($price * $DeletedAmount) . " で売った", "margin15");
+						HOF_Helper_Global::ShowResult("{$img}{$item[name]}{$add} を " . HOF_Helper_Global::MoneyFormat($price * $DeletedAmount) . " で売った", "margin15");
 						return true;
 					}
 					break;
@@ -1889,7 +1889,7 @@ HTML;
 				$NewName = htmlspecialchars($NewName, ENT_QUOTES);
 				if ($this->ChangeName($NewName))
 				{
-					ShowResult("Name Changed ({$OldName} -> {$NewName})", "margin15");
+					HOF_Helper_Global::ShowResult("Name Changed ({$OldName} -> {$NewName})", "margin15");
 					//return false;
 					userNameAdd($NewName);
 					return true;
@@ -1913,7 +1913,7 @@ HTML;
 			{
 				if (strlen($_POST["color"]) != 6 && !ereg("^[0369cf]{6}", $_POST["color"])) return "error 12072349";
 				$this->UserColor = $_POST["color"];
-				ShowResult("Setting changed.", "margin15");
+				HOF_Helper_Global::ShowResult("Setting changed.", "margin15");
 				return true;
 			}
 		}
