@@ -98,7 +98,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		$this->output->message = $message;
 		$this->output->id = $_SESSION["id"];
 
-		$this->output->game_users = UserAmount();
+		$this->output->game_users = HOF_Helper_Global::UserAmount();
 		$this->output->game_users_max = MAX_USERS;
 
 		$Abandon = ABANDONED;
