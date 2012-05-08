@@ -274,7 +274,7 @@ JS_HTML;
 
 			if ($this->user->WasteTime($time))
 			{
-				ShowResult(HOF_Helper_Global::MoneyFormat($money) . " げっとした！", "margin15");
+				HOF_Helper_Global::ShowResult(HOF_Helper_Global::MoneyFormat($money) . " げっとした！", "margin15");
 				$this->user->GetMoney($money);
 				return true;
 			}
