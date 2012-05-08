@@ -60,9 +60,9 @@ class main extends HOF_Class_User
 
 				HOF_Class_Controller::newInstance($_GET["menu"])->main()->_main_stop();
 				return 0;
-
 				break;
 		}
+
 		if (true === $message = $this->CheckLogin()):
 			//if( false ):
 			// ログイン
@@ -328,13 +328,13 @@ class main extends HOF_Class_User
 					/*
 					$this->NewForm($message);
 					*/
-					HOF_Class_Controller::newInstance('game', "newgame")->main();
+					HOF_Class_Controller::getInstance('game', "newgame")->main();
 					return false;
 				default:
 					/*
 					$this->LoginForm($message);
 					*/
-					HOF_Class_Controller::newInstance('game', "login")->main();
+					HOF_Class_Controller::getInstance('game', "login")->main();
 			}
 		endif;
 		}
@@ -2129,57 +2129,6 @@ HTML;
 		{
 			$this->login = time();
 		}
-
-
-		//	ログインしたのか、しているのか、ログアウトしたのか。
-		function CheckLogin()
-		{
-			//logout
-			if (isset($_POST["logout"]))
-			{
-				//	$_SESSION["pass"]	= NULL;
-				//	echo $_SESSION["pass"];
-				unset($_SESSION["pass"]);
-				//	session_destroy();
-				return false;
-			}
-
-			//session
-			$file = USER . $this->id . "/" . DATA; //data.dat
-			if ($data = $this->LoadData())
-			{
-				//echo "<div>$data[pass] == $this->pass</div>";
-				if ($this->pass == NULL) return false;
-				if ($data["pass"] === $this->pass)
-				{
-					//ログイン状態
-					$this->DataUpDate($data);
-					$this->SetData($data);
-					if (RECORD_IP) $this->SetIp($_SERVER['REMOTE_ADDR']);
-					$this->RenewLoginTime();
-
-					$pass = ($_POST["pass"]) ? $_POST["pass"] : $_GET["pass"];
-					if ($pass)
-					{ //ちょうど今ログインするなら
-						$_SESSION["id"] = $this->id;
-						$_SESSION["pass"] = $pass;
-						setcookie("NO", session_id(), time() + COOKIE_EXPIRE);
-					}
-
-					$this->islogin = true; //ログイン状態
-					return true;
-				}
-				else  return "Wrong password!";
-			}
-			else
-			{
-				if ($_POST["id"]) return "ID \"{$this->id}\" doesnt exists.";
-			}
-		}
-
-
-
-
 
 		//	pass と id を設定する
 		function Set_ID_PASS()
