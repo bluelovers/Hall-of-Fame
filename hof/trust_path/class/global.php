@@ -90,6 +90,128 @@ function RegularControl($value = null)
 	unset($fp);
 }
 
+
+//////////////////////////////////////////////////
+//
+function JudgeList()
+{
+
+	// 自動読み込み(forでループさせてるから無駄な処理)
+	if (JUDGE_LIST_AUTO_LOAD)
+	{
+		for ($i = 1000; $i < 2500; $i++)
+		{
+			if (HOF_Model_Data::getJudgeData($i) !== false) $list[] = $i;
+		}
+		return $list;
+		// 手動(追加した判断は自分で書き足せ)
+	}
+	else
+	{
+		return array(
+			1000,
+			1001,
+			1099,
+			1100,
+			1101,
+			1105,
+			1106,
+			1110,
+			1111,
+			1121,
+			1125,
+			1126,
+			1199,
+			1200,
+			1201,
+			1205,
+			1206,
+			1210,
+			1211,
+			1221,
+			1225,
+			1226,
+			1399,
+			1400,
+			1401,
+			1405,
+			1406,
+			1410,
+			1449,
+			1450,
+			1451,
+			1455,
+			1456,
+			1499,
+			1500,
+			1501,
+			1505,
+			1506,
+			1510,
+			1511,
+			1549,
+			1550,
+			1551,
+			1555,
+			1556,
+			1560,
+			1561,
+			1599,
+			1600,
+			1610,
+			1611,
+			1612,
+			1613,
+			1614,
+			1615,
+			1616,
+			1617,
+			1618,
+			1699,
+			1700,
+			1701,
+			1710,
+			1711,
+			1712,
+			1715,
+			1716,
+			1717,
+			1749,
+			1750,
+			1751,
+			1752,
+			1755,
+			1756,
+			1757,
+			1799,
+			1800,
+			1801,
+			1805,
+			1819,
+			1820,
+			1821,
+			1825,
+			1839,
+			1840,
+			1841,
+			1845,
+			1849,
+			1850,
+			1851,
+			1855,
+			1899,
+			1900,
+			1901,
+			1902,
+			1919,
+			1920,
+			1939,
+			1940,
+			);
+	}
+
+}
+
 //////////////////////////////////////////////////
 //
 function ItemSellPrice($item)
@@ -98,6 +220,39 @@ function ItemSellPrice($item)
 	return $price;
 }
 
+
+//////////////////////////////////////////////////
+//	戦闘ログを回覧する
+function ShowBattleLog($no, $type = false)
+{
+	if ($type == "RANK") $file = LOG_BATTLE_RANK . $no . ".dat";
+	else
+		if ($type == "UNION") $file = LOG_BATTLE_UNION . $no . ".dat";
+		else  $file = LOG_BATTLE_NORMAL . $no . ".dat";
+	if (!file_exists($file))
+	{ //ログが無い
+		print ("log doesnt exists");
+		return false;
+	}
+
+	$log = file($file);
+	$row = 6; //ログの何行目から書き出すか?
+	$time = substr($log[0], 0, 10);
+
+	//print('<table style="width:100%;text-align:center" class="break"><tr><td>'."\n");
+	print ('<div style="padding:15px 0;width:100%;text-align:center" class="break">');
+	print ("<h2>battle log*</h2>");
+	print ("\nthis battle starts at<br />");
+	print (gc_date("m/d H:i:s", substr($time, 0, 10)));
+	print ("</div>\n");
+	//print("</td></tr></table>\n");
+
+	while ($log["$row"])
+	{
+		print ($log["$row"]);
+		$row++;
+	}
+}
 //////////////////////////////////////////////////
 //	技の詳細を表示
 function ShowSkillDetail($skill, $radio = false)
