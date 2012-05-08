@@ -82,7 +82,13 @@ class main extends HOF_Class_User
 					return false;
 
 				case ($_POST["delete"]):
+					/*
 					if ($this->DeleteMyData()) return 0;
+					*/
+					if (!HOF_Class_Controller::newInstance('game', 'DeleteMyData')->main()->_stop)
+					{
+						return 0;
+					}
 
 					// 設定
 				case ($_SERVER["QUERY_STRING"] === "setting"):
@@ -2282,23 +2288,7 @@ HTML;
 
 
 
-		//	自分のデータとクッキーを消す
-		function DeleteMyData()
-		{
-			if ($this->pass == $this->CryptPassword($_POST["deletepass"]))
-			{
-				$this->DeleteUser();
-				$this->name = NULL;
-				$this->pass = NULL;
-				$this->id = NULL;
-				$this->islogin = false;
-				unset($_SESSION["id"]);
-				unset($_SESSION["pass"]);
-				setcookie("NO", "");
-				$this->LoginForm();
-				return true;
-			}
-		}
+
 
 
 		//	変数の表示
