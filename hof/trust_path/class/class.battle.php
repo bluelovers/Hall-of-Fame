@@ -258,7 +258,7 @@ HTML;
 
 		} while (!$result);
 
-		$this->objs['view']->HOF_Helper_Global::ShowResult($result); //戦闘の結果表示
+		$this->objs['view']->ShowResult($result); //戦闘の結果表示
 		$this->objs['view']->BattleFoot();
 
 		//$this->SaveCharacters();
