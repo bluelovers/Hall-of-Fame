@@ -10,6 +10,14 @@ class HOF_Class_File
 
 	static $data = array();
 
+	public static function fpCloseAll()
+	{
+		foreach ((array)self::$data as $file => $data)
+		{
+			self::fileClose($data['fp']);
+		}
+	}
+
 	function basename($file)
 	{
 		$file = basename($file);
@@ -75,7 +83,7 @@ class HOF_Class_File
 		else
 		{
 			ob_clean();
-			exit("file lock error.");
+			exit("file lock error. $file");
 		}
 		//flock($fp, LOCK_EX);//排他
 		//flock($fp, LOCK_SH);//共有ロック
@@ -195,7 +203,7 @@ class HOF_Class_File
 
 		if (is_resource($fp))
 		{
-			fclose($fp);
+			@fclose($fp);
 		}
 	}
 
