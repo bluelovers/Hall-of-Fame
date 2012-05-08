@@ -138,7 +138,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 			}
 			// キャラを保存する
 			$char->SaveCharData($this->user->id);
-			ShowResult($char->Name() . "($char->job_name:{$Gender}) が仲間になった！", "margin15");
+			HOF_Helper_Global::ShowResult($char->Name() . "($char->job_name:{$Gender}) が仲間になった！", "margin15");
 			return true;
 		}
 	}
