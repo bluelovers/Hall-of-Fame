@@ -114,7 +114,11 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			$land_data = HOF_Model_Data::getLandInfo($this->input->common);
 			$land = $land_data['land'];
 
-			if ($this->_cache['MonsterBattle'] = $this->MonsterBattle())
+			ob_start();
+			$this->_cache['MonsterBattle'] = $this->MonsterBattle();
+			$this->output->battle_show = ob_get_clean();
+
+			if ($this->_cache['MonsterBattle'])
 			{
 				$this->user->SaveData();
 			}
