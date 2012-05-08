@@ -88,7 +88,7 @@ class Ranking
 		// 1位の場合。
 		if ($MyRank["0"] === 0)
 		{
-			SHowError("First place can't challenge.");
+			HOF_Helper_Global::SHowError("First place can't challenge.");
 			//return array($message,true);
 			return false;
 		}
