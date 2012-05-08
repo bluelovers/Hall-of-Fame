@@ -46,8 +46,9 @@ class main extends HOF_Class_User
 				break;
 
 			case ($_GET["menu"] === "rank"):
+			case ($_SERVER["QUERY_STRING"] === "rank"):
 
-				HOF_Class_Controller::newInstance($_GET["menu"])->main()->_main_stop();
+				HOF_Class_Controller::newInstance('rank')->main()->_main_stop();
 				return 0;
 				break;
 		}
