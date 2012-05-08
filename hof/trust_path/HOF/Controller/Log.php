@@ -95,7 +95,7 @@ class HOF_Controller_Log extends HOF_Class_Controller
 			$log = game_core::glob($_k);
 			foreach (array_reverse($log) as $file)
 			{
-				$logs[$_k][] = $this->BattleLogDetail($file);
+				$logs[$_k][] = HOF_Helper_Global::BattleLogDetail($file);
 				$limit++;
 				if (!$this->output->full_log && 30 <= $limit)
 				{
@@ -123,38 +123,6 @@ class HOF_Controller_Log extends HOF_Class_Controller
 		list($this->output->log, $this->output->time) = $this->ShowBattleLog($this->input->log, self::$map_logtype[$idx]);
 
 		$this->options['escapeHtml'] = false;
-	}
-
-	/**
-	 * 戦闘ログの詳細を表示(リンク)
-	 */
-	function BattleLogDetail($log)
-	{
-		$fp = fopen($log, "r");
-
-		// 数行だけ読み込む。
-		$time = fgets($fp); //開始時間 1行目
-		$team = explode("<>", fgets($fp)); //チーム名 2行目
-		$number = explode("<>", trim(fgets($fp))); //人数 3行目
-		$avelv = explode("<>", trim(fgets($fp))); //平均レベル 4行目
-		$win = trim(fgets($fp)); // 勝利チーム 5行目
-		$act = trim(fgets($fp)); // 総行動数 6行目
-		fclose($fp);
-
-		$date = gc_date("m/d H:i:s", substr($time, 0, 10));
-		// 勝利チームによって色を分けて表示
-
-		return array(
-
-			$time,
-			$team,
-			$number,
-			$avelv,
-			$win,
-			$act,
-			$date,
-
-			);
 	}
 
 	/**
