@@ -37,8 +37,34 @@
 	<div style="margin:0 15px">
 		<h4>Union Battle Log <a href="?ulog">全表示</a></h4>
 		<div style="margin:0 20px">
-			<?php foreach ($this->output->logs as $file): ?>
-			<?php HOF_Helper_Global::BattleLogDetail($file, "UNION"); ?>
+			<?php foreach ($this->output->logs as $log): ?>
+
+				[ <a href="?<?php e($_u) ?>=<?php e($log[time]) ?>"><?php e($log[date]) ?></a> ]
+
+				<!-- 総ターン数 -->
+				<span class="bold"><?php e($log[act]) ?></span>turns
+
+				<?php if ($log[win] === "0"): ?>
+					<span class="recover"><?php e($log[team][0]) ?></span>
+				<?php elseif ($log[win] === "1"): ?>
+					<span class="dmg"><?php e($log[team][0]) ?></span>
+				<?php else: ?>
+					<?php e($log[team][0]) ?>
+				<?php endif; ?>
+
+				(<?php e($log[number][0]) ?>:<?php e($log[avelv][0]) ?>)
+				vs
+				<?php if ($log[win] === "0"): ?>
+					<span class="dmg"><?php e($log[team][1]) ?></span>
+				<?php elseif ($log[win] === "1"): ?>
+					<span class="recover"><?php e($log[team][1]) ?></span>
+				<?php else: ?>
+					<?php e($log[team][1]) ?>
+				<?php endif; ?>
+				(<?php e($log[number][1]) ?>:<?php e($log[avelv][1]) ?>)
+
+				<br />
+
 			<?php endforeach; ?>
 		</div>
 	</div>
