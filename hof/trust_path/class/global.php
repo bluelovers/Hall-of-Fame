@@ -223,7 +223,7 @@ function ItemSellPrice($item)
 
 //////////////////////////////////////////////////
 //	戦闘ログを回覧する
-function ShowBattleLog($no, $type = false)
+function HOF_Helper_Global::getLogBattle($no, $type = false)
 {
 	if ($type == "RANK") $file = LOG_BATTLE_RANK . $no . ".dat";
 	else
