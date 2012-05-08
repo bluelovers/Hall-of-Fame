@@ -8,9 +8,28 @@
 class HOF_Model_Main extends HOF_Class_Main
 {
 
+	function FirstLogin($over = false)
+	{
+		static $flag;
+
+		if (!isset($flag) || $over)
+		{
+			$flag = !HOF_Class_Controller::getInstance('game', 'FirstLogin')->main()->_main_stop();
+		}
+
+		return $flag;
+	}
+
 	function __destruct()
 	{
 		$this->fpCloseAll();
+	}
+
+	function fpCloseAll()
+	{
+		parent::fpCloseAll();
+
+  		HOF_Class_File::fpCloseAll();
 	}
 
 	function __construct()
