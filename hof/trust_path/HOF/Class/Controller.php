@@ -21,9 +21,12 @@ class HOF_Class_Controller
 
 	public $allowActions = array();
 
-	public $autoView = true;
-
 	public $view = null;
+
+	/**
+	 * @var HOF_Class_View
+	 */
+	protected $content = null;
 
 	const DEFAULT_CONTROLLER = 'default';
 	const DEFAULT_ACTION = 'default';
@@ -35,6 +38,9 @@ class HOF_Class_Controller
 			'_main_after' => false,
 			'_view' => false,
 			),
+		'autoView' => true,
+		'autoViewOutput' => true,
+		'autoViewOutputRender' => true,
 		);
 
 	protected $allowCallMethod = true;
@@ -219,7 +225,7 @@ class HOF_Class_Controller
 
 	function _main_after()
 	{
-		if ($this->autoView)
+		if ($this->options['autoView'])
 		{
 			$this->_main_call_once('_view');
 		}
@@ -242,6 +248,14 @@ class HOF_Class_Controller
 		}
 	}
 
+	/**
+	 * @return HOF_Class_View
+	 */
+	function view()
+	{
+		return $this->content;
+	}
+
 	protected function _view()
 	{
 		if (!$this->template)
@@ -258,7 +272,12 @@ class HOF_Class_Controller
 
 		$content = HOF_Class_View::render($this, &$this->output, $this->template);
 
-		$content->output();
+		if ($this->options['autoViewOutput'])
+		{
+			$content->output();
+		}
+
+		$this->content = &$content;
 
 		return $this;
 	}
@@ -276,9 +295,12 @@ class HOF_Class_Controller
 			$content = HOF_Class_View::render($this, &$this->output, $template, $content);
 		}
 
-		$content->output();
+		if ($this->options['autoViewOutputRender'])
+		{
+			$content->output();
+		}
 
-		return $this;
+		return $content;
 	}
 
 	function allowCallMethod($flag = null)
