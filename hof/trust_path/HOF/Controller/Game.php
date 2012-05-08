@@ -380,7 +380,7 @@ Users :
 		}
 
 		$this->input->recruit_no = HOF::$input->post->recruit_no;
-		$this->input->team_name = trim(HOF::$input->post->team_name, ENT_QUOTES);;
+		$this->input->team_name = trim(HOF::$input->post->team_name, ENT_QUOTES);
 		$this->input->char_name = trim(HOF::$input->post->char_name, ENT_QUOTES);
 
 		$this->input->done = HOF::$input->post->Done;
@@ -393,18 +393,12 @@ Users :
 		{
 			if (!$this->input->done) break;
 
-			if (
-				is_numeric(strpos($this->input->team_name, "\t"))
-				|| is_numeric(strpos($this->input->char_name, "\t"))
-			)
+			if (is_numeric(strpos($this->input->team_name, "\t")) || is_numeric(strpos($this->input->char_name, "\t")))
 			{
 				$this->_error('error1');
 				break;
 			}
-			if (
-				is_numeric(strpos($this->input->team_name, "\n"))
-				|| is_numeric(strpos($this->input->char_name, "\n"))
-			)
+			if (is_numeric(strpos($this->input->team_name, "\n")) || is_numeric(strpos($this->input->char_name, "\n")))
 			{
 				$this->_error('error');
 				break;
@@ -438,12 +432,7 @@ Users :
 
 			$length = strlen($this->input->team_name);
 			$length1 = strlen($this->input->char_name);
-			if (
-				0 == $length || 16 < $length
-				||
-				0 == $length1 || 16 < $length1
-
-			)
+			if (0 == $length || 16 < $length || 0 == $length1 || 16 < $length1)
 			{
 				$this->_error('1 to 16 letters?');
 				break;
@@ -478,7 +467,7 @@ Users :
 				break;
 			}
 
-			$this->input->team_name = htmlspecialchars($this->input->team_name, ENT_QUOTES);;
+			$this->input->team_name = htmlspecialchars($this->input->team_name, ENT_QUOTES);
 			$this->input->char_name = htmlspecialchars($this->input->char_name, ENT_QUOTES);
 
 			$this->user->name = $this->input->team_name;
@@ -523,3 +512,4 @@ Users :
 }
 
 
+?>
