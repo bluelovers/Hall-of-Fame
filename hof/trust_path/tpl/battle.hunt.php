@@ -38,7 +38,7 @@
 		<h4>Union Battle Log <a href="?ulog">全表示</a></h4>
 		<div style="margin:0 20px">
 			<?php foreach ($this->output->logs as $file): ?>
-			<?php BattleLogDetail($file, "UNION"); ?>
+			<?php HOF_Helper_Global::BattleLogDetail($file, "UNION"); ?>
 			<?php endforeach; ?>
 		</div>
 	</div>
