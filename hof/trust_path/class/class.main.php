@@ -404,13 +404,13 @@ class main extends HOF_Class_User
 					return true;
 					/*
 				case ($_GET["log"]):
-					ShowBattleLog($_GET["log"]);
+					HOF_Helper_Global::getLogBattle($_GET["log"]);
 					return true;
 				case ($_GET["ulog"]):
-					ShowBattleLog($_GET["ulog"], "UNION");
+					HOF_Helper_Global::getLogBattle($_GET["ulog"], "UNION");
 					return true;
 				case ($_GET["rlog"]):
-					ShowBattleLog($_GET["rlog"], "RANK");
+					HOF_Helper_Global::getLogBattle($_GET["rlog"], "RANK");
 					return true;
 					*/
 
