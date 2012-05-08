@@ -22,9 +22,9 @@ class HOF_Autoloader extends Zend_Loader_Autoloader
 	protected $_defaultAutoloader = array('Zend_Loader', 'loadClass');
 
 	/**
-     * @var bool Whether or not to suppress file not found warnings
-     */
-    protected $_suppressNotFoundWarnings = true;
+	 * @var bool Whether or not to suppress file not found warnings
+	 */
+	protected $_suppressNotFoundWarnings = true;
 
 	/**
 	 * Constructor
@@ -38,6 +38,33 @@ class HOF_Autoloader extends Zend_Loader_Autoloader
 		Zend_Loader_Autoloader::getInstance()->unshiftAutoloader(array(__CLASS__, 'autoload'));
 
 		$this->_internalAutoloader = array($this, '_autoload');
+	}
+
+	/**
+	 * Internal autoloader implementation
+	 *
+	 * @param  string $class
+	 * @return bool
+	 */
+	protected function _autoload($class, $autoloader = null, $ns = null)
+	{
+		$callback = $this->getDefaultAutoloader();
+		try
+		{
+			if ($this->suppressNotFoundWarnings())
+			{
+				@call_user_func($callback, $class, $autoloader, $ns);
+			}
+			else
+			{
+				call_user_func($callback, $class, $autoloader, $ns);
+			}
+			return $class;
+		}
+		catch (Zend_Exception $e)
+		{
+			return false;
+		}
 	}
 
 	/**
@@ -83,9 +110,6 @@ class HOF_Autoloader extends Zend_Loader_Autoloader
 			if ($class == $ns_ || 0 === strpos($class, $ns))
 			{
 				$autoloaders = $self->getNamespaceAutoloaders($ns);
-
-				$autoloaders[] = $self->_internalAutoloader;
-
 				break;
 			}
 		}
@@ -97,37 +121,38 @@ class HOF_Autoloader extends Zend_Loader_Autoloader
 
 		foreach ($autoloaders as $autoloader)
 		{
-			try
+
+			if ($autoloader instanceof Zend_Loader_Autoloader_Interface)
 			{
-
-				if ($autoloader instanceof Zend_Loader_Autoloader_Interface)
+				if ($autoloader->autoload($class))
 				{
-					if ($autoloader->autoload($class))
-					{
-						return true;
-					}
+					return true;
 				}
-				elseif (is_callable($autoloader))
+			}
+			elseif (is_callable($autoloader))
+			{
+				if (call_user_func($autoloader, $class, $ns))
 				{
-					if (call_user_func($autoloader, $class, $ns))
-					{
-						return true;
-					}
+					return true;
 				}
-				elseif (is_string($autoloader))
+			}
+			elseif (is_string($autoloader))
+			{
+				$skip = true;
+
+				if (call_user_func($self->_internalAutoloader, $class, $autoloader, $ns))
 				{
-
-					if (@call_user_func($self->_defaultAutoloader, $class, $autoloader, $ns))
-					{
-						return true;
-					}
-
+					return true;
 				}
 
 			}
-			catch (Exception $e)
+		}
+
+		if (!$skip && !in_array($self->_internalAutoloader, $autoloaders))
+		{
+			if (call_user_func($self->_internalAutoloader, $class, $autoloader, $ns))
 			{
-				self::$error[$ns][] = $e->getMessage();
+				return true;
 			}
 		}
 
