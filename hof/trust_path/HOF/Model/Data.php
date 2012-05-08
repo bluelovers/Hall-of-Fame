@@ -752,4 +752,91 @@ class HOF_Model_Data extends HOF_Class_Data
 		return $place;
 	}
 
+	/**
+	 * 戦闘ログの詳細を表示(リンク)
+	 */
+	function getLogBattleFile($file, $dir = null, $full = false)
+	{
+		$file = $dir . $file;
+
+		if (!file_exists($file))
+		{
+			//ログが無い
+			return false;
+		}
+
+		$fp = fopen($file, "r");
+
+		// 数行だけ読み込む。
+
+		// 開始時間 1行目
+		$time = fgets($fp);
+
+		// チーム名 2行目
+		$team = explode("<>", fgets($fp));
+
+		// 人数 3行目
+		$number = explode("<>", trim(fgets($fp)));
+
+		// 平均レベル 4行目
+		$avelv = explode("<>", trim(fgets($fp)));
+
+		// 勝利チーム 5行目
+		$win = trim(fgets($fp));
+
+		// 総行動数 6行目
+		$act = trim(fgets($fp));
+
+		$contents = '';
+
+		if ($full)
+		{
+			while (!feof($fp))
+			{
+				$contents .= fread($fp, 8192);
+			}
+
+		}
+
+		fclose($fp);
+
+		$date = gc_date("m/d H:i:s", substr($time, 0, 10));
+		// 勝利チームによって色を分けて表示
+
+		return array(
+
+			'time' => $time,
+			'team' => $team,
+			'number' => $number,
+			'avelv' => $avelv,
+			'win' => $win,
+			'act' => $act,
+			'date' => $date,
+			'contents' => $contents,
+
+			);
+	}
+
+	function getLogBattle($no, $type = false, $full = false)
+	{
+		$file = $no . '.dat';
+
+		if ($type == LOG_BATTLE_RANK)
+		{
+			$dir = LOG_BATTLE_RANK;
+		}
+		elseif ($type == LOG_BATTLE_UNION)
+		{
+			$dir = LOG_BATTLE_UNION;
+		}
+		else
+		{
+			$dir = LOG_BATTLE_NORMAL;
+		}
+
+		$data = self::getLogBattleFile($file, $dir, $full);
+
+		return $data;
+	}
+
 }
