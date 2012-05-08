@@ -30,11 +30,50 @@ class HOF_Class_Controller
 
 	public $options = array(
 		'escapeHtml' => true,
+		'skip_chk_call' => array(
+			'_main_input' => false,
+			'_main_after' => false,
+			'_view' => false,
+		),
 	);
 
 	protected $allowCallMethod = true;
 
+	protected $_controller_cache = array();
+
 	public static function &newInstance($controller, $action = null)
+	{
+		$_s = self::_setup_fix($controller, $action);
+
+		$class = 'HOF_Controller_' . $_s['Controller'];
+
+		if (!class_exists($class))
+		{
+			die("Invalid Access {$_s[Controller]}::{$_s[Action]}");
+		}
+
+		$instance = new $class($_s['controller'], $_s['action']);
+
+		return $instance;
+	}
+
+	public function __construct($controller, $action = null)
+	{
+		$_s = self::_setup_fix($controller, $action);
+
+		$this->controller = $_s['controller'];
+		$this->action = $_s['action'];
+
+		$this->output = new HOF_Class_Array($this->output);
+		$this->input = new HOF_Class_Array($this->input);
+
+		$this->_main_call('_init');
+
+		return $this;
+
+	}
+
+	function _setup_fix($controller = null, $action = null)
 	{
 		$controller = $controller ? $controller : self::DEFAULT_CONTROLLER;
 		$action = $action ? $action : self::DEFAULT_ACTION;
@@ -47,31 +86,97 @@ class HOF_Class_Controller
 
 		$Action[0] = strtolower($Action[0]);
 
-		$class = 'HOF_Controller_' . $Controller;
-
-		if (!class_exists($class))
-		{
-			die("Invalid Access {$Controller}::$Action");
-		}
-
-		$instance = new $class($controller, $action);
-
-		return $instance;
+		return array(
+			'Controller' => $Controller,
+			'Action' => $Action,
+			'controller' => $controller,
+			'action' => $action,
+		);
 	}
 
-	public function __construct($controller, $action = null)
+	function _main_input()
 	{
 
-		$this->controller = $controller;
-		$this->action = $action;
+	}
 
-		$this->output = new HOF_Class_Array($this->output);
-		$this->input = new HOF_Class_Array($this->input);
+	function _main_call($func)
+	{
+		$this->_controller_cache['call'][$func]++;
 
-		$this->_init();
+		$args = func_get_args();
+		array_shift($args);
+
+		return call_user_func_array(array($this, $func), (array)$args);
+	}
+
+	function _main_stop($flag = null)
+	{
+		if ($flag !== null)
+		{
+			$this->_controller_cache['stop'][$flag]++;
+
+			$this->_stop = $flag;
+		}
+		else
+		{
+			$this->_controller_cache['stop']['chk']++;
+		}
+
+		return $this->_stop;
+	}
+
+	function _main_call_once($func)
+	{
+		if (!$this->_controller_cache[$func] || $this->options['skip_chk_call'][$func])
+		{
+			$args = func_get_args();
+
+			call_user_func_array(array($this, '_main_call'), (array)$args);
+
+			return $this->_controller_cache[$func];
+		}
+
+		return false;
+	}
+
+	function _main_exec($action)
+	{
+		$_s = self::_setup_fix($this->controller, $action);
+
+		$this->action = $_s['action'];
+
+		$this->_main_call_once('_main_input');
+
+		if (!empty($this->action))
+		{
+			$this->_main_stop(false);
+
+			if ($this->action != self::DEFAULT_ACTION && !empty($this->allowActions) && !in_array($this->action, $this->allowActions))
+			{
+				$this->action = self::DEFAULT_ACTION;
+			}
+
+			$args = func_get_args();
+			array_shift($args);
+
+			$_method = '_main_action_' . $this->action;
+
+			array_unshift($args, $_method);
+
+			if (method_exists($this, $_method))
+			{
+				call_user_func_array(array($this, '_main_call'), (array)$args);
+			}
+		}
+
+		if ($this->_main_stop())
+		{
+			return $this;
+		}
+
+		$this->_main_call_once('_main_after');
 
 		return $this;
-
 	}
 
 	function _init()
@@ -81,38 +186,18 @@ class HOF_Class_Controller
 
 	public function main()
 	{
-		// bluelovers
-		$this->_main_before();
+		$this->_controller_cache['call'][__FUNCTION__]++;
 
-		if ($this->_stop)
+		$this->_main_call('_main_before');
+
+		if ($this->_main_stop())
 		{
 			return $this;
 		}
 
-		if (!empty($this->action))
-		{
+		$this->_main_call('_main_exec', $this->action);
 
-			if ($this->action != self::DEFAULT_ACTION && !empty($this->allowActions) && !in_array($this->action, $this->allowActions))
-			{
-				$this->action = self::DEFAULT_ACTION;
-			}
-
-			$_method = '_main_action_' . $this->action;
-
-			if (method_exists($this, $_method))
-			{
-				$this->$_method();
-			}
-		}
-
-		if ($this->_stop)
-		{
-			return $this;
-		}
-
-		$this->_main_after();
-
-		if ($this->_stop)
+		if ($this->_main_stop())
 		{
 			return $this;
 		}
@@ -122,6 +207,8 @@ class HOF_Class_Controller
 
 	function _main_before()
 	{
+		$this->_main_call_once('_main_input');
+
 		return $this;
 	}
 
@@ -129,7 +216,7 @@ class HOF_Class_Controller
 	{
 		if ($this->autoView)
 		{
-			$this->_view();
+			$this->_main_call_once('_view');
 		}
 
 		return $this;
@@ -152,7 +239,6 @@ class HOF_Class_Controller
 
 	protected function _view()
 	{
-
 		if (!$this->template)
 		{
 			$this->template = $this->controller . '.' . $this->action;
@@ -174,6 +260,8 @@ class HOF_Class_Controller
 
 	protected function _render($template, $output = null, $content = null)
 	{
+		$this->_controller_cache['call'][__FUNCTION__]++;
+
 		if ($output !== null)
 		{
 			$content = HOF_Class_View::render($this, $output, $template, $content);
@@ -190,6 +278,8 @@ class HOF_Class_Controller
 
 	function allowCallMethod($flag = null)
     {
+    	$this->_controller_cache['call'][__FUNCTION__]++;
+
     	$_attr = __FUNCTION__;
 
         if (null !== $flag) {
