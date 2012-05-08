@@ -715,21 +715,6 @@ function ShowItemDetail($item, $amount = false, $text = false, $need = false)
 	print ($html);
 }
 
-//////////////////////////////////////////////////
-//	赤い警告文でエラー表示
-function ShowResult($message, $add = false)
-{
-	if ($add) $add = " " . $add;
-	if (is_string($message)) print ('<div class="result' . $add . '">' . $message . '</div>' . "\n");
-}
-//////////////////////////////////////////////////
-//	赤い警告文でエラー表示
-function ShowError($message, $add = false)
-{
-	if ($add) $add = " " . $add;
-	if (is_string($message)) print ('<div class="error' . $add . '">' . $message . '</div>' . "\n");
-}
-
 function userNameLoad()
 {
 	$name = @file(USER_NAME);
