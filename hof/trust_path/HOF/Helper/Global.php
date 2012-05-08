@@ -8,6 +8,38 @@
 class HOF_Helper_Global
 {
 
+	/**
+	 * 戦闘ログの詳細を表示(リンク)
+	 */
+	function HOF_Helper_Global::BattleLogDetail($log)
+	{
+		$fp = fopen($log, "r");
+
+		// 数行だけ読み込む。
+		$time = fgets($fp); //開始時間 1行目
+		$team = explode("<>", fgets($fp)); //チーム名 2行目
+		$number = explode("<>", trim(fgets($fp))); //人数 3行目
+		$avelv = explode("<>", trim(fgets($fp))); //平均レベル 4行目
+		$win = trim(fgets($fp)); // 勝利チーム 5行目
+		$act = trim(fgets($fp)); // 総行動数 6行目
+		fclose($fp);
+
+		$date = gc_date("m/d H:i:s", substr($time, 0, 10));
+		// 勝利チームによって色を分けて表示
+
+		return array(
+
+			$time,
+			$team,
+			$number,
+			$avelv,
+			$win,
+			$act,
+			$date,
+
+			);
+	}
+
 	function UserAmount()
 	{
 		static $amount;
