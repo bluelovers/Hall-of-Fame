@@ -11,7 +11,7 @@ class HOF_Helper_Global
 	/**
 	 * 戦闘ログの詳細を表示(リンク)
 	 */
-	function HOF_Helper_Global::BattleLogDetail($log)
+	function BattleLogDetail($log)
 	{
 		$fp = fopen($log, "r");
 
