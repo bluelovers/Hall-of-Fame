@@ -40,23 +40,12 @@ class main extends HOF_Class_User
 		{
 			case ($_GET["menu"] === "auction"):
 
-				/*
-				$ItemAuction = new HOF_Class_Item_Auction(item);
-				$ItemAuction->AuctionHttpQuery("auction");
-				$ItemAuction->ItemCheckSuccess(); // 競売が終了した品物を調べる
-				$ItemAuction->UserSaveData(); // 競売品と金額を各IDに配って保存する
-				*/
-
 				HOF_Class_Controller::newInstance('auction')->main()->_main_stop();
 				return 0;
 
 				break;
 
 			case ($_GET["menu"] === "rank"):
-				/*
-				include (CLASS_RANKING);
-				$Ranking = new Ranking();
-				*/
 
 				HOF_Class_Controller::newInstance($_GET["menu"])->main()->_main_stop();
 				return 0;
@@ -79,9 +68,6 @@ class main extends HOF_Class_User
 					return false;
 
 				case ($_POST["delete"]):
-					/*
-					if ($this->DeleteMyData()) return 0;
-					*/
 					if (!HOF_Class_Controller::newInstance('game', 'DeleteMyData')->main()->_main_stop())
 					{
 						return 0;
@@ -97,82 +83,28 @@ class main extends HOF_Class_User
 
 					// 狩場
 				case ($_SERVER["QUERY_STRING"] === "hunt"):
-				/*
-					$this->LoadUserItem(); //アイテムデータ読む
-					$this->fpCloseAll();
-					$this->HuntShow();
-					*/
-
 					HOF_Class_Controller::newInstance('Battle', $_SERVER["QUERY_STRING"])->main();
 
 					return 0;
 
 					// 街
 				case ($_SERVER["QUERY_STRING"] === "town"):
-					/*
-					$this->LoadUserItem(); //アイテムデータ読む
-					$this->fpCloseAll();
-					$this->TownShow();
-					*/
-
 					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
 
 					return 0;
 
 					// シミュれ
 				case ($_SERVER["QUERY_STRING"] === "simulate"):
-					/*
-					$this->CharDataLoadAll(); //キャラデータ読む
-					if ($this->SimuBattleProcess()) $this->SaveData();
-
-					$this->fpCloseAll();
-					$this->SimuBattleShow($result);
-					*/
 					HOF_Class_Controller::newInstance('Battle', $_SERVER["QUERY_STRING"])->main();
 					return 0;
 
 					// ユニオン
 				case ($_GET["union"]):
-					/*
-					$this->CharDataLoadAll(); //キャラデータ読む
-
-					if ($this->UnionProcess())
-					{
-						// 戦闘する
-						$this->SaveData();
-						$this->fpCloseAll();
-					}
-					else
-					{
-						// 表示
-						$this->fpCloseAll();
-						$this->UnionShow();
-					}
-					*/
 					HOF_Class_Controller::newInstance('Battle', 'union')->main();
 					return 0;
-
-					// 一般モンスター
-					/*
-				case ($_GET["common"]):
-					$this->CharDataLoadAll(); //キャラデータ読む
-					$this->LoadUserItem(); //アイテムデータ読む
-					if ($this->MonsterBattle())
-					{
-						$this->SaveData();
-						$this->fpCloseAll();
-					}
-					else
-					{
-						$this->fpCloseAll();
-						$this->MonsterShow();
-					}
-					return 0;
-					*/
 				case ($_GET["common"]):
 					HOF_Class_Controller::newInstance('Battle', 'common')->main();
 					return 0;
-
 					// キャラステ
 				case ($_GET["char"]):
 					$this->CharDataLoadAll(); //キャラデータ読む
@@ -190,117 +122,18 @@ class main extends HOF_Class_User
 					$this->fpCloseAll();
 					$this->ItemShow();
 					return 0;
-
-					/*
-					// 精錬
-				case ($_GET["menu"] === "refine"):
-					$this->LoadUserItem();
-					$this->SmithyRefineHeader();
-					if ($this->SmithyRefineProcess()) $this->SaveData();
-
-					$this->fpCloseAll();
-					$result = $this->SmithyRefineShow();
-					return 0;
-
-					// 製作
-				case ($_GET["menu"] === "create"):
-					$this->LoadUserItem();
-					$this->SmithyCreateHeader();
-
-					if ($this->SmithyCreateProcess()) $this->SaveData();
-
-					$this->fpCloseAll();
-					$this->SmithyCreateShow();
-					*/
-
 				case ($_GET["menu"] === "refine"):
 				case ($_GET["menu"] === "create"):
 					HOF_Class_Controller::newInstance('Smithy', $_GET["menu"])->main();
-
 					return 0;
-					/*
-					// ショップ(旧式:買う,売る,アルバイト)
-					case($_SERVER["QUERY_STRING"] === "shop"):
-					$this->LoadUserItem();//アイテムデータ読む
-					if($this->ShopProcess())
-					$this->SaveData();
-					$this->fpCloseAll();
-					$this->ShopShow();
-					return 0;
-					*/
-
-					/*
-					// ショップ(買う)
-				case ($_GET["menu"] === "buy"):
-					$this->LoadUserItem(); //アイテムデータ読む
-					$this->ShopHeader();
-					if ($this->ShopBuyProcess()) $this->SaveData();
-					$this->fpCloseAll();
-					$this->ShopBuyShow();
-					return 0;
-
-					// ショップ(売る)
-				case ($_GET["menu"] === "sell"):
-					$this->LoadUserItem(); //アイテムデータ読む
-					$this->ShopHeader();
-					if ($this->ShopSellProcess()) $this->SaveData();
-					$this->fpCloseAll();
-					$this->ShopSellShow();
-					return 0;
-					// ショップ(働く)
-				case ($_GET["menu"] === "work"):
-					$this->ShopHeader();
-					if ($this->WorkProcess()) $this->SaveData();
-					$this->fpCloseAll();
-					$this->WorkShow();
-					return 0;
-					*/
 				case ($_GET["menu"] === "buy"):
 				case ($_GET["menu"] === "sell"):
 				case ($_GET["menu"] === "work"):
 					HOF_Class_Controller::newInstance('shop', $_GET["menu"])->main();
-
 					return 0;
-
-					// ランキング
-				/*
-				case ($_GET["menu"] === "rank"):
-					$this->CharDataLoadAll(); //キャラデータ読む
-					$RankProcess = $this->RankProcess($Ranking);
-
-					if ($RankProcess === "BATTLE")
-					{
-						$this->SaveData();
-						$this->fpCloseAll();
-					}
-					else
-						if ($RankProcess === true)
-						{
-							$this->SaveData();
-							$this->fpCloseAll();
-							$this->RankShow($Ranking);
-						}
-						else
-						{
-							$this->fpCloseAll();
-							$this->RankShow($Ranking);
-						}
-						return 0;*/
-
-					// 雇用
 				case ($_SERVER["QUERY_STRING"] === "recruit"):
-				/*
-					if ($this->RecruitProcess()) $this->SaveData();
-
-					$this->fpCloseAll();
-					$this->RecruitShow($result);
-					*/
-
 					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
-
 					return 0;
-
-					// それ以外(トップ)
 				default:
 					$this->CharDataLoadAll(); //キャラデータ読む
 					$this->fpCloseAll();
@@ -314,26 +147,11 @@ class main extends HOF_Class_User
 			{
 				case ($this->OptionOrder()):
 					return false;
-					/*
-				case ($_POST["Make"]):
-					list($bool, $message) = $this->MakeNewData();
-					if (true === $bool)
-					{
-						$this->LoginForm($message);
-						return false;
-					}
-					*/
 				case ($_POST["Make"]):
 				case ($_SERVER["QUERY_STRING"] === "newgame"):
-					/*
-					$this->NewForm($message);
-					*/
 					HOF_Class_Controller::getInstance('game', "newgame")->main();
 					return false;
 				default:
-					/*
-					$this->LoginForm($message);
-					*/
 					HOF_Class_Controller::getInstance('game', "login")->main();
 			}
 		endif;
