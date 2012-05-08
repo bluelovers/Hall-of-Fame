@@ -8,6 +8,41 @@
 class HOF_Controller_Log extends HOF_Class_Controller
 {
 
+	static $map_logtype = array(
+			'log' => LOG_BATTLE_NORMAL,
+			'clog' => LOG_BATTLE_NORMAL,
+			'ulog' => LOG_BATTLE_UNION,
+			'rlog' => LOG_BATTLE_RANK,
+			);
+
+	function _main_input()
+	{
+		foreach (self::$map_logtype as $_k => $_v)
+		{
+			if (isset(HOF::$input->request[$_k]))
+			{
+
+				$this->input->action = $_k;
+
+				if (!empty(HOF::$input->request[$_k]))
+				{
+					$this->input->log = HOF::$input->request[$_k];
+				}
+
+				break;
+			}
+		}
+
+		if ($this->input->log)
+		{
+			$this->_main_setup('log');
+		}
+		elseif ($this->input->action)
+		{
+			$this->_main_setup();
+		}
+	}
+
 	function _main_action_update()
 	{
 		if ($_POST["updatetext"])
@@ -38,38 +73,19 @@ class HOF_Controller_Log extends HOF_Class_Controller
 	{
 		$logs = array();
 
-		$idx = $_SERVER["QUERY_STRING"];
+		$idx = $this->input->action;
 
-		if (in_array($idx, array(
-			'clog',
-			'ulog',
-			'rlog',
-			)))
+		if ($idx != 'log')
 		{
 			$this->output->full_log = true;
 
 			$map = array();
 
-			if ($idx == 'ulog')
-			{
-				$map[] = LOG_BATTLE_UNION;
-			}
-			elseif ($idx == 'rlog')
-			{
-				$map[] = LOG_BATTLE_RANK;
-			}
-			else
-			{
-				$map[] = LOG_BATTLE_NORMAL;
-			}
+			$map[] = self::$map_logtype[$idx];
 		}
 		else
 		{
-			$map = array(
-				LOG_BATTLE_NORMAL,
-				LOG_BATTLE_UNION,
-				LOG_BATTLE_RANK,
-				);
+			$map = array_unique(array_values(self::$map_logtype));
 		}
 
 		// common
@@ -95,29 +111,16 @@ class HOF_Controller_Log extends HOF_Class_Controller
 
 	function _main_action_log()
 	{
-		$map = array(
-			'log' => LOG_BATTLE_NORMAL,
-			'clog' => LOG_BATTLE_NORMAL,
-			'ulog' => LOG_BATTLE_UNION,
-			'rlog' => LOG_BATTLE_RANK,
-			);
+		$idx = $this->input->action;
 
-		foreach ($map as $_k => $_v)
+		if ($idx == 'log' || $idx == 'clog')
 		{
-			if ($_GET[$_k])
-			{
-				break;
-			}
+			$idx = 'clog';
 		}
 
-		if ($_k == 'log' || $_k == 'clog')
-		{
-			$_k = 'clog';
-		}
+		$this->output->idx = $idx;
 
-		$this->output->idx = $_k;
-
-		list($this->output->log, $this->output->time) = $this->ShowBattleLog($_GET[$_k], $_v);
+		list($this->output->log, $this->output->time) = $this->ShowBattleLog($this->input->log, self::$map_logtype[$idx]);
 
 		$this->options['escapeHtml'] = false;
 	}
