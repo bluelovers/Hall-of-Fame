@@ -81,7 +81,7 @@ class Auction
 		{
 			// 競売時間が残っているなら次
 			if (AuctionLeftTime($Now, $Article["end"])) continue;
-			if (!function_exists("LoadItemData")) include (DATA_ITEM);
+
 			$item = HOF_Model_Data::getItemData($Article["item"]);
 			if ($Article["bidder"])
 			{
