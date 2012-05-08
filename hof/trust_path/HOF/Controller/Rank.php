@@ -20,6 +20,15 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 		$this->user = &HOF_Model_Main::getInstance();
 	}
 
+	function _main_input()
+	{
+
+		if (HOF::$input->server->QUERY_STRING == 'rank')
+		{
+			$this->_main_setup('rank_all');
+		}
+	}
+
 	function _main_before()
 	{
 		if (true === $message = $this->user->CheckLogin())
@@ -32,41 +41,6 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 				return false;
 			}
 
-			$this->user->CharDataLoadAll();
-
-			$RankProcess = $this->RankProcess($this->Ranking);
-
-			// チーム再設定の残り時間計算
-			$this->_cache['now'] = time();
-
-			$this->output->left_setting = ($this->_cache['now'] - $this->user->rank_set_time) < RANK_TEAM_SET_TIME;
-
-			if ($this->output->left_setting)
-			{
-				$left = RANK_TEAM_SET_TIME - ($this->_cache['now'] - $this->user->rank_set_time);
-				$day = floor($left / 3600 / 24);
-				$hour = floor($left / 3600) % 24;
-				$min = floor(($left % 3600) / 60);
-				$sec = floor(($left % 3600) % 60);
-
-				$this->output->left_left = $left;
-				$this->output->left_day = $day;
-				$this->output->left_hour = $hour;
-				$this->output->left_min = $min;
-				$this->output->left_sec = $sec;
-			}
-
-			if ($RankProcess === "BATTLE" || $RankProcess === true)
-			{
-				$this->user->SaveData();
-			}
-
-			if ($RankProcess != "BATTLE")
-			{
-				$this->_RankShow();
-			}
-
-			$this->user->fpCloseAll();
 
 		}
 		else
@@ -76,6 +50,45 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 			$c = HOF_Class_Controller::newInstance('game', 'login')->_main_exec('login', $message ? $message : null);
 		}
 
+	}
+
+	function _main_action_default()
+	{
+		$this->user->CharDataLoadAll();
+
+		$RankProcess = $this->RankProcess($this->Ranking);
+
+		// チーム再設定の残り時間計算
+		$this->_cache['now'] = time();
+
+		$this->output->left_setting = ($this->_cache['now'] - $this->user->rank_set_time) < RANK_TEAM_SET_TIME;
+
+		if ($this->output->left_setting)
+		{
+			$left = RANK_TEAM_SET_TIME - ($this->_cache['now'] - $this->user->rank_set_time);
+			$day = floor($left / 3600 / 24);
+			$hour = floor($left / 3600) % 24;
+			$min = floor(($left % 3600) / 60);
+			$sec = floor(($left % 3600) % 60);
+
+			$this->output->left_left = $left;
+			$this->output->left_day = $day;
+			$this->output->left_hour = $hour;
+			$this->output->left_min = $min;
+			$this->output->left_sec = $sec;
+		}
+
+		if ($RankProcess === "BATTLE" || $RankProcess === true)
+		{
+			$this->user->SaveData();
+		}
+
+		if ($RankProcess != "BATTLE")
+		{
+			$this->_RankShow();
+		}
+
+		$this->user->fpCloseAll();
 	}
 
 	function _error($s, $a = null)
@@ -178,9 +191,16 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 		}
 	}
 
-	function _ShowRanking()
+	function _ShowRanking($full = false)
 	{
-		$this->Ranking->ShowRanking(0, 4);
+		if ($full)
+		{
+			$this->Ranking->ShowRanking();
+		}
+		else
+		{
+			$this->Ranking->ShowRanking(0, 4);
+		}
 	}
 
 	function _ShowRankingRange()
