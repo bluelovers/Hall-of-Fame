@@ -37,12 +37,32 @@ class HOF_Class_File
 		return array($name, $ext);
 	}
 
+	function _get_cache_fp($file, $lock = null)
+	{
+		$cache = self::$data[$file];
+
+		if (
+			is_resource($cache['fp'])
+			&& (!$lock || ($lock && $cache['lock']))
+		)
+		{
+			return self::$data[$file]['fp'];
+		}
+
+		return false;
+	}
+
 	/**
 	 * ファイルロックしたファイルポインタを返す。
 	 */
 	function FileLock($file, $noExit = false)
 	{
 		if (!file_exists($file)) return false;
+
+		if ($fp = self::_get_cache_fp($file, 1))
+		{
+			return $fp;
+		}
 
 		$fp = @fopen($file, "r+") or die("Error!");
 		if (!$fp) return false;
@@ -128,6 +148,7 @@ class HOF_Class_File
 		ftruncate()
 		else:
 		$fp	= fopen($file,"w+");*/
+
 		$fp = fopen($file, "w+");
 		flock($fp, LOCK_EX);
 		fputs($fp, $text);
