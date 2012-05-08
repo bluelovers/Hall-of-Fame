@@ -11,6 +11,10 @@
 
 		<?php e($this->output->monster_show); ?>
 
+	<?php else: ?>
+
+		<?php e($this->output->battle_show); ?>
+
 	<?php endif; ?>
 
 
