@@ -27,31 +27,29 @@
 
 			<?php foreach($logs as $log): ?>
 
-				<?php list($time, $team, $number, $avelv, $win, $act, $date,) = $log; ?>
-
-				[ <a href="?<?php e($_u) ?>=<?php e($time) ?>"><?php e($date) ?></a> ]
+				[ <a href="?<?php e($_u) ?>=<?php e($log[time]) ?>"><?php e($log[date]) ?></a> ]
 
 				<!-- 総ターン数 -->
-				<span class="bold"><?php e($act) ?></span>turns
+				<span class="bold"><?php e($log[act]) ?></span>turns
 
-				<?php if ($win === "0"): ?>
-					<span class="recover"><?php e($team[0]) ?></span>
-				<?php elseif ($win === "1"): ?>
-					<span class="dmg"><?php e($team[0]) ?></span>
+				<?php if ($log[win] === "0"): ?>
+					<span class="recover"><?php e($log[team][0]) ?></span>
+				<?php elseif ($log[win] === "1"): ?>
+					<span class="dmg"><?php e($log[team][0]) ?></span>
 				<?php else: ?>
-					<?php e($team[0]) ?>
+					<?php e($log[team][0]) ?>
 				<?php endif; ?>
 
-				(<?php e($number[0]) ?>:<?php e($avelv[0]) ?>)
+				(<?php e($log[number][0]) ?>:<?php e($log[avelv][0]) ?>)
 				vs
-				<?php if ($win === "0"): ?>
-					<span class="dmg"><?php e($team[1]) ?></span>
-				<?php elseif ($win === "1"): ?>
-					<span class="recover"><?php e($team[1]) ?></span>
+				<?php if ($log[win] === "0"): ?>
+					<span class="dmg"><?php e($log[team][1]) ?></span>
+				<?php elseif ($log[win] === "1"): ?>
+					<span class="recover"><?php e($log[team][1]) ?></span>
 				<?php else: ?>
-					<?php e($team[1]) ?>
+					<?php e($log[team][1]) ?>
 				<?php endif; ?>
-				(<?php e($number[1]) ?>:<?php e($avelv[1]) ?>)
+				(<?php e($log[number][1]) ?>:<?php e($log[avelv][1]) ?>)
 
 				<br />
 
