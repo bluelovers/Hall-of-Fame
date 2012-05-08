@@ -388,6 +388,10 @@ class main extends HOF_Class_User
 				case ($_SERVER["QUERY_STRING"] === "clog"):
 				case ($_SERVER["QUERY_STRING"] === "ulog"):
 				case ($_SERVER["QUERY_STRING"] === "rlog"):
+				case ($_GET["log"]):
+				case ($_GET["clog"]):
+				case ($_GET["ulog"]):
+				case ($_GET["rlog"]):
 					HOF_Class_Controller::newInstance('log')->main();
 					return true;
 				case ($_GET["gamedata"]):
@@ -407,12 +411,7 @@ class main extends HOF_Class_User
 					ShowBattleLog($_GET["rlog"], "RANK");
 					return true;
 					*/
-				case ($_GET["log"]):
-				case ($_GET["clog"]):
-				case ($_GET["ulog"]):
-				case ($_GET["rlog"]):
-					HOF_Class_Controller::newInstance('log', 'log')->main();
-					return true;
+
 			}
 		}
 
