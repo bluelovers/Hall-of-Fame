@@ -32,7 +32,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 
 			if ($this->user->FirstLogin())
 			{
-				$this->_stop = true;
+				$this->_main_stop(true);
 
 				return 0;
 			}
@@ -48,7 +48,11 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		}
 		else
 		{
-			$this->_stop = ($message ? $message : true);
+			$this->_main_stop(true);
+
+			$c = HOF_Class_Controller::newInstance('game', 'login')
+				->_main_exec('login', $message ? $message : null)
+			;
 		}
 
 	}
