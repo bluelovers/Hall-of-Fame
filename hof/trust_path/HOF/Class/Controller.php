@@ -34,8 +34,8 @@ class HOF_Class_Controller
 			'_main_input' => false,
 			'_main_after' => false,
 			'_view' => false,
-		),
-	);
+			),
+		);
 
 	protected $allowCallMethod = true;
 
@@ -91,7 +91,7 @@ class HOF_Class_Controller
 			'Action' => $Action,
 			'controller' => $controller,
 			'action' => $action,
-		);
+			);
 	}
 
 	function _main_input()
@@ -106,7 +106,7 @@ class HOF_Class_Controller
 		$args = func_get_args();
 		array_shift($args);
 
-		return call_user_func_array(array($this, $func), (array)$args);
+		return call_user_func_array(array($this, $func), (array )$args);
 	}
 
 	function _main_stop($flag = null)
@@ -131,7 +131,7 @@ class HOF_Class_Controller
 		{
 			$args = func_get_args();
 
-			call_user_func_array(array($this, '_main_call'), (array)$args);
+			call_user_func_array(array($this, '_main_call'), (array )$args);
 
 			return $this->_controller_cache[$func];
 		}
@@ -165,7 +165,7 @@ class HOF_Class_Controller
 
 			if (method_exists($this, $_method))
 			{
-				call_user_func_array(array($this, '_main_call'), (array)$args);
+				call_user_func_array(array($this, '_main_call'), (array )$args);
 			}
 		}
 
@@ -186,7 +186,7 @@ class HOF_Class_Controller
 
 	public function main()
 	{
-		$this->_controller_cache['call'][__FUNCTION__]++;
+		$this->_controller_cache['call'][__FUNCTION__ ]++;
 
 		$this->_main_call('_main_before');
 
@@ -260,7 +260,7 @@ class HOF_Class_Controller
 
 	protected function _render($template, $output = null, $content = null)
 	{
-		$this->_controller_cache['call'][__FUNCTION__]++;
+		$this->_controller_cache['call'][__FUNCTION__ ]++;
 
 		if ($output !== null)
 		{
@@ -277,16 +277,17 @@ class HOF_Class_Controller
 	}
 
 	function allowCallMethod($flag = null)
-    {
-    	$this->_controller_cache['call'][__FUNCTION__]++;
+	{
+		$this->_controller_cache['call'][__FUNCTION__ ]++;
 
-    	$_attr = __FUNCTION__;
+		$_attr = __FUNCTION__;
 
-        if (null !== $flag) {
-        	$this->$_attr = (bool) $flag;
-       	}
+		if (null !== $flag)
+		{
+			$this->$_attr = (bool)$flag;
+		}
 
-        return $this->$_attr;
-    }
+		return $this->$_attr;
+	}
 
 }
