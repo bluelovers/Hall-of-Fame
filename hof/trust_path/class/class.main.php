@@ -2341,30 +2341,7 @@ HTML;
 		}
 
 
-		//	HTML終了部分
-		function Foot()
-		{
-
-
-?>
-		</div>
-		<div id="foot">
-			<a href="?update">UpDate</a> -
-			<?php
-
-			if (BBS_BOTTOM_TOGGLE) print ('<a href="?bbs">BBS</a> - ' . "\n");
-
-
-?>
-			<a href="?manual">Manual</a> - <a href="?tutorial">Tutorial</a> - <a href="?gamedata=job">GameData</a> - <a href="#top">Top</a><br>
-			Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
-		</div>
-	</div>
-</body>
-</html>
-<?php
-
-		}
+		//
 
 		//	普通の1行掲示板
 		function bbs01()
