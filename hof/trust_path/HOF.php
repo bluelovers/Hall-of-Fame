@@ -37,25 +37,53 @@ class HOF
 
 	public static function putintoClassParts($str)
 	{
-		// 支援 將 AbcDef => abc_def
-		$str = preg_replace('/([A-Z])/e', '\'_\'.strtolower(\\1)', $str);
-		$str = trim($str, '_');
+		static $cache;
 
-		$str = preg_replace('/[^a-z0-9_]/', '', $str);
-		$str = explode('_', $str);
-		$str = array_map('trim', $str);
-		$str = array_diff($str, array(''));
-		$str = array_map('ucfirst', $str);
-		$str = implode('', $str);
+		$k = $str;
+
+		if (!isset($cache[$k]))
+		{
+			// 支援 將 AbcDef => abc_def
+			$str = preg_replace('/([A-Z])/e', '\'_\'.strtolower(\\1)', $str);
+			$str = trim($str, '_');
+
+			$str = preg_replace('/[^a-z0-9_]/', '', $str);
+			$str = explode('_', $str);
+			$str = array_map('trim', $str);
+			$str = array_diff($str, array(''));
+			$str = array_map('ucfirst', $str);
+			$str = implode('', $str);
+
+			$cache[$k] = $str;
+		}
+		else
+		{
+			$str = $cache[$k];
+		}
+
 		return $str;
 	}
 
 	public static function putintoPathParts($str)
 	{
-		$str = preg_replace('/[^a-zA-Z0-9]/', '', $str);
-		$str = preg_replace('/([A-Z])/', '_$1', $str);
-		$str = strtolower($str);
-		$str = substr($str, 1, strlen($str));
+		static $cache;
+
+		$k = $str;
+
+		if (!isset($cache[$k]))
+		{
+			$str = preg_replace('/[^a-zA-Z0-9]/', '', $str);
+			$str = preg_replace('/([A-Z])/', '_$1', $str);
+			$str = strtolower($str);
+			$str = substr($str, 1, strlen($str));
+
+			$cache[$k] = $str;
+		}
+		else
+		{
+			$str = $cache[$k];
+		}
+
 		return $str;
 	}
 
