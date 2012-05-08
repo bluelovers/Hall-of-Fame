@@ -136,13 +136,7 @@ class HOF_Class_Controller
 	{
 		if ($flag !== null)
 		{
-			$this->_controller_cache['stop'][$flag]++;
-
 			$this->_stop = $flag;
-		}
-		else
-		{
-			$this->_controller_cache['stop']['chk']++;
 		}
 
 		return $this->_stop;
