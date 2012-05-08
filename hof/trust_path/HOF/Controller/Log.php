@@ -9,11 +9,11 @@ class HOF_Controller_Log extends HOF_Class_Controller
 {
 
 	static $map_logtype = array(
-			'log' => LOG_BATTLE_NORMAL,
-			'clog' => LOG_BATTLE_NORMAL,
-			'ulog' => LOG_BATTLE_UNION,
-			'rlog' => LOG_BATTLE_RANK,
-			);
+		'log' => LOG_BATTLE_NORMAL,
+		'clog' => LOG_BATTLE_NORMAL,
+		'ulog' => LOG_BATTLE_UNION,
+		'rlog' => LOG_BATTLE_RANK,
+		);
 
 	function _main_input()
 	{
@@ -95,7 +95,7 @@ class HOF_Controller_Log extends HOF_Class_Controller
 			$log = game_core::glob($_k);
 			foreach (array_reverse($log) as $file)
 			{
-				$logs[$_k][] = HOF_Helper_Global::BattleLogDetail($file);
+				$logs[$_k][] = HOF_Model_Data::getLogBattleFile($file);
 				$limit++;
 				if (!$this->output->full_log && 30 <= $limit)
 				{
@@ -120,43 +120,15 @@ class HOF_Controller_Log extends HOF_Class_Controller
 
 		$this->output->idx = $idx;
 
-		list($this->output->log, $this->output->time) = $this->ShowBattleLog($this->input->log, self::$map_logtype[$idx]);
+		$this->output->log = HOF_Model_Data::getLogBattle($this->input->log, self::$map_logtype[$idx], 1);
+
+		if (!$this->output->log)
+		{
+			$this->output->error[] = array('log doesnt exists');
+		}
 
 		$this->options['escapeHtml'] = false;
 	}
 
-	/**
-	 * 戦闘ログを回覧する
-	 */
-	function ShowBattleLog($no, $type = false)
-	{
-		if ($type == LOG_BATTLE_RANK)
-		{
-			$file = LOG_BATTLE_RANK . $no . ".dat";
-		}
-		elseif ($type == LOG_BATTLE_UNION)
-		{
-			$file = LOG_BATTLE_UNION . $no . ".dat";
-		}
-		else
-		{
-			$file = LOG_BATTLE_NORMAL . $no . ".dat";
-		}
-
-		if (!file_exists($file))
-		{
-			//ログが無い
-			return "log doesnt exists";
-		}
-
-		$log = file($file);
-		// ログの何行目から書き出すか?
-		$row = 6;
-		$time = substr($log[0], 0, 10);
-
-		//print('<table style="width:100%;text-align:center" class="break"><tr><td>'."\n");
-
-		return array($log, $time);
-	}
 
 }
