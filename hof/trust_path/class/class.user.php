@@ -145,8 +145,7 @@ class user
 		if (!$this->name) return "NOID"; //超エラー。そもそもユーザーが存在しない場合。
 		if (!$this->party_rank) return false;
 
-		$PartyRank = explode("<>", $this->party_rank);
-		foreach ($PartyRank as $no)
+		foreach ($this->party_rank as $no)
 		{
 			$char = $this->CharDataLoad($no);
 			if ($char) $party[] = $char;
