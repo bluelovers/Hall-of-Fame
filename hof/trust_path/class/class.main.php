@@ -1899,7 +1899,10 @@ HTML;
 					return false;
 				}
 
+				/*
 				$this->party_rank = implode("<>", $checked);
+				*/
+				$this->party_rank = $checked;
 				$this->rank_set_time = $now;
 				ShowResult("チーム設定 完了", "margin15");
 				return true;
