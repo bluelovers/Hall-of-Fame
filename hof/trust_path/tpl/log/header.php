@@ -7,3 +7,7 @@
 		<a href="?rlog" <?php if ($this->output->idx == 'rlog') e(' class="a0"'); ?>>Ranking</a>
 
 	</div>
+
+	<?php foreach((array)$this->output->error as $e): ?>
+		<?php HOF_Helper_Global::ShowError($e[0], $e[1]); ?>
+	<?php endforeach; ?>
