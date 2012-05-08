@@ -8,13 +8,54 @@
 class HOF_Model_Main extends HOF_Class_Main
 {
 
+	/**
+	 * HTML終了部分
+	 */
+	function Foot()
+	{
+
+		$unit = array('b','kb','mb','gb','tb','pb');
+
+		$size = memory_get_usage();
+		$size = bcdiv($size, pow(1024, ($i = floor(log($size,1024)))), 4).' '.$unit[$i];
+
+		$ios = function_exists('get_included_files') ? count(get_included_files()) : 0;
+		$umem = function_exists('memory_get_usage') ? $size : 0;
+		$debuginfo = array(
+			//'time' => number_format(($mtime[1] + $mtime[0] - $discuz_starttime), 6),
+			'ios' => $ios,
+			'umem' => $umem,
+			);
+?>
+		</div>
+		<div id="foot">
+			<a href="?update">UpDate</a> -
+			<?php
+
+		if (BBS_BOTTOM_TOGGLE) print ('<a href="?bbs">BBS</a> - ' . "\n");
+
+
+?>
+			<a href="?manual">Manual</a> - <a href="?tutorial">Tutorial</a> - <a href="?gamedata=job">GameData</a> - <a href="#top">Top</a><br>
+			Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
+
+			, <?= $debuginfo['ios'] ?> ios, <?= $debuginfo['umem'] ?>
+
+		</div>
+	</div>
+</body>
+</html>
+<?php
+
+	}
+
 	function FirstLogin($over = false)
 	{
 		static $flag;
 
 		if (!isset($flag) || $over)
 		{
-			$flag = !HOF_Class_Controller::getInstance('game', __FUNCTION__)->main()->_main_stop();
+			$flag = !HOF_Class_Controller::getInstance('game', __FUNCTION__ )->main()->_main_stop();
 		}
 
 		return $flag;
@@ -29,7 +70,7 @@ class HOF_Model_Main extends HOF_Class_Main
 
 		if (!isset($flag) || $over)
 		{
-			HOF_Class_Controller::getInstance('game', __FUNCTION__)->main()->_main_stop();
+			HOF_Class_Controller::getInstance('game', __FUNCTION__ )->main()->_main_stop();
 
 			$flag = $this->islogin;
 		}
@@ -135,3 +176,6 @@ class HOF_Model_Main extends HOF_Class_Main
 	}
 
 }
+
+
+?>
