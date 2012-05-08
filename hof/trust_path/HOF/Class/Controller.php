@@ -162,6 +162,8 @@ class HOF_Class_Controller
 
 		$this->action = $_s['action'];
 
+		$this->_main_stop(false);
+
 		return $this;
 	}
 
