@@ -24,17 +24,16 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 	function _main_before()
 	{
-		$this->_input();
-
 		$this->user->LoadUserItem();
 		$this->user->CharDataLoadAll();
 
 		$this->_cache['lands'] = HOF_Model_Data::getLandAppear($this->user);
 	}
 
-	function _input()
+	function _main_input()
 	{
 
+		$this->input->memory_party = HOF::$input->post->memory_party;
 
 	}
 
@@ -211,7 +210,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		// ユニオンモンスターのデータ
 		$UnionMob = HOF_Model_Char::getBaseMonster($Union->MonsterNumber);
-		$this->user->MemorizeParty(); //パーティー記憶
+		$this->MemorizeParty(); //パーティー記憶
 		// 自分パーティー
 		foreach ($this->user->char as $key => $val)
 		{ //チェックされたやつリスト
@@ -302,7 +301,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	{
 		if ($this->input->monster_battle)
 		{
-			$this->user->MemorizeParty(); //パーティー記憶
+			$this->MemorizeParty(); //パーティー記憶
 			// 自分パーティー
 			foreach ($this->user->char as $key => $val)
 			{
@@ -334,13 +333,39 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	}
 
 	/**
+	 * 戦闘時に選択したメンバーを記憶する
+	 */
+	function MemorizeParty()
+	{
+		if ($this->input->memory_party)
+		{
+			//$temp	= $this->party_memo;//一時的に記憶
+			//$this->party_memo	= array();
+			foreach ($this->user->char as $key => $val)
+			{ //チェックされたやつリスト
+				if ($_POST["char_" . $key]) //$this->party_memo[]	 = $key;
+ 						$PartyMemo[] = $key;
+			}
+			//if(5 < count($this->party_memo) )//5人以上は駄目
+			//	$this->party_memo	= $temp;
+			if (0 < count($PartyMemo) && count($PartyMemo) < 6)
+			{
+				/*
+				$this->party_memo = implode("<>", $PartyMemo);
+				*/
+				$this->user->party_memo = $PartyMemo;
+			}
+		}
+	}
+
+	/**
 	 * モンスターとの戦闘
 	 */
 	function MonsterBattle()
 	{
 		if ($this->input->monster_battle)
 		{
-			$this->user->MemorizeParty(); //パーティー記憶
+			$this->MemorizeParty(); //パーティー記憶
 			// そのマップで戦えるかどうか確認する。
 
 			$land = $this->_cache['lands'];
@@ -398,6 +423,9 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			$this->user->WasteTime(NORMAL_BATTLE_TIME); //時間の消費
 
 			$battle = new HOF_Class_Battle($MyParty, $EnemyParty);
+
+			debug($MyParty);
+
 			$battle->SetBackGround($Land["land"]); //背景
 			$battle->SetTeamName($this->user->name, $Land["name"]);
 			$battle->Process(); //戦闘開始
