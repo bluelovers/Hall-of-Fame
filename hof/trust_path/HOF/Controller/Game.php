@@ -20,24 +20,36 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		$this->user = &HOF_Model_Main::getInstance();
 	}
 
-	function _input()
+	function _main_input()
 	{
-
 		$this->input->make = HOF::$input->post->Make;
 		$this->input->newid = trim(HOF::$input->post->Newid);
 		$this->input->pass1 = trim(HOF::$input->post->pass1);
 		$this->input->pass2 = trim(HOF::$input->post->pass2);
 
+		$this->input->login = HOF::$input->request->login;
+		$this->input->logout = HOF::$input->request->logout;
+
+		if (HOF::$input->request['logout'])
+		{
+			$this->input->action = 'logout';
+
+			$this->_main_exec('logout');
+		}
+		elseif (HOF::$input->request['login'])
+		{
+			$this->input->action = 'login';
+		}
 	}
 
 	function _main_before()
 	{
-		if ($this->action != 'first_login')
+		parent::_main_before();
+
+		if ($this->action != 'first_login' && $this->action != 'check_login')
 		{
 			$this->user->fpCloseAll();
 		}
-
-		$this->_input();
 	}
 
 	function _main_action_default($message = null)
@@ -390,6 +402,91 @@ class HOF_Controller_Game extends HOF_Class_Controller
 			setcookie("NO", "");
 			return true;
 		}
+	}
+
+	function _main_action_logout($message = null)
+	{
+		if ($this->input->action == 'login') return;
+
+		$this->_cache->logout = true;
+
+		$this->user->islogin = false;
+
+		unset($_SESSION["pass"]);
+
+		$this->_main_exec('login', $this->input->action == 'logout' ? 'User Logout!!' : $message);
+	}
+
+	function _main_action_check_login()
+	{
+		$message = $this->CheckLogin();
+
+		if ($message !== true)
+		{
+			$this->_main_exec('logout', $message);
+		}
+		else
+		{
+			$this->_main_stop(true);
+		}
+	}
+
+	/**
+	 * ログインしたのか、しているのか、ログアウトしたのか。
+	 */
+	function CheckLogin()
+	{
+
+		$this->input->pass = HOF::$input->post->pass;
+		$this->input->id = HOF::$input->post->id;
+
+		//session
+		if ($data = $this->user->LoadData())
+		{
+			//echo "<div>$data[pass] == $this->pass</div>";
+			if ($this->user->pass == NULL) return false;
+
+			if ($data["pass"] === $this->user->pass)
+			{
+				// ログイン状態
+				$this->user->DataUpDate($data);
+				$this->user->SetData($data);
+
+				if (RECORD_IP)
+				{
+					$this->user->SetIp($_SERVER['REMOTE_ADDR']);
+				}
+
+				$this->user->RenewLoginTime();
+
+				if ($this->input->pass)
+				{
+					// ちょうど今ログインするなら
+					$_SESSION["id"] = $this->user->id;
+					$_SESSION["pass"] = $this->input->pass;
+
+					setcookie("NO", session_id(), time() + COOKIE_EXPIRE);
+				}
+
+				// ログイン状態
+				$this->user->islogin = true;
+
+				return true;
+			}
+			else
+			{
+				return "Wrong password!";
+			}
+		}
+		else
+		{
+			if ($this->input->id)
+			{
+				return "ID \"{$this->input->id}\" doesnt exists.";
+			}
+		}
+
+		return false;
 	}
 
 }
