@@ -424,8 +424,6 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 			$battle = new HOF_Class_Battle($MyParty, $EnemyParty);
 
-			debug($MyParty);
-
 			$battle->SetBackGround($Land["land"]); //背景
 			$battle->SetTeamName($this->user->name, $Land["name"]);
 			$battle->Process(); //戦闘開始
