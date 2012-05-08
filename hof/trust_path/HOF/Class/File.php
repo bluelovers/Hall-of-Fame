@@ -220,7 +220,7 @@ class HOF_Class_File
 	function fileClose($fp)
 	{
 		$data = self::_findFp($fp);
-		$data['fclose'] = true;
+		unset($data);
 
 		if (is_resource($fp))
 		{
