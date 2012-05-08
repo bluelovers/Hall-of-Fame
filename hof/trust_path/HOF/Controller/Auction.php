@@ -152,7 +152,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		$this->user->AddItem(9000);
 		$this->user->SaveUserItem();
 		$this->user->SaveData();
-		ShowResult("オークション会員になりました。<br />\n");
+		HOF_Helper_Global::ShowResult("オークション会員になりました。<br />\n");
 
 		return true;
 	}
@@ -218,7 +218,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		// 実際に入札する。
 		if ($this->ItemAuction->ItemBid($this->input->ArticleNo, $this->input->BidPrice, $this->user->id, $this->user->name))
 		{
-			ShowResult("No:{$this->input->ArticleNo}&nbsp;に&nbsp;" . HOF_Helper_Global::MoneyFormat($this->input->BidPrice) . "&nbsp;で入札しました。<br />\n");
+			HOF_Helper_Global::ShowResult("No:{$this->input->ArticleNo}&nbsp;に&nbsp;" . HOF_Helper_Global::MoneyFormat($this->input->BidPrice) . "&nbsp;で入札しました。<br />\n");
 			return true;
 		}
 	}
