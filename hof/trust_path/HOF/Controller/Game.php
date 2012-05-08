@@ -30,16 +30,26 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		$this->input->login = HOF::$input->request->login;
 		$this->input->logout = HOF::$input->request->logout;
 
+		$QUERY_STRING = HOF::$input->server->QUERY_STRING;
+
 		if (HOF::$input->request['logout'])
 		{
 			$this->input->action = 'logout';
 
 			$this->_main_exec('logout');
 		}
+		elseif ($QUERY_STRING == 'newgame')
+		{
+			$this->input->action = 'newgame';
+
+			$this->_main_setup('newgame');
+		}
 		elseif (HOF::$input->request['login'])
 		{
 			$this->input->action = 'login';
 		}
+
+		//error_reporting(E_ALL);
 	}
 
 	function _main_before()
@@ -70,6 +80,8 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		{
 			$this->user->fpCloseAll();
 		}
+
+
 	}
 
 	function _main_action_delete_my_data()
@@ -133,10 +145,13 @@ class HOF_Controller_Game extends HOF_Class_Controller
 			if (true === $bool)
 			{
 				$this->_main_exec('login', $message);
-
-				return false;
+			}
+			elseif ($message)
+			{
+				$this->_error($message, 'margin15');
 			}
 		}
+
 	}
 
 	function _error($s, $a = null)
@@ -423,7 +438,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 		if ($message !== true)
 		{
-			$this->_main_exec('logout', $message);
+			$this->_main_exec($this->input->action ? $this->input->action : 'logout', $message);
 		}
 		else
 		{
