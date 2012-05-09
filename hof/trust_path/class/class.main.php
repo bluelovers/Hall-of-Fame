@@ -161,44 +161,6 @@ class main extends HOF_Class_User
 		}
 	}
 
-
-	//	UpDate,BBS,Manual等
-	function OptionOrder()
-	{
-		$this->fpCloseAll();
-		switch (true)
-		{
-			case ($_SERVER["QUERY_STRING"] === "rank"):
-				RankAllShow();
-				return true;
-			case ($_SERVER["QUERY_STRING"] === "update"):
-				ShowUpDate();
-				return true;
-			case ($_SERVER["QUERY_STRING"] === "bbs"):
-				$this->bbs01();
-				return true;
-			case ($_SERVER["QUERY_STRING"] === "manual"):
-			case ($_SERVER["QUERY_STRING"] === "manual2"):
-			case ($_SERVER["QUERY_STRING"] === "tutorial"):
-				HOF_Class_Controller::newInstance('manual', $_SERVER["QUERY_STRING"])->main();
-				return true;
-			case ($_SERVER["QUERY_STRING"] === "log"):
-			case ($_SERVER["QUERY_STRING"] === "clog"):
-			case ($_SERVER["QUERY_STRING"] === "ulog"):
-			case ($_SERVER["QUERY_STRING"] === "rlog"):
-			case ($_GET["log"]):
-			case ($_GET["clog"]):
-			case ($_GET["ulog"]):
-			case ($_GET["rlog"]):
-				HOF_Class_Controller::newInstance('log')->main();
-				return true;
-			case ($_GET["gamedata"]):
-				HOF_Class_Controller::newInstance('gamedata', $_GET["gamedata"])->main();
-				return true;
-		}
-	}
-
-
 	//	敵の数を返す	数～数+2(max:5)
 	function EnemyNumber($party)
 	{
