@@ -125,6 +125,10 @@ class HOF_Class_Ranking extends HOF_Class_Base
 	 */
 	const RANK_BATTLE_NEXT_WIN = RANK_BATTLE_NEXT_WIN;
 
+	const PLACE_PUSH = 2;
+	const PLACE_BACK = -1;
+	const PLACE_EX = 1;
+
 	public $DataType = 'yml';
 
 	function _fpopen($over, $file)
@@ -219,7 +223,9 @@ class HOF_Class_Ranking extends HOF_Class_Base
 
 			$max = $this->SamePlaceAmount($i);
 
-			while (count($this->content->data[$next]) > 0 && (count($this->content->data[$i]) < $max))
+			$next_idx = $next;
+
+			while (count($this->content->data[$next_idx]) > 0 && (count($this->content->data[$i]) < $max))
 			{
 				$data = array_shift($this->content->data[$next]);
 
@@ -227,7 +233,14 @@ class HOF_Class_Ranking extends HOF_Class_Base
 				{
 					array_push($this->content->data[$i], $data);
 				}
+
+				if (empty($this->content->data[$next_idx]))
+				{
+					$next_idx--;
+				}
 			}
+
+			$next_idx = $next;
 
 			while (count($this->content->data[$i]) > $max)
 			{
@@ -374,7 +387,25 @@ class HOF_Class_Ranking extends HOF_Class_Base
 
 			$Return = $this->ProcessByResult($Result, &$user, &$Rival, $DefendMatch);
 
-			return array($Return);
+			$message = null;
+
+			if ($this->place_change_result)
+			{
+				switch($this->place_change_result)
+				{
+					case self::PLACE_BACK:
+						$message = '順位減少';
+						break;
+					case self::PLACE_PUSH:
+						$message = '順位変更';
+						break;
+					case self::PLACE_PUSH:
+						$message = '順位交換';
+						break;
+				}
+			}
+
+			return array($Return, $message);
 		}
 	}
 
@@ -468,7 +499,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 
 				// 受けた側のIDが存在しない
 			case self::DEFENDER_NO_ID:
-				$this->ChangePlace($user->id, $Rival->id);
+				$this->place_change_result = $this->ChangePlace($user->id, $Rival->id);
 				$this->DeleteRank($Rival->id);
 				$this->fpsave();
 				return self::RESULT_FALSE;
@@ -481,7 +512,8 @@ class HOF_Class_Ranking extends HOF_Class_Base
 
 				// 受けた側PT無し
 			case self::DEFENDER_NO_PARTY:
-				$this->ChangePlace($user->id, $Rival->id);
+				$this->place_change_result = $this->ChangePlace($user->id, $Rival->id);
+
 				$this->fpsave();
 				//$user->RankRecord(0,"CHALLENGER",$DefendMatch);
 				$user->SetRankBattleTime(time() + HOF_Class_Ranking::RANK_BATTLE_NEXT_WIN);
@@ -492,7 +524,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 
 				// 挑戦者勝ち
 			case self::CHALLENGER_WIN:
-				$this->ChangePlace($user->id, $Rival->id);
+				$this->place_change_result = $this->ChangePlace($user->id, $Rival->id);
 				$this->fpsave();
 				$user->RankRecord(0, "CHALLENGER", $DefendMatch);
 				$user->SetRankBattleTime(time() + HOF_Class_Ranking::RANK_BATTLE_NEXT_WIN);
@@ -504,15 +536,15 @@ class HOF_Class_Ranking extends HOF_Class_Base
 				// 受けた側勝ち
 			case self::DEFENDER_WIN:
 				//$this->fpsave();
+
+				$this->place_change_result = $this->ChangePlace($user->id, $Rival->id, self::PLACE_BACK);
+
 				$user->RankRecord(1, "CHALLENGER", $DefendMatch);
 				$user->SetRankBattleTime(time() + HOF_Class_Ranking::RANK_BATTLE_NEXT_LOSE);
 				$Rival->RankRecord(1, "DEFEND", $DefendMatch);
 				$Rival->SaveData();
 
-				if (count((array )$this->join_newid) > 0)
-				{
-					$this->fpsave();
-				}
+				$this->fpsave();
 
 				return self::RESULT_BATTLE;
 				break;
@@ -592,7 +624,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 	/**
 	 * 順位を入れ替える
 	 */
-	function ChangePlace($id_0, $id_1, $push = true)
+	function ChangePlace($id_0, $id_1, $mode = self::PLACE_PUSH)
 	{
 		$this->_rank_update = true;
 
@@ -604,22 +636,48 @@ class HOF_Class_Ranking extends HOF_Class_Base
 		$data[0] = $this->content->data[$rank[0]][$key[0]];
 		$data[1] = $this->content->data[$rank[1]][$key[1]];
 
-		if (($rank[0] > $rank[1]) || ($rank[0] == $rank[1] && $key[0] > $key[1]))
+		if ($mode == self::PLACE_BACK)
+		{
+			if (isset($this->content->data[$rank[0]][$key[0] + 1]))
+			{
+				$this->content->data[$rank[0]][$key[0]] = $this->content->data[$rank[0]][$key[0] + 1];
+				$this->content->data[$rank[0]][$key[0] + 1] = $data[0];
+
+				return self::PLACE_BACK;
+			}
+			elseif ($rank[0] > (self::RANK_MAX - 1))
+			{
+				unset($this->content->data[$rank[0]][$key[0]]);
+
+				if (empty($this->content->data[$rank[0] + 1]))
+				{
+					$this->content->data[$rank[0] + 1] = array();
+				}
+
+				array_unshift($this->content->data[$rank[0] + 1], $data[0]);
+
+				return self::PLACE_BACK;
+			}
+
+		}
+		elseif (($rank[0] > $rank[1]) || ($rank[0] == $rank[1] && $key[0] > $key[1]))
 		{
 			$this->content->data[$rank[1]][$key[1]] = $data[0];
 
-			if ($push && $rank[0] != (self::RANK_MAX - 1))
+			if ($mode == self::PLACE_PUSH && $rank[0] != (self::RANK_MAX - 1))
 			{
 				unset($this->content->data[$rank[0]][$key[0]]);
 
 				array_push($this->content->data[$rank[1]], $data[1]);
+
+				return self::PLACE_PUSH;
 			}
 			else
 			{
 				$this->content->data[$rank[0]][$key[0]] = $data[1];
-			}
 
-			return true;
+				return self::PLACE_EX;
+			}
 		}
 
 		return false;
