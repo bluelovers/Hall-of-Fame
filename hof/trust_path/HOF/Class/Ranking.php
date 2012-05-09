@@ -62,12 +62,18 @@ class HOF_Class_Ranking extends HOF_Class_Base
 	 *
 	 * @var Array
 	 */
-	var $data = array();
+	public $data = array();
 
-	var $UserName;
-	var $UserRecord;
+	public $content = array();
 
-	var $file = RANKING;
+	public $UserName;
+	public $UserRecord;
+
+	public $file = RANKING;
+
+	const RANKING = RANKING;
+
+	const RANK_MAX = 3;
 
 	/**
 	 * 相手が既に存在していませんでした(不戦勝)
@@ -101,7 +107,66 @@ class HOF_Class_Ranking extends HOF_Class_Base
 	const RESULT_FALSE = false;
 	const RESULT_BATTLE = 'BATTLE';
 
+	/**
+	 * ランキングのチーム設定できる周期
+	 * 60 * 60 * 48
+	 */
+	const RANK_TEAM_SET_TIME = RANK_TEAM_SET_TIME;
+
+	/**
+	 * ランキング戦 負けたとき次戦えるまで
+	 * 60 * 60 * 24
+	 */
+	const RANK_BATTLE_NEXT_LOSE = RANK_BATTLE_NEXT_LOSE;
+
+	/**
+	 * ランキング戦 勝ったとき次戦えるまで
+	 * 60 * 1
+	 */
+	const RANK_BATTLE_NEXT_WIN = RANK_BATTLE_NEXT_WIN;
+
+	public $DataType = 'yml';
+
+	function _fpopen($over, $file)
+	{
+		$this->file = $file . '.yml';
+		$path = $file . '.dat';
+
+		if (!file_exists($this->file) && file_exists($path))
+		{
+			$this->fp = HOF_Class_File::FileLock($path);
+
+			$fp = fopen($this->file, "w+");
+
+			$this->_fpread_dat();
+
+			HOF_Class_Yaml::save($fp, array('data' => $this->data));
+
+			$this->data = array();
+
+			$this->fpclose();
+
+			$this->fp = $fp;
+
+			return $this->fp;
+		}
+	}
+
 	function _fpread()
+	{
+		unset($this->data);
+		unset($this->content);
+
+		$this->content = HOF_Class_Yaml::load($this->fp);
+
+		if (empty($this->content['data'])) return false;
+
+		$this->content = new HOF_Class_Array($this->content);
+
+		$this->data = &$this->content['data'];
+	}
+
+	function _fpread_dat()
 	{
 		$this->data = array();
 
@@ -123,16 +188,42 @@ class HOF_Class_Ranking extends HOF_Class_Base
 			foreach ($SamePlaces as $key => $val)
 			{
 				$list = explode("<>", $val);
-				$this->data["$Rank"]["$key"] = array();
-				$this->data["$Rank"]["$key"]["id"] = $list["0"];
+				$this->data[$Rank][$key] = array();
+				$this->data[$Rank][$key]["id"] = $list["0"];
 			}
 		}
+	}
+
+	function _fpsave()
+	{
+		$this->content->info['update_last'] = $this->content->info['update'];
+		$this->content->info['update'] = time();
+
+		$this->content->join_newid = $this->join_newid;
+
+		for ($i = 0; $i< self::RANK_MAX; $i++)
+		{
+			while(count($this->data[$i]) > $this->SamePlaceAmount($i))
+			{
+				$data = array_shift($this->data[$i]);
+
+				if ($i < self::RANK_MAX - 1)
+				{
+					array_unshift($this->data[$i+1], $data);
+				}
+			}
+		}
+
+		//$dump = $this->content->toArray();
+		$dump = $this->content;
+
+		HOF_Class_Yaml::save($this->fp, $dump);
 	}
 
 	/**
 	 * ランキングを保存する
 	 */
-	function _fpsave()
+	function _fpsave_dat()
 	{
 		foreach ($this->data as $rank => $val)
 		{
@@ -147,9 +238,9 @@ class HOF_Class_Ranking extends HOF_Class_Base
 
 	function _init()
 	{
-		if (!$this->fpopen()) return false;
+		if (!$this->fpopen(true, self::RANKING)) return false;
 
-		$this->fpread();
+		$this->fpread($file, $DataType);
 
 		// 配列が0なら終了
 		if (!$this->data) return false;
@@ -168,7 +259,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 		// ランキングが無いとき(1位になる)
 		if (!$this->data)
 		{
-			$this->JoinRanking($user->id);
+			$this->JoinRanking($user->id, $user);
 			$this->fpsave();
 			/*
 			print ("Rank starts.");
@@ -196,7 +287,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 		// 自分がランク外なら ////////////////////////////////////
 		if (!$MyRank)
 		{
-			$this->JoinRanking($user->id); //自分を最下位にする。
+			$this->JoinRanking($user->id, $user); //自分を最下位にする。
 			$MyPlace = count($this->data) - 1; //自分のランク(最下位)
 			$RivalPlace = (int)($MyPlace - 1);
 
@@ -235,6 +326,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 		// 2位-最下位の人の処理。////////////////////////////////
 		if ($MyRank)
 		{
+			/*
 			$RivalPlace = (int)($MyRank["0"] - 1); //自分より順位が1個上の人。
 
 			// 相手が首位なのかどうか
@@ -244,11 +336,25 @@ class HOF_Class_Ranking extends HOF_Class_Base
 			//自分より1個上の人が相手
 			$RivalRankKey = array_rand($this->data[$RivalPlace]);
 			$RivalID = $this->data[$RivalPlace][$RivalRankKey]["id"];
+			*/
+
+			list($RivalPlace, $RivalRankKey, $RivalID) = $this->searchPrev($MyRank[0], $MyRank[1]);
+
+			if ($RivalID && $RivalRankKey < ($MyRank[0] - 1))
+			{
+				$DefendMatch = false;
+			}
+			else
+			{
+				$DefendMatch = true;
+			}
+
 			$Rival = new HOF_Class_User($RivalID);
 			//$MyID		= $this->data[$MyRank["0"]][$MyRank["1"]]["id"];
 			//$MyID		= $id;
 			//list($message,$result)	= $this->RankBattle($MyID,$RivalID);
 			$Result = $this->RankBattle($user, $Rival, $MyRank["0"], $RivalPlace);
+
 			$Return = $this->ProcessByResult($Result, &$user, &$Rival, $DefendMatch);
 
 			return array($Return);
@@ -276,11 +382,11 @@ class HOF_Class_Ranking extends HOF_Class_Base
 		$UserPlace = "[" . ($UserPlace + 1) . "位]";
 		$RivalPlace = "[" . ($RivalPlace + 1) . "位]";
 
-		/*
-		■ 相手のユーザ自体が既に存在しない場合の処理
-		アカウントが削除処理された時にランキングからも消えるようにしたから
-		本来出ないエラーかもしれない。
-		*/
+		/**
+		 * ■ 相手のユーザ自体が既に存在しない場合の処理
+		 * アカウントが削除処理された時にランキングからも消えるようにしたから
+		 * 本来出ないエラーかもしれない。
+		 */
 		if ($Rival->is_exist() == false)
 		{
 			HOF_Helper_Global::ShowError("相手が既に存在していませんでした(不戦勝)");
@@ -373,7 +479,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 				$this->ChangePlace($user->id, $Rival->id);
 				$this->fpsave();
 				//$user->RankRecord(0,"CHALLENGER",$DefendMatch);
-				$user->SetRankBattleTime(time() + RANK_BATTLE_NEXT_WIN);
+				$user->SetRankBattleTime(time() + HOF_Class_Ranking::RANK_BATTLE_NEXT_WIN);
 				$Rival->RankRecord(0, "DEFEND", $DefendMatch);
 				$Rival->SaveData();
 				return self::RESULT_TRUE;
@@ -384,7 +490,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 				$this->ChangePlace($user->id, $Rival->id);
 				$this->fpsave();
 				$user->RankRecord(0, "CHALLENGER", $DefendMatch);
-				$user->SetRankBattleTime(time() + RANK_BATTLE_NEXT_WIN);
+				$user->SetRankBattleTime(time() + HOF_Class_Ranking::RANK_BATTLE_NEXT_WIN);
 				$Rival->RankRecord(0, "DEFEND", $DefendMatch);
 				$Rival->SaveData();
 				return self::RESULT_BATTLE;
@@ -394,9 +500,15 @@ class HOF_Class_Ranking extends HOF_Class_Base
 			case self::DEFENDER_WIN:
 				//$this->fpsave();
 				$user->RankRecord(1, "CHALLENGER", $DefendMatch);
-				$user->SetRankBattleTime(time() + RANK_BATTLE_NEXT_LOSE);
+				$user->SetRankBattleTime(time() + HOF_Class_Ranking::RANK_BATTLE_NEXT_LOSE);
 				$Rival->RankRecord(1, "DEFEND", $DefendMatch);
 				$Rival->SaveData();
+
+				if (count((array )$this->join_newid) > 0)
+				{
+					$this->fpsave();
+				}
+
 				return self::RESULT_BATTLE;
 				break;
 
@@ -404,7 +516,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 			case self::DRAW_GAME:
 				//$this->fpsave();
 				$user->RankRecord("d", "CHALLENGER", $DefendMatch);
-				$user->SetRankBattleTime(time() + RANK_BATTLE_NEXT_LOSE);
+				$user->SetRankBattleTime(time() + HOF_Class_Ranking::RANK_BATTLE_NEXT_LOSE);
 				$Rival->RankRecord("d", "DEFEND", $DefendMatch);
 				$Rival->SaveData();
 				return self::RESULT_BATTLE;
@@ -430,26 +542,29 @@ class HOF_Class_Ranking extends HOF_Class_Base
 	{
 		$last = count($this->data) - 1;
 
+		$data = array();
+		$data['id'] = $id;
+
 		// ランキングが存在しない場合
-		if (!$this->data)
+		if (empty($this->data))
 		{
 			// 最下位の順位が定員オーバーになる場合
-			$this->data["0"]["0"]["id"] = $id;
-
+			array_unshift($this->data[0], $data);
 		}
 		else
 		{
 			if (count($this->data[$last]) == $this->SamePlaceAmount($last))
 			{
 				// ならない場合
-				$this->data[$last + 1]["0"]["id"] = $id;
-
+				array_unshift($this->data[$last + 1], $data);
 			}
 			else
 			{
-				$this->data[$last][]["id"] = $id;
+				array_push($this->data[$last], $data);
 			}
 		}
+
+		$this->join_newid[] = $data;
 	}
 
 	/**
@@ -473,6 +588,39 @@ class HOF_Class_Ranking extends HOF_Class_Base
 		$temp = $this->data[$Place_0["0"]][$Place_0["1"]];
 		$this->data[$Place_0["0"]][$Place_0["1"]] = $this->data[$Place_1["0"]][$Place_1["1"]];
 		$this->data[$Place_1["0"]][$Place_1["1"]] = $temp;
+	}
+
+	function searchPrev($rank, $key)
+	{
+		do
+		{
+			if ($key > 0)
+			{
+				$key--;
+
+				$RivalID = $this->data[$rank][$key]['id'];
+			}
+			else
+			{
+				$rank--;
+
+				$key = count($this->data[$rank]);
+			}
+
+		} while (!$RivalID && ($rank >= 0));
+
+		if ($RivalID)
+		{
+			$ret = array(
+				$rank, $key, $RivalID
+			);
+		}
+		else
+		{
+			$ret = false;
+		}
+
+		return $ret;
 	}
 
 	/**
