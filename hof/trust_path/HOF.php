@@ -44,7 +44,7 @@ class HOF
 		if (!isset($cache[$k]))
 		{
 			// 支援 將 AbcDef => abc_def
-			$str = preg_replace('/([A-Z])/e', '\'_\'.strtolower(\\1)', $str);
+			$str = preg_replace('/([A-Z])/e', '\'_\'.strtolower(\'\\1\')', $str);
 			$str = trim($str, '_');
 
 			$str = preg_replace('/[^a-z0-9_]/', '', $str);
