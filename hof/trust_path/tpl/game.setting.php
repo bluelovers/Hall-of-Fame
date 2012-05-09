@@ -14,11 +14,11 @@
 					</tr>
 				</tbody>
 			</table>
-			<!--<tr><td>None</td><td><input type="checkbox" name="none" value="1"></td></tr>--> 
+			<!--<tr><td>None</td><td><input type="checkbox" name="none" value="1"></td></tr>-->
 			Color :
 			<select name="color" class="bgcolor">
 				<?php foreach ($this->output->colors as $value): ?>
-				<option value="<?php e($value) ?>" style="color:<?php e($value) ?>" <?php if ($this->UserColor == $value) e(" selected"); ?> > SampleColor</option>
+				<option value="<?php e($value) ?>" style="color:<?php e($value) ?>" <?php if ($this->output->UserColor == $value) e(" selected"); ?> > SampleColor</option>
 				<?php endforeach; ?>
 			</select>
 			<br />
