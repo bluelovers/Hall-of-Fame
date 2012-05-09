@@ -90,7 +90,7 @@ class HOF_Class_Controller
 		$this->input = new HOF_Class_Array($this->input);
 		$this->_cache = new HOF_Class_Array($this->_cache);
 
-		$this->_main_call('_init');
+		$this->_main_call('_main_init');
 
 		return $this;
 
@@ -230,6 +230,11 @@ class HOF_Class_Controller
 	protected function _init()
 	{
 
+	}
+
+	protected function _main_init()
+	{
+		$this->_main_call('_init');
 	}
 
 	public function main()
