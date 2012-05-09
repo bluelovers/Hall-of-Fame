@@ -608,7 +608,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 		{
 			$this->content->data[$rank[1]][$key[1]] = $data[0];
 
-			if ($push)
+			if ($push && $rank[0] != (self::RANK_MAX - 1))
 			{
 				unset($this->content->data[$rank[0]][$key[0]]);
 
