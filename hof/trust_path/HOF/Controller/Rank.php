@@ -83,7 +83,7 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 			$this->user->SaveData();
 		}
 
-		if ($RankProcess != "BATTLE")
+		if ('BATTLE' !== $RankProcess)
 		{
 			$this->_RankShow();
 		}
@@ -97,7 +97,7 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 		$this->error[] = $s;
 	}
 
-	function _msg_result()
+	function _msg_result($s, $a = null)
 	{
 		$this->output->msg_result[] = array($s, $a);
 		$this->msg_result[] = $s;
@@ -130,7 +130,19 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 			$BattleResult = "d";//引分
 			*/
 			//list($message,$BattleResult)	= $Rank->Challenge(&$this->user);
+			/*
 			$Result = $this->Ranking->Challenge(&$this->user);
+			*/
+			list($Result, $message) = $this->Ranking->Challenge(&$this->user);
+
+			if (!$Result)
+			{
+				$this->_error($message, "margin15");
+			}
+			elseif ($message)
+			{
+				$this->_msg_result($message, "margin15");
+			}
 
 			//if($Result === "Battle")
 			//	$this->user->RankRecord($BattleResult,"CHALLENGE",false);
