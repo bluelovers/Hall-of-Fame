@@ -17,7 +17,9 @@ class HOF_Class_Base extends HOF_Class_Array
 	{
 		unset($this->_data_default_);
 
-		parent::__construct(array());
+		$data = get_object_vars($this);
+
+		parent::__construct((array)$data);
 
 		if (!$this->_init())
 		{
@@ -30,28 +32,31 @@ class HOF_Class_Base extends HOF_Class_Array
 		$this->fpclose();
 	}
 
-	function fpopen()
+	function fpopen($over = null)
 	{
-		if (!$this->fp)
+		if (!$this->fp || $over)
 		{
+			$args = func_get_args();
+			$ret = call_user_func_array(array($this, '_'.__FUNCTION__), $args);
+
 			$this->fp = HOF_Class_File::FileLock($this->file);
 		}
 
-		$ret = $this->_fpopen();
-
-		return $ret != null ? $ret : $this->fp;
+		return $ret !== null ? $ret : $this->fp;
 	}
 
-	function _fpopen()
+	function _fpopen($DataType = null)
 	{
 
 	}
 
 	function fpread()
 	{
-		$ret = $this->_fpread();
+		$args = func_get_args();
 
-		return $ret != null ? $ret : $this;
+		$ret = call_user_func_array(array($this, '_'.__FUNCTION__), $args);
+
+		return $ret !== null ? $ret : $this;
 	}
 
 	function _fpread()
@@ -61,9 +66,10 @@ class HOF_Class_Base extends HOF_Class_Array
 
 	function fpsave($not_close = null)
 	{
-		$ret = $this->_fpsave();
+		$args = func_get_args();
+		$ret = call_user_func_array(array($this, '_'.__FUNCTION__), $args);
 
-		return ($not_close || $ret != null) ? $ret : $this->fpclose();
+		return ($not_close || $ret !== null) ? $ret : $this->fpclose();
 	}
 
 	function _fpsave()
@@ -78,7 +84,8 @@ class HOF_Class_Base extends HOF_Class_Array
 		if ($this->fp)
 		{
 
-			$this->_fpclose();
+			$args = func_get_args();
+			$ret = call_user_func_array(array($this, '_'.__FUNCTION__), $args);
 
 			if (!@fclose($this->fp))
 			{
