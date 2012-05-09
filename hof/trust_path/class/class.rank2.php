@@ -270,7 +270,7 @@ class Ranking
 				$this->ChangePlace($user->id, $Rival->id);
 				$this->SaveRanking();
 				//$user->RankRecord(0,"CHALLENGER",$DefendMatch);
-				$user->SetRankBattleTime(time() + RANK_BATTLE_NEXT_WIN);
+				$user->SetRankBattleTime(time() + HOF_Class_Ranking::RANK_BATTLE_NEXT_WIN);
 				$Rival->RankRecord(0, "DEFEND", $DefendMatch);
 				$Rival->SaveData();
 				return true;
@@ -281,7 +281,7 @@ class Ranking
 				$this->ChangePlace($user->id, $Rival->id);
 				$this->SaveRanking();
 				$user->RankRecord(0, "CHALLENGER", $DefendMatch);
-				$user->SetRankBattleTime(time() + RANK_BATTLE_NEXT_WIN);
+				$user->SetRankBattleTime(time() + HOF_Class_Ranking::RANK_BATTLE_NEXT_WIN);
 				$Rival->RankRecord(0, "DEFEND", $DefendMatch);
 				$Rival->SaveData();
 				return "BATTLE";
@@ -291,7 +291,7 @@ class Ranking
 			case "DEFENDER_WIN":
 				//$this->SaveRanking();
 				$user->RankRecord(1, "CHALLENGER", $DefendMatch);
-				$user->SetRankBattleTime(time() + RANK_BATTLE_NEXT_LOSE);
+				$user->SetRankBattleTime(time() + HOF_Class_Ranking::RANK_BATTLE_NEXT_LOSE);
 				$Rival->RankRecord(1, "DEFEND", $DefendMatch);
 				$Rival->SaveData();
 				return "BATTLE";
@@ -301,7 +301,7 @@ class Ranking
 			case "DRAW_GAME":
 				//$this->SaveRanking();
 				$user->RankRecord("d", "CHALLENGER", $DefendMatch);
-				$user->SetRankBattleTime(time() + RANK_BATTLE_NEXT_LOSE);
+				$user->SetRankBattleTime(time() + HOF_Class_Ranking::RANK_BATTLE_NEXT_LOSE);
 				$Rival->RankRecord("d", "DEFEND", $DefendMatch);
 				$Rival->SaveData();
 				return "BATTLE";
