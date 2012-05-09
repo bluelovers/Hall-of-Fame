@@ -594,7 +594,7 @@ class user
 		{
 			include_once (CLASS_RANKING);
 			$Ranking = new Ranking();
-			if ($Ranking->DeleteRank($this->id)) $Ranking->SaveRanking();
+			if ($Ranking->DeleteRank($this->id)) $Ranking->fpsave();
 		}
 
 		$dir = USER . $this->id;
