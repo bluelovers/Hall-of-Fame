@@ -157,21 +157,32 @@ li {
 /* for battle */
 .dmg {
 	color:#cc3300;
+	text-shadow: 0 0 0.2em #E63D3D;
 }
 .recover {
 	color:#3366ff;
+	text-shadow: 0 0 0.2em #2E7398;
 }
 .support {
 	color:#66cc66;
+	text-shadow: 0 0 0.2em #88FF77;
 }
 .spdmg {
 	color:#993399;
+	text-shadow: 0 0 0.2em #B02FDD;
 }
 .levelup {
 	font-weight:bold;
 	color:#ffff33;
+	text-shadow: 0 0 0.2em #D34F16;
 }
 /* 詠唱や貯めの色 */
 .charge {
 	color:#ffcc33;
+	text-shadow: 0 0 0.2em #8F7;
+}
+
+.carpet_frame, .teams .bold
+{
+	text-shadow: 0 0 0.2em #8F7;
 }
