@@ -86,15 +86,11 @@ class user
 		}
 	}
 
-	//////////////////////////////////////////////////
-	//	IDが結局のところ存在しているかたしかめる
-	function is_exist()
-	{
-		if ($this->name) return true;
-		else  return false;
-	}
-	//////////////////////////////////////////////////
-	//	名前を返す
+
+
+	/**
+	 * 名前を返す
+	 */
 	function Name($opt = false)
 	{
 		if ($this->name)
@@ -138,24 +134,7 @@ class user
 			return abs($Now - $Past);
 		}
 	}
-	//////////////////////////////////////////////////
-	//	ランキング戦用のパーティ編成を返す
-	function RankParty()
-	{
-		if (!$this->name) return "NOID"; //超エラー。そもそもユーザーが存在しない場合。
-		if (!$this->party_rank) return false;
 
-		foreach ($this->party_rank as $no)
-		{
-			$char = $this->CharDataLoad($no);
-			if ($char) $party[] = $char;
-			//if($this->char[$no])
-			//	$party[]	= $this->char[$no];
-		}
-
-		if ($party) return $party;
-		else  return false;
-	}
 	//////////////////////////////////////////////////
 	//	ランキングの成績
 	// side = ("CHALLENGE","DEFEND")
@@ -594,7 +573,7 @@ class user
 		{
 			include_once (CLASS_RANKING);
 			$Ranking = new Ranking();
-			if ($Ranking->DeleteRank($this->id)) $Ranking->fpsave();
+			if ($Ranking->DeleteRank($this->id)) $Ranking->fpsave(1);
 		}
 
 		$dir = USER . $this->id;
