@@ -843,6 +843,11 @@ class HOF_Model_Data extends HOF_Class_Data
 	{
 		$data = file(COLOR_FILE);
 
+		foreach ($data as &$value)
+		{
+			$value = trim($value);
+		}
+
 		return $data;
 	}
 
