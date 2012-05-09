@@ -39,14 +39,17 @@ class HOF_Class_File
 
 	function _get_cache_fp($file, $lock = null)
 	{
-		$cache = self::$data[$file];
-
-		if (
-			is_resource($cache['fp'])
-			&& (!$lock || ($lock && $cache['lock']))
-		)
+		if (isset(self::$data[$file]))
 		{
-			return self::$data[$file]['fp'];
+			$cache = self::$data[$file];
+
+			if (
+				is_resource($cache['fp'])
+				&& (!$lock || ($lock && $cache['lock']))
+			)
+			{
+				return self::$data[$file]['fp'];
+			}
 		}
 
 		return false;
