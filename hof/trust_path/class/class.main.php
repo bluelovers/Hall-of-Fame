@@ -70,7 +70,7 @@ class main extends HOF_Class_User
 					return false;
 
 				case ($_POST["delete"]):
-					if (!HOF_Class_Controller::newInstance('game', 'DeleteMyData')->main()->_main_stop())
+					if (!HOF_Class_Controller::getInstance('game', 'DeleteMyData')->main()->_main_stop())
 					{
 						return 0;
 					}
