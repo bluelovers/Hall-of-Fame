@@ -101,7 +101,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 	const RESULT_FALSE = false;
 	const RESULT_BATTLE = 'BATTLE';
 
-	function fpread()
+	function _fpread()
 	{
 		$this->data = array();
 
@@ -127,6 +127,22 @@ class HOF_Class_Ranking extends HOF_Class_Base
 				$this->data["$Rank"]["$key"]["id"] = $list["0"];
 			}
 		}
+	}
+
+	/**
+	 * ランキングを保存する
+	 */
+	function _fpsave()
+	{
+		foreach ($this->data as $rank => $val)
+		{
+			foreach ($val as $key => $val2)
+			{
+				$ranking .= $val2["id"] . "\n";
+			}
+		}
+
+		HOF_Class_File::WriteFileFP($this->fp, $ranking);
 	}
 
 	function _init()
@@ -445,24 +461,6 @@ class HOF_Class_Ranking extends HOF_Class_Base
 		if ($place === false) return false; //削除失敗
 		unset($this->data[$place[0]][$place[1]]);
 		return true; //削除成功
-	}
-
-	/**
-	 * ランキングを保存する
-	 */
-	function _fpsave()
-	{
-		foreach ($this->data as $rank => $val)
-		{
-			foreach ($val as $key => $val2)
-			{
-				$ranking .= $val2["id"] . "\n";
-			}
-		}
-
-		HOF_Class_File::WriteFileFP($this->fp, $ranking);
-
-		return true;
 	}
 
 	/**
