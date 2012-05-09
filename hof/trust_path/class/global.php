@@ -48,7 +48,7 @@ function DeleteAbandonAccount()
 	}
 
 	// 一通りユーザチェックが終わったのでランキングをどうするか
-	if ($RankChange === true) $Ranking->SaveRanking();
+	if ($RankChange === true) $Ranking->fpsave();
 	else
 		if ($RankChange === false) $Ranking->fpclose();
 
