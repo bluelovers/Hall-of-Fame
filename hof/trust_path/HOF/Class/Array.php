@@ -44,7 +44,7 @@ class HOF_Class_Array extends ArrayObject
 
 	function __construct($input = null, $deep = 0)
 	{
-		if ($input === null) $input = !empty($this->_data_default_) ? $this->_data_default_ : array();
+		if ($input === null) $input = (isset($this->_data_default_) && !empty($this->_data_default_)) ? $this->_data_default_ : array();
 
 		$input = $this->_fixArrayRecursive($input, $deep);
 
@@ -79,7 +79,7 @@ class HOF_Class_Array extends ArrayObject
 
 	function _fixArrayRecursive($append, $loop = 1)
 	{
-		$append = self::_fixArray($append, 1);
+		$append = self::_fixArray($append);
 
 		if ($loop > 0 && is_array($append))
 		{
@@ -109,7 +109,7 @@ class HOF_Class_Array extends ArrayObject
 			}
 		}
 
-		return $debug ? (is_array($append) ? $append : array($append)) : (array)$append;
+		return $debug ? (is_array($append) ? $append : array($append)) : $append;
 	}
 
 	/**
