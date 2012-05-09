@@ -9,7 +9,7 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 {
 
 	/**
-	 * @var HOF_Class_Item_Auction
+	 * @var HOF_Class_Ranking
 	 */
 	var $Ranking;
 
@@ -61,11 +61,11 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 		// チーム再設定の残り時間計算
 		$this->_cache['now'] = time();
 
-		$this->output->left_setting = ($this->_cache['now'] - $this->user->rank_set_time) < RANK_TEAM_SET_TIME;
+		$this->output->left_setting = ($this->_cache['now'] - $this->user->rank_set_time) < HOF_Class_Ranking::RANK_TEAM_SET_TIME;
 
 		if ($this->output->left_setting)
 		{
-			$left = RANK_TEAM_SET_TIME - ($this->_cache['now'] - $this->user->rank_set_time);
+			$left = HOF_Class_Ranking::RANK_TEAM_SET_TIME - ($this->_cache['now'] - $this->user->rank_set_time);
 			$day = floor($left / 3600 / 24);
 			$hour = floor($left / 3600) % 24;
 			$min = floor(($left % 3600) / 60);
@@ -151,15 +151,15 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 			// 勝敗によって次までの戦闘の時間を設定する
 			//勝利
 			if($BattleResult === 0) {
-			$this->user->SetRankBattleTime(time() + RANK_BATTLE_NEXT_WIN);
+			$this->user->SetRankBattleTime(time() + HOF_Class_Ranking::RANK_BATTLE_NEXT_WIN);
 
 			//敗北
 			} else if($BattleResult === 1) {
-			$this->user->SetRankBattleTime(time() + RANK_BATTLE_NEXT_LOSE);
+			$this->user->SetRankBattleTime(time() + HOF_Class_Ranking::RANK_BATTLE_NEXT_LOSE);
 
 			//引分け
 			} else if($BattleResult === "d") {
-			$this->user->SetRankBattleTime(time() + RANK_BATTLE_NEXT_LOSE);
+			$this->user->SetRankBattleTime(time() + HOF_Class_Ranking::RANK_BATTLE_NEXT_LOSE);
 
 			}
 			*/
@@ -229,7 +229,7 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 			$this->output->disable = $disable;
 		}
 
-		$this->output->reset = floor(RANK_TEAM_SET_TIME / (60 * 60));
+		$this->output->reset = floor(HOF_Class_Ranking::RANK_TEAM_SET_TIME / (60 * 60));
 
 		/**
 		 * 挑戦できるかどうか(時間の経過で)
