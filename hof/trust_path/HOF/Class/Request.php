@@ -51,6 +51,8 @@ class HOF_Class_Request extends HOF_Class_Array
 
 		$this->exchangeArray($input);
 
+		$this->_toArrayObjectRecursive($this, 1, __CLASS__);
+
 		return $this;
 	}
 
