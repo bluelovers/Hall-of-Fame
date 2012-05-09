@@ -37,24 +37,38 @@ class HOF_Class_Base extends HOF_Class_Array
 			$this->fp = HOF_Class_File::FileLock($this->file);
 		}
 
-		return $this->fp;
+		$ret = $this->_fpopen();
+
+		return $ret != null ? $ret : $this->fp;
+	}
+
+	function _fpopen()
+	{
+
 	}
 
 	function fpread()
 	{
-		return $this;
+		$ret = $this->_fpread();
+
+		return $ret != null ? $ret : $this;
+	}
+
+	function _fpread()
+	{
+
 	}
 
 	function fpsave($not_close = null)
 	{
-		!$ret = $this->_fpsave();
+		$ret = $this->_fpsave();
 
-		return ($not_close || !$ret) ? $ret : $this->fpclose();
+		return ($not_close || $ret != null) ? $ret : $this->fpclose();
 	}
 
 	function _fpsave()
 	{
-		return true;
+
 	}
 
 	function fpclose()
@@ -63,6 +77,8 @@ class HOF_Class_Base extends HOF_Class_Array
 
 		if ($this->fp)
 		{
+
+			$this->_fpclose();
 
 			if (!@fclose($this->fp))
 			{
@@ -73,6 +89,11 @@ class HOF_Class_Base extends HOF_Class_Array
 		}
 
 		return $ret;
+	}
+
+	function _fpclose()
+	{
+
 	}
 
 	function dump()
