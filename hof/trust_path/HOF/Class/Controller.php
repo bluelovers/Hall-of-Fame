@@ -234,7 +234,7 @@ class HOF_Class_Controller
 
 	public function main()
 	{
-		$this->_controller_cache['call'][__FUNCTION__ ]++;
+		@$this->_controller_cache['call'][__FUNCTION__ ]++;
 
 		$this->_main_exec_once($this->action);
 
