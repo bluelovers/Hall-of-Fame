@@ -504,6 +504,100 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		return false;
 	}
 
+	function _main_action_setting()
+	{
+		$this->input->NewName = HOF::$input->post->NewName;
+		$this->input->setting01 = HOF::$input->post->setting01;
+		$this->input->record_battle_log = HOF::$input->post->record_battle_log;
+		$this->input->color = HOF::$input->post->color;
+		$this->input->no_JS_itemlist = HOF::$input->post->no_JS_itemlist;
+
+		$this->output->colors = HOF_Model_Data::getColorList();
+
+		if ($this->SettingProcess()) $this->user->SaveData();
+
+		$this->user->fpCloseAll();
+
+		if ($this->user->record_btl_log)
+		{
+			$this->output->record_btl_log = " checked";
+		}
+
+		if ($this->user->no_JS_itemlist)
+		{
+			$this->output->no_JS_itemlist = " checked";
+		}
+
+		return $Result;
+	}
+
+	function SettingProcess()
+	{
+		if ($this->input->NewName)
+		{
+			$NewName = $this->input->NewName;
+			if (is_numeric(strpos($NewName, "\t")))
+			{
+				HOF_Helper_Global::ShowError('error1');
+				return false;
+			}
+			$NewName = trim($NewName);
+			$NewName = stripslashes($NewName);
+			if (!$NewName)
+			{
+				HOF_Helper_Global::ShowError('Name is blank.');
+				return false;
+			}
+			$length = strlen($NewName);
+			if (0 == $length || 16 < $length)
+			{
+				HOF_Helper_Global::ShowError('1 to 16 letters?');
+				return false;
+			}
+			$userName = userNameLoad();
+			if (in_array($NewName, $userName))
+			{
+				HOF_Helper_Global::ShowError("その名前は使用されている。", "margin15");
+				return false;
+			}
+			if (!$this->user->TakeMoney(NEW_NAME_COST))
+			{
+				HOF_Helper_Global::ShowError('money not enough');
+				return false;
+			}
+			$OldName = $this->user->name;
+			$NewName = htmlspecialchars($NewName, ENT_QUOTES);
+			if ($this->user->ChangeName($NewName))
+			{
+				HOF_Helper_Global::ShowResult("Name Changed ({$OldName} -> {$NewName})", "margin15");
+				//return false;
+				userNameAdd($NewName);
+				return true;
+			}
+			else
+			{
+				HOF_Helper_Global::ShowError("?"); //名前が同じ？
+				return false;
+			}
+		}
+
+		if ($this->input->setting01)
+		{
+			if ($this->input->record_battle_log) $this->user->record_btl_log = 1;
+			else  $this->user->record_btl_log = false;
+
+			if ($this->input->no_JS_itemlist) $this->user->no_JS_itemlist = 1;
+			else  $this->user->no_JS_itemlist = false;
+		}
+		if ($this->input->color)
+		{
+			if (strlen($this->input->color) != 6 && !ereg("^[0369cf]{6}", $this->input->color)) return "error 12072349";
+			$this->user->UserColor = $this->input->color;
+			HOF_Helper_Global::ShowResult("Setting changed.", "margin15");
+			return true;
+		}
+	}
+
 }
 
 
