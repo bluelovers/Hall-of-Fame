@@ -399,7 +399,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 					case self::PLACE_PUSH:
 						$message = '順位変更';
 						break;
-					case self::PLACE_PUSH:
+					case self::PLACE_EX:
 						$message = '順位交換';
 						break;
 				}
