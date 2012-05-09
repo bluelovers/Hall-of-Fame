@@ -257,7 +257,7 @@ class HOF_Class_Controller
 	{
 		if ($this->options['autoView'])
 		{
-			$this->_main_call_once('_view');
+			$this->_main_call_once('_main_view');
 		}
 
 		return $this;
@@ -287,6 +287,13 @@ class HOF_Class_Controller
 	}
 
 	protected function _view()
+	{
+		$this->_main_call('_main_view');
+
+		return $this;
+	}
+
+	protected function _main_view()
 	{
 		if (!$this->template)
 		{
