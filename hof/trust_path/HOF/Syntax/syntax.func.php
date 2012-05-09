@@ -32,7 +32,7 @@ function debug($var)
 	var_dump(a($var, 1));
 }
 
-function a($var)
+function a($var, $loop = 3)
 {
-	return HOF_Class_Array::_fixArray($var);
+	return HOF_Class_Array::_fixArrayRecursive($var, $loop);
 }
