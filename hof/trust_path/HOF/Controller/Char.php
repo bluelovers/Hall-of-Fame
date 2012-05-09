@@ -30,6 +30,24 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	function _main_input()
 	{
 		$this->input->char = HOF::$input->request->char;
+
+		if ($this->input->char)
+		{
+			$this->input->action = 'char';
+		}
+
+		if ($this->input->action == 'char')
+		{
+			$this->user->CharDataLoadAll();
+			$this->user->LoadUserItem();
+
+			$this->char = &$this->user->char[$this->input->char];
+		}
+
+		if ($this->input->action)
+		{
+			$this->_main_setup($this->input->action);
+		}
 	}
 
 	function _main_action_default()
@@ -43,16 +61,11 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 	function _main_action_char()
 	{
-		$this->user->CharDataLoadAll();
-		$this->user->LoadUserItem();
-
-		$this->char = &$this->user->char[$this->input->char];
-
 		$this->CharStatProcess();
 
 		$this->CharStatShow();
 
-  		$this->options['autoView'] = false;
+		$this->options['autoView'] = false;
 	}
 
 	function _main_after()
