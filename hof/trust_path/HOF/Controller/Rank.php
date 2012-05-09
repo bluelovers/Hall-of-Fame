@@ -47,7 +47,7 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 		{
 			$this->_main_stop(true);
 
-			$c = HOF_Class_Controller::newInstance('game', 'login')->_main_exec('login', $message ? $message : null);
+			$c = HOF_Class_Controller::getInstance('game', 'login')->_main_exec('login', $message ? $message : null);
 		}
 
 	}
