@@ -13,11 +13,18 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	var $user;
 
+	/**
+	 * @var HOF_Class_Char
+	 */
+	var $char;
+
 	protected $_cache;
 
 	function _main_init()
 	{
 		$this->user = &HOF_Model_Main::getInstance();
+
+		$this->_cache = new HOF_Class_Array($this->_cache);
 	}
 
 	function _main_input()
@@ -38,6 +45,9 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	{
 		$this->user->CharDataLoadAll();
 		$this->user->LoadUserItem();
+
+		$this->char = &$this->user->char[$this->input->char];
+
 		$this->CharStatProcess();
 
 		$this->CharStatShow();
@@ -58,14 +68,14 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function CharStatProcess()
 	{
-		$char = &$this->user->char[$this->input->char];
-		if (!$char) return false;
+
+		if (!$this->char) return false;
 		switch (true):
 				// ステータス上昇
 			case ($_POST["stup"]):
 				//ステータスポイント超過(ねんのための絶対値)
 				$Sum = abs($_POST["upStr"]) + abs($_POST["upInt"]) + abs($_POST["upDex"]) + abs($_POST["upSpd"]) + abs($_POST["upLuk"]);
-				if ($char->statuspoint < $Sum)
+				if ($this->char->statuspoint < $Sum)
 				{
 					HOF_Helper_Global::ShowError("ステータスポイント超過", "margin15");
 					return false;
@@ -81,43 +91,43 @@ class HOF_Controller_Char extends HOF_Class_Controller
 					"Luk");
 				foreach ($Stat as $val)
 				{ //最大値を超えないかチェック
-					if (MAX_STATUS < ($char->{strtolower($val)} + $_POST["up" . $val]))
+					if (MAX_STATUS < ($this->char->{strtolower($val)} + $_POST["up" . $val]))
 					{
 						HOF_Helper_Global::ShowError("最大ステータス超過(" . MAX_STATUS . ")", "margin15");
 						return false;
 					}
 				}
-				$char->str += $_POST["upStr"]; //ステータスを増やす
-				$char->int += $_POST["upInt"];
-				$char->dex += $_POST["upDex"];
-				$char->spd += $_POST["upSpd"];
-				$char->luk += $_POST["upLuk"];
-				$char->SetHpSp();
+				$this->char->str += $_POST["upStr"]; //ステータスを増やす
+				$this->char->int += $_POST["upInt"];
+				$this->char->dex += $_POST["upDex"];
+				$this->char->spd += $_POST["upSpd"];
+				$this->char->luk += $_POST["upLuk"];
+				$this->char->SetHpSp();
 
-				$char->statuspoint -= $Sum; //ポイントを減らす。
+				$this->char->statuspoint -= $Sum; //ポイントを減らす。
 				print ("<div class=\"margin15\">\n");
-				if ($_POST["upStr"]) HOF_Helper_Global::ShowResult("STR が <span class=\"bold\">" . $_POST[upStr] . "</span> 上がった。" . ($char->str - $_POST["upStr"]) . " -> " . $char->str . "<br />\n");
-				if ($_POST["upInt"]) HOF_Helper_Global::ShowResult("INT が <span class=\"bold\">" . $_POST[upInt] . "</span> 上がった。" . ($char->int - $_POST["upInt"]) . " -> " . $char->int . "<br />\n");
-				if ($_POST["upDex"]) HOF_Helper_Global::ShowResult("DEX が <span class=\"bold\">" . $_POST[upDex] . "</span> 上がった。" . ($char->dex - $_POST["upDex"]) . " -> " . $char->dex . "<br />\n");
-				if ($_POST["upSpd"]) HOF_Helper_Global::ShowResult("SPD が <span class=\"bold\">" . $_POST[upSpd] . "</span> 上がった。" . ($char->spd - $_POST["upSpd"]) . " -> " . $char->spd . "<br />\n");
-				if ($_POST["upLuk"]) HOF_Helper_Global::ShowResult("LUK が <span class=\"bold\">" . $_POST[upLuk] . "</span> 上がった。" . ($char->luk - $_POST["upLuk"]) . " -> " . $char->luk . "<br />\n");
+				if ($_POST["upStr"]) HOF_Helper_Global::ShowResult("STR が <span class=\"bold\">" . $_POST[upStr] . "</span> 上がった。" . ($this->char->str - $_POST["upStr"]) . " -> " . $this->char->str . "<br />\n");
+				if ($_POST["upInt"]) HOF_Helper_Global::ShowResult("INT が <span class=\"bold\">" . $_POST[upInt] . "</span> 上がった。" . ($this->char->int - $_POST["upInt"]) . " -> " . $this->char->int . "<br />\n");
+				if ($_POST["upDex"]) HOF_Helper_Global::ShowResult("DEX が <span class=\"bold\">" . $_POST[upDex] . "</span> 上がった。" . ($this->char->dex - $_POST["upDex"]) . " -> " . $this->char->dex . "<br />\n");
+				if ($_POST["upSpd"]) HOF_Helper_Global::ShowResult("SPD が <span class=\"bold\">" . $_POST[upSpd] . "</span> 上がった。" . ($this->char->spd - $_POST["upSpd"]) . " -> " . $this->char->spd . "<br />\n");
+				if ($_POST["upLuk"]) HOF_Helper_Global::ShowResult("LUK が <span class=\"bold\">" . $_POST[upLuk] . "</span> 上がった。" . ($this->char->luk - $_POST["upLuk"]) . " -> " . $this->char->luk . "<br />\n");
 				print ("</div>\n");
-				$char->SaveCharData($this->user->id);
+				$this->char->SaveCharData($this->user->id);
 				return true;
 				// 配置・他設定(防御)
 			case ($_POST["position"]):
 				if ($_POST["position"] == "front")
 				{
-					$char->position = FRONT;
+					$this->char->position = FRONT;
 					$pos = "前衛(Front)";
 				}
 				else
 				{
-					$char->position = BACK;
+					$this->char->position = BACK;
 					$pos = "後衛(Back)";
 				}
 
-				$char->guard = $_POST["guard"];
+				$this->char->guard = $_POST["guard"];
 				switch ($_POST["guard"])
 				{
 					case "never":
@@ -145,12 +155,12 @@ class HOF_Controller_Char extends HOF_Class_Controller
 						$guard = "必ず後衛を守る";
 						break;
 				}
-				$char->SaveCharData($this->user->id);
-				HOF_Helper_Global::ShowResult($char->Name() . " の配置を {$pos} に。<br />前衛の時 {$guard} ように設定。\n", "margin15");
+				$this->char->SaveCharData($this->user->id);
+				HOF_Helper_Global::ShowResult($this->char->Name() . " の配置を {$pos} に。<br />前衛の時 {$guard} ように設定。\n", "margin15");
 				return true;
 				//行動設定
 			case ($_POST["ChangePattern"]):
-				$max = $char->MaxPatterns();
+				$max = $this->char->MaxPatterns();
 				//記憶するパターンと技の配列。
 				for ($i = 0; $i < $max; $i++)
 				{
@@ -163,10 +173,10 @@ class HOF_Controller_Char extends HOF_Class_Controller
 					$quantity[] = $quantity_post;
 					$action[] = $_POST["skill" . $i];
 				}
-				//if($char->ChangePattern($judge,$action)) {
-				if ($char->PatternSave($judge, $quantity, $action))
+				//if($this->char->ChangePattern($judge,$action)) {
+				if ($this->char->PatternSave($judge, $quantity, $action))
 				{
-					$char->SaveCharData($this->user->id);
+					$this->char->SaveCharData($this->user->id);
 					HOF_Helper_Global::ShowResult("パターン設定保存 完了", "margin15");
 					return true;
 				}
@@ -175,7 +185,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				break;
 				//	行動設定 兼 模擬戦
 			case ($_POST["TestBattle"]):
-				$max = $char->MaxPatterns();
+				$max = $this->char->MaxPatterns();
 				//記憶するパターンと技の配列。
 				for ($i = 0; $i < $max; $i++)
 				{
@@ -188,18 +198,18 @@ class HOF_Controller_Char extends HOF_Class_Controller
 					$quantity[] = $quantity_post;
 					$action[] = $_POST["skill" . $i];
 				}
-				//if($char->ChangePattern($judge,$action)) {
-				if ($char->PatternSave($judge, $quantity, $action))
+				//if($this->char->ChangePattern($judge,$action)) {
+				if ($this->char->PatternSave($judge, $quantity, $action))
 				{
-					$char->SaveCharData($this->user->id);
+					$this->char->SaveCharData($this->user->id);
 					$this->user->CharTestDoppel();
 				}
 				break;
 				//	行動パターンメモ(交換)
 			case ($_POST["PatternMemo"]):
-				if ($char->ChangePatternMemo())
+				if ($this->char->ChangePatternMemo())
 				{
-					$char->SaveCharData($this->user->id);
+					$this->char->SaveCharData($this->user->id);
 					HOF_Helper_Global::ShowResult("パターン交換 完了", "margin15");
 					return true;
 				}
@@ -207,9 +217,9 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				//	指定行に追加
 			case ($_POST["AddNewPattern"]):
 				if (!isset($_POST["PatternNumber"])) return false;
-				if ($char->AddPattern($_POST["PatternNumber"]))
+				if ($this->char->AddPattern($_POST["PatternNumber"]))
 				{
-					$char->SaveCharData($this->user->id);
+					$this->char->SaveCharData($this->user->id);
 					HOF_Helper_Global::ShowResult("パターン追加 完了", "margin15");
 					return true;
 				}
@@ -217,9 +227,9 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				//	指定行を削除
 			case ($_POST["DeletePattern"]):
 				if (!isset($_POST["PatternNumber"])) return false;
-				if ($char->DeletePattern($_POST["PatternNumber"]))
+				if ($this->char->DeletePattern($_POST["PatternNumber"]))
 				{
-					$char->SaveCharData($this->user->id);
+					$this->char->SaveCharData($this->user->id);
 					HOF_Helper_Global::ShowResult("パターン削除 完了", "margin15");
 					return true;
 				}
@@ -231,48 +241,48 @@ class HOF_Controller_Char extends HOF_Class_Controller
 					HOF_Helper_Global::ShowError("装備をはずす箇所が選択されていない", "margin15");
 					return false;
 				}
-				if (!$char->{$_POST["spot"]})
+				if (!$this->char->{$_POST["spot"]})
 				{
-					// $this と $char の区別注意！
+					// $this と $this->char の区別注意！
 					HOF_Helper_Global::ShowError("指定された箇所には装備無し", "margin15");
 					return false;
 				}
-				$item = HOF_Model_Data::getItemData($char->{$_POST["spot"]});
+				$item = HOF_Model_Data::getItemData($this->char->{$_POST["spot"]});
 				if (!$item) return false;
-				$this->user->AddItem($char->{$_POST["spot"]});
+				$this->user->AddItem($this->char->{$_POST["spot"]});
 				$this->user->SaveUserItem();
-				$char->{$_POST["spot"]} = NULL;
-				$char->user->SaveCharData($this->user->id);
-				SHowResult($char->Name() . " の {$item[name]} を はずした。", "margin15");
+				$this->char->{$_POST["spot"]} = NULL;
+				$this->char->user->SaveCharData($this->user->id);
+				SHowResult($this->char->Name() . " の {$item[name]} を はずした。", "margin15");
 				return true;
 				break;
 				//	装備全部はずす
 			case ($_POST["remove_all"]):
-				if ($char->weapon || $char->shield || $char->armor || $char->item)
+				if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->char->item)
 				{
-					if ($char->weapon)
+					if ($this->char->weapon)
 					{
-						$this->user->AddItem($char->weapon);
-						$char->weapon = NULL;
+						$this->user->AddItem($this->char->weapon);
+						$this->char->weapon = NULL;
 					}
-					if ($char->shield)
+					if ($this->char->shield)
 					{
-						$this->user->AddItem($char->shield);
-						$char->shield = NULL;
+						$this->user->AddItem($this->char->shield);
+						$this->char->shield = NULL;
 					}
-					if ($char->armor)
+					if ($this->char->armor)
 					{
-						$this->user->AddItem($char->armor);
-						$char->armor = NULL;
+						$this->user->AddItem($this->char->armor);
+						$this->char->armor = NULL;
 					}
-					if ($char->item)
+					if ($this->char->item)
 					{
-						$this->user->AddItem($char->item);
-						$char->item = NULL;
+						$this->user->AddItem($this->char->item);
+						$this->char->item = NULL;
 					}
 					$this->user->SaveUserItem();
-					$char->SaveCharData($this->user->id);
-					HOF_Helper_Global::ShowResult($char->Name() . " の装備を 全部解除した", "margin15");
+					$this->char->SaveCharData($this->user->id);
+					HOF_Helper_Global::ShowResult($this->char->Name() . " の装備を 全部解除した", "margin15");
 					return true;
 				}
 				break;
@@ -285,15 +295,15 @@ class HOF_Controller_Char extends HOF_Class_Controller
 					return false;
 				}
 
-				$JobData = HOF_Model_Data::getJobData($char->job);
+				$JobData = HOF_Model_Data::getJobData($this->char->job);
 				$item = HOF_Model_Data::getItemData($item_no); //装備しようとしてる物
 				if (!in_array($item["type"], $JobData["equip"]))
 				{ //それが装備不可能なら?
-					HOF_Helper_Global::ShowError("{$char->job_name} can't equip {$item[name]}.", "margin15");
+					HOF_Helper_Global::ShowError("{$this->char->job_name} can't equip {$item[name]}.", "margin15");
 					return false;
 				}
 
-				if (false === $return = $char->Equip($item))
+				if (false === $return = $this->char->Equip($item))
 				{
 					HOF_Helper_Global::ShowError("Handle Over.", "margin15");
 					return false;
@@ -308,8 +318,8 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				}
 
 				$this->user->SaveUserItem();
-				$char->user->SaveCharData($this->user->id);
-				HOF_Helper_Global::ShowResult("{$char->name} は {$item[name]} を装備した.", "margin15");
+				$this->char->user->SaveCharData($this->user->id);
+				HOF_Helper_Global::ShowResult("{$this->char->name} は {$item[name]} を装備した.", "margin15");
 				return true;
 				break;
 				// スキル習得
@@ -320,11 +330,11 @@ class HOF_Controller_Char extends HOF_Class_Controller
 					return false;
 				}
 
-				$char->SetUser($this->id);
-				list($result, $message) = $char->LearnNewSkill($_POST["newskill"]);
+				$this->char->SetUser($this->id);
+				list($result, $message) = $this->char->LearnNewSkill($_POST["newskill"]);
 				if ($result)
 				{
-					$char->SaveCharData();
+					$this->char->SaveCharData();
 					HOF_Helper_Global::ShowResult($message, "margin15");
 				}
 				else
@@ -339,35 +349,35 @@ class HOF_Controller_Char extends HOF_Class_Controller
 					HOF_Helper_Global::ShowError("職 未選択", "margin15");
 					return false;
 				}
-				if ($char->ClassChange($_POST["job"]))
+				if ($this->char->ClassChange($_POST["job"]))
 				{
 					// 装備を全部解除
-					if ($char->weapon || $char->shield || $char->armor || $char->item)
+					if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->char->item)
 					{
-						if ($char->weapon)
+						if ($this->char->weapon)
 						{
-							$this->user->AddItem($char->weapon);
-							$char->weapon = NULL;
+							$this->user->AddItem($this->char->weapon);
+							$this->char->weapon = NULL;
 						}
-						if ($char->shield)
+						if ($this->char->shield)
 						{
-							$this->user->AddItem($char->shield);
-							$char->shield = NULL;
+							$this->user->AddItem($this->char->shield);
+							$this->char->shield = NULL;
 						}
-						if ($char->armor)
+						if ($this->char->armor)
 						{
-							$this->user->AddItem($char->armor);
-							$char->armor = NULL;
+							$this->user->AddItem($this->char->armor);
+							$this->char->armor = NULL;
 						}
-						if ($char->item)
+						if ($this->char->item)
 						{
-							$this->user->AddItem($char->item);
-							$char->item = NULL;
+							$this->user->AddItem($this->char->item);
+							$this->char->item = NULL;
 						}
 						$this->user->SaveUserItem();
 					}
 					// 保存
-					$char->SaveCharData($this->user->id);
+					$this->char->SaveCharData($this->user->id);
 					HOF_Helper_Global::ShowResult("転職 完了", "margin15");
 					return true;
 				}
@@ -375,7 +385,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				return false;
 				//	改名(表示)
 			case ($_POST["rename"]):
-				$Name = $char->Name();
+				$Name = $this->char->Name();
 				$message = <<< EOD
 <form action="?char={$_GET[char]}" method="post" class="margin15">
 半角英数16文字 (全角1文字=半角2文字)<br />
@@ -399,9 +409,9 @@ EOD;
 					{
 						if ($this->user->DeleteItem("7500", 1) == 1)
 						{
-							HOF_Helper_Global::ShowResult($char->Name() . " から " . $return . " へ改名しました。", "margin15");
-							$char->ChangeName($return);
-							$char->SaveCharData($this->user->id);
+							HOF_Helper_Global::ShowResult($this->char->Name() . " から " . $return . " へ改名しました。", "margin15");
+							$this->char->ChangeName($return);
+							$this->char->SaveCharData($this->user->id);
 							$this->user->SaveUserItem();
 							return true;
 						}
@@ -414,7 +424,7 @@ EOD;
 					}
 				// 各種リセットの表示
 			case ($_POST["showreset"]):
-				$Name = $char->Name();
+				$Name = $this->char->Name();
 				print ('<div class="margin15">' . "\n");
 				print ("使用するアイテム<br />\n");
 				print ('<form action="?char=' . $_GET[char] . '" method="post">' . "\n");
@@ -469,12 +479,12 @@ EOD;
 						HOF_Helper_Global::ShowError("アイテムがありません。", "margin15");
 						return false;
 					}
-					if (1 < $char->spd)
+					if (1 < $this->char->spd)
 					{
-						$dif = $char->spd - 1;
-						$char->spd -= $dif;
-						$char->statuspoint += $dif;
-						$char->SaveCharData($this->user->id);
+						$dif = $this->char->spd - 1;
+						$this->char->spd -= $dif;
+						$this->char->statuspoint += $dif;
+						$this->char->SaveCharData($this->user->id);
 						$this->user->SaveUserItem();
 						HOF_Helper_Global::ShowResult("ポイント還元成功", "margin15");
 						return true;
@@ -487,34 +497,34 @@ EOD;
 						HOF_Helper_Global::ShowError("アイテムがありません。", "margin15");
 						return false;
 					}
-					if ($lowLimit < $char->str)
+					if ($lowLimit < $this->char->str)
 					{
-						$dif = $char->str - $lowLimit;
-						$char->str -= $dif;
+						$dif = $this->char->str - $lowLimit;
+						$this->char->str -= $dif;
 						$pointBack += $dif;
 					}
-					if ($lowLimit < $char->int)
+					if ($lowLimit < $this->char->int)
 					{
-						$dif = $char->int - $lowLimit;
-						$char->int -= $dif;
+						$dif = $this->char->int - $lowLimit;
+						$this->char->int -= $dif;
 						$pointBack += $dif;
 					}
-					if ($lowLimit < $char->dex)
+					if ($lowLimit < $this->char->dex)
 					{
-						$dif = $char->dex - $lowLimit;
-						$char->dex -= $dif;
+						$dif = $this->char->dex - $lowLimit;
+						$this->char->dex -= $dif;
 						$pointBack += $dif;
 					}
-					if ($lowLimit < $char->spd)
+					if ($lowLimit < $this->char->spd)
 					{
-						$dif = $char->spd - $lowLimit;
-						$char->spd -= $dif;
+						$dif = $this->char->spd - $lowLimit;
+						$this->char->spd -= $dif;
 						$pointBack += $dif;
 					}
-					if ($lowLimit < $char->luk)
+					if ($lowLimit < $this->char->luk)
 					{
-						$dif = $char->luk - $lowLimit;
-						$char->luk -= $dif;
+						$dif = $this->char->luk - $lowLimit;
+						$this->char->luk -= $dif;
 						$pointBack += $dif;
 					}
 					if ($pointBack)
@@ -524,33 +534,33 @@ EOD;
 							HOF_Helper_Global::ShowError("アイテムがありません。", "margin15");
 							return false;
 						}
-						$char->statuspoint += $pointBack;
+						$this->char->statuspoint += $pointBack;
 						// 装備も全部解除
-						if ($char->weapon || $char->shield || $char->armor || $char->item)
+						if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->char->item)
 						{
-							if ($char->weapon)
+							if ($this->char->weapon)
 							{
-								$this->user->AddItem($char->weapon);
-								$char->weapon = NULL;
+								$this->user->AddItem($this->char->weapon);
+								$this->char->weapon = NULL;
 							}
-							if ($char->shield)
+							if ($this->char->shield)
 							{
-								$this->user->AddItem($char->shield);
-								$char->shield = NULL;
+								$this->user->AddItem($this->char->shield);
+								$this->char->shield = NULL;
 							}
-							if ($char->armor)
+							if ($this->char->armor)
 							{
-								$this->user->AddItem($char->armor);
-								$char->armor = NULL;
+								$this->user->AddItem($this->char->armor);
+								$this->char->armor = NULL;
 							}
-							if ($char->item)
+							if ($this->char->item)
 							{
-								$this->user->AddItem($char->item);
-								$char->item = NULL;
+								$this->user->AddItem($this->char->item);
+								$this->char->item = NULL;
 							}
-							HOF_Helper_Global::ShowResult($char->Name() . " の装備を 全部解除した", "margin15");
+							HOF_Helper_Global::ShowResult($this->char->Name() . " の装備を 全部解除した", "margin15");
 						}
-						$char->SaveCharData($this->user->id);
+						$this->char->SaveCharData($this->user->id);
 						$this->user->SaveUserItem();
 						HOF_Helper_Global::ShowResult("ポイント還元成功", "margin15");
 						return true;
@@ -565,7 +575,7 @@ EOD;
 
 				// サヨナラ(表示)
 			case ($_POST["byebye"]):
-				$Name = $char->Name();
+				$Name = $this->char->Name();
 				$message = <<< HTML_BYEBYE
 <div class="margin15">
 {$Name} を 解雇しますか?<br>
@@ -579,8 +589,8 @@ HTML_BYEBYE;
 				return false;
 				// サヨナラ(処理)
 			case ($_POST["kick"]):
-				//$this->user->DeleteChar($char->birth);
-				$char->user->DeleteChar();
+				//$this->user->DeleteChar($this->char->birth);
+				$this->char->user->DeleteChar();
 				$host = $_SERVER['HTTP_HOST'];
 				$uri = rtrim(dirname($_SERVER['PHP_SELF']));
 				//$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
@@ -597,17 +607,17 @@ HTML_BYEBYE;
 	 */
 	function CharStatShow()
 	{
-		$char = &$this->user->char[$this->input->char];
-		if (!$char)
+
+		if (!$this->char)
 		{
 			print ("Not exists");
 			return false;
 		}
 		// 戦闘用変数の設定。
-		$char->SetBattleVariable();
+		$this->char->SetBattleVariable();
 
 		// 職データ
-		$JobData = HOF_Model_Data::getJobData($char->job);
+		$JobData = HOF_Model_Data::getJobData($this->char->job);
 
 		// 転職可能な職
 		if ($JobData["change"])
@@ -615,7 +625,7 @@ HTML_BYEBYE;
 			include_once (DATA_CLASSCHANGE);
 			foreach ($JobData["change"] as $job)
 			{
-				if (CanClassChange($char, $job)) $CanChange[] = $job; //転職できる候補。
+				if (CanClassChange($this->char, $job)) $CanChange[] = $job; //転職できる候補。
 			}
 		}
 
@@ -646,7 +656,7 @@ HTML_BYEBYE;
 	<h4>Character Status<a href="?manual#charstat" target="_blank" class="a0">?</a></h4>
 	<?php
 
-		$char->ShowCharDetail();
+		$this->char->ShowCharDetail();
 		// 改名
 		if ($this->user->item["7500"]) print ('<input type="submit" class="btn" name="rename" value="ChangeName">' . "\n");
 		// ステータスリセット系
@@ -662,7 +672,7 @@ HTML_BYEBYE;
 <?php
 
 		// ステータス上昇 ////////////////////////////
-		if (0 < $char->statuspoint)
+		if (0 < $this->char->statuspoint)
 		{
 			print <<< HTML
 	<form action="?char=$_GET[char]" method="post" style="padding:0 15px">
@@ -675,12 +685,12 @@ HTML;
 				"Dex",
 				"Spd",
 				"Luk");
-			print ("Point : {$char->statuspoint}<br />\n");
+			print ("Point : {$this->char->statuspoint}<br />\n");
 			foreach ($Stat as $val)
 			{
 				print ("{$val}:\n");
 				print ("<select name=\"up{$val}\" class=\"vcent\">\n");
-				for ($i = 0; $i < $char->statuspoint + 1; $i++) print ("<option value=\"{$i}\">+{$i}</option>\n");
+				for ($i = 0; $i < $this->char->statuspoint + 1; $i++) print ("<option value=\"{$i}\">+{$i}</option>\n");
 				print ("</select>");
 			}
 			print ("<br />");
@@ -704,7 +714,7 @@ HTML;
 		// Action Pattern 行動判定 /////////////////////////
 		$list = HOF_Model_Data::getJudgeList(); // 行動判定条件一覧
 		print ("<table cellspacing=\"5\"><tbody>\n");
-		for ($i = 0; $i < $char->MaxPatterns(); $i++)
+		for ($i = 0; $i < $this->char->MaxPatterns(); $i++)
 		{
 			print ("<tr><td>");
 			//----- No
@@ -714,19 +724,19 @@ HTML;
 			foreach ($list as $val)
 			{ //判断のoption
 				$exp = HOF_Model_Data::getJudgeData($val);
-				print ("<option value=\"{$val}\"" . ($char->judge[$i] == $val ? " selected" : NULL) . ($exp["css"] ? ' class="select0"' : NULL) . ">" . ($exp["css"] ? '&nbsp;' : '&nbsp;&nbsp;&nbsp;') . "{$exp[exp]}</option>\n");
+				print ("<option value=\"{$val}\"" . ($this->char->judge[$i] == $val ? " selected" : NULL) . ($exp["css"] ? ' class="select0"' : NULL) . ">" . ($exp["css"] ? '&nbsp;' : '&nbsp;&nbsp;&nbsp;') . "{$exp[exp]}</option>\n");
 			}
 			print ("</select>\n");
 			print ("</td><td>\n");
 			//----- 数値(量)
-			print ("<input type=\"text\" name=\"quantity" . $i . "\" maxlength=\"4\" value=\"" . $char->quantity[$i] . "\" style=\"width:56px\" class=\"text\">");
+			print ("<input type=\"text\" name=\"quantity" . $i . "\" maxlength=\"4\" value=\"" . $this->char->quantity[$i] . "\" style=\"width:56px\" class=\"text\">");
 			print ("</td><td>\n");
 			//----- //SkillSelect(技の種類)
 			print ("<select name=\"skill" . $i . "\">\n");
-			foreach ($char->skill as $val)
+			foreach ($this->char->skill as $val)
 			{ //技のoption
 				$skill = HOF_Model_Data::getSkill($val);
-				print ("<option value=\"{$val}\"" . ($char->action[$i] == $val ? " selected" : NULL) . ">");
+				print ("<option value=\"{$val}\"" . ($this->char->action[$i] == $val ? " selected" : NULL) . ">");
 				print ($skill["name"] . (isset($skill["sp"]) ? " - (SP:{$skill[sp]})" : NULL));
 				print ("</option>\n");
 			}
@@ -759,7 +769,7 @@ HTML;
 				<td>位置(Position) :</td>
 				<td><input type="radio" class="vcent" name="position" value="front"<?php
 
-		($char->position == "front" ? print (" checked") : NULL)
+		($this->char->position == "front" ? print (" checked") : NULL)
 
 
 ?>>
@@ -769,7 +779,7 @@ HTML;
 				<td></td>
 				<td><input type="radio" class="vcent" name="position" value="back"<?php
 
-		($char->position == "back" ? print (" checked") : NULL)
+		($this->char->position == "back" ? print (" checked") : NULL)
 
 
 ?>>
@@ -801,7 +811,7 @@ HTML;
 			"prpb50" => "50%の確率で 守る",
 			"prob75" => "75%の確率で 守る",
 			);
-		foreach ($option as $key => $val) print ("<option value=\"{$key}\"" . ($char->guard == $key ? " selected" : NULL) . ">{$val}</option>");
+		foreach ($option as $key => $val) print ("<option value=\"{$key}\"" . ($this->char->guard == $key ? " selected" : NULL) . ">{$val}</option>");
 
 
 ?>
@@ -814,10 +824,10 @@ HTML;
 <?php
 
 		// 装備中の物表示 ////////////////////////////////
-		$weapon = HOF_Model_Data::getItemData($char->weapon);
-		$shield = HOF_Model_Data::getItemData($char->shield);
-		$armor = HOF_Model_Data::getItemData($char->armor);
-		$item = HOF_Model_Data::getItemData($char->item);
+		$weapon = HOF_Model_Data::getItemData($this->char->weapon);
+		$shield = HOF_Model_Data::getItemData($this->char->shield);
+		$armor = HOF_Model_Data::getItemData($this->char->armor);
+		$item = HOF_Model_Data::getItemData($this->char->item);
 
 		$handle = 0;
 		$handle = $weapon["handle"] + $shield["handle"] + $armor["handle"] + $item["handle"];
@@ -834,7 +844,7 @@ HTML;
 			<td class="dmg" style="text-align:right">Atk :</td>
 			<td class="dmg"><?=
 
-		$char->atk[0]
+		$this->char->atk[0]
 
 
 ?></td>
@@ -843,7 +853,7 @@ HTML;
 			<td class="spdmg" style="text-align:right">Matk :</td>
 			<td class="spdmg"><?=
 
-		$char->atk[1]
+		$this->char->atk[1]
 
 
 ?></td>
@@ -852,7 +862,7 @@ HTML;
 			<td class="recover" style="text-align:right">Def :</td>
 			<td class="recover"><?=
 
-		$char->def[0] . " + " . $char->def[1]
+		$this->char->def[0] . " + " . $this->char->def[1]
 
 
 ?></td>
@@ -861,7 +871,7 @@ HTML;
 			<td class="support" style="text-align:right">Mdef :</td>
 			<td class="support"><?=
 
-		$char->def[2] . " + " . $char->def[3]
+		$this->char->def[2] . " + " . $this->char->def[3]
 
 
 ?></td>
@@ -877,7 +887,7 @@ HTML;
 				/
 				<?=
 
-		$char->GetHandle()
+		$this->char->GetHandle()
 
 
 ?></td>
@@ -895,7 +905,7 @@ HTML;
 				<td><input type="radio" class="vcent" name="spot" value="weapon">
 					<?php
 
-		HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($char->weapon));
+		HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($this->char->weapon));
 
 
 ?></td>
@@ -905,7 +915,7 @@ HTML;
 				<td><input type="radio" class="vcent" name="spot" value="shield">
 					<?php
 
-		HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($char->shield));
+		HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($this->char->shield));
 
 
 ?></td>
@@ -915,7 +925,7 @@ HTML;
 				<td><input type="radio" class="vcent" name="spot" value="armor">
 					<?php
 
-		HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($char->armor));
+		HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($this->char->armor));
 
 
 ?></td>
@@ -925,7 +935,7 @@ HTML;
 				<td><input type="radio" class="vcent" name="spot" value="item">
 					<?php
 
-		HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($char->item));
+		HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($this->char->item));
 
 
 ?></td>
@@ -1025,11 +1035,11 @@ HTML;
 		// スキル表示 //////////////////////////////////////
 		//include(DATA_SKILL);//ActionPatternに移動
 		include_once (DATA_SKILL_TREE);
-		if ($char->skill)
+		if ($this->char->skill)
 		{
 			print ('<div class="u bold">Mastered</div>');
 			print ("<table><tbody>");
-			foreach ($char->skill as $val)
+			foreach ($this->char->skill as $val)
 			{
 				print ("<tr><td>");
 				$skill = HOF_Model_Data::getSkill($val);
@@ -1038,10 +1048,10 @@ HTML;
 			}
 			print ("</tbody></table>");
 			print ('<div class="u bold">Learn New</div>');
-			print ("Skill Point : {$char->skillpoint}");
+			print ("Skill Point : {$this->char->skillpoint}");
 			print ("<table><tbody>");
-			$tree = LoadSkillTree($char);
-			foreach (array_diff($tree, $char->skill) as $val)
+			$tree = LoadSkillTree($this->char);
+			foreach (array_diff($tree, $this->char->skill) as $val)
 			{
 				print ("<tr><td>");
 				$skill = HOF_Model_Data::getSkill($val);
@@ -1049,7 +1059,7 @@ HTML;
 				print ("</td></tr>");
 			}
 			print ("</tbody></table>");
-			//dump($char->skill);
+			//dump($this->char->skill);
 			//dump($tree);
 			print ('<input type="submit" class="btn" name="learnskill" value="Learn">' . "\n");
 			print ('<input type="hidden" name="learnskill" value="1">' . "\n");
@@ -1077,9 +1087,9 @@ HTML;
 			{
 				print ("<td valign=\"bottom\" style=\"padding:5px 30px;text-align:center\">");
 				$JOB = HOF_Model_Data::getJobData($job);
-				print ('<img src="' . IMG_CHAR . $JOB["img_" . ($char->gender ? "female" : "male")] . '">' . "<br />\n"); //画像
+				print ('<img src="' . IMG_CHAR . $JOB["img_" . ($this->char->gender ? "female" : "male")] . '">' . "<br />\n"); //画像
 				print ('<input type="radio" value="' . $job . '" name="job">' . "<br />\n");
-				print ($JOB["name_" . ($char->gender ? "female" : "male")]);
+				print ($JOB["name_" . ($this->char->gender ? "female" : "male")]);
 				print ("</td>");
 			}
 
