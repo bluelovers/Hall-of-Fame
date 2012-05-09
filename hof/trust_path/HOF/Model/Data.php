@@ -839,4 +839,11 @@ class HOF_Model_Data extends HOF_Class_Data
 		return $data;
 	}
 
+	function getColorList()
+	{
+		$data = file(COLOR_FILE);
+
+		return $data;
+	}
+
 }
