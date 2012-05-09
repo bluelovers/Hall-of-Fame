@@ -54,6 +54,10 @@ class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 
 		$dump = self::dump($data, $inline);
 
+
+
+
+
 		if (is_resource($file))
 		{
 			ftruncate($file, 0);
@@ -63,7 +67,23 @@ class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 			return true;
 		}
 
-		return file_put_contents($file, $dump, LOCK_EX);
+		try{
+			$ret = file_put_contents($file, $dump, LOCK_EX);
+		}
+		catch(Exception $e)
+		{
+
+			debug(array(
+				$e,
+				$file,
+				$ret,
+				$dump,
+			));
+
+			exit();
+		}
+
+		return $ret;
 	}
 
 	public static function dump($array, $inline = HOF_Class_Yaml::INLINE)
