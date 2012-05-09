@@ -15,9 +15,14 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 	protected $_cache;
 
-	function _init()
+	function _main_init()
 	{
 		$this->user = &HOF_Model_Main::getInstance();
+	}
+
+	function _main_input()
+	{
+		$this->input->char = HOF::$input->request->char;
 	}
 
 	function _main_action_default()
@@ -53,7 +58,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function CharStatProcess()
 	{
-		$char = &$this->user->char[$_GET["char"]];
+		$char = &$this->user->char[$this->input->char];
 		if (!$char) return false;
 		switch (true):
 				// ステータス上昇
@@ -592,7 +597,7 @@ HTML_BYEBYE;
 	 */
 	function CharStatShow()
 	{
-		$char = &$this->user->char[$_GET["char"]];
+		$char = &$this->user->char[$this->input->char];
 		if (!$char)
 		{
 			print ("Not exists");
@@ -621,7 +626,7 @@ HTML_BYEBYE;
 ?>
 <form action="?char=<?=
 
-		$_GET["char"]
+		$this->input->char
 
 
 ?>" method="post" style="padding:5px 0 0 15px">
@@ -631,7 +636,7 @@ HTML_BYEBYE;
 		print ('<div style="padding-top:5px">');
 		foreach ($this->user->char as $key => $val)
 		{
-			//if($key == $_GET["char"]) continue;//表示中キャラスキップ
+			//if($key == $this->input->char) continue;//表示中キャラスキップ
 			echo "<a href=\"?char={$key}\">{$val->name}</a>&nbsp;&nbsp;";
 		}
 		print ("</div>");
@@ -689,7 +694,7 @@ HTML;
 ?>
 <form action="?char=<?=
 
-		$_GET["char"]
+		$this->input->char
 
 
 ?>" method="post" style="padding:0 15px">
@@ -743,7 +748,7 @@ HTML;
 </form>
 <form action="?char=<?=
 
-		$_GET["char"]
+		$this->input->char
 
 
 ?>" method="post" style="padding:0 15px">
@@ -880,7 +885,7 @@ HTML;
 	</table>
 	<form action="?char=<?=
 
-		$_GET["char"]
+		$this->input->char
 
 
 ?>" method="post">
@@ -964,7 +969,7 @@ HTML;
 			}
 			print ($EquipList->GetJavaScript("list0"));
 			print ($EquipList->ShowSelect());
-			print ('<form action="?char=' . $_GET["char"] . '" method="post">' . "\n");
+			print ('<form action="?char=' . $this->input->char . '" method="post">' . "\n");
 			print ('<div id="list0">' . $EquipList->ShowDefault() . '</div>' . "\n");
 			print ('<input type="submit" class="btn" name="equip_item" value="Equip">' . "\n");
 			print ("</form>\n");
@@ -1010,7 +1015,7 @@ HTML;
 ?>
 <form action="?char=<?=
 
-		$_GET["char"]
+		$this->input->char
 
 
 ?>" method="post" style="padding:0 15px">
@@ -1058,7 +1063,7 @@ HTML;
 </form>
 <form action="?char=<?=
 
-			$_GET["char"]
+			$this->input->char
 
 
 ?>" method="post" style="padding:0 15px">
@@ -1098,7 +1103,7 @@ HTML;
 		print ('<div  style="padding:15px">');
 		foreach ($this->user->char as $key => $val)
 		{
-			//if($key == $_GET["char"]) continue;//表示中キャラスキップ
+			//if($key == $this->input->char) continue;//表示中キャラスキップ
 			echo "<a href=\"?char={$key}\">{$val->name}</a>&nbsp;&nbsp;";
 		}
 		print ('</div>');
