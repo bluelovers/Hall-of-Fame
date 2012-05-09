@@ -513,6 +513,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		$this->input->no_JS_itemlist = HOF::$input->post->no_JS_itemlist;
 
 		$this->output->colors = HOF_Model_Data::getColorList();
+		$this->output->UserColor = $this->user->UserColor;
 
 		if ($this->SettingProcess()) $this->user->SaveData();
 
