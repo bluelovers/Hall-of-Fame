@@ -587,9 +587,9 @@ DATA;
 <tr><td>JUDGE_LIST_AUTO_LOAD</td><td>条件判定のリストを自動取得(1=自動)</td><td>" . JUDGE_LIST_AUTO_LOAD . "</td></tr>\n
 <tr><td>AUCTION_TOGGLE</td><td>オークションON/OFF(1=ON)</td><td>" . AUCTION_TOGGLE . "</td></tr>\n
 <tr><td>AUCTION_EXHIBIT_TOGGLE</td><td>出品ON/OFF(1=ON)</td><td>" . AUCTION_EXHIBIT_TOGGLE . "</td></tr>\n
-<tr><td>RANK_TEAM_SET_TIME</td><td>ランキングのチーム設定周期</td><td>" . RANK_TEAM_SET_TIME . "s(" . (RANK_TEAM_SET_TIME / 60 / 60) . "hour)" . "</td></tr>\n
-<tr><td>RANK_BATTLE_NEXT_LOSE</td><td>負けたときの待ち時間</td><td>" . RANK_BATTLE_NEXT_LOSE . "s(" . (RANK_BATTLE_NEXT_LOSE / 60 / 60) . "hour)" . "</td></tr>\n
-<tr><td>RANK_BATTLE_NEXT_WIN</td><td>勝利した場合の待ち時間</td><td>" . RANK_BATTLE_NEXT_WIN . "s</td></tr>\n
+<tr><td>HOF_Class_Ranking::RANK_TEAM_SET_TIME</td><td>ランキングのチーム設定周期</td><td>" . HOF_Class_Ranking::RANK_TEAM_SET_TIME . "s(" . (HOF_Class_Ranking::RANK_TEAM_SET_TIME / 60 / 60) . "hour)" . "</td></tr>\n
+<tr><td>HOF_Class_Ranking::RANK_BATTLE_NEXT_LOSE</td><td>負けたときの待ち時間</td><td>" . HOF_Class_Ranking::RANK_BATTLE_NEXT_LOSE . "s(" . (HOF_Class_Ranking::RANK_BATTLE_NEXT_LOSE / 60 / 60) . "hour)" . "</td></tr>\n
+<tr><td>HOF_Class_Ranking::RANK_BATTLE_NEXT_WIN</td><td>勝利した場合の待ち時間</td><td>" . HOF_Class_Ranking::RANK_BATTLE_NEXT_WIN . "s</td></tr>\n
 <tr><td>NORMAL_BATTLE_TIME</td><td>モンスターとの戦いで消費する時間</td><td>" . NORMAL_BATTLE_TIME . "Time</td></tr>\n
 <tr><td>MAX_BATTLE_LOG</td><td>戦闘ログ保存数(通常モンスター)</td><td>" . MAX_BATTLE_LOG . "</td></tr>\n
 <tr><td>MAX_BATTLE_LOG_UNION</td><td>戦闘ログ保存数(ユニオン)</td><td>" . MAX_BATTLE_LOG_UNION . "</td></tr>\n
