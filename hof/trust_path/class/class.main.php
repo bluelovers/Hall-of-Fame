@@ -105,17 +105,7 @@ class main extends HOF_Class_User
 					HOF_Class_Controller::newInstance('Battle', 'common')->main();
 					return 0;
 					// キャラステ
-				case ($_GET["char"]):
-					/*
-					$this->CharDataLoadAll(); //キャラデータ読む
 
-					$this->LoadUserItem(); //アイテムデータ読む
-					$this->CharStatProcess();
-					$this->fpCloseAll();
-					$this->CharStatShow();
-					*/
-					HOF_Class_Controller::newInstance('char', 'char')->main();
-					return 0;
 
 					// アイテム一覧
 				case ($_SERVER["QUERY_STRING"] === "item"):
@@ -136,6 +126,18 @@ class main extends HOF_Class_User
 				case ($_SERVER["QUERY_STRING"] === "recruit"):
 					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
 					return 0;
+					/*
+				case ($_GET["char"]):
+
+					$this->CharDataLoadAll(); //キャラデータ読む
+
+					$this->LoadUserItem(); //アイテムデータ読む
+					$this->CharStatProcess();
+					$this->fpCloseAll();
+					$this->CharStatShow();
+					return 0;
+					*/
+				case ($_GET["char"]):
 				default:
 					HOF_Class_Controller::newInstance('char')->main();
 					return 0;
