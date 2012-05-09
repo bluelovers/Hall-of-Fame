@@ -10,6 +10,63 @@ include_once (CLASS_USER);
 class HOF_Class_User extends user
 {
 
+	function __destruct()
+	{
+		$this->fpclose();
+	}
+
+	function fpclose()
+	{
+		$ret = true;
+
+		if ($this->fp)
+		{
+
+			if (!@fclose($this->fp))
+			{
+				$ret = false;
+			}
+
+			unset($this->fp);
+		}
+
+		return $ret;
+	}
+
+	/**
+	 * ランキング戦用のパーティ編成を返す
+	 */
+	function RankParty()
+	{
+		if ($this->is_exist() && !empty($this->party_rank))
+		{
+			$party = array();
+
+			foreach ($this->party_rank as $no)
+			{
+				$char = $this->CharDataLoad($no);
+				if ($char)
+				{
+					$party[] = $char;
+				}
+			}
+
+			if (!empty($party)) {
+				return $party;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * IDが結局のところ存在しているかたしかめる
+	 */
+	function is_exist()
+	{
+		return (!isset($this->name) || empty($this->name)) ? false : true;
+	}
+
 	function _getfilename($path)
 	{
 		$ok = 0;
