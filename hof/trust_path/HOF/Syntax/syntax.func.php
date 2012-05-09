@@ -29,7 +29,9 @@ function e($string, $escape = false)
 
 function debug($var)
 {
-	var_dump(a($var, 1));
+	$agrs = func_get_args();
+
+	var_dump(a($agrs, 2));
 }
 
 function a($var, $loop = 3)
