@@ -134,9 +134,7 @@ class main extends HOF_Class_User
 					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
 					return 0;
 				default:
-					$this->CharDataLoadAll(); //キャラデータ読む
-					$this->fpCloseAll();
-					$this->LoginMain();
+					HOF_Class_Controller::newInstance('char')->main();
 					return 0;
 			}
 		}
@@ -1602,52 +1600,12 @@ HTML;
 	////////////////////
 
 
-	//	ログインした画面
-	function LoginMain()
-	{
-		$this->ShowTutorial();
-		$this->ShowMyCharacters();
-		RegularControl($this->id);
-	}
+	//
 
-	//	チュウトリアル
-	function ShowTutorial()
-	{
-		$last = $this->last;
-		$start = substr($this->start, 0, 10);
-		$term = 60 * 60 * 1;
-		if (($last - $start) < $term)
-		{
+	//
 
 
-?>
-<div style="margin:5px 15px">
-	<a href="?tutorial">チュートリアル</a>- 戦闘の基本(登録後,1時間だけ表示されます)
-</div>
-<?php
-
-		}
-	}
-
-
-	//	自分のキャラを表示する
-	function ShowMyCharacters($array = NULL)
-	{ // $array ← 色々受け取る
-		if (!$this->char) return false;
-		$divide = (count($this->char) < CHAR_ROW ? count($this->char) : CHAR_ROW);
-		$width = floor(100 / $divide); //各セル横幅
-
-		print ('<table cellspacing="0" style="width:100%"><tbody><tr>'); //横幅100%
-		foreach ($this->char as $val)
-		{
-			if ($i % CHAR_ROW == 0 && $i != 0) print ("\t</tr><tr>\n");
-			print ("\t<td valign=\"bottom\" style=\"width:{$width}%\">"); //キャラ数に応じて%で各セル分割
-			$val->ShowCharLink($array);
-			print ("</td>\n");
-			$i++;
-		}
-		print ("</tr></tbody></table>");
-	}
+	//
 
 
 	//	変数の表示
