@@ -104,11 +104,13 @@ div#main_frame {
 	color : red;
 	font-weight : bold;
 	font-size : 100%;
+	text-shadow: 0 0 0.2em #891481;
 }
 .result {
 	color : #66cc66;
 	font-weight : bold;
 	font-size : 100%;
+	text-shadow: 0 0 0.2em #3C6237;
 }
 .margin15 {
 	margin:15px;
