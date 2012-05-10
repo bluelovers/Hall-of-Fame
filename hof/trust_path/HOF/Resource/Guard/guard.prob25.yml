@@ -1,0 +1,8 @@
+no: prob25
+info:
+    desc: '25%の確率で 守る'
+_i18n:
+    ja:
+        desc: '25%の確率で 守る'
+    en:
+        desc: 'Probability of 25%'
