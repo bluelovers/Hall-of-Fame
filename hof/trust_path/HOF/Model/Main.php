@@ -227,7 +227,7 @@ class HOF_Model_Main extends HOF_Class_Array
 
 ?>
 			<a href="?manual">Manual</a> - <a href="?tutorial">Tutorial</a> - <a href="?gamedata=job">GameData</a> - <a href="#top">Top</a><br>
-			Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
+			Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008. Fork (c) 2012 bluelovers<br>
 
 			, <?= $debuginfo['ios'] ?> ios, <?= $debuginfo['umem'] ?>
 
