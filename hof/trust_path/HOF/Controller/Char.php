@@ -77,31 +77,17 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		$this->options['autoView'] = true;
 		$this->options['escapeHtml'] = false;
-
-		debug($this->input);
-		debug($this->_cache);
-		debug($this->output);
-
-		debug($action, $this->action);
 	}
 
 	function _router()
 	{
 		if ($this->input->action == 'char')
 		{
-			$method_pre = '_main_action_';
+			$list = $this->_main_list_action(array('default', 'char'));
 
-			foreach (get_class_methods(__CLASS__) as $method)
+			if (!empty($list))
 			{
-				if (strpos($method, $method_pre) === 0)
-				{
-					$method = str_replace($method_pre, '', $method);
-
-					if ($method != 'char' && $method != 'default')
-					{
-						$this->_cache->map_subaction[] = $method;
-					}
-				}
+				$this->_cache->map_subaction = array_merge($this->_cache->map_subaction, array_values($list));
 			}
 
 			foreach ($this->_cache->map_subaction as $k => $v)
