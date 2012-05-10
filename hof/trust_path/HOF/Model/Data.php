@@ -461,6 +461,11 @@ class HOF_Model_Data extends HOF_Class_Data
 		}
 	}
 
+	function newItem($no, $check = true)
+	{
+		return HOF_Class_Item::newInstance($no, $check);
+	}
+
 	/**
 	 * 1000-1100	片手剣
 	 * 1300-1400	両手槍
