@@ -265,37 +265,20 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			$pos = "後衛(Back)";
 		}
 
+		/**
+		 * 前衛の時の後衛守り
+		 */
+		$v = HOF_Model_Data::getGuardData($this->input->guard);
+
+		$this->input->guard = $v['no'];
+		$guard = $v['info']['desc'];
+
 		$this->char->guard = $this->input->guard;
-		switch ($this->input->guard)
-		{
-			case "never":
-				$guard = "後衛を守らない";
-				break;
-			case "life25":
-				$guard = "体力が 25%以上なら 後衛を守る";
-				break;
-			case "life50":
-				$guard = "体力が 50%以上なら 後衛を守る";
-				break;
-			case "life75":
-				$guard = "体力が 75%以上なら 後衛を守る";
-				break;
-			case "prob25":
-				$guard = "25%の確率で 後衛を守る";
-				break;
-			case "prob50":
-				$guard = "50%の確率で 後衛を守る";
-				break;
-			case "prob75":
-				$guard = "75%の確率で 後衛を守る";
-				break;
-			default:
-				$guard = "必ず後衛を守る";
-				break;
-		}
 
 		$this->char->SaveCharData($this->user->id);
+
 		$this->_msg_result($this->char->Name() . " の配置を {$pos} に。<br />前衛の時 {$guard} ように設定。\n", "margin15");
+
 		return true;
 	}
 
@@ -1011,28 +994,17 @@ HTML;
 				<td><select name="guard">
 						<?php
 
-		// 前衛の時の後衛守り //////////////////////////////
-		$option = array(
-			/*
-			"always"=> "Always",
-			"never"	=> "Never",
-			"life25"	=> "If life more than 25%",
-			"life50"	=> "If life more than 50%",
-			"life75"	=> "If life more than 75%",
-			"prob25"	=> "Probability of 25%",
-			"prpb50"	=> "Probability of 50%",
-			"prob75"	=> "Probability of 75%",
-			*/
-			"always" => "必ず守る",
-			"never" => "守らない",
-			"life25" => "体力が 25%以上なら 守る",
-			"life50" => "体力が 50%以上なら 守る",
-			"life75" => "体力が 75%以上なら 守る",
-			"prob25" => "25%の確率で 守る",
-			"prpb50" => "50%の確率で 守る",
-			"prob75" => "75%の確率で 守る",
-			);
-		foreach ($option as $key => $val) print ("<option value=\"{$key}\"" . ($this->char->guard == $key ? " selected" : NULL) . ">{$val}</option>");
+		/**
+		 * 前衛の時の後衛守り
+		 */
+		$list = HOF_Model_Data::getGuardList();
+
+		foreach ($list as $k)
+		{
+			$v = HOF_Model_Data::getGuardData($k);
+
+			print ("<option value=\"{$k}\"" . ($this->char->guard == $k ? " selected" : NULL) . ">{$v[info][desc]}</option>");
+		}
 
 
 ?>
