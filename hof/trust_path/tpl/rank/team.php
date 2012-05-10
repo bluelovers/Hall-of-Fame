@@ -10,7 +10,7 @@
 
 	<form action="?menu=rank" method="post">
 
-		<?php e(HOF_Class_Char_View::ShowCharacters(HOF_Model_Main::getInstance()->char, "CHECKBOX", HOF_Model_Main::getInstance()->party_rank)); ?>
+		<?php e(HOF_Class_Char_View::ShowCharacters(HOF::user()->char, "CHECKBOX", HOF::user()->party_rank)); ?>
 
 		<div style="margin:15px;text-align:center;overflow: visible;">
 
