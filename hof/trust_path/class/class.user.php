@@ -417,18 +417,6 @@ class user
 	}
 
 	//////////////////////////////////////////////////
-	//	時間を経過させる。(Timeの増加)
-	function DataUpDate(&$data)
-	{
-		$now = time();
-		$diff = $now - $data["last"];
-		$data["last"] = $now;
-		$gain = $diff / (24 * 60 * 60) * TIME_GAIN_DAY;
-		$data["time"] += $gain;
-		if (MAX_TIME < $data["time"]) $data["time"] = MAX_TIME;
-	}
-
-	//////////////////////////////////////////////////
 	//	データをセットする。
 	//	※?
 	function SetData(&$data)
@@ -559,7 +547,7 @@ class user
 		{
 			foreach ($this->char as $key => $var)
 			{
-				if (method_exists($this->char[$key], "fpclose")) $this->char[$key]->fpclose();
+				if (method_exists($this->char[$key], "fpclose")) @$this->char[$key]->fpclose();
 			}
 		}
 
