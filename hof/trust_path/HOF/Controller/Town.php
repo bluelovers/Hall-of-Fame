@@ -60,6 +60,8 @@ class HOF_Controller_Town extends HOF_Class_Controller
 		 * 普通の1行掲示板
 		 */
 		$this->output->log = $this->_town_bbs();
+
+		$this->options['escapeHtml'] = false;
 	}
 
 	/**
