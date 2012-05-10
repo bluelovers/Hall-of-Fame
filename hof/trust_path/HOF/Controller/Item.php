@@ -15,7 +15,7 @@ class HOF_Controller_Item extends HOF_Class_Controller
 
 	function _main_init()
 	{
-		$this->user = HOF::user();
+		$this->user = &HOF::user();
 	}
 
 	function _main_action_default()
