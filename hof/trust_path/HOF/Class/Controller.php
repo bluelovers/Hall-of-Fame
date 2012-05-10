@@ -193,6 +193,13 @@ class HOF_Class_Controller
 
 		$this->_main_call_once('_main_input');
 
+		if ($this->_main_stop())
+		{
+			return $this;
+		}
+
+		$ret = null;
+
 		if (!empty($this->action))
 		{
 			$this->_main_stop(false);
@@ -213,9 +220,11 @@ class HOF_Class_Controller
 
 			if (method_exists($this, $_method))
 			{
-				call_user_func_array(array($this, '_main_call'), (array )$args);
+				$ret = call_user_func_array(array($this, '_main_call'), (array )$args);
 			}
 		}
+
+		$this->_main_call('_main_result', $this->action, $ret);
 
 		if ($this->_main_stop())
 		{
@@ -225,6 +234,21 @@ class HOF_Class_Controller
 		$this->_main_call_once('_main_after');
 
 		return $this;
+	}
+
+	function _main_exists($action)
+	{
+		$_s = self::_setup_fix($this->controller, $action);
+		$_method = '_main_action_' . $_s['action'];
+
+		$ret = method_exists($this, $_method);
+
+		return $ret;
+	}
+
+	function _main_result($action, $ret)
+	{
+
 	}
 
 	protected function _init()
