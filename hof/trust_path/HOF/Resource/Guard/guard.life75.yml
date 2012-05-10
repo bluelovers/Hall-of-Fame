@@ -1,0 +1,8 @@
+no: life75
+info:
+    desc: '体力が 75%以上なら 守る'
+_i18n:
+    ja:
+        desc: '体力が 75%以上なら 守る'
+    en:
+        desc: 'If life more than 75%'
