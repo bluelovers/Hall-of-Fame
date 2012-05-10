@@ -137,18 +137,19 @@ class HOF_Class_Item_Smithy extends Smithy
 	 */
 	function ItemRefine()
 	{
+		$msg = "+" . $this->refine . " -> ";
+
 		if ($this->RefineProb($this->refine))
 		{
-			print ("+" . $this->refine . " -> ");
-			$this->refine++;
-			print ("+" . $this->refine . " <span class=\"recover\">Success</span>&nbsp;!<br />\n");
-			return true;
+			$msg .= "+" . ++$this->refine . " <span class=\"recover\">Success</span>&nbsp;!<br />\n";
+
+			return array(true, $msg);
 		}
 		else
 		{
-			print ("+" . $this->refine . " -> ");
-			print ("+" . ($this->refine + 1) . " <span class=\"dmg\">Failed</span>.<br />\n");
-			return false;
+			$msg .= "+" . ($this->refine + 1) . " <span class=\"dmg\">Failed</span>.<br />\n";
+
+			return array(false, $msg);
 		}
 	}
 
@@ -179,6 +180,7 @@ class HOF_Class_Item_Smithy extends Smithy
 			case 9:
 				if ($prob < 10) return true;
 		}
+
 		return false;
 	}
 
