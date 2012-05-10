@@ -9,7 +9,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 {
 
 	/**
-	 * @var HOF_Class_User
+	 * @var HOF_Class_Main
 	 */
 	var $user;
 
@@ -17,7 +17,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 	function _init()
 	{
-		$this->user = HOF::user();
+		$this->user = &HOF::user();
 	}
 
 	function _main_input()
