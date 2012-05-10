@@ -31,14 +31,19 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 	function _main_input()
 	{
-		$action = $this->action;
-
 		if (isset(HOF::$input->request->char))
 		{
 			$this->input->action = 'char';
 
 			$this->input->char = HOF::$input->request->char;
 		}
+	}
+
+	function _main_before()
+	{
+		parent::_main_before();
+
+		$action = $this->action;
 
 		if ($this->input->action == 'char')
 		{
@@ -54,6 +59,11 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		$this->_router();
 
+		if ($action != 'default' && !$this->input->char)
+		{
+			$action = 'default';
+		}
+
 		if ($this->input->char)
 		{
 			$this->_main_setup('char');
@@ -62,30 +72,72 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		{
 			$this->_main_setup($action);
 		}
+
+		$this->options['autoView'] = true;
+		$this->options['escapeHtml'] = false;
+
+		debug($this->input);
+		debug($this->_cache);
+		debug($this->output);
+
+		debug($action, $this->action);
 	}
 
 	function _router()
 	{
 		if ($this->input->action == 'char')
 		{
-			if (HOF::$input->request->stup)
+			$map_subaction = array(
+				'stup',
+				'position',
+				'ChangePattern',
+			);
+
+			foreach($map_subaction as $k => $v)
 			{
-				$this->input->action = 'stup';
+				if (is_numeric($k))
+				{
+					$k = $v;
+				}
+
+				if (HOF::$input->post->{$k})
+				{
+					$this->input->{$k} = HOF::$input->post->{$k};
+
+					$this->input->action = $v;
+				}
 			}
 		}
 
 		if ($this->input->action && $this->_main_exists('char_' . $this->input->action))
 		{
+			$this->options['autoView'] = false;
+
 			$this->_main_exec_once('char_' . $this->input->action);
 		}
 	}
 
 	function _main_result($action, $ret)
 	{
-		if ($action != self::DEFAULT_ACTION && $ret === false)
+		$this->_cache->log['action'][$action][] = $ret;
+
+		if ($action != self::DEFAULT_ACTION && $action != 'char')
 		{
-			$this->_main_stop(true);
+			if (1 || $ret === false)
+			{
+				$this->_main_stop(true);
+			}
 		}
+	}
+
+	function _msg_error($message, $add = 'magrin15')
+	{
+		$this->output->_msg_error[] = array($message, $add);
+	}
+
+	function _msg_result($message, $add = 'magrin15')
+	{
+		$this->output->_msg_result[] = array($message, $add);
 	}
 
 	function _main_action_default()
@@ -97,11 +149,13 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 	function _main_action_char()
 	{
+		ob_start();
+
 		$this->CharStatProcess();
 
 		$this->CharStatShow();
 
-		$this->options['autoView'] = false;
+		$this->output->content = ob_get_clean();
 	}
 
 	function _main_after()
@@ -134,10 +188,12 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			$k = 'up' . $v;
 			$this->input->$k = HOF::$input->post->$k;
 
+			$attr = strtolower($v);
+
 			// 最大値を超えないかチェック
-			if (MAX_STATUS < ($this->char->{strtolower($v)} + $this->input->$k))
+			if (MAX_STATUS < ($this->char->{$attr} + $this->input->$k))
 			{
-				HOF_Helper_Global::ShowError("最大ステータス超過(" . MAX_STATUS . ")", "margin15");
+				$this->_msg_error("最大ステータス超過(" . MAX_STATUS . ")");
 
 				return false;
 			}
@@ -149,11 +205,9 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		if ($this->char->statuspoint < $Sum)
 		{
-			HOF_Helper_Global::ShowError("ステータスポイント超過", "margin15");
+			$this->_msg_error("ステータスポイント超過");
 			return false;
 		}
-
-		$this->_cache->_msg_result = array();
 
 		foreach ($Stat as $v)
 		{
@@ -161,14 +215,15 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 			if ($this->input->$k)
 			{
-				// ステータスを増やす
-				$this->char->{strtolower($v)} += $this->input->$k;
+				$attr = strtolower($v);
+				$name = strtoupper($attr);
 
-				$this->_cache->_msg_result[] = "STR が <span class=\"bold\">" . $this->input->$k . "</span> 上がった。" . ($this->char->str - $this->input->$k) . " -> " . $this->char->{strtolower($v)} . "<br />\n";
+				// ステータスを増やす
+				$this->char->{$attr} += $this->input->$k;
+
+				$this->_msg_result("{$name} が <span class=\"bold\">" . $this->input->$k . "</span> 上がった。" . ($this->char->{$attr}-$this->input->$k) . " -> " . $this->char->{$attr} . "<br />\n");
 			}
 		}
-
-		$this->output->_msg_result = $this->_cache->_msg_result;
 
 		$this->char->SetHpSp();
 
@@ -177,9 +232,98 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		$this->char->SaveCharData($this->user->id);
 
-		$this->options['escapeHtml'] = false;
-
 		return true;
+	}
+
+	/**
+	 * 配置・他設定(防御)
+	 */
+	function _main_action_char_position()
+	{
+		$this->input->position = HOF::$input->post->position;
+		$this->input->guard = HOF::$input->post->guard;
+
+		if ($this->input->position == "front")
+		{
+			$this->char->position = FRONT;
+			$pos = "前衛(Front)";
+		}
+		else
+		{
+			$this->char->position = BACK;
+			$pos = "後衛(Back)";
+		}
+
+		$this->char->guard = $this->input->guard;
+		switch ($this->input->guard)
+		{
+			case "never":
+				$guard = "後衛を守らない";
+				break;
+			case "life25":
+				$guard = "体力が 25%以上なら 後衛を守る";
+				break;
+			case "life50":
+				$guard = "体力が 50%以上なら 後衛を守る";
+				break;
+			case "life75":
+				$guard = "体力が 75%以上なら 後衛を守る";
+				break;
+			case "prob25":
+				$guard = "25%の確率で 後衛を守る";
+				break;
+			case "prob50":
+				$guard = "50%の確率で 後衛を守る";
+				break;
+			case "prob75":
+				$guard = "75%の確率で 後衛を守る";
+				break;
+			default:
+				$guard = "必ず後衛を守る";
+				break;
+		}
+
+		$this->char->SaveCharData($this->user->id);
+		$this->_msg_result($this->char->Name() . " の配置を {$pos} に。<br />前衛の時 {$guard} ように設定。\n", "margin15");
+		return true;
+	}
+
+	/**
+	 * 行動設定
+	 */
+	function _main_action_char_change_pattern()
+	{
+		$max = $this->char->MaxPatterns();
+
+		// 記憶するパターンと技の配列。
+		for ($i = 0; $i < $max; $i++)
+		{
+			$judge[] = $_POST["judge" . $i];
+
+			$quantity_post = (int)HOF::$input->post["quantity" . $i];
+
+			if (4 < strlen($quantity_post))
+			{
+				$quantity_post = substr($quantity_post, 0, 4);
+			}
+
+			$quantity[] = $quantity_post;
+
+			$action[] = HOF::$input->post["skill" . $i];
+		}
+
+		//if($this->char->ChangePattern($judge,$action)) {
+		if ($this->char->PatternSave($judge, $quantity, $action))
+		{
+			$this->char->SaveCharData($this->user->id);
+			$this->_msg_result("パターン設定保存 完了", "margin15");
+
+			return true;
+		}
+
+		$this->_msg_rerror("失敗したなんで？報告してみてください 03050242", "margin15");
+
+		return false;
 	}
 
 	/**
@@ -188,80 +332,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function CharStatProcess()
 	{
-
-
 		switch (true):
-
-
-				// 配置・他設定(防御)
-			case ($_POST["position"]):
-				if ($_POST["position"] == "front")
-				{
-					$this->char->position = FRONT;
-					$pos = "前衛(Front)";
-				}
-				else
-				{
-					$this->char->position = BACK;
-					$pos = "後衛(Back)";
-				}
-
-				$this->char->guard = $_POST["guard"];
-				switch ($_POST["guard"])
-				{
-					case "never":
-						$guard = "後衛を守らない";
-						break;
-					case "life25":
-						$guard = "体力が 25%以上なら 後衛を守る";
-						break;
-					case "life50":
-						$guard = "体力が 50%以上なら 後衛を守る";
-						break;
-					case "life75":
-						$guard = "体力が 75%以上なら 後衛を守る";
-						break;
-					case "prob25":
-						$guard = "25%の確率で 後衛を守る";
-						break;
-					case "prob50":
-						$guard = "50%の確率で 後衛を守る";
-						break;
-					case "prob75":
-						$guard = "75%の確率で 後衛を守る";
-						break;
-					default:
-						$guard = "必ず後衛を守る";
-						break;
-				}
-				$this->char->SaveCharData($this->user->id);
-				HOF_Helper_Global::ShowResult($this->char->Name() . " の配置を {$pos} に。<br />前衛の時 {$guard} ように設定。\n", "margin15");
-				return true;
-				//行動設定
-			case ($_POST["ChangePattern"]):
-				$max = $this->char->MaxPatterns();
-				//記憶するパターンと技の配列。
-				for ($i = 0; $i < $max; $i++)
-				{
-					$judge[] = $_POST["judge" . $i];
-					$quantity_post = (int)$_POST["quantity" . $i];
-					if (4 < strlen($quantity_post))
-					{
-						$quantity_post = substr($quantity_post, 0, 4);
-					}
-					$quantity[] = $quantity_post;
-					$action[] = $_POST["skill" . $i];
-				}
-				//if($this->char->ChangePattern($judge,$action)) {
-				if ($this->char->PatternSave($judge, $quantity, $action))
-				{
-					$this->char->SaveCharData($this->user->id);
-					HOF_Helper_Global::ShowResult("パターン設定保存 完了", "margin15");
-					return true;
-				}
-				HOF_Helper_Global::ShowError("失敗したなんで？報告してみてください 03050242", "margin15");
-				return false;
-				break;
 				//	行動設定 兼 模擬戦
 			case ($_POST["TestBattle"]):
 				$max = $this->char->MaxPatterns();
@@ -289,7 +360,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				if ($this->char->ChangePatternMemo())
 				{
 					$this->char->SaveCharData($this->user->id);
-					HOF_Helper_Global::ShowResult("パターン交換 完了", "margin15");
+					$this->_msg_result("パターン交換 完了", "margin15");
 					return true;
 				}
 				break;
@@ -299,7 +370,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				if ($this->char->AddPattern($_POST["PatternNumber"]))
 				{
 					$this->char->SaveCharData($this->user->id);
-					HOF_Helper_Global::ShowResult("パターン追加 完了", "margin15");
+					$this->_msg_result("パターン追加 完了", "margin15");
 					return true;
 				}
 				break;
@@ -309,7 +380,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				if ($this->char->DeletePattern($_POST["PatternNumber"]))
 				{
 					$this->char->SaveCharData($this->user->id);
-					HOF_Helper_Global::ShowResult("パターン削除 完了", "margin15");
+					$this->_msg_result("パターン削除 完了", "margin15");
 					return true;
 				}
 				break;
@@ -317,13 +388,13 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			case ($_POST["remove"]):
 				if (!$_POST["spot"])
 				{
-					HOF_Helper_Global::ShowError("装備をはずす箇所が選択されていない", "margin15");
+					$this->_msg_rerror("装備をはずす箇所が選択されていない", "margin15");
 					return false;
 				}
 				if (!$this->char->{$_POST["spot"]})
 				{
 					// $this と $this->char の区別注意！
-					HOF_Helper_Global::ShowError("指定された箇所には装備無し", "margin15");
+					$this->_msg_rerror("指定された箇所には装備無し", "margin15");
 					return false;
 				}
 				$item = HOF_Model_Data::getItemData($this->char->{$_POST["spot"]});
@@ -361,7 +432,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 					}
 					$this->user->SaveUserItem();
 					$this->char->SaveCharData($this->user->id);
-					HOF_Helper_Global::ShowResult($this->char->Name() . " の装備を 全部解除した", "margin15");
+					$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
 					return true;
 				}
 				break;
@@ -370,7 +441,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				$item_no = $_POST["item_no"];
 				if (!$this->user->item["$item_no"])
 				{ //そのアイテムを所持しているか
-					HOF_Helper_Global::ShowError("Item not exists.", "margin15");
+					$this->_msg_rerror("Item not exists.", "margin15");
 					return false;
 				}
 
@@ -378,13 +449,13 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				$item = HOF_Model_Data::getItemData($item_no); //装備しようとしてる物
 				if (!in_array($item["type"], $JobData["equip"]))
 				{ //それが装備不可能なら?
-					HOF_Helper_Global::ShowError("{$this->char->job_name} can't equip {$item[name]}.", "margin15");
+					$this->_msg_rerror("{$this->char->job_name} can't equip {$item[name]}.", "margin15");
 					return false;
 				}
 
 				if (false === $return = $this->char->Equip($item))
 				{
-					HOF_Helper_Global::ShowError("Handle Over.", "margin15");
+					$this->_msg_rerror("Handle Over.", "margin15");
 					return false;
 				}
 				else
@@ -398,14 +469,14 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 				$this->user->SaveUserItem();
 				$this->char->user->SaveCharData($this->user->id);
-				HOF_Helper_Global::ShowResult("{$this->char->name} は {$item[name]} を装備した.", "margin15");
+				$this->_msg_result("{$this->char->name} は {$item[name]} を装備した.", "margin15");
 				return true;
 				break;
 				// スキル習得
 			case ($_POST["learnskill"]):
 				if (!$_POST["newskill"])
 				{
-					HOF_Helper_Global::ShowError("スキル未選択", "margin15");
+					$this->_msg_rerror("スキル未選択", "margin15");
 					return false;
 				}
 
@@ -414,18 +485,18 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				if ($result)
 				{
 					$this->char->SaveCharData();
-					HOF_Helper_Global::ShowResult($message, "margin15");
+					$this->_msg_result($message, "margin15");
 				}
 				else
 				{
-					HOF_Helper_Global::ShowError($message, "margin15");
+					$this->_msg_rerror($message, "margin15");
 				}
 				return true;
 				// クラスチェンジ(転職)
 			case ($_POST["classchange"]):
 				if (!$_POST["job"])
 				{
-					HOF_Helper_Global::ShowError("職 未選択", "margin15");
+					$this->_msg_rerror("職 未選択", "margin15");
 					return false;
 				}
 				if ($this->char->ClassChange($_POST["job"]))
@@ -457,10 +528,10 @@ class HOF_Controller_Char extends HOF_Class_Controller
 					}
 					// 保存
 					$this->char->SaveCharData($this->user->id);
-					HOF_Helper_Global::ShowResult("転職 完了", "margin15");
+					$this->_msg_result("転職 完了", "margin15");
 					return true;
 				}
-				HOF_Helper_Global::ShowError("failed.", "margin15");
+				$this->_msg_rerror("failed.", "margin15");
 				return false;
 				//	改名(表示)
 			case ($_POST["rename"]):
@@ -480,7 +551,7 @@ EOD;
 				list($result, $return) = CheckString($_POST["NewName"], 16);
 				if ($result === false)
 				{
-					HOF_Helper_Global::ShowError($return, "margin15");
+					$this->_msg_rerror($return, "margin15");
 					return false;
 				}
 				else
@@ -488,7 +559,7 @@ EOD;
 					{
 						if ($this->user->DeleteItem("7500", 1) == 1)
 						{
-							HOF_Helper_Global::ShowResult($this->char->Name() . " から " . $return . " へ改名しました。", "margin15");
+							$this->_msg_result($this->char->Name() . " から " . $return . " へ改名しました。", "margin15");
 							$this->char->ChangeName($return);
 							$this->char->SaveCharData($this->user->id);
 							$this->user->SaveUserItem();
@@ -496,7 +567,7 @@ EOD;
 						}
 						else
 						{
-							HOF_Helper_Global::ShowError("アイテムがありません。", "margin15");
+							$this->_msg_rerror("アイテムがありません。", "margin15");
 							return false;
 						}
 						return true;
@@ -555,7 +626,7 @@ EOD;
 				{
 					if ($this->user->DeleteItem(6000) == 0)
 					{
-						HOF_Helper_Global::ShowError("アイテムがありません。", "margin15");
+						$this->_msg_rerror("アイテムがありません。", "margin15");
 						return false;
 					}
 					if (1 < $this->char->spd)
@@ -565,7 +636,7 @@ EOD;
 						$this->char->statuspoint += $dif;
 						$this->char->SaveCharData($this->user->id);
 						$this->user->SaveUserItem();
-						HOF_Helper_Global::ShowResult("ポイント還元成功", "margin15");
+						$this->_msg_result("ポイント還元成功", "margin15");
 						return true;
 					}
 				}
@@ -573,7 +644,7 @@ EOD;
 				{
 					if (!$this->user->item[$_POST["itemUse"]])
 					{
-						HOF_Helper_Global::ShowError("アイテムがありません。", "margin15");
+						$this->_msg_rerror("アイテムがありません。", "margin15");
 						return false;
 					}
 					if ($lowLimit < $this->char->str)
@@ -610,7 +681,7 @@ EOD;
 					{
 						if ($this->user->DeleteItem($_POST["itemUse"]) == 0)
 						{
-							HOF_Helper_Global::ShowError("アイテムがありません。", "margin15");
+							$this->_msg_rerror("アイテムがありません。", "margin15");
 							return false;
 						}
 						$this->char->statuspoint += $pointBack;
@@ -637,16 +708,16 @@ EOD;
 								$this->user->AddItem($this->char->item);
 								$this->char->item = NULL;
 							}
-							HOF_Helper_Global::ShowResult($this->char->Name() . " の装備を 全部解除した", "margin15");
+							$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
 						}
 						$this->char->SaveCharData($this->user->id);
 						$this->user->SaveUserItem();
-						HOF_Helper_Global::ShowResult("ポイント還元成功", "margin15");
+						$this->_msg_result("ポイント還元成功", "margin15");
 						return true;
 					}
 					else
 					{
-						HOF_Helper_Global::ShowError("ポイント還元失敗", "margin15");
+						$this->_msg_rerror("ポイント還元失敗", "margin15");
 						return false;
 					}
 				}
