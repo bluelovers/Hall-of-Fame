@@ -15,7 +15,7 @@ class HOF_Controller_Town extends HOF_Class_Controller
 
 	function _init()
 	{
-		$this->user = &HOF_Model_Main::getInstance();
+		$this->user = HOF::user();
 	}
 
 	function _main_before()
