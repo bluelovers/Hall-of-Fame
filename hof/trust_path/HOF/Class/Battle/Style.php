@@ -5,7 +5,7 @@
  * @copyright 2012
  */
 
-include_once BTL_IMG_CSS;
+//include_once BTL_IMG_CSS;
 
 /**
  * スタイルシートで画像?領域?反転可能だったのを思い出したので
