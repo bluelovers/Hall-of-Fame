@@ -253,8 +253,8 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		if ($UnionMob["SlaveAmount"]) $EneNum = $UnionMob["SlaveAmount"] + 1; //PTメンバと同じ数だけ。
 		else  $EneNum = 5; // Union含めて5に固定する。
 
-		if ($UnionMob["SlaveSpecify"]) $EnemyParty = $this->user->EnemyParty($EneNum - 1, $Union->Slave, $UnionMob["SlaveSpecify"]);
-		else  $EnemyParty = $this->user->EnemyParty($EneNum - 1, $Union->Slave, $UnionMob["SlaveSpecify"]);
+		if ($UnionMob["SlaveSpecify"]) $EnemyParty = $this->EnemyParty($EneNum - 1, $Union->Slave, $UnionMob["SlaveSpecify"]);
+		else  $EnemyParty = $this->EnemyParty($EneNum - 1, $Union->Slave, $UnionMob["SlaveSpecify"]);
 
 		// unionMobを配列のおよそ中央に入れる
 		$EnemyParty->insert(floor(count($EnemyParty) / 2), array($Union));
