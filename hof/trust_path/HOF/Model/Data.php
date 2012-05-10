@@ -851,4 +851,57 @@ class HOF_Model_Data extends HOF_Class_Data
 		return $data;
 	}
 
+	/**
+	 * 前衛の時の後衛守り
+	 *
+	 * "always"=> "Always",
+	 * "never"	=> "Never",
+	 * "life25"	=> "If life more than 25%",
+	 * "life50"	=> "If life more than 50%",
+	 * "life75"	=> "If life more than 75%",
+	 * "prob25"	=> "Probability of 25%",
+	 * "prpb50"	=> "Probability of 50%",
+	 * "prob75"	=> "Probability of 75%",
+	 *
+	 * "always" => "必ず守る",
+	 * "never" => "守らない",
+	 * "life25" => "体力が 25%以上なら 守る",
+	 * "life50" => "体力が 50%以上なら 守る",
+	 * "life75" => "体力が 75%以上なら 守る",
+	 * "prob25" => "25%の確率で 守る",
+	 * "prpb50" => "50%の確率で 守る",
+	 * "prob75" => "75%の確率で 守る",
+	 */
+	function getGuardData($no, $default = 'always')
+	{
+		$_key = 'guard';
+
+		$data = self::getInstance()->_load($_key, $no);
+
+		if (!$data && $default)
+		{
+			$data = self::getInstance()->_load($_key, $default);
+		}
+
+		return $data;
+	}
+
+	function getGuardList()
+	{
+		$_key = 'guard';
+
+		$regex = HOF_Class_Data::_filename($_key, '*');
+
+		$regex = '/^' . str_replace('\*', '(.+)', preg_quote($regex, '/')) . '$/i';
+
+		foreach (glob(HOF_Class_Data::_filename($_key, '*')) as $file)
+		{
+			$list[] = preg_replace($regex, '$1', $file);
+		}
+
+		sort($list, SORT_STRING | SORT_NUMERIC | SORT_ASC);
+
+		return $list;
+	}
+
 }
