@@ -280,7 +280,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		// 記憶するパターンと技の配列。
 		for ($i = 0; $i < $max; $i++)
 		{
-			$judge[] = $_POST["judge" . $i];
+			$judge[] = HOF::$input->post["judge" . $i];
 
 			$quantity_post = (int)HOF::$input->post["quantity" . $i];
 
@@ -317,14 +317,14 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		//記憶するパターンと技の配列。
 		for ($i = 0; $i < $max; $i++)
 		{
-			$judge[] = $_POST["judge" . $i];
-			$quantity_post = (int)$_POST["quantity" . $i];
+			$judge[] = HOF::$input->post["judge" . $i];
+			$quantity_post = (int)HOF::$input->post["quantity" . $i];
 			if (4 < strlen($quantity_post))
 			{
 				$quantity_post = substr($quantity_post, 0, 4);
 			}
 			$quantity[] = $quantity_post;
-			$action[] = $_POST["skill" . $i];
+			$action[] = HOF::$input->post["skill" . $i];
 		}
 		//if($this->char->ChangePattern($judge,$action)) {
 		if ($this->char->PatternSave($judge, $quantity, $action))
@@ -352,8 +352,8 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function _main_action_AddNewPattern()
 	{
-		if (!isset($_POST["PatternNumber"])) return false;
-		if ($this->char->AddPattern($_POST["PatternNumber"]))
+		if (!isset(HOF::$input->post["PatternNumber"])) return false;
+		if ($this->char->AddPattern(HOF::$input->post["PatternNumber"]))
 		{
 			$this->char->SaveCharData($this->user->id);
 			$this->_msg_result("パターン追加 完了", "margin15");
@@ -366,8 +366,8 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function _main_action_DeletePattern()
 	{
-		if (!isset($_POST["PatternNumber"])) return false;
-		if ($this->char->DeletePattern($_POST["PatternNumber"]))
+		if (!isset(HOF::$input->post["PatternNumber"])) return false;
+		if ($this->char->DeletePattern(HOF::$input->post["PatternNumber"]))
 		{
 			$this->char->SaveCharData($this->user->id);
 			$this->_msg_result("パターン削除 完了", "margin15");
@@ -380,22 +380,22 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function _main_action_remove()
 	{
-		if (!$_POST["spot"])
+		if (!HOF::$input->post["spot"])
 		{
 			$this->_msg_rerror("装備をはずす箇所が選択されていない", "margin15");
 			return false;
 		}
-		if (!$this->char->{$_POST["spot"]})
+		if (!$this->char->{HOF::$input->post["spot"]})
 		{
 			// $this と $this->char の区別注意！
 			$this->_msg_rerror("指定された箇所には装備無し", "margin15");
 			return false;
 		}
-		$item = HOF_Model_Data::getItemData($this->char->{$_POST["spot"]});
+		$item = HOF_Model_Data::getItemData($this->char->{HOF::$input->post["spot"]});
 		if (!$item) return false;
-		$this->user->AddItem($this->char->{$_POST["spot"]});
+		$this->user->AddItem($this->char->{HOF::$input->post["spot"]});
 		$this->user->SaveUserItem();
-		$this->char->{$_POST["spot"]} = NULL;
+		$this->char->{HOF::$input->post["spot"]} = NULL;
 		$this->char->user->SaveCharData($this->user->id);
 		SHowResult($this->char->Name() . " の {$item[name]} を はずした。", "margin15");
 		return true;
@@ -440,7 +440,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function _main_action_equip_item()
 	{
-		$item_no = $_POST["item_no"];
+		$item_no = HOF::$input->post["item_no"];
 		if (!$this->user->item["$item_no"])
 		{ //そのアイテムを所持しているか
 			$this->_msg_rerror("Item not exists.", "margin15");
@@ -480,14 +480,14 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function _main_action_learnskill()
 	{
-		if (!$_POST["newskill"])
+		if (!HOF::$input->post["newskill"])
 		{
 			$this->_msg_rerror("スキル未選択", "margin15");
 			return false;
 		}
 
 		$this->char->SetUser($this->id);
-		list($result, $message) = $this->char->LearnNewSkill($_POST["newskill"]);
+		list($result, $message) = $this->char->LearnNewSkill(HOF::$input->post["newskill"]);
 		if ($result)
 		{
 			$this->char->SaveCharData();
@@ -506,12 +506,12 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	function _main_action_classchange()
 	{
 
-		if (!$_POST["job"])
+		if (!HOF::$input->post["job"])
 		{
 			$this->_msg_rerror("職 未選択", "margin15");
 			return false;
 		}
-		if ($this->char->ClassChange($_POST["job"]))
+		if ($this->char->ClassChange(HOF::$input->post["job"]))
 		{
 			// 装備を全部解除
 			if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->char->item)
@@ -572,7 +572,7 @@ EOD;
 	function _main_action_NewName()
 	{
 
-		list($result, $return) = CheckString($_POST["NewName"], 16);
+		list($result, $return) = CheckString(HOF::$input->post["NewName"], 16);
 		if ($result === false)
 		{
 			$this->_msg_rerror($return, "margin15");
@@ -636,7 +636,7 @@ EOD;
 	function _main_action_resetVarious()
 	{
 
-		switch ($_POST["itemUse"])
+		switch (HOF::$input->post["itemUse"])
 		{
 			case 7510:
 				$lowLimit = 1;
@@ -656,7 +656,7 @@ EOD;
 				break;
 		}
 		// 石ころをSPD1に戻すアイテムにする
-		if ($_POST["itemUse"] == 6000)
+		if (HOF::$input->post["itemUse"] == 6000)
 		{
 			if ($this->user->DeleteItem(6000) == 0)
 			{
@@ -676,7 +676,7 @@ EOD;
 		}
 		if ($lowLimit)
 		{
-			if (!$this->user->item[$_POST["itemUse"]])
+			if (!$this->user->item[HOF::$input->post["itemUse"]])
 			{
 				$this->_msg_rerror("アイテムがありません。", "margin15");
 				return false;
@@ -713,7 +713,7 @@ EOD;
 			}
 			if ($pointBack)
 			{
-				if ($this->user->DeleteItem($_POST["itemUse"]) == 0)
+				if ($this->user->DeleteItem(HOF::$input->post["itemUse"]) == 0)
 				{
 					$this->_msg_rerror("アイテムがありません。", "margin15");
 					return false;
