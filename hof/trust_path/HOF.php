@@ -136,4 +136,9 @@ class HOF
 		return $var;
 	}
 
+	public static function &user()
+	{
+		return HOF_Class_Main::getInstance();
+	}
+
 }
