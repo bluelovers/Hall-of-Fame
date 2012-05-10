@@ -138,7 +138,8 @@ class HOF
 
 	public static function &user()
 	{
-		return HOF_Class_Main::getInstance();
+		$user = &HOF_Class_Main::getInstance();
+		return $user;
 	}
 
 }
