@@ -15,7 +15,7 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 
 	function _init()
 	{
-		$this->user = HOF::user();
+		$this->user = &HOF::user();
 	}
 
 	function _main_before()
