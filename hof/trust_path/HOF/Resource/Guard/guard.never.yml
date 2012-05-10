@@ -1,0 +1,8 @@
+no: never
+info:
+    desc: 守らない
+_i18n:
+    ja:
+        desc: 守らない
+    en:
+        desc: Never
