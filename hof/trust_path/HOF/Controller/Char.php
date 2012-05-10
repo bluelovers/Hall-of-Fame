@@ -164,8 +164,6 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	{
 		ob_start();
 
-		$this->CharStatProcess();
-
 		$this->CharStatShow();
 
 		$this->output->content = ob_get_clean();
@@ -808,17 +806,11 @@ HTML_BYEBYE;
 		return false;
 	}
 
-	/**
-	 * キャラ詳細表示から送られたリクエストを処理する
-	 * 長い...(100行オーバー)
+		/**
+	 * サヨナラ(処理)
 	 */
-	function CharStatProcess()
+	function _main_action_kick()
 	{
-		switch (true):
-
-
-				// サヨナラ(処理)
-			case ($_POST["kick"]):
 				//$this->user->DeleteChar($this->char->birth);
 				$this->char->user->DeleteChar();
 				$host = $_SERVER['HTTP_HOST'];
@@ -828,7 +820,6 @@ HTML_BYEBYE;
 				header("Location: http://$host$uri/$extra");
 				exit;
 				break;
-		endswitch;
 	}
 
 	/**
