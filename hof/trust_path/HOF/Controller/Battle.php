@@ -17,7 +17,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 	function _init()
 	{
-		$this->user = HOF::user();
+		$this->user = &HOF::user();
 
 		$this->options['escapeHtml'] = false;
 	}
