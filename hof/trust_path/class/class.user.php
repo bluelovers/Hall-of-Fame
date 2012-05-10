@@ -449,54 +449,6 @@ class user
 	}
 
 	//////////////////////////////////////////////////
-	//	データを保存する形式に変換する。(テキスト)
-	function DataSavingFormat()
-	{
-
-		$Save = array(
-			"id",
-			"pass",
-			"ip",
-			"name",
-			"last",
-			"login",
-			"start",
-			"money",
-			"time",
-			"wtime",
-			"party_memo",
-			"party_rank",
-			"rank_set_time",
-			"rank_btl_time",
-			"rank_record",
-			"union_btl_time",
-			// opt
-			"record_btl_log",
-			"no_JS_itemlist",
-			"UserColor",
-			);
-		foreach ($Save as $val)
-		{
-			if ($this->{$val}) $text .= "$val=" . (is_array($this->{$val}) ? implode("<>", $this->{$val}) : $this->{$val}) . "\n";
-		}
-
-
-		/*
-		$Save	= get_object_vars($this);
-		unset($Save["char"]);
-		unset($Save["item"]);
-		unset($Save["islogin"]);
-		foreach($Save as $key => $val) {
-		$text	.= "$key=".(is_array($val) ? implode("<>",$val) : $val)."\n";
-		}
-		*/
-
-		//print("<pre>".print_r($AAA,1)."</pre>");
-
-		return $text;
-	}
-
-	//////////////////////////////////////////////////
 	//	データを保存する
 	function SaveData()
 	{
