@@ -127,7 +127,7 @@ class main extends HOF_Class_User
 					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
 					return 0;
 					/*
-				case ($_GET["char"]):
+					case ($_GET["char"]):
 
 					$this->CharDataLoadAll(); //キャラデータ読む
 
@@ -223,7 +223,6 @@ class main extends HOF_Class_User
 
 		return $enemy;
 	}
-
 
 
 	//	('A`)...
