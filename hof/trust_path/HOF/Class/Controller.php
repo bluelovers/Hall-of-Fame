@@ -96,25 +96,36 @@ class HOF_Class_Controller
 
 	}
 
-	public function _setup_fix($controller = null, $action = null)
+	public function _setup_fix($_controller = null, $_action = null)
 	{
-		$controller = $controller ? $controller : self::DEFAULT_CONTROLLER;
-		$action = $action ? $action : self::DEFAULT_ACTION;
+		static $_cache;
 
-		$Controller = HOF::putintoClassParts($controller);
-		$Action = HOF::putintoClassParts($action);
+		if (!$_cache[$_controller][$_action])
+		{
+			$controller = $_controller ? $_controller : self::DEFAULT_CONTROLLER;
+			$action = $_action ? $_action : self::DEFAULT_ACTION;
 
-		$controller = HOF::putintoPathParts($Controller);
-		$action = HOF::putintoPathParts($Action);
+			$Controller = HOF::putintoClassParts($controller);
+			$Action = HOF::putintoClassParts($action);
 
-		$Action[0] = strtolower($Action[0]);
+			$controller = HOF::putintoPathParts($Controller);
+			$action = HOF::putintoPathParts($Action);
 
-		return array(
-			'Controller' => $Controller,
-			'Action' => $Action,
-			'controller' => $controller,
-			'action' => $action,
-			);
+			$Action[0] = strtolower($Action[0]);
+
+			$ret = array(
+				'Controller' => $Controller,
+				'Action' => $Action,
+				'controller' => $controller,
+				'action' => $action,
+				);
+
+			$_cache[$controller][$action] = $ret;
+			$_cache[$_controller][$_action] = $ret;
+			$_cache[$Controller][$Action] = $ret;
+		}
+
+		return $_cache[$_controller][$_action];
 	}
 
 	protected function _main_input()
@@ -209,22 +220,24 @@ class HOF_Class_Controller
 				$this->action = self::DEFAULT_ACTION;
 			}
 
-			$args = func_get_args();
-			array_shift($args);
+			$_action = $this->action;
 
-			$_method = '_main_action_' . $this->action;
+			$this->_controller_cache['event'][$_action]++;
 
-			array_unshift($args, $_method);
-
-			$this->_controller_cache['event'][$this->action]++;
-
-			if (method_exists($this, $_method))
+			//$_method = '_main_action_' . $this->action;
+			if ($_method = $this->_main_exists($_action))
 			{
+				$args = func_get_args();
+				array_shift($args);
+				array_unshift($args, $_method);
+
 				$ret = call_user_func_array(array($this, '_main_call'), (array )$args);
 			}
+
+			$this->_controller_cache['event.func'][$_action] = $_method;
 		}
 
-		$this->_main_call('_main_result', $this->action, $ret);
+		$this->_main_call('_main_result', $action, $ret);
 
 		if ($this->_main_stop())
 		{
@@ -241,9 +254,17 @@ class HOF_Class_Controller
 		$_s = self::_setup_fix($this->controller, $action);
 		$_method = '_main_action_' . $_s['action'];
 
-		$ret = method_exists($this, $_method);
+		if (!$ret = method_exists($this, $_method))
+		{
+			$_method = '_main_action_' . $_s['Action'];
 
-		return $ret;
+			if(!$ret = method_exists($this, $_method))
+			{
+
+			}
+		}
+
+		return $ret ? $_method : false;
 	}
 
 	function _main_result($action, $ret)
