@@ -20,7 +20,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		$this->ItemAuction->ItemCheckSuccess(); // 競売が終了した品物を調べる
 		$this->ItemAuction->UserSaveData();
 
-		$this->user = &HOF_Model_Main::getInstance();
+		$this->user = HOF::user();
 	}
 
 	function _main_before()
