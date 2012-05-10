@@ -35,22 +35,18 @@ class HOF_Controller_Item extends HOF_Class_Controller
 		if ($this->user->item)
 		{
 			$goods = new HOF_Class_Item_Style_List();
+
 			$goods->SetID("my");
 			$goods->SetName("type");
-			// JSを使用しない。
-			if ($this->no_JS_itemlist) $goods->NoJS();
-			//$goods->ListTable("<table>");
-			//$goods->ListTableInsert("<tr><td>No</td><td>Item</td></tr>");
+
 			foreach ($this->user->item as $no => $val)
 			{
-				$item = HOF_Model_Data::getItemData($no);
-				$string = HOF_Class_Item::ShowItemDetail($item, $val, 1) . "<br />";
-				//$string	= "<tr><td>".$no."</td><td>".HOF_Class_Item::ShowItemDetail($item,$val,1)."</td></tr>";
+				$item = HOF_Class_Item::newInstance($no);
+				$string = $item->html($val);
 				$goods->AddItem($item, $string);
 			}
-			print ($goods->GetJavaScript("list"));
-			print ($goods->ShowSelect());
-			print ('<div id="list">' . $goods->ShowDefault() . '</div>');
+
+			echo $goods->output();
 		}
 		else
 		{
