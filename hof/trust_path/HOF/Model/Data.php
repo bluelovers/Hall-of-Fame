@@ -904,4 +904,17 @@ class HOF_Model_Data extends HOF_Class_Data
 		return $list;
 	}
 
+	function getChatAttrBaseList()
+	{
+		$list = array(
+			'str',
+			'int',
+			'dex',
+			'spd',
+			'luk',
+			);
+
+		return $list;
+	}
+
 }
