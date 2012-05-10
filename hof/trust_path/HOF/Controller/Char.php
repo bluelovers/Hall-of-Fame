@@ -25,36 +25,72 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		$this->user = &HOF_Model_Main::getInstance();
 
 		$this->_cache = new HOF_Class_Array($this->_cache);
+
+		$this->user->CharDataLoadAll();
 	}
 
 	function _main_input()
 	{
-		$this->input->char = HOF::$input->request->char;
+		$action = $this->action;
 
-		if ($this->input->char)
+		if (isset(HOF::$input->request->char))
 		{
 			$this->input->action = 'char';
+
+			$this->input->char = HOF::$input->request->char;
 		}
 
 		if ($this->input->action == 'char')
 		{
-			$this->user->CharDataLoadAll();
 			$this->user->LoadUserItem();
 
 			$this->char = &$this->user->char[$this->input->char];
+
+			if (!$this->char)
+			{
+				return $this->_main_stop(true);
+			}
 		}
 
-		if ($this->input->action)
+		$this->_router();
+
+		if ($this->input->char)
 		{
-			$this->_main_setup($this->input->action);
+			$this->_main_setup('char');
+		}
+		else
+		{
+			$this->_main_setup($action);
+		}
+	}
+
+	function _router()
+	{
+		if ($this->input->action == 'char')
+		{
+			if (HOF::$input->request->stup)
+			{
+				$this->input->action = 'stup';
+			}
+		}
+
+		if ($this->input->action && $this->_main_exists('char_' . $this->input->action))
+		{
+			$this->_main_exec_once('char_' . $this->input->action);
+		}
+	}
+
+	function _main_result($action, $ret)
+	{
+		if ($action != self::DEFAULT_ACTION && $ret === false)
+		{
+			$this->_main_stop(true);
 		}
 	}
 
 	function _main_action_default()
 	{
 		//error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
-
-		$this->user->CharDataLoadAll();
 
 		$this->LoginMain();
 	}
@@ -76,57 +112,87 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	}
 
 	/**
+	 * ステータス上昇
+	 */
+	function _main_action_char_stup()
+	{
+		$Stat = array(
+			"Str",
+			"Int",
+			"Dex",
+			"Spd",
+			"Luk",
+			);
+
+		/**
+		 * ステータスポイント超過(ねんのための絶対値)
+		 */
+		$Sum = 0;
+
+		foreach ($Stat as $v)
+		{
+			$k = 'up' . $v;
+			$this->input->$k = HOF::$input->post->$k;
+
+			// 最大値を超えないかチェック
+			if (MAX_STATUS < ($this->char->{strtolower($v)} + $this->input->$k))
+			{
+				HOF_Helper_Global::ShowError("最大ステータス超過(" . MAX_STATUS . ")", "margin15");
+
+				return false;
+			}
+
+			$Sum += abs($this->input->$k);
+		}
+
+		if ($Sum == 0) return false;
+
+		if ($this->char->statuspoint < $Sum)
+		{
+			HOF_Helper_Global::ShowError("ステータスポイント超過", "margin15");
+			return false;
+		}
+
+		$this->_cache->_msg_result = array();
+
+		foreach ($Stat as $v)
+		{
+			$k = 'up' . $v;
+
+			if ($this->input->$k)
+			{
+				// ステータスを増やす
+				$this->char->{strtolower($v)} += $this->input->$k;
+
+				$this->_cache->_msg_result[] = "STR が <span class=\"bold\">" . $this->input->$k . "</span> 上がった。" . ($this->char->str - $this->input->$k) . " -> " . $this->char->{strtolower($v)} . "<br />\n";
+			}
+		}
+
+		$this->output->_msg_result = $this->_cache->_msg_result;
+
+		$this->char->SetHpSp();
+
+		// ポイントを減らす。
+		$this->char->statuspoint -= $Sum;
+
+		$this->char->SaveCharData($this->user->id);
+
+		$this->options['escapeHtml'] = false;
+
+		return true;
+	}
+
+	/**
 	 * キャラ詳細表示から送られたリクエストを処理する
 	 * 長い...(100行オーバー)
 	 */
 	function CharStatProcess()
 	{
 
-		if (!$this->char) return false;
+
 		switch (true):
-				// ステータス上昇
-			case ($_POST["stup"]):
-				//ステータスポイント超過(ねんのための絶対値)
-				$Sum = abs($_POST["upStr"]) + abs($_POST["upInt"]) + abs($_POST["upDex"]) + abs($_POST["upSpd"]) + abs($_POST["upLuk"]);
-				if ($this->char->statuspoint < $Sum)
-				{
-					HOF_Helper_Global::ShowError("ステータスポイント超過", "margin15");
-					return false;
-				}
 
-				if ($Sum == 0) return false;
 
-				$Stat = array(
-					"Str",
-					"Int",
-					"Dex",
-					"Spd",
-					"Luk");
-				foreach ($Stat as $val)
-				{ //最大値を超えないかチェック
-					if (MAX_STATUS < ($this->char->{strtolower($val)} + $_POST["up" . $val]))
-					{
-						HOF_Helper_Global::ShowError("最大ステータス超過(" . MAX_STATUS . ")", "margin15");
-						return false;
-					}
-				}
-				$this->char->str += $_POST["upStr"]; //ステータスを増やす
-				$this->char->int += $_POST["upInt"];
-				$this->char->dex += $_POST["upDex"];
-				$this->char->spd += $_POST["upSpd"];
-				$this->char->luk += $_POST["upLuk"];
-				$this->char->SetHpSp();
-
-				$this->char->statuspoint -= $Sum; //ポイントを減らす。
-				print ("<div class=\"margin15\">\n");
-				if ($_POST["upStr"]) HOF_Helper_Global::ShowResult("STR が <span class=\"bold\">" . $_POST[upStr] . "</span> 上がった。" . ($this->char->str - $_POST["upStr"]) . " -> " . $this->char->str . "<br />\n");
-				if ($_POST["upInt"]) HOF_Helper_Global::ShowResult("INT が <span class=\"bold\">" . $_POST[upInt] . "</span> 上がった。" . ($this->char->int - $_POST["upInt"]) . " -> " . $this->char->int . "<br />\n");
-				if ($_POST["upDex"]) HOF_Helper_Global::ShowResult("DEX が <span class=\"bold\">" . $_POST[upDex] . "</span> 上がった。" . ($this->char->dex - $_POST["upDex"]) . " -> " . $this->char->dex . "<br />\n");
-				if ($_POST["upSpd"]) HOF_Helper_Global::ShowResult("SPD が <span class=\"bold\">" . $_POST[upSpd] . "</span> 上がった。" . ($this->char->spd - $_POST["upSpd"]) . " -> " . $this->char->spd . "<br />\n");
-				if ($_POST["upLuk"]) HOF_Helper_Global::ShowResult("LUK が <span class=\"bold\">" . $_POST[upLuk] . "</span> 上がった。" . ($this->char->luk - $_POST["upLuk"]) . " -> " . $this->char->luk . "<br />\n");
-				print ("</div>\n");
-				$this->char->SaveCharData($this->user->id);
-				return true;
 				// 配置・他設定(防御)
 			case ($_POST["position"]):
 				if ($_POST["position"] == "front")
@@ -1140,7 +1206,7 @@ HTML;
 		$this->ShowTutorial();
 		$this->ShowMyCharacters();
 
-		RegularControl($this->user->id);
+		//RegularControl($this->user->id);
 	}
 
 	/**
