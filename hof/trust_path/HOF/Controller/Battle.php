@@ -325,7 +325,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 					return false;
 				}
 			}
-			$this->user->DoppelBattle($MyParty, 50);
+			HOF_Helper_Battle::DoppelBattle($MyParty, 50);
 			return true;
 		}
 	}
