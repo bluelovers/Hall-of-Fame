@@ -42,7 +42,6 @@ class main extends HOF_Class_User
 
 				HOF_Class_Controller::newInstance('auction')->main()->_main_stop();
 				return 0;
-
 				break;
 
 			case ($_GET["menu"] === "rank"):
@@ -55,9 +54,6 @@ class main extends HOF_Class_User
 
 		if (true === $message = $this->CheckLogin())
 		{
-			//if( false ):
-			// ログイン
-
 			if ($this->FirstLogin())
 			{
 				return 0;
@@ -65,38 +61,29 @@ class main extends HOF_Class_User
 
 			switch (true)
 			{
-
 				case ($this->OptionOrder()):
 					return false;
-
 				case ($_POST["delete"]):
 					if (!HOF_Class_Controller::getInstance('game', 'DeleteMyData')->main()->_main_stop())
 					{
 						return 0;
 					}
-
 					// 設定
 				case ($_SERVER["QUERY_STRING"] === "setting"):
 					HOF_Class_Controller::getInstance('game', $_SERVER["QUERY_STRING"])->main();
 					return 0;
-
 					// 狩場
 				case ($_SERVER["QUERY_STRING"] === "hunt"):
 					HOF_Class_Controller::newInstance('Battle', $_SERVER["QUERY_STRING"])->main();
-
 					return 0;
-
 					// 街
 				case ($_SERVER["QUERY_STRING"] === "town"):
 					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
-
 					return 0;
-
 					// シミュれ
 				case ($_SERVER["QUERY_STRING"] === "simulate"):
 					HOF_Class_Controller::newInstance('Battle', $_SERVER["QUERY_STRING"])->main();
 					return 0;
-
 					// ユニオン
 				case ($_GET["union"]):
 					HOF_Class_Controller::newInstance('Battle', 'union')->main();
@@ -104,9 +91,6 @@ class main extends HOF_Class_User
 				case ($_GET["common"]):
 					HOF_Class_Controller::newInstance('Battle', 'common')->main();
 					return 0;
-					// キャラステ
-
-
 					// アイテム一覧
 				case ($_SERVER["QUERY_STRING"] === "item"):
 					$this->LoadUserItem(); //アイテムデータ読む
@@ -126,17 +110,6 @@ class main extends HOF_Class_User
 				case ($_SERVER["QUERY_STRING"] === "recruit"):
 					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
 					return 0;
-					/*
-					case ($_GET["char"]):
-
-					$this->CharDataLoadAll(); //キャラデータ読む
-
-					$this->LoadUserItem(); //アイテムデータ読む
-					$this->CharStatProcess();
-					$this->fpCloseAll();
-					$this->CharStatShow();
-					return 0;
-					*/
 				case ($_GET["char"]):
 				default:
 					HOF_Class_Controller::newInstance('char')->main();
@@ -145,8 +118,8 @@ class main extends HOF_Class_User
 		}
 		else
 		{
-			// ログアウト
 			$this->fpCloseAll();
+
 			switch (true)
 			{
 				case ($this->OptionOrder()):
