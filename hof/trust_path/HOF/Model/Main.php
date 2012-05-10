@@ -97,6 +97,105 @@ class HOF_Model_Main extends HOF_Class_Main
 		parent::__construct();
 	}
 
+	function Order()
+	{
+		// ログイン処理する前に処理するもの
+		// まだユーザデータ読んでません
+		switch (true)
+		{
+			case ($_GET["menu"] === "auction"):
+
+				HOF_Class_Controller::newInstance('auction')->main()->_main_stop();
+				return 0;
+				break;
+
+			case ($_GET["menu"] === "rank"):
+			case ($_SERVER["QUERY_STRING"] === "rank"):
+
+				HOF_Class_Controller::newInstance('rank')->main()->_main_stop();
+				return 0;
+				break;
+		}
+
+		if (true === $message = $this->CheckLogin())
+		{
+			if ($this->FirstLogin())
+			{
+				return 0;
+			}
+
+			switch (true)
+			{
+				case ($this->OptionOrder()):
+					return false;
+				case ($_POST["delete"]):
+					if (!HOF_Class_Controller::getInstance('game', 'DeleteMyData')->main()->_main_stop())
+					{
+						return 0;
+					}
+					// 設定
+				case ($_SERVER["QUERY_STRING"] === "setting"):
+					HOF_Class_Controller::getInstance('game', $_SERVER["QUERY_STRING"])->main();
+					return 0;
+					// 狩場
+				case ($_SERVER["QUERY_STRING"] === "hunt"):
+					HOF_Class_Controller::newInstance('Battle', $_SERVER["QUERY_STRING"])->main();
+					return 0;
+					// 街
+				case ($_SERVER["QUERY_STRING"] === "town"):
+					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
+					return 0;
+					// シミュれ
+				case ($_SERVER["QUERY_STRING"] === "simulate"):
+					HOF_Class_Controller::newInstance('Battle', $_SERVER["QUERY_STRING"])->main();
+					return 0;
+					// ユニオン
+				case ($_GET["union"]):
+					HOF_Class_Controller::newInstance('Battle', 'union')->main();
+					return 0;
+				case ($_GET["common"]):
+					HOF_Class_Controller::newInstance('Battle', 'common')->main();
+					return 0;
+					// アイテム一覧
+				case ($_SERVER["QUERY_STRING"] === "item"):
+					HOF_Class_Controller::newInstance('item')->main();
+					return 0;
+				case ($_GET["menu"] === "refine"):
+				case ($_GET["menu"] === "create"):
+					HOF_Class_Controller::newInstance('Smithy', $_GET["menu"])->main();
+					return 0;
+				case ($_GET["menu"] === "buy"):
+				case ($_GET["menu"] === "sell"):
+				case ($_GET["menu"] === "work"):
+					HOF_Class_Controller::newInstance('shop', $_GET["menu"])->main();
+					return 0;
+				case ($_SERVER["QUERY_STRING"] === "recruit"):
+					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
+					return 0;
+				case ($_GET["char"]):
+				default:
+					HOF_Class_Controller::newInstance('char')->main();
+					return 0;
+			}
+		}
+		else
+		{
+			$this->fpCloseAll();
+
+			switch (true)
+			{
+				case ($this->OptionOrder()):
+					return false;
+				case ($_POST["Make"]):
+				case ($_SERVER["QUERY_STRING"] === "newgame"):
+					HOF_Class_Controller::getInstance('game', "newgame")->main();
+					return false;
+				default:
+					HOF_Class_Controller::getInstance('game', "login")->main();
+			}
+		}
+	}
+
 	/**
 	 * UpDate,BBS,Manual等
 	 */
