@@ -256,3 +256,13 @@ select {
 	background-position : top right;
 	background-repeat : no-repeat;
 }
+
+.g_item
+{
+	display: inline-block;
+}
+
+.g_item .g_name
+{
+	text-shadow: 0 0 0.2em #8F7;
+}
