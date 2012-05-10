@@ -65,6 +65,66 @@ class HOF_Class_Item_Style_List
 	 */
 	var $NoJS;
 
+	var $map_select = array(
+		'weapon' => '武器(weapon)',
+		'armor' => '防具(armor)',
+		'item' => 'アイテム(---)',
+		'other' => 'その他(other)',
+		'all' => '全部(all)',
+	);
+
+	var $target = 'list';
+
+	var $type_filter = 'all';
+
+	function __construct()
+	{
+		$this->output = new HOF_Class_Array($this->output);
+	}
+
+	function type_filter($val)
+	{
+		if (!$val || !isset($this->map_select[$val]))
+		{
+			$val = 'all';
+		}
+
+		$this->type_filter = $val;
+	}
+
+	function output($tpl = 'layout/item.list.style', $return = true)
+	{
+		$this->output->id = $this->ID;
+		$this->output->name = $this->name;
+
+		$this->output->select = $this->map_select;
+
+		$this->output->target = $this->target;
+
+		if ($this->type_filter == 'all')
+		{
+			$data = array('weapon', 'armor', 'item', 'other');
+		}
+		else
+		{
+			$data = array($this->type_filter);
+		}
+
+		foreach ($data as $k)
+		{
+			$this->output->list[$k] = $this->$k;
+		}
+
+		$output = HOF_Class_View::render(null, $this->output, $tpl);
+
+		if (!$return)
+		{
+			echo $output;
+		}
+
+		return $output;
+	}
+
 	function SetID($ID)
 	{
 		$this->ID = $ID;
@@ -86,8 +146,15 @@ class HOF_Class_Item_Style_List
 	/**
 	 * アイテムの追加
 	 */
-	function AddItem($item, $string)
+	function AddItem($item, $string = null)
 	{
+
+		if ($string === null && !empty($item))
+		{
+			$item = HOF_Class_Item::newInstance($no);
+			$string = $item->html();
+		}
+
 		switch ($item["type"])
 		{
 			case "Sword":
@@ -135,69 +202,8 @@ class HOF_Class_Item_Style_List
 	 */
 	function GetJavaScript($Id)
 	{
-		if ($this->NoJS) return NULL;
+		$this->target = $Id;
 
-		foreach ($this->weapon as $str) $JS_weapon .= ($JS_weapon ? " + \n'" : "'") . $str . "'";
-		foreach ($this->armor as $str) $JS_armor .= ($JS_armor ? " + \n'" : "'") . $str . "'";
-		foreach ($this->item as $str) $JS_item .= ($JS_item ? " + \n'" : "'") . $str . "'";
-		foreach ($this->other as $str) $JS_other .= ($JS_other ? " + \n'" : "'") . $str . "'";
-
-		if (!$JS_weapon) $JS_weapon = "''";
-		if (!$JS_armor) $JS_armor = "''";
-		if (!$JS_item) $JS_item = "''";
-		if (!$JS_other) $JS_other = "''";
-		/*
-		$JS_weapon	.= ($JS_weapon?" + \n'":"'None.")."<input type=\"hidden\" name=\"list_type\" value=\"weapon\">'";
-		$JS_armor	.= ($JS_armor?" + \n'":"'None.")."<input type=\"hidden\" name=\"list_type\" value=\"armor\">'";
-		$JS_item	.= ($JS_item?" + \n'":"'None.")."<input type=\"hidden\" name=\"list_type\" value=\"item\">'";
-		$JS_other	.= ($JS_other?" + \n'":"'None.")."<input type=\"hidden\" name=\"list_type\" value=\"other\">'";
-		*/
-		if ($this->Table)
-		{
-			$insert = "insert = '" . $this->TableInsert . "'";
-			$Table0 = "html = '" . $this->Table . "' + insert + html;";
-			$Table1 = "html += insert + '</table>';";
-		}
-		else
-		{
-			$None = 'html = (html?"":"None.") + html;';
-		}
-		$js = <<< _JS_
-<script type="text/javascript"><!--
-function List{$this->name}(mode) {
-switch(mode) {
-case "weapon":
-html = {$JS_weapon}; break;
-case "armor":
-html = {$JS_armor}; break;
-case "item":
-html = {$JS_item}; break;
-case "other":
-html = {$JS_other}; break;
-}
-return(html);
-}
-function ChangeType{$this->ID}() {
-mode = \$('#{$this->ID} select[name={$this->name}] option:selected').val();
-
-if(mode == 'all') {
-html = List{$this->name}('weapon') + List{$this->name}('armor') + List{$this->name}('item') + List{$this->name}('other');
-{$None}
-hidden = '<input type="hidden" name="list_type" value="all">';
-} else {
-html = List{$this->name}(mode);
-{$None}
-hidden = '<input type="hidden" name="list_type" value="' + mode + '">';
-}
-{$insert}
-{$Table0}
-{$Table1}
-html += hidden;
-\$("#{$Id}").html(html);
-}
-//--></script>
-_JS_;
-		return $js;
 	}
 
 	/**
@@ -208,6 +214,7 @@ _JS_;
 		// JSを使わないので全て表示する。
 		if ($this->NoJS)
 		{
+			/*
 			$list = array_merge($this->weapon, $this->armor, $this->item, $this->other);
 			foreach ($list as $str) $open .= $str . "\n";
 			if ($this->Table)
@@ -215,9 +222,14 @@ _JS_;
 				$open = $this->Table . $this->TableInsert . $open;
 				$open .= $this->TableInsert . "</table>";
 			}
+
 			return $open;
+			*/
+
+			return $this->output();
 		}
 
+		/*
 		switch ($_POST["list_type"])
 		{
 			default:
@@ -238,6 +250,11 @@ _JS_;
 				break;
 		}
 		foreach ($list as $str) $open .= $str . "\n";
+		*/
+
+		$this->type_filter($_POST["list_type"]);
+
+		$open .= $this->output('layout/item.list.style.body', 1);
 
 		switch ($_POST["list_type"])
 		{
@@ -270,6 +287,11 @@ _JS_;
 	function ShowSelect()
 	{
 		if ($this->NoJS) return NULL;
+
+		$this->type_filter($_POST["list_type"]);
+
+		return $this->output('layout/item.list.style.select', 1);
+
 
 		switch ($_POST["list_type"])
 		{
