@@ -203,7 +203,6 @@ class HOF_Class_Item_Style_List
 	function GetJavaScript($Id)
 	{
 		$this->target = $Id;
-
 	}
 
 	/**
@@ -214,43 +213,8 @@ class HOF_Class_Item_Style_List
 		// JSを使わないので全て表示する。
 		if ($this->NoJS)
 		{
-			/*
-			$list = array_merge($this->weapon, $this->armor, $this->item, $this->other);
-			foreach ($list as $str) $open .= $str . "\n";
-			if ($this->Table)
-			{
-				$open = $this->Table . $this->TableInsert . $open;
-				$open .= $this->TableInsert . "</table>";
-			}
-
-			return $open;
-			*/
-
 			return $this->output();
 		}
-
-		/*
-		switch ($_POST["list_type"])
-		{
-			default:
-			case "weapon":
-				$list = $this->weapon;
-				break;
-			case "armor":
-				$list = $this->armor;
-				break;
-			case "item":
-				$list = $this->item;
-				break;
-			case "other":
-				$list = $this->other;
-				break;
-			case "all":
-				$list = array_merge($this->weapon, $this->armor, $this->item, $this->other);
-				break;
-		}
-		foreach ($list as $str) $open .= $str . "\n";
-		*/
 
 		$this->type_filter($_POST["list_type"]);
 
@@ -291,35 +255,6 @@ class HOF_Class_Item_Style_List
 		$this->type_filter($_POST["list_type"]);
 
 		return $this->output('layout/item.list.style.select', 1);
-
-
-		switch ($_POST["list_type"])
-		{
-			case "armor":
-				$armor = " selected";
-				break;
-			case "item":
-				$item = " selected";
-				break;
-			case "other":
-				$other = " selected";
-				break;
-			case "all":
-				$all = " selected";
-				break;
-		}
-
-		$html = <<< HTML
-<form id="{$this->ID}"><select onchange="ChangeType{$this->ID}()" name="{$this->name}" style="margin-bottom:10px">
-  <option value="weapon">武器(weapon)</option>
-  <option value="armor"{$armor}>防具(armor)</option>
-  <option value="item"{$item}>アイテム(---)</option>
-  <option value="other"{$other}>その他(other)</option>
-  <option value="all"{$all}>全部(all)</option>
-</select></form>
-HTML;
-
-		return $html;
 	}
 
 }
