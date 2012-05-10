@@ -7,8 +7,22 @@
 
 include_once (GLOBAL_PHP);
 
-class HOF_Model_Main
+class HOF_Model_Main extends HOF_Class_Array
 {
+	public $ip;
+	public $user_name;
+
+	protected static $instance;
+
+	public static function &getInstance()
+	{
+		if (!isset(self::$instance))
+		{
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
 
 	function __destruct()
 	{
@@ -23,20 +37,31 @@ class HOF_Model_Main
 
 	function __construct()
 	{
+
+		if (!isset(self::$instance))
+		{
+			self::$instance = $this;
+		}
+		else
+		{
+			die('error!!');
+		}
+
+		parent::__construct();
+
 		HOF::getInstance();
+
+		$this->ip = $_SERVER['REMOTE_ADDR'];
 
 		$this->user = &HOF::user();
 
+		$this->user_name = &$this->user->id;
+
 		ob_start();
 		$this->Order();
-		$content = ob_get_contents();
-		ob_end_clean();
+		$content = ob_get_clean();
 
-		$this->Head();
-		print ($content);
-		$this->Debug();
-		HOF::user()->ShowSession();
-		$this->Foot();
+		HOF_Class_View::render(null, array(), 'layout/layout.body', $content)->output();
 	}
 
 	function Order()
@@ -207,9 +232,6 @@ class HOF_Model_Main
 			, <?= $debuginfo['ios'] ?> ios, <?= $debuginfo['umem'] ?>
 
 		</div>
-	</div>
-</body>
-</html>
 <?php
 
 	}
@@ -305,81 +327,6 @@ class HOF_Model_Main
 				print ("Welcome to [ " . TITLE . " ]");
 				print ('</div>');
 			}
-	}
-
-
-	//	HTML開始部分
-	function Head()
-	{
-
-
-?>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<html>
-<head>
-	<?php
-
-		$this->HtmlScript();
-
-
-?>
-	<title>
-	<?=
-
-		TITLE
-
-
-?>
-	</title>
-</head>
-<body>
-	<a name="top"></a>
-	<div id="main_frame">
-		<div id="title">
-			<img src="<?php
-
-		echo HOF_Class_Icon::getImageUrl('title03', './static/image/');
-
-
-?>">
-		</div>
-		<?php
-
-		$this->MyMenu();
-
-
-?>
-		<div id="contents">
-			<?php
-
-	}
-
-
-	//	スタイルシートとか。
-	function HtmlScript()
-	{
-
-
-?>
-			<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-			<link rel="stylesheet" href="./static/style/basis.css" type="text/css">
-			<link rel="stylesheet" href="./static/style/style.css" type="text/css">
-			<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
-			<script type="text/javascript" src="./static/js/jquery-core.js"></script>
-			<style>
-
-.flip-h {
-    -moz-transform: scaleX(-1);
-    -o-transform: scaleX(-1);
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-    filter: FlipH;
-    -ms-filter: "FlipH";
-}
-
-</style>
-			<?php
-
 	}
 
 }
