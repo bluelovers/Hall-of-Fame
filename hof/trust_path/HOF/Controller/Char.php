@@ -407,15 +407,11 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	}
 
 	/**
-	 * キャラ詳細表示から送られたリクエストを処理する
-	 * 長い...(100行オーバー)
+	 * 指定箇所だけ装備をはずす
 	 */
-	function CharStatProcess()
+	function _main_action_remove()
 	{
-		switch (true):
-				//	指定箇所だけ装備をはずす
-			case ($_POST["remove"]):
-				if (!$_POST["spot"])
+		if (!$_POST["spot"])
 				{
 					$this->_msg_rerror("装備をはずす箇所が選択されていない", "margin15");
 					return false;
@@ -434,10 +430,14 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				$this->char->user->SaveCharData($this->user->id);
 				SHowResult($this->char->Name() . " の {$item[name]} を はずした。", "margin15");
 				return true;
-				break;
-				//	装備全部はずす
-			case ($_POST["remove_all"]):
-				if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->char->item)
+	}
+
+	/**
+	 * 装備全部はずす
+	 */
+	function _main_action_remove_all()
+	{
+if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->char->item)
 				{
 					if ($this->char->weapon)
 					{
@@ -464,10 +464,14 @@ class HOF_Controller_Char extends HOF_Class_Controller
 					$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
 					return true;
 				}
-				break;
-				//	指定物を装備する
-			case ($_POST["equip_item"]):
-				$item_no = $_POST["item_no"];
+	}
+
+		/**
+	 * 指定物を装備する
+	 */
+	function _main_action_equip_item()
+	{
+$item_no = $_POST["item_no"];
 				if (!$this->user->item["$item_no"])
 				{ //そのアイテムを所持しているか
 					$this->_msg_rerror("Item not exists.", "margin15");
@@ -500,10 +504,14 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				$this->char->user->SaveCharData($this->user->id);
 				$this->_msg_result("{$this->char->name} は {$item[name]} を装備した.", "margin15");
 				return true;
-				break;
-				// スキル習得
-			case ($_POST["learnskill"]):
-				if (!$_POST["newskill"])
+	}
+
+	/**
+	 * スキル習得
+	 */
+	function _main_action_learnskill()
+	{
+if (!$_POST["newskill"])
 				{
 					$this->_msg_rerror("スキル未選択", "margin15");
 					return false;
@@ -521,8 +529,14 @@ class HOF_Controller_Char extends HOF_Class_Controller
 					$this->_msg_rerror($message, "margin15");
 				}
 				return true;
-				// クラスチェンジ(転職)
-			case ($_POST["classchange"]):
+	}
+
+		/**
+	 * クラスチェンジ(転職)
+	 */
+	function _main_action_classchange()
+	{
+
 				if (!$_POST["job"])
 				{
 					$this->_msg_rerror("職 未選択", "margin15");
@@ -562,8 +576,14 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				}
 				$this->_msg_rerror("failed.", "margin15");
 				return false;
-				//	改名(表示)
-			case ($_POST["rename"]):
+	}
+
+		/**
+	 * 改名(表示)
+	 */
+	function _main_action_rename()
+	{
+
 				$Name = $this->char->Name();
 				$message = <<< EOD
 <form action="?char={$_GET[char]}" method="post" class="margin15">
@@ -575,8 +595,14 @@ class HOF_Controller_Char extends HOF_Class_Controller
 EOD;
 				print ($message);
 				return false;
-				// 改名(処理)
-			case ($_POST["NewName"]):
+	}
+
+	/**
+	 * 改名(処理)
+	 */
+	function _main_action_NewName()
+	{
+
 				list($result, $return) = CheckString($_POST["NewName"], 16);
 				if ($result === false)
 				{
@@ -601,8 +627,13 @@ EOD;
 						}
 						return true;
 					}
-				// 各種リセットの表示
-			case ($_POST["showreset"]):
+	}
+
+		/**
+	 * 各種リセットの表示
+	 */
+	function _main_action_showreset()
+	{
 				$Name = $this->char->Name();
 				print ('<div class="margin15">' . "\n");
 				print ("使用するアイテム<br />\n");
@@ -628,9 +659,14 @@ EOD;
 				print ('</form>' . "\n");
 				print ('</div>' . "\n");
 				break;
+	}
 
-				// 各種リセットの処理
-			case ($_POST["resetVarious"]):
+		/**
+	 * 各種リセットの処理
+	 */
+	function _main_action_resetVarious()
+	{
+
 				switch ($_POST["itemUse"])
 				{
 					case 7510:
@@ -751,9 +787,13 @@ EOD;
 					}
 				}
 				break;
+	}
 
-				// サヨナラ(表示)
-			case ($_POST["byebye"]):
+		/**
+	 * サヨナラ(表示)
+	 */
+	function _main_action_byebye()
+	{
 				$Name = $this->char->Name();
 				$message = <<< HTML_BYEBYE
 <div class="margin15">
@@ -766,6 +806,18 @@ EOD;
 HTML_BYEBYE;
 				print ($message);
 				return false;
+	}
+
+	/**
+	 * キャラ詳細表示から送られたリクエストを処理する
+	 * 長い...(100行オーバー)
+	 */
+	function CharStatProcess()
+	{
+		switch (true):
+
+
+
 				// サヨナラ(処理)
 			case ($_POST["kick"]):
 				//$this->user->DeleteChar($this->char->birth);
