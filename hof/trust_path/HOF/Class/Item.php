@@ -159,6 +159,24 @@ class HOF_Class_Item extends HOF_Class_Array
 		return self::ShowItemDetail($item, $amount, $text, $need);
 	}
 
+	function price_buy($format = false)
+	{
+		$price = (int)$this->buy;
+
+		if ($format) return HOF_Helper_Global::MoneyFormat($price);
+
+		return $price;
+	}
+
+	function price_sell($format = false)
+	{
+		$price = ItemSellPrice($this);
+
+		if ($format) return HOF_Helper_Global::MoneyFormat($price);
+
+		return $price;
+	}
+
 	/**
 	 * アイテムの詳細を返す...ちょっと修正したいな。
 	 */
