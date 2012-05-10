@@ -1,0 +1,8 @@
+no: prpb50
+info:
+    desc: '50%の確率で 守る'
+_i18n:
+    ja:
+        desc: '50%の確率で 守る'
+    en:
+        desc: 'Probability of 50%'
