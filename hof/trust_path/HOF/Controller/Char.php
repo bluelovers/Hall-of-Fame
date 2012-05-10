@@ -27,6 +27,8 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		$this->_cache = new HOF_Class_Array($this->_cache);
 
 		$this->user->CharDataLoadAll();
+
+		$this->_cache->map_subaction = array();
 	}
 
 	function _main_input()
@@ -87,13 +89,22 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	{
 		if ($this->input->action == 'char')
 		{
-			$map_subaction = array(
-				'stup',
-				'position',
-				'ChangePattern',
-			);
+			$method_pre = '_main_action_';
 
-			foreach($map_subaction as $k => $v)
+			foreach (get_class_methods(__CLASS__) as $method)
+			{
+				if (strpos($method, $method_pre) === 0)
+				{
+					$method = str_replace($method_pre, '', $method);
+
+					if ($method != 'char' && $method != 'default')
+					{
+						$this->_cache->map_subaction[] = $method;
+					}
+				}
+			}
+
+			foreach ($this->_cache->map_subaction as $k => $v)
 			{
 				if (is_numeric($k))
 				{
@@ -104,16 +115,18 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				{
 					$this->input->{$k} = HOF::$input->post->{$k};
 
-					$this->input->action = $v;
+					$_action = $v;
 				}
 			}
 		}
 
-		if ($this->input->action && $this->_main_exists('char_' . $this->input->action))
+		if ($_action && $_action != $this->input->action && $this->_main_exists($_action))
 		{
+			$this->input->action = $_action;
+
 			$this->options['autoView'] = false;
 
-			$this->_main_exec_once('char_' . $this->input->action);
+			$this->_main_exec_once($this->input->action);
 		}
 	}
 
@@ -168,7 +181,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * ステータス上昇
 	 */
-	function _main_action_char_stup()
+	function _main_action_stup()
 	{
 		$Stat = array(
 			"Str",
@@ -238,7 +251,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * 配置・他設定(防御)
 	 */
-	function _main_action_char_position()
+	function _main_action_position()
 	{
 		$this->input->position = HOF::$input->post->position;
 		$this->input->guard = HOF::$input->post->guard;
@@ -291,7 +304,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * 行動設定
 	 */
-	function _main_action_char_change_pattern()
+	function _main_action_ChangePattern()
 	{
 		$max = $this->char->MaxPatterns();
 
@@ -327,63 +340,79 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	}
 
 	/**
-	 * キャラ詳細表示から送られたリクエストを処理する
-	 * 長い...(100行オーバー)
+	 * 行動設定 兼 模擬戦
 	 */
-	function CharStatProcess()
+	function _main_action_TestBattle()
 	{
-		switch (true):
-				//	行動設定 兼 模擬戦
-			case ($_POST["TestBattle"]):
-				$max = $this->char->MaxPatterns();
-				//記憶するパターンと技の配列。
-				for ($i = 0; $i < $max; $i++)
-				{
-					$judge[] = $_POST["judge" . $i];
-					$quantity_post = (int)$_POST["quantity" . $i];
-					if (4 < strlen($quantity_post))
-					{
-						$quantity_post = substr($quantity_post, 0, 4);
-					}
-					$quantity[] = $quantity_post;
-					$action[] = $_POST["skill" . $i];
-				}
-				//if($this->char->ChangePattern($judge,$action)) {
-				if ($this->char->PatternSave($judge, $quantity, $action))
-				{
-					$this->char->SaveCharData($this->user->id);
-					$this->user->CharTestDoppel();
-				}
-				break;
-				//	行動パターンメモ(交換)
-			case ($_POST["PatternMemo"]):
-				if ($this->char->ChangePatternMemo())
+		$max = $this->char->MaxPatterns();
+		//記憶するパターンと技の配列。
+		for ($i = 0; $i < $max; $i++)
+		{
+			$judge[] = $_POST["judge" . $i];
+			$quantity_post = (int)$_POST["quantity" . $i];
+			if (4 < strlen($quantity_post))
+			{
+				$quantity_post = substr($quantity_post, 0, 4);
+			}
+			$quantity[] = $quantity_post;
+			$action[] = $_POST["skill" . $i];
+		}
+		//if($this->char->ChangePattern($judge,$action)) {
+		if ($this->char->PatternSave($judge, $quantity, $action))
+		{
+			$this->char->SaveCharData($this->user->id);
+			$this->user->CharTestDoppel();
+		}
+	}
+
+	/**
+	 * 行動パターンメモ(交換)
+	 */
+	function _main_action_PatternMemo()
+	{
+		if ($this->char->ChangePatternMemo())
 				{
 					$this->char->SaveCharData($this->user->id);
 					$this->_msg_result("パターン交換 完了", "margin15");
 					return true;
 				}
-				break;
-				//	指定行に追加
-			case ($_POST["AddNewPattern"]):
-				if (!isset($_POST["PatternNumber"])) return false;
+	}
+
+	/**
+	 * 指定行に追加
+	 */
+	function _main_action_AddNewPattern()
+	{
+		if (!isset($_POST["PatternNumber"])) return false;
 				if ($this->char->AddPattern($_POST["PatternNumber"]))
 				{
 					$this->char->SaveCharData($this->user->id);
 					$this->_msg_result("パターン追加 完了", "margin15");
 					return true;
 				}
-				break;
-				//	指定行を削除
-			case ($_POST["DeletePattern"]):
-				if (!isset($_POST["PatternNumber"])) return false;
+	}
+
+	/**
+	 * 指定行を削除
+	 */
+	function _main_action_DeletePattern()
+	{
+		if (!isset($_POST["PatternNumber"])) return false;
 				if ($this->char->DeletePattern($_POST["PatternNumber"]))
 				{
 					$this->char->SaveCharData($this->user->id);
 					$this->_msg_result("パターン削除 完了", "margin15");
 					return true;
 				}
-				break;
+	}
+
+	/**
+	 * キャラ詳細表示から送られたリクエストを処理する
+	 * 長い...(100行オーバー)
+	 */
+	function CharStatProcess()
+	{
+		switch (true):
 				//	指定箇所だけ装備をはずす
 			case ($_POST["remove"]):
 				if (!$_POST["spot"])
