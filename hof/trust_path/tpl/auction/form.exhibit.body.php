@@ -10,9 +10,7 @@
 		<?php e($this->output->select) ?>
 
 		<form action="?menu=auction" method="post">
-				<div id="list">
-					<?php e($this->output->show) ?>
-				</div>
+				<?php e($this->output->show) ?>
 				<table>
 					<tr>
 						<td style="text-align:right">数量(Amount) :</td>
