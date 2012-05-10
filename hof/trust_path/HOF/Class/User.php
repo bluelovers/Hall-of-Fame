@@ -12,25 +12,20 @@ class HOF_Class_User extends user
 
 	function __destruct()
 	{
-		$this->fpclose();
+		$this->fpCloseAll();
 	}
 
-	function fpclose()
+	/**
+	 * 時間を経過させる。(Timeの増加)
+	 */
+	function DataUpDate(&$data)
 	{
-		$ret = true;
-
-		if ($this->fp)
-		{
-
-			if (!@fclose($this->fp))
-			{
-				$ret = false;
-			}
-
-			unset($this->fp);
-		}
-
-		return $ret;
+		$now = time();
+		$diff = $now - $data["last"];
+		$data["last"] = $now;
+		$gain = $diff / (24 * 60 * 60) * TIME_GAIN_DAY;
+		$data["time"] += $gain;
+		if (MAX_TIME < $data["time"]) $data["time"] = MAX_TIME;
 	}
 
 	/**
