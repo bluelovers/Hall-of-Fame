@@ -438,7 +438,8 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 		if ($message !== true)
 		{
-			$this->_main_exec($this->input->action ? $this->input->action : 'logout', $message);
+			//$this->_main_exec($this->input->action ? $this->input->action : 'logout', $message);
+			$this->_main_stop(true);
 		}
 		else
 		{
