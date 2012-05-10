@@ -380,12 +380,13 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 
 			foreach ($this->user->item as $no => $amount)
 			{
-				$item = HOF_Model_Data::getItemData($no);
+				$item = HOF_Model_Data::newItem($no);
 
 				if (!$possible[$item["type"]]) continue;
 
-				$head = '<input type="radio" name="item_no" value="' . $no . '" class="vcent">';
-				$head .= HOF_Class_Item::ShowItemDetail($item, $amount, 1) . "<br />";
+				$head = '<label><input type="radio" name="item_no" value="' . $no . '" class="vcent">';
+
+				$head .= $item->html($amount) . "</label>";
 
 				$ExhibitList->AddItem($item, $head);
 			}
