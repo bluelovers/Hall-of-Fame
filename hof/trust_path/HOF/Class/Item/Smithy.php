@@ -10,7 +10,7 @@
 /**
  * 鍛冶屋
  */
-class HOF_Class_Item_Smithy extends Smithy
+class HOF_Class_Item_Smithy
 {
 
 	var $item;
