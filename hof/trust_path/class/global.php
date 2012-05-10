@@ -25,8 +25,8 @@ function DeleteAbandonAccount()
 			// ランキングを読む
 			if (!isset($Ranking))
 			{
-				include_once (CLASS_RANKING);
-				$Ranking = new Ranking();
+				//include_once (CLASS_RANKING);
+				$Ranking = new HOF_Class_Ranking();
 				$RankChange = false; // ランキングデータが変更されたか
 			}
 
