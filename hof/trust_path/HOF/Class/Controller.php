@@ -41,6 +41,9 @@ class HOF_Class_Controller
 		'autoView' => true,
 		'autoViewOutput' => true,
 		'autoViewOutputRender' => true,
+
+		'method_action_pre' => '_main_action_',
+
 		);
 
 	protected $allowCallMethod = true;
@@ -249,14 +252,14 @@ class HOF_Class_Controller
 		return $this;
 	}
 
-	function _main_exists($action)
+	function _main_exists($action, $force = false)
 	{
 		$_s = self::_setup_fix($this->controller, $action);
-		$_method = '_main_action_' . $_s['action'];
+		$_method = $this->options['method_action_pre'] . $_s['action'];
 
 		if (!$ret = method_exists($this, $_method))
 		{
-			$_method = '_main_action_' . $_s['Action'];
+			$_method = $this->options['method_action_pre'] . $_s['Action'];
 
 			if(!$ret = method_exists($this, $_method))
 			{
@@ -264,7 +267,28 @@ class HOF_Class_Controller
 			}
 		}
 
-		return $ret ? $_method : false;
+		return ($force || $ret) ? $_method : false;
+	}
+
+	function _main_list_action($skip = array())
+	{
+		$method_pre = $this->options['method_action_pre'];
+
+		$list = array();
+
+		foreach (get_class_methods($this) as $method)
+		{
+			if (strpos($method, $method_pre) === 0)
+			{
+				$action = str_replace($method_pre, '', $method);
+
+				$list[$method] = $action;
+			}
+		}
+
+		if (!empty($skip)) $list = array_diff($list, $skip);
+
+		return $list;
 	}
 
 	function _main_result($action, $ret)
