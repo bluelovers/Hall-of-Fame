@@ -1,0 +1,8 @@
+no: always
+info:
+    desc: 必ず守る
+_i18n:
+    ja:
+        desc: 必ず守る
+    en:
+        desc: Always
