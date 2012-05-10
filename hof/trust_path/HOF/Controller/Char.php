@@ -352,11 +352,15 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function _main_action_AddNewPattern()
 	{
-		if (!isset(HOF::$input->post["PatternNumber"])) return false;
-		if ($this->char->AddPattern(HOF::$input->post["PatternNumber"]))
+		$this->input->PatternNumber = HOF::$input->post["PatternNumber"];
+
+		if (!isset($this->input->PatternNumber)) return false;
+
+		if ($this->char->AddPattern($this->input->PatternNumber))
 		{
 			$this->char->SaveCharData($this->user->id);
 			$this->_msg_result("パターン追加 完了", "margin15");
+
 			return true;
 		}
 	}
@@ -366,8 +370,11 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function _main_action_DeletePattern()
 	{
-		if (!isset(HOF::$input->post["PatternNumber"])) return false;
-		if ($this->char->DeletePattern(HOF::$input->post["PatternNumber"]))
+		$this->input->PatternNumber = HOF::$input->post["PatternNumber"];
+
+		if (!isset($this->input->PatternNumber)) return false;
+
+		if ($this->char->DeletePattern($this->input->PatternNumber))
 		{
 			$this->char->SaveCharData($this->user->id);
 			$this->_msg_result("パターン削除 完了", "margin15");
@@ -380,24 +387,34 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function _main_action_remove()
 	{
-		if (!HOF::$input->post["spot"])
+		$this->input->spot = HOF::$input->post["spot"];
+
+		if (!$this->input->spot)
 		{
 			$this->_msg_rerror("装備をはずす箇所が選択されていない", "margin15");
+
 			return false;
 		}
-		if (!$this->char->{HOF::$input->post["spot"]})
+
+		if (!$this->char->{$this->input->spot})
 		{
 			// $this と $this->char の区別注意！
 			$this->_msg_rerror("指定された箇所には装備無し", "margin15");
+
 			return false;
 		}
-		$item = HOF_Model_Data::getItemData($this->char->{HOF::$input->post["spot"]});
+
+		$item = HOF_Model_Data::getItemData($this->char->{$this->input->spot});
 		if (!$item) return false;
-		$this->user->AddItem($this->char->{HOF::$input->post["spot"]});
+
+		$this->user->AddItem($this->char->{$this->input->spot});
 		$this->user->SaveUserItem();
-		$this->char->{HOF::$input->post["spot"]} = NULL;
+
+		$this->char->{$this->input->spot} = NULL;
 		$this->char->user->SaveCharData($this->user->id);
-		SHowResult($this->char->Name() . " の {$item[name]} を はずした。", "margin15");
+
+		$this->_msg_result($this->char->Name() . " の {$item[name]} を はずした。", "margin15");
+
 		return true;
 	}
 
