@@ -291,7 +291,12 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 			{
 				$MoneySum += $Price;
 				$Trys++;
-				if (!$obj_item->ItemRefine())
+
+				list($bool, $message) = $obj_item->ItemRefine();
+
+				print $message;
+
+				if (!$bool)
 				{ //精錬する(false=失敗なので終了する)
 					break;
 				}
