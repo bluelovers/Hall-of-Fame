@@ -22,7 +22,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 	function _main_init()
 	{
-		$this->user = HOF::user();
+		$this->user = &HOF::user();
 
 		$this->_cache = new HOF_Class_Array($this->_cache);
 
