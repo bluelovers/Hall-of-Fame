@@ -134,20 +134,6 @@ class main extends HOF_Class_User
 		}
 	}
 
-
-
-
-
-
-	//
-
-
-	//
-
-
-	//
-
-
 	function ItemProcess()
 	{
 	}
@@ -689,47 +675,6 @@ class main extends HOF_Class_User
 
 	}
 
-
-	//
-
-	//	普通の1行掲示板
-	function bbs01()
-	{
-		if (!BBS_BOTTOM_TOGGLE) return false;
-		$file = BBS_BOTTOM;
-
-
-?>
-<div style="margin:15px">
-<h4>one line bbs</h4>
-バグ報告,バランスについての意見とかはこちらでどうぞ。
-<form action="?bbs" method="post">
-	<input type="text" maxlength="60" name="message" class="text" style="width:300px"/>
-	<input type="submit" value="post" class="btn" style="width:100px" />
-</form>
-<?php
-
-		if (!file_exists($file)) return false;
-		$log = file($file);
-		if ($_POST["message"] && strlen($_POST["message"]) < 121)
-		{
-			$_POST["message"] = htmlspecialchars($_POST["message"], ENT_QUOTES);
-			$_POST["message"] = stripslashes($_POST["message"]);
-
-			$name = ($this->name ? "<span class=\"bold\">{$this->name}</span>" : "名無し");
-			$message = $name . " > " . $_POST["message"];
-			if ($this->UserColor) $message = "<span style=\"color:{$this->UserColor}\">" . $message . "</span>";
-			$message .= " <span class=\"light\">(" . gc_date("Mj G:i") . ")</span>\n";
-			array_unshift($log, $message);
-			while (150 < count($log)) // ログ保存行数あ
- 					array_pop($log);
-			HOF_Class_File::WriteFile($file, implode(null, $log));
-		}
-		foreach ($log as $mes) print (nl2br($mes));
-		print ('</div>');
-	}
-	//end of class
-	////////////////////
 }
 
 
