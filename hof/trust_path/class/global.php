@@ -226,38 +226,6 @@ function ItemSellPrice($item)
 
 
 //////////////////////////////////////////////////
-//	戦闘ログを回覧する
-function ShowBattleLog($no, $type = false)
-{
-	if ($type == "RANK") $file = LOG_BATTLE_RANK . $no . ".dat";
-	else
-		if ($type == "UNION") $file = LOG_BATTLE_UNION . $no . ".dat";
-		else  $file = LOG_BATTLE_NORMAL . $no . ".dat";
-	if (!file_exists($file))
-	{ //ログが無い
-		print ("log doesnt exists");
-		return false;
-	}
-
-	$log = file($file);
-	$row = 6; //ログの何行目から書き出すか?
-	$time = substr($log[0], 0, 10);
-
-	//print('<table style="width:100%;text-align:center" class="break"><tr><td>'."\n");
-	print ('<div style="padding:15px 0;width:100%;text-align:center" class="break">');
-	print ("<h2>battle log*</h2>");
-	print ("\nthis battle starts at<br />");
-	print (gc_date("m/d H:i:s", substr($time, 0, 10)));
-	print ("</div>\n");
-	//print("</td></tr></table>\n");
-
-	while ($log["$row"])
-	{
-		print ($log["$row"]);
-		$row++;
-	}
-}
-//////////////////////////////////////////////////
 //	技の詳細を表示
 function ShowSkillDetail($skill, $radio = false)
 {
