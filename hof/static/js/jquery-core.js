@@ -18,7 +18,7 @@ jQuery(function($){
 				- $('#title').outerHeight(true)
 				- $('#menu').outerHeight(true)
 				- $('#menu2').outerHeight(true)
-				- $('#foot').outerHeight(true)
+			//	- $('#foot').outerHeight(true)
 			);
 		}).resize();
 
