@@ -371,11 +371,11 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	function _main_action_PatternMemo()
 	{
 		if ($this->char->ChangePatternMemo())
-				{
-					$this->char->SaveCharData($this->user->id);
-					$this->_msg_result("パターン交換 完了", "margin15");
-					return true;
-				}
+		{
+			$this->char->SaveCharData($this->user->id);
+			$this->_msg_result("パターン交換 完了", "margin15");
+			return true;
+		}
 	}
 
 	/**
@@ -384,12 +384,12 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	function _main_action_AddNewPattern()
 	{
 		if (!isset($_POST["PatternNumber"])) return false;
-				if ($this->char->AddPattern($_POST["PatternNumber"]))
-				{
-					$this->char->SaveCharData($this->user->id);
-					$this->_msg_result("パターン追加 完了", "margin15");
-					return true;
-				}
+		if ($this->char->AddPattern($_POST["PatternNumber"]))
+		{
+			$this->char->SaveCharData($this->user->id);
+			$this->_msg_result("パターン追加 完了", "margin15");
+			return true;
+		}
 	}
 
 	/**
@@ -398,12 +398,12 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	function _main_action_DeletePattern()
 	{
 		if (!isset($_POST["PatternNumber"])) return false;
-				if ($this->char->DeletePattern($_POST["PatternNumber"]))
-				{
-					$this->char->SaveCharData($this->user->id);
-					$this->_msg_result("パターン削除 完了", "margin15");
-					return true;
-				}
+		if ($this->char->DeletePattern($_POST["PatternNumber"]))
+		{
+			$this->char->SaveCharData($this->user->id);
+			$this->_msg_result("パターン削除 完了", "margin15");
+			return true;
+		}
 	}
 
 	/**
@@ -412,24 +412,24 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	function _main_action_remove()
 	{
 		if (!$_POST["spot"])
-				{
-					$this->_msg_rerror("装備をはずす箇所が選択されていない", "margin15");
-					return false;
-				}
-				if (!$this->char->{$_POST["spot"]})
-				{
-					// $this と $this->char の区別注意！
-					$this->_msg_rerror("指定された箇所には装備無し", "margin15");
-					return false;
-				}
-				$item = HOF_Model_Data::getItemData($this->char->{$_POST["spot"]});
-				if (!$item) return false;
-				$this->user->AddItem($this->char->{$_POST["spot"]});
-				$this->user->SaveUserItem();
-				$this->char->{$_POST["spot"]} = NULL;
-				$this->char->user->SaveCharData($this->user->id);
-				SHowResult($this->char->Name() . " の {$item[name]} を はずした。", "margin15");
-				return true;
+		{
+			$this->_msg_rerror("装備をはずす箇所が選択されていない", "margin15");
+			return false;
+		}
+		if (!$this->char->{$_POST["spot"]})
+		{
+			// $this と $this->char の区別注意！
+			$this->_msg_rerror("指定された箇所には装備無し", "margin15");
+			return false;
+		}
+		$item = HOF_Model_Data::getItemData($this->char->{$_POST["spot"]});
+		if (!$item) return false;
+		$this->user->AddItem($this->char->{$_POST["spot"]});
+		$this->user->SaveUserItem();
+		$this->char->{$_POST["spot"]} = NULL;
+		$this->char->user->SaveCharData($this->user->id);
+		SHowResult($this->char->Name() . " の {$item[name]} を はずした。", "margin15");
+		return true;
 	}
 
 	/**
@@ -437,7 +437,321 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function _main_action_remove_all()
 	{
-if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->char->item)
+		if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->char->item)
+		{
+			if ($this->char->weapon)
+			{
+				$this->user->AddItem($this->char->weapon);
+				$this->char->weapon = NULL;
+			}
+			if ($this->char->shield)
+			{
+				$this->user->AddItem($this->char->shield);
+				$this->char->shield = NULL;
+			}
+			if ($this->char->armor)
+			{
+				$this->user->AddItem($this->char->armor);
+				$this->char->armor = NULL;
+			}
+			if ($this->char->item)
+			{
+				$this->user->AddItem($this->char->item);
+				$this->char->item = NULL;
+			}
+			$this->user->SaveUserItem();
+			$this->char->SaveCharData($this->user->id);
+			$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
+			return true;
+		}
+	}
+
+	/**
+	 * 指定物を装備する
+	 */
+	function _main_action_equip_item()
+	{
+		$item_no = $_POST["item_no"];
+		if (!$this->user->item["$item_no"])
+		{ //そのアイテムを所持しているか
+			$this->_msg_rerror("Item not exists.", "margin15");
+			return false;
+		}
+
+		$JobData = HOF_Model_Data::getJobData($this->char->job);
+		$item = HOF_Model_Data::getItemData($item_no); //装備しようとしてる物
+		if (!in_array($item["type"], $JobData["equip"]))
+		{ //それが装備不可能なら?
+			$this->_msg_rerror("{$this->char->job_name} can't equip {$item[name]}.", "margin15");
+			return false;
+		}
+
+		if (false === $return = $this->char->Equip($item))
+		{
+			$this->_msg_rerror("Handle Over.", "margin15");
+			return false;
+		}
+		else
+		{
+			$this->user->DeleteItem($item_no);
+			foreach ($return as $no)
+			{
+				$this->user->AddItem($no);
+			}
+		}
+
+		$this->user->SaveUserItem();
+		$this->char->user->SaveCharData($this->user->id);
+		$this->_msg_result("{$this->char->name} は {$item[name]} を装備した.", "margin15");
+		return true;
+	}
+
+	/**
+	 * スキル習得
+	 */
+	function _main_action_learnskill()
+	{
+		if (!$_POST["newskill"])
+		{
+			$this->_msg_rerror("スキル未選択", "margin15");
+			return false;
+		}
+
+		$this->char->SetUser($this->id);
+		list($result, $message) = $this->char->LearnNewSkill($_POST["newskill"]);
+		if ($result)
+		{
+			$this->char->SaveCharData();
+			$this->_msg_result($message, "margin15");
+		}
+		else
+		{
+			$this->_msg_rerror($message, "margin15");
+		}
+		return true;
+	}
+
+	/**
+	 * クラスチェンジ(転職)
+	 */
+	function _main_action_classchange()
+	{
+
+		if (!$_POST["job"])
+		{
+			$this->_msg_rerror("職 未選択", "margin15");
+			return false;
+		}
+		if ($this->char->ClassChange($_POST["job"]))
+		{
+			// 装備を全部解除
+			if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->char->item)
+			{
+				if ($this->char->weapon)
+				{
+					$this->user->AddItem($this->char->weapon);
+					$this->char->weapon = NULL;
+				}
+				if ($this->char->shield)
+				{
+					$this->user->AddItem($this->char->shield);
+					$this->char->shield = NULL;
+				}
+				if ($this->char->armor)
+				{
+					$this->user->AddItem($this->char->armor);
+					$this->char->armor = NULL;
+				}
+				if ($this->char->item)
+				{
+					$this->user->AddItem($this->char->item);
+					$this->char->item = NULL;
+				}
+				$this->user->SaveUserItem();
+			}
+			// 保存
+			$this->char->SaveCharData($this->user->id);
+			$this->_msg_result("転職 完了", "margin15");
+			return true;
+		}
+		$this->_msg_rerror("failed.", "margin15");
+		return false;
+	}
+
+	/**
+	 * 改名(表示)
+	 */
+	function _main_action_rename()
+	{
+
+		$Name = $this->char->Name();
+		$message = <<< EOD
+<form action="?char={$_GET[char]}" method="post" class="margin15">
+半角英数16文字 (全角1文字=半角2文字)<br />
+<input type="text" name="NewName" style="width:160px" class="text" />
+<input type="submit" class="btn" name="NameChange" value="Change" />
+<input type="submit" class="btn" value="Cancel" />
+</form>
+EOD;
+		print ($message);
+		return false;
+	}
+
+	/**
+	 * 改名(処理)
+	 */
+	function _main_action_NewName()
+	{
+
+		list($result, $return) = CheckString($_POST["NewName"], 16);
+		if ($result === false)
+		{
+			$this->_msg_rerror($return, "margin15");
+			return false;
+		}
+		else
+			if ($result === true)
+			{
+				if ($this->user->DeleteItem("7500", 1) == 1)
+				{
+					$this->_msg_result($this->char->Name() . " から " . $return . " へ改名しました。", "margin15");
+					$this->char->ChangeName($return);
+					$this->char->SaveCharData($this->user->id);
+					$this->user->SaveUserItem();
+					return true;
+				}
+				else
+				{
+					$this->_msg_rerror("アイテムがありません。", "margin15");
+					return false;
+				}
+				return true;
+			}
+	}
+
+	/**
+	 * 各種リセットの表示
+	 */
+	function _main_action_showreset()
+	{
+		$Name = $this->char->Name();
+		print ('<div class="margin15">' . "\n");
+		print ("使用するアイテム<br />\n");
+		print ('<form action="?char=' . $_GET[char] . '" method="post">' . "\n");
+		print ('<select name="itemUse">' . "\n");
+		$resetItem = array(
+			7510,
+			7511,
+			7512,
+			7513,
+			7520);
+		foreach ($resetItem as $itemNo)
+		{
+			if ($this->user->item[$itemNo])
+			{
+				$item = HOF_Model_Data::getItemData($itemNo);
+				print ('<option value="' . $itemNo . '">' . $item[name] . " x" . $this->user->item[$itemNo] . '</option>' . "\n");
+			}
+		}
+		print ("</select>\n");
+		print ('<input type="submit" class="btn" name="resetVarious" value="Reset">' . "\n");
+		print ('<input type="submit" class="btn" value="Cancel">' . "\n");
+		print ('</form>' . "\n");
+		print ('</div>' . "\n");
+		break;
+	}
+
+	/**
+	 * 各種リセットの処理
+	 */
+	function _main_action_resetVarious()
+	{
+
+		switch ($_POST["itemUse"])
+		{
+			case 7510:
+				$lowLimit = 1;
+				break;
+			case 7511:
+				$lowLimit = 30;
+				break;
+			case 7512:
+				$lowLimit = 50;
+				break;
+			case 7513:
+				$lowLimit = 100;
+				break;
+				// skill
+			case 7520:
+				$skillReset = true;
+				break;
+		}
+		// 石ころをSPD1に戻すアイテムにする
+		if ($_POST["itemUse"] == 6000)
+		{
+			if ($this->user->DeleteItem(6000) == 0)
+			{
+				$this->_msg_rerror("アイテムがありません。", "margin15");
+				return false;
+			}
+			if (1 < $this->char->spd)
+			{
+				$dif = $this->char->spd - 1;
+				$this->char->spd -= $dif;
+				$this->char->statuspoint += $dif;
+				$this->char->SaveCharData($this->user->id);
+				$this->user->SaveUserItem();
+				$this->_msg_result("ポイント還元成功", "margin15");
+				return true;
+			}
+		}
+		if ($lowLimit)
+		{
+			if (!$this->user->item[$_POST["itemUse"]])
+			{
+				$this->_msg_rerror("アイテムがありません。", "margin15");
+				return false;
+			}
+			if ($lowLimit < $this->char->str)
+			{
+				$dif = $this->char->str - $lowLimit;
+				$this->char->str -= $dif;
+				$pointBack += $dif;
+			}
+			if ($lowLimit < $this->char->int)
+			{
+				$dif = $this->char->int - $lowLimit;
+				$this->char->int -= $dif;
+				$pointBack += $dif;
+			}
+			if ($lowLimit < $this->char->dex)
+			{
+				$dif = $this->char->dex - $lowLimit;
+				$this->char->dex -= $dif;
+				$pointBack += $dif;
+			}
+			if ($lowLimit < $this->char->spd)
+			{
+				$dif = $this->char->spd - $lowLimit;
+				$this->char->spd -= $dif;
+				$pointBack += $dif;
+			}
+			if ($lowLimit < $this->char->luk)
+			{
+				$dif = $this->char->luk - $lowLimit;
+				$this->char->luk -= $dif;
+				$pointBack += $dif;
+			}
+			if ($pointBack)
+			{
+				if ($this->user->DeleteItem($_POST["itemUse"]) == 0)
+				{
+					$this->_msg_rerror("アイテムがありません。", "margin15");
+					return false;
+				}
+				$this->char->statuspoint += $pointBack;
+				// 装備も全部解除
+				if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->char->item)
 				{
 					if ($this->char->weapon)
 					{
@@ -459,343 +773,29 @@ if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->c
 						$this->user->AddItem($this->char->item);
 						$this->char->item = NULL;
 					}
-					$this->user->SaveUserItem();
-					$this->char->SaveCharData($this->user->id);
 					$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
-					return true;
 				}
-	}
-
-		/**
-	 * 指定物を装備する
-	 */
-	function _main_action_equip_item()
-	{
-$item_no = $_POST["item_no"];
-				if (!$this->user->item["$item_no"])
-				{ //そのアイテムを所持しているか
-					$this->_msg_rerror("Item not exists.", "margin15");
-					return false;
-				}
-
-				$JobData = HOF_Model_Data::getJobData($this->char->job);
-				$item = HOF_Model_Data::getItemData($item_no); //装備しようとしてる物
-				if (!in_array($item["type"], $JobData["equip"]))
-				{ //それが装備不可能なら?
-					$this->_msg_rerror("{$this->char->job_name} can't equip {$item[name]}.", "margin15");
-					return false;
-				}
-
-				if (false === $return = $this->char->Equip($item))
-				{
-					$this->_msg_rerror("Handle Over.", "margin15");
-					return false;
-				}
-				else
-				{
-					$this->user->DeleteItem($item_no);
-					foreach ($return as $no)
-					{
-						$this->user->AddItem($no);
-					}
-				}
-
+				$this->char->SaveCharData($this->user->id);
 				$this->user->SaveUserItem();
-				$this->char->user->SaveCharData($this->user->id);
-				$this->_msg_result("{$this->char->name} は {$item[name]} を装備した.", "margin15");
+				$this->_msg_result("ポイント還元成功", "margin15");
 				return true;
+			}
+			else
+			{
+				$this->_msg_rerror("ポイント還元失敗", "margin15");
+				return false;
+			}
+		}
+		break;
 	}
 
 	/**
-	 * スキル習得
-	 */
-	function _main_action_learnskill()
-	{
-if (!$_POST["newskill"])
-				{
-					$this->_msg_rerror("スキル未選択", "margin15");
-					return false;
-				}
-
-				$this->char->SetUser($this->id);
-				list($result, $message) = $this->char->LearnNewSkill($_POST["newskill"]);
-				if ($result)
-				{
-					$this->char->SaveCharData();
-					$this->_msg_result($message, "margin15");
-				}
-				else
-				{
-					$this->_msg_rerror($message, "margin15");
-				}
-				return true;
-	}
-
-		/**
-	 * クラスチェンジ(転職)
-	 */
-	function _main_action_classchange()
-	{
-
-				if (!$_POST["job"])
-				{
-					$this->_msg_rerror("職 未選択", "margin15");
-					return false;
-				}
-				if ($this->char->ClassChange($_POST["job"]))
-				{
-					// 装備を全部解除
-					if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->char->item)
-					{
-						if ($this->char->weapon)
-						{
-							$this->user->AddItem($this->char->weapon);
-							$this->char->weapon = NULL;
-						}
-						if ($this->char->shield)
-						{
-							$this->user->AddItem($this->char->shield);
-							$this->char->shield = NULL;
-						}
-						if ($this->char->armor)
-						{
-							$this->user->AddItem($this->char->armor);
-							$this->char->armor = NULL;
-						}
-						if ($this->char->item)
-						{
-							$this->user->AddItem($this->char->item);
-							$this->char->item = NULL;
-						}
-						$this->user->SaveUserItem();
-					}
-					// 保存
-					$this->char->SaveCharData($this->user->id);
-					$this->_msg_result("転職 完了", "margin15");
-					return true;
-				}
-				$this->_msg_rerror("failed.", "margin15");
-				return false;
-	}
-
-		/**
-	 * 改名(表示)
-	 */
-	function _main_action_rename()
-	{
-
-				$Name = $this->char->Name();
-				$message = <<< EOD
-<form action="?char={$_GET[char]}" method="post" class="margin15">
-半角英数16文字 (全角1文字=半角2文字)<br />
-<input type="text" name="NewName" style="width:160px" class="text" />
-<input type="submit" class="btn" name="NameChange" value="Change" />
-<input type="submit" class="btn" value="Cancel" />
-</form>
-EOD;
-				print ($message);
-				return false;
-	}
-
-	/**
-	 * 改名(処理)
-	 */
-	function _main_action_NewName()
-	{
-
-				list($result, $return) = CheckString($_POST["NewName"], 16);
-				if ($result === false)
-				{
-					$this->_msg_rerror($return, "margin15");
-					return false;
-				}
-				else
-					if ($result === true)
-					{
-						if ($this->user->DeleteItem("7500", 1) == 1)
-						{
-							$this->_msg_result($this->char->Name() . " から " . $return . " へ改名しました。", "margin15");
-							$this->char->ChangeName($return);
-							$this->char->SaveCharData($this->user->id);
-							$this->user->SaveUserItem();
-							return true;
-						}
-						else
-						{
-							$this->_msg_rerror("アイテムがありません。", "margin15");
-							return false;
-						}
-						return true;
-					}
-	}
-
-		/**
-	 * 各種リセットの表示
-	 */
-	function _main_action_showreset()
-	{
-				$Name = $this->char->Name();
-				print ('<div class="margin15">' . "\n");
-				print ("使用するアイテム<br />\n");
-				print ('<form action="?char=' . $_GET[char] . '" method="post">' . "\n");
-				print ('<select name="itemUse">' . "\n");
-				$resetItem = array(
-					7510,
-					7511,
-					7512,
-					7513,
-					7520);
-				foreach ($resetItem as $itemNo)
-				{
-					if ($this->user->item[$itemNo])
-					{
-						$item = HOF_Model_Data::getItemData($itemNo);
-						print ('<option value="' . $itemNo . '">' . $item[name] . " x" . $this->user->item[$itemNo] . '</option>' . "\n");
-					}
-				}
-				print ("</select>\n");
-				print ('<input type="submit" class="btn" name="resetVarious" value="Reset">' . "\n");
-				print ('<input type="submit" class="btn" value="Cancel">' . "\n");
-				print ('</form>' . "\n");
-				print ('</div>' . "\n");
-				break;
-	}
-
-		/**
-	 * 各種リセットの処理
-	 */
-	function _main_action_resetVarious()
-	{
-
-				switch ($_POST["itemUse"])
-				{
-					case 7510:
-						$lowLimit = 1;
-						break;
-					case 7511:
-						$lowLimit = 30;
-						break;
-					case 7512:
-						$lowLimit = 50;
-						break;
-					case 7513:
-						$lowLimit = 100;
-						break;
-						// skill
-					case 7520:
-						$skillReset = true;
-						break;
-				}
-				// 石ころをSPD1に戻すアイテムにする
-				if ($_POST["itemUse"] == 6000)
-				{
-					if ($this->user->DeleteItem(6000) == 0)
-					{
-						$this->_msg_rerror("アイテムがありません。", "margin15");
-						return false;
-					}
-					if (1 < $this->char->spd)
-					{
-						$dif = $this->char->spd - 1;
-						$this->char->spd -= $dif;
-						$this->char->statuspoint += $dif;
-						$this->char->SaveCharData($this->user->id);
-						$this->user->SaveUserItem();
-						$this->_msg_result("ポイント還元成功", "margin15");
-						return true;
-					}
-				}
-				if ($lowLimit)
-				{
-					if (!$this->user->item[$_POST["itemUse"]])
-					{
-						$this->_msg_rerror("アイテムがありません。", "margin15");
-						return false;
-					}
-					if ($lowLimit < $this->char->str)
-					{
-						$dif = $this->char->str - $lowLimit;
-						$this->char->str -= $dif;
-						$pointBack += $dif;
-					}
-					if ($lowLimit < $this->char->int)
-					{
-						$dif = $this->char->int - $lowLimit;
-						$this->char->int -= $dif;
-						$pointBack += $dif;
-					}
-					if ($lowLimit < $this->char->dex)
-					{
-						$dif = $this->char->dex - $lowLimit;
-						$this->char->dex -= $dif;
-						$pointBack += $dif;
-					}
-					if ($lowLimit < $this->char->spd)
-					{
-						$dif = $this->char->spd - $lowLimit;
-						$this->char->spd -= $dif;
-						$pointBack += $dif;
-					}
-					if ($lowLimit < $this->char->luk)
-					{
-						$dif = $this->char->luk - $lowLimit;
-						$this->char->luk -= $dif;
-						$pointBack += $dif;
-					}
-					if ($pointBack)
-					{
-						if ($this->user->DeleteItem($_POST["itemUse"]) == 0)
-						{
-							$this->_msg_rerror("アイテムがありません。", "margin15");
-							return false;
-						}
-						$this->char->statuspoint += $pointBack;
-						// 装備も全部解除
-						if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->char->item)
-						{
-							if ($this->char->weapon)
-							{
-								$this->user->AddItem($this->char->weapon);
-								$this->char->weapon = NULL;
-							}
-							if ($this->char->shield)
-							{
-								$this->user->AddItem($this->char->shield);
-								$this->char->shield = NULL;
-							}
-							if ($this->char->armor)
-							{
-								$this->user->AddItem($this->char->armor);
-								$this->char->armor = NULL;
-							}
-							if ($this->char->item)
-							{
-								$this->user->AddItem($this->char->item);
-								$this->char->item = NULL;
-							}
-							$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
-						}
-						$this->char->SaveCharData($this->user->id);
-						$this->user->SaveUserItem();
-						$this->_msg_result("ポイント還元成功", "margin15");
-						return true;
-					}
-					else
-					{
-						$this->_msg_rerror("ポイント還元失敗", "margin15");
-						return false;
-					}
-				}
-				break;
-	}
-
-		/**
 	 * サヨナラ(表示)
 	 */
 	function _main_action_byebye()
 	{
-				$Name = $this->char->Name();
-				$message = <<< HTML_BYEBYE
+		$Name = $this->char->Name();
+		$message = <<< HTML_BYEBYE
 <div class="margin15">
 {$Name} を 解雇しますか?<br>
 <form action="?char={$_GET[char]}" method="post">
@@ -804,8 +804,8 @@ EOD;
 </form>
 </div>
 HTML_BYEBYE;
-				print ($message);
-				return false;
+		print ($message);
+		return false;
 	}
 
 	/**
@@ -815,7 +815,6 @@ HTML_BYEBYE;
 	function CharStatProcess()
 	{
 		switch (true):
-
 
 
 				// サヨナラ(処理)
