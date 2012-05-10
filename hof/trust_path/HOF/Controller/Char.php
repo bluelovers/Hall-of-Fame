@@ -181,13 +181,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function _main_action_stup()
 	{
-		$Stat = array(
-			"Str",
-			"Int",
-			"Dex",
-			"Spd",
-			"Luk",
-			);
+		$Stat = HOF_Model_Data::getChatAttrBaseList();
 
 		/**
 		 * ステータスポイント超過(ねんのための絶対値)
@@ -196,13 +190,11 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		foreach ($Stat as $v)
 		{
-			$k = 'up' . $v;
+			$k = 'up' . ucfirst($v);
 			$this->input->$k = HOF::$input->post->$k;
 
-			$attr = strtolower($v);
-
 			// 最大値を超えないかチェック
-			if (MAX_STATUS < ($this->char->{$attr} + $this->input->$k))
+			if (MAX_STATUS < ($this->char->{$v} + $this->input->$k))
 			{
 				$this->_msg_error("最大ステータス超過(" . MAX_STATUS . ")");
 
@@ -222,17 +214,13 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		foreach ($Stat as $v)
 		{
-			$k = 'up' . $v;
+			$k = 'up' . ucfirst($v);
 
 			if ($this->input->$k)
 			{
-				$attr = strtolower($v);
-				$name = strtoupper($attr);
+				$name = strtoupper($v);
 
-				// ステータスを増やす
-				$this->char->{$attr} += $this->input->$k;
-
-				$this->_msg_result("{$name} が <span class=\"bold\">" . $this->input->$k . "</span> 上がった。" . ($this->char->{$attr}-$this->input->$k) . " -> " . $this->char->{$attr} . "<br />\n");
+				$this->_msg_result("{$name} が <span class=\"bold\">" . $this->input->$k . "</span> 上がった。" . ($this->char->{$v}) . " -> " . ($this->char->{$v} += $this->input->$k) . "<br />\n");
 			}
 		}
 
