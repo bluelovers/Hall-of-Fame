@@ -136,4 +136,53 @@ class HOF_Class_Battle extends battle
 		}
 	}
 
+	/**
+	 * 戦闘記録を保存する
+	 */
+	function RecordLog($type = false)
+	{
+		if ($type == "RANK")
+		{
+			$file = LOG_BATTLE_RANK;
+			$log = game_core::glob(LOG_BATTLE_RANK);
+			$logAmount = MAX_BATTLE_LOG_RANK;
+		}
+		else
+			if ($type == "UNION")
+			{
+				$file = LOG_BATTLE_UNION;
+				$log = game_core::glob(LOG_BATTLE_UNION);
+				$logAmount = MAX_BATTLE_LOG_UNION;
+			}
+			else
+			{
+				$file = LOG_BATTLE_NORMAL;
+				$log = game_core::glob(LOG_BATTLE_NORMAL);
+				$logAmount = MAX_BATTLE_LOG;
+			}
+
+			// 古いログを消す
+			$i = 0;
+		while ($logAmount <= count($log))
+		{
+			unlink($log["$i"]);
+			unset($log["$i"]);
+			$i++;
+		}
+
+		// 新しいログを作る
+		$time = time() . substr(microtime(), 2, 6);
+		$file .= $time . ".dat";
+
+		$head = $time . "\n"; //開始時間(1行目)
+		$head .= $this->team0_name . "<>" . $this->team1_name . "\n"; //参加チーム(2行目)
+		$head .= count($this->team0) . "<>" . count($this->team1) . "\n"; //参加人数(3行目)
+		$head .= $this->team0_ave_lv . "<>" . $this->team1_ave_lv . "\n"; //平均レベル(4行目)
+		$head .= $this->result . "\n"; //勝利チーム(5行目)
+		$head .= $this->actions . "\n"; //総ターン数(6行目)
+		$head .= "\n"; // 改行(7行目)
+
+		HOF_Class_File::WriteFile($file, $head . ob_get_contents());
+	}
+
 }

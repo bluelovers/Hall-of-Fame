@@ -35,6 +35,11 @@ class HOF_Class_Char extends char
 		$this->SetCharData($data);
 	}
 
+	function __destruct()
+	{
+		$this->fpclose();
+	}
+
 	/**
 	 * キャラデータの保存
 	 */
