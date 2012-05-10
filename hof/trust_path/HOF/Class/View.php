@@ -30,7 +30,7 @@ class HOF_Class_View
 
 	function __toString()
 	{
-		return (string)$this->body;
+		return $this->body();
 	}
 
 	static function render($controller, $output, $template = null, $content = null)
@@ -53,20 +53,35 @@ class HOF_Class_View
 		return $_this;
 	}
 
+	function body($source = false, $nolf = false)
+	{
+		$output = (string )$this->body;
+
+		if (!$source)
+		{
+			$output = preg_replace('/^[\s\t\n]*|[\s\n\t]*$/is', '', $output);
+			$output = preg_replace('/\s*(\t)\s*/is', "\\1\n", $output);
+			$output = preg_replace('/[ \t\r]+(\n)/is', '\\1', $output);
+			$output = preg_replace('/(\n)[ \t\r]+/is', '\\1', $output);
+			$output = preg_replace('/(\n)\s+/is', '\\1', $output);
+		}
+
+		if ($nolf)
+		{
+			$output = str_replace("\n", '', $output);
+		}
+
+		return $output;
+	}
+
 	function output()
 	{
 		$output = $this->__toString();
 
-//		$output = preg_replace('/^[\s\n]*|[\s\n]*$/is', '', $output);
-//		$output = preg_replace('/[ \t\r]*(\n)/is', '\\1', $output);
-//		$output = preg_replace('/(\n)[ \t\r]*/is', '\\1', $output);
-//		$output = preg_replace('/[\t\s\r\n]*(\n)[\t\s\r\n]*/is', '\\1', $output);
-
-		$output = preg_replace('/^[\s\t\n]*|[\s\n\t]*$/is', '', $output);
-		$output = preg_replace('/\s*(\t)\s*/is', "\\1\n", $output);
-  		$output = preg_replace('/[ \t\r]+(\n)/is', '\\1', $output);
-  		$output = preg_replace('/(\n)[ \t\r]+/is', '\\1', $output);
-  		$output = preg_replace('/(\n)\s+/is', '\\1', $output);
+		//		$output = preg_replace('/^[\s\n]*|[\s\n]*$/is', '', $output);
+		//		$output = preg_replace('/[ \t\r]*(\n)/is', '\\1', $output);
+		//		$output = preg_replace('/(\n)[ \t\r]*/is', '\\1', $output);
+		//		$output = preg_replace('/[\t\s\r\n]*(\n)[\t\s\r\n]*/is', '\\1', $output);
 
 		echo $output;
 
@@ -84,7 +99,7 @@ class HOF_Class_View
 
 	function _getTplFile($name)
 	{
-		$template = BASE_PATH_TPL . '/'.$name.'.php';
+		$template = BASE_PATH_TPL . '/' . $name . '.php';
 
 		return $template;
 	}
@@ -114,13 +129,14 @@ class HOF_Class_View
 	}
 
 	public static function suppressNotFoundWarnings($flag = null)
-    {
-        if (null !== $flag) {
-        	self::$_suppressNotFoundWarnings = (bool) $flag;
-       	}
+	{
+		if (null !== $flag)
+		{
+			self::$_suppressNotFoundWarnings = (bool)$flag;
+		}
 
-        return self::$_suppressNotFoundWarnings;
-    }
+		return self::$_suppressNotFoundWarnings;
+	}
 
 	protected function _display($tplcache)
 	{
@@ -130,7 +146,7 @@ class HOF_Class_View
 		}
 		else
 		{
-			include($this->template_file);
+			include ($this->template_file);
 		}
 	}
 
