@@ -1132,43 +1132,43 @@ HTML;
 		<table>
 			<tr>
 				<td class="align-right">Weapon :</td>
-				<td><input type="radio" class="vcent" name="spot" value="weapon">
+				<td><label><input type="radio" class="vcent" name="spot" value="weapon">
 					<?php
 
 		HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($this->char->weapon));
 
 
-?></td>
+?></label></td>
 			</tr>
 			<tr>
 				<td class="align-right">Shield :</td>
-				<td><input type="radio" class="vcent" name="spot" value="shield">
+				<td><label><input type="radio" class="vcent" name="spot" value="shield">
 					<?php
 
 		HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($this->char->shield));
 
 
-?></td>
+?></label></td>
 			</tr>
 			<tr>
 				<td class="align-right">Armor :</td>
-				<td><input type="radio" class="vcent" name="spot" value="armor">
+				<td><label><input type="radio" class="vcent" name="spot" value="armor">
 					<?php
 
 		HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($this->char->armor));
 
 
-?></td>
+?></label></td>
 			</tr>
 			<tr>
 				<td class="align-right">Item :</td>
-				<td><input type="radio" class="vcent" name="spot" value="item">
+				<td><label><input type="radio" class="vcent" name="spot" value="item">
 					<?php
 
 		HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($this->char->item));
 
 
-?></td>
+?></label></td>
 			</tr>
 				</tbody>
 		</table>
@@ -1200,11 +1200,14 @@ HTML;
 			reset($this->user->item); //これが無いと装備変更時に表示されない
 			foreach ($this->user->item as $key => $val)
 			{
-				$item = HOF_Model_Data::getItemData($key);
+				$item = HOF_Model_Data::newItem($key);
+
 				// 装備できないので次
 				if (!isset($EquipAllow[$item["type"]])) continue;
-				$head = '<input type="radio" name="item_no" value="' . $key . '" class="vcent">';
-				$head .= HOF_Class_Item::ShowItemDetail($item, $val, true) . "<br />";
+
+				$head = '<label><input type="radio" name="item_no" value="' . $key . '" class="vcent">';
+				$head .= $item->html($val) . "</label>";
+
 				$EquipList->AddItem($item, $head);
 			}
 			print ($EquipList->GetJavaScript("list0"));
