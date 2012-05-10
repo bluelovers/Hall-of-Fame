@@ -15,7 +15,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 
 	function _init()
 	{
-		$this->user = HOF::user();
+		$this->user = &HOF::user();
 
 		$this->char_recruit_money = array(
 			1 => 2000,
