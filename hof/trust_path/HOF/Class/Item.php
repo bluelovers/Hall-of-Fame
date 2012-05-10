@@ -15,6 +15,23 @@ class HOF_Class_Item
 	{
 		if (!$item) return false;
 
+		$output = array();
+
+		$output['item'] = $item;
+		$output['amount'] = $amount;
+		$output['need'] = $need;
+
+		$content = HOF_Class_View::render(null, $output, 'layout/item.detail');
+
+		if ($text)
+		{
+			return $content;
+		}
+
+		$content->output();
+
+		/*
+
 		$html = "<img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\" class=\"vcent\">";
 		// 精錬値
 		if ($item["refine"]) $html .= "+{$item[refine]} ";
@@ -55,6 +72,7 @@ class HOF_Class_Item
 		if ($text) return $html;
 
 		print ($html);
+		*/
 	}
 
 }
