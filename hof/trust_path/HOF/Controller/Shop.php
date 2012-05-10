@@ -48,8 +48,43 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 	function _buy()
 	{
 		if ($this->ShopBuyProcess()) $this->user->SaveData();
+	}
 
-		$this->ShopBuyShow();
+	function _main_action_buy()
+	{
+		$ShopList = HOF_Model_Data::getShopList();
+
+		$list = array();
+
+		foreach ($ShopList as $itemNo)
+		{
+			$item = HOF_Model_Data::newItem($itemNo);
+			if (!$item) continue;
+
+			$list[$itemNo] = $item;
+		}
+
+		$this->output->shoplist = $list;
+	}
+
+	function _main_action_sell()
+	{
+		$ShopList = $this->user->item;
+
+		$list = array();
+
+		foreach ($ShopList as $itemNo => $amount)
+		{
+			$item = HOF_Model_Data::newItem($itemNo);
+
+			if (!$item) continue;
+
+			$item->amount = $amount;
+
+			$list[$itemNo] = $item;
+		}
+
+		$this->output->shoplist = $list;
 	}
 
 	/**
@@ -58,8 +93,6 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 	function _sell()
 	{
 		if ($this->ShopSellProcess()) $this->user->SaveData();
-
-		$this->ShopSellShow();
 	}
 
 	/**
@@ -120,56 +153,6 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 		}
 	}
 
-	function ShopBuyShow()
-	{
-		print ('<div style="margin:15px">' . "\n");
-		print ("<h4>買う</h4>\n");
-
-		print <<< JS_HTML
-<script type="text/javascript">
-<!--
-function toggleCSS(id) {
-	\$('#i'+id+'a').parent('tr').find('td').toggleClass('tdToggleBg').find('#text_'+id).focus();
-}
-function toggleCheckBox(id) {
-	\$(':checkbox[name=check_'+id+']').prop('checked', function (index, oldPropertyValue){
-		if (!oldPropertyValue) \$('#text_'+id).focus();
-
-		return !oldPropertyValue;
-	});
-	toggleCSS(id);
-}
-// -->
-</script>
-JS_HTML;
-
-		print ('<form action="?menu=buy" method="post">' . "\n");
-		print ("<table cellspacing=\"0\">\n");
-		print ('<tr><td class="td6"></td>' . '<td style="text-align:center" class="td6">値段</td>' . '<td style="text-align:center" class="td6">数</td>' . '<td style="text-align:center" class="td6">アイテム</td></tr>' . "\n");
-		$ShopList = HOF_Model_Data::getShopList();
-		foreach ($ShopList as $itemNo)
-		{
-			$item = HOF_Model_Data::getItemData($itemNo);
-			if (!$item) continue;
-			print ("<tr><td class=\"td7\" id=\"i{$itemNo}a\">\n");
-			print ('<input type="checkbox" name="check_' . $itemNo . '" value="1" onclick="toggleCSS(\'' . $itemNo . '\')">' . "\n");
-			print ("</td><td class=\"td7\" id=\"i{$itemNo}b\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
-			// 買値
-			$price = $item["buy"];
-			print (HOF_Helper_Global::MoneyFormat($price));
-			print ("</td><td class=\"td7\" id=\"i{$itemNo}c\">\n");
-			print ('<input type="text" id="text_' . $itemNo . '" name="amount_' . $itemNo . '" value="1" style="width:60px" class="text">' . "\n");
-			print ("</td><td class=\"td8\" id=\"i{$itemNo}d\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
-			print (HOF_Class_Item::ShowItemDetail($item));
-			print ("</td></tr>\n");
-		}
-		print ("</table>\n");
-		print ('<input type="submit" name="ItemBuy" value="Buy" class="btn">' . "\n");
-		print ("</form>\n");
-
-		print ("</div>\n");
-	}
-
 	function ShopSellProcess()
 	{
 		//dump($_POST);
@@ -207,56 +190,6 @@ JS_HTML;
 		$this->user->SaveUserItem();
 		$this->user->GetMoney($getMoney);
 		return true;
-	}
-
-	function ShopSellShow()
-	{
-		print ('<div style="margin:15px">' . "\n");
-		print ("<h4>売る</h4>\n");
-
-		print <<< JS_HTML
-<script type="text/javascript">
-<!--
-function toggleCSS(id) {
-	\$('#i'+id+'a').parent('tr').find('td').toggleClass('tdToggleBg').find('#text_'+id).focus();
-}
-function toggleCheckBox(id) {
-	\$(':checkbox[name=check_'+id+']').prop('checked', function (index, oldPropertyValue){
-		if (!oldPropertyValue) \$('#text_'+id).focus();
-
-		return !oldPropertyValue;
-	});
-	toggleCSS(id);
-}
-// -->
-</script>
-JS_HTML;
-
-		print ('<form action="?menu=sell" method="post">' . "\n");
-		print ("<table cellspacing=\"0\">\n");
-		print ('<tr><td class="td6"></td>' . '<td style="text-align:center" class="td6">売値</td>' . '<td style="text-align:center" class="td6">数</td>' . '<td style="text-align:center" class="td6">アイテム</td></tr>' . "\n");
-		foreach ($this->user->item as $itemNo => $amount)
-		{
-			$item = HOF_Model_Data::getItemData($itemNo);
-			if (!$item) continue;
-			print ("<tr><td class=\"td7\" id=\"i{$itemNo}a\">\n");
-			print ('<input type="checkbox" name="check_' . $itemNo . '" value="1" onclick="toggleCSS(\'' . $itemNo . '\')">' . "\n");
-			print ("</td><td class=\"td7\" id=\"i{$itemNo}b\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
-			// 売値
-			$price = ItemSellPrice($item);
-			print (HOF_Helper_Global::MoneyFormat($price));
-			print ("</td><td class=\"td7\" id=\"i{$itemNo}c\">\n");
-			print ('<input type="text" id="text_' . $itemNo . '" name="amount_' . $itemNo . '" value="' . $amount . '" style="width:60px" class="text">' . "\n");
-			print ("</td><td class=\"td8\" id=\"i{$itemNo}d\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
-			print (HOF_Class_Item::ShowItemDetail($item, $amount));
-			print ("</td></tr>\n");
-		}
-		print ("</table>\n");
-		print ('<input type="submit" name="ItemSell" value="Sell" class="btn" />' . "\n");
-		print ('<input type="hidden" name="ItemSell" value="1" />' . "\n");
-		print ("</form>\n");
-
-		print ("</div>\n");
 	}
 
 	/**
