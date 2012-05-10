@@ -1,0 +1,8 @@
+no: prob75
+info:
+    desc: '75%の確率で 守る'
+_i18n:
+    ja:
+        desc: '75%の確率で 守る'
+    en:
+        desc: 'Probability of 75%'
