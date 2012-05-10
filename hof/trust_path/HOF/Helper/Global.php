@@ -31,7 +31,7 @@ class HOF_Helper_Global
 		return $pre . number_format($number);
 	}
 
-	function ShowResult($message, $add = false)
+	function ShowResult($message, $add = null)
 	{
 		if ($add) $add = " " . $add;
 
@@ -53,7 +53,7 @@ class HOF_Helper_Global
 	/**
 	 * 赤い警告文でエラー表示
 	 */
-	function ShowError($message, $add = false)
+	function ShowError($message, $add = null)
 	{
 		if ($add) $add = " " . $add;
 
