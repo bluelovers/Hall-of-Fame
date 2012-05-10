@@ -1206,7 +1206,7 @@ HTML;
 		$this->ShowTutorial();
 		$this->ShowMyCharacters();
 
-		//RegularControl($this->user->id);
+		RegularControl($this->user->id);
 	}
 
 	/**
