@@ -17,7 +17,7 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 	{
 		$this->Ranking = new HOF_Class_Ranking();
 
-		$this->user = HOF::user();
+		$this->user = &HOF::user();
 	}
 
 	function _main_input()
