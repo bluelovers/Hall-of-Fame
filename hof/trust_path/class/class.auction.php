@@ -22,32 +22,7 @@ define("AUCTION_ITEM","./*****");//ココ
 class Auction
 {
 
-	// ファイルポインタ
-	var $fp;
 
-	// オークションの種類
-	// アイテムorキャラ
-	var $AuctionType;
-
-	// 競売品番号
-	var $ArticleNo;
-
-	// 出品物(キャラ)リスト
-	var $Article = array();
-
-	var $UserName;
-
-	// 落札物や落札金の処理用
-	var $TempUser = array();
-
-	// 経過ログ
-	var $AuctionLog;
-
-	// データが変更されたか?
-	var $DataChange = false;
-
-	var $QUERY;
-	var $sort;
 
 
 	function UserGetNameFromTemp($UserID)
