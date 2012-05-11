@@ -25,6 +25,11 @@ class HOF_Class_Base extends HOF_Class_Array
 		}
 	}
 
+	function _fpname()
+	{
+		return $this->file;
+	}
+
 	function __destruct()
 	{
 		$this->fpclose();
@@ -37,7 +42,7 @@ class HOF_Class_Base extends HOF_Class_Array
 			$args = func_get_args();
 			$ret = call_user_func_array(array($this, '_'.__FUNCTION__), $args);
 
-			$this->fp = HOF_Class_File::FileLock($this->file);
+			$this->fp = HOF_Class_File::FileLock($this->_fpname());
 		}
 
 		return $ret !== null ? $ret : $this->fp;
