@@ -10,6 +10,8 @@ define('BASE_PATH_STATIC', BASE_PATH . 'static/');
 
 define('BASE_PATH_TPL', BASE_TRUST_PATH . 'tpl/');
 
+define('BASE_EXT', '.yml');
+
 // game setting
 define("TITLE", "Hall of Fame"); //タイトル
 define("MAX_TIME", 1000); //最大Time
