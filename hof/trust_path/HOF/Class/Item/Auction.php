@@ -501,6 +501,7 @@ class HOF_Class_Item_Auction
 		$this->TempUser["$UserID"]["UserGetTotalMoney"] += $Money;
 		$this->TempUser["$UserID"]["Money"] = true; //金が追加されたことを記録
 	}
+
 	/**
 	 * オークションでアイテム獲得
 	 */
