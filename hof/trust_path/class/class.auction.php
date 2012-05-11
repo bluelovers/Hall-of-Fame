@@ -321,7 +321,7 @@ class Auction
 			);
 		array_unshift($this->Article, $New);
 		$itemData = HOF_Model_Data::getItemData($item);
-		$this->log->add("No." . $this->ArticleNo . " に <img src=\"" . HOF_Class_Icon::getImageUrl($itemData["img"], IMG_ICON.'item/') . "\"><span class=\"bold\">{$itemData[name]} x{$amount}</span>個が<span class=\"charge\">出品されました。</span>");
+		$this->log->add("No." . $this->ArticleNo . " に <img src=\"" . HOF_Class_Icon::getImageUrl($itemData["img"], IMG_ICON . 'item/') . "\"><span class=\"bold\">{$itemData[name]} x{$amount}</span>個が<span class=\"charge\">出品されました。</span>");
 		$this->DataChange = true;
 	}
 	//////////////////////////////////////////////
@@ -406,8 +406,6 @@ class Auction
 	{
 		return count($this->Article);
 	}
-
-
 
 
 }
