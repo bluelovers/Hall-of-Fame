@@ -76,7 +76,7 @@ class HOF_Class_Item extends HOF_Class_Array
 	{
 		$data = HOF_Model_Data::getItemData($no);
 
-		parent::__construct($data);
+		parent::__construct((array)$data);
 
 		$this->id = $no;
 		$this->icon = $this->img;
@@ -205,7 +205,7 @@ class HOF_Class_Item extends HOF_Class_Array
 
 		if (!$name)
 		{
-			$name = self::UNKNOW_NAME;
+			$name = self::UNKNOW_NAME.'#'.$this->id();
 		}
 
 		return $name;
