@@ -136,7 +136,7 @@ define("TUTORIAL", DATA_DIR . "data.tutorial.php");
 
 define("DAT_DIR", BASE_TRUST_PATH . "./dat/");
 
-define("AUCTION_ITEM", DAT_DIR . "./auction.dat"); //アイテムオークション用のファイル
+define("AUCTION_ITEM", DAT_DIR . "./auction".BASE_EXT); //アイテムオークション用のファイル
 define("AUCTION_ITEM_LOG", DAT_DIR . "./auction_log.dat"); //アイテムオークション用のログファイル
 
 define("REGISTER", DAT_DIR . "./register.dat");
