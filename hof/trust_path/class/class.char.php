@@ -661,39 +661,6 @@ class char
 		print ($this->Name(bold) . " MDEF down {$no}%<br />\n");
 	}
 	//////////////////////////////////////////////////
-	//	キャラの指示の数
-	function MaxPatterns()
-	{
-		if ($this->int < 10) //1-9
- 				$no = 2;
-		else
-			if ($this->int < 15) //10-14
- 					$no = 3;
-			else
-				if ($this->int < 30) //15-29
- 						$no = 4;
-				else
-					if ($this->int < 50) //30-49
- 							$no = 5;
-					else
-						if ($this->int < 80) //50-79
- 								$no = 6;
-						else
-							if ($this->int < 120) //80-119
- 									$no = 7;
-							else
-								if ($this->int < 160) //120-159
- 										$no = 8;
-								else
-									if ($this->int < 200) //160-199
- 											$no = 9;
-									else
-										if ($this->int < 251) //
- 												$no = 10;
-
-		if (29 < $this->level) $no++;
-		return $no;
-	}
 
 	//////////////////////////////////////////////////
 	//	行動パターンの変更。
