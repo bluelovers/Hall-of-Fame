@@ -940,7 +940,7 @@ class char
 					$return[] = $this->shield;
 					$this->shield = NULL;
 				}
-				$this->weapon = $item["no"];
+				$this->weapon = $item["id"];
 				break;
 			case "Shield": //盾
 			case "MainGauche":
@@ -956,17 +956,17 @@ class char
 				}
 				if ($this->shield) //盾装備していれば持ち物に加える
  						$return[] = $this->shield;
-				$this->shield = $item["no"];
+				$this->shield = $item["id"];
 				break;
 			case "Armor": //鎧
 			case "Cloth":
 			case "Robe":
 				if ($this->armor) $return[] = $this->armor;
-				$this->armor = $item["no"];
+				$this->armor = $item["id"];
 				break;
 			case "Item":
 				if ($this->item) $return[] = $this->item;
-				$this->item = $item["no"];
+				$this->item = $item["id"];
 				break;
 			default:
 				return false;
