@@ -24,6 +24,19 @@ require_once (CLASS_AUCTION);
 class HOF_Class_Item_Auction extends Auction
 {
 
+	/**
+	 * 経過ログ
+	 * @var HOF_Class_Item_Auction_Log
+	 */
+	public $log = null;
+
+	function __construct($type)
+	{
+		parent::__construct($type);
+
+		$this->log = new HOF_Class_Item_Auction_Log($this);
+	}
+
 	function ItemSortBy($type)
 	{
 		switch ($type)
