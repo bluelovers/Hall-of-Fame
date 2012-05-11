@@ -746,57 +746,7 @@ class char
 		else  return $this->name;
 	}
 	//////////////////////////////////////////////////
-	//	必要経験値
-	function CalcExpNeed()
-	{
-		switch ($this->level)
-		{
-			case 40:
-				$no = 30000;
-				break;
-			case 41:
-				$no = 40000;
-				break;
-			case 42:
-				$no = 50000;
-				break;
-			case 43:
-				$no = 60000;
-				break;
-			case 44:
-				$no = 70000;
-				break;
-			case 45:
-				$no = 80000;
-				break;
-			case 46:
-				$no = 100000;
-				break;
-			case 47:
-				$no = 250000;
-				break;
-			case 48:
-				$no = 500000;
-				break;
-			case 49:
-				$no = 999990;
-				break;
-			case 50:
-			case (50 <= $this->level):
-				$no = "MAX";
-				break;
-			case (21 < $this->level):
-				$no = 2 * pow($this->level, 3) + 100 * $this->level + 100;
-				$no -= substr($no, -2);
-				$no /= 5;
-				break;
-			default:
-				$no = pow($this->level - 1, 2) / 2 * 100 + 100;
-				$no /= 5;
-				break;
-		}
-		return $no;
-	}
+	//
 	//////////////////////////////////////////////////
 	//	経験値を得る
 	function GetExp($exp)
@@ -1080,81 +1030,6 @@ class char
 ?>
 	</div><?php
 
-	}
-
-	//////////////////////////////////////////////////
-	//	キャラデータの保存
-	function SaveCharData($id = false)
-	{
-		// モンスターは保存しない。
-		//if($this->monster)	return false;
-
-		if ($id)
-		{
-			$dir = USER . $id;
-		}
-		else
-		{
-			if (!$this->user) return false;
-			$dir = USER . $this->user;
-		}
-		// ユーザーが存在しない場合保存しない
-		if (!file_exists($dir)) return false;
-
-		if (isset($this->file)) $file = $this->file;
-		else  $file = $dir . "/" . $this->birth . ".dat";
-
-		if (file_exists($file) && $this->fp)
-		{
-			//sleep(10);//ファイルロック確認用
-			HOF_Class_File::WriteFileFP($this->fp, $this->DataSavingFormat());
-			$this->fpclose();
-		}
-		else
-		{
-			HOF_Class_File::WriteFile($file, $this->DataSavingFormat());
-		}
-
-	}
-
-	//////////////////////////////////////////////////
-	function DataSavingFormat()
-	{
-		$Save = array(
-			"name",
-			"gender",
-			"job",
-			"birth",
-			"level",
-			"exp",
-			"statuspoint",
-			"skillpoint",
-			//"maxhp","hp","maxsp","sp",// (2007/9/30 保存しなくなった)
-			"str",
-			"int",
-			"dex",
-			"spd",
-			"luk",
-			"weapon",
-			"shield",
-			"armor",
-			"item",
-			"position",
-			"guard",
-			"skill",
-			//"judge","action",
-			"Pattern",
-			"PatternMemo",
-			//モンスター専用
-			//"monster","land","family","monster_message"//保存する必要無くなった
-			);
-		//$Save	= get_object_vars($this);
-		foreach ($Save as $val)
-		{
-			if (!isset($this->{$val})) continue;
-			$text .= "$val=" . (is_array($this->{$val}) ? implode("<>", $this->{$val}) : $this->{$val}) . "\n";
-		}
-		return $text;
 	}
 
 	//////////////////////////////////////////////////
