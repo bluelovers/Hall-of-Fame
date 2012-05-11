@@ -203,7 +203,7 @@ class Auction
 			$exp = '<tr><td class="td9"><a href="?menu=' . $this->QUERY . '&sort=no"' . $Style_no . '>No</a></td>' . '<td class="td9"><a href="?menu=' . $this->QUERY . '&sort=time"' . $Style_time . '>残り</td>' . '<td class="td9"><a href="?menu=' . $this->QUERY . '&sort=price"' . $Style_price . '>価格</a>' . '<br /><a href="?menu=' . $this->QUERY . '&sort=rprice"' . $Style_rprice . '>(昇)</a></td>' . '<td class="td9">Item</td>' . '<td class="td9"><a href="?menu=' . $this->QUERY . '&sort=bid"' . $Style_bid .
 				'>Bids</a></td>' . '<td class="td9">入札者</td><td class="td9">出品者</td></tr>' . "\n";
 
-			print ("総出品数:" . $this->ItemAmount() . "\n");
+			print ("総出品数:" . $this->count() . "\n");
 			print ('<table style="width:725px;text-align:center" cellpadding="0" cellspacing="0" border="0">' . "\n");
 			print ($exp);
 			foreach ($this->Article as $Article)
@@ -401,11 +401,7 @@ class Auction
 	}
 
 	//////////////////////////////////////////////////
-	//	出品物の数
-	function ItemAmount()
-	{
-		return count($this->Article);
-	}
+	//
 
 
 }
