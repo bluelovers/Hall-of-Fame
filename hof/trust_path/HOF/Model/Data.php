@@ -506,6 +506,11 @@ class HOF_Model_Data extends HOF_Class_Data
 	 */
 	function getItemData($no)
 	{
+		if (!$no)
+		{
+			return false;
+		}
+
 		@include_once (DATA_ENCHANT);
 
 		//アイテムの種類
@@ -572,13 +577,7 @@ class HOF_Model_Data extends HOF_Class_Data
 		 */
 		$data = self::getInstance()->_load('item', $base);
 
-		$data["base"] = $data["no"];
-		$data["no"] = $no;
-
-		if (!$no)
-		{
-			return false;
-		}
+		$data["id"] = $no;
 
 		// 精錬値
 		if ($refine)
