@@ -15,8 +15,6 @@ class HOF_Class_Base extends HOF_Class_Array
 
 	function __construct()
 	{
-		unset($this->_data_default_);
-
 		$data = get_object_vars($this);
 
 		parent::__construct((array)$data);
