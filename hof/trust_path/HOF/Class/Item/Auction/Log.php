@@ -45,8 +45,6 @@ class HOF_Class_Item_Auction_Log
 				$this->AuctionLog[] = $str;
 			}
 		}
-
-		debug($this->AuctionLog);
 	}
 
 	/**
