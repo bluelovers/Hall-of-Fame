@@ -11,7 +11,7 @@ include_once (CLASS_CHAR);
 class HOF_Class_Char extends char
 {
 
-	var $file_ext = '.yml';
+	var $file_ext = BASE_EXT;
 
 	var $map_equip_allow = array(
 		"weapon" => true,
@@ -37,7 +37,7 @@ class HOF_Class_Char extends char
 		$this->file = $file;
 		$this->fp = HOF_Class_File::FileLock($file);
 
-		if ($this->file_ext == '.dat')
+		if (0 && $this->file_ext == '.dat')
 		{
 			$data = HOF_Class_File::ParseFileFP($this->fp);
 		}
@@ -151,7 +151,7 @@ class HOF_Class_Char extends char
 		{
 			if (!isset($this->{$k})) continue;
 
-			if ($this->file_ext == '.dat')
+			if (0 && $this->file_ext == '.dat')
 			{
 				$data[$k] = "$k=" . (is_array($this->{$k}) ? implode("<>", $this->{$k}) : $this->{$k});
 			}
@@ -161,7 +161,7 @@ class HOF_Class_Char extends char
 			}
 		}
 
-		if ($this->file_ext == '.dat')
+		if (0 && $this->file_ext == '.dat')
 		{
 			$text = implode("\n", $data);
 		}
@@ -230,7 +230,7 @@ class HOF_Class_Char extends char
 		//dump($this->judge);
 		if ($this->judge) return false;
 
-		if ($this->file_ext == '.dat' && !is_array($this->Pattern))
+		if (0 && $this->file_ext == '.dat' && !is_array($this->Pattern))
 		{
 			$Pattern = explode("|", $this->Pattern);
 			$this->judge = explode("<>", $Pattern["0"]);
@@ -252,7 +252,7 @@ class HOF_Class_Char extends char
 	 */
 	function PatternSave($judge, $quantity, $action)
 	{
-		if ($this->file_ext == '.dat')
+		if (0 && $this->file_ext == '.dat')
 		{
 			$this->Pattern = implode("<>", $judge) . "|" . implode("<>", $quantity) . "|" . implode("<>", $action);
 		}
