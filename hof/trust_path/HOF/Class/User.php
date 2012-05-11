@@ -231,6 +231,15 @@ class HOF_Class_User extends user
 		// アイテムのソート
 		ksort($this->item, SORT_STRING);
 
+		foreach($this->item = array_filter($this->item) as $k => $v)
+		{
+			if (!$k || !$v)
+			{
+				unset($this->item[$k]);
+			}
+		}
+
+
 		if ($file_ext == '.dat')
 		{
 			foreach ($this->item as $key => $val)
