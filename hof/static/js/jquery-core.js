@@ -8,7 +8,7 @@
 jQuery(function($){
 
 	// 檢查是否為戰鬥訊息
-	if ($('.btl_img').length > 0) {
+	if (1 && $('.btl_img').length > 0) {
 
 		$(window).resize(function(){
 			$('#contents').css('height',
@@ -38,6 +38,9 @@ jQuery(function($){
 			$('#contents').scrollTop($('#contents table').first().height());
 
 		});
+
+		$('#contents').css('padding-bottom', 0);
+		$('#contents').css('margin-bottom', $('#foot').outerHeight(true) + 1);
 	}
 
 	// 以首頁的登入表單作為判定
