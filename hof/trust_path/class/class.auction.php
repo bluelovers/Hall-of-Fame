@@ -49,23 +49,13 @@ class Auction
 	var $QUERY;
 	var $sort;
 
-	////////////////////////////////
-	//
-	//////////////////////////////////////////////
-	//	GETのクエリー名
-	function AuctionHttpQuery($name)
-	{
-		$this->QUERY = $name;
-	}
-	//////////////////////////////////////////////
-	//
-	//////////////////////////////////////////////
-	//
+
 	function UserGetNameFromTemp($UserID)
 	{
 		if ($this->TempUser["$UserID"]["Name"]) return $this->TempUser["$UserID"]["Name"];
 		else  return "-";
 	}
+
 	//////////////////////////////////////////////
 	//	オークションでお金を獲得
 	function UserGetMoney($UserID, $Money)
