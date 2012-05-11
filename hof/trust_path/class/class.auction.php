@@ -356,36 +356,7 @@ class Auction
 	}
 	//////////////////////////////////////////////
 	//
-	function ItemSortBy($type)
-	{
-		switch ($type)
-		{
-			case "no":
-				usort($this->Article, "ItemArticleSortByNo");
-				$this->sort = "no";
-				break;
-			case "time":
-				usort($this->Article, "ItemArticleSortByTime");
-				$this->sort = "time";
-				break;
-			case "price":
-				usort($this->Article, "ItemArticleSortByPrice");
-				$this->sort = "price";
-				break;
-			case "rprice":
-				usort($this->Article, "ItemArticleSortByRPrice");
-				$this->sort = "rprice";
-				break;
-			case "bid":
-				usort($this->Article, "ItemArticleSortByTotalBid");
-				$this->sort = "bid";
-				break;
-			default:
-				usort($this->Article, "ItemArticleSortByTime");
-				$this->sort = "time";
-				break;
-		}
-	}
+
 	//////////////////////////////////////////////
 	// アイテムオークション用のファイルを開いて
 	// データを取り出し,格納
@@ -496,40 +467,6 @@ class Auction
 
 
 }
-//////////////////////////////////////////////////
-//	アイテムを番号順に並び替える
-function ItemArticleSortByNo($a, $b)
-{
-	if ($a["No"] == $b["No"]) return 0;
-	return ($a["No"] > $b["No"]) ? 1 : -1;
-}
-//////////////////////////////////////////////////
-//	アイテムを残り時間順に並び変える
-function ItemArticleSortByTime($a, $b)
-{
-	if ($a["end"] == $b["end"]) return 0;
-	return ($a["end"] > $b["end"]) ? 1 : -1;
-}
-//////////////////////////////////////////////////
-//	アイテムを価格順に並び替える
-function ItemArticleSortByPrice($a, $b)
-{
-	if ($a["price"] == $b["price"]) return 0;
-	return ($a["price"] > $b["price"]) ? -1 : 1;
-}
-//////////////////////////////////////////////////
-//	アイテムを価格順に並び替える(ぎゃく)
-function ItemArticleSortByRPrice($a, $b)
-{
-	if ($a["price"] == $b["price"]) return 0;
-	return ($a["price"] > $b["price"]) ? 1 : -1;
-}
-//////////////////////////////////////////////////
-//	アイテムを入札数順に並び替える
-function ItemArticleSortByTotalBid($a, $b)
-{
-	if ($a["TotalBid"] == $b["TotalBid"]) return 0;
-	return ($a["TotalBid"] > $b["TotalBid"]) ? -1 : 1;
-}
+
 
 ?>
