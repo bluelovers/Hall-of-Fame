@@ -19,6 +19,8 @@ class HOF_Class_Item extends HOF_Class_Array
 	 */
 	public $icon;
 
+	const UNKNOW_NAME = 'UnknowItem';
+
 	/**
 	 * 設定項目
 	 * ---------------------------------------------
@@ -199,6 +201,11 @@ class HOF_Class_Item extends HOF_Class_Array
 	{
 		$name = $this->name;
 
+		if (!$name)
+		{
+			$name = self::UNKNOW_NAME;
+		}
+
 		return $name;
 	}
 
@@ -212,6 +219,13 @@ class HOF_Class_Item extends HOF_Class_Array
 	function type()
 	{
 		$ret = $this->type;
+
+		return $ret;
+	}
+
+	function handle()
+	{
+		$ret = max(1, $this->handle);
 
 		return $ret;
 	}
