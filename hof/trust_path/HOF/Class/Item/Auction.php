@@ -310,7 +310,7 @@ class HOF_Class_Item_Auction
 
 		// 入札時間が残り少ないなら延長する。
 		$Now = time();
-		$left = AuctionLeftTime($Now, $Article["end"], true);
+		$left = $this->AuctionLeftTime($Now, $Article["end"], true);
 		/* // 残り時間1時間以下なら15分延長する
 		if(1 < $left && $left < 3601) {
 		$this->Article["$ArticleNo"]["end"]	+= 900;
@@ -615,7 +615,7 @@ class HOF_Class_Item_Auction
 				print ($Article["No"]);
 				// 終了時刻
 				print ("</td><td class=\"td7\">");
-				print (AuctionLeftTime($Now, $Article["end"]));
+				print ($this->AuctionLeftTime($Now, $Article["end"]));
 				// 現在入札価格
 				print ("</td><td class=\"td7\">");
 				print (HOF_Helper_Global::MoneyFormat($Article["price"]));
@@ -644,7 +644,7 @@ class HOF_Class_Item_Auction
 				{
 					print ('<a style="margin:0 10px" href="#" onClick="$(\'#Bid' . $Article["No"] . '\').toggle(); return false;">入札</a>');
 					print ('<span style="display:none" id="Bid' . $Article["No"] . '">');
-					print ('&nbsp;<input type="text" name="BidPrice" style="width:80px" class="text" value="' . BottomPrice($Article["price"]) . '">');
+					print ('&nbsp;<input type="text" name="BidPrice" style="width:80px" class="text" value="' . $this->BottomPrice($Article["price"]) . '">');
 					print ('<input type="submit" value="Bid" class="btn">');
 					print ('<input type="hidden" name="ArticleNo" value="' . $Article["No"] . '">');
 					print ('</span>');
