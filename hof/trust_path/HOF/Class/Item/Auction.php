@@ -38,6 +38,101 @@ class HOF_Class_Item_Auction extends Auction
 	}
 
 	/**
+	 * アイテムオークション用のファイルを開いて
+	 * データを取り出し,格納
+	 */
+	function ItemArticleRead()
+	{
+		// ファイルがある場合
+		if (file_exists(AUCTION_ITEM))
+		{
+			//$fp	= fopen(AUCTION_ITEM,"r+");
+			$this->fp = HOF_Class_File::FileLock(AUCTION_ITEM);
+			if (!$this->fp) return false;
+			//flock($fp, LOCK_EX);
+
+			/*
+			// 競売番号を先読みする
+			$this->ArticleNo = trim(fgets($this->fp));
+			while (!feof($this->fp))
+			{
+			$str = fgets($this->fp);
+			if (!$str) continue;
+			$article = explode("<>", $str);
+			if (strlen($article["1"]) != 10) continue;
+			$this->Article[$article["0"]] = array(
+			"No" => $article["0"], // 競売番号
+			"end" => $article["1"], // 終了時刻
+			"price" => $article["2"], // 今の入札価格
+			"exhibitor" => $article["3"], // 出品者id
+			"item" => $article["4"], // アイテム
+			"amount" => $article["5"], // 個数
+			"TotalBid" => $article["6"], // 合計入札数
+			"bidder" => $article["7"], // 最終入札者id
+			"latest" => $article["8"], // 最終入札時間
+			"comment" => trim($article["9"]), // コメント
+			"IP" => trim($article["10"]), // IP
+			);
+			}
+			*/
+
+			$data = HOF_Class_Yaml::load($this->fp);
+
+			$this->ArticleNo = $data['no'];
+			$this->Article = $data['list'];
+
+			// ファイルが無い場合
+		}
+		else
+		{
+			// 何もしない。
+		}
+	}
+
+	/**
+	 * オークションのデータを保存する
+	 */
+	function ItemSaveData()
+	{
+		if (!$this->DataChange)
+		{
+			fclose($this->fp);
+			unset($this->fp);
+			return false;
+		}
+
+		$data = array();
+
+		$data['no'] = $this->ArticleNo;
+
+		// アイテム オークションを保存する。
+		//$string = $this->ArticleNo . "\n";
+		foreach ($this->Article as $val)
+		{
+			//if(strlen($val["end"]) != 10) continue;
+			//$string .= $val["No"] . "<>" . $val["end"] . "<>" . $val["price"] . "<>" . $val["exhibitor"] . "<>" . $val["item"] . "<>" . $val["amount"] . "<>" . $val["TotalBid"] . "<>" . $val["bidder"] . "<>" . $val["latest"] . "<>" . $val["comment"] . "<>" . $val["IP"] . "\n";
+
+			$data['list'][] = $val;
+		}
+
+		$string = HOF_Class_Yaml::dump($data);
+
+		//print($string);
+		if (file_exists(AUCTION_ITEM) && $this->fp)
+		{
+			HOF_Class_File::WriteFileFP($this->fp, $string, true);
+			fclose($this->fp);
+			unset($this->fp);
+		}
+		else
+		{
+			HOF_Class_File::WriteFile(AUCTION_ITEM, $string, true);
+		}
+
+		$this->log->save();
+	}
+
+	/**
 	 * 出品物の数
 	 */
 	function count()
