@@ -10,9 +10,50 @@ include_once (CLASS_USER);
 class HOF_Class_User extends user
 {
 
+	protected static $instance_user;
+
+	/**
+	 * 対象のIDのユーザークラスを作成
+	 */
+	function __construct($id, $noExit = false)
+	{
+		if ($id)
+		{
+			$this->id = $id;
+			if ($data = $this->LoadData($noExit))
+			{
+				$this->DataUpDate($data); //timeとか増やす
+				$this->SetData($data);
+			}
+
+			self::$instance_user[$id] = $this;
+		}
+	}
+
+	static function &getInstance($id, $noExit = false)
+	{
+		if (isset(self::$instance_user[$id]))
+		{
+			return self::$instance_user[$id];
+		}
+		else
+		{
+			return new HOF_Class_User($id, $noExit);
+		}
+	}
+
+	function __toString()
+	{
+		$val = (string)$this->id;
+
+		return $val;
+	}
+
 	function __destruct()
 	{
 		$this->fpCloseAll();
+
+		self::$instance_user[$this->id] = null;
 	}
 
 	/**
