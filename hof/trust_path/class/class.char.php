@@ -61,44 +61,9 @@ class char
 
 	var $ActCount; //合計行動回数
 	var $JdgCount; //決定した判断の回数=array()
-	//////////////////////////////////////////////////
-	function __construct($file = false)
-	{
-
-		if (!$file) return 0;
-
-		$this->Number = basename($file, ".dat");
-		$this->file = $file;
-		$this->fp = HOF_Class_File::FileLock($file);
-
-		$data = HOF_Class_File::ParseFileFP($this->fp);
-		$this->SetCharData($data);
-	}
-
-	/*
-	//////////////////////////////////////////////////
-	//	ファイルポインタが開かれていれば閉じる
-	function fpclose()
-	{
-		if (is_resource($this->fp))
-		{
-			//print("who?.".$this->Name()."<br />\n");
-			//print("FP閉じた");
-			fclose($this->fp);
-			unset($this->fp);
-		}
-	}
-	*/
 
 	//////////////////////////////////////////////////
-	//	召喚力?召喚した時の召喚モンスターの強さ
-	function SummonPower()
-	{
-		$DEX_PART = sqrt($this->DEX) * 5; // DEX分の強化分
-		$Strength = 1 + ($DEX_PART + $this->LUK) / 250;
-		if ($this->SPECIAL["Summon"]) $Strength *= (100 + $this->SPECIAL["Summon"]) / 100;
-		return $Strength;
-	}
+	//
 	//////////////////////////////////////////////////
 	//	HPの犠牲
 	function SacrificeHp($rate)
@@ -938,28 +903,7 @@ class char
 			return true;
 		}
 	}
-	//////////////////////////////////////////////////
-	//	戦闘中のキャラ名,HP,SP を色を分けて表示する
-	//	それ以外にも必要な物があれば表示するようにした。
-	function ShowHpSp()
-	{
-		if ($this->STATE === 1) $sub = " dmg";
-		else
-			if ($this->STATE === 2) $sub = " spdmg";
-		//名前
-		print ("<span class=\"bold{$sub}\">{$this->name}</span>\n");
-		// チャージor詠唱
-		if ($this->expect_type === 0) print ('<span class="charge">(charging)</span>' . "\n");
-		else
-			if ($this->expect_type === 1) print ('<span class="charge">(casting)</span>' . "\n");
-		// HP,SP
-		print ("<div class=\"hpsp\">\n");
-		$sub = $this->STATE === 1 ? "dmg" : "recover";
-		print ("<span class=\"{$sub}\">HP : {$this->HP}/{$this->MAXHP}</span><br />\n"); //HP
-		$sub = $this->STATE === 1 ? "dmg" : "support";
-		print ("<span class=\"{$sub}\">SP : {$this->SP}/{$this->MAXSP}</span>\n");
-		print ("</div>\n"); //SP
-	}
+
 	//////////////////////////////////////////////////
 	//	値の変化を表示する(ダメージ受けた時とか)
 	function ShowValueChange($from, $to)
@@ -1605,25 +1549,7 @@ Lv.<?=
 			$this->img = ($this->gender ? $jobdata["img_female"] : $jobdata["img_male"]);
 		}
 	}
-	//////////////////////////////////////////////////
-	//	パターン文字列を配列にする。
-	//	****<>****<>****|****<>****<>****|****<>****<>****
-	function PatternExplode()
-	{
-		//dump($this->judge);
-		if ($this->judge) return false;
-		$Pattern = explode("|", $this->Pattern);
-		$this->judge = explode("<>", $Pattern["0"]);
-		$this->quantity = explode("<>", $Pattern["1"]);
-		$this->action = explode("<>", $Pattern["2"]);
-	}
-	//////////////////////////////////////////////////
-	//	パターン配列を保存する。
-	function PatternSave($judge, $quantity, $action)
-	{
-		$this->Pattern = implode("<>", $judge) . "|" . implode("<>", $quantity) . "|" . implode("<>", $action);
-		return true;
-	}
+
 	//////////////////////////////////////////////////
 	//	キャラクターを消す
 	function DeleteChar()
