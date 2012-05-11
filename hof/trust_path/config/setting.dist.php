@@ -142,7 +142,7 @@ define("AUCTION_ITEM_LOG", DAT_DIR . "./auction_log.dat"); //アイテムオー�
 define("REGISTER", DAT_DIR . "./register.dat");
 define("UPDATE", DAT_DIR . "./update.dat");
 define("CTRL_TIME_FILE", DAT_DIR . "./ctrltime.dat"); //定期管理のための時間記憶ファイル
-define("RANKING", DAT_DIR . "./ranking.dat");
+define("RANKING", DAT_DIR . "./ranking".BASE_EXT);
 define("BBS_BOTTOM", DAT_DIR . "./bbs.dat");
 define("BBS_TOWN", DAT_DIR . "./bbs_town.dat");
 define("MANAGE_LOG_FILE", DAT_DIR . "./managed.dat"); //定期管理記録ファイル
