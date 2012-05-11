@@ -74,14 +74,18 @@ class HOF_Class_Item extends HOF_Class_Array
 	 */
 	function __construct($no)
 	{
-		$data = HOF_Model_Data::getItemData($no);
+		$data = HOF_Model_Data::getItemData($no, true);
+
+		$_source_data_ = $data;
+
+		$data = HOF_Helper_Item::parseItemData($data);
 
 		parent::__construct((array)$data);
 
 		$this->id = $no;
 		$this->icon = $this->img;
 
-		$this->_data = $data;
+		$this->_source_data_ = $_source_data_;
 
 		return $this;
 	}
@@ -115,9 +119,25 @@ class HOF_Class_Item extends HOF_Class_Array
 		return new self($no);
 	}
 
+	function id($over = false)
+	{
+		$var = $this->id;
+		$var = printf("[%04s]", $var);
+
+		return (string)$var;
+	}
+
+	function no()
+	{
+		$var = $this->no;
+		$var = printf("[%04s]", $var);
+
+		return (string)$var;
+	}
+
 	function __toString()
 	{
-		return (string )$this->id;
+		return $this->id();
 	}
 
 	/**
