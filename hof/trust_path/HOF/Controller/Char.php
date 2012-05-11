@@ -1432,8 +1432,7 @@ HTML;
 	{
 		if (!$_POST["TestBattle"]) return 0;
 
-		$char = $this->char[$_GET["char"]];
-		HOF_Helper_Battle::DoppelBattle(array($char));
+		HOF_Helper_Battle::DoppelBattle(array($this->char));
 	}
 
 
