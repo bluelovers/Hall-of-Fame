@@ -102,6 +102,14 @@ class HOF_Class_Char extends char
 		}
 	}
 
+	/**
+	 * 誰のキャラか設定する
+	 */
+	function SetUser($user)
+	{
+		$this->user = $user;
+	}
+
 	function DataSavingFormat()
 	{
 		$Save = array(
@@ -131,6 +139,9 @@ class HOF_Class_Char extends char
 			"PatternMemo",
 			//モンスター専用
 			//"monster","land","family","monster_message"//保存する必要無くなった
+
+			'user',
+
 			);
 		//$Save	= get_object_vars($this);
 
