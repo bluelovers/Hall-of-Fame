@@ -30,11 +30,26 @@ class HOF_Class_Item_Auction extends Auction
 	 */
 	public $log = null;
 
+	/**
+	 * コンストラクタ
+	 */
 	function __construct($type)
 	{
+		// アイテムオークション
+		if ($type == "item")
+		{
+			$this->AuctionType = "item";
+			$this->ItemArticleRead();
+			// キャラオークション
+		}
+		elseif ($type == "char")
+		{
+			$this->AuctionType = "char";
+		}
+
 		parent::__construct($type);
 
-		$this->log = new HOF_Class_Item_Auction_Log($this);
+		$this->log = new HOF_Class_Item_Auction_Log(&$this);
 	}
 
 	/**
