@@ -548,4 +548,13 @@ class HOF_Class_Char extends char
 		return $no;
 	}
 
+	/**
+	 * 新ワザを追加する。
+	 */
+	function GetNewSkill($no)
+	{
+		$this->skill[] = $no;
+		asort($this->skill);
+	}
+
 }
