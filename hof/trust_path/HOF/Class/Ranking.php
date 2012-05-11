@@ -133,10 +133,15 @@ class HOF_Class_Ranking extends HOF_Class_Base
 
 	function _fpopen($over, $file)
 	{
+
+		/*
+		debug($this, $over, $file);
+
 		$this->file = $file . '.yml';
 		$path = $file . '.dat';
+		*/
 
-		if (!file_exists($this->file) && file_exists($path))
+		if (0 && !file_exists($this->file) && file_exists($path))
 		{
 			$this->fp = HOF_Class_File::FileLock($path);
 
@@ -318,7 +323,10 @@ class HOF_Class_Ranking extends HOF_Class_Base
 
 	function _init()
 	{
-		if (!$this->fpopen(true, self::RANKING)) return false;
+		if (!$this->fpopen(true, self::RANKING))
+		{
+			return false;
+		}
 
 		$this->fpread();
 
@@ -740,7 +748,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 			return array($cache['rank'], $cache['key']);
 		}
 
-		foreach ($this->content->data as $rank => $val)
+		foreach ((array)$this->content->data as $rank => $val)
 		{
 			foreach ((array )$val as $key => $val2)
 			{
