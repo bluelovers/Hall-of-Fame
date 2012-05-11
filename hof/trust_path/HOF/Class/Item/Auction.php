@@ -175,7 +175,7 @@ class HOF_Class_Item_Auction
 			//if(strlen($val["end"]) != 10) continue;
 			//$string .= $val["No"] . "<>" . $val["end"] . "<>" . $val["price"] . "<>" . $val["exhibitor"] . "<>" . $val["item"] . "<>" . $val["amount"] . "<>" . $val["TotalBid"] . "<>" . $val["bidder"] . "<>" . $val["latest"] . "<>" . $val["comment"] . "<>" . $val["IP"] . "\n";
 
-			$data['list'][] = $val;
+			$data['list'][$val['No']] = $val;
 		}
 
 		$string = HOF_Class_Yaml::dump($data);
@@ -200,7 +200,9 @@ class HOF_Class_Item_Auction
 	 */
 	function exists($no)
 	{
-		if ($this->Article["$no"])
+		debug($no, $this->Article);
+
+		if ($this->Article[$no])
 		{
 			return true;
 		}
