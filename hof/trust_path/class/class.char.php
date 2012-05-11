@@ -1316,13 +1316,7 @@ Lv.<?=
 		}
 		else  return array(false, "スキルポイント不足");
 	}
-	//////////////////////////////////////////////////
-	//	新ワザを追加する。
-	function GetNewSkill($no)
-	{
-		$this->skill[] = $no;
-		asort($this->skill);
-	}
+
 	//////////////////////////////////////////////////
 	//	スキルポイントを消費する
 	function UseSKillPoint($no)
