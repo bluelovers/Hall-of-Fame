@@ -11,7 +11,7 @@
  * ■オークションメモ
  * □アイテム
  * データの保存方法
- * define("AUCTION_ITEM","./*****");//ココ
+ * define("$this->file","./*****");//ココ
 
  * .dat の中身について
  * 番号(1行目だけ)
@@ -63,6 +63,8 @@ class HOF_Class_Item_Auction
 	var $QUERY;
 	var $sort;
 
+	var $file = AUCTION_ITEM;
+
 	/**
 	 * 経過ログ
 	 * @var HOF_Class_Item_Auction_Log
@@ -101,10 +103,10 @@ class HOF_Class_Item_Auction
 	function fpread()
 	{
 		// ファイルがある場合
-		if (file_exists(AUCTION_ITEM))
+		if (file_exists($this->file))
 		{
-			//$fp	= fopen(AUCTION_ITEM,"r+");
-			$this->fp = HOF_Class_File::FileLock(AUCTION_ITEM);
+			//$fp	= fopen($this->file,"r+");
+			$this->fp = HOF_Class_File::FileLock($this->file);
 			if (!$this->fp) return false;
 			//flock($fp, LOCK_EX);
 
@@ -181,7 +183,7 @@ class HOF_Class_Item_Auction
 		$string = HOF_Class_Yaml::dump($data);
 
 		//print($string);
-		if (file_exists(AUCTION_ITEM) && $this->fp)
+		if (file_exists($this->file) && $this->fp)
 		{
 			HOF_Class_File::WriteFileFP($this->fp, $string, true);
 
@@ -189,7 +191,7 @@ class HOF_Class_Item_Auction
 		}
 		else
 		{
-			HOF_Class_File::WriteFile(AUCTION_ITEM, $string, true);
+			HOF_Class_File::WriteFile($this->file, $string, true);
 		}
 
 		$this->log->save();
