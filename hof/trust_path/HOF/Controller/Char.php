@@ -533,7 +533,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			return false;
 		}
 
-		$this->char->SetUser($this->id);
+		$this->char->SetUser($this->user->id);
 
 		list($result, $message) = $this->char->LearnNewSkill($this->input->newskill);
 
