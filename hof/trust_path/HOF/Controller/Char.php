@@ -289,7 +289,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			return true;
 		}
 
-		$this->_msg_rerror("失敗したなんで？報告してみてください 03050242", "margin15");
+		$this->_msg_error("失敗したなんで？報告してみてください 03050242", "margin15");
 
 		return false;
 	}
@@ -377,7 +377,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		if (!$this->input->spot)
 		{
-			$this->_msg_rerror("装備をはずす箇所が選択されていない", "margin15");
+			$this->_msg_error("装備をはずす箇所が選択されていない", "margin15");
 
 			return false;
 		}
@@ -385,7 +385,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		if (!$this->char->{$this->input->spot})
 		{
 			// $this と $this->char の区別注意！
-			$this->_msg_rerror("指定された箇所には装備無し", "margin15");
+			$this->_msg_error("指定された箇所には装備無し", "margin15");
 
 			return false;
 		}
@@ -397,7 +397,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		$this->user->SaveUserItem();
 
 		$this->char->{$this->input->spot} = NULL;
-		$this->char->user->SaveCharData($this->user->id);
+		$this->char->SaveCharData($this->user->id);
 
 		$this->_msg_result($this->char->Name() . " の {$item[name]} を はずした。", "margin15");
 
@@ -409,6 +409,27 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function _main_action_remove_all()
 	{
+		if ($list = $this->char->unequip('all'))
+		{
+			$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
+
+			foreach($list as $no)
+			{
+				if (!$no) continue;
+
+				$_item = HOF_Model_Data::newItem($no);
+
+				$this->_msg_error($this->char->Name().' unequip '.$_item->name(), "margin15");
+
+				$this->user->AddItem($no);
+			}
+
+			return true;
+		}
+
+		return false;
+
+		/*
 		if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->char->item)
 		{
 			if ($this->char->weapon)
@@ -436,6 +457,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
 			return true;
 		}
+		*/
 	}
 
 	/**
@@ -446,8 +468,9 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		$this->input->item_no = HOF::$input->post["item_no"];
 
 		if (!$this->user->item[$this->input->item_no])
-		{ //そのアイテムを所持しているか
-			$this->_msg_rerror("Item not exists.", "margin15");
+		{
+			//そのアイテムを所持しているか
+			$this->_msg_error("Item not exists.", "margin15");
 			return false;
 		}
 
@@ -459,31 +482,42 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		if (!in_array($item["type"], $JobData["equip"]))
 		{
 			//それが装備不可能なら?
-			$this->_msg_rerror("{$this->char->job_name} can't equip {$item[name]}.", "margin15");
+			$this->_msg_error("{$this->char->job_name} can't equip {$item[name]}.", "margin15");
 			return false;
 		}
 
-		if (false === $return = $this->char->Equip($item))
+		list ($fail, $return) = $this->char->Equip($item);
+
+		if ($fail)
 		{
-			$this->_msg_rerror("Handle Over.", "margin15");
-			return false;
+			$this->_msg_error("Handle Over.", "margin15");
 		}
 		else
 		{
 			$this->user->DeleteItem($this->input->item_no);
-			foreach ($return as $no)
-			{
-				$this->user->AddItem($no);
-			}
+		}
+
+		foreach ($return as $no)
+		{
+			if (!$no) continue;
+
+			$_item = HOF_Model_Data::newItem($no);
+
+			$this->_msg_error($this->char->Name().' unequip '.$_item->name(), "margin15");
+
+			$this->user->AddItem($no);
 		}
 
 		$this->user->SaveUserItem();
 
-		$this->char->user->SaveCharData($this->user->id);
+		$this->char->SaveCharData($this->user->id);
 
-		$this->_msg_result("{$this->char->name} は {$item[name]} を装備した.", "margin15");
+		if (!$fail)
+		{
+			$this->_msg_result("{$this->char->name} は {$item[name]} を装備した.", "margin15");
+		}
 
-		return true;
+		return $fail ? false : true;
 	}
 
 	/**
@@ -495,7 +529,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		if (!$this->input->newskill)
 		{
-			$this->_msg_rerror("スキル未選択", "margin15");
+			$this->_msg_error("スキル未選択", "margin15");
 			return false;
 		}
 
@@ -510,7 +544,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		}
 		else
 		{
-			$this->_msg_rerror($message, "margin15");
+			$this->_msg_error($message, "margin15");
 		}
 
 		return true;
@@ -525,7 +559,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		if (!$this->input->job)
 		{
-			$this->_msg_rerror("職 未選択", "margin15");
+			$this->_msg_error("職 未選択", "margin15");
 			return false;
 		}
 		if ($this->char->ClassChange($this->input->job))
@@ -565,7 +599,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			return true;
 		}
 
-		$this->_msg_rerror("failed.", "margin15");
+		$this->_msg_error("failed.", "margin15");
 		return false;
 	}
 
@@ -600,7 +634,7 @@ EOD;
 
 		if ($result === false)
 		{
-			$this->_msg_rerror($return, "margin15");
+			$this->_msg_error($return, "margin15");
 			return false;
 		}
 		else
@@ -620,7 +654,7 @@ EOD;
 				}
 				else
 				{
-					$this->_msg_rerror("アイテムがありません。", "margin15");
+					$this->_msg_error("アイテムがありません。", "margin15");
 					return false;
 				}
 				return true;
@@ -695,7 +729,7 @@ EOD;
 		{
 			if ($this->user->DeleteItem(6000) == 0)
 			{
-				$this->_msg_rerror("アイテムがありません。", "margin15");
+				$this->_msg_error("アイテムがありません。", "margin15");
 				return false;
 			}
 
@@ -719,7 +753,7 @@ EOD;
 		{
 			if (!$this->user->item[$this->input->itemUse])
 			{
-				$this->_msg_rerror("アイテムがありません。", "margin15");
+				$this->_msg_error("アイテムがありません。", "margin15");
 				return false;
 			}
 
@@ -758,7 +792,7 @@ EOD;
 			{
 				if ($this->user->DeleteItem($this->input->itemUse) == 0)
 				{
-					$this->_msg_rerror("アイテムがありません。", "margin15");
+					$this->_msg_error("アイテムがありません。", "margin15");
 					return false;
 				}
 
@@ -800,7 +834,7 @@ EOD;
 			}
 			else
 			{
-				$this->_msg_rerror("ポイント還元失敗", "margin15");
+				$this->_msg_error("ポイント還元失敗", "margin15");
 				return false;
 			}
 		}
