@@ -56,14 +56,27 @@ class HOF_Class_Array extends ArrayObject
 	{
 		$array = parent::exchangeArray($input);
 
+		if (empty($input))
+		{
+			$keep = true;
+		}
+
 		/**
 		 * fix bug when exists class prop
 		 */
 		foreach (get_class_vars(get_class($this)) as $k => $v)
 		{
-			if (isset($this[$k]))
+			if (0 && $keep && $v !== null)
+			{
+				$this[$k] = $this->$k;
+			}
+			elseif (isset($this[$k]))
 			{
 				$this->$k = &$this[$k];
+			}
+			elseif (0)
+			{
+				$this->$k = $this->$k;
 			}
 		}
 
