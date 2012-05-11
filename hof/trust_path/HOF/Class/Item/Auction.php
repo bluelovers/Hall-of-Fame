@@ -200,7 +200,7 @@ class HOF_Class_Item_Auction
 	 */
 	function exists($no)
 	{
-		debug($no, $this->Article);
+		//debug($no, $this->Article);
 
 		if ($this->Article[$no])
 		{
@@ -343,8 +343,8 @@ class HOF_Class_Item_Auction
 		$this->DataChange = true;
 
 		$item = HOF_Model_Data::getItemData($Article["item"]);
-		//$this->AddLog("No.".$Article["No"]." <span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個に ".HOF_Helper_Global::MoneyFormat($BidPrice)." で ".$this->LoadUserName($Bidder)." が<span class=\"support\">入札しました。</span>");
-		$this->AddLog("No." . $Article["No"] . " <span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個に " . HOF_Helper_Global::MoneyFormat($BidPrice) . " で " . $BidderName . " が<span class=\"support\">入札しました。</span>");
+		//$this->log->add("No.".$Article["No"]." <span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個に ".HOF_Helper_Global::MoneyFormat($BidPrice)." で ".$this->LoadUserName($Bidder)." が<span class=\"support\">入札しました。</span>");
+		$this->log->add("No." . $Article["No"] . " <span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個に " . HOF_Helper_Global::MoneyFormat($BidPrice) . " で " . $BidderName . " が<span class=\"support\">入札しました。</span>");
 
 		return true;
 	}
@@ -398,14 +398,14 @@ class HOF_Class_Item_Auction
 				$this->UserGetItem($Article["bidder"], $Article["item"], $Article["amount"]);
 				$this->UserGetMoney($Article["exhibitor"], $Article["price"]);
 				// 結果をログに残せ
-				$this->AddLog("No.{$Article[No]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], IMG_ICON . 'item/') . "\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個 を " . $this->UserGetNameFromTemp($Article["bidder"]) . " が " . HOF_Helper_Global::MoneyFormat($Article["price"]) . " で<span class=\"recover\">落札しました。</span>");
+				$this->log->add("No.{$Article[No]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], IMG_ICON . 'item/') . "\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個 を " . $this->UserGetNameFromTemp($Article["bidder"]) . " が " . HOF_Helper_Global::MoneyFormat($Article["price"]) . " で<span class=\"recover\">落札しました。</span>");
 			}
 			else
 			{
 				// 入札が無かった場合、出品者に返却。
 				$this->UserGetItem($Article["exhibitor"], $Article["item"], $Article["amount"]);
 				// 結果をログに残せ
-				$this->AddLog("No.{$Article[No]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], IMG_ICON . 'item/') . "\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個 は<span class=\"dmg\">入札者無しで流れました。</span>");
+				$this->log->add("No.{$Article[No]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], IMG_ICON . 'item/') . "\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個 は<span class=\"dmg\">入札者無しで流れました。</span>");
 			}
 			// 最後に消す
 			unset($this->Article["$no"]);
