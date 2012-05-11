@@ -557,4 +557,42 @@ class HOF_Class_Char extends char
 		asort($this->skill);
 	}
 
+	/**
+	 * IMGタグで画像を表示するのみ
+	 */
+	function GetImageURL($dir = HOF_Class_Icon::IMG_CHAR)
+	{
+		/*
+		if (file_exists(IMG_CHAR . $this->img))
+		{
+			if ($this->STATE === DEAD)
+			{
+				$img = $dir . $this->img;
+				if (!file_exists($img))
+				{
+					return $dir . CHAR_NO_IMAGE;
+				}
+			}
+			return $dir . $this->img;
+		}
+		else
+		{
+			return $dir . CHAR_NO_IMAGE;
+		}
+		*/
+		$ret = HOF_Class_Icon::getImageUrl($this->img, $dir);
+
+		return $ret;
+	}
+
+	/**
+	 * IMGタグで画像を表示するのみ
+	 */
+	function ShowImage($class = false)
+	{
+		$url = $this->GetImageURL(HOF_Class_Icon::IMG_CHAR);
+		if ($class) print ('<img src="' . $url . '" class="' . $class . '">');
+		else  print ('<img src="' . $url . '">');
+	}
+
 }
