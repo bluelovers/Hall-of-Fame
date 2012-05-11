@@ -50,22 +50,7 @@ class Auction
 	var $sort;
 
 	////////////////////////////////
-	// コンストラクタ
-	function __construct($type)
-	{
-		// アイテムオークション
-		if ($type == "item")
-		{
-			$this->AuctionType = "item";
-			$this->ItemArticleRead();
-			// キャラオークション
-		}
-		else
-			if ($type == "char")
-			{
-				$this->AuctionType = "char";
-			}
-	}
+	//
 	//////////////////////////////////////////////
 	//	GETのクエリー名
 	function AuctionHttpQuery($name)
