@@ -148,6 +148,21 @@ class HOF_Class_Item_Auction extends Auction
 	}
 
 	/**
+	 * その番号の競売品が出品されているかたしかめる。
+	 */
+	function exists($no)
+	{
+		if ($this->Article["$no"])
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
 	 * GETのクエリー名
 	 */
 	function AuctionHttpQuery($name)
