@@ -19,12 +19,9 @@ function DeleteAbandonAccount()
 		$UserID = substr($file, strrpos($file, "/") + 1);
 		$user = new HOF_Class_User($UserID, true);
 
-		debug($UserID, $file);
-
 		// 消されるユーザー
 		if ($user->IsAbandoned())
 		{
-			debug($UserID, $file);
 
 			// ランキングを読む
 			if (!isset($Ranking))
