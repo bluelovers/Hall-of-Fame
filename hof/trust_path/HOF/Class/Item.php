@@ -7,7 +7,7 @@
 
 class HOF_Class_Item extends HOF_Class_Array
 {
-	public $no;
+	public $id;
 
 	/**
 	 * 名称
@@ -70,7 +70,6 @@ class HOF_Class_Item extends HOF_Class_Array
 	 * P_PIERCE = array(物理,魔法),
 	 *--------------------------------------------
 	 */
-
 	function __construct($no)
 	{
 		$data = HOF_Model_Data::getItemData($no);
@@ -81,6 +80,13 @@ class HOF_Class_Item extends HOF_Class_Array
 		$this->icon = $this->img;
 
 		$this->_data = $data;
+
+		return $this;
+	}
+
+	function exists()
+	{
+		return ($this->no) ? true : false;
 	}
 
 	function &newCopy($clone = false)
@@ -175,6 +181,39 @@ class HOF_Class_Item extends HOF_Class_Array
 		if ($format) return HOF_Helper_Global::MoneyFormat($price);
 
 		return $price;
+	}
+
+	function amount($amount = null)
+	{
+		if ($amount !== null)
+		{
+			$this->amount = (int)$amount;
+
+			return $this;
+		}
+
+		return (int)$this->amount;
+	}
+
+	function name()
+	{
+		$name = $this->name;
+
+		return $name;
+	}
+
+	function id()
+	{
+		$id = $this->id;
+
+		return $id;
+	}
+
+	function type()
+	{
+		$ret = $this->type;
+
+		return $ret;
 	}
 
 	/**
