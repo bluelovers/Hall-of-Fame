@@ -37,6 +37,14 @@ class HOF_Class_Item_Auction extends Auction
 		$this->log = new HOF_Class_Item_Auction_Log($this);
 	}
 
+	/**
+	 * 出品物の数
+	 */
+	function count()
+	{
+		return count($this->Article);
+	}
+
 	function ItemSortBy($type)
 	{
 		switch ($type)
