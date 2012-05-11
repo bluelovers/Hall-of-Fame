@@ -1236,40 +1236,9 @@ Lv.<?=
 	{
 		$this->team = $no;
 	}
-	//////////////////////////////////////////////////
-	//	IMGタグで画像を表示するのみ
-	function GetImageURL($dir)
-	{
-		/*
-		if (file_exists(IMG_CHAR . $this->img))
-		{
-			if ($this->STATE === DEAD)
-			{
-				$img = $dir . $this->img;
-				if (!file_exists($img))
-				{
-					return $dir . CHAR_NO_IMAGE;
-				}
-			}
-			return $dir . $this->img;
-		}
-		else
-		{
-			return $dir . CHAR_NO_IMAGE;
-		}
-		*/
-		$ret = HOF_Class_Icon::getImageUrl($this->img, IMG_CHAR);
 
-		return $ret;
-	}
 	//////////////////////////////////////////////////
-	//	IMGタグで画像を表示するのみ
-	function ShowImage($class = false)
-	{
-		$url = $this->GetImageURL(IMG_CHAR);
-		if ($class) print ('<img src="' . $url . '" class="' . $class . '">');
-		else  print ('<img src="' . $url . '">');
-	}
+	//
 	//////////////////////////////////////////////////
 	//	HPとSPを計算して設定する
 	function SetHpSp() // $coe=array(HP,SP係数);
