@@ -295,9 +295,9 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		}
 
 		// 同時出品数の制限
-		if (AUCTION_MAX <= $this->ItemAuction->ItemAmount())
+		if (AUCTION_MAX <= $this->ItemAuction->count())
 		{
-			HOF_Helper_Global::ShowError("出品数が限界に達しています。(" . $this->ItemAuction->ItemAmount() . "/" . AUCTION_MAX . ")");
+			HOF_Helper_Global::ShowError("出品数が限界に達しています。(" . $this->ItemAuction->count() . "/" . AUCTION_MAX . ")");
 			return false;
 		}
 
