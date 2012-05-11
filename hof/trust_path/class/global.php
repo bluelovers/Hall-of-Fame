@@ -333,7 +333,7 @@ function ShowItemDetail($item, $amount = false, $text = false, $need = false)
 {
 	if (!$item) return false;
 
-	$html = "<img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], IMG_ICON . 'item/') . "\" class=\"vcent\">";
+	$html = "<img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\" class=\"vcent\">";
 	// 精錬値
 	if ($item["refine"]) $html .= "+{$item[refine]} ";
 	if ($item["AddName"]) $html .= "{$item[AddName]} ";
