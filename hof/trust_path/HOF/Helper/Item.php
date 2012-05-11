@@ -5,8 +5,60 @@
  * @copyright 2012
  */
 
-class HOF_Model_Item extends HOF_Class_Data
+class HOF_Helper_Item extends HOF_Class_Data
 {
+
+	function parseItemData($data)
+	{
+		// 精錬値
+		if ($refine)
+		{
+			$data["refine"] = $refine;
+			$data["name"] = "+" . $refine . " " . $data["name"];
+			//$data["name"]	.= "+".$refine;
+			//$RefineRate	= 1 + 0.5 * ($refine/10);
+
+			if (isset($data["atk"]["0"]))
+			{
+				//$data["atk"]["0"]	= ceil($data["atk"]["0"] * $RefineRate);// 単純式
+				// 1.05*1.05*1.05....
+				/*
+				for($i=0; $i<$refine; $i++) {
+				$data["atk"]["0"]	*= 1.05;
+				}
+				*/
+				$data["atk"]["0"] *= (1 + ($refine * $refine) / 100);
+				$data["atk"]["0"] = ceil($data["atk"]["0"]);
+			}
+
+			if (isset($data["atk"]["1"]))
+			{
+				//$data["atk"]["1"]	= ceil($data["atk"]["1"] * $RefineRate);
+				/*
+				for($i=0; $i<$refine; $i++) {
+				$data["atk"]["1"]	*= 1.05;
+				}
+				*/
+				$data["atk"]["1"] *= (1 + ($refine * $refine) / 100);
+				$data["atk"]["1"] = ceil($data["atk"]["1"]);
+			}
+
+			// 防具の値強化
+			$RefineRate = 1 + 0.3 * ($refine / 10);
+			if (isset($data["def"]["0"])) $data["def"]["0"] = ceil($data["def"]["0"] * $RefineRate);
+			if (isset($data["def"]["1"])) $data["def"]["1"] = ceil($data["def"]["1"] * $RefineRate);
+			if (isset($data["def"]["2"])) $data["def"]["2"] = ceil($data["def"]["2"] * $RefineRate);
+			if (isset($data["def"]["3"])) $data["def"]["3"] = ceil($data["def"]["3"] * $RefineRate);
+
+		}
+
+		// 付加能力
+		if ($option0) HOF_Helper_Item::addEnchantData($data, $option0);
+		if ($option1) HOF_Helper_Item::addEnchantData($data, $option1);
+		if ($option2) HOF_Helper_Item::addEnchantData($data, $option2);
+
+		return $data;
+	}
 
 	/**
 	 * 製作した防具に付与される追加効果。
