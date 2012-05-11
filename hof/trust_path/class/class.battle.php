@@ -788,7 +788,7 @@ HTML;
 					$itemdrop["$item"]++;
 					$item = HOF_Model_Data::getItemData($item);
 					echo($char->Name("bold") . " dropped");
-					echo("<img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], IMG_ICON . 'item/') . "\" class=\"vcent\"/>\n");
+					echo("<img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\" class=\"vcent\"/>\n");
 					echo("<span class=\"bold u\">{$item[name]}</span>.<br />\n");
 				}
 
