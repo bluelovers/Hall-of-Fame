@@ -37,7 +37,14 @@ class HOF_Class_Char extends char
 		$this->file = $file;
 		$this->fp = HOF_Class_File::FileLock($file);
 
-		$data = HOF_Class_Yaml::parse(stream_get_contents($this->fp));
+		if ($this->file_ext == '.dat')
+		{
+			$data = HOF_Class_File::ParseFileFP($this->fp);
+		}
+		else
+		{
+			$data = HOF_Class_Yaml::parse(stream_get_contents($this->fp));
+		}
 
 		$this->SetCharData($data);
 	}
