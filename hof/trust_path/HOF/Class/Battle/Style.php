@@ -103,7 +103,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 				$this->data['css']['size_x'] = $this->data['css']['size_x'] ? $this->data['css']['size_x'] : $this->data['css']['bg_x'];
 				$this->data['css']['size_y'] = $this->data['css']['size_y'] ? $this->data['css']['size_y'] : $this->data['css']['bg_y'];
 
-				$this->data['css']['size'] = "width:{$this->data['css']['size_x']}; height:{$this->data['css']['size_y']};";
+				$this->data['css']['size'] = "width:{$this->data['css']['size_x']}px; height:{$this->data['css']['size_y']}px;";
 			}
 		}
 		else
@@ -216,6 +216,9 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 		{
 			$this->exec_img();
 		}
+
+		//debug($this);
+		//exit();
 
 		return $this;
 	}
@@ -412,7 +415,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 		$gap_x = $cell_width / ($number + 1) * ($direction ? 1 : -1);
 		$gap_y = $cell_height / ($number + 1) * ($direction ? 1 : 1);
 
-		$f = $direction ? IMG_CHAR_REV : IMG_CHAR;
+		$f = $direction ? HOF_Class_Icon::IMG_CHAR_REV : HOF_Class_Icon::IMG_CHAR;
 
 		foreach ($teams as $char)
 		{
@@ -423,9 +426,13 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 
 			$x = floor($x);
 			$y = floor($y);
+
 			if ($char->STATE === DEAD) $img = $f . DEAD_IMG;
 			else  $img = $char->GetImageUrl($f);
-			list($img_x, $img_y) = getimagesize($img);
+
+			$img_file = HOF_Class_Icon::getImage($char->img, $f);
+
+			list($img_x, $img_y) = getimagesize($img_file);
 			$x -= round($img_x / 2);
 			$y -= round($img_y / 2);
 			$this->output .= "<div style=\"{$this->data['css']['size']}" . $this->det($img, $x, $y) . "\">\n";
