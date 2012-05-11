@@ -234,19 +234,7 @@ class Auction
 			return true;
 		}
 	}
-	//////////////////////////////////////////////////
-	//	その番号の競売品が出品されているかたしかめる。
-	function ItemArticleExists($no)
-	{
-		if ($this->Article["$no"])
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-	}
+
 	//////////////////////////////////////////////
 	//	アイテムを出品する
 	function ItemAddArticle($item, $amount, $id, $time, $StartPrice, $comment)
