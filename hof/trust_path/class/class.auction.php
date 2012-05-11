@@ -321,7 +321,7 @@ class Auction
 			);
 		array_unshift($this->Article, $New);
 		$itemData = HOF_Model_Data::getItemData($item);
-		$this->AddLog("No." . $this->ArticleNo . " に <img src=\"" . HOF_Class_Icon::getImageUrl($itemData["img"], IMG_ICON.'item/') . "\"><span class=\"bold\">{$itemData[name]} x{$amount}</span>個が<span class=\"charge\">出品されました。</span>");
+		$this->log->add("No." . $this->ArticleNo . " に <img src=\"" . HOF_Class_Icon::getImageUrl($itemData["img"], IMG_ICON.'item/') . "\"><span class=\"bold\">{$itemData[name]} x{$amount}</span>個が<span class=\"charge\">出品されました。</span>");
 		$this->DataChange = true;
 	}
 	//////////////////////////////////////////////
@@ -352,7 +352,8 @@ class Auction
 		{
 			HOF_Class_File::WriteFile(AUCTION_ITEM, $string, true);
 		}
-		$this->SaveLog();
+
+		$this->log->save();
 	}
 	//////////////////////////////////////////////
 	//
@@ -398,72 +399,15 @@ class Auction
 			// 何もしない。
 		}
 	}
+
 	//////////////////////////////////////////////////
 	//	出品物の数
 	function ItemAmount()
 	{
 		return count($this->Article);
 	}
-	//////////////////////////////////////////////////
-	//	オークション経過ログを読む
-	function LoadLog()
-	{
-		if ($this->AuctionType == "item")
-		{
-			if (!file_exists(AUCTION_ITEM_LOG))
-			{
-				$this->AuctionLog = array();
-				return false;
-			}
-			$fp = fopen(AUCTION_ITEM_LOG, "r+");
-			if (!$fp) return false;
-			flock($fp, LOCK_EX);
-			while (!feof($fp))
-			{
-				$str = trim(fgets($fp));
-				if (!$str) continue;
-				$this->AuctionLog[] = $str;
-			}
-		}
-	}
-	//////////////////////////////////////////////////
-	//	オークション経過ログの保存
-	function SaveLog()
-	{
-		if ($this->AuctionType == "item")
-		{
-			if (!$this->AuctionLog) return false;
-			// 30行以下に収める
-			while (100 < count($this->AuctionLog))
-			{
-				array_pop($this->AuctionLog);
-			}
-			foreach ($this->AuctionLog as $log)
-			{
-				$string .= $log . "\n";
-			}
-			HOF_Class_File::WriteFile(AUCTION_ITEM_LOG, $string);
-		}
-	}
-	//////////////////////////////////////////////////
-	//	ログの表示
-	function ShowLog()
-	{
-		if (!$this->AuctionLog) $this->LoadLog();
-		if (!$this->AuctionLog) return false;
-		foreach ($this->AuctionLog as $log)
-		{
-			print ("{$log}<br />\n");
-		}
-	}
-	//////////////////////////////////////////////////
-	//	ログの追加
-	function AddLog($string)
-	{
-		if (!$this->AuctionLog) $this->LoadLog();
-		if (!$this->AuctionLog) $this->AuctionLog = array();
-		array_unshift($this->AuctionLog, $string);
-	}
+
+
 
 
 }
