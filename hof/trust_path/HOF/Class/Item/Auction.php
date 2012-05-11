@@ -21,7 +21,8 @@
  * ...........
  * □キャラ
  */
-class HOF_Class_Item_Auction extends Auction
+//class HOF_Class_Item_Auction extends Auction
+class HOF_Class_Item_Auction
 {
 
 	var $fp;
