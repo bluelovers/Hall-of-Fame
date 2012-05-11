@@ -461,6 +461,9 @@ class HOF_Model_Data extends HOF_Class_Data
 		}
 	}
 
+	/**
+	 * @return HOF_Class_Item
+	 */
 	function newItem($no, $check = true)
 	{
 		return HOF_Class_Item::newInstance($no, $check);
