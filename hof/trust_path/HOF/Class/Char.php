@@ -463,4 +463,34 @@ class HOF_Class_Char extends char
 		return $Strength;
 	}
 
+	/**
+	 * キャラの指示の数
+	 */
+	function MaxPatterns()
+	{
+		$val = $this->int;
+
+		$map = array(10, 15, 30, 50, 80, 120, 160, 200, 251);
+
+		$n = 2;
+
+		foreach ($map as $v)
+		{
+			if ($val >= $v)
+			{
+				$n++;
+			}
+			else
+			{
+				break;
+			}
+		}
+
+		if (29 < $this->level){
+			$n++;
+		}
+
+		return $n;
+	}
+
 }
