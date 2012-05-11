@@ -154,6 +154,22 @@ class HOF_Class_User extends user
 				}
 			}
 		}
+
+
+	}
+
+	function _cache()
+	{
+		$dir = USER . $this->id;
+
+		$cache = array();
+
+		foreach ($this->char as $no => $char)
+		{
+			$cache['char'][$no] = $char->Name();
+		}
+
+		HOF_Class_Yaml::save($dir.'/cache.char.yml', $cache);
 	}
 
 	/**
