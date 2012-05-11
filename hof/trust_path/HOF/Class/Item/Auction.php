@@ -47,8 +47,6 @@ class HOF_Class_Item_Auction extends Auction
 			$this->AuctionType = "char";
 		}
 
-		parent::__construct($type);
-
 		$this->log = new HOF_Class_Item_Auction_Log(&$this);
 	}
 
