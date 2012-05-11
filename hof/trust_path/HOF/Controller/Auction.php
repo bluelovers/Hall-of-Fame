@@ -89,7 +89,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		 */
 		$ResultExhibit = $this->AuctionItemExhibitProcess();
 		$ResultBidding = $this->AuctionItemBiddingProcess();
-		$this->ItemAuction->ItemSaveData(); // 変更があった場合だけ保存する。
+		$this->ItemAuction->fpsave(); // 変更があった場合だけ保存する。
 
 		// 出品リストを表示する
 		if ($this->input->ExhibitItemForm)
