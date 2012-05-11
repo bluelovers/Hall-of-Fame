@@ -355,7 +355,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		$this->user->SaveUserItem();
 
 		// 出品する
-		$this->ItemAuction->ItemAddArticle($this->input->item_no, $amount, $this->id, $this->input->ExhibitTime, $this->input->StartPrice, $this->input->Comment);
+		$this->ItemAuction->ItemAddArticle($this->input->item_no, $amount, $this->user->id, $this->input->ExhibitTime, $this->input->StartPrice, $this->input->Comment);
 		print ($item["name"] . "&nbsp;を&nbsp;{$amount}個&nbsp;出品しました。");
 
 		return true;
