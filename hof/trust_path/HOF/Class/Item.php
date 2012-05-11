@@ -149,11 +149,11 @@ class HOF_Class_Item extends HOF_Class_Array
 
 		if ($url)
 		{
-			HOF_Class_Icon::getImageUrl($icon, HOF_Class_Icon::IMG_ITEM);
+			return HOF_Class_Icon::getImageUrl($icon, HOF_Class_Icon::IMG_ITEM);
 		}
 		else
 		{
-			HOF_Class_Icon::getImage($icon, HOF_Class_Icon::IMG_ITEM);
+			return HOF_Class_Icon::getImage($icon, HOF_Class_Icon::IMG_ITEM);
 		}
 	}
 
