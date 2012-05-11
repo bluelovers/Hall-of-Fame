@@ -452,4 +452,15 @@ class HOF_Class_Char extends char
 		return array($fail, $return);
 	}
 
+	/**
+	 * 召喚力?召喚した時の召喚モンスターの強さ
+	 */
+	function SummonPower()
+	{
+		$DEX_PART = sqrt($this->DEX) * 5; // DEX分の強化分
+		$Strength = 1 + ($DEX_PART + $this->LUK) / 250;
+		if ($this->SPECIAL["Summon"]) $Strength *= (100 + $this->SPECIAL["Summon"]) / 100;
+		return $Strength;
+	}
+
 }
