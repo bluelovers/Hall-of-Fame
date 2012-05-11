@@ -163,6 +163,8 @@ class HOF_Class_Item extends HOF_Class_Array
 	{
 		$item = $this->toArray();
 		$item['img'] = $this->icon();
+		$item['name'] = $this->name();
+		$item['handle'] = $this->handle();
 
 		return self::ShowItemDetail($item, $amount, $text, $need);
 	}
@@ -207,6 +209,13 @@ class HOF_Class_Item extends HOF_Class_Array
 		}
 
 		return $name;
+	}
+
+	function __call($func, $args)
+	{
+		$val = $this->$func;
+
+		return $val;
 	}
 
 	function id()
