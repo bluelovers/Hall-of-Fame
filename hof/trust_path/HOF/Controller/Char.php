@@ -866,7 +866,7 @@ HTML_BYEBYE;
 	function _main_action_kick()
 	{
 		//$this->user->DeleteChar($this->char->birth);
-		$this->char->user->DeleteChar();
+		$this->char->DeleteChar();
 		$host = $_SERVER['HTTP_HOST'];
 		$uri = rtrim(dirname($_SERVER['PHP_SELF']));
 		//$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
