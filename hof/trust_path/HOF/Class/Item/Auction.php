@@ -24,6 +24,37 @@ require_once (CLASS_AUCTION);
 class HOF_Class_Item_Auction extends Auction
 {
 
+	function ItemSortBy($type)
+	{
+		switch ($type)
+		{
+			case "no":
+				usort($this->Article, "HOF_Class_Item_Auction_Sort::sortByNo");
+				$this->sort = "no";
+				break;
+			case "time":
+				usort($this->Article, "HOF_Class_Item_Auction_Sort::sortByTime");
+				$this->sort = "time";
+				break;
+			case "price":
+				usort($this->Article, "HOF_Class_Item_Auction_Sort::sortByPrice");
+				$this->sort = "price";
+				break;
+			case "rprice":
+				usort($this->Article, "HOF_Class_Item_Auction_Sort::sortByRPrice");
+				$this->sort = "rprice";
+				break;
+			case "bid":
+				usort($this->Article, "HOF_Class_Item_Auction_Sort::sortByTotalBid");
+				$this->sort = "bid";
+				break;
+			default:
+				usort($this->Article, "HOF_Class_Item_Auction_Sort::sortByTime");
+				$this->sort = "time";
+				break;
+		}
+	}
+
 	/**
 	 * 最低価格を返す
 	 * 価格の5%が最低値。
@@ -117,36 +148,36 @@ class HOF_Class_Item_Auction extends Auction
 	/**
 	 * 残り時間を返す
 	 */
-function AuctionLeftTime($now, $end, $int = false)
-{
-	$left = $end - $now;
-	// $int=true なら差分だけ返す
-	if ($int) return $left;
-	if ($left < 1)
-	{ // 終了している場合はfalse
-		return false;
-	}
-	if ($left < 601)
+	function AuctionLeftTime($now, $end, $int = false)
 	{
-		return "{$left}秒";
-	}
-	else
-		if ($left < 3601)
+		$left = $end - $now;
+		// $int=true なら差分だけ返す
+		if ($int) return $left;
+		if ($left < 1)
+		{ // 終了している場合はfalse
+			return false;
+		}
+		if ($left < 601)
 		{
-			$minutes = floor($left / 60);
-			return "{$minutes}分";
+			return "{$left}秒";
 		}
 		else
-		{
-			$hour = floor($left / 3600);
-			$minutes = floor(($left % 3600) / 60);
-			return "{$hour}時間{$minutes}分";
-		}
-}
+			if ($left < 3601)
+			{
+				$minutes = floor($left / 60);
+				return "{$minutes}分";
+			}
+			else
+			{
+				$hour = floor($left / 3600);
+				$minutes = floor(($left % 3600) / 60);
+				return "{$hour}時間{$minutes}分";
+			}
+	}
 
-/**
- * 時間が経過して終了した競売品の処理
- */
+	/**
+	 * 時間が経過して終了した競売品の処理
+	 */
 	function ItemCheckSuccess()
 	{
 		$Now = time();
@@ -163,14 +194,14 @@ function AuctionLeftTime($now, $end, $int = false)
 				$this->UserGetItem($Article["bidder"], $Article["item"], $Article["amount"]);
 				$this->UserGetMoney($Article["exhibitor"], $Article["price"]);
 				// 結果をログに残せ
-				$this->AddLog("No.{$Article[No]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], IMG_ICON.'item/') . "\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個 を " . $this->UserGetNameFromTemp($Article["bidder"]) . " が " . HOF_Helper_Global::MoneyFormat($Article["price"]) . " で<span class=\"recover\">落札しました。</span>");
+				$this->AddLog("No.{$Article[No]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], IMG_ICON . 'item/') . "\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個 を " . $this->UserGetNameFromTemp($Article["bidder"]) . " が " . HOF_Helper_Global::MoneyFormat($Article["price"]) . " で<span class=\"recover\">落札しました。</span>");
 			}
 			else
 			{
 				// 入札が無かった場合、出品者に返却。
 				$this->UserGetItem($Article["exhibitor"], $Article["item"], $Article["amount"]);
 				// 結果をログに残せ
-				$this->AddLog("No.{$Article[No]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], IMG_ICON.'item/') . "\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個 は<span class=\"dmg\">入札者無しで流れました。</span>");
+				$this->AddLog("No.{$Article[No]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], IMG_ICON . 'item/') . "\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個 は<span class=\"dmg\">入札者無しで流れました。</span>");
 			}
 			// 最後に消す
 			unset($this->Article["$no"]);
