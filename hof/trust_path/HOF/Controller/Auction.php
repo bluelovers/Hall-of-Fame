@@ -186,7 +186,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		}
 
 		// まだ出品中かどうか確認する。
-		if (!$this->ItemAuction->ItemArticleExists($this->input->ArticleNo))
+		if (!$this->ItemAuction->exists($this->input->ArticleNo))
 		{
 			HOF_Helper_Global::ShowError("その競売品の出品が確認できません。");
 			return false;
