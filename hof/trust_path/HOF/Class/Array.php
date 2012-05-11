@@ -52,6 +52,24 @@ class HOF_Class_Array extends ArrayObject
 		$this->exchangeArray($input);
 	}
 
+	function exchangeArray($input)
+	{
+		$array = parent::exchangeArray($input);
+
+		/**
+		 * fix bug when exists class prop
+		 */
+		foreach (get_class_vars(get_class($this)) as $k => $v)
+		{
+			if (isset($this[$k]))
+			{
+				$this->$k = &$this[$k];
+			}
+		}
+
+		return $array;
+	}
+
 	function _toArrayObjectRecursive($append, $loop = 1, $ARRAYOBJECT = null)
 	{
 		if (!$ARRAYOBJECT) $ARRAYOBJECT = self::$ARRAYOBJECT;
