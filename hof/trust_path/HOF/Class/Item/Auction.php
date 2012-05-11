@@ -148,6 +148,14 @@ class HOF_Class_Item_Auction extends Auction
 	}
 
 	/**
+	 * GETのクエリー名
+	 */
+	function AuctionHttpQuery($name)
+	{
+		$this->QUERY = $name;
+	}
+
+	/**
 	 * 出品物の数
 	 */
 	function count()
