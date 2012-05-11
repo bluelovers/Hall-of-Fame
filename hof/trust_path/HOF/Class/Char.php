@@ -13,6 +13,20 @@ class HOF_Class_Char extends char
 
 	var $file_ext = '.yml';
 
+	var $map_equip_allow = array(
+		"weapon" => true,
+		"shield" => true,
+		"armor" => true,
+		"item" => true,
+		);
+
+	static $map_equip = array(
+		"weapon" => true,
+		"shield" => true,
+		"armor" => true,
+		"item" => true,
+		);
+
 	function __construct($file = false)
 	{
 		if (!$file) return 0;
@@ -63,13 +77,13 @@ class HOF_Class_Char extends char
 
 		if (isset($this->file_name))
 		{
-			$file = $dir . "/" . $this->file_name.$this->file_ext;
+			$file = $dir . "/" . $this->file_name . $this->file_ext;
 		}
 		elseif (isset($this->file))
 		{
 			list($this->file_name, $this->file_ext) = HOF_Class_File::basename($this->file);
 
-			$file = $dir . "/" . $this->file_name.$this->file_ext;
+			$file = $dir . "/" . $this->file_name . $this->file_ext;
 		}
 		else
 		{
@@ -237,10 +251,194 @@ class HOF_Class_Char extends char
 				'judge' => $judge,
 				'quantity' => $quantity,
 				'action' => $action,
-			);
+				);
 		}
 
 		return true;
+	}
+
+	function &user()
+	{
+		$user = HOF_Class_User::getInstance($this->user);
+
+		return $user;
+	}
+
+	function unequip($spot)
+	{
+
+		if ($spot == 'all')
+		{
+			foreach (array_keys(self::$map_equip) as $k)
+			{
+				if ($item = $this->unequip($k))
+				{
+					$list[] = $item;
+				}
+			}
+
+			return (array)$list;
+		}
+
+		if (!in_array($spot, self::$map_equip))
+		{
+			return false;
+		}
+
+		if ($item = $this->{$spot})
+		{
+			$this->{$spot} = NULL;
+		}
+
+		return $item;
+	}
+
+	/**
+	 * アイテムを装備する(職が装備可能な物かどうかは調べない)
+	 */
+	function Equip($item)
+	{
+		/**
+		 * はずした装備
+		 */
+		$return = array();
+
+		$fail = false;
+
+		/**
+		 * 現在の装備を仮に保存しておく。
+		 */
+		$old = array();
+
+		foreach (array_keys(self::$map_equip) as $k)
+		{
+			$v = $this->map_equip_allow[$k];
+
+			if (!$v && $this->{$k})
+			{
+				$return[] = $this->unequip($k);
+			}
+			elseif ($v && $this->{$k})
+			{
+				$old[$k] = $this->{$k};
+			}
+		}
+
+		/**
+		 * 種類別
+		 */
+		switch ($item["type"])
+		{
+
+			case "Sword": //片手武器
+			case "Dagger":
+			case "Pike":
+			case "Hatchet":
+			case "Wand":
+			case "Mace":
+			case "TwoHandSword": //両手武器
+			case "Spear":
+			case "Axe":
+			case "Staff":
+			case "Bow":
+			case "CrossBow":
+			case "Whip":
+
+				$equip_type = 'weapon';
+
+
+				break;
+			case "Shield": //盾
+			case "MainGauche":
+			case "Book":
+				$equip_type = 'shield';
+
+
+				break;
+			case "Armor": //鎧
+			case "Cloth":
+			case "Robe":
+				$equip_type = 'armor';
+				break;
+			case "Item":
+				$equip_type = 'item';
+				break;
+			default:
+				$fail = true;
+				break;
+		}
+
+		if (!$fail && $equip_type && $this->map_equip_allow[$equip_type])
+		{
+			$return[] = $this->unequip($equip_type);
+
+			switch ($equip_type)
+			{
+				case 'weapon':
+
+					if ($item["dh"] && $this->shield)
+					{
+						/**
+						 * 両手持ちの武器の場合。
+						 * 盾を装備していたらはずす。
+						 */
+						$return[] = $this->unequip('shield');
+					}
+
+					break;
+
+				case 'shield':
+
+					if ($this->weapon)
+					{
+						//両手武器ならそれははずす
+						$weapon = HOF_Model_Data::newItem($this->weapon);
+
+						if ($weapon["dh"])
+						{
+							$return[] = $this->unequip('weapon');
+						}
+					}
+
+					break;
+			}
+
+			$this->{$equip_type} = $item["id"];
+		}
+		else
+		{
+			$fail = true;
+		}
+
+		if (!$fail)
+		{
+			$handle = 0;
+
+			foreach (array_keys(self::$map_equip) as $k)
+			{
+				$_item = HOF_Model_Data::newItem($this->{$k});
+
+				$handle += $_item->handle();
+			}
+
+			if ($this->GetHandle() < $handle)
+			{
+				$fail = true;
+
+				// handle over
+				foreach ($old as $key => $val)
+				{
+					// 元に戻す。
+					$this->{$key} = $val;
+				}
+
+				//return false;
+			}
+		}
+
+		$return = array_filter($return);
+
+		return array($fail, $return);
 	}
 
 }
