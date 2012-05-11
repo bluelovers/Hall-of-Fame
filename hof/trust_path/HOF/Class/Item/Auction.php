@@ -78,7 +78,7 @@ class HOF_Class_Item_Auction
 		if ($type == "item")
 		{
 			$this->AuctionType = "item";
-			$this->ItemArticleRead();
+			$this->fpread();
 			// キャラオークション
 		}
 		elseif ($type == "char")
@@ -89,11 +89,16 @@ class HOF_Class_Item_Auction
 		$this->log = new HOF_Class_Item_Auction_Log(&$this);
 	}
 
+	function __destruct()
+	{
+		$this->fpclose();
+	}
+
 	/**
 	 * アイテムオークション用のファイルを開いて
 	 * データを取り出し,格納
 	 */
-	function ItemArticleRead()
+	function fpread()
 	{
 		// ファイルがある場合
 		if (file_exists(AUCTION_ITEM))
@@ -141,15 +146,21 @@ class HOF_Class_Item_Auction
 		}
 	}
 
+	function fpclose()
+	{
+		@fclose($this->fp);
+		unset($this->fp);
+	}
+
 	/**
 	 * オークションのデータを保存する
 	 */
-	function ItemSaveData()
+	function fpsave()
 	{
 		if (!$this->DataChange)
 		{
-			fclose($this->fp);
-			unset($this->fp);
+			$this->fpclose();
+
 			return false;
 		}
 
@@ -173,8 +184,8 @@ class HOF_Class_Item_Auction
 		if (file_exists(AUCTION_ITEM) && $this->fp)
 		{
 			HOF_Class_File::WriteFileFP($this->fp, $string, true);
-			fclose($this->fp);
-			unset($this->fp);
+
+			$this->fpclose();
 		}
 		else
 		{
