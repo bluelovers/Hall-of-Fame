@@ -218,20 +218,6 @@ class HOF_Class_Item extends HOF_Class_Array
 		return $val;
 	}
 
-	function id()
-	{
-		$id = $this->id;
-
-		return $id;
-	}
-
-	function type()
-	{
-		$ret = $this->type;
-
-		return $ret;
-	}
-
 	function handle()
 	{
 		$ret = max(1, $this->handle);
