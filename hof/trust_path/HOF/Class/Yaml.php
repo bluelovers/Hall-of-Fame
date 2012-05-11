@@ -20,10 +20,14 @@ class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 		{
 			if (is_resource($file))
 			{
-				$file = stream_get_contents($file);
+				$data = stream_get_contents($file);
+			}
+			else
+			{
+				$data = $file;
 			}
 
-			$yaml = self::parse($file);
+			$yaml = self::parse($data);
 
 			if (self::$auto_addslashes)
 			{
