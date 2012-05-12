@@ -33,7 +33,7 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 	{
 		parent::_main_after();
 
-		$this->user->fpCloseAll();
+		$this->user->fpclose_all();
 	}
 
 	function _input()
