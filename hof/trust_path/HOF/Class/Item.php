@@ -233,9 +233,16 @@ class HOF_Class_Item extends HOF_Class_Array
 
 	function __call($func, $args)
 	{
-		$val = $this->$func;
+		if (property_exists($this, $func) || isset($this[$func]))
+		{
+			$val = $this->$func;
 
-		return $val;
+			return $val;
+		}
+		else
+		{
+			throw new BadMethodCallException('Call to undefined method '.get_class($this).'::'.$func.'()');
+		}
 	}
 
 	function handle()
