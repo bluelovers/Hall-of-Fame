@@ -95,7 +95,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		$this->output->logs = $logs;
 
-		$this->user->fpCloseAll();
+		$this->user->fpclose_all();
 	}
 
 	/**
@@ -143,7 +143,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		$this->output->monster_battle = $this->_cache['MonsterBattle'];
 
-		$this->user->fpCloseAll();
+		$this->user->fpclose_all();
 	}
 
 	function _main_action_simulate()
@@ -202,7 +202,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			}
 		}
 
-		$this->user->fpCloseAll();
+		$this->user->fpclose_all();
 	}
 
 	//	Unionモンスターの処理
@@ -298,7 +298,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			$this->user->SaveData();
 		}
 
-		$this->user->fpCloseAll();
+		$this->user->fpclose_all();
 	}
 
 	function SimuBattleProcess()
