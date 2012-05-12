@@ -10,11 +10,11 @@ class HOF_Class_File
 
 	static $data = array();
 
-	public static function fpCloseAll()
+	public static function fpclose_all()
 	{
-		foreach ((array)self::$data as $file => $data)
+		foreach ((array )self::$data as $file => $data)
 		{
-			self::fileClose($data['fp']);
+			self::fpclose($data['fp']);
 		}
 	}
 
@@ -39,17 +39,9 @@ class HOF_Class_File
 
 	function _get_cache_fp($file, $lock = null)
 	{
-		if (isset(self::$data[$file]))
+		if (isset(self::$data[$file]) && is_resource(self::$data[$file]['fp']) && (!$lock || ($lock && self::$data[$file]['lock'])))
 		{
-			$cache = self::$data[$file];
-
-			if (
-				is_resource($cache['fp'])
-				&& (!$lock || ($lock && $cache['lock']))
-			)
-			{
-				return self::$data[$file]['fp'];
-			}
+			return self::$data[$file]['fp'];
 		}
 
 		return false;
@@ -58,11 +50,14 @@ class HOF_Class_File
 	/**
 	 * ファイルロックしたファイルポインタを返す。
 	 */
-	function FileLock($file, $noExit = false, $autocreate = false)
+	function fplock_file($file, $noExit = false, $autocreate = false)
 	{
 		if (!$autocreate && !file_exists($file))
 		{
-			throw new RuntimeException('File Not Exists');
+			if (!$noExit)
+			{
+				throw new RuntimeException('File Not Exists');
+			}
 
 			return false;
 		}
@@ -71,15 +66,27 @@ class HOF_Class_File
 		{
 			return $fp;
 		}
+		elseif (!$fp = self::_get_cache_fp($file))
+		{
+			$fp = @fopen($file, ($autocreate && !file_exists($file)) ? 'w+' : 'r+');
+		}
 
-		$fp = @fopen($file, ($autocreate && !file_exists($file)) ? 'w+' : "r+") or die("Error!");
-		if (!$fp) return false;
+		return self::fplock($fp);
+	}
 
-		self::$data[$file] = array(
-			'fp' => $fp,
-			'file' => $file,
-		);
+	function fplock($fp, $noExit = false)
+	{
+		if (!$fp || !is_resource($fp))
+		{
+			throw new RuntimeException('File Open Error!!');
 
+			die("Error!");
+
+			return false;
+		}
+
+		self::$data[$file]['fp'] = &$fp;
+		self::$data[$file]['file'] = $file;
 		self::$data[$file]['lock'] = 0;
 
 		$i = 0;
@@ -111,6 +118,18 @@ class HOF_Class_File
 		else
 		{
 			ob_clean();
+
+			if (!is_resource($file))
+			{
+				$_file = basename($file);
+			}
+			else
+			{
+				$_file = $file;
+			}
+
+			throw new RuntimeException("file lock error. {$_file}");
+
 			exit("file lock error. $file");
 		}
 		//flock($fp, LOCK_EX);//排他
@@ -123,7 +142,7 @@ class HOF_Class_File
 	/**
 	 * ファイルに書き込む(引数:ファイルポインタ)
 	 */
-	function WriteFileFP($fp, $text, $check = false)
+	function fpwrite_file($fp, $text, $check = false)
 	{
 		if (!$check && !trim($text))
 		{
@@ -225,7 +244,7 @@ class HOF_Class_File
 		return false;
 	}
 
-	function fileClose($fp)
+	function fpclose($fp)
 	{
 		$data = self::_findFp($fp);
 		unset($data);
