@@ -37,7 +37,7 @@ class HOF_Class_Char extends char
 		$this->Number = $this->file_name;
 
 		$this->file = $file;
-		$this->fp = HOF_Class_File::FileLock($file);
+		$this->fp = HOF_Class_File::fplock_file($file);
 
 		if (0 && $this->file_ext == '.dat')
 		{
@@ -95,7 +95,7 @@ class HOF_Class_Char extends char
 		if (file_exists($file) && $this->fp)
 		{
 			//sleep(10);//ファイルロック確認用
-			HOF_Class_File::WriteFileFP($this->fp, $this->DataSavingFormat());
+			HOF_Class_File::fpwrite_file($this->fp, $this->DataSavingFormat());
 			$this->fpclose();
 		}
 		else
@@ -231,7 +231,7 @@ class HOF_Class_Char extends char
 	 */
 	function fpclose()
 	{
-		HOF_Class_File::fileClose($this->fp);
+		HOF_Class_File::fpclose($this->fp);
 
 		unset($this->fp);
 	}
