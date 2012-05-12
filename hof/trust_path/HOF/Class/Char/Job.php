@@ -63,10 +63,15 @@ class HOF_Class_Char_Job
 		{
 			if (!$this->char->job)
 			{
-				throw new RuntimeException("Can't find Chat Job.");
+				throw new RuntimeException("Job Null.");
 			}
 
 			$this->jobdata = HOF_Model_Data::getJobData($this->char->job);
+
+			if (empty($this->jobdata))
+			{
+				throw new RuntimeException("Undefined Job {$this->char->job}.");
+			}
 
 			$this->char->job_name = ($this->char->gender ? $this->jobdata['name_female'] : $this->jobdata['name_male']);
 
