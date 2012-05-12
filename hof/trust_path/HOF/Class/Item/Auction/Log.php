@@ -35,7 +35,7 @@ class HOF_Class_Item_Auction_Log
 
 		if ($this->AuctionType == "item")
 		{
-			$this->fp = HOF_Class_File::FileLock($this->file, 0, true);
+			$this->fp = HOF_Class_File::fplock_file($this->file, 0, true);
 
 			while (!feof($this->fp))
 			{
@@ -66,7 +66,7 @@ class HOF_Class_Item_Auction_Log
 				$string .= $log . "\n";
 			}
 
-			HOF_Class_File::WriteFileFP($this->fp, $string);
+			HOF_Class_File::fpwrite_file($this->fp, $string);
 		}
 	}
 
