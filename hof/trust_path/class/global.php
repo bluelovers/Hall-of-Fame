@@ -43,7 +43,7 @@ function DeleteAbandonAccount()
 		// 消されないユーザー
 		else
 		{
-			$user->fpCloseAll();
+			$user->fpclose_all();
 			unset($user);
 		}
 	}
@@ -68,7 +68,7 @@ function RegularControl($value = null)
 
 	$now = time();
 
-	$fp = HOF_Class_File::FileLock(CTRL_TIME_FILE, true);
+	$fp = HOF_Class_File::fplock_file(CTRL_TIME_FILE, true);
 	if (!$fp) return false;
 	//$ctrltime	= file_get_contents(CTRL_TIME_FILE);
 	$ctrltime = trim(fgets($fp, 1024));
@@ -86,7 +86,7 @@ function RegularControl($value = null)
 	DeleteAbandonAccount(); //その1 放棄ユーザの掃除
 
 	// 定期管理が終わったら次の管理時刻を書き込んで終了する。
-	HOF_Class_File::WriteFileFP($fp, $now + CONTROL_PERIOD);
+	HOF_Class_File::fpwrite_file($fp, $now + CONTROL_PERIOD);
 	fclose($fp);
 	unset($fp);
 }
