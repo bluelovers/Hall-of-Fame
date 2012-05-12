@@ -37,14 +37,57 @@ class HOF_Class_File
 		return array($name, $ext);
 	}
 
-	function _get_cache_fp($file, $lock = null)
+	function fpopen($file, $mode = 'r+')
 	{
-		if (isset(self::$data[$file]) && is_resource(self::$data[$file]['fp']) && (!$lock || ($lock && self::$data[$file]['lock'])))
+		$fp = fopen($file, $mode);
+
+		$data['fp'] = $fp;
+		$data['file'] = $file;
+		$data['lock'] = 0;
+
+		self::$data[] = $data;
+
+		return $fp;
+	}
+
+	function &_get_cache_by_file($file, $lock = null)
+	{
+		foreach (self::$data as &$data)
 		{
-			return self::$data[$file]['fp'];
+			if ($data['file'] == $file && (!$lock || $lock && $data['lock'] > 0))
+			{
+				if (is_resource($data['fp']))
+				{
+					return $data;
+				}
+				else
+				{
+					unset($data);
+				}
+			}
 		}
 
-		return false;
+		return null;
+	}
+
+	function &_get_cache_by_fp($fp, $lock = null)
+	{
+		foreach (self::$data as &$data)
+		{
+			if ($data['fp'] == $fp && is_resource($data['fp']) && (!$lock || $lock && $data['lock'] > 0))
+			{
+				if (is_resource($data['fp']))
+				{
+					return $data;
+				}
+				else
+				{
+					unset($data);
+				}
+			}
+		}
+
+		return null;
 	}
 
 	/**
@@ -62,13 +105,16 @@ class HOF_Class_File
 			return false;
 		}
 
-		if ($fp = self::_get_cache_fp($file, 1))
+		if ($data = self::_get_cache_by_file($file))
 		{
-			return $fp;
+			if ($data['lock'] > 0)
+			{
+				return $data['fp'];
+			}
 		}
-		elseif (!$fp = self::_get_cache_fp($file))
+		else
 		{
-			$fp = @fopen($file, ($autocreate && !file_exists($file)) ? 'w+' : 'r+');
+			$fp = self::fpopen($file, ($autocreate && !file_exists($file)) ? 'w+' : 'r+');
 		}
 
 		return self::fplock($fp);
@@ -85,16 +131,28 @@ class HOF_Class_File
 			return false;
 		}
 
-		self::$data[$file]['fp'] = &$fp;
-		self::$data[$file]['file'] = $file;
-		self::$data[$file]['lock'] = 0;
+		if ($data = self::_get_cache_by_fp($fp))
+		{
+			if ($data['lock'] > 0) return $fp;
+
+			$_data = &$data;
+		}
+		else
+		{
+			$_data = array();
+
+			self::$data[] = &$_data;
+		}
+
+		$_data['fp'] = $fp;
+		$_data['lock'] = 0;
 
 		$i = 0;
 		do
 		{
 			if (flock($fp, LOCK_EX | LOCK_NB))
 			{
-				self::$data[$file]['lock'] = 1;
+				$data['lock'] = 1;
 
 				stream_set_write_buffer($fp, 0);
 				return $fp;
@@ -106,9 +164,9 @@ class HOF_Class_File
 			}
 		} while ($i < 5);
 
-		if (!self::$data[$file]['lock'])
+		if (!$_data['lock'])
 		{
-			self::$data[$file]['lock'] = -1;
+			$_data['lock'] = -1;
 		}
 
 		if ($noExit)
@@ -119,13 +177,13 @@ class HOF_Class_File
 		{
 			ob_clean();
 
-			if (!is_resource($file))
+			if ($_data['file'])
 			{
-				$_file = basename($file);
+				$_file = basename($data['file']);
 			}
 			else
 			{
-				$_file = $file;
+				$_file = $fp;
 			}
 
 			throw new RuntimeException("file lock error. {$_file}");
@@ -231,22 +289,9 @@ class HOF_Class_File
 		else  return false;
 	}
 
-	function &_findFp($fp)
-	{
-		foreach (self::$data as &$data)
-		{
-			if ($data['fp'] == $fp)
-			{
-				return $data;
-			}
-		}
-
-		return false;
-	}
-
 	function fpclose($fp)
 	{
-		$data = self::_findFp($fp);
+		$data = self::_get_cache_by_fp($fp);
 		unset($data);
 
 		if (is_resource($fp))
