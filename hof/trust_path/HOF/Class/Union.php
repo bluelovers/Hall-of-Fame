@@ -17,7 +17,7 @@ class HOF_Class_Union extends union
 		list($this->file_name, $this->file_ext) = HOF_Class_File::basename($file);
 
 		$this->file = $file;
-		$this->fp = HOF_Class_File::FileLock($this->file);
+		$this->fp = HOF_Class_File::fplock_file($this->file);
 
 		$this->UnionNo = substr(basename($file), 0, 4);
 
@@ -74,7 +74,7 @@ class HOF_Class_Union extends union
 			$text = HOF_Class_Yaml::dump($data);
 		}
 
-		HOF_Class_File::WriteFileFP($this->fp, $text);
+		HOF_Class_File::fpwrite_file($this->fp, $text);
 		fclose($this->fp);
 		unset($this->fp);
 	}
