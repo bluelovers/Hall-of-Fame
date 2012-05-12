@@ -42,7 +42,7 @@ class HOF_Class_Icon
 		self::IMG_LAND,
 		);
 
-	function getRandNo($dir, $default = NO_IMAGE)
+	static function getRandNo($dir, $default = NO_IMAGE)
 	{
 		$_dir = BASE_PATH . $dir;
 
@@ -73,7 +73,7 @@ class HOF_Class_Icon
 	/**
 	 * @example HOF_Class_Icon::getImageUrl('ori_003', IMG_CHAR)
 	 */
-	function getImageUrl($no, $dir, $return_true = false)
+	static function getImageUrl($no, $dir, $return_true = false)
 	{
 		$file = self::getImage($no, $dir, $return_true);
 
@@ -83,7 +83,7 @@ class HOF_Class_Icon
 	/**
 	 * @example HOF_Class_Icon::getImage('ori_003', IMG_CHAR)
 	 */
-	function getImage($no, $dir, $return_true = false)
+	static function getImage($no, $dir, $return_true = false)
 	{
 		$dir = rtrim($dir, '/') . '/';
 
@@ -111,6 +111,7 @@ class HOF_Class_Icon
 			foreach (self::$map_imgtype as $ext)
 			{
 				$_file = $_dir . $pre . $no . '.' . $ext;
+
 				if (file_exists($_file))
 				{
 					$_file = $dir . $pre . $no . '.' . $ext;
