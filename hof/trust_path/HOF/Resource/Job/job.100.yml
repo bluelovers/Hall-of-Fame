@@ -2,7 +2,7 @@ no: '100'
 name_male: Warrior
 name_female: Warrior
 img_male: mon_079
-img_female: mon_080r
+img_female: eiyusenki_080
 equip:
     - Sword
     - TwoHandSword
