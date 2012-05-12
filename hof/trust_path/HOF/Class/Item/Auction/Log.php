@@ -8,14 +8,22 @@
 class HOF_Class_Item_Auction_Log
 {
 
-	public $AuctionLog;
-	public $AuctionType;
+	protected $AuctionLog;
+	protected $AuctionType;
+
+	protected $fp;
+	protected $file = AUCTION_ITEM_LOG;
 
 	function __construct(&$parent)
 	{
 		$this->parent = &$parent;
 
 		$this->AuctionType = &$parent->AuctionType;
+	}
+
+	function __destruct()
+	{
+		$this->close();
 	}
 
 	/**
@@ -27,20 +35,11 @@ class HOF_Class_Item_Auction_Log
 
 		if ($this->AuctionType == "item")
 		{
-			if (!file_exists(AUCTION_ITEM_LOG))
+			$this->fp = HOF_Class_File::FileLock($this->file, 0, true);
+
+			while (!feof($this->fp))
 			{
-				return false;
-			}
-
-			$fp = fopen(AUCTION_ITEM_LOG, "r+");
-
-			if (!$fp) return false;
-
-			flock($fp, LOCK_EX);
-
-			while (!feof($fp))
-			{
-				$str = trim(fgets($fp));
+				$str = trim(fgets($this->fp));
 				if (!$str) continue;
 				$this->AuctionLog[] = $str;
 			}
@@ -54,18 +53,27 @@ class HOF_Class_Item_Auction_Log
 	{
 		if ($parent->AuctionType == "item")
 		{
-			if (!$this->AuctionLog) return false;
+			if (!empty($this->AuctionLog)) return false;
+
 			// 30行以下に収める
 			while (100 < count($this->AuctionLog))
 			{
 				array_pop($this->AuctionLog);
 			}
+
 			foreach ($this->AuctionLog as $log)
 			{
 				$string .= $log . "\n";
 			}
-			HOF_Class_File::WriteFile(AUCTION_ITEM_LOG, $string);
+
+			HOF_Class_File::WriteFileFP($this->fp, $string);
 		}
+	}
+
+	function close()
+	{
+		@fclose($this->fp);
+		unset($this->fp);
 	}
 
 	function get()
