@@ -65,6 +65,10 @@ class HOF_Class_Item_Auction
 
 	var $file = AUCTION_ITEM;
 
+	static $options = array(
+		'ip_check' => false,
+	);
+
 	/**
 	 * 経過ログ
 	 * @var HOF_Class_Item_Auction_Log
@@ -300,7 +304,7 @@ class HOF_Class_Item_Auction
 		$BottomPrice = $this->BottomPrice($this->Article["$ArticleNo"]["price"]);
 
 		// IPが同じ
-		if ($Article["IP"] == $_SERVER[REMOTE_ADDR])
+		if (self::$options['ip_check'] && $Article["IP"] == HOF::ip())
 		{
 			HOF_Helper_Global::ShowError("IP制限.");
 			return false;
@@ -723,7 +727,7 @@ class HOF_Class_Item_Auction
 			// コメント
 			"comment" => $comment,
 			// IP
-			"IP" => $_SERVER[REMOTE_ADDR],
+			"IP" => HOF::ip(),
 			);
 		array_unshift($this->Article, $New);
 		$itemData = HOF_Model_Data::getItemData($item);
