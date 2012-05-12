@@ -470,7 +470,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 				if (RECORD_IP)
 				{
-					$this->user->SetIp($_SERVER['REMOTE_ADDR']);
+					$this->user->SetIp(HOF::ip());
 				}
 
 				$this->user->RenewLoginTime();
