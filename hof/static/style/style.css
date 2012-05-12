@@ -257,12 +257,12 @@ select {
 	background-repeat : no-repeat;
 }
 
-.g_item
+.g_item, .g_skill
 {
 	display: inline-block;
 }
 
-.g_item .g_name
+.g_item .g_name, .g_skill .g_name
 {
 	text-shadow: 0 0 0.2em #8F7;
 }
