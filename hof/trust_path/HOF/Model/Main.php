@@ -26,13 +26,13 @@ class HOF_Model_Main extends HOF_Class_Array
 
 	function __destruct()
 	{
-		HOF::user()->fpCloseAll();
-		HOF_Class_File::fpCloseAll();
+		HOF::user()->fpclose_all();
+		HOF_Class_File::fpclose_all();
 	}
 
-	function fpCloseAll()
+	function fpclose_all()
 	{
-		parent::fpCloseAll();
+		parent::fpclose_all();
 	}
 
 	function __construct()
