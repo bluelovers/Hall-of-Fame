@@ -143,7 +143,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 
 		if (0 && !file_exists($this->file) && file_exists($path))
 		{
-			$this->fp = HOF_Class_File::FileLock($path);
+			$this->fp = HOF_Class_File::fplock_file($path);
 
 			$fp = fopen($this->file, "w+");
 
@@ -327,7 +327,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 			}
 		}
 
-		HOF_Class_File::WriteFileFP($this->fp, $ranking);
+		HOF_Class_File::fpwrite_file($this->fp, $ranking);
 	}
 
 	function _fpinit()
