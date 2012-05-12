@@ -51,7 +51,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 	{
 		if ($this->SmithyCreateProcess()) $this->user->SaveData();
 
-		$this->user->fpCloseAll();
+		$this->user->fpclose_all();
 		$this->SmithyCreateShow();
 	}
 
@@ -65,7 +65,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 	{
 		if ($this->SmithyRefineProcess()) $this->user->SaveData();
 
-		$this->user->fpCloseAll();
+		$this->user->fpclose_all();
 		$result = $this->SmithyRefineShow();
 	}
 
