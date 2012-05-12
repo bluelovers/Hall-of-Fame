@@ -42,7 +42,7 @@ class HOF_Class_Array extends ArrayObject
 
 	static $ARRAYOBJECT = 'HOF_Class_Array';
 
-	function __construct($input = null, $deep = 0)
+	function __construct($input = null, $deep = 0, $loop = 0)
 	{
 		if ($input === null) $input = (isset($this->_data_default_) && !empty($this->_data_default_)) ? $this->_data_default_ : array();
 
@@ -50,6 +50,8 @@ class HOF_Class_Array extends ArrayObject
 
 		$this->setFlags(self::ARRAY_PROP_BOTH);
 		$this->exchangeArray($input);
+
+		$this->_toArrayObjectRecursive(&$this, $loop);
 	}
 
 	function exchangeArray($input)
@@ -87,7 +89,7 @@ class HOF_Class_Array extends ArrayObject
 	{
 		if (!$ARRAYOBJECT) $ARRAYOBJECT = self::$ARRAYOBJECT;
 
-		if (!($append instanceof $ARRAYOBJECT))
+		if (is_array($append) && !($append instanceof $ARRAYOBJECT))
 		{
 			$append = new $ARRAYOBJECT($append);
 		}
