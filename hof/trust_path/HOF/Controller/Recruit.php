@@ -53,7 +53,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 	{
 		if ($this->RecruitProcess()) $this->user->SaveData();
 
-		$this->user->fpCloseAll();
+		$this->user->fpclose_all();
 		$this->RecruitShow();
 	}
 
