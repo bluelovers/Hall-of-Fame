@@ -575,6 +575,23 @@ class HOF_Class_Char extends char
 	/**
 	 * IMGタグで画像を表示するのみ
 	 */
+	function ShowImage($class = false, $dir = HOF_Class_Icon::IMG_CHAR)
+	{
+		$url = $this->GetImageURL($dir);
+
+		$add = '';
+		if ($class) $add .= ' class="' . $class . '"';
+
+		$add .= ' title="' . HOF_Class_Icon::getImage($this->img, $dir, true) . '"';
+
+		$html = '<img src="' . $url . '" '.$add.'>';
+
+		echo $html;
+	}
+
+	/**
+	 * IMGタグで画像を表示するのみ
+	 */
 	function GetImageURL($dir = HOF_Class_Icon::IMG_CHAR)
 	{
 		/*
@@ -598,16 +615,6 @@ class HOF_Class_Char extends char
 		$ret = HOF_Class_Icon::getImageUrl($this->img, $dir);
 
 		return $ret;
-	}
-
-	/**
-	 * IMGタグで画像を表示するのみ
-	 */
-	function ShowImage($class = false)
-	{
-		$url = $this->GetImageURL(HOF_Class_Icon::IMG_CHAR);
-		if ($class) print ('<img src="' . $url . '" class="' . $class . '">');
-		else  print ('<img src="' . $url . '">');
 	}
 
 }
