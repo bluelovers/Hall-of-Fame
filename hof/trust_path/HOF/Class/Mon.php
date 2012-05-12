@@ -10,5 +10,4 @@ include_once (CLASS_MONSTER);
 class HOF_Class_Mon extends monster
 {
 
-
 }
