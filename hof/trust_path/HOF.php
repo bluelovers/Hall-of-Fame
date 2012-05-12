@@ -142,4 +142,32 @@ class HOF
 		return $user;
 	}
 
+	public static function ip($ipv6 = false, $allow_private = true)
+	{
+		$keys = array('HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR');
+
+		$flags = FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE;
+
+		if ($allow_private === true)
+		{
+			$flags = FILTER_FLAG_NO_RES_RANGE;
+		}
+
+		if (!$ipv6)
+		{
+			$flags = $flags | FILTER_FLAG_IPV4;
+		}
+
+		foreach ($keys as $k)
+		{
+			if (filter_var($_SERVER[$k], FILTER_VALIDATE_IP, $flags))
+			{
+				$ip = $_SERVER[$k];
+				break;
+			}
+		}
+
+		return $ip;
+	}
+
 }
