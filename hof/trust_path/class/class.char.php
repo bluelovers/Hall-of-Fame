@@ -1238,27 +1238,6 @@ Lv.<?=
 	}
 
 	//////////////////////////////////////////////////
-	//
-	//////////////////////////////////////////////////
-	//	HPとSPを計算して設定する
-	function SetHpSp() // $coe=array(HP,SP係数);
-	{
-		$MaxStatus = MAX_STATUS; //最高ステータス(じゃなくてもいいです)
-
-		$jobdata = HOF_Model_Data::getJobData($this->job); // 2回読み込んでるから直すべき
-		$coe = $jobdata["coe"];
-
-		$div = $MaxStatus * $MaxStatus;
-		$RevStr = $MaxStatus - $this->str;
-		$RevInt = $MaxStatus - $this->int;
-
-		$this->maxhp = 100 * $coe[0] * (1 + ($this->level - 1) / 49) * (1 + ($div - $RevStr * $RevStr) / $div);
-		$this->maxsp = 100 * $coe[1] * (1 + ($this->level - 1) / 49) * (1 + ($div - $RevInt * $RevInt) / $div);
-
-		$this->maxhp = round($this->maxhp);
-		$this->maxsp = round($this->maxsp);
-	}
-	//////////////////////////////////////////////////
 	//	handle計算
 	function GetHandle()
 	{
@@ -1341,17 +1320,6 @@ Lv.<?=
 		else
 		{
 			return false;
-		}
-	}
-	//////////////////////////////////////////////////
-	//
-	function SetJobData()
-	{
-		if ($this->job)
-		{
-			$jobdata = HOF_Model_Data::getJobData($this->job);
-			$this->job_name = ($this->gender ? $jobdata["name_female"] : $jobdata["name_male"]);
-			$this->img = ($this->gender ? $jobdata["img_female"] : $jobdata["img_male"]);
 		}
 	}
 
