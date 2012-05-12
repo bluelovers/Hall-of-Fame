@@ -88,7 +88,7 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 			$this->_RankShow();
 		}
 
-		$this->user->fpCloseAll();
+		$this->user->fpclose_all();
 	}
 
 	function _error($s, $a = null)
