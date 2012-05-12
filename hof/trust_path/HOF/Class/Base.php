@@ -42,7 +42,7 @@ class HOF_Class_Base extends HOF_Class_Array
 			$args = func_get_args();
 			$ret = call_user_func_array(array($this, '_'.__FUNCTION__), $args);
 
-			$this->fp = HOF_Class_File::FileLock($this->_fpname(), false, $autocreate);
+			$this->fp = HOF_Class_File::fplock_file($this->_fpname(), false, $autocreate);
 		}
 
 		return $ret !== null ? $ret : $this->fp;
