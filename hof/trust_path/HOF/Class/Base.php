@@ -19,7 +19,7 @@ class HOF_Class_Base extends HOF_Class_Array
 
 		parent::__construct((array)$data);
 
-		if (!$this->_init())
+		if (!$this->_fpinit())
 		{
 			return false;
 		}
@@ -35,14 +35,14 @@ class HOF_Class_Base extends HOF_Class_Array
 		$this->fpclose();
 	}
 
-	function fpopen($over = null)
+	function fpopen($over = null, $autocreate = false)
 	{
 		if (!$this->fp || $over)
 		{
 			$args = func_get_args();
 			$ret = call_user_func_array(array($this, '_'.__FUNCTION__), $args);
 
-			$this->fp = HOF_Class_File::FileLock($this->_fpname());
+			$this->fp = HOF_Class_File::FileLock($this->_fpname(), false, $autocreate);
 		}
 
 		return $ret !== null ? $ret : $this->fp;
