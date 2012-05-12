@@ -163,7 +163,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 	function _main_after()
 	{
-		$this->user->fpCloseAll();
+		$this->user->fpclose_all();
 
 		parent::_main_after();
 	}
