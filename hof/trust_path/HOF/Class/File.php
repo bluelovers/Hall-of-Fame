@@ -18,7 +18,7 @@ class HOF_Class_File
 		}
 	}
 
-	function basename($file)
+	static function basename($file)
 	{
 		$file = basename($file);
 
