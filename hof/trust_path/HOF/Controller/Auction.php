@@ -94,7 +94,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		// 出品リストを表示する
 		if ($this->input->ExhibitItemForm)
 		{
-			$this->user->fpCloseAll();
+			$this->user->fpclose_all();
 			$this->AuctionItemExhibitForm();
 
 			// 出品か入札に成功した場合はデータを保存する
@@ -109,14 +109,14 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 					$this->user->SaveData();
 				}
 
-				$this->user->fpCloseAll();
+				$this->user->fpclose_all();
 				$this->AuctionItemBiddingForm();
 
 				// それ以外
 			}
 			else
 			{
-				$this->user->fpCloseAll();
+				$this->user->fpclose_all();
 				$this->AuctionItemExhibitForm();
 			}
 		}
