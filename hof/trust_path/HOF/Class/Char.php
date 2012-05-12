@@ -29,6 +29,8 @@ class HOF_Class_Char extends char
 
 	function __construct($file = false)
 	{
+		$this->jobdata = new HOF_Class_Char_Job(&$this);
+
 		if (!$file) return 0;
 
 		list($this->file_name, $this->file_ext) = HOF_Class_File::basename($file);
@@ -171,6 +173,19 @@ class HOF_Class_Char extends char
 		}
 
 		return $text;
+	}
+
+	function SetJobData()
+	{
+		$this->jobdata->_jobdata();
+	}
+
+	/**
+	 * HPとSPを計算して設定する
+	 */
+	function SetHpSp()
+	{
+		$this->jobdata->hpsp();
 	}
 
 	/**
