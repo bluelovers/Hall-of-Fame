@@ -106,7 +106,7 @@ class HOF_Class_Item_Auction
 		if (file_exists($this->file))
 		{
 			//$fp	= fopen($this->file,"r+");
-			$this->fp = HOF_Class_File::FileLock($this->file);
+			$this->fp = HOF_Class_File::FileLock($this->file, 0, 1);
 			if (!$this->fp) return false;
 			//flock($fp, LOCK_EX);
 
