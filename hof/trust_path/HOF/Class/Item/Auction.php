@@ -106,7 +106,7 @@ class HOF_Class_Item_Auction
 		if (file_exists($this->file))
 		{
 			//$fp	= fopen($this->file,"r+");
-			$this->fp = HOF_Class_File::FileLock($this->file, 0, 1);
+			$this->fp = HOF_Class_File::fplock_file($this->file, 0, 1);
 			if (!$this->fp) return false;
 			//flock($fp, LOCK_EX);
 
@@ -185,7 +185,7 @@ class HOF_Class_Item_Auction
 		//print($string);
 		if (file_exists($this->file) && $this->fp)
 		{
-			HOF_Class_File::WriteFileFP($this->fp, $string, true);
+			HOF_Class_File::fpwrite_file($this->fp, $string, true);
 
 			$this->fpclose();
 		}
@@ -562,7 +562,7 @@ class HOF_Class_Item_Auction
 				}
 			}
 			// ユーザが開いた全てのファイルのファイルポインタを閉じる
-			$this->TempUser["$user"]["user"]->fpCloseAll();
+			$this->TempUser["$user"]["user"]->fpclose_all();
 		}
 		unset($this->TempUser);
 	}
