@@ -58,7 +58,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 		if ($this->action != 'first_login' && $this->action != 'check_login')
 		{
-			$this->user->fpCloseAll();
+			$this->user->fpclose_all();
 		}
 	}
 
@@ -78,7 +78,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		}
 		else
 		{
-			$this->user->fpCloseAll();
+			$this->user->fpclose_all();
 		}
 
 
@@ -92,7 +92,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		}
 		else
 		{
-			$this->user->fpCloseAll();
+			$this->user->fpclose_all();
 			$this->_main_exec('login', $message);
 		}
 	}
@@ -518,7 +518,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 		if ($this->SettingProcess()) $this->user->SaveData();
 
-		$this->user->fpCloseAll();
+		$this->user->fpclose_all();
 
 		if ($this->user->record_btl_log)
 		{
