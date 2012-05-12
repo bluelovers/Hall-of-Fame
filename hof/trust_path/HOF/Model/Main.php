@@ -51,7 +51,7 @@ class HOF_Model_Main extends HOF_Class_Array
 
 		HOF::getInstance();
 
-		$this->ip = $_SERVER['REMOTE_ADDR'];
+		$this->ip = HOF::ip();
 
 		$this->user = &HOF::user();
 
