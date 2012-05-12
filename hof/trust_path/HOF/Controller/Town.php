@@ -23,7 +23,7 @@ class HOF_Controller_Town extends HOF_Class_Controller
 		$this->_input();
 
 		$this->user->LoadUserItem();
-		$this->user->fpCloseAll();
+		$this->user->fpclose_all();
 	}
 
 	function _input()
