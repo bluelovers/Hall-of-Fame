@@ -99,9 +99,9 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 	function _ShowRanking()
 	{
-		include_once (CLASS_RANKING);
+		//include_once (CLASS_RANKING);
 
-		$Rank = new Ranking();
+		$Rank = new HOF_Class_Ranking();
 		$Rank->ShowRanking(0, 4);
 	}
 
