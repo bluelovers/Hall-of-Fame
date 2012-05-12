@@ -1006,10 +1006,23 @@ HTML;
 			print (($i + 1) . "</td><td>");
 			//----- JudgeSelect(判定の種類)
 			print ("<select name=\"judge" . $i . "\">\n");
+
+			$_init = 0;
+
 			foreach ($list as $val)
 			{ //判断のoption
 				$exp = HOF_Model_Data::getJudgeData($val);
-				print ("<option value=\"{$val}\"" . ($this->char->judge[$i] == $val ? " selected" : NULL) . ($exp["css"] ? ' class="select0"' : NULL) . ">" . ($exp["css"] ? '&nbsp;' : '&nbsp;&nbsp;&nbsp;') . "{$exp[exp]}</option>\n");
+
+				if ($exp["css"])
+				{
+					echo '<optgroup class="select0" label="';
+					echo $exp['exp'];
+					echo '"></optgroup>';
+				}
+				else
+				{
+					print ("<option value=\"{$val}\"" . ($this->char->judge[$i] == $val ? " selected" : NULL) . ($exp["css"] ? '' : NULL) . ">" . ($exp["css"] ? '&nbsp;' : '&nbsp;&nbsp;&nbsp;') . "{$exp[exp]}</option>\n");
+				}
 			}
 			print ("</select>\n");
 			print ("</td><td>\n");
