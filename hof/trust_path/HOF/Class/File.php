@@ -58,16 +58,21 @@ class HOF_Class_File
 	/**
 	 * ファイルロックしたファイルポインタを返す。
 	 */
-	function FileLock($file, $noExit = false)
+	function FileLock($file, $noExit = false, $autocreate = false)
 	{
-		if (!file_exists($file)) return false;
+		if (!$autocreate && !file_exists($file))
+		{
+			throw new RuntimeException('File Not Exists');
+
+			return false;
+		}
 
 		if ($fp = self::_get_cache_fp($file, 1))
 		{
 			return $fp;
 		}
 
-		$fp = @fopen($file, "r+") or die("Error!");
+		$fp = @fopen($file, ($autocreate && !file_exists($file)) ? 'w+' : "r+") or die("Error!");
 		if (!$fp) return false;
 
 		self::$data[$file] = array(
