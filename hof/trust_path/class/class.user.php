@@ -66,7 +66,7 @@ class user
 		if (file_exists($file))
 		{
 			$this->file = $file;
-			$this->fp = HOF_Class_File::FileLock($file, $noExit);
+			$this->fp = HOF_Class_File::fplock_file($file, $noExit);
 			if (!$this->fp) return false;
 			$data = HOF_Class_File::ParseFileFP($this->fp);
 			//$data	= HOF_Class_File::ParseFile($file);// (2007/7/30 追加)
@@ -374,7 +374,7 @@ class user
 
 		if (file_exists($file))
 		{
-			$this->fp_item = HOF_Class_File::FileLock($file);
+			$this->fp_item = HOF_Class_File::fplock_file($file);
 			$this->item = HOF_Class_File::ParseFileFP($this->fp_item);
 			if ($this->item === false) $this->item = array();
 		}
@@ -405,7 +405,7 @@ class user
 
 		if (file_exists($file) && $this->fp_item)
 		{
-			HOF_Class_File::WriteFileFP($this->fp_item, $text, 1); //$textが空でも保存する
+			HOF_Class_File::fpwrite_file($this->fp_item, $text, 1); //$textが空でも保存する
 			fclose($this->fp_item);
 			unset($this->fp_item);
 		}
@@ -463,12 +463,12 @@ class user
 			//$fp	= fopen($file,"w+");
 			//flock($fp,LOCK_EX);
 			//fputs($this->fp,$this->DataSavingFormat());
-			HOF_Class_File::WriteFileFP($this->fp, $this->DataSavingFormat());
+			HOF_Class_File::fpwrite_file($this->fp, $this->DataSavingFormat());
 			fclose($this->fp);
 			unset($this->fp);
 			//HOF_Class_File::WriteFile("./user/1234/data2.dat",$this->DataSavingFormat());
 			//HOF_Class_File::WriteFile($file,$this->DataSavingFormat());
-			//HOF_Class_File::WriteFileFP($this->fp,$this->DataSavingFormat());
+			//HOF_Class_File::fpwrite_file($this->fp,$this->DataSavingFormat());
 			//fclose($this->fp);
 		}
 		else
@@ -478,7 +478,7 @@ class user
 	}
 	/////////////////////////////////////////////////
 	//	データファイル兼キャラファイルのファイルポインタも全部閉じる
-	function fpCloseAll()
+	function fpclose_all()
 	{
 		// 基本データ
 		if (@is_resource($this->fp))
@@ -518,7 +518,7 @@ class user
 
 		$dir = USER . $this->id;
 		$files = glob("$dir/*");
-		$this->fpCloseAll();
+		$this->fpclose_all();
 		foreach ($files as $val) unlink($val);
 		rmdir($dir);
 	}
