@@ -1362,12 +1362,17 @@ HTML;
 
 			foreach ($CanChange as $job)
 			{
-				print ("<td valign=\"bottom\" style=\"padding:5px 30px;text-align:center\">");
-				$JOB = HOF_Model_Data::getJobData($job);
-				print ('<img src="' . IMG_CHAR . $JOB["img_" . ($this->char->gender ? "female" : "male")] . '">' . "<br />\n"); //画像
+				print ("<td valign=\"bottom\" style=\"padding:5px 30px;text-align:center\"><label>");
+
+				$newjob = new HOF_Class_Char_Job(array('job' => $job, 'gender' => $this->char->gender));
+
+				print ('<img src="' . $newjob->icon_url() . '">' . "<br />\n"); //画像
+
 				print ('<input type="radio" value="' . $job . '" name="job">' . "<br />\n");
-				print ($JOB["name_" . ($this->char->gender ? "female" : "male")]);
-				print ("</td>");
+
+				print ($newjob->job_name());
+
+				print ("</label></td>");
 			}
 
 
