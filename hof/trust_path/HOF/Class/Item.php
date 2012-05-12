@@ -5,7 +5,7 @@
  * @copyright 2012
  */
 
-class HOF_Class_Item extends HOF_Class_Array
+class HOF_Class_Item extends HOF_Class_Base_ObjectAttr
 {
 	public $id;
 
