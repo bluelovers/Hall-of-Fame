@@ -51,7 +51,7 @@ class HOF_Class_User extends user
 
 	function __destruct()
 	{
-		$this->fpCloseAll();
+		$this->fpclose_all();
 
 		self::$instance_user[$this->id] = null;
 	}
@@ -211,7 +211,7 @@ class HOF_Class_User extends user
 
 		if ($ok)
 		{
-			$this->fp_item = HOF_Class_File::FileLock($file);
+			$this->fp_item = HOF_Class_File::fplock_file($file);
 
 			if ($ext == '.dat')
 			{
@@ -270,7 +270,7 @@ class HOF_Class_User extends user
 
 		if (file_exists($file) && $this->fp_item)
 		{
-			HOF_Class_File::WriteFileFP($this->fp_item, $text, 1); //$textが空でも保存する
+			HOF_Class_File::fpwrite_file($this->fp_item, $text, 1); //$textが空でも保存する
 			fclose($this->fp_item);
 			unset($this->fp_item);
 		}
@@ -294,7 +294,7 @@ class HOF_Class_User extends user
 
 			list($this->file_name, $this->file_ext) = HOF_Class_File::basename($this->file);
 
-			$this->fp = HOF_Class_File::FileLock($file, $noExit);
+			$this->fp = HOF_Class_File::fplock_file($file, $noExit);
 			if (!$this->fp) return false;
 
 			if ($this->file_ext == '.dat')
@@ -341,12 +341,12 @@ class HOF_Class_User extends user
 			//$fp	= fopen($file,"w+");
 			//flock($fp,LOCK_EX);
 			//fputs($this->fp,$this->DataSavingFormat());
-			HOF_Class_File::WriteFileFP($this->fp, $this->DataSavingFormat());
+			HOF_Class_File::fpwrite_file($this->fp, $this->DataSavingFormat());
 			fclose($this->fp);
 			unset($this->fp);
 			//HOF_Class_File::WriteFile("./user/1234/data2.dat",$this->DataSavingFormat());
 			//HOF_Class_File::WriteFile($file,$this->DataSavingFormat());
-			//HOF_Class_File::WriteFileFP($this->fp,$this->DataSavingFormat());
+			//HOF_Class_File::fpwrite_file($this->fp,$this->DataSavingFormat());
 			//fclose($this->fp);
 		}
 		else
