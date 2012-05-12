@@ -511,8 +511,8 @@ class user
 		//ランキングからまず消す。
 		if ($DeleteFromRank)
 		{
-			include_once (CLASS_RANKING);
-			$Ranking = new Ranking();
+			//include_once (CLASS_RANKING);
+			$Ranking = new HOF_Class_Ranking();
 			if ($Ranking->DeleteRank($this->id)) $Ranking->fpsave(1);
 		}
 
