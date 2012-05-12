@@ -63,7 +63,7 @@ class HOF_Class_Char_Job
 		{
 			if (!$this->char->job)
 			{
-				throw new RuntimeException("Job Null.");
+				throw new InvalidArgumentException("Job Null.");
 			}
 
 			$this->jobdata = HOF_Model_Data::getJobData($this->char->job);
