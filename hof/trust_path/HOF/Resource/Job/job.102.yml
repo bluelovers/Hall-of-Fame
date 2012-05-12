@@ -2,7 +2,7 @@ no: '102'
 name_male: Sacrier
 name_female: Sacrier
 img_male: mon_100r
-img_female: mon_012
+img_female: eiyusenki_012
 equip:
     - Sword
     - TwoHandSword
