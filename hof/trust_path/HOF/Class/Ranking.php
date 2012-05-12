@@ -282,6 +282,8 @@ class HOF_Class_Ranking extends HOF_Class_Base
 
 	function _fpsave()
 	{
+//		error_reporting(E_ALL);
+
 		$this->content->info['update_last'] = (int)$this->content->info['update'];
 		$this->content->info['update'] = time();
 
@@ -302,6 +304,13 @@ class HOF_Class_Ranking extends HOF_Class_Base
 
 		$this->content->ksort();
 
+//		var_dump($dump);
+//		debug($dump);
+//
+//		error_reporting(0);
+//
+//		exit();
+
 		HOF_Class_Yaml::save($this->fp, $dump);
 	}
 
@@ -321,9 +330,12 @@ class HOF_Class_Ranking extends HOF_Class_Base
 		HOF_Class_File::WriteFileFP($this->fp, $ranking);
 	}
 
-	function _init()
+	function _fpinit()
 	{
-		if (!$this->fpopen(true, self::RANKING))
+
+		$this->content = new HOF_Class_Array(array('data' => array()), 0, 1);
+
+		if (!$this->fpopen(true, true))
 		{
 			return false;
 		}
@@ -769,6 +781,9 @@ class HOF_Class_Ranking extends HOF_Class_Base
 	 */
 	function ShowRanking($from = false, $to = false, $bold_id = false)
 	{
+
+
+
 		// 範囲が無い場合は全ランキングを表示
 		if ($from === false or $to === false)
 		{
