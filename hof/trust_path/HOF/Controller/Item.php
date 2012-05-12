@@ -27,7 +27,7 @@ class HOF_Controller_Item extends HOF_Class_Controller
 	{
 		parent::_main_view();
 
-		$this->user->fpCloseAll();
+		$this->user->fpclose_all();
 	}
 
 	function _ItemShow()
