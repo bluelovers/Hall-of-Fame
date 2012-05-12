@@ -316,7 +316,11 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		if ($this->char->PatternSave($judge, $quantity, $action))
 		{
 			$this->char->SaveCharData($this->user->id);
-			$this->CharTestDoppel();
+
+			if ($this->input->TestBattle)
+			{
+				HOF_Helper_Battle::DoppelBattle(array($this->char));
+			}
 		}
 	}
 
@@ -1426,16 +1430,6 @@ HTML;
 			$this->output->show_tutorial = true;
 		}
 	}
-
-	//	('A`)...
-	function CharTestDoppel()
-	{
-		if (!$_POST["TestBattle"]) return 0;
-
-		HOF_Helper_Battle::DoppelBattle(array($this->char));
-	}
-
-
 
 }
 
