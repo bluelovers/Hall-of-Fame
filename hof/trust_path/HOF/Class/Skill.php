@@ -5,7 +5,7 @@
  * @copyright 2012
  */
 
-class HOF_Class_Skill
+class HOF_Class_Skill extends HOF_Class_Base_ObjectAttr
 {
 
 	function __construct($no)
@@ -74,31 +74,6 @@ class HOF_Class_Skill
 		return $this->id();
 	}
 
-	/**
-	 * jQuery style attr
-	 */
-	function attr($attr, $value = null)
-	{
-		if (is_string($attr))
-		{
-			if ($value === null)
-			{
-				return $this->$attr;
-			}
-
-			$this->$attr = $value;
-		}
-		elseif (is_array($attr))
-		{
-			foreach ($attr as $k => $v)
-			{
-				$this->$k = $v;
-			}
-		}
-
-		return $this;
-	}
-
 	function icon($url = false, $true = false)
 	{
 		$icon = $true ? $this->img : $this->icon;
@@ -132,20 +107,6 @@ class HOF_Class_Skill
 		}
 
 		return $name;
-	}
-
-	function __call($func, $args)
-	{
-		if (property_exists($this, $func) || isset($this[$func]))
-		{
-			$val = $this->$func;
-
-			return $val;
-		}
-		else
-		{
-			throw new BadMethodCallException('Call to undefined method '.get_class($this).'::'.$func.'()');
-		}
 	}
 
 	/**
