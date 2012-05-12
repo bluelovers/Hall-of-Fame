@@ -139,11 +139,17 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		$this->output->_msg_result[] = array($message, $add);
 	}
 
+	/**
+	 * ログインした画面
+	 */
 	function _main_action_default()
 	{
 		//error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
 
-		$this->LoginMain();
+		$this->ShowTutorial();
+		$this->ShowMyCharacters();
+
+		RegularControl($this->user->id);
 	}
 
 	function _main_action_char()
@@ -1388,17 +1394,6 @@ HTML;
 			echo "<a href=\"?char={$key}\">{$val->name}</a>&nbsp;&nbsp;";
 		}
 		print ('</div>');
-	}
-
-	/**
-	 * ログインした画面
-	 */
-	function LoginMain()
-	{
-		$this->ShowTutorial();
-		$this->ShowMyCharacters();
-
-		RegularControl($this->user->id);
 	}
 
 	/**
