@@ -16,9 +16,9 @@ class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 	{
 		HOF_Class_Yaml::$enablePhpParsing = $enablePhpParsing;
 
-		if (is_resource($file) || file_exists($file))
+		if (HOF_Class_File::is_resource_file($file) || file_exists($file))
 		{
-			if (is_resource($file))
+			if (HOF_Class_File::is_resource_file($file))
 			{
 				$data = stream_get_contents($file);
 			}
@@ -62,7 +62,7 @@ class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 
 
 
-		if (is_resource($file))
+		if (HOF_Class_File::is_resource_file($file))
 		{
 			ftruncate($file, 0);
 			rewind($file);
