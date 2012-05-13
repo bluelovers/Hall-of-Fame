@@ -15,18 +15,6 @@ spd: '30'
 luk: '40'
 guard: prob50
 position: front
-judge:
-    - 1940
-    - 1940
-    - 1000
-quantity:
-    - 30
-    - 50
-    - 0
-action:
-    - 5019
-    - 5018
-    - 5014
 atk:
     - 60
     - 60
@@ -35,3 +23,16 @@ def:
     - 20
     - 25
     - 30
+pattern:
+    -
+        judge: 1940
+        quantity: 30
+        action: 5019
+    -
+        judge: 1940
+        quantity: 50
+        action: 5018
+    -
+        judge: 1000
+        quantity: 0
+        action: 5014
