@@ -41,3 +41,5 @@ pattern:
         judge: 1000
         quantity: 0
         action: 2031
+info:
+    desc: '洞窟のボス。倒すと奥に行けるようになる。'
