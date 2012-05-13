@@ -167,8 +167,10 @@ define("LOG_BATTLE_RANK", BASE_TRUST_PATH . "./log/rank/");
 define("LOG_BATTLE_UNION", BASE_TRUST_PATH . "./log/union/");
 
 // 状態定義
+/*
 define("FRONT", "front");
 define("BACK", "back");
+*/
 
 define("TEAM_0", 0);
 define("TEAM_1", 1);
@@ -176,9 +178,11 @@ define("WIN", 0);
 define("LOSE", 1);
 define("DRAW", "d");
 
+/*
 define("ALIVE", 0);
 define("DEAD", 1);
 define("POISON", 2);
+*/
 
 define("CHARGE", 0);
 define("CAST", 1);
