@@ -65,8 +65,8 @@ class union extends HOF_Class_Char
 	//	生存状態にする。
 	function GetNormal($mes = false)
 	{
-		if ($this->STATE === ALIVE) return true;
-		if ($this->STATE === DEAD)
+		if ($this->STATE === STATE_ALIVE) return true;
+		if ($this->STATE === STATE_DEAD)
 		{ //死亡状態
 			// ユニオンは復活しない事とする。
 			return true;
@@ -77,7 +77,7 @@ class union extends HOF_Class_Char
 			return true;
 			*/
 		}
-		if ($this->STATE === POISON)
+		if ($this->STATE === STATE_POISON)
 		{ //毒状態
 			if ($mes) print ($this->Name(bold) . "'s <span class=\"spdmg\">poison</span> has cured.<br />\n");
 			$this->STATE = 0;
@@ -357,7 +357,7 @@ class union extends HOF_Class_Char
 		$this->SPD = $this->spd + $this->P_SPD;
 		$this->LUK = $this->luk + $this->P_LUK;
 		$this->POSITION = $this->position;
-		$this->STATE = ALIVE; //生存状態にする
+		$this->STATE = STATE_ALIVE; //生存状態にする
 
 		$this->expect = false; //(数値=詠唱中 false=待機中)
 		$this->ActCount = 0; //行動回数
