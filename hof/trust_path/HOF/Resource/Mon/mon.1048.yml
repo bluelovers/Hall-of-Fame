@@ -15,33 +15,6 @@ spd: '50'
 luk: '30'
 guard: prob50
 position: front
-judge:
-    - 1701
-    - 1200
-    - 1610
-    - 1200
-    - 1101
-    - 1200
-    - 1200
-    - 1000
-quantity:
-    - 0
-    - 10
-    - 1
-    - 20
-    - 50
-    - 10
-    - 30
-    - 0
-action:
-    - 9000
-    - 3112
-    - 9000
-    - 3030
-    - 9000
-    - 3121
-    - 1017
-    - 5042
 atk:
     - 50
     - 10
@@ -54,3 +27,36 @@ itemtable:
     6160: '100'
     6022: '300'
     6003: '400'
+pattern:
+    -
+        judge: 1701
+        quantity: 0
+        action: 9000
+    -
+        judge: 1200
+        quantity: 10
+        action: 3112
+    -
+        judge: 1610
+        quantity: 1
+        action: 9000
+    -
+        judge: 1200
+        quantity: 20
+        action: 3030
+    -
+        judge: 1101
+        quantity: 50
+        action: 9000
+    -
+        judge: 1200
+        quantity: 10
+        action: 3121
+    -
+        judge: 1200
+        quantity: 30
+        action: 1017
+    -
+        judge: 1000
+        quantity: 0
+        action: 5042
