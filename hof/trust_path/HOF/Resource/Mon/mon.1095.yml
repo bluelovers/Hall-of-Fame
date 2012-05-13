@@ -15,36 +15,6 @@ spd: '60'
 luk: '30'
 guard: life25
 position: front
-judge:
-    - 1902
-    - 1940
-    - 1701
-    - 1200
-    - 1101
-    - 1200
-    - 1200
-    - 1200
-    - 1000
-quantity:
-    - 1
-    - 50
-    - 0
-    - 10
-    - 40
-    - 20
-    - 50
-    - 30
-    - 0
-action:
-    - 9000
-    - 1012
-    - 9000
-    - 1022
-    - 9000
-    - 5005
-    - 1019
-    - 1017
-    - 1000
 atk:
     - 120
     - 20
@@ -54,3 +24,40 @@ def:
     - 40
     - 10
 itemtable: {  }
+pattern:
+    -
+        judge: 1902
+        quantity: 1
+        action: 9000
+    -
+        judge: 1940
+        quantity: 50
+        action: 1012
+    -
+        judge: 1701
+        quantity: 0
+        action: 9000
+    -
+        judge: 1200
+        quantity: 10
+        action: 1022
+    -
+        judge: 1101
+        quantity: 40
+        action: 9000
+    -
+        judge: 1200
+        quantity: 20
+        action: 5005
+    -
+        judge: 1200
+        quantity: 50
+        action: 1019
+    -
+        judge: 1200
+        quantity: 30
+        action: 1017
+    -
+        judge: 1000
+        quantity: 0
+        action: 1000
