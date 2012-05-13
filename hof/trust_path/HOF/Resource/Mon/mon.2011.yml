@@ -15,9 +15,6 @@ spd: '140'
 luk: '50'
 guard: never
 position: back
-judge: {  }
-quantity: {  }
-action: {  }
 atk:
     - 150
     - 20
@@ -43,3 +40,4 @@ Slave:
 land: mount
 UnionName: OgreSquad
 LevelLimit: '150'
+pattern: {  }
