@@ -13,15 +13,14 @@ armor: '5100'
 skill:
     - 2300
     - 2310
-Pattern:
-    judge:
-        - '1205'
-        - '1000'
-    quantity:
-        - '28'
-        - '0'
-    action:
-        - '2310'
-        - '2300'
 position: back
 guard: never
+pattern:
+    -
+        judge: '1205'
+        quantity: '28'
+        action: '2310'
+    -
+        judge: '1000'
+        quantity: '0'
+        action: '2300'
