@@ -22,8 +22,8 @@ img: mon_079
 job_name: Warrior
 gender:
     1:
-        img: eiyusenki_080
-        job_name: Warrior
-    0:
         img: mon_079
+        job_name: Warrior
+    2:
+        img: eiyusenki_080
         job_name: Warrior
