@@ -1,8 +1,4 @@
 no: '400'
-name_male: Hunter
-name_female: Hunter
-img_male: mon_219rr
-img_female: mon_219r
 equip:
     - Bow
     - Cloth
@@ -17,3 +13,14 @@ change:
     - 403
 info:
     desc: "弓系基本職。\n相手の前衛に影響されずに攻撃できる。"
+pattern: null
+job: '400'
+img: mon_219rr
+job_name: Hunter
+gender:
+    1:
+        img: mon_219r
+        job_name: Hunter
+    0:
+        img: mon_219rr
+        job_name: Hunter
