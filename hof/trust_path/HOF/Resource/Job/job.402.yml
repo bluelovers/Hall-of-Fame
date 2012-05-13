@@ -15,8 +15,8 @@ img: mon_216z
 job_name: BeastTamer
 gender:
     1:
-        img: mon_217z
-        job_name: BeastTamer
-    0:
         img: mon_216z
+        job_name: BeastTamer
+    2:
+        img: mon_217z
         job_name: BeastTamer
