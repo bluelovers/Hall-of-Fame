@@ -15,8 +15,8 @@ img: mon_213rz
 job_name: Druid
 gender:
     1:
-        img: mon_214rz
-        job_name: Druid
-    0:
         img: mon_213rz
+        job_name: Druid
+    2:
+        img: mon_214rz
         job_name: Druid
