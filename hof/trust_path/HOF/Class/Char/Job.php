@@ -73,9 +73,9 @@ class HOF_Class_Char_Job
 				throw new RuntimeException("Undefined Job {$this->char->job}.");
 			}
 
-			$this->char->job_name = ($this->char->gender ? $this->jobdata['name_female'] : $this->jobdata['name_male']);
+			$this->char->job_name = ($this->jobdata['gender'][$this->char->gender]['job_name'] ? $this->jobdata['gender'][$this->char->gender]['job_name'] : $this->jobdata['job_name']);
 
-			$this->char->img = $this->char->icon = $this->jobdata['img_' . ($this->char->gender ? 'female' : 'male')];
+			$this->char->img = ($this->jobdata['gender'][$this->char->gender]['img'] ? $this->jobdata['gender'][$this->char->gender]['img'] : $this->jobdata['img']);
 		}
 
 		return $this->jobdata;
