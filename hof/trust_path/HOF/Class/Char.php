@@ -270,6 +270,11 @@ class HOF_Class_Char extends char
 		return HOF_Class_Char_Pattern::getInstance(&$this)->pattern_insert($idx, $v, $skip_chk);
 	}
 
+	public function pattern_item($idx)
+	{
+		return HOF_Class_Char_Pattern::getInstance(&$this)->pattern_item($idx);
+	}
+
 	function pattern_remove($idx)
 	{
 		return HOF_Class_Char_Pattern::getInstance(&$this)->pattern_remove($idx);
