@@ -15,8 +15,8 @@ img: mon_216y
 job_name: Murderer
 gender:
     1:
-        img: mon_217rz
-        job_name: Murderer
-    0:
         img: mon_216y
+        job_name: Murderer
+    2:
+        img: mon_217rz
         job_name: Murderer
