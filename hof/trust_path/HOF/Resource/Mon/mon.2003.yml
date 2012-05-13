@@ -15,24 +15,6 @@ spd: '150'
 luk: '50'
 guard: never
 position: back
-judge:
-    - 1201
-    - 1405
-    - 1920
-    - 1940
-    - 1000
-quantity:
-    - 30
-    - 3
-    - 1
-    - 50
-    - 0
-action:
-    - 3011
-    - 9000
-    - 5061
-    - 1204
-    - 5062
 atk:
     - 60
     - 20
@@ -64,3 +46,24 @@ land: sand
 SlaveAmount: '6'
 UnionName: PlundingBandits
 LevelLimit: '200'
+pattern:
+    -
+        judge: 1201
+        quantity: 30
+        action: 3011
+    -
+        judge: 1405
+        quantity: 3
+        action: 9000
+    -
+        judge: 1920
+        quantity: 1
+        action: 5061
+    -
+        judge: 1940
+        quantity: 50
+        action: 1204
+    -
+        judge: 1000
+        quantity: 0
+        action: 5062
