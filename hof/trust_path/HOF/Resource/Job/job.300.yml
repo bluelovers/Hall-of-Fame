@@ -19,8 +19,8 @@ img: mon_213
 job_name: Priest
 gender:
     1:
-        img: mon_214
-        job_name: Priestess
-    0:
         img: mon_213
         job_name: Priest
+    2:
+        img: mon_214
+        job_name: Priestess
