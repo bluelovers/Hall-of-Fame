@@ -111,7 +111,7 @@ class HOF_Model_Char extends HOF_Class_Data
 	 * "guard"	=> "後列の防御方法",
 	 * always,never,life25,life50,life75,prob25,prob50,prob75
 
-	 * "position"	=> "FRONT or BACK",//指定する事で位置を後列or前列に固定できる。
+	 * "position"	=> "POSITION_FRONT or POSITION_BACK",//指定する事で位置を後列or前列に固定できる。
 	 * "itemtable"	=> array("アイテム番号"=>"確立","アイテム番号2"=>"確立2"),//落とすアイテム。
 	 * 設定されていない場合 → 何も落とさない。
 	 * 設定されている場合。
