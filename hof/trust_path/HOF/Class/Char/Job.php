@@ -56,7 +56,7 @@ class HOF_Class_Char_Job
 
 		if ($gender !== null)
 		{
-			$this->char->gender = (bool)$gender ? 1 : 0;
+			$this->char->gender = HOF_Helper_Math::minmax($gender, GENDER_UNKNOW, GENDER_GIRL);
 		}
 
 		if (!isset($this->jobdata) || $job !== null || $gender !== null || $this->_cache())
