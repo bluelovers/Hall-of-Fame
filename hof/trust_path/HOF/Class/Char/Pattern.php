@@ -44,7 +44,7 @@ class HOF_Class_Char_Pattern
 	/**
 	 * キャラの指示の数
 	 */
-	function pattern_max()
+	public function pattern_max()
 	{
 		$val = $this->char->int;
 
@@ -74,7 +74,7 @@ class HOF_Class_Char_Pattern
 	/**
 	 * パターン配列を保存する。
 	 */
-	function pattern($pattern = null, $skip_chk = false)
+	public function pattern($pattern = null, $skip_chk = false)
 	{
 		if ($pattern !== null)
 		{
@@ -136,7 +136,7 @@ class HOF_Class_Char_Pattern
 		return $this->char->pattern;
 	}
 
-	function _fix_pattern_item($v = array(), $check = false)
+	public function _fix_pattern_item($v = array(), $check = false)
 	{
 		if (empty($v) && !$check)
 		{
@@ -161,7 +161,7 @@ class HOF_Class_Char_Pattern
 		return $v;
 	}
 
-	function pattern_item($idx)
+	public function pattern_item($idx)
 	{
 		return (array)$this->char->pattern[$idx];
 	}
@@ -169,7 +169,7 @@ class HOF_Class_Char_Pattern
 	/**
 	 * 行動パターンに追加する。
 	 */
-	function pattern_insert($idx, $v = array(), $skip_chk = false)
+	public function pattern_insert($idx, $v = array(), $skip_chk = false)
 	{
 		if (!is_int($idx) && $idx < 0) return false;
 
@@ -183,7 +183,7 @@ class HOF_Class_Char_Pattern
 	/**
 	 * 行動パターンを削除。
 	 */
-	function pattern_remove($idx)
+	public function pattern_remove($idx)
 	{
 		if (!is_int($idx) && $idx < 0) return false;
 
@@ -194,7 +194,7 @@ class HOF_Class_Char_Pattern
 		return $this->pattern($pattern);
 	}
 
-	function pattern_memo($pattern = null)
+	public function pattern_memo($pattern = null)
 	{
 		if ($pattern)
 		{
@@ -204,7 +204,7 @@ class HOF_Class_Char_Pattern
 		return $this->char->pattern_memo;
 	}
 
-	function pattern_switch()
+	public function pattern_switch()
 	{
 		$temp = $this->pattern();
 
