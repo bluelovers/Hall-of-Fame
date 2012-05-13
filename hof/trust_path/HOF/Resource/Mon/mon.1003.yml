@@ -15,24 +15,6 @@ spd: '12'
 luk: '1'
 guard: always
 position: front
-judge:
-    - 1902
-    - 1940
-    - 1940
-    - 1205
-    - 1000
-quantity:
-    - 1
-    - 50
-    - 50
-    - 30
-    - 0
-action:
-    - 9000
-    - 3112
-    - 9000
-    - 1012
-    - 1000
 atk:
     - 30
     - 10
@@ -47,3 +29,24 @@ itemtable:
     6002: '600'
     6003: '300'
     7100: '100'
+pattern:
+    -
+        judge: 1902
+        quantity: 1
+        action: 9000
+    -
+        judge: 1940
+        quantity: 50
+        action: 3112
+    -
+        judge: 1940
+        quantity: 50
+        action: 9000
+    -
+        judge: 1205
+        quantity: 30
+        action: 1012
+    -
+        judge: 1000
+        quantity: 0
+        action: 1000
