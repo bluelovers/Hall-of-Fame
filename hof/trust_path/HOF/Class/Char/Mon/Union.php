@@ -7,7 +7,7 @@
 
 include_once (CLASS_UNION);
 
-class HOF_Class_Union extends union
+class HOF_Class_Char_Mon_Union extends union
 {
 
 	function LoadData($file)
