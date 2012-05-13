@@ -11,6 +11,11 @@ include_once (CLASS_CHAR);
 class HOF_Class_Char extends char
 {
 
+	/**
+	 * 行動(判定、使うスキル)
+	 */
+	var $pattern, $pattern_memo;
+
 	var $file_ext = BASE_EXT;
 
 	var $map_equip_allow = array(
@@ -137,8 +142,8 @@ class HOF_Class_Char extends char
 			"guard",
 			"skill",
 			//"judge","action",
-			"Pattern",
-			"PatternMemo",
+			"pattern",
+			"pattern_memo",
 			//モンスター専用
 			//"monster","land","family","monster_message"//保存する必要無くなった
 
@@ -237,50 +242,37 @@ class HOF_Class_Char extends char
 	}
 
 	/**
-	 * パターン文字列を配列にする。
-	 * ****<>****<>****|****<>****<>****|****<>****<>****
+	 * パターン配列を保存する。
 	 */
-	function PatternExplode()
+	function pattern($pattern = null)
 	{
-		//dump($this->judge);
-		if ($this->judge) return false;
-
-		if (0 && $this->file_ext == '.dat' && !is_array($this->Pattern))
-		{
-			$Pattern = explode("|", $this->Pattern);
-			$this->judge = explode("<>", $Pattern["0"]);
-			$this->quantity = explode("<>", $Pattern["1"]);
-			$this->action = explode("<>", $Pattern["2"]);
-		}
-		else
-		{
-			$this->judge = $this->Pattern['judge'];
-			$this->quantity = $this->Pattern['quantity'];
-			$this->action = $this->Pattern['action'];
-		}
-
-		return true;
+		return HOF_Class_Char_Pattern::getInstance(&$this)->pattern($pattern);
 	}
 
 	/**
-	 * パターン配列を保存する。
+	 * キャラの指示の数
 	 */
-	function PatternSave($judge, $quantity, $action)
+	function pattern_max()
 	{
-		if (0 && $this->file_ext == '.dat')
-		{
-			$this->Pattern = implode("<>", $judge) . "|" . implode("<>", $quantity) . "|" . implode("<>", $action);
-		}
-		else
-		{
-			$this->Pattern = array(
-				'judge' => $judge,
-				'quantity' => $quantity,
-				'action' => $action,
-				);
-		}
+		return HOF_Class_Char_Pattern::getInstance(&$this)->pattern_max();
+	}
 
-		return true;
+	/**
+	 * メモってあるパターンと交換
+	 */
+	function pattern_switch()
+	{
+		return HOF_Class_Char_Pattern::getInstance(&$this)->pattern_switch();
+	}
+
+	function pattern_insert($idx, $v = array(), $skip_chk = false)
+	{
+		return HOF_Class_Char_Pattern::getInstance(&$this)->pattern_insert($idx, $v, $skip_chk);
+	}
+
+	function pattern_remove($idx)
+	{
+		return HOF_Class_Char_Pattern::getInstance(&$this)->pattern_remove($idx);
 	}
 
 	function &user()
@@ -476,36 +468,6 @@ class HOF_Class_Char extends char
 		$Strength = 1 + ($DEX_PART + $this->LUK) / 250;
 		if ($this->SPECIAL["Summon"]) $Strength *= (100 + $this->SPECIAL["Summon"]) / 100;
 		return $Strength;
-	}
-
-	/**
-	 * キャラの指示の数
-	 */
-	function MaxPatterns()
-	{
-		$val = $this->int;
-
-		$map = array(10, 15, 30, 50, 80, 120, 160, 200, 251);
-
-		$n = 2;
-
-		foreach ($map as $v)
-		{
-			if ($val >= $v)
-			{
-				$n++;
-			}
-			else
-			{
-				break;
-			}
-		}
-
-		if (29 < $this->level){
-			$n++;
-		}
-
-		return $n;
 	}
 
 	/**
