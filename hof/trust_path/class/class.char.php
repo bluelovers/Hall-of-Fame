@@ -32,9 +32,7 @@ class char
 	var $position, $guard;
 	// スキル
 	var $skill;
-	// 行動(判定、使うスキル)
-	var $Pattern;
-	var $PatternMemo;
+
 	var $judge, $quantity, $action;
 
 	// 戦闘用変数(BattleVariable) データには保存されない。
@@ -401,84 +399,13 @@ class char
 	{
 		$this->name = $new;
 	}
-	//////////////////////////////////////////////////
-	//	行動パターンに追加する。
-	function AddPattern($no)
-	{
-		if (!is_int($no) && $no < 0) return false;
 
-		$this->PatternExplode();
-		array_splice($this->judge, $no, 0, "1000");
-		array_pop($this->judge);
-		array_splice($this->quantity, $no, 0, "0");
-		array_pop($this->quantity);
-		array_splice($this->action, $no, 0, "1000");
-		array_pop($this->action);
-		$this->CutPatterns();
-		$this->PatternSave($this->judge, $this->quantity, $this->action);
-		return true;
-	}
 	//////////////////////////////////////////////////
-	//	行動パターンを削除。
-	function DeletePattern($no)
-	{
-		if (!is_int($no) && $no < 0) return false;
+	//
+	//////////////////////////////////////////////////
+	//
 
-		$this->PatternExplode();
-		array_splice($this->judge, $no, 1);
-		array_push($this->judge, "1000");
-		array_splice($this->quantity, $no, 1);
-		array_push($this->quantity, "0");
-		array_splice($this->action, $no, 1);
-		array_push($this->action, "1000");
-		$this->CutPatterns();
-		$this->PatternSave($this->judge, $this->quantity, $this->action);
-		return true;
-	}
-	//////////////////////////////////////////////////
-	//	限界設定数を超えていないか心配なので作った。。
-	function CutPatterns()
-	{
-		$No = $this->MaxPatterns();
-		while ($No < count($this->judge))
-		{
-			array_pop($this->judge);
-		}
-		while ($No < count($this->quantity))
-		{
-			array_pop($this->quantity);
-		}
-		while ($No < count($this->action))
-		{
-			array_pop($this->action);
-		}
-	}
-	//////////////////////////////////////////////////
-	//	メモってあるパターンと交換
-	function ChangePatternMemo()
-	{
-		$temp = $this->Pattern;
-		$this->Pattern = $this->PatternMemo;
-		$this->PatternMemo = $temp;
-		/*
-		//$serial	= serialize(array("judge"=>$this->judge,"action"=>$this->action));
-		$serial	= implode("<>",$this->judge)."|".implode("<>",$this->action);
 
-		if(!$this->PatternMemo) {
-		$No	= $this->MaxPatterns();
-		$judge	= array_fill(0,$No,"1000");
-		$action	= array_fill(0,$No,"1000");
-		} else {
-		list($judge,$action)	= explode("|",$this->PatternMemo);
-		$judge	= explode("<>",$judge);
-		$action	= explode("<>",$action);
-		}
-		$this->PatternMemo	= $serial;
-		$this->judge	= $judge;
-		$this->action	= $action;
-		*/
-		return true;
-	}
 	//////////////////////////////////////////////////
 	//	キャラを後衛化させる。
 	function KnockBack($no = 1)
@@ -663,28 +590,7 @@ class char
 	//////////////////////////////////////////////////
 
 	//////////////////////////////////////////////////
-	//	行動パターンの変更。
-	function ChangePattern($judge, $action)
-	{
-		$this->judge = array();
-		$this->action = array();
-		$max = $this->MaxPatterns(); //最低判断数
-		$judge_list = array_flip(HOF_Model_Data::getJudgeList());
-		$skill_list = array_flip($this->skill);
-		for ($i = 0; $i < $max; $i++)
-		{ //判断順に記憶
-			if (!$judge["$i"]) $this->judge[$i] = 1000;
-			if (!$action["$i"]) $this->action[$i] = 1000;
-
-			if (isset($judge_list[$judge[$i]]) && isset($skill_list[$action[$i]]))
-			{
-				$this->judge[$i] = $judge[$i];
-				$this->action[$i] = $action[$i];
-			}
-		}
-		if ($max < count($this->judge)) return false;
-		return true;
-	}
+	//
 	//////////////////////////////////////////////////
 	//	毒ダメージ
 	function PoisonDamage($multiply = 1)
@@ -923,8 +829,7 @@ class char
 		// 再読み込みを防止できるか?
 		if (isset($this->IMG)) return false;
 
-		$this->PatternExplode();
-		$this->CutPatterns();
+		//$this->pattern(HOF_Class_Char_Pattern::CHECK_PATTERN);
 
 		// パッシブスキルを読む
 		$this->LoadPassiveSkills();
@@ -1383,9 +1288,9 @@ Lv.<?=
 
 		$this->skill = (is_array($data["skill"]) ? $data["skill"] : explode("<>", $data["skill"]));
 
-		$this->Pattern = $data["Pattern"];
+		$this->pattern = $data["pattern"];
 
-		if ($data["PatternMemo"]) $this->PatternMemo = $data["PatternMemo"];
+		if ($data["pattern_memo"]) $this->pattern_memo = $data["pattern_memo"];
 
 		// モンスターのため？
 		if (is_array($data["judge"])) $this->judge = $data["judge"];
@@ -1409,6 +1314,8 @@ Lv.<?=
 			$this->SPECIAL = $data["SPECIAL"];
 		}
 		if ($data["summon"]) $this->summon = $data["summon"];
+
+		$this->pattern(HOF_Class_Char_Pattern::CHECK_PATTERN);
 	}
 }
 
