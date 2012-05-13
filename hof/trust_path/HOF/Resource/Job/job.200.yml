@@ -21,8 +21,8 @@ img: mon_106
 job_name: Sorcerer
 gender:
     1:
-        img: eiyusenki_018
-        job_name: Sorceress
-    0:
         img: mon_106
         job_name: Sorcerer
+    2:
+        img: eiyusenki_018
+        job_name: Sorceress
