@@ -5,9 +5,12 @@
  * @copyright 2012
  */
 
-class HOF_Class_Char_Base extends HOF_Class_Array
+class HOF_Class_Char_Base
 {
 	public $id;
+
+	public $name;
+	public $gender = GENDER_UNKNOW;
 
 	/**
 	 * ステータス
@@ -33,7 +36,7 @@ class HOF_Class_Char_Base extends HOF_Class_Array
 	 * 生存状態にする
 	 * 状態(0=生存 1=しぼー 2=毒状態)
 	 */
-	public $STATE = ALIVE;
+	public $STATE = STATE_ALIVE;
 
 	/**
 	 * $atk=array(物理,魔法); $def=array(物理/,物理-,魔法/,魔法-);
