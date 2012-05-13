@@ -50,8 +50,8 @@ class HOF_Class_Char_Mon extends HOF_Class_Char
 	 */
 	function GetNormal($mes = false)
 	{
-		if ($this->STATE === ALIVE) return true;
-		if ($this->STATE === DEAD)
+		if ($this->STATE === STATE_ALIVE) return true;
+		if ($this->STATE === STATE_DEAD)
 		{
 			// 死亡状態
 			if ($this->summon) return true;
@@ -59,7 +59,7 @@ class HOF_Class_Char_Mon extends HOF_Class_Char
 			$this->STATE = 0;
 			return true;
 		}
-		if ($this->STATE === POISON)
+		if ($this->STATE === STATE_POISON)
 		{
 			// 毒状態
 			if ($mes) print ($this->Name(bold) . "'s <span class=\"spdmg\">poison</span> has cured.<br />\n");
@@ -73,10 +73,10 @@ class HOF_Class_Char_Mon extends HOF_Class_Char
 	 */
 	function CharJudgeDead()
 	{
-		if ($this->HP < 1 && $this->STATE !== DEAD)
+		if ($this->HP < 1 && $this->STATE !== STATE_DEAD)
 		{
 			// しぼー
-			$this->STATE = DEAD;
+			$this->STATE = STATE_DEAD;
 			$this->HP = 0;
 			$this->ResetExpect();
 			//$this->delay	= 0;
