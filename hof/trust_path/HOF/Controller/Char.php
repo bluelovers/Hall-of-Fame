@@ -234,14 +234,14 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		$this->input->position = HOF::$input->post->position;
 		$this->input->guard = HOF::$input->post->guard;
 
-		if ($this->input->position == "front")
+		if ($this->input->position == POSITION_FRONT)
 		{
-			$this->char->position = FRONT;
+			$this->char->position = POSITION_FRONT;
 			$pos = "前衛(Front)";
 		}
 		else
 		{
-			$this->char->position = BACK;
+			$this->char->position = POSITION_BACK;
 			$pos = "後衛(Back)";
 		}
 
@@ -1069,7 +1069,7 @@ HTML;
 				<td>位置(Position) :</td>
 				<td><input type="radio" class="vcent" name="position" value="front"<?php
 
-		($this->char->position == "front" ? print (" checked") : NULL)
+		($this->char->position == POSITION_FRONT ? print (" checked") : NULL)
 
 
 ?>>
@@ -1079,7 +1079,7 @@ HTML;
 				<td></td>
 				<td><input type="radio" class="vcent" name="position" value="back"<?php
 
-		($this->char->position == "back" ? print (" checked") : NULL)
+		($this->char->position == POSITION_BACK ? print (" checked") : NULL)
 
 
 ?>>
