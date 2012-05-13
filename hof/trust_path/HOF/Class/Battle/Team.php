@@ -103,7 +103,7 @@ class HOF_Class_Battle_Team extends HOF_Class_Array
 
 		foreach ((array)$team as $char)
 		{
-			if ($char->STATE === DEAD)
+			if ($char->STATE === STATE_DEAD)
 			{
 				$count++;
 			}
