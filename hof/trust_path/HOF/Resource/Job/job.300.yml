@@ -1,8 +1,4 @@
 no: '300'
-name_male: Priest
-name_female: Priestess
-img_male: mon_213
-img_female: mon_214
 equip:
     - Wand
     - Book
@@ -17,3 +13,14 @@ change:
     - 302
 info:
     desc: "聖職基本職。\n味方のHP,SPの回復ができる。"
+pattern: null
+job: '300'
+img: mon_213
+job_name: Priest
+gender:
+    1:
+        img: mon_214
+        job_name: Priestess
+    0:
+        img: mon_213
+        job_name: Priest
