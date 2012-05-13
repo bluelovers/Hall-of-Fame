@@ -43,11 +43,7 @@ class HOF_Class_Battle extends battle
 
 	function outputImage()
 	{
-		$output = HOF_Class_Battle_Style::newInstance(BTL_IMG_TYPE)
-			->setBg($this->BackGround)
-			->setTeams($this->team1, $this->team0)
-			->setMagicCircle($this->team1_mc, $this->team0_mc)
-			->exec();
+		$output = HOF_Class_Battle_Style::newInstance(BTL_IMG_TYPE)->setBg($this->BackGround)->setTeams($this->team1, $this->team0)->setMagicCircle($this->team1_mc, $this->team0_mc)->exec();
 
 		echo $output;
 	}
@@ -121,7 +117,7 @@ class HOF_Class_Battle extends battle
 	 */
 	function JoinCharacter($user, $add)
 	{
-		foreach($this->teams as &$team)
+		foreach ($this->teams as &$team)
 		{
 			foreach ($team['team'] as $char)
 			{
@@ -199,8 +195,8 @@ class HOF_Class_Battle extends battle
 
 		// チーム0の人はセルの右側に
 		// チーム1の人は左側に 行動内容と結果 を表示する
-		echo("<tr><td class=\"ttd2\">\n");
-		if ($char->team === TEAM_0) echo("</td><td class=\"ttd1\">\n");
+		echo ("<tr><td class=\"ttd2\">\n");
+		if ($char->team === TEAM_0) echo ("</td><td class=\"ttd1\">\n");
 		// 自分のチームはどちらか?
 		foreach ($this->team0 as $val)
 		{
@@ -279,7 +275,7 @@ class HOF_Class_Battle extends battle
 		}
 		else
 		{
-			echo($char->Name(bold) . " sunk in thought and couldn't act.<br />(No more patterns)<br />\n");
+			echo ($char->Name(bold) . " sunk in thought and couldn't act.<br />(No more patterns)<br />\n");
 			$char->DelayReset();
 		}
 
@@ -289,8 +285,86 @@ class HOF_Class_Battle extends battle
 
 		//echo $char->name." ".$skill."<br>";//確認用
 		//セルの終わり
-		if ($char->team === TEAM_1) echo("</td><td class=\"ttd1\">&nbsp;\n");
-		echo("</td></tr>\n");
+		if ($char->team === TEAM_1) echo ("</td><td class=\"ttd1\">&nbsp;\n");
+		echo ("</td></tr>\n");
+	}
+
+	/**
+	 * 次の行動は誰か(又、詠唱中の魔法が発動するのは誰か)
+	 * リファレンスを返す
+	 */
+	function &NextActerNew()
+	{
+
+		// 次の行動まで最も距離が短い人を探す。
+		$nextDis = 1000;
+		foreach ($this->team0 as $key => $char)
+		{
+			if ($char->STATE === STATE_DEAD) continue;
+			$charDis = $this->team0[$key]->nextDis();
+			if ($charDis == $nextDis)
+			{
+				$NextChar[] = &$this->team0["$key"];
+			}
+			else
+				if ($charDis <= $nextDis)
+				{
+					$nextDis = $charDis;
+					$NextChar = array(&$this->team0["$key"]);
+				}
+		}
+
+		// ↑と同じ。
+		foreach ($this->team1 as $key => $char)
+		{
+			if ($char->STATE === STATE_DEAD) continue;
+			$charDis = $this->team1[$key]->nextDis();
+			if ($charDis == $nextDis)
+			{
+				$NextChar[] = &$this->team1["$key"];
+			}
+			else
+				if ($charDis <= $nextDis)
+				{
+					$nextDis = $charDis;
+					$NextChar = array(&$this->team1["$key"]);
+				}
+		}
+
+//		debug($key, $char->name, $nextDis, $NextChar);
+//		exit();
+
+		// 全員ディレイ減少 //////////////////////
+
+		//もしも差分が0以下になったら
+		if ($nextDis < 0)
+		{
+			if (is_array($NextChar))
+			{
+				return $NextChar[array_rand($NextChar)];
+			}
+			else  return $NextChar;
+		}
+
+		foreach ($this->team0 as $key => $char)
+		{
+			$this->team0["$key"]->Delay($nextDis);
+		}
+		foreach ($this->team1 as $key => $char)
+		{
+			$this->team1["$key"]->Delay($nextDis);
+		}
+		// エラーが出たらこれでたしかめろ。
+		/*
+		if(!is_object($NextChar)) {
+		echo("AAA");
+		dump($NextChar);
+		echo("BBB");
+		}
+		*/
+
+		if (is_array($NextChar)) return $NextChar[array_rand($NextChar)];
+		else  return $NextChar;
 	}
 
 }
