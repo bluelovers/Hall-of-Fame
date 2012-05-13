@@ -15,15 +15,6 @@ spd: '15'
 luk: '1'
 guard: always
 position: front
-judge:
-    - 1205
-    - 1000
-quantity:
-    - 20
-    - 0
-action:
-    - 2302
-    - 2300
 atk:
     - 30
     - 20
@@ -32,3 +23,12 @@ def:
     - 0
     - 20
     - 10
+pattern:
+    -
+        judge: 1205
+        quantity: 20
+        action: 2302
+    -
+        judge: 1000
+        quantity: 0
+        action: 2300
