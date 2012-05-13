@@ -15,24 +15,6 @@ spd: '80'
 luk: '150'
 guard: never
 position: back
-judge:
-    - 1201
-    - 1902
-    - 1101
-    - 1920
-    - 1000
-quantity:
-    - 30
-    - 1
-    - 40
-    - 1
-    - 0
-action:
-    - 3011
-    - 5053
-    - 9000
-    - 5055
-    - 5054
 atk:
     - 20
     - 60
@@ -43,3 +25,24 @@ def:
     - 100
 itemtable:
     6160: '2000'
+pattern:
+    -
+        judge: 1201
+        quantity: 30
+        action: 3011
+    -
+        judge: 1902
+        quantity: 1
+        action: 5053
+    -
+        judge: 1101
+        quantity: 40
+        action: 9000
+    -
+        judge: 1920
+        quantity: 1
+        action: 5055
+    -
+        judge: 1000
+        quantity: 0
+        action: 5054
