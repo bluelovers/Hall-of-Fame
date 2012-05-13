@@ -17,8 +17,8 @@ img: mon_150
 job_name: WitchHunt
 gender:
     1:
-        img: mon_234
-        job_name: WitchHunt
-    0:
         img: mon_150
+        job_name: WitchHunt
+    2:
+        img: mon_234
         job_name: WitchHunt
