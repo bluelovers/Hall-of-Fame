@@ -14,15 +14,6 @@ dex: '5'
 spd: '1'
 luk: '1'
 guard: never
-judge:
-    - 1201
-    - 1000
-quantity:
-    - 10
-    - 0
-action:
-    - 3010
-    - 5007
 atk:
     - 20
     - 20
@@ -33,3 +24,12 @@ def:
     - 0
 itemtable:
     6040: '1000'
+pattern:
+    -
+        judge: 1201
+        quantity: 10
+        action: 3010
+    -
+        judge: 1000
+        quantity: 0
+        action: 5007
