@@ -481,14 +481,14 @@ class user
 	function fpclose_all()
 	{
 		// 基本データ
-		if (@is_resource($this->fp))
+		if (@HOF_Class_File::is_resource_file($this->fp))
 		{
 			fclose($this->fp);
 			unset($this->fp);
 		}
 
 		// アイテムデータ
-		if (@is_resource($this->fp_item))
+		if (@HOF_Class_File::is_resource_file($this->fp_item))
 		{
 			fclose($this->fp_item);
 			unset($this->fp_item);
