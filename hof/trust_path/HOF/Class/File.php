@@ -41,7 +41,7 @@ class HOF_Class_File
 	{
 		$fp = fopen($file, $mode);
 
-		@stream_encoding($fp, HOF::CHARSET);
+		//@stream_encoding($fp, HOF::CHARSET);
 
 		$data['fp'] = $fp;
 		$data['file'] = $file;
@@ -261,7 +261,7 @@ class HOF_Class_File
 		$fp	= fopen($file,"w+");*/
 
 		$fp = fopen($file, "w+");
-		@stream_encoding($fp, HOF::CHARSET);
+		//@stream_encoding($fp, HOF::CHARSET);
 		flock($fp, LOCK_EX);
 		fputs($fp, $text);
 	}
@@ -298,7 +298,7 @@ class HOF_Class_File
 		$fp = @fopen($file, "r+");
 		if (!$fp) return false;
 		flock($fp, LOCK_EX | LOCK_NB);
-		@stream_encoding($fp, HOF::CHARSET);
+		//@stream_encoding($fp, HOF::CHARSET);
 		while (!feof($fp))
 		{
 			$str = fgets($fp);
