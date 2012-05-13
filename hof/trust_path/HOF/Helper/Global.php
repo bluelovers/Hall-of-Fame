@@ -18,7 +18,7 @@ class HOF_Helper_Global
 		}
 		else
 		{
-			$amount = count(game_core::glob(USER));
+			$amount = count(HOF_Class_File::glob(USER));
 			return $amount;
 		}
 	}
