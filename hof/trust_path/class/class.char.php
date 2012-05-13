@@ -18,7 +18,6 @@ class char extends HOF_Class_Char_Base
 
 	/*
 	基本的な情報
-	$gender	= (0=male 1=female)
 	*/
 	var $name, $gender, $job, $job_name, $img, $birth, $level, $exp;
 
