@@ -5,6 +5,8 @@
  * @copyright 2012
  */
 
+require_once ("./bootstrap.php");
+
 foreach(array('judge') as $idx)
 {
 	$regex = HOF_Class_Data::_filename($idx, '*');
