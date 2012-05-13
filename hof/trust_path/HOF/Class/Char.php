@@ -561,7 +561,7 @@ class HOF_Class_Char extends char
 		/*
 		if (file_exists(IMG_CHAR . $this->img))
 		{
-			if ($this->STATE === DEAD)
+			if ($this->STATE === STATE_DEAD)
 			{
 				$img = $dir . $this->img;
 				if (!file_exists($img))
