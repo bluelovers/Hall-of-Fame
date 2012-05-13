@@ -1,8 +1,4 @@
 no: '402'
-name_male: BeastTamer
-name_female: BeastTamer
-img_male: mon_216z
-img_female: mon_217z
 equip:
     - Bow
     - Whip
@@ -14,3 +10,13 @@ coe:
     - 1
 info:
     desc: "弓系上級職。\n素早い召喚と召喚獣の強化が得意。"
+job: '402'
+img: mon_216z
+job_name: BeastTamer
+gender:
+    1:
+        img: mon_217z
+        job_name: BeastTamer
+    0:
+        img: mon_216z
+        job_name: BeastTamer
