@@ -490,10 +490,10 @@ HTML;
 					foreach ($candidate as $key => $char)
 					{
 						$target = &$candidate[$key];
-						//if($char->STATE === DEAD) continue;//死亡者はパス。
+						//if($char->STATE === STATE_DEAD) continue;//死亡者はパス。
 						if ($skill["priority"] != "Dead")
 						{ //一時的に。
-							if ($char->STATE === DEAD) continue; //死亡者はパス。
+							if ($char->STATE === STATE_DEAD) continue; //死亡者はパス。
 						}
 						// 全体攻撃は守りに入れない(とする)
 						for ($i = 0; $i < $skill["target"]["2"]; $i++)
@@ -594,14 +594,14 @@ HTML;
  				return false;
 		if ($skill["support"]) //支援なのでガードしない。
  				return false;
-		if ($target->POSITION == "front") //前衛なら守る必要無し。終わる
+		if ($target->POSITION == POSITION_FRONT) //前衛なら守る必要無し。終わる
  				return false;
 		// "前衛で尚且つ生存者"を配列に詰める↓
 		// 前衛 + 生存者 + HP1以上 に変更 ( 多段系攻撃で死にながら守るので [2007/9/20] )
 		foreach ($candidate as $key => $char)
 		{
 			//echo("{$char->POSTION}:{$char->STATE}<br>");
-			if ($char->POSITION == "front" && $char->STATE !== 1 && 1 < $char->HP) $fore[] = &$candidate["$key"];
+			if ($char->POSITION == POSITION_FRONT && $char->STATE !== 1 && 1 < $char->HP) $fore[] = &$candidate["$key"];
 		}
 		if (count($fore) == 0) //前衛がいなけりゃ守れない。終わる
  				return false;
@@ -720,7 +720,7 @@ HTML;
 			$hp = 2; //一応1より大きい数字に・・・
 			foreach ($target_list as $key => $char)
 			{
-				if ($char->STATE == DEAD) continue; //しぼー者は対象にならない。
+				if ($char->STATE == STATE_DEAD) continue; //しぼー者は対象にならない。
 				$HpRate = $char->HP / $char->MAXHP; //HP(%)
 				if ($HpRate < $hp)
 				{
@@ -737,8 +737,8 @@ HTML;
 			{
 				foreach ($target_list as $key => $char)
 				{
-					if ($char->STATE == DEAD) continue; //しぼー者は対象にならない。
-					if ($char->POSITION != FRONT) //後衛なら
+					if ($char->STATE == STATE_DEAD) continue; //しぼー者は対象にならない。
+					if ($char->POSITION != POSITION_FRONT) //後衛なら
  							$target[] = &$target_list[$key]; //候補にいれる
 				}
 				if ($target) return $target[array_rand($target)]; //リストの中からランダムで
@@ -755,7 +755,7 @@ HTML;
 				{
 					foreach ($target_list as $key => $char)
 					{
-						if ($char->STATE == DEAD) //しぼーなら
+						if ($char->STATE == STATE_DEAD) //しぼーなら
  								$target[] = &$target_list[$key]; //しぼー者リスト
 					}
 					if ($target) return $target[array_rand($target)]; //しぼー者リストの中からランダムで
@@ -791,7 +791,7 @@ HTML;
 		//それ以外(ランダム)
 		foreach ($target_list as $key => $char)
 		{
-			if ($char->STATE != DEAD) //しぼー以外なら
+			if ($char->STATE != STATE_DEAD) //しぼー以外なら
  					$target[] = &$target_list[$key]; //しぼー者リスト
 		}
 		return $target[array_rand($target)]; //ランダムに誰か一人
@@ -870,7 +870,7 @@ HTML;
 		$nextDis = 1000;
 		foreach ($this->team0 as $key => $char)
 		{
-			if ($char->STATE === DEAD) continue;
+			if ($char->STATE === STATE_DEAD) continue;
 			$charDis = $this->team0[$key]->nextDis();
 			if ($charDis == $nextDis)
 			{
@@ -887,7 +887,7 @@ HTML;
 		// ↑と同じ。
 		foreach ($this->team1 as $key => $char)
 		{
-			if ($char->STATE === DEAD) continue;
+			if ($char->STATE === STATE_DEAD) continue;
 			$charDis = $this->team1[$key]->nextDis();
 			if ($charDis == $nextDis)
 			{
@@ -1024,7 +1024,7 @@ HTML;
 	//画像はキャラに設定されている画像の拡張子までの名前
 	if ($char->STATE === 1) $img = $DeadImg;
 	else  $img = substr($char->img, 0, strpos($char->img, "."));
-	if ($char->POSITION == "front"): //前衛
+	if ($char->POSITION == POSITION_FRONT): //前衛
 	$url .= "f2{$f}=$img&";
 	$f++;
 	else:
@@ -1039,7 +1039,7 @@ HTML;
 	{
 	if ($char->STATE === 1) $img = $DeadImg;
 	else  $img = substr($char->img, 0, strpos($char->img, "."));
-	if ($char->POSITION == "front"):
+	if ($char->POSITION == POSITION_FRONT):
 	$url .= "f1{$f}=$img&";
 	$f++;
 	else:
@@ -1095,11 +1095,11 @@ HTML;
 		$dead = 0;
 		foreach ($this->team0 as $char)
 		{
-			if ($char->STATE === DEAD) $dead++;
+			if ($char->STATE === STATE_DEAD) $dead++;
 		}
 		foreach ($this->team1 as $char)
 		{
-			if ($char->STATE === DEAD) $dead++;
+			if ($char->STATE === STATE_DEAD) $dead++;
 		}
 		return $dead;
 	}
@@ -1123,7 +1123,7 @@ HTML;
 
 		foreach ($Team as $char)
 		{
-			if ($char->STATE === DEAD)
+			if ($char->STATE === STATE_DEAD)
 			{
 				$dead++;
 			}
