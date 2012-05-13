@@ -15,21 +15,6 @@ spd: '10'
 luk: '1'
 guard: never
 position: back
-judge:
-    - 1201
-    - 1902
-    - 1101
-    - 1000
-quantity:
-    - 40
-    - 1
-    - 70
-    - 0
-action:
-    - 2090
-    - 5802
-    - 2030
-    - 2011
 atk:
     - 30
     - 20
@@ -40,3 +25,20 @@ def:
     - 20
 itemtable:
     6182: '1200'
+pattern:
+    -
+        judge: 1201
+        quantity: 40
+        action: 2090
+    -
+        judge: 1902
+        quantity: 1
+        action: 5802
+    -
+        judge: 1101
+        quantity: 70
+        action: 2030
+    -
+        judge: 1000
+        quantity: 0
+        action: 2011
