@@ -58,6 +58,8 @@ class HOF_Class_Char extends char
 
 	function __destruct()
 	{
+		@HOF_Class_Char_Pattern::getInstance($this)->__destruct();
+
 		$this->fpclose();
 	}
 
