@@ -41,6 +41,8 @@ class HOF_Class_File
 	{
 		$fp = fopen($file, $mode);
 
+		@stream_encoding($fp, HOF::CHARSET);
+
 		$data['fp'] = $fp;
 		$data['file'] = $file;
 		$data['lock'] = 0;
@@ -159,18 +161,17 @@ class HOF_Class_File
 		if ($data = self::_get_cache_by_fp($fp))
 		{
 			if ($data['lock'] > 0) return $fp;
-
-			$_data = &$data;
 		}
 		else
 		{
-			$_data = array();
+			$_data = null;
+			$data = &$_data;
 
-			self::$data[] = &$_data;
+			self::$data[] = $data;
 		}
 
-		$_data['fp'] = $fp;
-		$_data['lock'] = 0;
+		$data['fp'] = $fp;
+		$data['lock'] = 0;
 
 		$i = 0;
 		do
@@ -189,9 +190,9 @@ class HOF_Class_File
 			}
 		} while ($i < 5);
 
-		if (!$_data['lock'])
+		if (!$data['lock'])
 		{
-			$_data['lock'] = -1;
+			$data['lock'] = -1;
 		}
 
 		if ($noExit)
@@ -202,16 +203,16 @@ class HOF_Class_File
 		{
 			ob_clean();
 
-			if ($_data['file'])
+			if ($data['file'])
 			{
-				$_file = basename($data['file']);
+				$file = basename($data['file']);
 			}
 			else
 			{
-				$_file = $fp;
+				$file = $fp;
 			}
 
-			throw new RuntimeException("file lock error. {$_file}");
+			throw new RuntimeException("file lock error. {$file}");
 
 			exit("file lock error. $file");
 		}
@@ -260,6 +261,7 @@ class HOF_Class_File
 		$fp	= fopen($file,"w+");*/
 
 		$fp = fopen($file, "w+");
+		@stream_encoding($fp, HOF::CHARSET);
 		flock($fp, LOCK_EX);
 		fputs($fp, $text);
 	}
@@ -296,6 +298,7 @@ class HOF_Class_File
 		$fp = @fopen($file, "r+");
 		if (!$fp) return false;
 		flock($fp, LOCK_EX | LOCK_NB);
+		@stream_encoding($fp, HOF::CHARSET);
 		while (!feof($fp))
 		{
 			$str = fgets($fp);
