@@ -14,8 +14,8 @@ img: mon_076z
 job_name: Sniper
 gender:
     1:
-        img: mon_042z
-        job_name: Sniper
-    0:
         img: mon_076z
+        job_name: Sniper
+    2:
+        img: mon_042z
         job_name: Sniper
