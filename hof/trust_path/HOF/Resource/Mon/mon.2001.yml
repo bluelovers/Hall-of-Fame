@@ -15,36 +15,6 @@ spd: '80'
 luk: '50'
 guard: prob50
 position: front
-judge:
-    - 1201
-    - 1100
-    - 1401
-    - 1101
-    - 1700
-    - 1710
-    - 1101
-    - 1902
-    - 1000
-quantity:
-    - 30
-    - 20
-    - 1
-    - 30
-    - 0
-    - 3
-    - 80
-    - 1
-    - 0
-action:
-    - 3011
-    - 9000
-    - 1018
-    - 9000
-    - 9000
-    - 1023
-    - 9000
-    - 3111
-    - 1017
 atk:
     - 150
     - 20
@@ -70,3 +40,40 @@ Slave:
 land: mount
 UnionName: TaurusRush
 LevelLimit: '200'
+pattern:
+    -
+        judge: 1201
+        quantity: 30
+        action: 3011
+    -
+        judge: 1100
+        quantity: 20
+        action: 9000
+    -
+        judge: 1401
+        quantity: 1
+        action: 1018
+    -
+        judge: 1101
+        quantity: 30
+        action: 9000
+    -
+        judge: 1700
+        quantity: 0
+        action: 9000
+    -
+        judge: 1710
+        quantity: 3
+        action: 1023
+    -
+        judge: 1101
+        quantity: 80
+        action: 9000
+    -
+        judge: 1902
+        quantity: 1
+        action: 3111
+    -
+        judge: 1000
+        quantity: 0
+        action: 1017
