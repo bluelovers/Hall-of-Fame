@@ -105,6 +105,21 @@ class HOF_Class_Char_Pattern
 
 			//debug($pattern_new);
 
+			if ($this->char->monster)
+			{
+				while (end($pattern_new) == $this->_fix_pattern_item())
+				{
+					array_pop($pattern_new);
+				}
+
+				/**
+				 * skill:3040 蘇生
+				 */
+				array_push($pattern_new, $this->_fix_pattern_item(array(1405, 1, 9000)), $this->_fix_pattern_item(array(1940, 25, 3040)));
+
+				array_push($pattern_new, $this->_fix_pattern_item());
+			}
+
 			if (!$skip_chk)
 			{
 				$last_v = null;
@@ -155,6 +170,16 @@ class HOF_Class_Char_Pattern
 		}
 		else
 		{
+			if ((!$v['judge'] || !$v['action']) && count($v) == 3)
+			{
+				list($judge, $quantity, $action) = $v;
+
+				$v = array();
+				$v['judge'] = $judge;
+				$v['quantity'] = $quantity;
+				$v['action'] = $action;
+			}
+
 			if (!$v['judge'] || !$v['action'])
 			{
 				return $check ? false : $this->_fix_pattern_item();
