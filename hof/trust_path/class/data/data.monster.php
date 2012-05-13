@@ -20,7 +20,7 @@ atk,def は直接指定する。
 "guard"	=> "後列の防御方法",
 always,never,life25,life50,life75,prob25,prob50,prob75
 
-"position"	=> "FRONT or BACK",//指定する事で位置を後列or前列に固定できる。
+"position"	=> "POSITION_FRONT or POSITION_BACK",//指定する事で位置を後列or前列に固定できる。
 "itemtable"	=> array("アイテム番号"=>"確立","アイテム番号2"=>"確立2"),//落とすアイテム。
 設定されていない場合 → 何も落とさない。
 設定されている場合。
@@ -4160,7 +4160,7 @@ function CreateMonster($no, $over = false)
 				"spd" => "90",
 				"luk" => "1",
 				"guard" => "always",
-				"position" => BACK,
+				"position" => POSITION_BACK,
 				"judge" => array(
 					1101,
 					1206,
@@ -4205,7 +4205,7 @@ function CreateMonster($no, $over = false)
 				"spd" => "10",
 				"luk" => "1",
 				"guard" => "never",
-				"position" => FRONT,
+				"position" => POSITION_FRONT,
 				"judge" => array(),
 				"quantity" => array(),
 				"action" => array(),
@@ -4291,7 +4291,7 @@ function CreateMonster($no, $over = false)
 				"spd" => "80",
 				"luk" => "1",
 				"guard" => "never",
-				"position" => FRONT,
+				"position" => POSITION_FRONT,
 				"judge" => array(),
 				"quantity" => array(),
 				"action" => array(),
@@ -4320,7 +4320,7 @@ function CreateMonster($no, $over = false)
 				"spd" => "110",
 				"luk" => "1",
 				"guard" => "life25",
-				"position" => FRONT,
+				"position" => POSITION_FRONT,
 				"judge" => array(),
 				"quantity" => array(),
 				"action" => array(),
@@ -4349,7 +4349,7 @@ function CreateMonster($no, $over = false)
 				"spd" => "70",
 				"luk" => "1",
 				"guard" => "never",
-				"position" => BACK,
+				"position" => POSITION_BACK,
 				"judge" => array(),
 				"quantity" => array(),
 				"action" => array(),
@@ -4378,7 +4378,7 @@ function CreateMonster($no, $over = false)
 				"spd" => "80",
 				"luk" => "1",
 				"guard" => "never",
-				"position" => BACK,
+				"position" => POSITION_BACK,
 				"judge" => array(),
 				"quantity" => array(),
 				"action" => array(),
@@ -4407,7 +4407,7 @@ function CreateMonster($no, $over = false)
 				"spd" => "90",
 				"luk" => "50",
 				"guard" => "never",
-				"position" => BACK,
+				"position" => POSITION_BACK,
 				"judge" => array(),
 				"quantity" => array(),
 				"action" => array(),
@@ -5402,7 +5402,7 @@ function CreateMonster($no, $over = false)
 				"spd" => "20",
 				"luk" => "1",
 				"guard" => "never",
-				"position" => BACK,
+				"position" => POSITION_BACK,
 				//"judge"	=> array(1212,1143,1238,1000),
 				"judge" => array(
 					1201,
@@ -5755,7 +5755,7 @@ function CreateMonster($no, $over = false)
 				"spd" => "30",
 				"luk" => "10",
 				"guard" => "prob25",
-				"position" => FRONT,
+				"position" => POSITION_FRONT,
 				//"judge"	=> array(1602,1000,),
 				"judge" => array(
 					1940,
@@ -5794,7 +5794,7 @@ function CreateMonster($no, $over = false)
 				"spd" => "35",
 				"luk" => "20",
 				"guard" => "prob50",
-				"position" => FRONT,
+				"position" => POSITION_FRONT,
 				//"judge"	=> array(1602,1000,),
 				"judge" => array(
 					1940,
@@ -5833,7 +5833,7 @@ function CreateMonster($no, $over = false)
 				"spd" => "20",
 				"luk" => "30",
 				"guard" => "prob25",
-				"position" => FRONT,
+				"position" => POSITION_FRONT,
 				//"judge"	=> array(1602,1202,1000,),
 				"judge" => array(
 					1940,
@@ -5875,7 +5875,7 @@ function CreateMonster($no, $over = false)
 				"spd" => "20",
 				"luk" => "20",
 				"guard" => "prob25",
-				"position" => BACK,
+				"position" => POSITION_BACK,
 				//"judge"	=> array(1211,1000,),
 				"judge" => array(
 					1201,
@@ -5914,7 +5914,7 @@ function CreateMonster($no, $over = false)
 				"spd" => "20",
 				"luk" => "10",
 				"guard" => "never",
-				"position" => BACK,
+				"position" => POSITION_BACK,
 				//"judge"	=> array(1211,1123,1000,),
 				"judge" => array(
 					1201,
@@ -5956,7 +5956,7 @@ function CreateMonster($no, $over = false)
 				"spd" => "20",
 				"luk" => "10",
 				"guard" => "prob50",
-				"position" => BACK,
+				"position" => POSITION_BACK,
 				//"judge"	=> array(1603,1000,),
 				"judge" => array(
 					1201,
@@ -6001,7 +6001,7 @@ function CreateMonster($no, $over = false)
 				"spd" => "30",
 				"luk" => "40",
 				"guard" => "prob50",
-				"position" => FRONT,
+				"position" => POSITION_FRONT,
 				//"judge"	=> array(1601,1602,1000,),
 				"judge" => array(
 					1940,
