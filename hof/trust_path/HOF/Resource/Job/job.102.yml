@@ -1,8 +1,4 @@
 no: '102'
-name_male: Sacrier
-name_female: Sacrier
-img_male: mon_100r
-img_female: eiyusenki_012
 equip:
     - Sword
     - TwoHandSword
@@ -15,3 +11,13 @@ coe:
     - 0.2
 info:
     desc: "戦士系上級職。\n攻撃に特化した戦士。\n自分の体力を犠牲に強力な技が使える。"
+job: '102'
+img: mon_100r
+job_name: Sacrier
+gender:
+    1:
+        img: eiyusenki_012
+        job_name: Sacrier
+    0:
+        img: mon_100r
+        job_name: Sacrier
