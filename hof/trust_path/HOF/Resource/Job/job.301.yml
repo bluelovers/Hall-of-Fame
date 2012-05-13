@@ -15,8 +15,8 @@ img: mon_213r
 job_name: Bishop
 gender:
     1:
-        img: mon_214r
-        job_name: Bishop
-    0:
         img: mon_213r
+        job_name: Bishop
+    2:
+        img: mon_214r
         job_name: Bishop
