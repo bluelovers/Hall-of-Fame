@@ -1,8 +1,4 @@
 no: '203'
-name_male: Necromancer
-name_female: Necromancer
-img_male: mon_196x
-img_female: eiyusenki_246
 equip:
     - Wand
     - Staff
@@ -15,3 +11,13 @@ coe:
     - 1.5
 info:
     desc: "魔法系上級職。\n相手の能力を下げたり、ゾンビを作ったり出来る。\n毒も扱える。"
+job: '203'
+img: mon_196x
+job_name: Necromancer
+gender:
+    1:
+        img: eiyusenki_246
+        job_name: Necromancer
+    0:
+        img: mon_196x
+        job_name: Necromancer
