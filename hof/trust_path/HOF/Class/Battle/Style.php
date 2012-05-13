@@ -153,7 +153,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 					continue;
 				}
 
-				if ($char->POSITION == 'front')
+				if ($char->POSITION == POSITION_FRONT)
 				{
 					$team['front'][] = $char;
 				}
