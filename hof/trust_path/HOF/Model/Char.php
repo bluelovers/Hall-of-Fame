@@ -93,7 +93,7 @@ class HOF_Model_Char extends HOF_Class_Data
 
 	function newUnionFromFile($file = null)
 	{
-		$char = new HOF_Class_Union($file);
+		$char = new HOF_Class_Char_Mon_Union($file);
 
 		return $char;
 	}
