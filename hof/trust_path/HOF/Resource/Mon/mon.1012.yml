@@ -13,21 +13,6 @@ dex: '16'
 spd: '30'
 luk: '1'
 guard: prob25
-judge:
-    - 1902
-    - 1940
-    - 1940
-    - 1000
-quantity:
-    - 1
-    - 50
-    - 10
-    - 0
-action:
-    - 9000
-    - 5800
-    - 5001
-    - 5002
 atk:
     - 20
     - 20
@@ -39,3 +24,20 @@ def:
 itemtable:
     6180: '600'
 img: mon_121r
+pattern:
+    -
+        judge: 1902
+        quantity: 1
+        action: 9000
+    -
+        judge: 1940
+        quantity: 50
+        action: 5800
+    -
+        judge: 1940
+        quantity: 10
+        action: 5001
+    -
+        judge: 1000
+        quantity: 0
+        action: 5002
