@@ -15,51 +15,6 @@ spd: '50'
 luk: '40'
 guard: never
 position: back
-judge:
-    - 9000
-    - 1450
-    - 1902
-    - 9000
-    - 1450
-    - 1902
-    - 9000
-    - 1450
-    - 1902
-    - 1206
-    - 1201
-    - 1902
-    - 1940
-    - 1000
-quantity:
-    - 30
-    - 2
-    - 1
-    - 25
-    - 2
-    - 1
-    - 20
-    - 2
-    - 1
-    - 20
-    - 30
-    - 1
-    - 50
-    - 0
-action:
-    - 9000
-    - 9000
-    - 5070
-    - 9000
-    - 9000
-    - 5071
-    - 9000
-    - 9000
-    - 5073
-    - 3101
-    - 3102
-    - 1021
-    - 1017
-    - 2000
 atk:
     - 30
     - 30
@@ -112,3 +67,60 @@ land: grass01
 UnionName: DinnerTime
 LevelLimit: '50'
 cycle: 259200
+pattern:
+    -
+        judge: 9000
+        quantity: 30
+        action: 9000
+    -
+        judge: 1450
+        quantity: 2
+        action: 9000
+    -
+        judge: 1902
+        quantity: 1
+        action: 5070
+    -
+        judge: 9000
+        quantity: 25
+        action: 9000
+    -
+        judge: 1450
+        quantity: 2
+        action: 9000
+    -
+        judge: 1902
+        quantity: 1
+        action: 5071
+    -
+        judge: 9000
+        quantity: 20
+        action: 9000
+    -
+        judge: 1450
+        quantity: 2
+        action: 9000
+    -
+        judge: 1902
+        quantity: 1
+        action: 5073
+    -
+        judge: 1206
+        quantity: 20
+        action: 3101
+    -
+        judge: 1201
+        quantity: 30
+        action: 3102
+    -
+        judge: 1902
+        quantity: 1
+        action: 1021
+    -
+        judge: 1940
+        quantity: 50
+        action: 1017
+    -
+        judge: 1000
+        quantity: 0
+        action: 2000
