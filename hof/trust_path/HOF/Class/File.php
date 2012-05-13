@@ -54,14 +54,18 @@ class HOF_Class_File
 	{
 		foreach (self::$data as &$data)
 		{
-			if ($data['file'] == $file && (!$lock || $lock && $data['lock'] > 0))
+			if ($data['file'] == $file)
 			{
-				if (is_resource($data['fp']))
+				if (self::is_resource_file($data['fp']))
 				{
-					return $data;
+					if (!$lock || $lock && $data['lock'] > 0)
+					{
+						return $data;
+					}
 				}
 				else
 				{
+					@fclose($data['fp']);
 					unset($data);
 				}
 			}
@@ -74,14 +78,18 @@ class HOF_Class_File
 	{
 		foreach (self::$data as &$data)
 		{
-			if ($data['fp'] == $fp && is_resource($data['fp']) && (!$lock || $lock && $data['lock'] > 0))
+			if ($data['fp'] == $fp)
 			{
-				if (is_resource($data['fp']))
+				if (self::is_resource_file($data['fp']))
 				{
-					return $data;
+					if (!$lock || $lock && $data['lock'] > 0)
+					{
+						return $data;
+					}
 				}
 				else
 				{
+					@fclose($data['fp']);
 					unset($data);
 				}
 			}
@@ -111,6 +119,10 @@ class HOF_Class_File
 			{
 				return $data['fp'];
 			}
+			else
+			{
+				$fp = $data['fp'];
+			}
 		}
 		else
 		{
@@ -120,9 +132,22 @@ class HOF_Class_File
 		return self::fplock($fp);
 	}
 
+	function is_resource_file($fp)
+	{
+		if (is_resource($fp))
+		{
+			if (get_resource_type($fp) == 'file' || get_resource_type($fp) == 'stream')
+			{
+				return $fp;
+			}
+		}
+
+		return false;
+	}
+
 	function fplock($fp, $noExit = false)
 	{
-		if (!$fp || !is_resource($fp))
+		if (!$fp || !self::is_resource_file($fp))
 		{
 			throw new RuntimeException('File Open Error!!');
 
@@ -294,10 +319,7 @@ class HOF_Class_File
 		$data = self::_get_cache_by_fp($fp);
 		unset($data);
 
-		if (is_resource($fp))
-		{
-			@fclose($fp);
-		}
+		@fclose($fp);
 	}
 
 }
