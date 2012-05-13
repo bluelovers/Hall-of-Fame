@@ -1009,6 +1009,8 @@ HTML;
 
 			$_init = 0;
 
+			$pattern = $this->char->pattern_item($i);
+
 			foreach ($list as $val)
 			{ //判断のoption
 				$exp = HOF_Model_Data::getJudgeData($val);
@@ -1021,20 +1023,20 @@ HTML;
 				}
 				else
 				{
-					print ("<option value=\"{$val}\"" . ($this->char->pattern[$i]['judge'] == $val ? " selected" : NULL) . ($exp["css"] ? '' : NULL) . ">" . ($exp["css"] ? '&nbsp;' : '&nbsp;&nbsp;&nbsp;') . "{$exp[exp]}</option>\n");
+					print ("<option value=\"{$val}\"" . ($pattern['judge'] == $val ? " selected" : NULL) . ($exp["css"] ? '' : NULL) . ">" . ($exp["css"] ? '&nbsp;' : '&nbsp;&nbsp;&nbsp;') . "{$exp[exp]}</option>\n");
 				}
 			}
 			print ("</select>\n");
 			print ("</td><td>\n");
 			//----- 数値(量)
-			print ("<input type=\"text\" name=\"quantity" . $i . "\" maxlength=\"4\" value=\"" . $this->char->pattern[$i]['quantity'] . "\" style=\"width:56px\" class=\"text\">");
+			print ("<input type=\"text\" name=\"quantity" . $i . "\" maxlength=\"4\" value=\"" . $pattern['quantity'] . "\" style=\"width:56px\" class=\"text\">");
 			print ("</td><td>\n");
 			//----- //SkillSelect(技の種類)
 			print ("<select name=\"skill" . $i . "\">\n");
 			foreach ($this->char->skill as $val)
 			{ //技のoption
 				$skill = HOF_Model_Data::getSkill($val);
-				print ("<option value=\"{$val}\"" . ($this->char->pattern[$i]['action'] == $val ? " selected" : NULL) . ">");
+				print ("<option value=\"{$val}\"" . ($pattern['action'] == $val ? " selected" : NULL) . ">");
 				print ($skill["name"] . (isset($skill["sp"]) ? " - (SP:{$skill[sp]})" : NULL));
 				print ("</option>\n");
 			}
