@@ -90,6 +90,8 @@ class HOF_Class_Char_Mon extends HOF_Class_Char
 	function SetCharData($monster)
 	{
 
+		$this->no = $monster["no"];
+
 		$this->name = $monster["name"];
 		$this->level = $monster["level"];
 
@@ -121,8 +123,6 @@ class HOF_Class_Char_Mon extends HOF_Class_Char
 		$this->SPECIAL = $monster["SPECIAL"];
 
 		$this->pattern = $monster["pattern"];
-
-		$this->pattern(HOF_Class_Char_Pattern::CHECK_PATTERN);
 	}
 
 	/**
@@ -145,6 +145,8 @@ class HOF_Class_Char_Mon extends HOF_Class_Char
 		$this->SPD = $this->spd + $this->P_SPD;
 		$this->LUK = $this->luk + $this->P_LUK;
 		$this->POSITION = $this->position;
+
+		$this->pattern(HOF_Class_Char_Pattern::CHECK_PATTERN);
 	}
 
 }
