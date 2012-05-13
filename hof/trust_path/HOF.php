@@ -12,6 +12,8 @@ class HOF
 
 	protected static $instance;
 
+	const CHARSET = 'UTF-8';
+
 	function __construct()
 	{
 		if (!isset(self::$instance))
