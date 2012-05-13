@@ -14,24 +14,6 @@ dex: '6'
 spd: '9'
 luk: '1'
 guard: life50
-judge:
-    - 1902
-    - 1940
-    - 1940
-    - 1205
-    - 1000
-quantity:
-    - 1
-    - 50
-    - 50
-    - 60
-    - 0
-action:
-    - 9000
-    - 3110
-    - 9000
-    - 1015
-    - 1000
 atk:
     - 30
     - 10
@@ -44,3 +26,24 @@ itemtable:
     6001: '1000'
     6040: '1500'
     7100: '100'
+pattern:
+    -
+        judge: 1902
+        quantity: 1
+        action: 9000
+    -
+        judge: 1940
+        quantity: 50
+        action: 3110
+    -
+        judge: 1940
+        quantity: 50
+        action: 9000
+    -
+        judge: 1205
+        quantity: 60
+        action: 1015
+    -
+        judge: 1000
+        quantity: 0
+        action: 1000
