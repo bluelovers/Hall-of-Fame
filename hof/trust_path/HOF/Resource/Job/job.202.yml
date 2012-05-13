@@ -15,8 +15,8 @@ img: mon_196y
 job_name: Summoner
 gender:
     1:
-        img: mon_246z
-        job_name: Summoner
-    0:
         img: mon_196y
+        job_name: Summoner
+    2:
+        img: mon_246z
         job_name: Summoner
