@@ -15,24 +15,6 @@ spd: '120'
 luk: '100'
 guard: prob25
 position: front
-judge:
-    - 1201
-    - 1902
-    - 1101
-    - 1920
-    - 1000
-quantity:
-    - 40
-    - 1
-    - 40
-    - 1
-    - 0
-action:
-    - 3011
-    - 5804
-    - 2031
-    - 5041
-    - 5040
 atk:
     - 90
     - 90
@@ -45,3 +27,24 @@ itemtable:
     6003: '700'
     6022: '700'
     6184: '700'
+pattern:
+    -
+        judge: 1201
+        quantity: 40
+        action: 3011
+    -
+        judge: 1902
+        quantity: 1
+        action: 5804
+    -
+        judge: 1101
+        quantity: 40
+        action: 2031
+    -
+        judge: 1920
+        quantity: 1
+        action: 5041
+    -
+        judge: 1000
+        quantity: 0
+        action: 5040
