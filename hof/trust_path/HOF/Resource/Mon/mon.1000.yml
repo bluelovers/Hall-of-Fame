@@ -42,3 +42,5 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1000
+info:
+    desc: 'SPがあるときは、強い攻撃をたまにしてくる程度。'
