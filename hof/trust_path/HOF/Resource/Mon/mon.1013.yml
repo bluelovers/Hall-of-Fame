@@ -14,15 +14,6 @@ dex: '16'
 spd: '20'
 luk: '1'
 guard: prob50
-judge:
-    - 1940
-    - 1000
-quantity:
-    - 50
-    - 0
-action:
-    - 5004
-    - 1000
 atk:
     - 30
     - 30
@@ -34,3 +25,12 @@ def:
 itemtable:
     6162: '1000'
     6181: '1000'
+pattern:
+    -
+        judge: 1940
+        quantity: 50
+        action: 5004
+    -
+        judge: 1000
+        quantity: 0
+        action: 1000
