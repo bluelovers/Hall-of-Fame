@@ -140,20 +140,20 @@ class HOF_Class_Battle extends battle
 		if ($type == "RANK")
 		{
 			$file = LOG_BATTLE_RANK;
-			$log = game_core::glob(LOG_BATTLE_RANK);
+			$log = HOF_Class_File::glob(LOG_BATTLE_RANK);
 			$logAmount = MAX_BATTLE_LOG_RANK;
 		}
 		else
 			if ($type == "UNION")
 			{
 				$file = LOG_BATTLE_UNION;
-				$log = game_core::glob(LOG_BATTLE_UNION);
+				$log = HOF_Class_File::glob(LOG_BATTLE_UNION);
 				$logAmount = MAX_BATTLE_LOG_UNION;
 			}
 			else
 			{
 				$file = LOG_BATTLE_NORMAL;
-				$log = game_core::glob(LOG_BATTLE_NORMAL);
+				$log = HOF_Class_File::glob(LOG_BATTLE_NORMAL);
 				$logAmount = MAX_BATTLE_LOG;
 			}
 
