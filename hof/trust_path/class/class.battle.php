@@ -861,78 +861,7 @@ HTML;
 		return $NextChar;
 	}
 	//////////////////////////////////////////////////
-	//	次の行動は誰か(又、詠唱中の魔法が発動するのは誰か)
-	//	リファレンスを返す
-	function &NextActerNew()
-	{
-
-		// 次の行動まで最も距離が短い人を探す。
-		$nextDis = 1000;
-		foreach ($this->team0 as $key => $char)
-		{
-			if ($char->STATE === STATE_DEAD) continue;
-			$charDis = $this->team0[$key]->nextDis();
-			if ($charDis == $nextDis)
-			{
-				$NextChar[] = &$this->team0["$key"];
-			}
-			else
-				if ($charDis <= $nextDis)
-				{
-					$nextDis = $charDis;
-					$NextChar = array(&$this->team0["$key"]);
-				}
-		}
-
-		// ↑と同じ。
-		foreach ($this->team1 as $key => $char)
-		{
-			if ($char->STATE === STATE_DEAD) continue;
-			$charDis = $this->team1[$key]->nextDis();
-			if ($charDis == $nextDis)
-			{
-				$NextChar[] = &$this->team1["$key"];
-			}
-			else
-				if ($charDis <= $nextDis)
-				{
-					$nextDis = $charDis;
-					$NextChar = array(&$this->team1["$key"]);
-				}
-		}
-
-		// 全員ディレイ減少 //////////////////////
-
-		//もしも差分が0以下になったら
-		if ($nextDis < 0)
-		{
-			if (is_array($NextChar))
-			{
-				return $NextChar[array_rand($NextChar)];
-			}
-			else  return $NextChar;
-		}
-
-		foreach ($this->team0 as $key => $char)
-		{
-			$this->team0["$key"]->Delay($nextDis);
-		}
-		foreach ($this->team1 as $key => $char)
-		{
-			$this->team1["$key"]->Delay($nextDis);
-		}
-		// エラーが出たらこれでたしかめろ。
-		/*
-		if(!is_object($NextChar)) {
-		echo("AAA");
-		dump($NextChar);
-		echo("BBB");
-		}
-		*/
-
-		if (is_array($NextChar)) return $NextChar[array_rand($NextChar)];
-		else  return $NextChar;
-	}
+	//
 	//////////////////////////////////////////////////
 	//	キャラ全員の行動ディレイを初期化(=SPD)
 	function DelayResetAll()
