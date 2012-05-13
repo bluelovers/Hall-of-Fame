@@ -1,8 +1,4 @@
 no: '302'
-name_male: Druid
-name_female: Druid
-img_male: mon_213rz
-img_female: mon_214rz
 equip:
     - Wand
     - Book
@@ -14,3 +10,13 @@ coe:
     - 1.2
 info:
     desc: "聖職上級職。\n特殊な支援能力を持っている。"
+job: '302'
+img: mon_213rz
+job_name: Druid
+gender:
+    1:
+        img: mon_214rz
+        job_name: Druid
+    0:
+        img: mon_213rz
+        job_name: Druid
