@@ -109,10 +109,6 @@ class HOF_Class_Char_Mon extends HOF_Class_Char
 		$this->position = $monster["position"];
 		$this->guard = $monster["guard"];
 
-		if (is_array($monster["judge"])) $this->judge = $monster["judge"];
-		if (is_array($monster["quantity"])) $this->quantity = $monster["quantity"];
-		if (is_array($monster["action"])) $this->action = $monster["action"];
-
 		// モンスター専用
 		//$this->monster		= $monster["monster"];
 		$this->monster = true;
@@ -123,6 +119,10 @@ class HOF_Class_Char_Mon extends HOF_Class_Char
 		$this->atk = $monster["atk"];
 		$this->def = $monster["def"];
 		$this->SPECIAL = $monster["SPECIAL"];
+
+		$this->pattern = $monster["pattern"];
+
+		$this->pattern(HOF_Class_Char_Pattern::CHECK_PATTERN);
 	}
 
 	/**
