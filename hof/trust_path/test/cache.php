@@ -5,7 +5,7 @@
  * @copyright 2012
  */
 
-require_once ("../bootstrap.php");
+require_once ("./bootstrap.php");
 
 $gamer = array();
 
