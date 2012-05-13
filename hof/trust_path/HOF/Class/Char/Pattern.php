@@ -31,9 +31,17 @@ class HOF_Class_Char_Pattern
 		$this->char = &$char;
 	}
 
+	function __destruct()
+	{
+		if ($this->char)
+		{
+			unset(self::$instance[$this->char->Number]);
+		}
+	}
+
 	public static function &getInstance(&$char)
 	{
-		if (!isset(self::$instance[$char->Number]))
+		if (empty(self::$instance[$char->Number]))
 		{
 			new self(&$char);
 		}
