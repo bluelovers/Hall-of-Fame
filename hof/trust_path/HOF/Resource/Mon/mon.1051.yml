@@ -15,10 +15,6 @@ spd: '80'
 luk: '10'
 guard: life25
 position: front
-judge:
-    - 1000
-action:
-    - 1000
 atk:
     - 60
     - 10
@@ -28,3 +24,8 @@ def:
     - 30
     - 20
 itemtable: {  }
+pattern:
+    -
+        judge: 1000
+        quantity: null
+        action: 1000
