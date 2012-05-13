@@ -197,22 +197,22 @@ class HOF_Model_Char extends HOF_Class_Data
 
 		// bluelovers
 		// 修正當 mon 沒有設定行動條件時的 BUG
-		if (empty($data['judge']))
+		if (0 && empty($data['pattern']))
 		{
-			// 沒有行動判定時 則預設為 一定
-			$data['judge'][] = 1000;
-		}
+			/**
+			 * 沒有行動判定時 則預設為 一定
+			 * 沒有行動條件時 則設定為 0
+			 * 沒有設定技能時 為 攻擊
+			 */
+			$pattern_new = array(
+				'judge' => 1000,
+				'quantity' => 0,
+				'action' => 1000,
+			);
 
-		if (empty($data['quantity']))
-		{
-			// 沒有行動條件時 則設定為 0
-			$data['quantity'][] = 0;
-		}
+			$data['pattern'] = array();
 
-		if (empty($data['action']))
-		{
-			// 沒有設定技能時 為 攻擊
-			$data['action'][] = 1000;
+			$data['pattern'][] = $pattern_new;
 		}
 		// bluelovers
 
