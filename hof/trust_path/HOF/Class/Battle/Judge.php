@@ -8,8 +8,8 @@
 class HOF_Class_Battle_Judge
 {
 
-	//	function DecideJudge($number,$My,$MyTeam,$EnemyTeam,$classBattle)
-	function DecideJudge($number, $My, $classBattle)
+	//	function DecideJudge($JudgeKey,$My,$MyTeam,$EnemyTeam,$classBattle)
+	function DecideJudge($JudgeKey, $My, $classBattle)
 	{
 
 		//判定に使用する　数字　変数　配列　とかを
@@ -29,8 +29,8 @@ class HOF_Class_Battle_Judge
 			$EnemyTeamMC = $classBattle->team0_mc;
 		}
 
-		$Judge = $My->judge["$number"];
-		$Quantity = $My->quantity["$number"];
+		$Judge = $My->pattern[$JudgeKey]['judge'];
+		$Quantity = $My->pattern[$JudgeKey]['quantity'];
 
 		switch ($Judge)
 		{
@@ -708,7 +708,7 @@ class HOF_Class_Battle_Judge
 
 				//------------------------ 回数制限
 			case 1920: // **回だけ必ず
-				if ($My->JdgCount[$number] < $Quantity) return true;
+				if ($My->JdgCount[$JudgeKey] < $Quantity) return true;
 				break;
 
 				//------------------------ 確率
