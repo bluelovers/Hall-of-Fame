@@ -234,7 +234,7 @@ class HOF_Model_Char extends HOF_Class_Data
 
 		$append = self::_fixArray($append);
 
-		$char = new HOF_Class_Mon($append);
+		$char = new HOF_Class_Char_Mon($append);
 
 		return $char;
 	}
