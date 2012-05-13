@@ -132,7 +132,10 @@ class HOF_Class_Char_Pattern
 			/**
 			 * 限界設定数を超えていないか心配なので作った。。
 			 */
-			$pattern_new = array_slice($pattern_new, 0, $this->pattern_max());
+			if (!$this->char->monster)
+			{
+				$pattern_new = array_slice($pattern_new, 0, $this->pattern_max());
+			}
 
 			//debug($pattern_new);
 
