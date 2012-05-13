@@ -16,8 +16,8 @@ img: mon_196z
 job_name: Warlock
 gender:
     1:
-        img: mon_246r
-        job_name: Warlock
-    0:
         img: mon_196z
+        job_name: Warlock
+    2:
+        img: mon_246r
         job_name: Warlock
