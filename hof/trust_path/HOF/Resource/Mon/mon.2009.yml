@@ -15,9 +15,6 @@ spd: '160'
 luk: '500'
 guard: never
 position: back
-judge: {  }
-quantity: {  }
-action: {  }
 atk:
     - 20
     - 120
@@ -43,3 +40,4 @@ Slave:
 land: build01
 UnionName: Specters
 LevelLimit: '150'
+pattern: {  }
