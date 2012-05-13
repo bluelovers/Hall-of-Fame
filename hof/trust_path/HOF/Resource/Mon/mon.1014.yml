@@ -38,3 +38,5 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1000
+info:
+    desc: '魔法で攻撃しないと倒しにくい。'
