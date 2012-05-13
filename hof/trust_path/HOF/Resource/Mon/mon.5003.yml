@@ -15,15 +15,6 @@ spd: '10'
 luk: '1'
 guard: never
 position: front
-judge:
-    - 1200
-    - 1000
-quantity:
-    - 30
-    - 0
-action:
-    - 1003
-    - 1000
 atk:
     - 20
     - 10
@@ -32,3 +23,12 @@ def:
     - 20
     - 0
     - 0
+pattern:
+    -
+        judge: 1200
+        quantity: 30
+        action: 1003
+    -
+        judge: 1000
+        quantity: 0
+        action: 1000
