@@ -15,30 +15,6 @@ spd: '130'
 luk: '100'
 guard: never
 position: back
-judge:
-    - 1206
-    - 1920
-    - 1401
-    - 1940
-    - 1401
-    - 1940
-    - 1000
-quantity:
-    - 49
-    - 1
-    - 2
-    - 50
-    - 2
-    - 50
-    - 0
-action:
-    - 5066
-    - 5067
-    - 9000
-    - 5068
-    - 5069
-    - 5064
-    - 5065
 atk:
     - 40
     - 40
@@ -63,3 +39,32 @@ Slave:
 land: jungle
 UnionName: 'Ape''sRevenge'
 LevelLimit: '100'
+pattern:
+    -
+        judge: 1206
+        quantity: 49
+        action: 5066
+    -
+        judge: 1920
+        quantity: 1
+        action: 5067
+    -
+        judge: 1401
+        quantity: 2
+        action: 9000
+    -
+        judge: 1940
+        quantity: 50
+        action: 5068
+    -
+        judge: 1401
+        quantity: 2
+        action: 5069
+    -
+        judge: 1940
+        quantity: 50
+        action: 5064
+    -
+        judge: 1000
+        quantity: 0
+        action: 5065
