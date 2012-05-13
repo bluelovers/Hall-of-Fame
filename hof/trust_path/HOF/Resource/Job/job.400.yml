@@ -19,8 +19,8 @@ img: mon_219rr
 job_name: Hunter
 gender:
     1:
-        img: mon_219r
-        job_name: Hunter
-    0:
         img: mon_219rr
+        job_name: Hunter
+    2:
+        img: mon_219r
         job_name: Hunter
