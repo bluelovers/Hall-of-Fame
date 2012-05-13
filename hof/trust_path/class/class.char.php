@@ -5,7 +5,7 @@ if (!defined('DEBUG'))
 	exit('Access Denied');
 }
 
-class char
+class char extends HOF_Class_Char_Base
 {
 
 	// ファイルポインタ
@@ -21,8 +21,7 @@ class char
 	$gender	= (0=male 1=female)
 	*/
 	var $name, $gender, $job, $job_name, $img, $birth, $level, $exp;
-	// ステータス
-	var $maxhp, $hp, $maxsp, $sp, $str, $int, $dex, $spd, $luk;
+
 	// ステータスポイントとか
 	var $statuspoint;
 	var $skillpoint;
@@ -33,17 +32,12 @@ class char
 	// スキル
 	var $skill;
 
-	var $judge, $quantity, $action;
-
 	// 戦闘用変数(BattleVariable) データには保存されない。
 	var $team;
 	var $IMG;
-	var $MAXHP, $HP, $MAXSP, $SP, $STR, $INT, $DEX, $SPD, $LUK;
-	var $STATE; //状態(0=生存 1=しぼー 2=毒状態)
+
 	var $POSITION;
-	var $P_MAXHP, $P_MAXSP, $P_STR, $P_INT, $P_DEX, $P_SPD, $P_LUK; //単純なステータス補正(plus)
-	var $M_MAXHP, $M_MAXSP; //単純なステータス補正(multipication)
-	var $SPECIAL; // 特殊技能
+
 	/*
 	PoisonResist 毒抵抗
 	HealBonus .
@@ -51,14 +45,6 @@ class char
 	Undead
 	*/
 	var $WEAPON; //武器タイプ
-	var $atk, $def; // $atk=array(物理,魔法); $def=array(物理/,物理-,魔法/,魔法-);
-	var $delay; //行動までの時間
-	var $expect = false; //詠唱完了時に使うスキル
-	var $expect_type; //詠唱完了時に使うスキルのタイプ(物理/魔法)
-	var $expect_target; //↑のターゲット
-
-	var $ActCount; //合計行動回数
-	var $JdgCount; //決定した判断の回数=array()
 
 	//////////////////////////////////////////////////
 	//
