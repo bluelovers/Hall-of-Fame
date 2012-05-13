@@ -200,7 +200,7 @@ class HOF_Class_Item extends HOF_Class_Base_ObjectAttr
 
 	function price_sell($format = false)
 	{
-		$price = ItemSellPrice($this);
+		$price = HOF_Helper_Item::ItemSellPrice($this);
 
 		if ($format) return HOF_Helper_Global::MoneyFormat($price);
 
