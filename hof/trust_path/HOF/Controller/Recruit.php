@@ -41,7 +41,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 
 		if (isset($_POST['recruit_gend']))
 		{
-			$this->input->recruit_gend = min(1, max(0, $_POST['recruit_gend']));
+			$this->input->recruit_gend = HOF_Helper_Math::minmax($_POST['recruit_gend'], GENDER_UNKNOW, GENDER_GIRL);
 		}
 		else
 		{
@@ -51,10 +51,13 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 
 	function _recruit()
 	{
+		$this->RecruitShow();
+
 		if ($this->RecruitProcess()) $this->user->SaveData();
 
+		$this->output->error_max = (MAX_CHAR <= $this->user->CharCount());
+
 		$this->user->fpclose_all();
-		$this->RecruitShow();
 	}
 
 	function _error($s, $a = null)
@@ -71,16 +74,6 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 
 		if ($this->input->recruit)
 		{
-
-			// キャラのタイプ
-			if ($this->char_recruit_money[$this->input->recruit_no] <= 0)
-			{
-				$this->_error("キャラ 未選択", "margin15");
-				return false;
-			}
-
-			$hire = $this->char_recruit_money[$this->input->recruit_no];
-			$charNo = $this->input->recruit_no;
 
 			// 名前処理
 			if ($this->input->recruit_name)
@@ -107,25 +100,57 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 				return false;
 			}
 
+			$char = null;
+
+			if ($this->input->recruit_no && $this->_cache['chars'][$this->input->recruit_no] instanceof HOF_Class_Char)
+			{
+
+				$job = $this->_cache['chars'][$this->input->recruit_no]->job;
+				$gender = $this->_cache['chars'][$this->input->recruit_no]->gender;
+
+				$char = HOF_Model_Char::newBaseChar(floor($job / 100), array("name" => $name, "gender" => $gender, 'job' => $job));
+			}
+			else
+			{
+				$this->_error('Select characters job.');
+				break;
+			}
+
+			// キャラのタイプ
+			$hire = $this->char_recruit_money[floor($job / 100)];
+
 			//性別
-			if ($this->input->recruit_gend !== 0 && $this->input->recruit_gend !== 1)
+			/*
+			if (!array_key_exists($this->input->recruit_gend, $jobdata['gender']))
 			{
 				$this->_error("性別 未選択", "margin15");
 				return false;
 			}
 			else
 			{
-				$Gender = $this->input->recruit_gend ? "♀" : "♂";
+				if ($this->input->recruit_gend == GENDER_GIRL)
+				{
+					$Gender = '♀';
+				}
+				elseif ($this->input->recruit_gend == GENDER_BOY)
+				{
+					$Gender = '♂';
+				}
+				else
+				{
+					$Gender = '?';
+				}
 			}
+			*/
 
 			// キャラデータをクラスに入れる
 
-			$plus = array("name" => "$name", "gender" => $this->input->recruit_gend);
+			//$plus = array("name" => "$name", "gender" => $this->input->recruit_gend);
 			/*
 			$char = new HOF_Class_Char();
 			$char->SetCharData(array_merge(BaseCharStatus($charNo), $plus));
 			*/
-			$char = HOF_Model_Char::newBaseChar($charNo, $plus);
+			//$char = HOF_Model_Char::newBaseChar($charNo, $plus);
 			//雇用金
 			if ($hire <= $this->user->money)
 			{
@@ -138,7 +163,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 			}
 			// キャラを保存する
 			$char->SaveCharData($this->user->id);
-			HOF_Helper_Global::ShowResult($char->Name() . "($char->job_name:{$Gender}) が仲間になった！", "margin15");
+			HOF_Helper_Global::ShowResult($char->Name() . "($char->job_name) が仲間になった！", "margin15");
 			return true;
 		}
 	}
@@ -151,17 +176,48 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 		if (!$this->output->error_max)
 		{
 
-			$char = array();
+			$chars = array();
+			$k = 1;
 
 			for ($i = 1; $i <= 4; $i++)
 			{
-				for ($j = 0; $j <= 1; $j++)
+				$base = HOF_Model_Char::newBaseChar($i);
+				$jobdata = HOF_Model_Data::getJobData($base->job);
+
+				foreach(array_keys($jobdata['gender']) as $j)
 				{
-					$char[] = HOF_Model_Char::newBaseChar($i, array('gender' => $j));
+					$chars[$k] = HOF_Model_Char::newBaseChar($i, array('gender' => $j));
+
+					if ($j == GENDER_GIRL)
+					{
+						$Gender = '♀';
+					}
+					elseif ($j == GENDER_BOY)
+					{
+						$Gender = '♂';
+					}
+					else
+					{
+						$Gender = '';
+					}
+
+					$chars[$k]->job_name .= $Gender;
+
+					$k++;
 				}
 			}
 
-			$this->output->char_recruit = $char;
+			$this->_cache['chars'] = $chars;
+
+			$this->output->char_recruit = array();
+
+			$k = 0;
+			foreach ($chars as $i => $char)
+			{
+				$this->output->char_recruit[$k][$i] = $char;
+
+				if (!($i % 4)) $k++;
+			}
 		}
 
 	}
