@@ -15,33 +15,6 @@ spd: '10'
 luk: '30'
 guard: always
 position: front
-judge:
-    - 1940
-    - 1902
-    - 1101
-    - 1200
-    - 1940
-    - 1200
-    - 1940
-    - 1000
-quantity:
-    - 50
-    - 1
-    - 50
-    - 20
-    - 50
-    - 20
-    - 50
-    - 0
-action:
-    - 9000
-    - 5005
-    - 9000
-    - 3121
-    - 9000
-    - 5000
-    - 5019
-    - 5008
 atk:
     - 100
     - 10
@@ -50,3 +23,36 @@ def:
     - 60
     - 35
     - 30
+pattern:
+    -
+        judge: 1940
+        quantity: 50
+        action: 9000
+    -
+        judge: 1902
+        quantity: 1
+        action: 5005
+    -
+        judge: 1101
+        quantity: 50
+        action: 9000
+    -
+        judge: 1200
+        quantity: 20
+        action: 3121
+    -
+        judge: 1940
+        quantity: 50
+        action: 9000
+    -
+        judge: 1200
+        quantity: 20
+        action: 5000
+    -
+        judge: 1940
+        quantity: 50
+        action: 5019
+    -
+        judge: 1000
+        quantity: 0
+        action: 5008
