@@ -171,7 +171,7 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 			if ($amount < 0) $amount = 0;
 			$Deleted = $this->user->DeleteItem($itemNo, $amount);
 			//print("$itemNo x $Deleted<br>");
-			$sellPrice = ItemSellPrice($item);
+			$sellPrice = HOF_Helper_Item::ItemSellPrice($item);
 			$Total = $Deleted * $sellPrice;
 			$getMoney += $Total;
 			print ("<tr><td class=\"td7\">");
