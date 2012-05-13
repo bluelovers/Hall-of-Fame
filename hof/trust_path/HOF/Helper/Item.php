@@ -8,6 +8,12 @@
 class HOF_Helper_Item extends HOF_Class_Data
 {
 
+	function ItemSellPrice($item)
+{
+	$price = (isset($item["sell"]) ? $item["sell"] : round($item["buy"] * SELLING_PRICE));
+	return $price;
+}
+
 	function parseItemData($data)
 	{
 		// 精錬値
