@@ -1,8 +1,4 @@
 no: '202'
-name_male: Summoner
-name_female: Summoner
-img_male: mon_196y
-img_female: mon_246z
 equip:
     - Wand
     - Staff
@@ -14,3 +10,13 @@ coe:
     - 2.5
 info:
     desc: "魔法系上級職。\n時間はかかるが強力な召喚獣を呼べる。"
+job: '202'
+img: mon_196y
+job_name: Summoner
+gender:
+    1:
+        img: mon_246z
+        job_name: Summoner
+    0:
+        img: mon_196y
+        job_name: Summoner
