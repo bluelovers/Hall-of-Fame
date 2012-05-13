@@ -18,7 +18,7 @@
 			Color :
 			<select name="color" class="bgcolor">
 				<?php foreach ($this->output->colors as $value): ?>
-				<option value="<?php e($value) ?>" style="color:<?php e($value) ?>" <?php if ($this->output->UserColor == $value) e(" selected"); ?> > SampleColor</option>
+				<option value="<?php e($value) ?>" style="color: #<?php e($value) ?>" <?php if ($this->output->UserColor == $value) e(" selected"); ?> > SampleColor</option>
 				<?php endforeach; ?>
 			</select>
 			<br />
