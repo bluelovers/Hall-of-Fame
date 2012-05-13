@@ -15,9 +15,6 @@ spd: '80'
 luk: '1'
 guard: never
 position: back
-judge: {  }
-quantity: {  }
-action: {  }
 atk:
     - 30
     - 60
@@ -26,3 +23,4 @@ def:
     - 30
     - 60
     - 40
+pattern: {  }
