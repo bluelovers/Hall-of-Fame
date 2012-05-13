@@ -48,3 +48,5 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1000
+info:
+    desc: 'HPが高い。'
