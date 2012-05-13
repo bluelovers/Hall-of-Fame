@@ -15,9 +15,6 @@ spd: '160'
 luk: '80'
 guard: never
 position: back
-judge: {  }
-quantity: {  }
-action: {  }
 atk:
     - 90
     - 40
@@ -43,3 +40,4 @@ Slave:
 land: ocean
 UnionName: BlueSentinel
 LevelLimit: '150'
+pattern: {  }
