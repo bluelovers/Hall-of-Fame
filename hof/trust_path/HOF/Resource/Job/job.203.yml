@@ -16,8 +16,8 @@ img: mon_196x
 job_name: Necromancer
 gender:
     1:
-        img: eiyusenki_246
-        job_name: Necromancer
-    0:
         img: mon_196x
+        job_name: Necromancer
+    2:
+        img: eiyusenki_246
         job_name: Necromancer
