@@ -46,6 +46,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		$Union = array();
 
+		/*
 		if ($files = game_core::glob(UNION))
 		{
 			foreach ($files as $file)
@@ -71,6 +72,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			$union_showchar = ob_get_clean();
 
 		}
+		*/
 
 		$logs = array();
 
