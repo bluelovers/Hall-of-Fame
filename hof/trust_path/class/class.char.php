@@ -54,7 +54,7 @@ class char extends HOF_Class_Char_Base
 		if (!$rate) return false;
 
 		$SelfDamage = ceil($this->MAXHP * ($rate / 100));
-		if ($this->POSITION != "front") $SelfDamage *= 2;
+		if ($this->POSITION != POSITION_FRONT) $SelfDamage *= 2;
 		print ("<span class=\"dmg\">" . $this->Name(bold) . " sacrifice ");
 		print ("<span class=\"bold\">$SelfDamage</span> HP</span>\n");
 		$this->HpDamage($SelfDamage);
@@ -242,16 +242,16 @@ class char extends HOF_Class_Char_Base
 	function Move($posi)
 	{
 		//print($this->POSITION."->".$posi."<br />\n");
-		if ($posi == "front")
+		if ($posi == POSITION_FRONT)
 		{
-			if ($this->POSITION == "front") return false;
-			$this->POSITION = "front";
+			if ($this->POSITION == POSITION_FRONT) return false;
+			$this->POSITION = POSITION_FRONT;
 			print ($this->Name(bold) . " moved to front.<br />\n");
 		}
 		else
 		{
-			if ($this->POSITION != "front") return false;
-			$this->POSITION = "back";
+			if ($this->POSITION != POSITION_FRONT) return false;
+			$this->POSITION = POSITION_BACK;
 			print ($this->Name(bold) . " moved to back.<br />\n");
 		}
 	}
@@ -260,7 +260,7 @@ class char extends HOF_Class_Char_Base
 	//	行動までの距離測定
 	function nextDis()
 	{
-		if ($this->STATE === DEAD) return 100;
+		if ($this->STATE === STATE_DEAD) return 100;
 		$distance = (100 - $this->delay) / $this->DelayValue();
 		return $distance;
 	}
@@ -283,7 +283,7 @@ class char extends HOF_Class_Char_Base
 	function Delay($no)
 	{
 		// 死亡中は増えないようにする
-		if ($this->STATE === DEAD) return false;
+		if ($this->STATE === STATE_DEAD) return false;
 
 		if (DELAY_TYPE === 0)
 		{
@@ -395,9 +395,9 @@ class char extends HOF_Class_Char_Base
 	//	キャラを後衛化させる。
 	function KnockBack($no = 1)
 	{
-		if ($this->POSITION == "front")
+		if ($this->POSITION == POSITION_FRONT)
 		{
-			$this->POSITION = "back";
+			$this->POSITION = POSITION_BACK;
 			print ($this->Name(bold) . " knock backed!<br />\n");
 		}
 	}
@@ -684,9 +684,9 @@ class char extends HOF_Class_Char_Base
 	//	しぼーしてるかどうか確認する。
 	function CharJudgeDead()
 	{
-		if ($this->HP < 1 && $this->STATE !== DEAD)
+		if ($this->HP < 1 && $this->STATE !== STATE_DEAD)
 		{ //しぼー
-			$this->STATE = DEAD;
+			$this->STATE = STATE_DEAD;
 			$this->HP = 0;
 			$this->ResetExpect();
 
@@ -697,14 +697,14 @@ class char extends HOF_Class_Char_Base
 	//	生存状態にする。
 	function GetNormal($mes = false)
 	{
-		if ($this->STATE === ALIVE) return true;
-		if ($this->STATE === DEAD)
+		if ($this->STATE === STATE_ALIVE) return true;
+		if ($this->STATE === STATE_DEAD)
 		{ //死亡状態
 			if ($mes) print ($this->Name(bold) . ' <span class="recover">revived</span>!<br />' . "\n");
 			$this->STATE = 0;
 			return true;
 		}
-		if ($this->STATE === POISON)
+		if ($this->STATE === STATE_POISON)
 		{ //毒状態
 			if ($mes) print ($this->Name(bold) . "'s <span class=\"spdmg\">poison</span> has cured.<br />\n");
 			$this->STATE = 0;
