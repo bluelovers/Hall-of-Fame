@@ -15,12 +15,6 @@ spd: '4'
 luk: '1'
 guard: always
 position: front
-judge:
-    - 1000
-quantity:
-    - 0
-action:
-    - 5042
 atk:
     - 20
     - 20
@@ -31,3 +25,8 @@ def:
     - 0
 itemtable:
     6020: '1000'
+pattern:
+    -
+        judge: 1000
+        quantity: 0
+        action: 5042
