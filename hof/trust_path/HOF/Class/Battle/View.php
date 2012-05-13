@@ -133,9 +133,9 @@ EOM
 		foreach ($this->battle->team1 as $char)
 		{
 			// 召喚キャラが死亡している場合は飛ばす
-			if ($char->STATE === DEAD && $char->summon == true) continue;
+			if ($char->STATE === STATE_DEAD && $char->summon == true) continue;
 
-			if ($char->POSITION != FRONT) echo $char->ShowHpSp();
+			if ($char->POSITION != POSITION_FRONT) echo $char->ShowHpSp();
 		}
 
 		// 	左側チーム前衛
@@ -143,9 +143,9 @@ EOM
 		foreach ($this->battle->team1 as $char)
 		{
 			// 召喚キャラが死亡している場合は飛ばす
-			if ($char->STATE === DEAD && $char->summon == true) continue;
+			if ($char->STATE === STATE_DEAD && $char->summon == true) continue;
 
-			if ($char->POSITION == FRONT) echo $char->ShowHpSp();
+			if ($char->POSITION == POSITION_FRONT) echo $char->ShowHpSp();
 		}
 
 		echo("</td></tr></tbody></table>\n");
@@ -157,8 +157,8 @@ EOM
 		foreach ($this->battle->team0 as $char)
 		{
 			// 召喚キャラが死亡している場合は飛ばす
-			if ($char->STATE === DEAD && $char->summon == true) continue;
-			if ($char->POSITION == FRONT) echo $char->ShowHpSp();
+			if ($char->STATE === STATE_DEAD && $char->summon == true) continue;
+			if ($char->POSITION == POSITION_FRONT) echo $char->ShowHpSp();
 		}
 
 		// 	右側チーム後衛
@@ -166,8 +166,8 @@ EOM
 		foreach ($this->battle->team0 as $char)
 		{
 			// 召喚キャラが死亡している場合は飛ばす
-			if ($char->STATE === DEAD && $char->summon == true) continue;
-			if ($char->POSITION != FRONT) echo $char->ShowHpSp();
+			if ($char->STATE === STATE_DEAD && $char->summon == true) continue;
+			if ($char->POSITION != POSITION_FRONT) echo $char->ShowHpSp();
 		}
 		echo("</td></tr></tbody></table>\n");
 
@@ -186,7 +186,7 @@ EOM
 		foreach ($this->battle->team1 as $char)
 		{
 			//チーム1
-			if ($char->STATE !== DEAD) $TotalAlive2++;
+			if ($char->STATE !== STATE_DEAD) $TotalAlive2++;
 			$TotalHp2 += $char->HP; //合計HP
 			$TotalMaxHp2 += $char->MAXHP; //合計最大HP
 		}
@@ -196,7 +196,7 @@ EOM
 		foreach ($this->battle->team0 as $char)
 		{
 			//チーム0
-			if ($char->STATE !== DEAD) $TotalAlive1++;
+			if ($char->STATE !== STATE_DEAD) $TotalAlive1++;
 			$TotalHp1 += $char->HP; //合計HP
 			$TotalMaxHp1 += $char->MAXHP; //合計最大HP
 		}
