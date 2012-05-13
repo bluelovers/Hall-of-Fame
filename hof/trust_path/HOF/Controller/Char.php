@@ -265,29 +265,11 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * 行動設定
 	 */
-	function _main_action_ChangePattern()
+	function _main_action_pattern_change()
 	{
-		$max = $this->char->MaxPatterns();
+		$pattern = $this->_pattern_input();
 
-		// 記憶するパターンと技の配列。
-		for ($i = 0; $i < $max; $i++)
-		{
-			$judge[] = HOF::$input->post["judge" . $i];
-
-			$quantity_post = (int)HOF::$input->post["quantity" . $i];
-
-			if (4 < strlen($quantity_post))
-			{
-				$quantity_post = substr($quantity_post, 0, 4);
-			}
-
-			$quantity[] = $quantity_post;
-
-			$action[] = HOF::$input->post["skill" . $i];
-		}
-
-		//if($this->char->ChangePattern($judge,$action)) {
-		if ($this->char->PatternSave($judge, $quantity, $action))
+		if ($this->char->pattern($pattern))
 		{
 			$this->char->SaveCharData($this->user->id);
 			$this->_msg_result("パターン設定保存 完了", "margin15");
@@ -300,26 +282,38 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		return false;
 	}
 
+	function _pattern_input()
+	{
+		$max = $this->char->pattern_max();
+
+		$pattern = array();
+
+		// 記憶するパターンと技の配列。
+		for ($i = 0; $i < $max; $i++)
+		{
+			$quantity_post = (int)HOF::$input->post["quantity" . $i];
+
+			if (4 < strlen($quantity_post))
+			{
+				$quantity_post = substr($quantity_post, 0, 4);
+			}
+
+			$pattern[$i]['judge'] = HOF::$input->post["judge" . $i];
+			$pattern[$i]['quantity'] = $quantity_post;
+			$pattern[$i]['action'] = HOF::$input->post["skill" . $i];
+		}
+
+		return $pattern;
+	}
+
 	/**
 	 * 行動設定 兼 模擬戦
 	 */
 	function _main_action_TestBattle()
 	{
-		$max = $this->char->MaxPatterns();
-		//記憶するパターンと技の配列。
-		for ($i = 0; $i < $max; $i++)
-		{
-			$judge[] = HOF::$input->post["judge" . $i];
-			$quantity_post = (int)HOF::$input->post["quantity" . $i];
-			if (4 < strlen($quantity_post))
-			{
-				$quantity_post = substr($quantity_post, 0, 4);
-			}
-			$quantity[] = $quantity_post;
-			$action[] = HOF::$input->post["skill" . $i];
-		}
-		//if($this->char->ChangePattern($judge,$action)) {
-		if ($this->char->PatternSave($judge, $quantity, $action))
+		$pattern = $this->_pattern_input();
+
+		if ($this->char->pattern($pattern))
 		{
 			$this->char->SaveCharData($this->user->id);
 
@@ -333,9 +327,9 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * 行動パターンメモ(交換)
 	 */
-	function _main_action_PatternMemo()
+	function _main_action_pattern_memo()
 	{
-		if ($this->char->ChangePatternMemo())
+		if ($this->char->pattern_switch())
 		{
 			$this->char->SaveCharData($this->user->id);
 			$this->_msg_result("パターン交換 完了", "margin15");
@@ -346,13 +340,13 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * 指定行に追加
 	 */
-	function _main_action_AddNewPattern()
+	function _main_action_pattern_insert()
 	{
-		$this->input->PatternNumber = HOF::$input->post["PatternNumber"];
+		$this->input->pattern_no = HOF::$input->post["pattern_no"];
 
-		if (!isset($this->input->PatternNumber)) return false;
+		if (!isset($this->input->pattern_no)) return false;
 
-		if ($this->char->AddPattern($this->input->PatternNumber))
+		if ($this->char->pattern_insert($this->input->pattern_no, null, true))
 		{
 			$this->char->SaveCharData($this->user->id);
 			$this->_msg_result("パターン追加 完了", "margin15");
@@ -364,13 +358,13 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * 指定行を削除
 	 */
-	function _main_action_DeletePattern()
+	function _main_action_pattern_remove()
 	{
-		$this->input->PatternNumber = HOF::$input->post["PatternNumber"];
+		$this->input->pattern_no = HOF::$input->post["pattern_no"];
 
-		if (!isset($this->input->PatternNumber)) return false;
+		if (!isset($this->input->pattern_no)) return false;
 
-		if ($this->char->DeletePattern($this->input->PatternNumber))
+		if ($this->char->pattern_remove($this->input->pattern_no))
 		{
 			$this->char->SaveCharData($this->user->id);
 			$this->_msg_result("パターン削除 完了", "margin15");
@@ -996,10 +990,16 @@ HTML;
 	<h4>Action Pattern<a href="?manual#jdg" target="_blank" class="a0">?</a></h4>
 	<?php
 
-		// Action Pattern 行動判定 /////////////////////////
-		$list = HOF_Model_Data::getJudgeList(); // 行動判定条件一覧
+		$pattern_max = $this->char->pattern_max();
+
+		/**
+		 * Action Pattern 行動判定
+		 * 行動判定条件一覧
+		 */
+		$list = HOF_Model_Data::getJudgeList();
+
 		print ("<table cellspacing=\"5\"><tbody>\n");
-		for ($i = 0; $i < $this->char->MaxPatterns(); $i++)
+		for ($i = 0; $i < $pattern_max; $i++)
 		{
 			print ("<tr><td>");
 			//----- No
@@ -1021,38 +1021,38 @@ HTML;
 				}
 				else
 				{
-					print ("<option value=\"{$val}\"" . ($this->char->judge[$i] == $val ? " selected" : NULL) . ($exp["css"] ? '' : NULL) . ">" . ($exp["css"] ? '&nbsp;' : '&nbsp;&nbsp;&nbsp;') . "{$exp[exp]}</option>\n");
+					print ("<option value=\"{$val}\"" . ($this->char->pattern[$i]['judge'] == $val ? " selected" : NULL) . ($exp["css"] ? '' : NULL) . ">" . ($exp["css"] ? '&nbsp;' : '&nbsp;&nbsp;&nbsp;') . "{$exp[exp]}</option>\n");
 				}
 			}
 			print ("</select>\n");
 			print ("</td><td>\n");
 			//----- 数値(量)
-			print ("<input type=\"text\" name=\"quantity" . $i . "\" maxlength=\"4\" value=\"" . $this->char->quantity[$i] . "\" style=\"width:56px\" class=\"text\">");
+			print ("<input type=\"text\" name=\"quantity" . $i . "\" maxlength=\"4\" value=\"" . $this->char->pattern[$i]['quantity'] . "\" style=\"width:56px\" class=\"text\">");
 			print ("</td><td>\n");
 			//----- //SkillSelect(技の種類)
 			print ("<select name=\"skill" . $i . "\">\n");
 			foreach ($this->char->skill as $val)
 			{ //技のoption
 				$skill = HOF_Model_Data::getSkill($val);
-				print ("<option value=\"{$val}\"" . ($this->char->action[$i] == $val ? " selected" : NULL) . ">");
+				print ("<option value=\"{$val}\"" . ($this->char->pattern[$i]['action'] == $val ? " selected" : NULL) . ">");
 				print ($skill["name"] . (isset($skill["sp"]) ? " - (SP:{$skill[sp]})" : NULL));
 				print ("</option>\n");
 			}
 			print ("</select>\n");
 			print ("</td><td>\n");
-			print ('<input type="radio" name="PatternNumber" value="' . $i . '">');
+			print ('<input type="radio" name="pattern_no" value="' . $i . '">');
 			print ("</td></tr>\n");
 		}
 		print ("</tbody></table>\n");
 
 
 ?>
-	<input type="submit" class="btn" value="Set Pattern" name="ChangePattern">
+	<input type="submit" class="btn" value="Set Pattern" name="pattern_change">
 	<input type="submit" class="btn" value="Set & Test" name="TestBattle">
 	&nbsp;<a href="?simulate">Simulate</a><br />
-	<input type="submit" class="btn" value="Switch Pattern" name="PatternMemo">
-	<input type="submit" class="btn" value="Add" name="AddNewPattern">
-	<input type="submit" class="btn" value="Delete" name="DeletePattern">
+	<input type="submit" class="btn" value="Switch Pattern" name="pattern_memo">
+	<input type="submit" class="btn" value="Add" name="pattern_insert">
+	<input type="submit" class="btn" value="Delete" name="pattern_remove">
 </form>
 <form action="?char=<?=
 
