@@ -17,8 +17,8 @@ img: mon_199r
 job_name: RoyalGuard
 gender:
     1:
-        img: mon_234r
-        job_name: RoyalGuard
-    0:
         img: mon_199r
+        job_name: RoyalGuard
+    2:
+        img: mon_234r
         job_name: RoyalGuard
