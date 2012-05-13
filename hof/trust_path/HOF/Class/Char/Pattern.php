@@ -14,21 +14,37 @@ class HOF_Class_Char_Pattern
 	const CHECK_PATTERN = -1;
 
 	public static $pattern_item = array(
-				'judge' => 1000,
-				'quantity' => 0,
-				'action' => 1000,
-			);
+		'judge' => 1000,
+		'quantity' => 0,
+		'action' => 1000,
+		);
 
 	function __construct(&$char)
 	{
+		$id = self::_makeid($char);
+
 		$null = null;
-		self::$instance[$char->Number] = &$null;
+		self::$instance[$id] = &$null;
 
 		$null = null;
 		$this->char = &$null;
 
-		self::$instance[$char->Number] = &$this;
+		self::$instance[$id] = &$this;
 		$this->char = &$char;
+	}
+
+	function _makeid(&$char)
+	{
+		if ($char->monster)
+		{
+			$id = md5($char->no . $char->name);
+		}
+		else
+		{
+			$id = $char->Number;
+		}
+
+		return $id;
 	}
 
 	function __destruct()
@@ -41,12 +57,14 @@ class HOF_Class_Char_Pattern
 
 	public static function &getInstance(&$char)
 	{
-		if (empty(self::$instance[$char->Number]))
+		$id = self::_makeid($char);
+
+		if (empty(self::$instance[$id]))
 		{
 			new self(&$char);
 		}
 
-		return self::$instance[$char->Number];
+		return self::$instance[$id];
 	}
 
 	/**
@@ -56,7 +74,16 @@ class HOF_Class_Char_Pattern
 	{
 		$val = $this->char->int;
 
-		$map = array(10, 15, 30, 50, 80, 120, 160, 200, 251);
+		$map = array(
+			10,
+			15,
+			30,
+			50,
+			80,
+			120,
+			160,
+			200,
+			251);
 
 		$n = 2;
 
@@ -72,7 +99,8 @@ class HOF_Class_Char_Pattern
 			}
 		}
 
-		if (29 < $this->char->level){
+		if (29 < $this->char->level)
+		{
 			$n++;
 		}
 
@@ -93,7 +121,7 @@ class HOF_Class_Char_Pattern
 
 			$pattern_new = array();
 
-			foreach ((array)$pattern as $k => $v)
+			foreach ((array )$pattern as $k => $v)
 			{
 				if (!$v = $this->_fix_pattern_item($v, true))
 				{
@@ -105,7 +133,7 @@ class HOF_Class_Char_Pattern
 
 			//debug($pattern_new);
 
-			if ($this->char->monster)
+			if (1 && $this->char->monster)
 			{
 				while (end($pattern_new) == $this->_fix_pattern_item())
 				{
@@ -115,7 +143,27 @@ class HOF_Class_Char_Pattern
 				/**
 				 * skill:3040 蘇生
 				 */
-				array_push($pattern_new, $this->_fix_pattern_item(array(1405, 1, 9000)), $this->_fix_pattern_item(array(1940, 25, 3040)));
+				if (!$this->char->summon)
+				{
+					$last_v = end($pattern_new);
+
+					if ($last_v['judge'] == 1000)
+					{
+						array_pop($pattern_new);
+					}
+
+					array_push($pattern_new, $this->_fix_pattern_item(array(
+						1405,
+						1,
+						9000)), $this->_fix_pattern_item(array(
+						1940,
+						10,
+						3040)));
+
+					array_push($pattern_new, $last_v);
+				}
+
+				//array_push($pattern_new, $this->_fix_pattern_item(array(1001, 0, 1000)));
 
 				array_push($pattern_new, $this->_fix_pattern_item());
 			}
@@ -170,7 +218,7 @@ class HOF_Class_Char_Pattern
 		}
 		else
 		{
-			if ((!$v['judge'] || !$v['action']) && count($v) == 3)
+			if ((!$v['judge'] || !$v['action']) && is_array($v) && count($v) == 3)
 			{
 				list($judge, $quantity, $action) = $v;
 
@@ -188,7 +236,8 @@ class HOF_Class_Char_Pattern
 			if (empty($v['quantity']))
 			{
 				$v['quantity'] = 0;
-			} elseif (4 < strlen($v['quantity']))
+			}
+			elseif (4 < strlen($v['quantity']))
 			{
 				$v['quantity'] = substr($v['quantity'], 0, 4);
 			}
@@ -199,7 +248,7 @@ class HOF_Class_Char_Pattern
 
 	public function pattern_item($idx)
 	{
-		return (array)$this->char->pattern[$idx];
+		return (array )$this->char->pattern[$idx];
 	}
 
 	/**
@@ -234,7 +283,7 @@ class HOF_Class_Char_Pattern
 	{
 		if ($pattern)
 		{
-			$this->char->pattern_memo = (array)$pattern;
+			$this->char->pattern_memo = (array )$pattern;
 		}
 
 		return $this->char->pattern_memo;
@@ -252,4 +301,3 @@ class HOF_Class_Char_Pattern
 	}
 
 }
-
