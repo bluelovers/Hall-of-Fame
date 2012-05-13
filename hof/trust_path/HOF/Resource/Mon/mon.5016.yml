@@ -15,21 +15,6 @@ spd: '20'
 luk: '10'
 guard: prob50
 position: back
-judge:
-    - 1201
-    - 1405
-    - 1126
-    - 1000
-quantity:
-    - 40
-    - 1
-    - 70
-    - 0
-action:
-    - 3011
-    - 5063
-    - 3002
-    - 5008
 atk:
     - 10
     - 10
@@ -38,3 +23,20 @@ def:
     - 40
     - 40
     - 40
+pattern:
+    -
+        judge: 1201
+        quantity: 40
+        action: 3011
+    -
+        judge: 1405
+        quantity: 1
+        action: 5063
+    -
+        judge: 1126
+        quantity: 70
+        action: 3002
+    -
+        judge: 1000
+        quantity: 0
+        action: 5008
