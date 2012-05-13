@@ -9,8 +9,8 @@ require_once ("./bootstrap.php");
 
 $map = array(
 	'char',
-	'job',
-	'mon',
+//	'job',
+//	'mon',
 	);
 
 foreach ($map as $idx)
@@ -21,7 +21,7 @@ foreach ($map as $idx)
 
 		if ($idx == 'char')
 		{
-			if (isset($data['Pattern']))
+			if ($data['Pattern'])
 			{
 				$data['pattern'] = array();
 
@@ -35,7 +35,7 @@ foreach ($map as $idx)
 				_e("Update [$idx]:{$data[no]}");
 			}
 
-			unset($data['pattern']);
+			unset($data['Pattern']);
 
 			$_cache[$idx][$data['job']] = $data;
 		}
