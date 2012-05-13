@@ -8,33 +8,6 @@
 class HOF_Controller_Gamedata extends HOF_Class_Controller
 {
 
-	/**
-	 * げーむでーた
-	 */
-	function ShowGameData()
-	{
-
-		switch ($_GET["gamedata"])
-		{
-			case "job":
-				include (GAME_DATA_JOB);
-				break;
-			case "item":
-				include (GAME_DATA_ITEM);
-				break;
-			case "judge":
-				include (GAME_DATA_JUDGE);
-				break;
-			case "monster":
-				include (GAME_DATA_MONSTER);
-				break;
-			default:
-				include (GAME_DATA_JOB);
-				break;
-		}
-
-	}
-
 	function _main_before()
 	{
 		if ($this->action == self::DEFAULT_ACTION)
@@ -188,7 +161,7 @@ class HOF_Controller_Gamedata extends HOF_Class_Controller
 
 		$list = array();
 
-		foreach($_list as $no)
+		foreach ($_list as $no)
 		{
 			$data = HOF_Model_Data::getJudgeData($no);
 
@@ -200,6 +173,38 @@ class HOF_Controller_Gamedata extends HOF_Class_Controller
 			{
 				$list[$no]['tag'] = $data;
 			}
+		}
+
+		$this->output->list = $list;
+	}
+
+	function _main_action_monster()
+	{
+		$map_list = array(
+			1000 => array("grass", "SPがあるときは、強い攻撃をたまにしてくる程度。"),
+			1001 => array("grass", "SPがあるときは、強い攻撃をたまにしてくる程度。"),
+			1002 => array("grass", "後列に押し出す攻撃をする。"),
+			1003 => array("grass", "そこそこな強さ。"),
+			1005 => array("grass", "レベルが低いと強く感じる。"),
+			1009 => array("grass", "HPが高い。"),
+			1012 => array("cave", "仲間を呼んで吸血攻撃をしてくる。"),
+			1014 => array("cave", "魔法で攻撃しないと倒しにくい。"),
+			1017 => array("cave", "洞窟のボス。倒すと奥に行けるようになる。"),
+			);
+
+		$list = array();
+
+		foreach ($map_list as $No => $exp)
+		{
+			$monster = HOF_Model_Char::getBaseMonster($No);
+			$char = HOF_Model_Char::newMon($No);
+
+			$char->land = $exp[0];
+
+			$data['char'] = $char;
+			$data['monster'] = $monster;
+
+			$list[] = $data;
 		}
 
 		$this->output->list = $list;
