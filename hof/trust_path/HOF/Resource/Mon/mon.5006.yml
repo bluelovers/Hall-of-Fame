@@ -17,12 +17,6 @@ guard: prob50
 position: front
 SPECIAL:
     Undead: true
-judge:
-    - 1000
-quantity:
-    - 0
-action:
-    - 1000
 atk:
     - 20
     - 10
@@ -31,3 +25,8 @@ def:
     - 10
     - 0
     - 0
+pattern:
+    -
+        judge: 1000
+        quantity: 0
+        action: 1000
