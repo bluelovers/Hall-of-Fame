@@ -93,7 +93,7 @@ MENU;
 	*/
 	if ($_GET["menu"] === "user")
 	{
-		$userList = game_core::glob(USER);
+		$userList = HOF_Class_File::glob(USER);
 		print ("<p>ALL_USER</p>\n");
 		foreach ($userList as $user)
 		{
@@ -219,7 +219,7 @@ DATA;
 					else
 						if ($_POST["UserDataDetail"])
 						{
-							$userFileList = game_core::glob(USER);
+							$userFileList = HOF_Class_File::glob(USER);
 							foreach ($userFileList as $user)
 							{
 								$user = new HOF_Class_User(basename($user, ".dat"));
@@ -236,7 +236,7 @@ DATA;
 						else
 							if ($_POST["UserCharDetail"])
 							{
-								$userFileList = game_core::glob(USER);
+								$userFileList = HOF_Class_File::glob(USER);
 								foreach ($userFileList as $user)
 								{
 									$userDir = glob($user . "/*");
@@ -285,7 +285,7 @@ DATA;
 							else
 								if ($_POST["ItemDataDetail"])
 								{
-									$userFileList = game_core::glob(USER);
+									$userFileList = HOF_Class_File::glob(USER);
 									$userAmount = count($userFileList);
 									$items = array();
 									foreach ($userFileList as $user)
@@ -306,7 +306,7 @@ DATA;
 								else
 									if ($_POST["UserIpShow"])
 									{
-										$userFileList = game_core::glob(USER);
+										$userFileList = HOF_Class_File::glob(USER);
 										$ipList = array();
 										foreach ($userFileList as $user)
 										{
@@ -336,7 +336,7 @@ DATA;
 											print ("<p>壊れている可能性のあるファイル<br>\n");
 											$baseSize = $_POST["brokenSize"] ? (int)$_POST["brokenSize"] : 100;
 											print ("※{$baseSize}byte 以下のファイルを探しただけ(アイテムデータは除く).</p>");
-											$userFileList = game_core::glob(USER);
+											$userFileList = HOF_Class_File::glob(USER);
 											foreach ($userFileList as $user)
 											{
 												$userDir = glob($user . "/*");
@@ -357,19 +357,19 @@ DATA;
 											{
 												if ($_POST["deleteLogCommon"])
 												{
-													game_core::glob_del(LOG_BATTLE_NORMAL);
+													HOF_Class_File::glob_del(LOG_BATTLE_NORMAL);
 													print ("<p>通常戦闘ログを削除しました。</p>\n");
 												}
 												else
 													if ($_POST["deleteLogUnion"])
 													{
-														game_core::glob_del(LOG_BATTLE_UNION);
+														HOF_Class_File::glob_del(LOG_BATTLE_UNION);
 														print ("<p>ユニオン戦闘ログを削除しました。</p>\n");
 													}
 													else
 														if ($_POST["deleteLogRanking"])
 														{
-															game_core::glob_del(LOG_BATTLE_RANK);
+															HOF_Class_File::glob_del(LOG_BATTLE_RANK);
 															print ("<p>ランキング戦闘ログを削除しました。</p>\n");
 														}
 												print <<< DATA
