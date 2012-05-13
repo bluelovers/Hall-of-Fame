@@ -88,14 +88,14 @@ class HOF_Class_Skill_Effect
 				break;
 
 			case 1022: //ChargeAttack
-				if ($user->POSITION != "front") $option["multiply"] = 4;
+				if ($user->POSITION != POSITION_FRONT) $option["multiply"] = 4;
 				$dmg = self::CalcBasicDamage($skill, $user, $target, $option);
 				self::DamageHP($target, $dmg);
 				$user->Move("front");
 				break;
 
 			case 1023: //Hit&Away
-				if ($user->POSITION == "front") $option["multiply"] = 3;
+				if ($user->POSITION == POSITION_FRONT) $option["multiply"] = 3;
 				$dmg = self::CalcBasicDamage($skill, $user, $target, $option);
 				self::DamageHP($target, $dmg);
 				$user->Move("back");
@@ -166,7 +166,7 @@ class HOF_Class_Skill_Effect
 				break;
 
 			case 1209: //TransPoison
-				if ($target->STATE !== POISON) return false;
+				if ($target->STATE !== STATE_POISON) return false;
 				$this->StatusChanges($skill, $target);
 				$target->GetNormal(true);
 				break;
@@ -197,7 +197,7 @@ class HOF_Class_Skill_Effect
 
 			case 2056: // ZombieRevival
 				//print("who? : ".$target->Name().":".$target->STATE."<br />\n");
-				if ($target->STATE !== DEAD) break;
+				if ($target->STATE !== STATE_DEAD) break;
 				$target->GetNormal(true);
 				$this->StatusChanges($skill, $target);
 				self::RecoverHP($target, $target->MAXHP);
@@ -301,8 +301,8 @@ class HOF_Class_Skill_Effect
 				break;
 				/*
 				case 3030: // Reflesh
-				if($target->STATE == DEAD) break;
-				if($target->STATE == POISON)
+				if($target->STATE == STATE_DEAD) break;
+				if($target->STATE == STATE_POISON)
 				$target->GetNormal(true);
 				$heal	= self::CalcRecoveryValue($skill,$user,$target);
 				self::RecoverHP($target,$heal);
@@ -423,12 +423,12 @@ class HOF_Class_Skill_Effect
 			case 5006: // Charge!!!
 				if ($user == $target)
 				{
-					$user->POSITION = "back";
+					$user->POSITION = POSITION_BACK;
 					return false; //自分は対象外
 				}
-				if ($target->POSITION == "back")
+				if ($target->POSITION == POSITION_BACK)
 				{
-					$target->POSITION = "front";
+					$target->POSITION = POSITION_FRONT;
 					print ($target->Name(bold) . " goes forward.<br />");
 				}
 				$this->StatusChanges($skill, $target);
@@ -529,7 +529,7 @@ class HOF_Class_Skill_Effect
 				// 毒の治療
 				if ($skill["CurePoison"])
 				{
-					if ($target->STATE == POISON) $target->GetNormal(true);
+					if ($target->STATE == STATE_POISON) $target->GetNormal(true);
 				}
 				// 基本的なダメージの計算
 				if ($skill["pow"])
