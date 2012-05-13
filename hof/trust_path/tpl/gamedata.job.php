@@ -67,17 +67,17 @@
 				<td <?php e($css) ?> valign="top">
 					<a name="<?php e($no) ?>"></a>
 					<span class="bold">
-						<?php e($data["name_male"]) ?>
-						<?php if ($data["name_male"] !== $data["name_female"]): ?>
+						<?php e($data['gender'][1]['job_name']) ?>
+						<?php if ($data['gender'][1]['job_name'] !== $data['gender'][2]['job_name']): ?>
 							<br />
 							(
-								<?php e($data["name_female"]) ?>
+								<?php e($data['gender'][2]['job_name']) ?>
 							)
 						<?php endif; ?>
 					</span></td>
 				<td <?php e($css) ?>>
-					<img src="<?php e(HOF_Class_Icon::getImageUrl($data["img_male"], IMG_CHAR)) ?>" />
-					<img src="<?php e(HOF_Class_Icon::getImageUrl($data["img_female"], IMG_CHAR)) ?>" />
+					<img src="<?php e(HOF_Class_Icon::getImageUrl($data['gender'][1]['img'], HOF_Class_Icon::IMG_CHAR)) ?>" />
+					<img src="<?php e(HOF_Class_Icon::getImageUrl($data['gender'][2]['img'], HOF_Class_Icon::IMG_CHAR)) ?>" />
 				</td>
 				<td <?php e($css) ?>>
 					<?php e(nl2br($data['info']['desc'])) ?>
