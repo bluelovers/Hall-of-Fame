@@ -15,39 +15,6 @@ spd: '150'
 luk: '50'
 guard: never
 position: back
-judge:
-    - 1201
-    - 1940
-    - 1201
-    - 1101
-    - 1920
-    - 1405
-    - 1920
-    - 1940
-    - 1940
-    - 1000
-quantity:
-    - 30
-    - 50
-    - 30
-    - 30
-    - 1
-    - 2
-    - 2
-    - 30
-    - 50
-    - 0
-action:
-    - 9000
-    - 3011
-    - 2091
-    - 9000
-    - 1116
-    - 9000
-    - 5030
-    - 2024
-    - 5014
-    - 5038
 atk:
     - 100
     - 70
@@ -81,3 +48,44 @@ Slave:
 land: swamp
 UnionName: DragonFleets
 LevelLimit: '250'
+pattern:
+    -
+        judge: 1201
+        quantity: 30
+        action: 9000
+    -
+        judge: 1940
+        quantity: 50
+        action: 3011
+    -
+        judge: 1201
+        quantity: 30
+        action: 2091
+    -
+        judge: 1101
+        quantity: 30
+        action: 9000
+    -
+        judge: 1920
+        quantity: 1
+        action: 1116
+    -
+        judge: 1405
+        quantity: 2
+        action: 9000
+    -
+        judge: 1920
+        quantity: 2
+        action: 5030
+    -
+        judge: 1940
+        quantity: 30
+        action: 2024
+    -
+        judge: 1940
+        quantity: 50
+        action: 5014
+    -
+        judge: 1000
+        quantity: 0
+        action: 5038
