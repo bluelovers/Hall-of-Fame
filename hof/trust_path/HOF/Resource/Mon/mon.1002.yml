@@ -47,3 +47,5 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1000
+info:
+    desc: '後列に押し出す攻撃をする。'
