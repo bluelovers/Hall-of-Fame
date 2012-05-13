@@ -15,9 +15,6 @@ spd: '110'
 luk: '1'
 guard: life25
 position: front
-judge: {  }
-quantity: {  }
-action: {  }
 atk:
     - 60
     - 20
@@ -26,3 +23,4 @@ def:
     - 30
     - 30
     - 30
+pattern: {  }
