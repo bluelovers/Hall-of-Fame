@@ -15,9 +15,6 @@ spd: '210'
 luk: '150'
 guard: never
 position: back
-judge: {  }
-quantity: {  }
-action: {  }
 atk:
     - 70
     - 50
@@ -43,3 +40,4 @@ Slave:
 land: nest
 UnionName: 'Bird''sNest'
 LevelLimit: '150'
+pattern: {  }
