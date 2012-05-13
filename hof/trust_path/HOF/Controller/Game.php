@@ -277,11 +277,25 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 		for ($i = 1; $i <= 4; $i++)
 		{
-			for ($j = 0; $j <= 1; $j++)
+			$base = HOF_Model_Char::newBaseChar($i);
+			$jobdata = HOF_Model_Data::getJobData($base->job);
+
+			foreach(array_keys($jobdata['gender']) as $j)
 			{
 				$chars[$k] = HOF_Model_Char::newBaseChar($i, array('gender' => $j));
 
-				$Gender = $j ? "♀" : "♂";
+				if ($j == GENDER_GIRL)
+				{
+					$Gender = '♀';
+				}
+				elseif ($j == GENDER_BOY)
+				{
+					$Gender = '♂';
+				}
+				else
+				{
+					$Gender = '';
+				}
 
 				$chars[$k]->job_name .= $Gender;
 
@@ -359,7 +373,9 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 			if ($this->input->recruit_no && $chars[$this->input->recruit_no] instanceof HOF_Class_Char)
 			{
-				$char = HOF_Model_Char::newBaseChar(ceil($this->input->recruit_no / 2), array("name" => $this->input->char_name, "gender" => $chars[$this->input->recruit_no]->gender));
+				$job = $chars[$this->input->recruit_no]->job;
+
+				$char = HOF_Model_Char::newBaseChar(floor($job / 100), array("name" => $this->input->char_name, 'job' => $job, "gender" => $chars[$this->input->recruit_no]->gender));
 			}
 			else
 			{
