@@ -1,8 +1,4 @@
 no: '100'
-name_male: Warrior
-name_female: Warrior
-img_male: mon_079
-img_female: eiyusenki_080
 equip:
     - Sword
     - TwoHandSword
@@ -20,3 +16,14 @@ change:
     - 103
 info:
     desc: "戦士系基本職。\nそこそこ耐えて、攻撃もそこそこ。"
+pattern: null
+job: '100'
+img: mon_079
+job_name: Warrior
+gender:
+    1:
+        img: eiyusenki_080
+        job_name: Warrior
+    0:
+        img: mon_079
+        job_name: Warrior
