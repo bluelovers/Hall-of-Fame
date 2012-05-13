@@ -14,10 +14,6 @@ dex: '40'
 spd: '10'
 luk: '10'
 guard: pro50
-judge:
-    - 1000
-action:
-    - 1000
 atk:
     - 20
     - 20
@@ -27,3 +23,8 @@ def:
     - 30
     - 20
 itemtable: {  }
+pattern:
+    -
+        judge: 1000
+        quantity: null
+        action: 1000
