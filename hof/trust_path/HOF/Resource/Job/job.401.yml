@@ -1,8 +1,4 @@
 no: '401'
-name_male: Sniper
-name_female: Sniper
-img_male: mon_076z
-img_female: mon_042z
 equip:
     - Bow
     - Cloth
@@ -13,3 +9,13 @@ coe:
     - 0.8
 info:
     desc: "弓系上級職。\nさらに強力な攻撃が可能。"
+job: '401'
+img: mon_076z
+job_name: Sniper
+gender:
+    1:
+        img: mon_042z
+        job_name: Sniper
+    0:
+        img: mon_076z
+        job_name: Sniper
