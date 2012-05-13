@@ -15,18 +15,6 @@ spd: '15'
 luk: '1'
 guard: prob25
 position: back
-judge:
-    - 1201
-    - 1940
-    - 1000
-quantity:
-    - 30
-    - 50
-    - 0
-action:
-    - 2300
-    - 2301
-    - 2302
 atk:
     - 40
     - 20
@@ -38,3 +26,16 @@ def:
 itemtable:
     6020: '1000'
     6021: '1000'
+pattern:
+    -
+        judge: 1201
+        quantity: 30
+        action: 2300
+    -
+        judge: 1940
+        quantity: 50
+        action: 2301
+    -
+        judge: 1000
+        quantity: 0
+        action: 2302
