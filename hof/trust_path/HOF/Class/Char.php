@@ -11,11 +11,6 @@ include_once (CLASS_CHAR);
 class HOF_Class_Char extends char
 {
 
-	/**
-	 * 行動(判定、使うスキル)
-	 */
-	var $pattern, $pattern_memo;
-
 	var $file_ext = BASE_EXT;
 
 	var $map_equip_allow = array(
