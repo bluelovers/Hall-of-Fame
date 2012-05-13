@@ -29,8 +29,10 @@ class HOF_Class_Battle_Judge
 			$EnemyTeamMC = $classBattle->team0_mc;
 		}
 
-		$Judge = $My->pattern[$JudgeKey]['judge'];
-		$Quantity = $My->pattern[$JudgeKey]['quantity'];
+		$pattern = $My->pattern_item($JudgeKey);
+
+		$Judge = $pattern['judge'];
+		$Quantity = $pattern['quantity'];
 
 		switch ($Judge)
 		{
