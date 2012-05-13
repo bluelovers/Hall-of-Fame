@@ -92,7 +92,7 @@ class HOF_Controller_Log extends HOF_Class_Controller
 
 		foreach ($map as $_k)
 		{
-			$log = game_core::glob($_k);
+			$log = HOF_Class_File::glob($_k);
 			foreach (array_reverse($log) as $file)
 			{
 				$logs[$_k][] = HOF_Model_Data::getLogBattleFile($file);
