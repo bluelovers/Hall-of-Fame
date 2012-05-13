@@ -1,8 +1,4 @@
 no: '301'
-name_male: Bishop
-name_female: Bishop
-img_male: mon_213r
-img_female: mon_214r
 equip:
     - Wand
     - Book
@@ -14,3 +10,13 @@ coe:
     - 1.4
 info:
     desc: "聖職上級職。\n味方の能力値も上げれるようになる。"
+job: '301'
+img: mon_213r
+job_name: Bishop
+gender:
+    1:
+        img: mon_214r
+        job_name: Bishop
+    0:
+        img: mon_213r
+        job_name: Bishop
