@@ -1277,17 +1277,6 @@ Lv.<?=
 
 		if ($data["pattern_memo"]) $this->pattern_memo = $data["pattern_memo"];
 
-		// モンスターのため？
-		if (is_array($data["judge"])) $this->judge = $data["judge"];
-		//else
-		//	$this->judge	= explode("<>",$data["judge"]);
-		if (is_array($data["quantity"])) $this->quantity = $data["quantity"];
-		//else
-		//	$this->quantity	= explode("<>",$data["quantity"]);
-		if (is_array($data["action"])) $this->action = $data["action"];
-		//else
-		//	$this->action	= explode("<>",$data["action"]);
-
 		//モンスター専用
 		if ($this->monster = $data["monster"])
 		{
