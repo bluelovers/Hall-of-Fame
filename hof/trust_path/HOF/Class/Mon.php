@@ -145,16 +145,6 @@ class HOF_Class_Mon extends HOF_Class_Char
 		$this->SPD = $this->spd + $this->P_SPD;
 		$this->LUK = $this->luk + $this->P_LUK;
 		$this->POSITION = $this->position;
-
-		// 生存状態にする
-		$this->STATE = ALIVE;
-
-		// (数値=詠唱中 false=待機中)
-		$this->expect = false;
-		// 行動回数
-		$this->ActCount = 0;
-		// 決定した判断の回数
-		$this->JdgCount = array();
 	}
 
 }
