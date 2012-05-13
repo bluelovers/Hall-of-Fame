@@ -148,7 +148,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 			foreach ($team['team'] as &$char)
 			{
 				// 召喚キャラが死亡している場合は飛ばす
-				if ($char->STATE === DEAD && $char->summon == true)
+				if ($char->STATE === STATE_DEAD && $char->summon == true)
 				{
 					continue;
 				}
@@ -257,7 +257,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 				foreach ((array)$team[$p] as $char)
 				{
 					// 画像はキャラに設定されている画像の拡張子までの名前
-					if ($char->STATE === DEAD)
+					if ($char->STATE === STATE_DEAD)
 					{
 						$img = $DeadImg;
 					}
@@ -289,7 +289,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 					$img = substr($char->img, 0, strpos($char->img, "."));
 				}
 
-				if ($char->POSITION == "front")
+				if ($char->POSITION == POSITION_FRONT)
 				{
 					// 前衛
 					$url .= "f{$k}{$f}=$img&";
@@ -427,7 +427,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 			$x = floor($x);
 			$y = floor($y);
 
-			if ($char->STATE === DEAD) $img = $f . DEAD_IMG;
+			if ($char->STATE === STATE_DEAD) $img = $f . DEAD_IMG;
 			else  $img = $char->GetImageUrl($f);
 
 			$img_file = HOF_Class_Icon::getImage($char->img, $f);
