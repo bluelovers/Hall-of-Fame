@@ -18,15 +18,14 @@ armor: '5000'
 skill:
     - 1000
     - 1001
-Pattern:
-    judge:
-        - '1205'
-        - '1000'
-    quantity:
-        - '8'
-        - '0'
-    action:
-        - '1001'
-        - '1000'
 position: front
 guard: always
+pattern:
+    -
+        judge: '1205'
+        quantity: '8'
+        action: '1001'
+    -
+        judge: '1000'
+        quantity: '0'
+        action: '1000'
