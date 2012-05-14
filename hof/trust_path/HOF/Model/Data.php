@@ -10,6 +10,8 @@ class HOF_Model_Data extends HOF_Class_Data
 
 	protected static $_instance;
 
+	public static $_cache_;
+
 	/**
 	 * @return self
 	 */
@@ -20,6 +22,8 @@ class HOF_Model_Data extends HOF_Class_Data
 			parent::__construct();
 
 			self::$_instance = $this;
+
+			self::$_cache_ = new HOF_Class_File_Cache();
 		}
 
 		return self::$_instance;
@@ -113,6 +117,13 @@ class HOF_Model_Data extends HOF_Class_Data
 
 	function getLandList()
 	{
+		$_cache_key_ = 'land_list';
+
+		if ($list = self::$_cache_->data($_cache_key_))
+		{
+			return $list;
+		}
+
 		$_key = 'land';
 
 		$regex = HOF_Class_Data::_filename($_key, '*');
@@ -123,6 +134,8 @@ class HOF_Model_Data extends HOF_Class_Data
 		{
 			$list[] = preg_replace($regex, '$1', $file);
 		}
+
+		self::$_cache_->data($_cache_key_, $list);
 
 		return $list;
 	}
@@ -315,6 +328,13 @@ class HOF_Model_Data extends HOF_Class_Data
 	{
 		$_key = 'job';
 
+		$_cache_key_ = $_key.'_list';
+
+		if ($list = self::$_cache_->data($_cache_key_))
+		{
+			return $list;
+		}
+
 		$regex = HOF_Class_Data::_filename($_key, '*');
 
 		$regex = '/^' . str_replace('\*', '(.+)', preg_quote($regex, '/')) . '$/i';
@@ -325,6 +345,8 @@ class HOF_Model_Data extends HOF_Class_Data
 		}
 
 		sort($list, SORT_NUMERIC);
+
+		self::$_cache_->data($_cache_key_, $list);
 
 		return $list;
 	}
@@ -343,6 +365,13 @@ class HOF_Model_Data extends HOF_Class_Data
 			// 手動(追加した判断は自分で書き足せ)
 			*/
 
+			$_cache_key_ = 'judge_list';
+
+			if ($list = self::$_cache_->data($_cache_key_))
+			{
+				return $list;
+			}
+
 			$regex = HOF_Class_Data::_filename('judge', '*');
 
 			$regex = '/^' . str_replace('\*', '(.+)', preg_quote($regex, '/')) . '$/i';
@@ -353,6 +382,8 @@ class HOF_Model_Data extends HOF_Class_Data
 			}
 
 			sort($list, SORT_NUMERIC);
+
+			self::$_cache_->data($_cache_key_, (array)$list);
 
 			return $list;
 		}
@@ -844,13 +875,28 @@ class HOF_Model_Data extends HOF_Class_Data
 	 */
 	function getGuardData($no, $default = 'always')
 	{
-		$_key = 'guard';
+		$_cache_key_ = 'guard';
 
-		$data = self::getInstance()->_load($_key, $no);
+		$list = self::$_cache_->data($_cache_key_);
+
+		if (isset($list[$no]))
+		{
+			$data = $list[$no];
+		}
+		else
+		{
+			$_key = 'guard';
+
+			$data = self::getInstance()->_load($_key, $no);
+
+			$list[$no] = $data;
+
+			self::$_cache_->data($_cache_key_, $list);
+		}
 
 		if (!$data && $default)
 		{
-			$data = self::getInstance()->_load($_key, $default);
+			return self::getGuardData($default);
 		}
 
 		return $data;
@@ -858,6 +904,14 @@ class HOF_Model_Data extends HOF_Class_Data
 
 	function getGuardList()
 	{
+
+		$_cache_key_ = 'guard_list';
+
+		if ($list = self::$_cache_->data($_cache_key_))
+		{
+			return $list;
+		}
+
 		$_key = 'guard';
 
 		$regex = HOF_Class_Data::_filename($_key, '*');
@@ -870,6 +924,8 @@ class HOF_Model_Data extends HOF_Class_Data
 		}
 
 		sort($list, SORT_STRING | SORT_NUMERIC | SORT_ASC);
+
+		self::$_cache_->data($_cache_key_, $list);
 
 		return $list;
 	}
