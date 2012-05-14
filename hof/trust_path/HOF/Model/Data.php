@@ -23,7 +23,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 			self::$_instance = $this;
 
-			self::$_cache_ = new HOF_Class_File_Cache();
+			HOF::$_cache_ = new HOF_Class_File_Cache();
 		}
 
 		return self::$_instance;
@@ -119,7 +119,7 @@ class HOF_Model_Data extends HOF_Class_Data
 	{
 		$_cache_key_ = 'land_list';
 
-		if ($list = self::$_cache_->data($_cache_key_))
+		if ($list = HOF::$_cache_->data($_cache_key_))
 		{
 			return $list;
 		}
@@ -135,7 +135,7 @@ class HOF_Model_Data extends HOF_Class_Data
 			$list[] = preg_replace($regex, '$1', $file);
 		}
 
-		self::$_cache_->data($_cache_key_, $list);
+		HOF::$_cache_->data($_cache_key_, $list);
 
 		return $list;
 	}
@@ -298,7 +298,22 @@ class HOF_Model_Data extends HOF_Class_Data
 	 */
 	function getLandInfo($no)
 	{
-		$data = self::getInstance()->_load('land', $no);
+		$_cache_key_ = 'land';
+
+		$list = HOF::$_cache_->data($_cache_key_);
+
+		if (isset($list[$no]))
+		{
+			$data = $list[$no];
+		}
+		else
+		{
+			$data = self::getInstance()->_load('land', $no);
+
+			$list[$no] = $data;
+
+			HOF::$_cache_->data($_cache_key_, $list);
+		}
 
 		/*
 		return array($data['land'], $data['monster']);
@@ -319,7 +334,22 @@ class HOF_Model_Data extends HOF_Class_Data
 	 */
 	function getJudgeData($no)
 	{
-		$data = self::getInstance()->_load('judge', $no);
+		$_cache_key_ = 'judge';
+
+		$list = HOF::$_cache_->data($_cache_key_);
+
+		if (isset($list[$no]))
+		{
+			$data = $list[$no];
+		}
+		else
+		{
+			$data = self::getInstance()->_load('judge', $no);
+
+			$list[$no] = $data;
+
+			HOF::$_cache_->data($_cache_key_, $list);
+		}
 
 		return $data;
 	}
@@ -330,7 +360,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		$_cache_key_ = $_key.'_list';
 
-		if ($list = self::$_cache_->data($_cache_key_))
+		if ($list = HOF::$_cache_->data($_cache_key_))
 		{
 			return $list;
 		}
@@ -346,7 +376,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		sort($list, SORT_NUMERIC);
 
-		self::$_cache_->data($_cache_key_, $list);
+		HOF::$_cache_->data($_cache_key_, $list);
 
 		return $list;
 	}
@@ -367,7 +397,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 			$_cache_key_ = 'judge_list';
 
-			if ($list = self::$_cache_->data($_cache_key_))
+			if ($list = HOF::$_cache_->data($_cache_key_))
 			{
 				return $list;
 			}
@@ -383,7 +413,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 			sort($list, SORT_NUMERIC);
 
-			self::$_cache_->data($_cache_key_, (array)$list);
+			HOF::$_cache_->data($_cache_key_, (array)$list);
 
 			return $list;
 		}
@@ -629,7 +659,22 @@ class HOF_Model_Data extends HOF_Class_Data
 	 */
 	function getJobData($no)
 	{
-		$data = self::getInstance()->_load('job', $no);
+		$_cache_key_ = 'job';
+
+		$list = HOF::$_cache_->data($_cache_key_);
+
+		if (isset($list[$no]))
+		{
+			$data = $list[$no];
+		}
+		else
+		{
+			$data = self::getInstance()->_load('job', $no);
+
+			$list[$no] = $data;
+
+			HOF::$_cache_->data($_cache_key_, $list);
+		}
 
 		return $data;
 	}
@@ -877,7 +922,7 @@ class HOF_Model_Data extends HOF_Class_Data
 	{
 		$_cache_key_ = 'guard';
 
-		$list = self::$_cache_->data($_cache_key_);
+		$list = HOF::$_cache_->data($_cache_key_);
 
 		if (isset($list[$no]))
 		{
@@ -891,7 +936,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 			$list[$no] = $data;
 
-			self::$_cache_->data($_cache_key_, $list);
+			HOF::$_cache_->data($_cache_key_, $list);
 		}
 
 		if (!$data && $default)
@@ -907,7 +952,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		$_cache_key_ = 'guard_list';
 
-		if ($list = self::$_cache_->data($_cache_key_))
+		if ($list = HOF::$_cache_->data($_cache_key_))
 		{
 			return $list;
 		}
@@ -925,7 +970,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		sort($list, SORT_STRING | SORT_NUMERIC | SORT_ASC);
 
-		self::$_cache_->data($_cache_key_, $list);
+		HOF::$_cache_->data($_cache_key_, $list);
 
 		return $list;
 	}
