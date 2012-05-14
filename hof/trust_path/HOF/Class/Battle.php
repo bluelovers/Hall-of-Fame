@@ -72,7 +72,19 @@ class HOF_Class_Battle extends battle implements HOF_Class_Base_Extend_RootInter
 		$team0 = HOF_Class_Battle_Team::newInstance($team0);
 		$team1 = HOF_Class_Battle_Team::newInstance($team1);
 
-		parent::__construct($team0, $team1);
+		$this->team0 = $team0;
+		$this->team1 = $team1;
+
+		// 各チームに戦闘専用の変数を設定する(class.char.php)
+		// 装備の特殊機能等を計算して設定する。
+		// 戦闘専用の変数は大文字英語だったりする。class.char.phpを参照。
+		//  $this->team["$key"] で渡すこと.(引数はチーム番号)
+		foreach ($this->team0 as $key => $char) $this->team0["$key"]->SetBattleVariable(TEAM_0);
+		foreach ($this->team1 as $key => $char) $this->team1["$key"]->SetBattleVariable(TEAM_1);
+
+		// delay関連
+		$this->SetDelay(); //ディレイ計算
+		$this->DelayResetAll(); //初期化
 
 		$this->objs['view'] = new HOF_Class_Battle_View(&$this);
 
