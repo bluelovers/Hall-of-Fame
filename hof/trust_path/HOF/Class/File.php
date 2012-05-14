@@ -18,6 +18,11 @@ class HOF_Class_File
 		}
 	}
 
+	public static function mkdir($pathname)
+	{
+		return mkdir($pathname, 0705, true);
+	}
+
 	static function basename($file)
 	{
 		$file = basename($file);
@@ -105,7 +110,7 @@ class HOF_Class_File
 	/**
 	 * ファイルロックしたファイルポインタを返す。
 	 */
-	function fplock_file($file, $noExit = false, $autocreate = false)
+	function &fplock_file($file, $noExit = false, $autocreate = false)
 	{
 		if (!$autocreate && !file_exists($file))
 		{
@@ -131,6 +136,13 @@ class HOF_Class_File
 		}
 		else
 		{
+			$dir = dirname($file);
+
+			if (!is_dir($dir))
+			{
+				self::mkdir($dir);
+			}
+
 			$fp = self::fpopen($file, ($autocreate && !file_exists($file)) ? 'w+' : 'r+');
 		}
 
@@ -150,7 +162,7 @@ class HOF_Class_File
 		return false;
 	}
 
-	function fplock($fp, $noExit = false)
+	function &fplock($fp, $noExit = false)
 	{
 		if (is_array($fp) && self::is_resource_file($fp[0]))
 		{
