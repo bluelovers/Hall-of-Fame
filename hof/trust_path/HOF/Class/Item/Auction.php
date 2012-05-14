@@ -69,6 +69,8 @@ class HOF_Class_Item_Auction
 
 	var $exhibit_cost = 500;
 
+	var $exhibit_time = array(1, 3, 6, 12, 18, 24);
+
 	static $options = array(
 		'ip_check' => false,
 	);
@@ -800,9 +802,58 @@ class HOF_Class_Item_Auction
 		return $this->user;
 	}
 
-	function article_exhibit_cost()
+	function article_exhibit_cost($user = null)
 	{
-		return $this->exhibit_cost();
+		return $this->exhibit_cost;
+	}
+
+	/**
+	 * 出品時間の確認
+	 */
+	function article_exhibit_time_check($time)
+	{
+		if (!in_array($time, $this->exhibit_time))
+		{
+			$msg = "time?";
+		}
+
+		return $msg;
+	}
+
+	function article_exhibit_item_check($item)
+	{
+		/**
+		 * そのアイテムが出品できない場合
+		 */
+		$possible = HOF_Model_Data::getCanExhibitType();
+
+		if (!$possible[$item['type']])
+		{
+			$msg = "Cant put < {$item[name]} > to the Auction";
+		}
+
+		return $msg;
+	}
+
+	function article_exhibit_price_item_min($item, $user = null)
+	{
+		$min = max(1, $item['buy'] * 0.2);
+
+		return $min;
+	}
+
+	function article_exhibit_price_check($price, $item)
+	{
+		$price = max(0, intval($price));
+
+		$min = $this->article_exhibit_price_item_min($item, $this->user());
+
+		if ($price < $min)
+		{
+			$msg = "< {$item[name]} > 出品価格 ( ".HOF_Helper_Global::MoneyFormat($price).' < '.HOF_Helper_Global::MoneyFormat($min).' )  に誤りがあります。';
+		}
+
+		return $msg;
 	}
 
 	/**
@@ -811,9 +862,11 @@ class HOF_Class_Item_Auction
 	 */
 	function user_take_exhibit_cost()
 	{
-		if (!$this->user()->TakeMoney($this->article_exhibit_cost()))
+		$cost = $this->article_exhibit_cost($this->user());
+
+		if (!$this->user()->TakeMoney($cost))
 		{
-			$msg = "Need " . HOF_Helper_Global::MoneyFormat($this->article_exhibit_cost()) . " to exhibit auction.";
+			$msg = "Need " . HOF_Helper_Global::MoneyFormat($cost) . " to exhibit auction.";
 		}
 
 		return $msg;
