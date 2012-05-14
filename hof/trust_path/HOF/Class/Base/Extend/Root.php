@@ -5,19 +5,16 @@
  * @copyright 2012
  */
 
+//class HOF_Class_Base_Extend_Root
 class HOF_Class_Base_Extend_Root implements HOF_Class_Base_Extend_RootInterface
 {
-
-	/**
-	 * jQuery style attr
-	 */
 
 	protected $_extends_ = array();
 	protected $_extends_method_ = array();
 
 	protected $_extends_method_invalids_ = array();
 
-	function extend($extend)
+	public function extend($extend)
 	{
 		$this->_extends_[$class] = null;
 
@@ -44,7 +41,7 @@ class HOF_Class_Base_Extend_Root implements HOF_Class_Base_Extend_RootInterface
 		return $this;
 	}
 
-	function __call($func, $argv)
+	public function __call($func, $argv)
 	{
 		if (isset($this->_extends_method_[$func]) && !empty($this->_extends_method_[$func]))
 		{
