@@ -13,7 +13,7 @@ class HOF_Class_Char_Job
 {
 
 	protected $char;
-	protected $jobdata;
+	public $jobdata;
 
 	private $_cache;
 
@@ -112,7 +112,7 @@ class HOF_Class_Char_Job
 	{
 		$this->_jobdata($job, $gender);
 
-		return $this->char->icon;
+		return isset($this->char->icon) ? $this->char->icon : $this->char->img;
 	}
 
 	function icon_url($dir = HOF_Class_Icon::IMG_CHAR)
