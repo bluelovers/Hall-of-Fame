@@ -11,5 +11,6 @@ echo '<pre>';
 
 function _e($v)
 {
-	echo $e."\n";
+	echo $v."\n";
 }
+
