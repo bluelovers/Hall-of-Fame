@@ -657,7 +657,7 @@ class HOF_Class_Skill_Effect
 	/**
 	 * 基本的なダメージ計算式でダメージだけ返す。
 	 */
-	function CalcBasicDamage($skill, $user, &$target, $option = null)
+	static function CalcBasicDamage($skill, $user, &$target, $option = null)
 	{
 		//基本的なダメージ計算(物理or魔法)
 		if ($skill["type"] == 0)
@@ -726,7 +726,7 @@ class HOF_Class_Skill_Effect
 	/**
 	 * HPへダメージ
 	 */
-	function DamageHP(&$target, $value)
+	static function DamageHP(&$target, $value)
 	{
 		print ('<span class="dmg"><span class="bold">' . $value . '</span> Damage</span> to ' . $target->Name("bold"));
 		$target->HpDamage($value);
@@ -736,7 +736,7 @@ class HOF_Class_Skill_Effect
 	/**
 	 * HPへダメージ(1以下にならない)
 	 */
-	function DamageHP2(&$target, $value)
+	static function DamageHP2(&$target, $value)
 	{
 		print ('<span class="dmg"><span class="bold">' . $value . '</span> Damage</span> to ' . $target->Name("bold"));
 		$target->HpDamage2($value);
@@ -746,7 +746,7 @@ class HOF_Class_Skill_Effect
 	/**
 	 * SPへダメージ
 	 */
-	function DamageSP(&$target, $value)
+	static function DamageSP(&$target, $value)
 	{
 		print ('<span class="spdmg"><span class="bold">' . $value . '</span>SP Damage</span> to ' . $target->Name("bold"));
 		$target->SpDamage($value);
@@ -756,7 +756,7 @@ class HOF_Class_Skill_Effect
 	/**
 	 * HPの回復
 	 */
-	function RecoverHP(&$target, $value)
+	static function RecoverHP(&$target, $value)
 	{
 		print ($target->Name("bold") . ' <span class="recover">Recovered <span class="bold">' . $value . ' HP</span></span>');
 		$target->HpRecover($value);
@@ -766,7 +766,7 @@ class HOF_Class_Skill_Effect
 	/**
 	 * SPの回復
 	 */
-	function RecoverSP(&$target, $value)
+	static function RecoverSP(&$target, $value)
 	{
 		print ($target->Name("bold") . ' <span class="support">Recovered <span class="bold">' . $value . ' SP</span></span>');
 		$target->SpRecover($value);
@@ -776,7 +776,7 @@ class HOF_Class_Skill_Effect
 	/**
 	 * HPの吸収
 	 */
-	function AbsorbHP(&$target, $value, &$user, $value2)
+	static function AbsorbHP(&$target, $value, &$user, $value2)
 	{
 		print ('Drained <span class="recover"><span class="bold">' . $value . '</span> HP</span>');
 		$user->HpRecover($value);
@@ -788,7 +788,7 @@ class HOF_Class_Skill_Effect
 	/**
 	 * SPの回復
 	 */
-	function AbsorbSP(&$target, $value, &$user, $value2)
+	static function AbsorbSP(&$target, $value, &$user, $value2)
 	{
 		print ('Drained <span class="support"><span class="bold">' . $value . '</span> SP</span>');
 		$user->SpRecover($value);
@@ -800,7 +800,7 @@ class HOF_Class_Skill_Effect
 	/**
 	 * 回復量の計算
 	 */
-	function CalcRecoveryValue($skill, $user, $target)
+	static function CalcRecoveryValue($skill, $user, $target)
 	{
 		$int = $user->INT;
 		$heal = sqrt($int) * 10;
