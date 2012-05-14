@@ -44,7 +44,22 @@ class HOF_Model_Char extends HOF_Class_Data
 	 */
 	function getBaseCharStatus($no, $append = array())
 	{
-		$data = self::getInstance()->_load('char', $no);
+		$_cache_key_ = 'char_base';
+
+		$list = HOF::$_cache_->data($_cache_key_);
+
+		if (isset($list[$no]))
+		{
+			$data = $list[$no];
+		}
+		else
+		{
+			$data = self::getInstance()->_load('char', $no);
+
+			$list[$no] = $data;
+
+			HOF::$_cache_->data($_cache_key_, $list);
+		}
 
 		unset($data['name']);
 
