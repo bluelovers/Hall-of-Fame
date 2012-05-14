@@ -14,17 +14,28 @@ class HOF
 
 	const CHARSET = 'UTF-8';
 
+	public static $_cache_;
+
 	function __construct()
 	{
 		if (!isset(self::$instance))
 		{
 			self::$instance = $this;
 			self::$input = new HOF_Class_Request;
+
+			self::$_cache_ = new HOF_Class_File_Cache();
 		}
 		else
 		{
 			die('error!!');
 		}
+	}
+
+	function __destruct()
+	{
+		self::$_cache_->__destruct();
+
+		HOF_Class_File::fpclose_all();
 	}
 
 	public static function &getInstance()
