@@ -572,24 +572,6 @@ class HOF_Class_Char extends char
 	 */
 	function GetImageURL($dir = HOF_Class_Icon::IMG_CHAR)
 	{
-		/*
-		if (file_exists(IMG_CHAR . $this->img))
-		{
-			if ($this->STATE === STATE_DEAD)
-			{
-				$img = $dir . $this->img;
-				if (!file_exists($img))
-				{
-					return $dir . CHAR_NO_IMAGE;
-				}
-			}
-			return $dir . $this->img;
-		}
-		else
-		{
-			return $dir . CHAR_NO_IMAGE;
-		}
-		*/
 		$ret = HOF_Class_Icon::getImageUrl($this->img, $dir);
 
 		return $ret;
