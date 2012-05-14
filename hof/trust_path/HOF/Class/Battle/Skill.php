@@ -26,6 +26,18 @@ class HOF_Class_Battle_Skill
 		 */
 		$skill = HOF_Model_Data::getSkill($skill_no);
 
+		if ($My->monster)
+		{
+			$skill["sp"] *= 0.3;
+
+			if (in_array($skill_no, array(3040, 5030, 5063)))
+			{
+				$skill["sp"] *= 0.3;
+			}
+
+			$skill["sp"] = (int)$skill["sp"];
+		}
+
 		// 武器タイプ不一致
 		if ($skill["limit"] && !$My->monster)
 		{
