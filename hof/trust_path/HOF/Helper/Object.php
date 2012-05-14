@@ -8,6 +8,8 @@
 class HOF_Helper_Object
 {
 
+	static $cache = array();
+
 	function extend($root_obj, $class)
 	{
 		if (($root_obj instanceof HOF_Class_Base_Extend_RootInterface) || method_exists($root_obj, 'extend'))
@@ -25,27 +27,34 @@ class HOF_Helper_Object
 	 *
 	 * @url http://hardforum.com/showthread.php?t=1480605
 	 */
-	function get_public_methods($class, $skip = array())
+	function get_public_methods($class, $skip = array(), $over = false)
 	{
-		$methods = array();
-
-		$skip = array_merge(array('__call', '__construct', '__destruct', '__get', '__set'), (array)$skip);
-
-		foreach (get_class_methods($class) as $key => $method)
+		if (!isset(self::$cache[__FUNCTION__][$class]) || $over)
 		{
-			/* Get a reflection object for the class method */
-			$reflect = new ReflectionMethod($class, $method);
+			$methods = array();
 
-			/* For private, use isPrivate().  For protected, use isProtected() */
-			if ($reflect->isPublic() && !($reflect->isStatic() || $reflect->isConstructor() || $reflect->isDestructor()))
+			$_skip = array('__call', '__construct', '__destruct', '__get', '__set');
+
+			foreach (get_class_methods($class) as $key => $method)
 			{
-				if (!in_array($method, $skip))
+				/* Get a reflection object for the class method */
+				$reflect = new ReflectionMethod($class, $method);
+
+				/* For private, use isPrivate().  For protected, use isProtected() */
+				if ($reflect->isPublic() && !($reflect->isStatic() || $reflect->isConstructor() || $reflect->isDestructor()))
 				{
-					// Put the methods we care about into an array
-					$methods[] = $method;
+					if (!in_array($method, $_skip))
+					{
+						// Put the methods we care about into an array
+						$methods[] = $method;
+					}
 				}
 			}
+
+			self::$cache[__FUNCTION__][$class] = $methods;
 		}
+
+		$methods = array_diff(self::$cache[__FUNCTION__][$class], (array)$skip);
 
 		return $methods;
 	}
