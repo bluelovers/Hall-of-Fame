@@ -16,11 +16,13 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 	function _init()
 	{
 		$this->ItemAuction = new HOF_Class_Item_Auction('item');
-		$this->ItemAuction->AuctionHttpQuery("auction");
-		$this->ItemAuction->ItemCheckSuccess(); // 競売が終了した品物を調べる
-		$this->ItemAuction->UserSaveData();
+		$this->ItemAuction->article_form_query("auction");
+		$this->ItemAuction->article_item_check_success(); // 競売が終了した品物を調べる
+		$this->ItemAuction->save_user();
 
 		$this->user = &HOF::user();
+
+		$this->ItemAuction->user($this->user);
 	}
 
 	function _main_before()
@@ -63,7 +65,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 
 		$this->input->JoinMember = $_POST["JoinMember"];
 
-		$this->input->ArticleNo = $_POST["ArticleNo"];
+		$this->input->last_article_no = $_POST["article_no"];
 		$this->input->BidPrice = max(0, intval($_POST["BidPrice"]));
 
 		$this->input->sort = $_GET["sort"];
@@ -177,7 +179,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 	{
 		if (!$this->AuctionEnter()) return false;
 
-		if (!$this->input->ArticleNo) return false;
+		if (!$this->input->last_article_no) return false;
 
 		if ($this->input->BidPrice < 1)
 		{
@@ -186,21 +188,21 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		}
 
 		// まだ出品中かどうか確認する。
-		if (!$this->ItemAuction->exists($this->input->ArticleNo))
+		if (!$this->ItemAuction->exists($this->input->last_article_no))
 		{
 			HOF_Helper_Global::ShowError("その競売品の出品が確認できません。");
 			return false;
 		}
 
 		// 自分が入札できる人かどうかの確認
-		if (!$this->ItemAuction->ItemBidRight($this->input->ArticleNo, $this->user->id))
+		if (!$this->ItemAuction->article_item_bid_right($this->input->last_article_no, $this->user->id))
 		{
-			HOF_Helper_Global::ShowError("No." . $this->input->ArticleNo . "&nbsp;は入札済みか出品者です。");
+			HOF_Helper_Global::ShowError("No." . $this->input->last_article_no . "&nbsp;は入札済みか出品者です。");
 			return false;
 		}
 
 		// 最低入札価格を割っていないか確認する。
-		$Bottom = $this->ItemAuction->ItemBottomPrice($this->input->ArticleNo);
+		$Bottom = $this->ItemAuction->article_item_price_bid_min($this->input->last_article_no);
 		if ($this->input->BidPrice < $Bottom)
 		{
 			HOF_Helper_Global::ShowError("最低入札価格を下回っています。");
@@ -216,9 +218,9 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		}
 
 		// 実際に入札する。
-		if ($this->ItemAuction->ItemBid($this->input->ArticleNo, $this->input->BidPrice, $this->user->id, $this->user->name))
+		if ($this->ItemAuction->article_item_bid($this->input->last_article_no, $this->input->BidPrice, $this->user->id, $this->user->name))
 		{
-			HOF_Helper_Global::ShowResult("No:{$this->input->ArticleNo}&nbsp;に&nbsp;" . HOF_Helper_Global::MoneyFormat($this->input->BidPrice) . "&nbsp;で入札しました。<br />\n");
+			HOF_Helper_Global::ShowResult("No:{$this->input->last_article_no}&nbsp;に&nbsp;" . HOF_Helper_Global::MoneyFormat($this->input->BidPrice) . "&nbsp;で入札しました。<br />\n");
 			return true;
 		}
 	}
@@ -234,8 +236,8 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		if ($this->AuctionEnter())
 		{
 			// 入会してた場合　入札できるように
-			$this->ItemAuction->ItemSortBy($this->input->sort);
-			$this->ItemAuction->ItemShowArticle2(true);
+			$this->ItemAuction->article_item_sortby($this->input->sort);
+			$this->ItemAuction->article_item_show2(true);
 
 			if (AUCTION_EXHIBIT_TOGGLE)
 			{
@@ -246,7 +248,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		else
 		{
 			// 入札できない
-			$this->ItemAuction->ItemShowArticle2(false);
+			$this->ItemAuction->article_item_show2(false);
 		}
 	}
 	/**
@@ -295,16 +297,16 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		}
 
 		// 同時出品数の制限
-		if (AUCTION_MAX <= $this->ItemAuction->count())
+		if ($message = $this->ItemAuction->article_count_check_max())
 		{
-			HOF_Helper_Global::ShowError("出品数が限界に達しています。(" . $this->ItemAuction->count() . "/" . AUCTION_MAX . ")");
+			HOF_Helper_Global::ShowError($message);
 			return false;
 		}
 
 		// 出品費用
-		if (!$this->user->TakeMoney(500))
+		if ($message = $this->ItemAuction->user_take_exhibit_cost())
 		{
-			HOF_Helper_Global::ShowError("Need " . HOF_Helper_Global::MoneyFormat(500) . " to exhibit auction.");
+			HOF_Helper_Global::ShowError($message);
 			return false;
 		}
 
@@ -355,7 +357,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		$this->user->SaveUserItem();
 
 		// 出品する
-		$this->ItemAuction->ItemAddArticle($this->input->item_no, $amount, $this->user->id, $this->input->ExhibitTime, $this->input->StartPrice, $this->input->Comment);
+		$this->ItemAuction->article_item_add($this->input->item_no, $amount, $this->user->id, $this->input->ExhibitTime, $this->input->StartPrice, $this->input->Comment);
 		print ($item["name"] . "&nbsp;を&nbsp;{$amount}個&nbsp;出品しました。");
 
 		return true;
