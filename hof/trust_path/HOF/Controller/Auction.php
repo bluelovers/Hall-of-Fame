@@ -22,7 +22,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 
 		$this->user = &HOF::user();
 
-		$this->ItemAuction->user($this->user);
+		$this->ItemAuction->user(&$this->user);
 	}
 
 	function _main_before()
@@ -273,9 +273,23 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 			return false;
 		}
 
-		if ($this->input->StartPrice < 1)
+		// アイテムが読み込めない場合
+		if (!$item = HOF_Model_Data::getItemData($this->input->item_no))
 		{
-			HOF_Helper_Global::ShowError("出品価格に誤りがあります。");
+			HOF_Helper_Global::ShowError("Failed to load item data.");
+			return false;
+		}
+
+		// アイテムを所持していない場合
+		if (!$this->user->item[$this->input->item_no])
+		{
+			HOF_Helper_Global::ShowError("Item < {$item[name]} > doesn't exists.");
+			return false;
+		}
+
+		if ($message = $this->ItemAuction->article_exhibit_price_check(&$this->input->StartPrice, $item))
+		{
+			HOF_Helper_Global::ShowError($message);
 			return false;
 		}
 
@@ -310,45 +324,22 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 			return false;
 		}
 
-		// アイテムが読み込めない場合
-		if (!$item = HOF_Model_Data::getItemData($this->input->item_no))
+		if ($message = $this->ItemAuction->article_exhibit_item_check($item))
 		{
-			HOF_Helper_Global::ShowError("Failed to load item data.");
-			return false;
-		}
-
-		// アイテムを所持していない場合
-		if (!$this->user->item[$this->input->item_no])
-		{
-			HOF_Helper_Global::ShowError("Item \"{$item[name]}\" doesn't exists.");
-			return false;
-		}
-		// そのアイテムが出品できない場合
-		$possible = HOF_Model_Data::getCanExhibitType();
-		if (!$possible[$item["type"]])
-		{
-			HOF_Helper_Global::ShowError("Cant put \"{$item[name]}\" to the Auction");
+			HOF_Helper_Global::ShowError($message);
 			return false;
 		}
 
 		// 出品時間の確認
-		if (!($this->input->ExhibitTime === '1' || $this->input->ExhibitTime === '3' || $this->input->ExhibitTime === '6' || $this->input->ExhibitTime === '12' || $this->input->ExhibitTime === '18' || $this->input->ExhibitTime === '24'))
+		if ($message = $this->ItemAuction->article_exhibit_time_check($this->input->ExhibitTime))
 		{
 			var_dump($_POST);
-			HOF_Helper_Global::ShowError("time?");
+			HOF_Helper_Global::ShowError($message);
 			return false;
 		}
 
 		// 数量の確認
-		if (ereg("^[0-9]", $this->input->Amount))
-		{
-			$amount = (int)$this->input->Amount;
-			if ($amount == 0) $amount = 1;
-		}
-		else
-		{
-			$amount = 1;
-		}
+		$amount = max(1, (int)$this->input->Amount);
 
 		// 減らす(所持数より多く指定された場合その数を調節する)
 		$_SESSION["AuctionExhibit"] = REQUEST_TIME; //セッションで2重出品を防ぐ
@@ -358,7 +349,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 
 		// 出品する
 		$this->ItemAuction->article_item_add($this->input->item_no, $amount, $this->user->id, $this->input->ExhibitTime, $this->input->StartPrice, $this->input->Comment);
-		print ($item["name"] . "&nbsp;を&nbsp;{$amount}個&nbsp;出品しました。");
+		HOF_Helper_Global::ShowResult($item["name"] . "&nbsp;を&nbsp;{$amount}個&nbsp;出品しました。");
 
 		return true;
 	}
@@ -398,6 +389,8 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 
 			$this->output->show = $ExhibitList->ShowDefault();
 		}
+
+		$this->output->article_exhibit_cost = $this->ItemAuction->article_exhibit_cost();
 
 		$this->_render('auction/form.exhibit.body');
 
