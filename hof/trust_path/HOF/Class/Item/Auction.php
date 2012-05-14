@@ -27,6 +27,8 @@ class HOF_Class_Item_Auction
 
 	var $fp;
 
+	var $user;
+
 	/**
 	 * オークションの種類
 	 * アイテムorキャラ
@@ -36,19 +38,19 @@ class HOF_Class_Item_Auction
 	/**
 	 * 競売品番号
 	 */
-	var $ArticleNo;
+	var $last_article_no;
 
 	/**
 	 * 出品物(キャラ)リスト
 	 */
-	var $Article = array();
+	var $article_list = array();
 
 	var $UserName;
 
 	/**
 	 * 落札物や落札金の処理用
 	 */
-	var $TempUser = array();
+	var $temp_user = array();
 
 	/**
 	 * 経過ログ
@@ -58,12 +60,14 @@ class HOF_Class_Item_Auction
 	/**
 	 * データが変更されたか?
 	 */
-	var $DataChange = false;
+	protected $changed = array();
 
 	var $QUERY;
 	var $sort;
 
 	var $file = AUCTION_ITEM;
+
+	var $exhibit_cost = 500;
 
 	static $options = array(
 		'ip_check' => false,
@@ -107,7 +111,7 @@ class HOF_Class_Item_Auction
 	function fpread()
 	{
 		// ファイルがある場合
-		if (file_exists($this->file))
+		if (1 || file_exists($this->file))
 		{
 			//$fp	= fopen($this->file,"r+");
 			$this->fp = HOF_Class_File::fplock_file($this->file, 0, 1);
@@ -116,15 +120,15 @@ class HOF_Class_Item_Auction
 
 			/*
 			// 競売番号を先読みする
-			$this->ArticleNo = trim(fgets($this->fp));
+			$this->last_article_no = trim(fgets($this->fp));
 			while (!feof($this->fp))
 			{
 			$str = fgets($this->fp);
 			if (!$str) continue;
 			$article = explode("<>", $str);
 			if (strlen($article["1"]) != 10) continue;
-			$this->Article[$article["0"]] = array(
-			"No" => $article["0"], // 競売番号
+			$this->article_list[$article["0"]] = array(
+			"no" => $article["0"], // 競売番号
 			"end" => $article["1"], // 終了時刻
 			"price" => $article["2"], // 今の入札価格
 			"exhibitor" => $article["3"], // 出品者id
@@ -141,8 +145,18 @@ class HOF_Class_Item_Auction
 
 			$data = HOF_Class_Yaml::load($this->fp);
 
-			$this->ArticleNo = $data['no'];
-			$this->Article = $data['list'];
+			$this->last_article_no = (int)$data['no'];
+			$this->article_list = (array)$data['list'];
+
+			foreach ($this->article_list as $k => $v)
+			{
+				if ($this->last_article_no >= $k)
+				{
+					break;
+				}
+
+				$this->last_article_no = max($this->last_article_no, $k);
+			}
 
 			// ファイルが無い場合
 		}
@@ -154,7 +168,7 @@ class HOF_Class_Item_Auction
 
 	function fpclose()
 	{
-		@fclose($this->fp);
+		HOF_Class_File::fpclose($this->fp);
 		unset($this->fp);
 	}
 
@@ -163,7 +177,7 @@ class HOF_Class_Item_Auction
 	 */
 	function fpsave()
 	{
-		if (!$this->DataChange)
+		if (!$this->changed['data'])
 		{
 			$this->fpclose();
 
@@ -172,16 +186,16 @@ class HOF_Class_Item_Auction
 
 		$data = array();
 
-		$data['no'] = $this->ArticleNo;
+		$data['no'] = $this->last_article_no;
 
 		// アイテム オークションを保存する。
-		//$string = $this->ArticleNo . "\n";
-		foreach ($this->Article as $val)
+		//$string = $this->last_article_no . "\n";
+		foreach ($this->article_list as $val)
 		{
 			//if(strlen($val["end"]) != 10) continue;
-			//$string .= $val["No"] . "<>" . $val["end"] . "<>" . $val["price"] . "<>" . $val["exhibitor"] . "<>" . $val["item"] . "<>" . $val["amount"] . "<>" . $val["TotalBid"] . "<>" . $val["bidder"] . "<>" . $val["latest"] . "<>" . $val["comment"] . "<>" . $val["IP"] . "\n";
+			//$string .= $val["no"] . "<>" . $val["end"] . "<>" . $val["price"] . "<>" . $val["exhibitor"] . "<>" . $val["item"] . "<>" . $val["amount"] . "<>" . $val["TotalBid"] . "<>" . $val["bidder"] . "<>" . $val["latest"] . "<>" . $val["comment"] . "<>" . $val["IP"] . "\n";
 
-			$data['list'][$val['No']] = $val;
+			$data['list'][$val['no']] = $val;
 		}
 
 		$string = HOF_Class_Yaml::dump($data);
@@ -206,9 +220,9 @@ class HOF_Class_Item_Auction
 	 */
 	function exists($no)
 	{
-		//debug($no, $this->Article);
+		//debug($no, $this->article_list);
 
-		if ($this->Article[$no])
+		if ($this->article_list[$no])
 		{
 			return true;
 		}
@@ -221,7 +235,7 @@ class HOF_Class_Item_Auction
 	/**
 	 * GETのクエリー名
 	 */
-	function AuctionHttpQuery($name)
+	function article_form_query($name)
 	{
 		$this->QUERY = $name;
 	}
@@ -229,37 +243,47 @@ class HOF_Class_Item_Auction
 	/**
 	 * 出品物の数
 	 */
-	function count()
+	function article_count()
 	{
-		return count($this->Article);
+		return count($this->article_list);
 	}
 
-	function ItemSortBy($type)
+	function article_count_check_max()
+	{
+		if (AUCTION_MAX <= $this->article_count())
+		{
+			$msg = "出品数が限界に達しています。(" . $this->ItemAuction->article_count() . "/" . AUCTION_MAX . ")";
+		}
+
+		return $msg;
+	}
+
+	function article_item_sortby($type)
 	{
 		switch ($type)
 		{
 			case "no":
-				usort($this->Article, "HOF_Class_Item_Auction_Sort::sortByNo");
+				usort($this->article_list, "HOF_Class_Item_Auction_Sort::sortByNo");
 				$this->sort = "no";
 				break;
 			case "time":
-				usort($this->Article, "HOF_Class_Item_Auction_Sort::sortByTime");
+				usort($this->article_list, "HOF_Class_Item_Auction_Sort::sortByTime");
 				$this->sort = "time";
 				break;
 			case "price":
-				usort($this->Article, "HOF_Class_Item_Auction_Sort::sortByPrice");
+				usort($this->article_list, "HOF_Class_Item_Auction_Sort::sortByPrice");
 				$this->sort = "price";
 				break;
 			case "rprice":
-				usort($this->Article, "HOF_Class_Item_Auction_Sort::sortByRPrice");
+				usort($this->article_list, "HOF_Class_Item_Auction_Sort::sortByRPrice");
 				$this->sort = "rprice";
 				break;
 			case "bid":
-				usort($this->Article, "HOF_Class_Item_Auction_Sort::sortByTotalBid");
+				usort($this->article_list, "HOF_Class_Item_Auction_Sort::sortByTotalBid");
 				$this->sort = "bid";
 				break;
 			default:
-				usort($this->Article, "HOF_Class_Item_Auction_Sort::sortByTime");
+				usort($this->article_list, "HOF_Class_Item_Auction_Sort::sortByTime");
 				$this->sort = "time";
 				break;
 		}
@@ -270,7 +294,7 @@ class HOF_Class_Item_Auction
 	 * 価格の5%が最低値。
 	 * 100以下なら100がそれになる。
 	 */
-	function BottomPrice($price)
+	function article_price_bid_min($price)
 	{
 		$bottom = floor($price * 0.10);
 
@@ -287,24 +311,24 @@ class HOF_Class_Item_Auction
 	/**
 	 * 最低入札価格を返す
 	 */
-	function ItemBottomPrice($ArticleNo)
+	function article_item_price_bid_min($article_no)
 	{
-		if ($this->Article["$ArticleNo"])
+		if ($this->article_list["$article_no"])
 		{
-			return $this->BottomPrice($this->Article["$ArticleNo"]["price"]);
+			return $this->article_price_bid_min($this->article_list["$article_no"]["price"]);
 		}
 	}
 	/**
 	 * 入札する
 	 */
-	function ItemBid($ArticleNo, $BidPrice, $Bidder, $BidderName)
+	function article_item_bid($article_no, $BidPrice, $Bidder, $BidderName)
 	{
-		if (!$Article = $this->Article["$ArticleNo"]) return false;
+		if (!$article_list = $this->article_list["$article_no"]) return false;
 
-		$BottomPrice = $this->BottomPrice($this->Article["$ArticleNo"]["price"]);
+		$article_price_bid_min = $this->article_price_bid_min($this->article_list["$article_no"]["price"]);
 
 		// IPが同じ
-		if (self::$options['ip_check'] && $Article["IP"] == HOF::ip())
+		if (self::$options['ip_check'] && $article_list["IP"] == HOF::ip())
 		{
 			HOF_Helper_Global::ShowError("IP制限.");
 			return false;
@@ -318,21 +342,21 @@ class HOF_Class_Item_Auction
 		}
 
 		// 最低入札価格を割っている場合
-		if ($BidPrice < $BottomPrice) return false;
+		if ($BidPrice < $article_price_bid_min) return false;
 
 		// 誰かが入札していた場合お金を返金する。
-		if ($Article["bidder"])
+		if ($article_list["bidder"])
 		{
-			$this->UserGetMoney($Article["bidder"], $Article["price"]);
-			$this->UserSaveData();
+			$this->tmpuser_get_money($article_list["bidder"], $article_list["price"]);
+			$this->save_user();
 		}
 
 		// 入札時間が残り少ないなら延長する。
 		$Now = time();
-		$left = $this->AuctionLeftTime($Now, $Article["end"], true);
+		$left = $this->article_time_left($Now, $article_list["end"], true);
 		/* // 残り時間1時間以下なら15分延長する
 		if(1 < $left && $left < 3601) {
-		$this->Article["$ArticleNo"]["end"]	+= 900;
+		$this->article_list["$article_no"]["end"]	+= 900;
 		}
 		*/
 
@@ -340,17 +364,19 @@ class HOF_Class_Item_Auction
 		if (0 < $left && $left < 901)
 		{
 			$dif = 900 - $left;
-			$this->Article["$ArticleNo"]["end"] += $dif;
+			$this->article_list["$article_no"]["end"] += $dif;
 		}
 
-		$this->Article["$ArticleNo"]["price"] = $BidPrice;
-		$this->Article["$ArticleNo"]["TotalBid"]++;
-		$this->Article["$ArticleNo"]["bidder"] = $Bidder;
-		$this->DataChange = true;
+		$this->article_list["$article_no"]["price"] = $BidPrice;
+		$this->article_list["$article_no"]["TotalBid"]++;
+		$this->article_list["$article_no"]["bidder"] = $Bidder;
+		$this->changed['data']++;
 
-		$item = HOF_Model_Data::getItemData($Article["item"]);
-		//$this->log->add("No.".$Article["No"]." <span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個に ".HOF_Helper_Global::MoneyFormat($BidPrice)." で ".$this->LoadUserName($Bidder)." が<span class=\"support\">入札しました。</span>");
-		$this->log->add("No." . $Article["No"] . " <span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個に " . HOF_Helper_Global::MoneyFormat($BidPrice) . " で " . $BidderName . " が<span class=\"support\">入札しました。</span>");
+		$this->changed['bid']++;
+
+		$item = HOF_Model_Data::getItemData($article_list["item"]);
+		//$this->log->add("no.".$article_list["no"]." <span class=\"bold\">{$item[name]} x{$article_list[amount]}</span>個に ".HOF_Helper_Global::MoneyFormat($BidPrice)." で ".$this->tmpuser_get_name($Bidder)." が<span class=\"support\">入札しました。</span>");
+		$this->log->add("no." . $article_list["no"] . " <span class=\"bold\">{$item[name]} x{$article_list[amount]}</span>個に " . HOF_Helper_Global::MoneyFormat($BidPrice) . " で " . $BidderName . " が<span class=\"support\">入札しました。</span>");
 
 		return true;
 	}
@@ -358,7 +384,7 @@ class HOF_Class_Item_Auction
 	/**
 	 * 残り時間を返す
 	 */
-	function AuctionLeftTime($now, $end, $int = false)
+	function article_time_left($now, $end, $int = false)
 	{
 		$left = $end - $now;
 		// $int=true なら差分だけ返す
@@ -388,45 +414,45 @@ class HOF_Class_Item_Auction
 	/**
 	 * 時間が経過して終了した競売品の処理
 	 */
-	function ItemCheckSuccess()
+	function article_item_check_success()
 	{
 		$Now = time();
-		foreach ($this->Article as $no => $Article)
+		foreach ($this->article_list as $no => $article_list)
 		{
 			// 競売時間が残っているなら次
-			if ($this->AuctionLeftTime($Now, $Article["end"])) continue;
+			if ($this->article_time_left($Now, $article_list["end"])) continue;
 
-			$item = HOF_Model_Data::getItemData($Article["item"]);
-			if ($Article["bidder"])
+			$item = HOF_Model_Data::getItemData($article_list["item"]);
+			if ($article_list["bidder"])
 			{
 				// 落札者がいるならアイテムを渡す。
 				// 落札者がいるなら出品者に金を渡す。
-				$this->UserGetItem($Article["bidder"], $Article["item"], $Article["amount"]);
-				$this->UserGetMoney($Article["exhibitor"], $Article["price"]);
+				$this->tmpuser_get_item($article_list["bidder"], $article_list["item"], $article_list["amount"]);
+				$this->tmpuser_get_money($article_list["exhibitor"], $article_list["price"]);
 				// 結果をログに残せ
-				$this->log->add("No.{$Article[No]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個 を " . $this->UserGetNameFromTemp($Article["bidder"]) . " が " . HOF_Helper_Global::MoneyFormat($Article["price"]) . " で<span class=\"recover\">落札しました。</span>");
+				$this->log->add("no.{$article_list[no]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\"><span class=\"bold\">{$item[name]} x{$article_list[amount]}</span>個 を " . $this->tmpuser_get_name_temp($article_list["bidder"]) . " が " . HOF_Helper_Global::MoneyFormat($article_list["price"]) . " で<span class=\"recover\">落札しました。</span>");
 			}
 			else
 			{
 				// 入札が無かった場合、出品者に返却。
-				$this->UserGetItem($Article["exhibitor"], $Article["item"], $Article["amount"]);
+				$this->tmpuser_get_item($article_list["exhibitor"], $article_list["item"], $article_list["amount"]);
 				// 結果をログに残せ
-				$this->log->add("No.{$Article[No]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\"><span class=\"bold\">{$item[name]} x{$Article[amount]}</span>個 は<span class=\"dmg\">入札者無しで流れました。</span>");
+				$this->log->add("no.{$article_list[no]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\"><span class=\"bold\">{$item[name]} x{$article_list[amount]}</span>個 は<span class=\"dmg\">入札者無しで流れました。</span>");
 			}
 			// 最後に消す
-			unset($this->Article["$no"]);
-			$this->DataChange = true;
+			unset($this->article_list["$no"]);
+			$this->changed['data']++;
 		}
 	}
 
 	/**
 	 * 出品物一覧を表示する(その1) 表示の並びが違うだけ
 	 */
-	function ItemShowArticle($bidding = false)
+	function article_item_show($bidding = false)
 	{
-		if (count($this->Article) == 0)
+		if (count($this->article_list) == 0)
 		{
-			print ("競売物無し(No auction)<br />\n");
+			print ("競売物無し(no auction)<br />\n");
 			return false;
 		}
 		else
@@ -434,49 +460,49 @@ class HOF_Class_Item_Auction
 			$Now = time();
 			$exp = '<tr><td class="td9">番号</td><td class="td9">価格</td><td class="td9">入札者</td><td class="td9">入札数</td><td class="td9">残り</td>' . '<td class="td9">出品者</td><td class="td9">コメント</td></tr>' . "\n";
 			print ('<table style="width:725px;text-align:center" cellpadding="0" cellspacing="0" border="0">' . "{$exp}\n");
-			foreach ($this->Article as $Article)
+			foreach ($this->article_list as $article_list)
 			{
 
 				print ("<tr><td class=\"td7\">");
 				// 競売番号
-				print ($Article["No"]);
+				print ($article_list["no"]);
 				print ("</td><td class=\"td7\">");
 				// 現在入札価格
-				print (HOF_Helper_Global::MoneyFormat($Article["price"]));
+				print (HOF_Helper_Global::MoneyFormat($article_list["price"]));
 				print ("</td><td class=\"td7\">");
 				// 入札者
-				if (!$Article["bidder"]) $bidder = "-";
-				else  $bidder = $this->LoadUserName($Article["bidder"]);
+				if (!$article_list["bidder"]) $bidder = "-";
+				else  $bidder = $this->tmpuser_get_name($article_list["bidder"]);
 				print ($bidder);
 				print ("</td><td class=\"td7\">");
 				// 合計入札数
-				print ($Article["TotalBid"]);
+				print ($article_list["TotalBid"]);
 				print ("</td><td class=\"td7\">");
 				// 終了時刻
-				print ($this->AuctionLeftTime($Now, $Article["end"]));
+				print ($this->article_time_left($Now, $article_list["end"]));
 				print ("</td><td class=\"td7\">");
 				// 出品者
-				$exhibitor = $this->LoadUserName($Article["exhibitor"]);
+				$exhibitor = $this->tmpuser_get_name($article_list["exhibitor"]);
 				print ($exhibitor);
 				print ("</td><td class=\"td8\">");
 				// コメント
-				print ($Article["comment"] ? $Article["comment"] : "&nbsp;");
+				print ($article_list["comment"] ? $article_list["comment"] : "&nbsp;");
 				print ("</td></tr>\n");
 				// アイテム
 				print ('<tr><td colspan="7" style="text-align:left;padding-left:15px" class="td6">');
-				$item = HOF_Model_Data::getItemData($Article["item"]);
+				$item = HOF_Model_Data::getItemData($article_list["item"]);
 				print ('<form action="?menu=auction" method="post">');
 				// 入札フォーム
 				if ($bidding)
 				{
-					print ('<a href="#" onClick="$(\'Bid' . $Article["No"] . '\').toggle()">入札</a>');
-					print ('<span style="display:none" id="Bid' . $Article["No"] . '">');
-					print ('&nbsp;<input type="text" name="BidPrice" style="width:80px" class="text" value="' . BottomPrice($Article["price"]) . '">');
+					print ('<a href="#" onClick="$(\'Bid' . $article_list["no"] . '\').toggle()">入札</a>');
+					print ('<span style="display:none" id="Bid' . $article_list["no"] . '">');
+					print ('&nbsp;<input type="text" name="BidPrice" style="width:80px" class="text" value="' . $this->article_price_bid_min($article_list["price"]) . '">');
 					print ('<input type="submit" value="Bid" class="btn">');
-					print ('<input type="hidden" name="ArticleNo" value="' . $Article["No"] . '">');
+					print ('<input type="hidden" name="article_no" value="' . $article_list["no"] . '">');
 					print ('</span>');
 				}
-				print (HOF_Class_Item::ShowItemDetail($item, $Article["amount"], 1));
+				print (HOF_Class_Item::ShowItemDetail($item, $article_list["amount"], 1));
 				print ("</form>");
 				print ("</td></tr>\n");
 			}
@@ -485,106 +511,122 @@ class HOF_Class_Item_Auction
 		}
 	}
 
-	function UserGetNameFromTemp($UserID)
+	function tmpuser_get_name_temp($UserID)
 	{
-		if ($this->TempUser["$UserID"]["Name"]) return $this->TempUser["$UserID"]["Name"];
-		else  return "-";
+		if ($this->temp_user["$UserID"]["Name"])
+		{
+			return $this->temp_user["$UserID"]["Name"];
+		}
+
+		return "-";
+	}
+
+	function &tmpuset_get($UserID)
+	{
+		if (!$this->temp_user["$UserID"]["user"])
+		{
+			$this->temp_user["$UserID"]["user"] = new HOF_Class_User($UserID);
+			$this->temp_user["$UserID"]["Name"] = $this->temp_user["$UserID"]["user"]->Name();
+		}
+
+		return $this->temp_user["$UserID"];
 	}
 
 	/**
 	 * オークションでお金を獲得
 	 */
-	function UserGetMoney($UserID, $Money)
+	function tmpuser_get_money($UserID, $Money)
 	{
-		if (!$this->TempUser["$UserID"]["user"])
-		{
-			$this->TempUser["$UserID"]["user"] = new HOF_Class_User($UserID);
-			$this->TempUser["$UserID"]["Name"] = $this->TempUser["$UserID"]["user"]->Name();
-		}
+		$user = $this->tmpuset_get($UserID);
 
-		$this->TempUser["$UserID"]["UserGetTotalMoney"] += $Money;
-		$this->TempUser["$UserID"]["Money"] = true; //金が追加されたことを記録
+		$user["UserGetTotalMoney"] += $Money;
+
+		/**
+		 * 金が追加されたことを記録
+		 */
+		$user["Money"] = true;
 	}
 
 	/**
 	 * オークションでアイテム獲得
 	 */
-	function UserGetItem($UserID, $item, $amount)
+	function tmpuser_get_item($UserID, $item, $amount)
 	{
-		if (!$this->TempUser["$UserID"]["user"])
-		{
-			$this->TempUser["$UserID"]["user"] = new HOF_Class_User($UserID);
-			$this->TempUser["$UserID"]["Name"] = $this->TempUser["$UserID"]["user"]->Name();
-		}
+		$user = $this->tmpuset_get($UserID);
 
-		$this->TempUser["$UserID"]["UserGetItem"]["$item"] += $amount;
-		$this->TempUser["$UserID"]["item"] = true; //アイテムが追加されたことを記録
-	}
+		$user["user_get_item"]["$item"] += $amount;
 
-	/**
-	 * オークションでキャラクター獲得
-	 * (動作確認無し)
-	 */
-	function UserGetChar($UserID, $char)
-	{
-		$this->TempUser["$UserID"]["char"][] = $char; //
-		$this->TempUser["$UserID"]["CharAdd"] = true; //キャラクターが追加されたことを記録
+		/**
+		 * アイテムが追加されたことを記録
+		 */
+		$user["item"] = true;
 	}
 
 	/**
 	 * オークション処理結果を清算する?
 	 */
-	function UserSaveData()
+	function save_user()
 	{
-		foreach ($this->TempUser as $user => $Result)
+		foreach ($this->temp_user as $userid => &$user)
 		{
-			// お金を得た
-			if ($this->TempUser["$user"]["Money"])
+			/**
+			 * お金を得た
+			 */
+			if ($user["Money"])
 			{
-				$this->TempUser["$user"]["user"]->GetMoney($this->TempUser["$user"]["UserGetTotalMoney"]);
-				$this->TempUser["$user"]["user"]->SaveData();
+				$user["user"]->GetMoney($user["UserGetTotalMoney"]);
+				$user["user"]->SaveData();
 			}
-			// アイテムを得た
-			if ($this->TempUser["$user"]["item"])
+
+			/**
+			 * アイテムを得た
+			 */
+			if ($user["item"])
 			{
-				foreach ($this->TempUser["$user"]["UserGetItem"] as $itemNo => $amount)
+				foreach ($user["user_get_item"] as $itemNo => $amount)
 				{
-					$this->TempUser["$user"]["user"]->AddItem($itemNo, $amount);
+					$user["user"]->AddItem($itemNo, $amount);
 				}
-				$this->TempUser["$user"]["user"]->SaveUserItem();
+				$user["user"]->SaveUserItem();
 			}
-			// キャラクターを得た
-			// (動作確認なし)
-			if ($this->TempUser["$user"]["CharAdd"])
+
+			/**
+			 * キャラクターを得た
+			 * (動作確認なし)
+			 */
+			if ($user["CharAdd"])
 			{
-				if ($this->TempUser["$user"]["char"])
+				if ($user["char"])
 				{
-					foreach ($this->TempUser["$user"]["char"] as $char)
+					foreach ($user["char"] as $char)
 					{
 						$char->SaveCharData($user);
 					}
 				}
 			}
-			// ユーザが開いた全てのファイルのファイルポインタを閉じる
-			$this->TempUser["$user"]["user"]->fpclose_all();
+
+			/**
+			 * ユーザが開いた全てのファイルのファイルポインタを閉じる
+			 */
+			$user["user"]->fpclose_all();
 		}
-		unset($this->TempUser);
+		unset($this->temp_user);
 	}
 
 	/**
 	 * 入札する権利があるかどうか返す
 	 */
-	function ItemBidRight($ArticleNo, $UserID)
+	function article_item_bid_right($article_no, $UserID)
 	{
-		if ($this->Article["$ArticleNo"]["bidder"] == $UserID) return false;
-		if ($this->Article["$ArticleNo"]["exhibitor"] == $UserID) return false;
+		if ($this->article_list["$article_no"]["bidder"] == $UserID) return false;
+		if ($this->article_list["$article_no"]["exhibitor"] == $UserID) return false;
 		return true;
 	}
 
 	/**
 	 * ユーザの名前を呼び出す
 	 */
-	function LoadUserName($id)
+	function tmpuser_get_name($id)
 	{
 		if ($this->UserName["$id"])
 		{
@@ -609,11 +651,11 @@ class HOF_Class_Item_Auction
 	/**
 	 * 出品物一覧を表示する(その2) 表示の並びが違うだけ
 	 */
-	function ItemShowArticle2($bidding = false)
+	function article_item_show2($bidding = false)
 	{
-		if (count($this->Article) == 0)
+		if (count($this->article_list) == 0)
 		{
-			print ("競売物無し(No auction)<br />\n");
+			print ("競売物無し(no auction)<br />\n");
 			return false;
 		}
 		else
@@ -621,39 +663,39 @@ class HOF_Class_Item_Auction
 			$Now = time();
 			// ソートされている色を変える(可変変数)
 			if ($this->sort) ${"Style_" . $this->sort} = ' class="a0"';
-			$exp = '<tr><td class="td9"><a href="?menu=' . $this->QUERY . '&sort=no"' . $Style_no . '>No</a></td>' . '<td class="td9"><a href="?menu=' . $this->QUERY . '&sort=time"' . $Style_time . '>残り</td>' . '<td class="td9"><a href="?menu=' . $this->QUERY . '&sort=price"' . $Style_price . '>価格</a>' . '<br /><a href="?menu=' . $this->QUERY . '&sort=rprice"' . $Style_rprice . '>(昇)</a></td>' . '<td class="td9">Item</td>' . '<td class="td9"><a href="?menu=' . $this->QUERY . '&sort=bid"' . $Style_bid .
+			$exp = '<tr><td class="td9"><a href="?menu=' . $this->QUERY . '&sort=no"' . $Style_no . '>no</a></td>' . '<td class="td9"><a href="?menu=' . $this->QUERY . '&sort=time"' . $Style_time . '>残り</td>' . '<td class="td9"><a href="?menu=' . $this->QUERY . '&sort=price"' . $Style_price . '>価格</a>' . '<br /><a href="?menu=' . $this->QUERY . '&sort=rprice"' . $Style_rprice . '>(昇)</a></td>' . '<td class="td9">Item</td>' . '<td class="td9"><a href="?menu=' . $this->QUERY . '&sort=bid"' . $Style_bid .
 				'>Bids</a></td>' . '<td class="td9">入札者</td><td class="td9">出品者</td></tr>' . "\n";
 
-			print ("総出品数:" . $this->count() . "\n");
+			print ("総出品数:" . $this->article_count() . "\n");
 			print ('<table style="width:725px;text-align:center" cellpadding="0" cellspacing="0" border="0">' . "\n");
 			print ($exp);
-			foreach ($this->Article as $Article)
+			foreach ($this->article_list as $article_list)
 			{
 
 				// 競売番号
 				print ("<tr><td rowspan=\"2\" class=\"td7\">");
-				print ($Article["No"]);
+				print ($article_list["no"]);
 				// 終了時刻
 				print ("</td><td class=\"td7\">");
-				print ($this->AuctionLeftTime($Now, $Article["end"]));
+				print ($this->article_time_left($Now, $article_list["end"]));
 				// 現在入札価格
 				print ("</td><td class=\"td7\">");
-				print (HOF_Helper_Global::MoneyFormat($Article["price"]));
+				print (HOF_Helper_Global::MoneyFormat($article_list["price"]));
 				// アイテム
 				print ('</td><td class="td7" style="text-align:left">');
-				$item = HOF_Model_Data::getItemData($Article["item"]);
-				print (HOF_Class_Item::ShowItemDetail($item, $Article["amount"], 1));
+				$item = HOF_Model_Data::getItemData($article_list["item"]);
+				print (HOF_Class_Item::ShowItemDetail($item, $article_list["amount"], 1));
 				// 合計入札数
 				print ("</td><td class=\"td7\">");
-				print ($Article["TotalBid"]);
+				print ($article_list["TotalBid"]);
 				// 入札者
 				print ("</td><td class=\"td7\">");
-				if (!$Article["bidder"]) $bidder = "-";
-				else  $bidder = $this->LoadUserName($Article["bidder"]);
+				if (!$article_list["bidder"]) $bidder = "-";
+				else  $bidder = $this->tmpuser_get_name($article_list["bidder"]);
 				print ($bidder);
 				// 出品者
 				print ("</td><td class=\"td8\">");
-				$exhibitor = $this->LoadUserName($Article["exhibitor"]);
+				$exhibitor = $this->tmpuser_get_name($article_list["exhibitor"]);
 				print ($exhibitor);
 				// コメント
 				print ("</td></tr><tr>");
@@ -662,14 +704,14 @@ class HOF_Class_Item_Auction
 				// 入札フォーム
 				if ($bidding)
 				{
-					print ('<a style="margin:0 10px" href="#" onClick="$(\'#Bid' . $Article["No"] . '\').toggle(); return false;">入札</a>');
-					print ('<span style="display:none" id="Bid' . $Article["No"] . '">');
-					print ('&nbsp;<input type="text" name="BidPrice" style="width:80px" class="text" value="' . $this->BottomPrice($Article["price"]) . '">');
+					print ('<a style="margin:0 10px" href="#" onClick="$(\'#Bid' . $article_list["no"] . '\').toggle(); return false;">入札</a>');
+					print ('<span style="display:none" id="Bid' . $article_list["no"] . '">');
+					print ('&nbsp;<input type="text" name="BidPrice" style="width:80px" class="text" value="' . $this->article_price_bid_min($article_list["price"]) . '">');
 					print ('<input type="submit" value="Bid" class="btn">');
-					print ('<input type="hidden" name="ArticleNo" value="' . $Article["No"] . '">');
+					print ('<input type="hidden" name="article_no" value="' . $article_list["no"] . '">');
 					print ('</span>');
 				}
-				print ($Article["comment"] ? $Article["comment"] : "&nbsp;");
+				print ($article_list["comment"] ? $article_list["comment"] : "&nbsp;");
 				print ("</form>");
 				print ("</td></tr>\n");
 
@@ -684,11 +726,12 @@ class HOF_Class_Item_Auction
 	/**
 	 * アイテムを出品する
 	 */
-	function ItemAddArticle($item, $amount, $id, $time, $StartPrice, $comment)
+	function article_item_add($item, $amount, $id, $time, $StartPrice, $comment)
 	{
 		// 終了時刻の計算
 		$Now = time();
 		$end = $Now + round($now + (60 * 60 * $time));
+
 		// 開始価格のあれ
 		if (ereg("^[0-9]", $StartPrice))
 		{
@@ -698,16 +741,19 @@ class HOF_Class_Item_Auction
 		{
 			$price = 0;
 		}
+
 		// コメント処理
 		$comment = str_replace("\t", "", $comment);
 		$comment = htmlspecialchars(trim($comment), ENT_QUOTES);
 		$comment = stripslashes($comment);
+
 		// 競売品番号
-		$this->ArticleNo++;
-		if (9999 < $this->ArticleNo) $this->ArticleNo = 0;
+		$this->last_article_no++;
+		if (9999 < $this->last_article_no) $this->last_article_no = 0;
+
 		$New = array(
 			// 競売品番号
-			"No" => $this->ArticleNo,
+			"no" => $this->last_article_no,
 			// 終了時刻
 			"end" => $end,
 			// 今の入札価格
@@ -729,10 +775,48 @@ class HOF_Class_Item_Auction
 			// IP
 			"IP" => HOF::ip(),
 			);
-		array_unshift($this->Article, $New);
+
+		array_unshift($this->article_list, $New);
 		$itemData = HOF_Model_Data::getItemData($item);
-		$this->log->add("No." . $this->ArticleNo . " に <img src=\"" . HOF_Class_Icon::getImageUrl($itemData["img"], HOF_Class_Icon::IMG_ITEM) . "\"><span class=\"bold\">{$itemData[name]} x{$amount}</span>個が<span class=\"charge\">出品されました。</span>");
-		$this->DataChange = true;
+
+		$this->log->add("no." . $this->last_article_no . " に <img src=\"" . HOF_Class_Icon::getImageUrl($itemData["img"], HOF_Class_Icon::IMG_ITEM) . "\"><span class=\"bold\">{$itemData[name]} x{$amount}</span>個が<span class=\"charge\">出品されました。</span>");
+
+		$this->changed['data']++;
+		$this->changed['add']++;
+	}
+
+	function &user($user = null)
+	{
+		if ($user !== null)
+		{
+			$this->user = $user;
+		}
+
+		if (!isset($this->user))
+		{
+			throw new RuntimeException('Auction user not exists!');
+		}
+
+		return $this->user;
+	}
+
+	function article_exhibit_cost()
+	{
+		return $this->exhibit_cost();
+	}
+
+	/**
+	 * return msg = fail
+	 * return null = true
+	 */
+	function user_take_exhibit_cost()
+	{
+		if (!$this->user()->TakeMoney($this->article_exhibit_cost()))
+		{
+			$msg = "Need " . HOF_Helper_Global::MoneyFormat($this->article_exhibit_cost()) . " to exhibit auction.";
+		}
+
+		return $msg;
 	}
 
 }
