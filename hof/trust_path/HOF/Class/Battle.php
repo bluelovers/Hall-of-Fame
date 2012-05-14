@@ -12,8 +12,59 @@ include_once CLASS_BATTLE;
  * $battle->SetTeamName($this->name,$party["name"]);
  * $battle->Process();//戦闘開始
  */
-class HOF_Class_Battle extends battle
+class HOF_Class_Battle extends battle implements HOF_Class_Base_Extend_RootInterface
 {
+
+	protected $_extends_ = array();
+	protected $_extends_method_ = array();
+
+	protected $_extends_method_invalids_ = array();
+
+	function extend($extend)
+	{
+		$this->_extends_[$class] = null;
+
+		if (is_object($extend))
+		{
+			$class = get_class($extend);
+			$this->_extends_[$class]['obj'] = &$extend;
+		}
+		else
+		{
+			$class = $extend;
+			$this->_extends_[$class]['obj'] = null;
+		}
+
+		$this->_extends_[$class]['class'] = $class;
+
+		$methods = HOF_Helper_Object::get_public_methods($class, $this->_extends_method_invalids_);
+
+		foreach ($methods as $v)
+		{
+			$this->_extends_method_[$v] = $class;
+		}
+
+		return $this;
+	}
+
+	function __call($func, $argv)
+	{
+		if (isset($this->_extends_method_[$func]) && !empty($this->_extends_method_[$func]))
+		{
+			$class = $this->_extends_method_[$func];
+
+			if (!isset($this->_extends_[$class]['obj']))
+			{
+				$this->_extends_[$class]['obj'] = new $class(&$this);
+			}
+
+			return call_user_func_array(array($this->_extends_[$class]['obj'], $func), $argv);
+		}
+		else
+		{
+			throw new BadMethodCallException('Call to undefined method ' . get_class($this) . '::' . $func . '()');
+		}
+	}
 
 	function __construct($team0, $team1)
 	{
@@ -39,6 +90,11 @@ class HOF_Class_Battle extends battle
 
 		$this->teams[0]['team']->update();
 		$this->teams[1]['team']->update();
+
+		$this->extend('HOF_Class_Skill_Effect');
+		$this->extend('HOF_Class_Battle_Skill');
+
+
 	}
 
 	function outputImage()
@@ -48,6 +104,7 @@ class HOF_Class_Battle extends battle
 		echo $output;
 	}
 
+	/*
 	function SkillEffect($skill, $skill_no, &$user, &$target)
 	{
 		if (!isset($this->objs['SkillEffect']))
@@ -69,6 +126,7 @@ class HOF_Class_Battle extends battle
 
 		return $this->objs[$_key]->UseSkill($skill_no, &$JudgedTarget, &$My, &$MyTeam, &$Enemy);
 	}
+	*/
 
 	/**
 	 * 魔方陣を追加する
@@ -282,7 +340,7 @@ class HOF_Class_Battle extends battle
 
 		if ($skill)
 		{
-			$this->UseSkill($skill, $return, $char, $MyTeam, $EnemyTeam);
+			$this->UseSkill($skill, &$return, &$char, &$MyTeam, &$EnemyTeam);
 			// 行動できなかった場合の処理
 		}
 		else
