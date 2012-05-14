@@ -57,36 +57,7 @@ class battle
 
 	var $BattleResultType = 0; // 0=決着着かなければDraw 1=生存者の数で勝敗を決める
 	var $UnionBattle; // 残りHP総HPを隠す(????/????)
-	//////////////////////////////////////////////////
-	//	コンストラクタ。
 
-	//各チームの配列を受けとる。
-	function __construct($team0, $team1)
-	{
-		/*
-		include (DATA_JUDGE);
-		include_once (DATA_SKILL);
-
-		//モンスターが参戦してなくても召喚される場合があるので
-		include_once (CLASS_MONSTER);
-		*/
-
-		$this->team0 = $team0;
-		$this->team1 = $team1;
-
-		// 各チームに戦闘専用の変数を設定する(class.char.php)
-		// 装備の特殊機能等を計算して設定する。
-		// 戦闘専用の変数は大文字英語だったりする。class.char.phpを参照。
-		//  $this->team["$key"] で渡すこと.(引数はチーム番号)
-		foreach ($this->team0 as $key => $char) $this->team0["$key"]->SetBattleVariable(TEAM_0);
-		foreach ($this->team1 as $key => $char) $this->team1["$key"]->SetBattleVariable(TEAM_1);
-		//dump($this->team0[0]);
-		// delay関連
-		$this->SetDelay(); //ディレイ計算
-		$this->DelayResetAll(); //初期化
-	}
-	//////////////////////////////////////////////////
-	//
 	function SetResultType($var)
 	{
 		$this->BattleResultType = $var;
