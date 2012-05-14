@@ -30,7 +30,7 @@
 
 		<ul>
 			<li>
-				出品には&nbsp;手数料として$500&nbsp;必要です。
+				出品には&nbsp;手数料として <span class="result"><?php e(HOF_Helper_Global::MoneyFormat($this->output->article_exhibit_cost)) ?></span> 必要です。
 			</li>
 			<li>
 				ちゃんとうごいてくれなさそう
