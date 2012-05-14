@@ -154,7 +154,7 @@ class HOF_Class_Battle_Skill
  					$target = &$defender;
 			for ($i = 0; $i < $skill["target"]["2"]; $i++)
 			{ //単体に複数回実行
-				$dmg = $this->battle->SkillEffect($skill, $skill_no, $My, $target);
+				$dmg = $this->battle->SkillEffect($skill, $skill_no, &$My, &$target);
 				$this->battle->AddTotalDamage($MyTeam, $dmg);
 			}
 
@@ -168,7 +168,7 @@ class HOF_Class_Battle_Skill
 					$target = &$this->battle->SelectTarget($candidate, $skill); //対象を選択
 					if ($defender = &$this->battle->Defending($target, $candidate, $skill)) //守りに入るキャラ
  							$target = &$defender;
-					$dmg = $this->battle->SkillEffect($skill, $skill_no, $My, $target);
+					$dmg = $this->battle->SkillEffect($skill, $skill_no, &$My, &$target);
 					$this->battle->AddTotalDamage($MyTeam, $dmg);
 				}
 
@@ -188,7 +188,7 @@ class HOF_Class_Battle_Skill
 						// 全体攻撃は守りに入れない(とする)
 						for ($i = 0; $i < $skill["target"]["2"]; $i++)
 						{
-							$dmg = $this->battle->SkillEffect($skill, $skill_no, $My, $target);
+							$dmg = $this->battle->SkillEffect($skill, $skill_no, &$My, &$target);
 							$this->battle->AddTotalDamage($MyTeam, $dmg);
 						}
 					}
