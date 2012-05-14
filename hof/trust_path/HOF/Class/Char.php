@@ -27,8 +27,61 @@ class HOF_Class_Char extends char
 		"item" => true,
 		);
 
+	protected $_extends_ = array();
+	protected $_extends_method_ = array();
+
+	protected $_extends_method_invalids_ = array();
+
+	public function extend($extend)
+	{
+		$this->_extends_[$class] = null;
+
+		if (is_object($extend))
+		{
+			$class = get_class($extend);
+			$this->_extends_[$class]['obj'] = &$extend;
+		}
+		else
+		{
+			$class = $extend;
+			$this->_extends_[$class]['obj'] = null;
+		}
+
+		$this->_extends_[$class]['class'] = $class;
+
+		$methods = HOF_Helper_Object::get_public_methods($class, $this->_extends_method_invalids_);
+
+		foreach ($methods as $v)
+		{
+			$this->_extends_method_[$v] = $class;
+		}
+
+		return $this;
+	}
+
+	public function __call($func, $argv)
+	{
+		if (isset($this->_extends_method_[$func]) && !empty($this->_extends_method_[$func]))
+		{
+			$class = $this->_extends_method_[$func];
+
+			if (!is_object($this->_extends_[$class]['obj']))
+			{
+				$this->_extends_[$class]['obj'] = new $class(&$this);
+			}
+
+			return call_user_func_array(array($this->_extends_[$class]['obj'], $func), $argv);
+		}
+		else
+		{
+			throw new BadMethodCallException('Call to undefined method ' . get_class($this) . '::' . $func . '()');
+		}
+	}
+
 	function __construct($file = false)
 	{
+		$this->extend('HOF_Class_Char_Pattern');
+
 		$this->jobdata = new HOF_Class_Char_Job(&$this);
 
 		if (!$file) return 0;
@@ -236,45 +289,6 @@ class HOF_Class_Char extends char
 		HOF_Class_File::fpclose($this->fp);
 
 		unset($this->fp);
-	}
-
-	/**
-	 * パターン配列を保存する。
-	 */
-	function pattern($pattern = null)
-	{
-		return HOF_Class_Char_Pattern::getInstance(&$this)->pattern($pattern);
-	}
-
-	/**
-	 * キャラの指示の数
-	 */
-	function pattern_max()
-	{
-		return HOF_Class_Char_Pattern::getInstance(&$this)->pattern_max();
-	}
-
-	/**
-	 * メモってあるパターンと交換
-	 */
-	function pattern_switch()
-	{
-		return HOF_Class_Char_Pattern::getInstance(&$this)->pattern_switch();
-	}
-
-	function pattern_insert($idx, $v = array(), $skip_chk = false)
-	{
-		return HOF_Class_Char_Pattern::getInstance(&$this)->pattern_insert($idx, $v, $skip_chk);
-	}
-
-	public function pattern_item($idx)
-	{
-		return HOF_Class_Char_Pattern::getInstance(&$this)->pattern_item($idx);
-	}
-
-	function pattern_remove($idx)
-	{
-		return HOF_Class_Char_Pattern::getInstance(&$this)->pattern_remove($idx);
 	}
 
 	function &user()
