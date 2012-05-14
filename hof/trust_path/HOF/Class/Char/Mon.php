@@ -33,6 +33,8 @@ class HOF_Class_Char_Mon extends HOF_Class_Char
 
 	function __construct($data)
 	{
+		$this->extend('HOF_Class_Char_Pattern');
+
 		$this->SetCharData($data);
 	}
 
