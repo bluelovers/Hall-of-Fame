@@ -58,6 +58,18 @@ class HOF_Class_Battle extends battle
 		return $this->objs['SkillEffect']->SkillEffect($skill, $skill_no, &$user, &$target);
 	}
 
+	function UseSkill($skill_no, &$JudgedTarget, &$My, &$MyTeam, &$Enemy)
+	{
+		$_key = 'Battle_Skill';
+
+		if (!isset($this->objs[$_key]))
+		{
+			$this->objs[$_key] = new HOF_Class_Battle_Skill(&$this);
+		}
+
+		return $this->objs[$_key]->UseSkill($skill_no, &$JudgedTarget, &$My, &$MyTeam, &$Enemy);
+	}
+
 	/**
 	 * 魔方陣を追加する
 	 *
@@ -366,5 +378,7 @@ class HOF_Class_Battle extends battle
 		if (is_array($NextChar)) return $NextChar[array_rand($NextChar)];
 		else  return $NextChar;
 	}
+
+
 
 }
