@@ -26,6 +26,8 @@ class HOF_Model_Main extends HOF_Class_Array
 
 	function __destruct()
 	{
+		HOF_Model_Data::$_cache_->__destruct();
+
 		HOF::user()->fpclose_all();
 		HOF_Class_File::fpclose_all();
 	}
