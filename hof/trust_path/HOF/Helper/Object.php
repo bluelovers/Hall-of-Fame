@@ -29,13 +29,15 @@ class HOF_Helper_Object
 	{
 		$methods = array();
 
+		$skip = array_merge(array('__call', '__construct', '__destruct', '__get', '__set'), (array)$skip);
+
 		foreach (get_class_methods($class) as $key => $method)
 		{
 			/* Get a reflection object for the class method */
 			$reflect = new ReflectionMethod($class, $method);
 
 			/* For private, use isPrivate().  For protected, use isProtected() */
-			if ($reflect->isPublic())
+			if ($reflect->isPublic() && !($reflect->isStatic() || $reflect->isConstructor() || $reflect->isDestructor()))
 			{
 				if (!in_array($method, $skip))
 				{
