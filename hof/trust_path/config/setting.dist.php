@@ -13,7 +13,7 @@ define('BASE_PATH_TPL', BASE_TRUST_PATH . 'tpl/');
 define('BASE_EXT', '.yml');
 
 // game setting
-define("TITLE", "Hall of Fame"); //タイトル
+define("TITLE", "Hall of Rumor 噂のホール"); //タイトル
 define("MAX_TIME", 1000); //最大Time
 define("TIME_GAIN_DAY", 6000); //1日に回復する総Time
 define("MAX_CHAR", 10); //最大所持キャラ数
