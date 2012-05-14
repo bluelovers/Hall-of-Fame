@@ -12,9 +12,9 @@ class HOF_Class_File
 
 	public static function fpclose_all()
 	{
-		foreach ((array )self::$data as $file => $data)
+		foreach ((array )self::$data as $key => $data)
 		{
-			self::fpclose($data['fp']);
+			self::fpclose($data['fp'], $key);
 		}
 	}
 
@@ -47,19 +47,21 @@ class HOF_Class_File
 		$data['file'] = $file;
 		$data['lock'] = 0;
 
-		self::$data[] = $data;
+		array_push(self::$data, $data);
 
 		return $fp;
 	}
 
 	function &_get_cache_by_file($file, $lock = null)
 	{
-		foreach (self::$data as &$data)
+		foreach (self::$data as $key => &$data)
 		{
 			if ($data['file'] == $file)
 			{
 				if (self::is_resource_file($data['fp']))
 				{
+					$data['key'] = $key;
+
 					if (!$lock || $lock && $data['lock'] > 0)
 					{
 						return $data;
@@ -123,6 +125,7 @@ class HOF_Class_File
 			}
 			else
 			{
+				$key = $data['key'];
 				$fp = $data['fp'];
 			}
 		}
@@ -131,7 +134,7 @@ class HOF_Class_File
 			$fp = self::fpopen($file, ($autocreate && !file_exists($file)) ? 'w+' : 'r+');
 		}
 
-		return self::fplock($fp);
+		return self::fplock(array($fp, $key), $noExit);
 	}
 
 	function is_resource_file($fp)
@@ -149,6 +152,11 @@ class HOF_Class_File
 
 	function fplock($fp, $noExit = false)
 	{
+		if (is_array($fp) && self::is_resource_file($fp[0]))
+		{
+			list($fp, $key) = $fp;
+		}
+
 		if (!$fp || !self::is_resource_file($fp))
 		{
 			throw new RuntimeException('File Open Error!!');
@@ -158,14 +166,19 @@ class HOF_Class_File
 			return false;
 		}
 
-		if ($data = self::_get_cache_by_fp($fp))
+		if ((isset($key) && $data = self::$data[$key]) || $data = self::_get_cache_by_fp($fp))
 		{
 			if ($data['lock'] > 0) return $fp;
+
+			$key = $data['key'];
 		}
 		else
 		{
 			$_data = null;
 			$data = &$_data;
+
+			$_array = array();
+			$data = $_array;
 
 			self::$data[] = $data;
 		}
@@ -317,10 +330,17 @@ class HOF_Class_File
 		else  return false;
 	}
 
-	function fpclose($fp)
+	function fpclose($fp, $key = null)
 	{
-		$data = self::_get_cache_by_fp($fp);
-		unset($data);
+		if ($key !== null)
+		{
+			unset(self::$data[$key]);
+		}
+		else
+		{
+			$data = self::_get_cache_by_fp($fp);
+			unset($data);
+		}
 
 		@fclose($fp);
 	}
