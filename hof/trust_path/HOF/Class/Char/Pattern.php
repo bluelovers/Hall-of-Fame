@@ -33,7 +33,7 @@ class HOF_Class_Char_Pattern
 		$this->char = &$char;
 	}
 
-	function _makeid(&$char)
+	protected static function _makeid(&$char)
 	{
 		if ($char->monster)
 		{
