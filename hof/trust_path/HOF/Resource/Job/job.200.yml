@@ -7,14 +7,8 @@ equip:
     - Robe
     - Item
 coe:
-    - 1.5
-    - 1
-change:
-    - 201
-    - 202
-    - 203
-info:
-    desc: "魔法系基本職。\n撃たれ弱いが強い魔法が使える。"
+    maxhp: 1.5
+    maxsp: 1
 pattern: null
 job: '200'
 img: mon_106
@@ -26,3 +20,5 @@ gender:
     2:
         img: mon_018
         job_name: Sorceress
+info:
+    desc: "魔法系基本職。\n撃たれ弱いが強い魔法が使える。"
