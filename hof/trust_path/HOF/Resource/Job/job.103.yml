@@ -8,10 +8,8 @@ equip:
     - Robe
     - Item
 coe:
-    - 3.7
-    - 1
-info:
-    desc: "戦士系上級職。\n相手の魔力を奪ったりする、やや変則的な戦士。"
+    maxhp: 3.7
+    maxsp: 1
 job: '103'
 img: mon_150
 job_name: WitchHunt
@@ -22,3 +20,11 @@ gender:
     2:
         img: mon_234
         job_name: WitchHunt
+data_ex:
+    job_conditions:
+        job_from:
+            100:
+                lv: 23
+    job_base: 100
+info:
+    desc: "戦士系上級職。\n相手の魔力を奪ったりする、やや変則的な戦士。"
