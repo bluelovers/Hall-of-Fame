@@ -32,25 +32,14 @@ class union extends HOF_Class_Char
 	var $moneyhold; //お金
 	var $itemdrop; //落とすアイテム
 
-	//////////////////////////////////////////////////
+	
 	//	コンストラクタ
 	function __construct($file = false)
 	{
 		$this->LoadData($file);
 	}
-	//////////////////////////////////////////////////
-	//	毒ダメージ
-	function PoisonDamage($multiply = 1)
-	{
-		if ($this->STATE !== 2) return false;
 
-		$poison = $this->PoisonDamageFormula($multiply);
-		print ("<span class=\"spdmg\">" . $this->Name(bold) . " got ");
-		print ("<span class=\"bold\">$poison</span> damage by poison.\n");
-		$this->HpDamage2($poison);
-		print ("</span><br />\n");
-	}
-	//////////////////////////////////////////////////
+	
 	//	毒ダメージの公式
 	function PoisonDamageFormula($multiply = 1)
 	{
@@ -61,7 +50,7 @@ class union extends HOF_Class_Char
 		return round($damage);
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	生存状態にする。
 	function GetNormal($mes = false)
 	{
@@ -84,7 +73,7 @@ class union extends HOF_Class_Char
 			return true;
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//	行動を遅らせる(Rate)
 	function DelayByRate($No, $BaseDelay, $Show = false)
 	{
@@ -118,7 +107,7 @@ class union extends HOF_Class_Char
 				}
 			}
 	}
-	//////////////////////////////////////////////////
+	
 	//	戦闘中のキャラ名,HP,SP を色を分けて表示する
 	//	それ以外にも必要な物があれば表示するようにした。
 	function ShowHpSp()
@@ -141,13 +130,13 @@ class union extends HOF_Class_Char
 		print ("<span class=\"{$sub}\">SP : ????/????</span>\n");
 		print ("</div>\n"); //SP
 	}
-	//////////////////////////////////////////////////
+	
 	//	値の変化を表示する(ダメージ受けた時とか)
 	function ShowValueChange()
 	{
 		print ("(??? &gt; ???)");
 	}
-	//////////////////////////////////////////////////
+	
 	//	番号で呼び出す
 	function UnionNumber($no)
 	{
@@ -155,14 +144,14 @@ class union extends HOF_Class_Char
 		if ($this->LoadData($file)) return true;
 		else  return false;
 	}
-	//////////////////////////////////////////////////
+	
 	//	ユニオン自体が生きてるかどうか確認する(戦闘外で)
 	function is_Alive()
 	{
 		if (0 < $this->hp) return true;
 		else  return false;
 	}
-	//////////////////////////////////////////////////
+	
 	//
 	function LoadData($file)
 	{
@@ -176,7 +165,7 @@ class union extends HOF_Class_Char
 		$this->SetCharData($data);
 		return true;
 	}
-	//////////////////////////////////////////////////
+	
 	function ShowCharLink()
 	{
 		// <div class="land_<*=$this->UnionLand*>">
@@ -188,6 +177,7 @@ class union extends HOF_Class_Char
 	<div class="land" style="background-image : url(<?=
 
 		HOF_Class_Icon::getImageUrl("land_" . $this->UnionLand, HOF_Class_Icon::IMG_LAND)
+
 
 ?>);">
 	<a href="?union=<?=
@@ -215,7 +205,7 @@ class union extends HOF_Class_Char
 	</div><?php
 
 	}
-	//////////////////////////////////////////////////
+	
 	function UpMAXHP($no)
 	{
 		print ($this->Name(bold) . " MAXHP(????) extended to ");
@@ -247,28 +237,24 @@ class union extends HOF_Class_Char
 	function DownATK($no)
 	{
 		$no = round($no / 2);
-		$this->atk["0"] = round($this->atk["0"] * (1 - $no / 100));
-		print ($this->Name(bold) . " ATK down {$no}%<br />\n");
+		return call_user_func(array('parent', __FUNCTION__ ), $no);
 	}
 	function DownMATK($no)
 	{
 		$no = round($no / 2);
-		$this->atk["1"] = round($this->atk["1"] * (1 - $no / 100));
-		print ($this->Name(bold) . " MATK down {$no}%<br />\n");
+		return call_user_func(array('parent', __FUNCTION__ ), $no);
 	}
 	function DownDEF($no)
 	{
 		$no = round($no / 2);
-		$this->def["0"] = round($this->def["0"] * (1 - $no / 100));
-		print ($this->Name(bold) . " DEF down {$no}%<br />\n");
+		return call_user_func(array('parent', __FUNCTION__ ), $no);
 	}
 	function DownMDEF($no)
 	{
 		$no = round($no / 2);
-		$this->def["2"] = round($this->def["2"] * (1 - $no / 100));
-		print ($this->Name(bold) . " MDEF down {$no}%<br />\n");
+		return call_user_func(array('parent', __FUNCTION__ ), $no);
 	}
-	//////////////////////////////////////////////////
+	
 	//	差分経験値
 	function HpDifferenceEXP()
 	{
@@ -278,7 +264,7 @@ class union extends HOF_Class_Char
 		$exp = ceil($this->exphold * ($dif / $this->maxhp));
 		return $exp;
 	}
-	//////////////////////////////////////////////////
+	
 	//	キャラの変数をセットする。
 	function SetCharData(&$data)
 	{
@@ -338,7 +324,7 @@ class union extends HOF_Class_Char
 		$this->LastHP = $data["HP"]; //差分を取るためのHP。
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	戦闘用の変数
 	function SetBattleVariable($team = false)
 	{
@@ -363,7 +349,7 @@ class union extends HOF_Class_Char
 		$this->ActCount = 0; //行動回数
 		$this->JdgCount = array(); //決定した判断の回数
 	}
-	//////////////////////////////////////////////////
+	
 	//	しぼーしてるかどうか確認する。
 	function CharJudgeDead()
 	{
@@ -377,7 +363,7 @@ class union extends HOF_Class_Char
 			return true;
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//	キャラデータの保存
 	function SaveCharData()
 	{
