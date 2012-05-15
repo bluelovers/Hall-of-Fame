@@ -160,7 +160,7 @@ class HOF_Class_Char_Job
 		$this->char->maxhp = round($this->char->maxhp);
 		$this->char->maxsp = round($this->char->maxsp);
 
-		return array(
+		$ret = array(
 			$this->_cache['hpsp'],
 			array(
 				'maxhp' => $this->char->maxhp,
@@ -168,6 +168,8 @@ class HOF_Class_Char_Job
 			),
 			$this->char,
 		);
+
+		return $ret;
 	}
 
 }
