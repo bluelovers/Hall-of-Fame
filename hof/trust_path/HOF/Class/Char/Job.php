@@ -36,7 +36,8 @@ class HOF_Class_Char_Job
 		if ($this->_cache['job'] != $this->char->job)
 		{
 			$change = true;
-		} elseif ($this->_cache['gender'] != $this->char->gender)
+		}
+		elseif ($this->_cache['gender'] != $this->char->gender)
 		{
 			$change = true;
 		}
@@ -165,12 +166,62 @@ class HOF_Class_Char_Job
 			array(
 				'maxhp' => $this->char->maxhp,
 				'maxsp' => $this->char->maxsp,
-			),
+				),
 			$this->char,
-		);
+			);
 
 		return $ret;
 	}
 
-}
+	/**
+	 * クラスチェンジ(転職)
+	 * 装備をはずす。
+	 */
+	function job_change_to($job_to)
+	{
+		$job_allow_change_to = $this->job_change_list();
 
+		if (in_array($job_to, (array )$job_allow_change_to))
+		{
+			$this->jobdata($job_to);
+			$this->hpsp();
+
+			/**
+			 * 装備を全部解除
+			 */
+			$items = $this->char->unequip('all');
+
+			return array(true, (array )$items);
+
+			return true;
+		}
+
+		return false;
+	}
+
+	public function job_change_list($all_will = false)
+	{
+		$job_conditions = HOF_Model_Data::getJobConditions();
+
+		if ($k = $job_conditions['job_from'][$this->char->job])
+		{
+			if ($all_will) return $k;
+
+			$job_allow_change_to = array();
+
+			foreach ($k as $job_to)
+			{
+				if ($v = $job_conditions['job_to'][$job_to][$this->char->job])
+				{
+					if ($this->char->level >= $v['lv'])
+					{
+						$job_allow_change_to[] = $job_to;
+					}
+				}
+			}
+
+			return empty($job_allow_change_to) ? false : $job_allow_change_to;
+		}
+	}
+
+}
