@@ -5,10 +5,8 @@ equip:
     - Robe
     - Item
 coe:
-    - 3
-    - 0.8
-info:
-    desc: "弓系上級職。\nさらに強力な攻撃が可能。"
+    maxhp: 3
+    maxsp: 0.8
 job: '401'
 img: mon_076z
 job_name: Sniper
@@ -19,3 +17,11 @@ gender:
     2:
         img: mon_042z
         job_name: Sniper
+data_ex:
+    job_conditions:
+        job_from:
+            400:
+                lv: 20
+    job_base: 400
+info:
+    desc: "弓系上級職。\nさらに強力な攻撃が可能。"
