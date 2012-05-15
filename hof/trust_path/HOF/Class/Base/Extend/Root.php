@@ -33,6 +33,8 @@ class HOF_Class_Base_Extend_Root implements HOF_Class_Base_Extend_RootInterface
 
 		$methods = HOF_Helper_Object::get_public_methods($class, $this->_extends_method_invalids_);
 
+		$this->_extends_[$class]['method'] = $methods;
+
 		foreach ($methods as $v)
 		{
 			$this->_extends_method_[$v] = $class;
