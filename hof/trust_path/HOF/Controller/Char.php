@@ -902,34 +902,8 @@ HTML_BYEBYE;
 			$this->output->job_change_list[] = $newjob;
 		}
 
-		////// ステータス表示 //////////////////////////////
-
-
-
-?>
-<form action="?char=<?=
-
-		$this->input->char
-
-
-?>" method="post" style="padding:5px 0 0 15px">
-	<h4>Character Status<a href="?manual#charstat" target="_blank" class="a0">?</a></h4>
-	<?php
-
-		$this->char->ShowCharDetail();
-		// 改名
-		if ($this->user->item["7500"]) print ('<input type="submit" class="btn" name="rename" value="ChangeName">' . "\n");
-		// ステータスリセット系
-		if ($this->user->item["7510"] || $this->user->item["7511"] || $this->user->item["7512"] || $this->user->item["7513"] || $this->user->item["7520"])
-		{
-			print ('<input type="submit" class="btn" name="showreset" value="Reset">' . "\n");
-		}
-
-
-?>
-	<input type="submit" class="btn" name="byebye" value="Kick">
-</form>
-<?php
+		$this->output->user_item = $this->user->item;
+		$this->output->char = $this->char;
 
 		// ステータス上昇 ////////////////////////////
 		if (0 < $this->char->statuspoint)
