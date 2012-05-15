@@ -121,6 +121,8 @@ class HOF_Class_Item extends HOF_Class_Base_ObjectAttr
 
 	function id($over = false)
 	{
+		if (!$this->exists()) return 0;
+
 		$var = $this->id;
 		$var = printf("[%04s]", $var);
 
@@ -167,7 +169,7 @@ class HOF_Class_Item extends HOF_Class_Base_ObjectAttr
 
 	function icon($url = false, $true = false)
 	{
-		$icon = $true ? $this->img : $this->icon;
+		$icon = (!$true && $this->icon) ? $this->icon : $this->img;
 
 		if ($url)
 		{
@@ -182,9 +184,14 @@ class HOF_Class_Item extends HOF_Class_Base_ObjectAttr
 	function html($amount = false, $text = true, $need = false)
 	{
 		$item = $this->toArray();
-		$item['img'] = $this->icon();
+		$item['img'] = $this->icon(true);
 		$item['name'] = $this->name();
 		$item['handle'] = $this->handle();
+
+		if (!$this->exists())
+		{
+			return '';
+		}
 
 		return self::ShowItemDetail($item, $amount, $text, $need);
 	}
@@ -247,6 +254,8 @@ class HOF_Class_Item extends HOF_Class_Base_ObjectAttr
 
 	function handle()
 	{
+		if (!$this->exists()) return 0;
+
 		$ret = max(1, $this->handle);
 
 		return $ret;
