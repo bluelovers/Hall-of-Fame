@@ -4,7 +4,7 @@
 	<div class="g_item" data-no="<?php e($item['id']) ?>">
 
 		<span title="<?php if ($item['refine']):?>+<?php e($item['refine']) ?> <?php endif; ?><?php if ($item['AddName']):?><?php e($item['AddName']) ?> <?php endif; ?><?php e($item['base_name']) ?>">
-			<img src="<?php e(HOF_Class_Icon::getImageUrl($item['img'], HOF_Class_Icon::IMG_ITEM))?>" class="vcent">
+			<img src="<?php e($item['img'])?>" class="vcent">
 
 			<span class="g_name">
 				<?php if ($item['refine']):?>
