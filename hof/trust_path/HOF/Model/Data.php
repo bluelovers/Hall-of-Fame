@@ -115,6 +115,32 @@ class HOF_Model_Data extends HOF_Class_Data
 		return $data;
 	}
 
+	function getSkillList()
+	{
+		$_key = 'skill';
+		$_cache_key_ = $_key.'_list';
+
+		if ($list = HOF::$_cache_->data($_cache_key_))
+		{
+			return $list;
+		}
+
+		$regex = HOF_Class_Data::_filename($_key, '*');
+
+		$regex = '/^' . str_replace('\*', '(.+)', preg_quote($regex, '/')) . '$/i';
+
+		foreach (glob(HOF_Class_Data::_filename($_key, '*')) as $file)
+		{
+			$list[] = preg_replace($regex, '$1', $file);
+		}
+
+		sort($list, SORT_NUMERIC);
+
+		HOF::$_cache_->data($_cache_key_, $list);
+
+		return $list;
+	}
+
 	function getLandList()
 	{
 		$_cache_key_ = 'land_list';
@@ -686,6 +712,32 @@ class HOF_Model_Data extends HOF_Class_Data
 		$data = HOF_Helper_Item::parseItemData($data);
 
 		return $data;
+	}
+
+	function getItemList()
+	{
+		$_key = 'item';
+		$_cache_key_ = $_key.'_list';
+
+		if ($list = HOF::$_cache_->data($_cache_key_))
+		{
+			return $list;
+		}
+
+		$regex = HOF_Class_Data::_filename($_key, '*');
+
+		$regex = '/^' . str_replace('\*', '(.+)', preg_quote($regex, '/')) . '$/i';
+
+		foreach (glob(HOF_Class_Data::_filename($_key, '*')) as $file)
+		{
+			$list[] = preg_replace($regex, '$1', $file);
+		}
+
+		sort($list, SORT_NUMERIC);
+
+		HOF::$_cache_->data($_cache_key_, $list);
+
+		return $list;
 	}
 
 	/**
