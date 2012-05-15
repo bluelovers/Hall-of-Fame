@@ -5,7 +5,7 @@ if (!defined('DEBUG'))
 	exit('Access Denied');
 }
 
-//////////////////////////////////////////////////
+
 //	期限切れアカウントの一斉削除
 function DeleteAbandonAccount()
 {
@@ -55,7 +55,7 @@ function DeleteAbandonAccount()
 
 	//print("<pre>".print_r($list,1)."</pre>");
 }
-//////////////////////////////////////////////////
+
 //	定期的に管理する何か
 function RegularControl($value = null)
 {
@@ -108,7 +108,7 @@ function userNameLoad()
 		return array();
 	}
 }
-//////////////////////////////////////////////////
+
 //
 function userNameAdd($add)
 {
@@ -123,7 +123,7 @@ function userNameAdd($add)
 	fclose($fp);
 }
 
-//////////////////////////////////////////////////
+
 //
 function RecordManage($string)
 {
@@ -166,7 +166,7 @@ function CheckString($string, $maxLength = 16)
 	$string = htmlspecialchars($string, ENT_QUOTES);
 	return array(true, $string);
 }
-///////////////////////////////////////////////////
+/
 //	端末を判断。
 function isMobile()
 {
@@ -209,7 +209,7 @@ function isMobile()
 	}
 	return $env;
 }
-//////////////////////////////////////////////////
+
 //	DUMP
 if (!function_exists("dump"))
 {
