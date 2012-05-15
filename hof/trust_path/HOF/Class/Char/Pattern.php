@@ -9,9 +9,11 @@ class HOF_Class_Char_Pattern
 {
 
 	protected $char;
-	protected static $instance;
 
 	const CHECK_PATTERN = -1;
+	const PATTERN_NOLIMIT = -1;
+	const PATTERN_MIN = 1;
+	const PATTERN_MIN_CHAR = 2;
 
 	public static $pattern_item = array(
 		'judge' => 1000,
@@ -19,52 +21,36 @@ class HOF_Class_Char_Pattern
 		'action' => 1000,
 		);
 
-	function __construct(&$char)
+	public $options;
+
+	protected static $options_default = array(
+		'nolimit' => false,
+	);
+
+	protected $cache;
+
+	function __construct(&$char, $options = null)
 	{
-		$id = self::_makeid($char);
-
-		$null = null;
-		self::$instance[$id] = &$null;
-
-		$null = null;
-		$this->char = &$null;
-
-		self::$instance[$id] = &$this;
 		$this->char = &$char;
+
+		$this->_pattern_options($options);
+
+		$this->cache['init'] = true;
 	}
 
-	protected static function _makeid(&$char)
+	function _pattern_options($options = null)
 	{
-		if ($char->monster)
+		if (empty($this->options))
 		{
-			$id = md5($char->no . $char->name);
-		}
-		else
-		{
-			$id = $char->Number;
+			$this->options = self::$options_default;
 		}
 
-		return $id;
-	}
-
-	function __destruct()
-	{
-		if ($this->char)
+		if ($options !== null)
 		{
-			unset(self::$instance[$this->char->Number]);
-		}
-	}
-
-	public static function &getInstance(&$char)
-	{
-		$id = self::_makeid($char);
-
-		if (empty(self::$instance[$id]))
-		{
-			new self(&$char);
+			$this->options = array_merge($this->options, (array)$options);
 		}
 
-		return self::$instance[$id];
+		return $this->options;
 	}
 
 	/**
@@ -72,6 +58,11 @@ class HOF_Class_Char_Pattern
 	 */
 	public function pattern_max()
 	{
+		if ($this->char->monster || $this->options['nolimit'])
+		{
+			return self::PATTERN_NOLIMIT;
+		}
+
 		$val = $this->char->int;
 
 		$map = array(
@@ -85,7 +76,7 @@ class HOF_Class_Char_Pattern
 			200,
 			251);
 
-		$n = 2;
+		$n = self::PATTERN_MIN_CHAR;
 
 		foreach ($map as $v)
 		{
@@ -107,33 +98,9 @@ class HOF_Class_Char_Pattern
 		return $n;
 	}
 
-	/**
-	 * パターン配列を保存する。
-	 */
-	public function pattern($pattern = null, $skip_chk = false)
+	function _pattern_plus(&$pattern_new)
 	{
-		if ($pattern !== null)
-		{
-			if ($pattern === self::CHECK_PATTERN)
-			{
-				$pattern = $this->char->pattern;
-			}
-
-			$pattern_new = array();
-
-			foreach ((array )$pattern as $k => $v)
-			{
-				if (!$v = $this->_fix_pattern_item($v, true))
-				{
-					continue;
-				}
-
-				array_push($pattern_new, $v);
-			}
-
-			//debug($pattern_new);
-
-			if (1 && $this->char->monster)
+		if ($this->cache['init'] && $this->char->monster)
 			{
 				while (end($pattern_new) == $this->_fix_pattern_item())
 				{
@@ -167,6 +134,35 @@ class HOF_Class_Char_Pattern
 
 				array_push($pattern_new, $this->_fix_pattern_item());
 			}
+	}
+
+	/**
+	 * パターン配列を保存する。
+	 */
+	public function pattern($pattern = null, $skip_chk = false)
+	{
+		if ($pattern !== null)
+		{
+			if ($pattern === self::CHECK_PATTERN)
+			{
+				$pattern = $this->char->pattern;
+			}
+
+			$pattern_new = array();
+
+			foreach ((array )$pattern as $k => $v)
+			{
+				if (!$v = $this->_fix_pattern_item($v, true))
+				{
+					continue;
+				}
+
+				array_push($pattern_new, $v);
+			}
+
+			//debug($pattern_new);
+
+			$this->_pattern_plus(&$pattern_new);
 
 			if (!$skip_chk)
 			{
@@ -192,10 +188,12 @@ class HOF_Class_Char_Pattern
 
 			//debug($pattern_new);
 
+			$max = $this->pattern_max();
+
 			/**
 			 * 限界設定数を超えていないか心配なので作った。。
 			 */
-			if (!$this->char->monster)
+			if ($max > self::PATTERN_MIN && $max != self::PATTERN_NOLIMIT)
 			{
 				$pattern_new = array_slice($pattern_new, 0, $this->pattern_max());
 			}
@@ -205,6 +203,8 @@ class HOF_Class_Char_Pattern
 			//exit();
 
 			$this->char->pattern = $pattern_new;
+
+			$this->cache['init'] = false;
 		}
 
 		return $this->char->pattern;
