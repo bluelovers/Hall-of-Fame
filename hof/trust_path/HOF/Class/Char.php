@@ -11,8 +11,6 @@ include_once (CLASS_CHAR);
 class HOF_Class_Char extends char
 {
 
-	var $file_ext = BASE_EXT;
-
 	var $map_equip_allow = array(
 		"weapon" => true,
 		"shield" => true,
@@ -81,18 +79,17 @@ class HOF_Class_Char extends char
 	function __construct($file = false)
 	{
 		$this->extend('HOF_Class_Char_Pattern');
-
-		$this->jobdata = new HOF_Class_Char_Job(&$this);
+		$this->extend('HOF_Class_Char_Job');
 
 		if (!$file) return 0;
 
-		list($this->file_name, $this->file_ext) = HOF_Class_File::basename($file);
+		list($this->file_name) = HOF_Class_File::basename($file);
 		$this->Number = $this->file_name;
 
 		$this->file = $file;
 		$this->fp = HOF_Class_File::fplock_file($file);
 
-		if (0 && $this->file_ext == '.dat')
+		if (0 && BASE_EXT == '.dat')
 		{
 			$data = HOF_Class_File::ParseFileFP($this->fp);
 		}
@@ -134,17 +131,17 @@ class HOF_Class_Char extends char
 
 		if (isset($this->file_name))
 		{
-			$file = $dir . "/" . $this->file_name . $this->file_ext;
+			$file = $dir . "/" . $this->file_name . BASE_EXT;
 		}
 		elseif (isset($this->file))
 		{
-			list($this->file_name, $this->file_ext) = HOF_Class_File::basename($this->file);
+			list($this->file_name) = HOF_Class_File::basename($this->file);
 
-			$file = $dir . "/" . $this->file_name . $this->file_ext;
+			$file = $dir . "/" . $this->file_name . BASE_EXT;
 		}
 		else
 		{
-			$file = $dir . "/" . $this->birth . $this->file_ext;
+			$file = $dir . "/" . $this->birth . BASE_EXT;
 		}
 
 		if (file_exists($file) && $this->fp)
@@ -208,7 +205,7 @@ class HOF_Class_Char extends char
 		{
 			if (!isset($this->{$k})) continue;
 
-			if (0 && $this->file_ext == '.dat')
+			if (0 && BASE_EXT == '.dat')
 			{
 				$data[$k] = "$k=" . (is_array($this->{$k}) ? implode("<>", $this->{$k}) : $this->{$k});
 			}
@@ -218,7 +215,7 @@ class HOF_Class_Char extends char
 			}
 		}
 
-		if (0 && $this->file_ext == '.dat')
+		if (0 && BASE_EXT == '.dat')
 		{
 			$text = implode("\n", $data);
 		}
@@ -228,19 +225,6 @@ class HOF_Class_Char extends char
 		}
 
 		return $text;
-	}
-
-	function SetJobData()
-	{
-		$this->jobdata->_jobdata();
-	}
-
-	/**
-	 * HPとSPを計算して設定する
-	 */
-	function SetHpSp()
-	{
-		$this->jobdata->hpsp();
 	}
 
 	/**
