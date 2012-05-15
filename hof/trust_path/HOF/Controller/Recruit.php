@@ -80,10 +80,13 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 			{
 				if (is_numeric(strpos($this->input->recruit_name, "\t"))) return "error.";
 
-				$name = preg_replace('/^[\s\t\r\n]+|[\s\t\r\n]+$/', '', $this->input->recruit_name);
-				$name = preg_replace('/\s\s+?/', ' ', $this->input->recruit_name);
+				$name = $this->input->recruit_name;
 
 				$name = stripslashes($name);
+
+				$name = preg_replace('/^["\'\s\t\r\n]+|[\s\t\r\n"\']+$/', '', $name);
+				$name = preg_replace('/\s\s+?/', ' ', $name);
+
 				$len = strlen($name);
 
 				if (0 == $len || 16 < $len)
@@ -100,6 +103,14 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 				return false;
 			}
 
+			$_exists_chars_ = $this->user->_cache_user_()->data('char_list');
+
+			if (in_array($name, (array)$_exists_chars_))
+			{
+				$this->_error("This Char ID < $name > has been already used.", "margin15");
+				return false;
+			}
+
 			$char = null;
 
 			if ($this->input->recruit_no && $this->_cache['chars'][$this->input->recruit_no] instanceof HOF_Class_Char)
@@ -113,7 +124,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 			else
 			{
 				$this->_error('Select characters job.');
-				break;
+				return false;
 			}
 
 			// キャラのタイプ
@@ -161,8 +172,14 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 				$this->_error("お金が足りません", "margin15");
 				return false;
 			}
+
 			// キャラを保存する
 			$char->SaveCharData($this->user->id);
+
+			$_exists_chars_[$char->birth] = $char->name;
+
+			$this->user->_cache_user_()->data('char_list', $_exists_chars_);
+
 			HOF_Helper_Global::ShowResult($char->Name() . "($char->job_name) が仲間になった！", "margin15");
 			return true;
 		}
