@@ -129,7 +129,7 @@ print ("</tbody></table>");
 </html>
 <?php
 
-//////////////////////////////////////////////////
+
 //
 function ShowItemDetail2($item, $amount = false)
 {
