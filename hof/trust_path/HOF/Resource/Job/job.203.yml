@@ -7,10 +7,8 @@ equip:
     - Robe
     - Item
 coe:
-    - 2.1
-    - 1.5
-info:
-    desc: "魔法系上級職。\n相手の能力を下げたり、ゾンビを作ったり出来る。\n毒も扱える。"
+    maxhp: 2.1
+    maxsp: 1.5
 job: '203'
 img: mon_196x
 job_name: Necromancer
@@ -21,3 +19,11 @@ gender:
     2:
         img: mon_246y
         job_name: Necromancer
+data_ex:
+    job_conditions:
+        job_from:
+            200:
+                lv: 22
+    job_base: 200
+info:
+    desc: "魔法系上級職。\n相手の能力を下げたり、ゾンビを作ったり出来る。\n毒も扱える。"
