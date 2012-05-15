@@ -8,10 +8,8 @@ equip:
     - Robe
     - Item
 coe:
-    - 4
-    - 0.7
-info:
-    desc: "戦士系上級職。\n防御も攻撃も一回り強くなる。"
+    maxhp: 4
+    maxsp: 0.7
 job: '101'
 img: mon_199r
 job_name: RoyalGuard
@@ -22,3 +20,11 @@ gender:
     2:
         img: mon_234r
         job_name: RoyalGuard
+data_ex:
+    job_conditions:
+        job_from:
+            100:
+                lv: 20
+    job_base: 100
+info:
+    desc: "戦士系上級職。\n防御も攻撃も一回り強くなる。"
