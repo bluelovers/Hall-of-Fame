@@ -179,9 +179,7 @@ class HOF_Class_Char_Job
 	 */
 	function job_change_to($job_to)
 	{
-		$job_allow_change_to = $this->job_change_list();
-
-		if (in_array($job_to, (array )$job_allow_change_to))
+		if (in_array($job_to, $this->job_change_list()))
 		{
 			$this->jobdata($job_to);
 			$this->hpsp();
@@ -203,11 +201,11 @@ class HOF_Class_Char_Job
 	{
 		$job_conditions = HOF_Model_Data::getJobConditions();
 
+		$job_allow_change_to = array();
+
 		if ($k = $job_conditions['job_from'][$this->char->job])
 		{
 			if ($all_will) return $k;
-
-			$job_allow_change_to = array();
 
 			foreach ($k as $job_to)
 			{
@@ -219,9 +217,9 @@ class HOF_Class_Char_Job
 					}
 				}
 			}
-
-			return empty($job_allow_change_to) ? false : $job_allow_change_to;
 		}
+
+		return $job_allow_change_to;
 	}
 
 }
