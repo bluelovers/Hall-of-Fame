@@ -47,12 +47,17 @@ class HOF_Class_Base_Extend_Root implements HOF_Class_Base_Extend_RootInterface
 		{
 			$class = $this->_extends_method_[$func];
 
-			if (!is_object($this->_extends_[$class]['obj']))
+			if (!$this->_extends_[$class]['callback'][$func])
 			{
-				$this->_extends_[$class]['obj'] = new $class(&$this);
+				if (!is_object($this->_extends_[$class]['obj']))
+				{
+					$this->_extends_[$class]['obj'] = new $class(&$this);
+
+					$this->_extends_[$class]['callback'][$func] = array($this->_extends_[$class]['obj'], $func);
+				}
 			}
 
-			return call_user_func_array(array($this->_extends_[$class]['obj'], $func), $argv);
+			return call_user_func_array($this->_extends_[$class]['callback'][$func], $argv);
 		}
 		else
 		{
