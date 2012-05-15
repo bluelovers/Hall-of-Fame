@@ -6,10 +6,8 @@ equip:
     - Robe
     - Item
 coe:
-    - 1.5
-    - 2.5
-info:
-    desc: "魔法系上級職。\n時間はかかるが強力な召喚獣を呼べる。"
+    maxhp: 1.5
+    maxsp: 2.5
 job: '202'
 img: mon_196y
 job_name: Summoner
@@ -20,3 +18,11 @@ gender:
     2:
         img: mon_246z
         job_name: Summoner
+data_ex:
+    job_conditions:
+        job_from:
+            200:
+                lv: 25
+    job_base: 200
+info:
+    desc: "魔法系上級職。\n時間はかかるが強力な召喚獣を呼べる。"
