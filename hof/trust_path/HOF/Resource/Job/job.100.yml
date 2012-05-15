@@ -8,14 +8,8 @@ equip:
     - Robe
     - Item
 coe:
-    - 3
-    - 0.5
-change:
-    - 101
-    - 102
-    - 103
-info:
-    desc: "戦士系基本職。\nそこそこ耐えて、攻撃もそこそこ。"
+    maxhp: 3
+    maxsp: 0.5
 pattern: null
 job: '100'
 img: mon_079
@@ -27,3 +21,5 @@ gender:
     2:
         img: mon_080r
         job_name: Warrior
+info:
+    desc: "戦士系基本職。\nそこそこ耐えて、攻撃もそこそこ。"
