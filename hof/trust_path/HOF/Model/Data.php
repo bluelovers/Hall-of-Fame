@@ -354,6 +354,44 @@ class HOF_Model_Data extends HOF_Class_Data
 		return $data;
 	}
 
+	/**
+	 * $data['job_from'] 転職可能な職
+	 * $data['job_to'] キャラがそのクラスに転職できるか(クラスの転職条件)
+	 */
+	function getJobConditions()
+	{
+		$_cache_key_ = 'job_conditions';
+
+		if ($data = HOF::$_cache_->data($_cache_key_))
+		{
+			return $data;
+		}
+
+		$job_list = self::getJobList();
+
+		foreach($job_list as $job)
+		{
+			$jobdata = self::getJobData($job);
+
+			foreach ((array)$jobdata['data_ex']['job_conditions']['job_from'] as $k => $v)
+			{
+				/**
+				 * 転職可能な職
+				 */
+				$data['job_from'][$k][] = $job;
+
+				/**
+				 * キャラがそのクラスに転職できるか(クラスの転職条件)
+				 */
+				$data['job_to'][$job][$k] = $v;
+			}
+		}
+
+		HOF::$_cache_->data($_cache_key_, $data);
+
+		return $data;
+	}
+
 	function getJobList()
 	{
 		$_key = 'job';
