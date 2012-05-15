@@ -62,20 +62,20 @@ class battle
 	{
 		$this->BattleResultType = $var;
 	}
-	//////////////////////////////////////////////////
+	
 	//	UnionBattleである事にする。
 	function SetUnionBattle()
 	{
 		$this->UnionBattle = true;
 	}
-	//////////////////////////////////////////////////
+	
 	//	背景画像をセットする。
 	function SetBackGround($bg)
 	{
 		$this->BackGround = $bg;
 	}
 	/*
-	//////////////////////////////////////////////////
+	
 	//	戦闘にキャラクターを途中参加させる。
 	function JoinCharacter($user, $add)
 	{
@@ -103,20 +103,20 @@ class battle
 		}
 	}
 	*/
-	//////////////////////////////////////////////////
+	
 	//	限界ターン数を決めちゃう。
 	function LimitTurns($no)
 	{
 		$this->BattleMaxTurn = $no;
 		$this->NoExtends = true; //これ以上延長はしない。
 	}
-	//////////////////////////////////////////////////
+	
 	//
 	function NoResult()
 	{
 		$this->NoResult = true;
 	}
-	//////////////////////////////////////////////////
+	
 	//	戦闘の最大ターン数を増やす。
 	function ExtendTurns($no, $notice = false)
 	{
@@ -135,7 +135,7 @@ HTML;
 		}
 		return true;
 	}
-	//////////////////////////////////////////////////
+	
 	//	戦闘中獲得したアイテムを返す。
 	function ReturnItemGet($team)
 	{
@@ -151,14 +151,14 @@ HTML;
 				else  return false;
 			}
 	}
-	//////////////////////////////////////////////////
+	
 	//	挑戦者側が勝利したか？
 	function ReturnBattleResult()
 	{
 		return $this->result;
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	戦闘処理(これを実行して戦闘が処理される)
 	function Process()
 	{
@@ -188,7 +188,7 @@ HTML;
 
 		//$this->SaveCharacters();
 	}
-	//////////////////////////////////////////////////
+	
 	//	戦闘後のキャラクター状況を保存する。
 	function SaveCharacters()
 	{
@@ -204,7 +204,7 @@ HTML;
 		}
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	戦闘終了の判定
 	//	全員死んでる=draw(?)
 	function BattleResult()
@@ -298,12 +298,12 @@ HTML;
 						return "draw"; // エラー回避。
 					}
 	}
-	//////////////////////////////////////////////////
+	
 	//
 
-	//////////////////////////////////////////////////
+	
 	//
-	//////////////////////////////////////////////////
+	
 	//	総ダメージを加算する
 	function AddTotalDamage($team, $dmg)
 	{
@@ -313,10 +313,10 @@ HTML;
 			if ($team == $this->team1) $this->team1_dmg += $dmg;
 	}
 
-	//////////////////////////////////////////////////
+	
 	//
 
-	//////////////////////////////////////////////////
+	
 	//	経験値を得る
 	function GetExp($exp, &$team)
 	{
@@ -344,7 +344,7 @@ HTML;
  					echo("<span class=\"levelup\">" . $char->Name() . " LevelUp!</span><br />\n");
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//	アイテムを取得する(チームが)
 	function GetItem($itemdrop, $MyTeam)
 	{
@@ -365,7 +365,7 @@ HTML;
 		}
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	後衛を守りに入るキャラを選ぶ。
 	function &Defending(&$target, &$candidate, $skill)
 	{
@@ -437,7 +437,7 @@ HTML;
 			}
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//	スキル使用後に対象者(候補)がしぼーしたかどうかを確かめる
 	function JudgeTargetsDead(&$target)
 	{
@@ -484,7 +484,7 @@ HTML;
 			$money,
 			$itemdrop); //取得する経験値を返す
 	}
-	//////////////////////////////////////////////////
+	
 	//	優先順位に従って候補から一人返す
 	function &SelectTarget(&$target_list, $skill)
 	{
@@ -577,7 +577,7 @@ HTML;
 		}
 		return $target[array_rand($target)]; //ランダムに誰か一人
 	}
-	//////////////////////////////////////////////////
+	
 	//	次の行動は誰か(又、詠唱中の魔法が発動するのは誰か)
 	//	リファレンスを返す
 	function &NextActer()
@@ -641,9 +641,9 @@ HTML;
 
 		return $NextChar;
 	}
-	//////////////////////////////////////////////////
+	
 	//
-	//////////////////////////////////////////////////
+	
 	//	キャラ全員の行動ディレイを初期化(=SPD)
 	function DelayResetAll()
 	{
@@ -659,7 +659,7 @@ HTML;
 			}
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//	ディレイを計算して設定する
 	//	誰かのSPDが変化した場合呼び直す
 	//	*** 技の使用等でSPDが変化した際に呼び出す ***
@@ -691,7 +691,7 @@ HTML;
 			{
 			}
 	}
-	//////////////////////////////////////////////////
+	
 	//	戦闘の基準ディレイを再計算させるようにする。
 	//	使う場所は、技の使用でキャラのSPDが変化した際に使う。
 	//	class.skill_effect.php で使用。
@@ -702,77 +702,15 @@ HTML;
 			$this->ChangeDelay = true;
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//	チームの名前を設定
 	function SetTeamName($name1, $name2)
 	{
 		$this->team0_name = $name1;
 		$this->team1_name = $name2;
 	}
-	//////////////////////////////////////////////////
-	//
-	//////////////////////////////////////////////////
-	//
-	//////////////////////////////////////////////////
-	//
 
-	/*
-	//////////////////////////////////////////////////
-	//	戦闘画像(画像のみ)
-	function ShowGdImage()
-	{
-	$url = BTL_IMG . "?";
-
-	// HP=0 のキャラの画像(拡張子があればそれを取る)
-	$DeadImg = substr(DEAD_IMG, 0, strpos(DEAD_IMG, "."));
-
-	//チーム1
-	$f = 1;
-	$b = 1; //前衛の数・後衛の数を初期化
-	foreach ($this->team0 as $char)
-	{
-	//画像はキャラに設定されている画像の拡張子までの名前
-	if ($char->STATE === 1) $img = $DeadImg;
-	else  $img = substr($char->img, 0, strpos($char->img, "."));
-	if ($char->POSITION == POSITION_FRONT): //前衛
-	$url .= "f2{$f}=$img&";
-	$f++;
-	else:
-	$url .= "b2{$b}=$img&"; //後衛
-	$b++;
-	endif;
-	}
-	//チーム0
-	$f = 1;
-	$b = 1;
-	foreach ($this->team1 as $char)
-	{
-	if ($char->STATE === 1) $img = $DeadImg;
-	else  $img = substr($char->img, 0, strpos($char->img, "."));
-	if ($char->POSITION == POSITION_FRONT):
-	$url .= "f1{$f}=$img&";
-	$f++;
-	else:
-	$url .= "b1{$b}=$img&";
-	$b++;
-	endif;
-	}
-	echo('<img src="' . $url . '">'); // ←これが表示されるのみ
-	}
-	//////////////////////////////////////////////////
-	//	CSS戦闘画面
-	function ShowCssImage()
-	{
-	$img = new HOF_Class_Battle_Style();
-	$img->SetBackGround($this->BackGround);
-	$img->SetTeams($this->team1, $this->team0);
-	$img->SetMagicCircle($this->team1_mc, $this->team0_mc);
-	if (BTL_IMG_TYPE == 2) $img->NoFlip(); // CSS画像反転無し
-	$img->Show();
-	}
-	*/
-
-	//////////////////////////////////////////////////
+	
 	//	お金を得る、一時的に変数に保存するだけ。
 	//	class内にメソッド作れー
 	function GetMoney($money, $team)
@@ -791,14 +729,14 @@ HTML;
 				$this->team1_money += $money;
 			}
 	}
-	//////////////////////////////////////////////////
+	
 	//	ユーザーデータに得る合計金額を渡す
 	function ReturnMoney()
 	{
 		return array($this->team0_money, $this->team1_money);
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	全体の死者数を数える...(ネクロマンサしか使ってない?)
 	function CountDeadAll()
 	{
@@ -814,7 +752,7 @@ HTML;
 		return $dead;
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	指定キャラのチームの死者数を数える(指定のチーム)ネクロマンサしか使ってない?
 	function CountDead($VarChar)
 	{
@@ -846,7 +784,7 @@ HTML;
 		}
 		return $dead;
 	}
-	//////////////////////////////////////////////////
+	
 	//	魔方陣を追加する
 	function MagicCircleAdd($team, $amount)
 	{
@@ -863,7 +801,7 @@ HTML;
 			return true;
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//	魔方陣を削除する
 	function MagicCircleDelete($team, $amount)
 	{
@@ -880,7 +818,7 @@ HTML;
 			return true;
 		}
 	}
-	// end of class. /////////////////////////////////////////////////////
+	// end of class. ///
 }
 
 
