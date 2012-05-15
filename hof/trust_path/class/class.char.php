@@ -660,24 +660,6 @@ class char extends HOF_Class_Char_Base
 		$this->skillpoint += GET_SKILL_POINT;
 	}
 
-	//	クラスチェンジ(転職)
-	//	装備をはずす。
-	function ClassChange($job)
-	{
-		include_once (DATA_CLASSCHANGE);
-		if (CanClassChange($this, $job))
-		{
-			$this->job = $job;
-			$this->jobdata();
-			$this->hpsp();
-			//装備を解除
-			return true;
-		}
-		return false;
-	}
-
-	//
-
 	//	しぼーしてるかどうか確認する。
 	function CharJudgeDead()
 	{
