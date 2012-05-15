@@ -29,7 +29,7 @@ class HOF_Class_Char_Job
 		}
 	}
 
-	private function _cache()
+	protected function _cache()
 	{
 		$change = false;
 
@@ -47,7 +47,7 @@ class HOF_Class_Char_Job
 		return $change;
 	}
 
-	public function _jobdata($job = null, $gender = null)
+	public function jobdata($job = null, $gender = null)
 	{
 		if ($job !== null)
 		{
@@ -85,7 +85,7 @@ class HOF_Class_Char_Job
 	{
 		if ($job !== null)
 		{
-			$this->_jobdata($job);
+			$this->jobdata($job);
 		}
 
 		return $this->char->job;
@@ -95,7 +95,7 @@ class HOF_Class_Char_Job
 	{
 		if ($gender !== null)
 		{
-			$this->_jobdata(null, $gender);
+			$this->jobdata(null, $gender);
 		}
 
 		return $this->char->gender;
@@ -103,19 +103,19 @@ class HOF_Class_Char_Job
 
 	public function job_name($job = null, $gender = null)
 	{
-		$this->_jobdata($job, $gender);
+		$this->jobdata($job, $gender);
 
 		return $this->char->job_name;
 	}
 
-	function icon($job = null, $gender = null)
+	public function icon($job = null, $gender = null, $true = false)
 	{
-		$this->_jobdata($job, $gender);
+		$this->jobdata($job, $gender);
 
-		return isset($this->char->icon) ? $this->char->icon : $this->char->img;
+		return (!$true && isset($this->char->icon)) ? $this->char->icon : $this->char->img;
 	}
 
-	function icon_url($dir = HOF_Class_Icon::IMG_CHAR)
+	public function icon_url($dir = HOF_Class_Icon::IMG_CHAR)
 	{
 		if ($dir === 0)
 		{
@@ -132,12 +132,12 @@ class HOF_Class_Char_Job
 	/**
 	 * HPとSPを計算して設定する
 	 */
-	function hpsp() //
+	public function hpsp() //
 	{
 		$MaxStatus = MAX_STATUS; //最高ステータス(じゃなくてもいいです)
 
 		// 2回読み込んでるから直すべき
-		$this->_jobdata();
+		$this->jobdata();
 
 		/**
 		 * $coe=array(HP, SP係数);
