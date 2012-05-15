@@ -51,6 +51,8 @@ class HOF_Class_User extends user
 
 	function __destruct()
 	{
+		$this->_cache_user_()->__destruct();
+
 		$this->fpclose_all();
 
 		self::$instance_user[$this->id] = null;
@@ -133,6 +135,8 @@ class HOF_Class_User extends user
 	 */
 	function CharDataLoadAll()
 	{
+		$list = array();
+
 		$dir = USER . $this->id;
 
 		//配列の初期化だけしておく
@@ -151,25 +155,28 @@ class HOF_Class_User extends user
 
 					// キャラが誰のか設定する
 					$this->char[$number]->SetUser($this->id);
+
+					$list[$number] = $this->char[$number]->name;
 				}
 			}
 		}
 
+		$this->_cache_user_()->data('char_list', $list);
+
+		$this->_cache_user_()->save('char_list');
 
 	}
 
-	function _cache()
+	function &_cache_user_()
 	{
-		$dir = USER . $this->id;
-
-		$cache = array();
-
-		foreach ($this->char as $no => $char)
+		if (!isset($this->_cache_user_))
 		{
-			$cache['char'][$no] = $char->Name();
+			$this->_cache_user_ = new HOF_Class_File_Cache(array(
+				'path' => USER . $this->id . "/",
+			));
 		}
 
-		HOF_Class_Yaml::save($dir.'/cache.char.yml', $cache);
+		return $this->_cache_user_;
 	}
 
 	/**
@@ -195,6 +202,14 @@ class HOF_Class_User extends user
 
 		// キャラが誰のか設定する
 		$this->char[$CharNo]->SetUser($this->id);
+
+		$list = $this->_cache_user_()->data('char_list');
+
+		$list[$CharNo] = $this->char[$CharNo]->name;
+
+		$this->_cache_user_()->data('char_list', $list);
+
+		$this->_cache_user_()->save('char_list');
 
 		return $this->char[$CharNo];
 	}
@@ -290,6 +305,14 @@ class HOF_Class_User extends user
 
 		if ($ok)
 		{
+
+			if (!isset($this->_cache_user_))
+			{
+				$this->_cache_user_ = new HOF_Class_File_Cache(array(
+					'path' => USER . $this->id . "/",
+				));
+			}
+
 			$this->file = $file;
 
 			list($this->file_name, $this->file_ext) = HOF_Class_File::basename($this->file);
@@ -330,6 +353,8 @@ class HOF_Class_User extends user
 	function SaveData()
 	{
 		$dir = USER . $this->id;
+
+		$this->_cache_user_()->__destruct();
 
 		if (file_exists($this->file) && $this->fp)
 		{
