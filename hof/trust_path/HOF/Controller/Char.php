@@ -905,169 +905,25 @@ HTML_BYEBYE;
 		$this->output->user_item = $this->user->item;
 		$this->output->char = $this->char;
 
-		$JobData = $this->char->jobdata();
-
-		// ステータス上昇 ////////////////////////////
-		if (0 < $this->char->statuspoint)
-		{
-			print <<< HTML
-	<form action="?char=$_GET[char]" method="post" style="padding:0 15px">
-	<h4>Status <a href="?manual#statup" target="_blank" class="a0">?</a></h4>
-HTML;
-
-			$Stat = array(
-				"Str",
-				"Int",
-				"Dex",
-				"Spd",
-				"Luk");
-			print ("Point : {$this->char->statuspoint}<br />\n");
-			foreach ($Stat as $val)
-			{
-				print ("{$val}:\n");
-				print ("<select name=\"up{$val}\" class=\"vcent\">\n");
-				for ($i = 0; $i < $this->char->statuspoint + 1; $i++) print ("<option value=\"{$i}\">+{$i}</option>\n");
-				print ("</select>");
-			}
-			print ("<br />");
-			print ('<input type="submit" class="btn" name="stup" value="Increase Status">');
-			print ("\n");
-
-			print ("</form>\n");
-		}
-
-
-?>
-<form action="?char=<?=
-
-		$this->input->char
-
-
-?>" method="post" style="padding:0 15px">
-	<h4>Action Pattern<a href="?manual#jdg" target="_blank" class="a0">?</a></h4>
-	<?php
-
-		$pattern_max = $this->char->pattern_max();
+		$this->output->pattern_max = $this->char->pattern_max();
 
 		/**
 		 * Action Pattern 行動判定
 		 * 行動判定条件一覧
 		 */
-		$list = HOF_Model_Data::getJudgeList();
-
-		print ("<table cellspacing=\"5\"><tbody>\n");
-		for ($i = 0; $i < $pattern_max; $i++)
-		{
-			print ("<tr><td>");
-			//----- No
-			print (($i + 1) . "</td><td>");
-			//----- JudgeSelect(判定の種類)
-			print ("<select name=\"judge" . $i . "\">\n");
-
-			$_init = 0;
-
-			$pattern = $this->char->pattern_item($i);
-
-			foreach ($list as $val)
-			{ //判断のoption
-				$exp = HOF_Model_Data::getJudgeData($val);
-
-				if ($exp["css"])
-				{
-					echo '<optgroup class="select0" label="';
-					echo $exp['exp'];
-					echo '"></optgroup>';
-				}
-				else
-				{
-					print ("<option value=\"{$val}\"" . ($pattern['judge'] == $val ? " selected" : NULL) . ($exp["css"] ? '' : NULL) . ">" . ($exp["css"] ? '&nbsp;' : '&nbsp;&nbsp;&nbsp;') . "{$exp[exp]}</option>\n");
-				}
-			}
-			print ("</select>\n");
-			print ("</td><td>\n");
-			//----- 数値(量)
-			print ("<input type=\"text\" name=\"quantity" . $i . "\" maxlength=\"4\" value=\"" . $pattern['quantity'] . "\" style=\"width:56px\" class=\"text\">");
-			print ("</td><td>\n");
-			//----- //SkillSelect(技の種類)
-			print ("<select name=\"skill" . $i . "\">\n");
-			foreach ($this->char->skill as $val)
-			{ //技のoption
-				$skill = HOF_Model_Data::getSkill($val);
-				print ("<option value=\"{$val}\"" . ($pattern['action'] == $val ? " selected" : NULL) . ">");
-				print ($skill["name"] . (isset($skill["sp"]) ? " - (SP:{$skill[sp]})" : NULL));
-				print ("</option>\n");
-			}
-			print ("</select>\n");
-			print ("</td><td>\n");
-			print ('<input type="radio" name="pattern_no" value="' . $i . '">');
-			print ("</td></tr>\n");
-		}
-		print ("</tbody></table>\n");
-
-
-?>
-	<input type="submit" class="btn" value="Set Pattern" name="pattern_change">
-	<input type="submit" class="btn" value="Set & Test" name="TestBattle">
-	&nbsp;<a href="?simulate">Simulate</a><br />
-	<input type="submit" class="btn" value="Switch Pattern" name="pattern_memo">
-	<input type="submit" class="btn" value="Add" name="pattern_insert">
-	<input type="submit" class="btn" value="Delete" name="pattern_remove">
-</form>
-<form action="?char=<?=
-
-		$this->input->char
-
-
-?>" method="post" style="padding:0 15px">
-	<h4>Position & Guarding<a href="?manual#posi" target="_blank" class="a0">?</a></h4>
-	<table>
-		<tbody>
-			<tr>
-				<td>位置(Position) :</td>
-				<td><input type="radio" class="vcent" name="position" value="front"<?php
-
-		($this->char->position == POSITION_FRONT ? print (" checked") : NULL)
-
-
-?>>
-					前衛(Front)</td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><input type="radio" class="vcent" name="position" value="back"<?php
-
-		($this->char->position == POSITION_BACK ? print (" checked") : NULL)
-
-
-?>>
-					後衛(Backs)</td>
-			</tr>
-			<tr>
-				<td>護衛(Guarding) :</td>
-				<td><select name="guard">
-						<?php
+		$this->output->judge_list = HOF_Model_Data::getJudgeList();
 
 		/**
 		 * 前衛の時の後衛守り
 		 */
-		$list = HOF_Model_Data::getGuardList();
+		$this->output->guard_list = array();
 
-		foreach ($list as $k)
+		foreach((array)HOF_Model_Data::getGuardList() as $k)
 		{
-			$v = HOF_Model_Data::getGuardData($k);
-
-			print ("<option value=\"{$k}\"" . ($this->char->guard == $k ? " selected" : NULL) . ">{$v[info][desc]}</option>");
+			$this->output->guard_list[$k] = HOF_Model_Data::getGuardData($k);
 		}
 
-
-?>
-					</select></td>
-			</tr>
-		</tbody>
-	</table>
-	<input type="submit" class="btn" value="Set">
-</form>
-<?php
+		$JobData = $this->char->jobdata();
 
 		// 装備中の物表示 ////////////////////////////////
 		$weapon = HOF_Model_Data::getItemData($this->char->weapon);
@@ -1238,38 +1094,6 @@ HTML;
 			print ("No items.<br />\n");
 		}
 		print ("</div>\n");
-
-
-		/*
-		print("\t<table><tbody><tr><td colspan=\"2\">\n");
-		print("\t<span class=\"bold u\">Stock & Allowed to Equip</span></td></tr>\n");
-		if($this->user->item):
-		reset($this->user->item);//これが無いと装備変更時に表示されない
-		foreach($Equips as $key => $val) {
-		print("\t<tr><td class=\"align-right\" valign=\"top\">\n");
-		print("\t{$key} :</td><td>\n");
-		while( substr(key($this->user->item),0,4) <= $val && substr(current($this->user->item),0,4) !== false ) {
-		$item	= HOF_Model_Data::getItemData(key($this->user->item));
-		if(!isset( $EquipAllow[ $item["type"] ] )) {
-		next($this->user->item);
-		continue;
-		}
-		print("\t");
-		print('<input type="radio" class="vcent" name="item_no" value="'.key($this->user->item).'">');
-		print("\n\t");
-		print(current($this->user->item)."x");
-		HOF_Class_Item::ShowItemDetail($item);
-		print("<br>\n");
-		next($this->user->item);
-		}
-		print("\t</td></tr>\n");
-		}
-		else:
-		print("<tr><td>No items.</td></tr>");
-		endif;
-		print("\t</tbody></table>\n");
-		*/
-
 
 ?>
 <form action="?char=<?=
