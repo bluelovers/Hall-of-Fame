@@ -905,6 +905,8 @@ HTML_BYEBYE;
 		$this->output->user_item = $this->user->item;
 		$this->output->char = $this->char;
 
+		$JobData = $this->char->jobdata();
+
 		// ステータス上昇 ////////////////////////////
 		if (0 < $this->char->statuspoint)
 		{
