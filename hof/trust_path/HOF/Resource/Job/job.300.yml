@@ -6,13 +6,8 @@ equip:
     - Robe
     - Item
 coe:
-    - 2
-    - 0.8
-change:
-    - 301
-    - 302
-info:
-    desc: "聖職基本職。\n味方のHP,SPの回復ができる。"
+    maxhp: 2
+    maxsp: 0.8
 pattern: null
 job: '300'
 img: mon_213
@@ -24,3 +19,5 @@ gender:
     2:
         img: mon_214
         job_name: Priestess
+info:
+    desc: "聖職基本職。\n味方のHP,SPの回復ができる。"
