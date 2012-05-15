@@ -38,7 +38,7 @@ class user
 	var $fp_item;
 	var $item;
 
-	//////////////////////////////////////////////////
+	
 	//	対象のIDのユーザークラスを作成
 	function __construct($id, $noExit = false)
 	{
@@ -52,13 +52,13 @@ class user
 			}
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//	IPを変更
 	function SetIp($ip)
 	{
 		$this->ip = $ip;
 	}
-	//////////////////////////////////////////////////
+	
 	//	ユーザデータを読む
 	function LoadData($noExit = false)
 	{
@@ -103,7 +103,7 @@ class user
 			return false;
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//	名前を変える
 	function ChangeName($name)
 	{
@@ -113,13 +113,13 @@ class user
 		$this->name = $name;
 		return true;
 	}
-	//////////////////////////////////////////////////
+	
 	//	Union戦闘した時間をセット
 	function UnionSetTime()
 	{
 		$this->union_btl_time = time();
 	}
-	//////////////////////////////////////////////////
+	
 	//	UnionBattleができるかどうか確認する。
 	function CanUnionBattle()
 	{
@@ -135,7 +135,7 @@ class user
 		}
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	ランキングの成績
 	// side = ("CHALLENGE","DEFEND")
 	function RankRecord($result, $side, $DefendMatch)
@@ -182,7 +182,7 @@ class user
 
 		$this->rank_record = $record["all"] . "|" . $record["win"] . "|" . $record["lose"] . "|" . $record["defend"];
 	}
-	//////////////////////////////////////////////////
+	
 	//	ランキング戦の成績を呼び出す
 	function RankRecordLoad()
 	{
@@ -201,14 +201,14 @@ class user
 		list($record["all"], $record["win"], $record["lose"], $record["defend"], ) = explode("|", $this->rank_record);
 		return $record;
 	}
-	//////////////////////////////////////////////////
+	
 	//	次のランク戦に挑戦できる時間を記録する。
 	function SetRankBattleTime($time)
 	{
 		$this->rank_btl_time = $time;
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	ランキング挑戦できるか？(無理なら残り時間を返す)
 	function CanRankBattle()
 	{
@@ -235,14 +235,14 @@ class user
 			}
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	お金を増やす
 	function GetMoney($no)
 	{
 		$this->money += $no;
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	お金を減らす
 	function TakeMoney($no)
 	{
@@ -257,7 +257,7 @@ class user
 		}
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	時間を消費する(総消費時間の加算)
 	function WasteTime($time)
 	{
@@ -266,7 +266,7 @@ class user
 		$this->wtime += $time;
 		return true;
 	}
-	//////////////////////////////////////////////////
+	
 	//	キャラクターを所持してる数をかぞえる。
 	function CharCount()
 	{
@@ -282,7 +282,7 @@ class user
 		}
 		return $no;
 	}
-	//////////////////////////////////////////////////
+	
 	//	全所持キャラクターをファイルから読んで $this->char に格納
 	function CharDataLoadAll()
 	{
@@ -308,7 +308,7 @@ class user
 			}
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//	指定の所持キャラクターをファイルから読んで $this->char に格納後 "返す"。
 	function CharDataLoad($CharNo)
 	{
@@ -330,7 +330,7 @@ class user
 		$this->char[$CharNo]->SetUser($this->id); //キャラが誰のか設定する
 		return $this->char[$CharNo];
 	}
-	//////////////////////////////////////////////////
+	
 	//	アイテムを追加
 	function AddItem($no, $amount = false)
 	{
@@ -340,7 +340,7 @@ class user
 		else  $this->item[$no]++;
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	アイテムを削除
 	function DeleteItem($no, $amount = false)
 	{
@@ -362,7 +362,7 @@ class user
 		return $amount;
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	アイテムデータを読む
 	function LoadUserItem()
 	{
@@ -384,7 +384,7 @@ class user
 		}
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	アイテムデータを保存する
 	function SaveUserItem()
 	{
@@ -416,7 +416,7 @@ class user
 		}
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	データをセットする。
 	//	※?
 	function SetData(&$data)
@@ -434,21 +434,21 @@ class user
 		*/
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	パスワードを暗号化する
 	function CryptPassword($pass)
 	{
 		return substr(crypt($pass, CRYPT_KEY), strlen(CRYPT_KEY));
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	名前を消す
 	function DeleteName()
 	{
 		$this->name = NULL;
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	データを保存する
 	function SaveData()
 	{
@@ -504,7 +504,7 @@ class user
 		}
 
 	}
-	//////////////////////////////////////////////////
+	
 	//	ユーザーの削除(全ファイル)
 	function DeleteUser($DeleteFromRank = true)
 	{
@@ -522,7 +522,7 @@ class user
 		foreach ($files as $val) unlink($val);
 		rmdir($dir);
 	}
-	//////////////////////////////////////////////////
+	
 	//	放棄されているかどうか確かめる
 	function IsAbandoned()
 	{
@@ -541,7 +541,7 @@ class user
 			return false;
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//	キャラデータを消す
 	function DeleteChar($no)
 	{
@@ -553,7 +553,7 @@ class user
 		if (file_exists($file)) unlink($file);
 	}
 
-	//////////////////////////////////////////////////
+	
 	//
 	//function Load
 
