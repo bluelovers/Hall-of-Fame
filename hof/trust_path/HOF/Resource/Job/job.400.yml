@@ -5,14 +5,8 @@ equip:
     - Robe
     - Item
 coe:
-    - 2.2
-    - 0.7
-change:
-    - 401
-    - 402
-    - 403
-info:
-    desc: "弓系基本職。\n相手の前衛に影響されずに攻撃できる。"
+    maxhp: 2.2
+    maxsp: 0.7
 pattern: null
 job: '400'
 img: mon_219rr
@@ -24,3 +18,5 @@ gender:
     2:
         img: mon_219r
         job_name: Hunter
+info:
+    desc: "弓系基本職。\n相手の前衛に影響されずに攻撃できる。"
