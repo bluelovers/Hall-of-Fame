@@ -7,10 +7,8 @@ equip:
     - Robe
     - Item
 coe:
-    - 5
-    - 0.2
-info:
-    desc: "戦士系上級職。\n攻撃に特化した戦士。\n自分の体力を犠牲に強力な技が使える。"
+    maxhp: 5
+    maxsp: 0.2
 job: '102'
 img: mon_100r
 job_name: Sacrier
@@ -21,3 +19,11 @@ gender:
     2:
         img: mon_012
         job_name: Sacrier
+data_ex:
+    job_conditions:
+        job_from:
+            100:
+                lv: 25
+    job_base: 100
+info:
+    desc: "戦士系上級職。\n攻撃に特化した戦士。\n自分の体力を犠牲に強力な技が使える。"
