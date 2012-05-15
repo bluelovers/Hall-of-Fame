@@ -926,10 +926,10 @@ HTML_BYEBYE;
 		$JobData = $this->char->jobdata();
 
 		// 装備中の物表示 ////////////////////////////////
-		$weapon = HOF_Model_Data::getItemData($this->char->weapon);
-		$shield = HOF_Model_Data::getItemData($this->char->shield);
-		$armor = HOF_Model_Data::getItemData($this->char->armor);
-		$item = HOF_Model_Data::getItemData($this->char->item);
+		$weapon = HOF_Class_Item::newInstance($this->char->weapon);
+		$shield = HOF_Class_Item::newInstance($this->char->shield);
+		$armor = HOF_Class_Item::newInstance($this->char->armor);
+		$item = HOF_Class_Item::newInstance($this->char->item);
 
 		$handle = 0;
 		$handle = $weapon["handle"] + $shield["handle"] + $armor["handle"] + $item["handle"];
@@ -1005,42 +1005,22 @@ HTML_BYEBYE;
 			<tr>
 				<td class="align-right">Weapon :</td>
 				<td><label><input type="radio" class="vcent" name="spot" value="weapon">
-					<?php
-
-		HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($this->char->weapon));
-
-
-?></label></td>
+					<?php e($weapon->html()); ?></label></td>
 			</tr>
 			<tr>
 				<td class="align-right">Shield :</td>
 				<td><label><input type="radio" class="vcent" name="spot" value="shield">
-					<?php
-
-		HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($this->char->shield));
-
-
-?></label></td>
+					<?php e($shield->html()); ?></label></td>
 			</tr>
 			<tr>
 				<td class="align-right">Armor :</td>
 				<td><label><input type="radio" class="vcent" name="spot" value="armor">
-					<?php
-
-		HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($this->char->armor));
-
-
-?></label></td>
+					<?php e($armor->html()); ?></label></td>
 			</tr>
 			<tr>
 				<td class="align-right">Item :</td>
 				<td><label><input type="radio" class="vcent" name="spot" value="item">
-					<?php
-
-		HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($this->char->item));
-
-
-?></label></td>
+					<?php e($item->html()); ?></label></td>
 			</tr>
 				</tbody>
 		</table>
