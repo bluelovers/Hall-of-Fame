@@ -109,7 +109,6 @@ function userNameLoad()
 	}
 }
 
-//
 function userNameAdd($add)
 {
 	foreach (userNameLoad() as $name)
@@ -123,8 +122,6 @@ function userNameAdd($add)
 	fclose($fp);
 }
 
-
-//
 function RecordManage($string)
 {
 	$file = MANAGE_LOG_FILE;
@@ -166,7 +163,7 @@ function CheckString($string, $maxLength = 16)
 	$string = htmlspecialchars($string, ENT_QUOTES);
 	return array(true, $string);
 }
-/
+
 //	端末を判断。
 function isMobile()
 {
