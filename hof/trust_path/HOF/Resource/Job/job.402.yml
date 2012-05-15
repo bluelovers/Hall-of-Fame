@@ -6,10 +6,8 @@ equip:
     - Robe
     - Item
 coe:
-    - 3.2
-    - 1
-info:
-    desc: "弓系上級職。\n素早い召喚と召喚獣の強化が得意。"
+    maxhp: 3.2
+    maxsp: 1
 job: '402'
 img: mon_216z
 job_name: BeastTamer
@@ -20,3 +18,11 @@ gender:
     2:
         img: mon_217z
         job_name: BeastTamer
+data_ex:
+    job_conditions:
+        job_from:
+            400:
+                lv: 25
+    job_base: 400
+info:
+    desc: "弓系上級職。\n素早い召喚と召喚獣の強化が得意。"
