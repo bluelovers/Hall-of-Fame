@@ -420,7 +420,7 @@ function LoadSkillTree($char)
 
 	if (4 < $char->level) $list[] = "9000"; //複数判定(* think over)
 
-	asort($list);
+	sort($list);
 	return $list;
 }
 
