@@ -26,7 +26,7 @@
 								<label>
 									<?php $char->ShowImage() ?>
 									<br/>
-									<?php e(HOF_Helper_Global::MoneyFormat($this->output->char_recruit_money[floor($char->job / 100)])); ?>
+									<?php e(HOF_Helper_Global::MoneyFormat($char->recruit_money)); ?>
 									<br/>
 									<input type="radio" id="char_<?php e($i); ?>" name="recruit_no" value="<?php e($i); ?>" style="margin:3px"/>
 								</label>
