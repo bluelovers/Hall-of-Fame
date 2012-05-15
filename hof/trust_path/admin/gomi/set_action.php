@@ -108,7 +108,7 @@ for ($i = 0; $i < 15; $i++)
 	print ("</select>\n");
 	print ("</td></tr>\n");
 }
-/////////////////////////////////////////////////////////////
+///////////
 function JudgeSelect($selected = false)
 {
 	static $judge = array();
@@ -132,7 +132,7 @@ function JudgeSelect($selected = false)
 		print ("<option value=\"{$key}\">{$val}</option>\n");
 	}
 }
-/////////////////////////////////////////////////////////////
+///////////
 function SkillSelect($selected = false)
 {
 	static $skill = array();
