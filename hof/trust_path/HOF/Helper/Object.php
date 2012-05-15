@@ -51,12 +51,12 @@ class HOF_Helper_Object
 				}
 			}
 
-			self::$cache[__FUNCTION__][$class] = $methods;
+			self::$cache[__FUNCTION__][$class] = (array)$methods;
 		}
 
 		$methods = array_diff(self::$cache[__FUNCTION__][$class], (array)$skip);
 
-		return $methods;
+		return (array)$methods;
 	}
 
 }
