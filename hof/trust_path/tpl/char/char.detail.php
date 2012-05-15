@@ -1,4 +1,3 @@
-<?php $this->extend('char/layout') ?>
 
 	<form action="?char=<?php e($this->output->char_id) ?>" method="post" style="padding:5px 0 0 15px">
 		<h4>Character Status<a href="?manual#charstat" target="_blank" class="a0">?</a></h4>
@@ -13,4 +12,3 @@
 		<?php endif; ?>
 		<input type="submit" class="btn" name="byebye" value="Kick">
 	</form>
-	<?php e($this->output->content) ?>
