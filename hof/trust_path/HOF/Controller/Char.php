@@ -216,7 +216,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			}
 		}
 
-		$this->char->SetHpSp();
+		$this->char->hpsp();
 
 		// ポイントを減らす。
 		$this->char->statuspoint -= $Sum;
