@@ -23,9 +23,7 @@ class HOF_Class_Char_Pattern
 
 	public $options;
 
-	protected static $options_default = array(
-		'nolimit' => false,
-	);
+	protected static $options_default = array('nolimit' => false, );
 
 	protected $cache;
 
@@ -47,7 +45,7 @@ class HOF_Class_Char_Pattern
 
 		if ($options !== null)
 		{
-			$this->options = array_merge($this->options, (array)$options);
+			$this->options = array_merge($this->options, (array )$options);
 		}
 
 		return $this->options;
@@ -101,39 +99,25 @@ class HOF_Class_Char_Pattern
 	function _pattern_plus(&$pattern_new)
 	{
 		if ($this->cache['init'] && $this->char->monster)
+		{
+			/**
+			 * skill:3040 蘇生
+			 */
+			if (!$this->char->summon)
 			{
-				while (end($pattern_new) == $this->_fix_pattern_item())
-				{
-					array_pop($pattern_new);
-				}
-
-				/**
-				 * skill:3040 蘇生
-				 */
-				if (!$this->char->summon)
-				{
-					$last_v = end($pattern_new);
-
-					if ($last_v['judge'] == 1000)
-					{
-						array_pop($pattern_new);
-					}
-
-					array_push($pattern_new, $this->_fix_pattern_item(array(
+				array_splice($pattern_new, 0, 0, array($this->_fix_pattern_item(array(
 						1405,
 						1,
 						9000)), $this->_fix_pattern_item(array(
 						1940,
 						10,
-						3040)));
-
-					array_push($pattern_new, $last_v);
-				}
-
-				//array_push($pattern_new, $this->_fix_pattern_item(array(1001, 0, 1000)));
-
-				array_push($pattern_new, $this->_fix_pattern_item());
+						3040))));
 			}
+
+			//array_push($pattern_new, $this->_fix_pattern_item(array(1001, 0, 1000)));
+
+			array_push($pattern_new, $this->_fix_pattern_item());
+		}
 	}
 
 	/**
