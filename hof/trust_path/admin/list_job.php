@@ -96,7 +96,7 @@ print ("</tbody></table>");
 </html>
 <?php
 
-//////////////////////////////////////////////////
+
 //	技の詳細を表示
 function HOF_Class_Skill::ShowSkillDetail($skill, $radio = false)
 {
