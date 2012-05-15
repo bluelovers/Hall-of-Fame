@@ -45,9 +45,9 @@ class char extends HOF_Class_Char_Base
 	*/
 	var $WEAPON; //武器タイプ
 
-	//////////////////////////////////////////////////
+	
 	//
-	//////////////////////////////////////////////////
+	
 	//	HPの犠牲
 	function SacrificeHp($rate)
 	{
@@ -60,7 +60,7 @@ class char extends HOF_Class_Char_Base
 		$this->HpDamage($SelfDamage);
 		print ("</span><br />\n");
 	}
-	//////////////////////////////////////////////////
+	
 	//	特殊技能?の追加
 	function GetSpecial($name, $value)
 	{
@@ -81,7 +81,7 @@ class char extends HOF_Class_Char_Base
 				$this->SPECIAL["$name"] += $value;
 			}
 	}
-	//////////////////////////////////////////////////
+	
 	//	HPSP持続回復
 	function AutoRegeneration()
 	{
@@ -102,7 +102,7 @@ class char extends HOF_Class_Char_Base
 			print ("<br />\n");
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//	キャラステータスの一番上のやつ。
 	function ShowCharDetail()
 	{
@@ -223,13 +223,13 @@ class char extends HOF_Class_Char_Base
 <?php
 
 	}
-	//////////////////////////////////////////////////
+	
 	//	誰のキャラか設定する
 	function SetUser($user)
 	{
 		$this->user = $user;
 	}
-	//////////////////////////////////////////////////
+	
 	//	チャージ(詠唱)中の解除
 	function ResetExpect()
 	{
@@ -237,7 +237,7 @@ class char extends HOF_Class_Char_Base
 		$this->expect_type = false;
 		$this->expect_target = false;
 	}
-	//////////////////////////////////////////////////
+	
 	//	前列後列の移動
 	function Move($posi)
 	{
@@ -256,7 +256,7 @@ class char extends HOF_Class_Char_Base
 		}
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	行動までの距離測定
 	function nextDis()
 	{
@@ -264,7 +264,7 @@ class char extends HOF_Class_Char_Base
 		$distance = (100 - $this->delay) / $this->DelayValue();
 		return $distance;
 	}
-	//////////////////////////////////////////////////
+	
 	//	行動順リセット
 	function DelayReset()
 	{
@@ -278,7 +278,7 @@ class char extends HOF_Class_Char_Base
 				$this->delay = 0;
 			}
 	}
-	//////////////////////////////////////////////////
+	
 	//	行動を近づかせる。
 	function Delay($no)
 	{
@@ -296,13 +296,13 @@ class char extends HOF_Class_Char_Base
 				//print("DELAY".$this->delay."<br />\n");
 			}
 	}
-	//////////////////////////////////////////////////
+	
 	//
 	function DelayValue()
 	{
 		return sqrt($this->SPD) + DELAY_BASE;
 	}
-	//////////////////////////////////////////////////
+	
 	//	行動を遅らせる(Rate)
 	function DelayByRate($No, $BaseDelay, $Show = false)
 	{
@@ -336,7 +336,7 @@ class char extends HOF_Class_Char_Base
 				}
 			}
 	}
-	//////////////////////////////////////////////////
+	
 	//	行動を早送りする(%)
 	function DelayCut($No, $BaseDelay, $Show = false)
 	{
@@ -370,7 +370,7 @@ class char extends HOF_Class_Char_Base
 				}
 			}
 	}
-	//////////////////////////////////////////////////
+	
 	//	即時行動させる。
 	function Quick($delay)
 	{
@@ -378,20 +378,20 @@ class char extends HOF_Class_Char_Base
 		else
 			if (DELAY_TYPE === 1) $this->delay = 100.1;
 	}
-	//////////////////////////////////////////////////
+	
 	//	名前を変える。
 	function ChangeName($new)
 	{
 		$this->name = $new;
 	}
 
-	//////////////////////////////////////////////////
+	
 	//
-	//////////////////////////////////////////////////
+	
 	//
 
 
-	//////////////////////////////////////////////////
+	
 	//	キャラを後衛化させる。
 	function KnockBack($no = 1)
 	{
@@ -401,7 +401,7 @@ class char extends HOF_Class_Char_Base
 			print ($this->Name(bold) . " knock backed!<br />\n");
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//
 	//	ステータス強化(+)
 	function PlusSTR($no)
@@ -429,7 +429,7 @@ class char extends HOF_Class_Char_Base
 		$this->LUK += $no;
 		print ($this->Name(bold) . " LUK rise {$no}<br />\n");
 	}
-	//////////////////////////////////////////////////
+	
 	//	ステータス強化(%)
 	function UpMAXHP($no)
 	{
@@ -572,11 +572,8 @@ class char extends HOF_Class_Char_Base
 		$this->def["2"] = round($this->def["2"] * (1 - $no / 100));
 		print ($this->Name(bold) . " MDEF down {$no}%<br />\n");
 	}
-	//////////////////////////////////////////////////
 
-	//////////////////////////////////////////////////
-	//
-	//////////////////////////////////////////////////
+	
 	//	毒ダメージ
 	function PoisonDamage($multiply = 1)
 	{
@@ -588,7 +585,7 @@ class char extends HOF_Class_Char_Base
 		$this->HpDamage2($poison);
 		print ("</span><br />\n");
 	}
-	//////////////////////////////////////////////////
+	
 	//	毒ダメージの公式
 	function PoisonDamageFormula($multiply = 1)
 	{
@@ -596,7 +593,7 @@ class char extends HOF_Class_Char_Base
 		$damage *= $multiply;
 		return round($damage);
 	}
-	//////////////////////////////////////////////////
+	
 	//	毒の状態 異常化 処理
 	function GetPoison($BePoison)
 	{
@@ -618,7 +615,7 @@ class char extends HOF_Class_Char_Base
 		$this->STATE = 2;
 		return true;
 	}
-	//////////////////////////////////////////////////
+	
 	//	毒耐性を得る
 	function GetPoisonResist($no)
 	{
@@ -629,16 +626,16 @@ class char extends HOF_Class_Char_Base
 		print ($this->Name(bold) . " got PoisonResist!(" . $this->SPECIAL["PoisonResist"] . "%)");
 		print ("</span><br />\n");
 	}
-	//////////////////////////////////////////////////
+	
 	//	名前を返す
 	function Name($string = false)
 	{
 		if ($string) return "<span class=\"{$string}\">{$this->name}</span>";
 		else  return $this->name;
 	}
-	//////////////////////////////////////////////////
+	
 	//
-	//////////////////////////////////////////////////
+	
 	//	経験値を得る
 	function GetExp($exp)
 	{
@@ -653,7 +650,7 @@ class char extends HOF_Class_Char_Base
 			return true;
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//	レベルあげる時の処理
 	function LevelUp()
 	{
@@ -662,7 +659,7 @@ class char extends HOF_Class_Char_Base
 		$this->statuspoint += GET_STATUS_POINT; //ステポをもらえる。
 		$this->skillpoint += GET_SKILL_POINT;
 	}
-	//////////////////////////////////////////////////
+	
 	//	クラスチェンジ(転職)
 	//	装備をはずす。
 	function ClassChange($job)
@@ -678,9 +675,9 @@ class char extends HOF_Class_Char_Base
 		}
 		return false;
 	}
-	//////////////////////////////////////////////////
+	
 	//
-	//////////////////////////////////////////////////
+	
 	//	しぼーしてるかどうか確認する。
 	function CharJudgeDead()
 	{
@@ -693,7 +690,7 @@ class char extends HOF_Class_Char_Base
 			return true;
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//	生存状態にする。
 	function GetNormal($mes = false)
 	{
@@ -712,13 +709,13 @@ class char extends HOF_Class_Char_Base
 		}
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	値の変化を表示する(ダメージ受けた時とか)
 	function ShowValueChange($from, $to)
 	{
 		print ("({$from} &gt; {$to})");
 	}
-	//////////////////////////////////////////////////
+	
 	//	HPへのダメージ
 	function HpDamage($damage, $show = true)
 	{
@@ -726,7 +723,7 @@ class char extends HOF_Class_Char_Base
 		$this->HP -= $damage; // HPを減らす。
 		if ($show) $this->ShowValueChange($Before, $this->HP);
 	}
-	//////////////////////////////////////////////////
+	
 	//	HPへのダメージ(0以下になるなら1になる。)
 	function HpDamage2($damage)
 	{
@@ -736,7 +733,7 @@ class char extends HOF_Class_Char_Base
 		if ($this->HP < 1) $this->HP = 1;
 		$this->ShowValueChange($Before, $this->HP);
 	}
-	//////////////////////////////////////////////////
+	
 	//	HPのパーセント
 	function HpPercent()
 	{
@@ -744,7 +741,7 @@ class char extends HOF_Class_Char_Base
 		$p = ($this->HP / $this->MAXHP) * 100;
 		return $p;
 	}
-	//////////////////////////////////////////////////
+	
 	//	SPのパーセント
 	function SpPercent()
 	{
@@ -752,7 +749,7 @@ class char extends HOF_Class_Char_Base
 		$p = ($this->SP / $this->MAXSP) * 100;
 		return $p;
 	}
-	//////////////////////////////////////////////////
+	
 	//	SPへのダメージ(消費)
 	function SpDamage($damage, $show = true)
 	{
@@ -761,7 +758,7 @@ class char extends HOF_Class_Char_Base
 		if ($this->SP < 1) $this->SP = 0;
 		if ($show) $this->ShowValueChange($Before, $this->SP);
 	}
-	//////////////////////////////////////////////////
+	
 	//	HP回復
 	function HpRecover($recover)
 	{
@@ -773,7 +770,7 @@ class char extends HOF_Class_Char_Base
 		}
 		$this->ShowValueChange($Before, $this->HP);
 	}
-	//////////////////////////////////////////////////
+	
 	//	SP回復
 	function SpRecover($recover)
 	{
@@ -785,7 +782,7 @@ class char extends HOF_Class_Char_Base
 		}
 		$this->ShowValueChange($Before, $this->SP);
 	}
-	//////////////////////////////////////////////////
+	
 	//	パッシブスキルを読み込む
 	function LoadPassiveSkills()
 	{
@@ -808,7 +805,7 @@ class char extends HOF_Class_Char_Base
 			if ($skill["HealBonus"]) $this->SPECIAL["HealBonus"] += $skill["HealBonus"]; //....
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	function SetBattleVariable($team = false)
 	{
 		// 再読み込みを防止できるか?
@@ -842,7 +839,7 @@ class char extends HOF_Class_Char_Base
 		$this->ActCount = 0; //行動回数
 		$this->JdgCount = array(); //決定した判断の回数
 	}
-	//////////////////////////////////////////////////
+	
 	//	キャラの攻撃力と防御力,装備性能を計算する
 	function CalcEquips()
 	{
@@ -888,7 +885,7 @@ class char extends HOF_Class_Char_Base
 			if ($item["P_PIERCE"]) $this->GetSpecial("Pierce", $item["P_PIERCE"]);
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	function ShowCharWithLand($land)
 	{
 
@@ -898,6 +895,7 @@ class char extends HOF_Class_Char_Base
 	<div class="land" style="background-image : url(<?=
 
 		HOF_Class_Icon::getImageUrl("land_" . $land, HOF_Class_Icon::IMG_LAND)
+
 
 ?>);">
 	<?php
@@ -922,7 +920,7 @@ class char extends HOF_Class_Char_Base
 
 	}
 
-	//////////////////////////////////////////////////
+	
 	function ShowChar()
 	{
 		static $flag = 0;
@@ -965,7 +963,7 @@ class char extends HOF_Class_Char_Base
 
 	}
 
-	//////////////////////////////////////////////////
+	
 	function ShowCharLink()
 	{ //$array=色々
 		static $flag = 0;
@@ -1019,7 +1017,7 @@ class char extends HOF_Class_Char_Base
 
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	checkboxも表示する
 	function ShowCharRadio($birth, $checked = null)
 	{
@@ -1120,21 +1118,21 @@ Lv.<?=
 </div><?php
 
 	}
-	//////////////////////////////////////////////////
+	
 	//	戦闘時のチームを設定(あんまり使ってない)
 	function SetTeam($no)
 	{
 		$this->team = $no;
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	handle計算
 	function GetHandle()
 	{
 		$handle = 5 + floor($this->level / 10) + floor($this->dex / 5);
 		return $handle;
 	}
-	//////////////////////////////////////////////////
+	
 	//	ポイントを消費して技を覚える。
 	function LearnNewSkill($no)
 	{
@@ -1155,7 +1153,7 @@ Lv.<?=
 		else  return array(false, "スキルポイント不足");
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	スキルポイントを消費する
 	function UseSKillPoint($no)
 	{
@@ -1166,7 +1164,7 @@ Lv.<?=
 		}
 		return false;
 	}
-	//////////////////////////////////////////////////
+	
 	//	経験値を出す(モンスターだけ?)
 	function DropExp()
 	{
@@ -1181,7 +1179,7 @@ Lv.<?=
 			return false;
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//	お金を出す(モンスターだけ?)
 	function DropMoney()
 	{
@@ -1196,7 +1194,7 @@ Lv.<?=
 			return false;
 		}
 	}
-	//////////////////////////////////////////////////
+	
 	//	アイテムを落とす(モンスターだけ?)
 	function DropItem()
 	{
@@ -1213,7 +1211,7 @@ Lv.<?=
 		}
 	}
 
-	//////////////////////////////////////////////////
+	
 	//	キャラクターを消す
 	function DeleteChar()
 	{
@@ -1225,7 +1223,7 @@ Lv.<?=
 		}
 		unlink($this->file);
 	}
-	//////////////////////////////////////////////////
+	
 	//	キャラの変数をセットする。
 	function SetCharData(&$data)
 	{
