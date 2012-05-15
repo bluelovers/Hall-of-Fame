@@ -39,6 +39,33 @@ class HOF_Model_Char extends HOF_Class_Data
 		return self::$_instance;
 	}
 
+	function getBaseCharList()
+	{
+		$_key = 'char';
+
+		$_cache_key_ = $_key.'_base_list';
+
+		if ($list = HOF::$_cache_->data($_cache_key_))
+		{
+			return $list;
+		}
+
+		$regex = HOF_Class_Data::_filename($_key, '*');
+
+		$regex = '/^' . str_replace('\*', '(.+)', preg_quote($regex, '/')) . '$/i';
+
+		foreach (glob(HOF_Class_Data::_filename($_key, '*')) as $file)
+		{
+			$list[] = preg_replace($regex, '$1', $file);
+		}
+
+		sort($list, SORT_NUMERIC);
+
+		HOF::$_cache_->data($_cache_key_, $list);
+
+		return $list;
+	}
+
 	/**
 	 * $char = HOF_Class_Yaml::load(BASE_TRUST_PATH . '/HOF/Resource/Char/char.' . $no . '.yml');
 	 */
