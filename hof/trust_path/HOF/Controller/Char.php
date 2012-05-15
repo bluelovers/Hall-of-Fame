@@ -159,6 +159,15 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		$this->CharStatShow();
 
 		$this->output->content = ob_get_clean();
+
+		$char_list = array();
+
+		foreach ($this->user->char as $key => $val)
+		{
+			$char_list[$key] = $val->name;
+		}
+
+		$this->output->char_list = $char_list;
 	}
 
 	function _main_after()
@@ -557,7 +566,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * クラスチェンジ(転職)
 	 */
-	function _main_action_classchange()
+	function _main_action_job_change()
 	{
 		$this->input->job = HOF::$input->post["job"];
 
@@ -566,30 +575,17 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			$this->_msg_error("職 未選択", "margin15");
 			return false;
 		}
-		if ($this->char->ClassChange($this->input->job))
+
+		if ($v = $this->char->job_change_to($this->input->job))
 		{
-			// 装備を全部解除
-			if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->char->item)
+			if (!empty($v[1]))
 			{
-				if ($this->char->weapon)
+				/**
+				 * 装備を全部解除
+				 */
+				foreach((array)$v[1] as $item)
 				{
-					$this->user->AddItem($this->char->weapon);
-					$this->char->weapon = NULL;
-				}
-				if ($this->char->shield)
-				{
-					$this->user->AddItem($this->char->shield);
-					$this->char->shield = NULL;
-				}
-				if ($this->char->armor)
-				{
-					$this->user->AddItem($this->char->armor);
-					$this->char->armor = NULL;
-				}
-				if ($this->char->item)
-				{
-					$this->user->AddItem($this->char->item);
-					$this->char->item = NULL;
+					$this->user->AddItem($item);
 				}
 
 				$this->user->SaveUserItem();
@@ -895,17 +891,15 @@ HTML_BYEBYE;
 		// 戦闘用変数の設定。
 		$this->char->SetBattleVariable();
 
-		// 職データ
-		$JobData = HOF_Model_Data::getJobData($this->char->job);
+		$this->output->char_id = $this->input->char;
 
-		// 転職可能な職
-		if ($JobData["change"])
+		$this->output->job_change_list = array();
+
+		foreach ((array)$this->char->job_change_list() as $job)
 		{
-			include_once (DATA_CLASSCHANGE);
-			foreach ($JobData["change"] as $job)
-			{
-				if (CanClassChange($this->char, $job)) $CanChange[] = $job; //転職できる候補。
-			}
+			$newjob = new HOF_Class_Char_Job(array('job' => $job, 'gender' => $this->char->gender));
+
+			$this->output->job_change_list[] = $newjob;
 		}
 
 		////// ステータス表示 //////////////////////////////
@@ -919,19 +913,6 @@ HTML_BYEBYE;
 
 
 ?>" method="post" style="padding:5px 0 0 15px">
-	<?php
-
-		// その他キャラ
-		print ('<div style="padding-top:5px">');
-		foreach ($this->user->char as $key => $val)
-		{
-			//if($key == $this->input->char) continue;//表示中キャラスキップ
-			echo "<a href=\"?char={$key}\">{$val->name}</a>&nbsp;&nbsp;";
-		}
-		print ("</div>");
-
-
-?>
 	<h4>Character Status<a href="?manual#charstat" target="_blank" class="a0">?</a></h4>
 	<?php
 
@@ -1356,64 +1337,7 @@ HTML;
 			print ('<input type="submit" class="btn" name="learnskill" value="Learn">' . "\n");
 			print ('<input type="hidden" name="learnskill" value="1">' . "\n");
 		}
-		// 転職 ////////////////////////////////////////////
-		if ($CanChange)
-		{
 
-
-?>
-</form>
-<form action="?char=<?=
-
-			$this->input->char
-
-
-?>" method="post" style="padding:0 15px">
-	<h4>ClassChange</h4>
-	<table>
-		<tbody>
-			<tr>
-				<?php
-
-			foreach ($CanChange as $job)
-			{
-				print ("<td valign=\"bottom\" style=\"padding:5px 30px;text-align:center\"><label>");
-
-				$newjob = new HOF_Class_Char_Job(array('job' => $job, 'gender' => $this->char->gender));
-
-				print ('<img src="' . $newjob->icon_url() . '">' . "<br />\n"); //画像
-
-				print ('<input type="radio" value="' . $job . '" name="job">' . "<br />\n");
-
-				print ($newjob->job_name());
-
-				print ("</label></td>");
-			}
-
-
-?>
-			</tr>
-		</tbody>
-	</table>
-	<input type="submit" class="btn" name="classchange" value="ClassChange">
-	<input type="hidden" name="classchange" value="1">
-	<?php
-
-		}
-
-
-?>
-</form>
-<?php
-
-		//その他キャラ
-		print ('<div  style="padding:15px">');
-		foreach ($this->user->char as $key => $val)
-		{
-			//if($key == $this->input->char) continue;//表示中キャラスキップ
-			echo "<a href=\"?char={$key}\">{$val->name}</a>&nbsp;&nbsp;";
-		}
-		print ('</div>');
 	}
 
 	/**
