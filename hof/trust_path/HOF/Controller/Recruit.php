@@ -17,15 +17,17 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 	{
 		$this->user = &HOF::user();
 
+		/*
 		$this->char_recruit_money = array(
 			1 => 2000,
 			2 => 2000,
 			3 => 2500,
 			4 => 4000,
 			);
+		*/
 
 		$this->output->error = array();
-		$this->output->char_recruit_money = $this->char_recruit_money;
+		//$this->output->char_recruit_money = $this->char_recruit_money;
 	}
 
 	function _main_before()
@@ -119,7 +121,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 				$job = $this->_cache['chars'][$this->input->recruit_no]->job;
 				$gender = $this->_cache['chars'][$this->input->recruit_no]->gender;
 
-				$char = HOF_Model_Char::newBaseChar(floor($job / 100), array("name" => $name, "gender" => $gender, 'job' => $job));
+				$char = HOF_Model_Char::newBaseChar($job, array("name" => $name, "gender" => $gender));
 			}
 			else
 			{
@@ -128,40 +130,8 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 			}
 
 			// キャラのタイプ
-			$hire = $this->char_recruit_money[floor($job / 100)];
+			$hire = $char->recruit_money;
 
-			//性別
-			/*
-			if (!array_key_exists($this->input->recruit_gend, $jobdata['gender']))
-			{
-				$this->_error("性別 未選択", "margin15");
-				return false;
-			}
-			else
-			{
-				if ($this->input->recruit_gend == GENDER_GIRL)
-				{
-					$Gender = '♀';
-				}
-				elseif ($this->input->recruit_gend == GENDER_BOY)
-				{
-					$Gender = '♂';
-				}
-				else
-				{
-					$Gender = '?';
-				}
-			}
-			*/
-
-			// キャラデータをクラスに入れる
-
-			//$plus = array("name" => "$name", "gender" => $this->input->recruit_gend);
-			/*
-			$char = new HOF_Class_Char();
-			$char->SetCharData(array_merge(BaseCharStatus($charNo), $plus));
-			*/
-			//$char = HOF_Model_Char::newBaseChar($charNo, $plus);
 			//雇用金
 			if ($hire <= $this->user->money)
 			{
@@ -196,10 +166,12 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 			$chars = array();
 			$k = 1;
 
-			for ($i = 1; $i <= 4; $i++)
+			$base_list = HOF_Model_Char::getBaseCharList();
+
+			foreach ($base_list as $i)
 			{
-				$base = HOF_Model_Char::newBaseChar($i);
-				$jobdata = HOF_Model_Data::getJobData($base->job);
+				$base = HOF_Model_Char::getBaseCharStatus($i);
+				$jobdata = HOF_Model_Data::getJobData($i);
 
 				foreach(array_keys($jobdata['gender']) as $j)
 				{
@@ -219,6 +191,8 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 					}
 
 					$chars[$k]->job_name .= $Gender;
+
+					$chars[$k]->recruit_money = $base['data_ex']['recruit_money'];
 
 					$k++;
 				}
