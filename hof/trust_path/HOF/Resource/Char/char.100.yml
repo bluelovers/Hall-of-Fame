@@ -1,4 +1,4 @@
-no: 1
+no: 100
 name: Warrior
 level: '1'
 exp: '0'
@@ -29,3 +29,5 @@ pattern:
         judge: '1000'
         quantity: '0'
         action: '1000'
+data_ex:
+    recruit_money: 2000

@@ -1,4 +1,4 @@
-no: 4
+no: 400
 name: Hunter
 level: '1'
 exp: '0'
@@ -24,3 +24,5 @@ pattern:
         judge: '1000'
         quantity: '0'
         action: '2300'
+data_ex:
+    recruit_money: 4000
