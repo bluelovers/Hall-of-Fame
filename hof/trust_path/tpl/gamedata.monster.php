@@ -17,7 +17,7 @@
 				<td class="td6">LUK</td>
 			</tr>
 			</td>
-			
+
 				<td class="td7"><?php $data['char']->ShowCharWithLand($data['char']->land); ?></td>
 				<td class="td7"><?php e($data['monster']['exphold']) ?></td>
 				<td class="td7"><?php e($data['monster']['moneyhold']) ?></td>
