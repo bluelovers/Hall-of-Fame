@@ -6,10 +6,8 @@ equip:
     - Robe
     - Item
 coe:
-    - 2.7
-    - 1.4
-info:
-    desc: "聖職上級職。\n味方の能力値も上げれるようになる。"
+    maxhp: 2.7
+    maxsp: 1.4
 job: '301'
 img: mon_213r
 job_name: Bishop
@@ -20,3 +18,11 @@ gender:
     2:
         img: mon_214r
         job_name: Bishop
+data_ex:
+    job_conditions:
+        job_from:
+            300:
+                lv: 25
+    job_base: 300
+info:
+    desc: "聖職上級職。\n味方の能力値も上げれるようになる。"
