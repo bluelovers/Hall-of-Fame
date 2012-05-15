@@ -7,10 +7,8 @@ equip:
     - Robe
     - Item
 coe:
-    - 2.1
-    - 2
-info:
-    desc: "魔法系上級職。\nさらに強力な魔法が使えるようになる。"
+    maxhp: 2.1
+    maxsp: 2
 job: '201'
 img: mon_196z
 job_name: Warlock
@@ -21,3 +19,11 @@ gender:
     2:
         img: mon_246r
         job_name: Warlock
+data_ex:
+    job_conditions:
+        job_from:
+            200:
+                lv: 20
+    job_base: 200
+info:
+    desc: "魔法系上級職。\nさらに強力な魔法が使えるようになる。"
