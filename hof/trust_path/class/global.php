@@ -91,37 +91,6 @@ function RegularControl($value = null)
 	unset($fp);
 }
 
-function userNameLoad()
-{
-	$name = @file(USER_NAME);
-	if ($name)
-	{
-		foreach ($name as $key => $var)
-		{
-			$name[$key] = trim($name[$key]);
-			if ($name[$key] === "") unset($name[$key]);
-		}
-		return $name;
-	}
-	else
-	{
-		return array();
-	}
-}
-
-function userNameAdd($add)
-{
-	foreach (userNameLoad() as $name)
-	{
-		$string .= $name . "\n";
-	}
-	$string .= $add . "\n";
-	$fp = fopen(USER_NAME, "w+");
-	flock($fp, LOCK_EX);
-	fwrite($fp, $string);
-	fclose($fp);
-}
-
 function RecordManage($string)
 {
 	$file = MANAGE_LOG_FILE;
