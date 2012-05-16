@@ -318,6 +318,13 @@ class HOF_Model_Main extends HOF_Class_Array
 		return (array)$list['user_del'];
 	}
 
+	function getNameDelList()
+	{
+		$list = HOF::cache()->data('user_del');
+
+		return (array)$list['name_del'];
+	}
+
 	function addUserDelList($id, $name = false)
 	{
 		$list = HOF::cache()->data('user_del');
