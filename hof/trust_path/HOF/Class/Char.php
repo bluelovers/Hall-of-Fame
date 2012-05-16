@@ -569,4 +569,16 @@ class HOF_Class_Char extends char
 		return $ret;
 	}
 
+	/**
+	 * 名前を変える。
+	 */
+	function ChangeName($new, $true = false)
+	{
+		if ($this->name == $new) return false;
+
+		$this->name = $new;
+
+		return true;
+	}
+
 }
