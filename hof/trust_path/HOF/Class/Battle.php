@@ -243,7 +243,7 @@ class HOF_Class_Battle extends battle implements HOF_Class_Base_Extend_RootInter
 			$i = 0;
 		while ($logAmount <= count($log))
 		{
-			unlink($log["$i"]);
+			HOF_Class_File::unlink($log["$i"], 1);
 			unset($log["$i"]);
 			$i++;
 		}
