@@ -95,7 +95,7 @@ class HOF_Class_Main extends HOF_Class_User
 	function Set_ID_PASS()
 	{
 		$id = ($_POST["id"]) ? $_POST["id"] : $_GET["id"];
-		//if($_POST["id"]) {
+
 		if ($id)
 		{
 			$this->id = $id; //$_POST["id"];
@@ -105,14 +105,21 @@ class HOF_Class_Main extends HOF_Class_User
 				$_SESSION["id"] = $this->id;
 			}
 		}
-		else
-			if ($_SESSION["id"]) $this->id = $_SESSION["id"];
+		elseif ($_SESSION["id"])
+		{
+			$this->id = $_SESSION["id"];
+		}
 
 		$pass = ($_POST["pass"]) ? $_POST["pass"] : $_GET["pass"];
 		//if($_POST["pass"])
-		if ($pass) $this->pass = $pass; //$_POST["pass"];
-		else
-			if ($_SESSION["pass"]) $this->pass = $_SESSION["pass"];
+		if ($pass)
+		{
+			$this->pass = $pass; //$_POST["pass"];
+		}
+		elseif ($_SESSION["pass"])
+		{
+			$this->pass = $_SESSION["pass"];
+		}
 
 		if ($this->pass) $this->pass = $this->CryptPassword($this->pass);
 	}
