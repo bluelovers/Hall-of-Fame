@@ -48,6 +48,11 @@ class HOF
 		return self::$instance;
 	}
 
+	public static function &cache()
+	{
+		return self::$_cache_;
+	}
+
 	public static function putintoClassParts($str)
 	{
 		static $cache;
