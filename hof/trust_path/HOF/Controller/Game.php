@@ -15,7 +15,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 	protected $_cache;
 
-	function _init()
+	function _main_init()
 	{
 		$this->user = &HOF::user();
 	}
@@ -44,6 +44,12 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 			$this->_main_setup('newgame');
 		}
+		elseif ($QUERY_STRING == 'show_deleted_user')
+		{
+			$this->input->action = $QUERY_STRING;
+
+			$this->_main_setup($QUERY_STRING);
+		}
 		elseif (HOF::$input->request['login'])
 		{
 			$this->input->action = 'login';
@@ -60,6 +66,8 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		{
 			$this->user->fpclose_all();
 		}
+
+		$this->output->npc_no = HOF_Class_Icon::getRandNo(HOF_Class_Icon::IMG_CHAR, 'ori_002');
 	}
 
 	function _main_action_default($message = null)
@@ -117,6 +125,13 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		$Abandon = floor($Abandon / (60 * 60 * 24));
 
 		$this->output->game_abandon = $Abandon;
+	}
+
+	function _main_action_show_deleted_user()
+	{
+		$list = HOF_Model_Main::getNameDelList();
+
+		$this->output->list_deleted_name = $list;
 	}
 
 	/**
