@@ -379,11 +379,7 @@ class char extends HOF_Class_Char_Base
 			if (DELAY_TYPE === 1) $this->delay = 100.1;
 	}
 
-	//	名前を変える。
-	function ChangeName($new)
-	{
-		$this->name = $new;
-	}
+	//
 
 
 	//
