@@ -20,5 +20,5 @@ define('JOB_UNDEFINED', 0);
  */
 define('NO_IMAGE', 'noimage');
 
-defined('USER_DATA', 'data'.BASE_EXT);
-defined('USER_ITEM', 'item'.BASE_EXT);
+define('USER_DATA', 'data'.BASE_EXT);
+define('USER_ITEM', 'item'.BASE_EXT);
