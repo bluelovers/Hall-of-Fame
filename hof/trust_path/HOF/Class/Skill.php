@@ -134,7 +134,7 @@ class HOF_Class_Skill extends HOF_Class_Base_ObjectAttr
 
 		if ($radio) print ('<input type="radio" name="newskill" value="' . $skill["no"] . '" class="vcent" />');
 
-		print ('<img src="' . HOF_Class_Icon::getImageUrl($skill["img"], IMG_ICON . 'skill/') . '" class="vcent">');
+		print ('<img src="' . HOF_Class_Icon::getImageUrl($skill["img"], HOF_Class_Icon::IMG_SKILL) . '" class="vcent">');
 		print ("{$skill[name]}");
 
 		if ($radio) print (" / <span class=\"bold\">{$skill[learn]}</span>pt");
