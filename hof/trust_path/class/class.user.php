@@ -60,16 +60,6 @@ class user
 		}
 	}
 
-	//	名前を変える
-	function ChangeName($name)
-	{
-
-		if ($this->name == $name) return false;
-
-		$this->name = $name;
-		return true;
-	}
-
 	//	Union戦闘した時間をセット
 	function UnionSetTime()
 	{
