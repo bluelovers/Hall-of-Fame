@@ -137,27 +137,17 @@ class HOF_Class_User extends user
 	{
 		$list = array();
 
-		$dir = USER . $this->id;
-
 		//配列の初期化だけしておく
 		$this->char = array();
 
-		foreach (array("/*.yml", "/*") as $m)
+		if ($list_char = HOF_Helper_Char::char_list_by_user($this))
 		{
-			foreach (glob($dir . $m) as $adr)
+			foreach ($list_char as $no => $file)
 			{
-				list($number, $ext) = HOF_Class_File::basename($adr);
+				$this->char[$no] = HOF_Model_Char::newCharFromFile($file);
+				$this->char[$no]->SetUser($this->id);
 
-				if (is_numeric($number) && !isset($this->char[$number]))
-				{
-					// キャラデータファイル
-					$this->char[$number] = HOF_Model_Char::newCharFromFile($adr);
-
-					// キャラが誰のか設定する
-					$this->char[$number]->SetUser($this->id);
-
-					$list[$number] = $this->char[$number]->name;
-				}
+				$list[$no] = $this->char[$no]->name;
 			}
 		}
 
@@ -172,7 +162,7 @@ class HOF_Class_User extends user
 		if (!isset($this->_cache_user_))
 		{
 			$this->_cache_user_ = new HOF_Class_File_Cache(array(
-				'path' => USER . $this->id . "/",
+				'path' => HOF_Helper_Char::user_path($this),
 			));
 		}
 
@@ -184,23 +174,14 @@ class HOF_Class_User extends user
 	 */
 	function CharDataLoad($CharNo)
 	{
-		// 既に読んでる場合。
 		if ($this->char[$CharNo]) return $this->char[$CharNo];
 
-		list($ok, $file) = $this->_getfilename(USER . $this->id . "/" . $CharNo);
+		$file = HOF_Helper_Char::char_file($CharNo, $this);
 
-		// そんなキャラいない場合。
-		if (!$ok) return false;
+		if (!file_exists($file)) return false;
 
-		// 居る場合。
-		//$chardata	= HOF_Class_File::ParseFile($file);
-		//$this->char[$CharNo]	= new HOF_Class_Char($chardata);
-		/*
-		$this->char[$CharNo] = new HOF_Class_Char($file);
-		*/
 		$this->char[$CharNo] = HOF_Model_Char::newCharFromFile($file);
 
-		// キャラが誰のか設定する
 		$this->char[$CharNo]->SetUser($this->id);
 
 		$list = $this->_cache_user_()->data('char_list');
@@ -208,8 +189,6 @@ class HOF_Class_User extends user
 		$list[$CharNo] = $this->char[$CharNo]->name;
 
 		$this->_cache_user_()->data('char_list', $list);
-
-		$this->_cache_user_()->save('char_list');
 
 		return $this->char[$CharNo];
 	}
@@ -222,20 +201,13 @@ class HOF_Class_User extends user
 		// 2重に読むのを防止。
 		if (isset($this->item)) return false;
 
-		list($ok, $file) = $this->_getfilename(USER . $this->id . "/" . ITEM);
+		$file = HOF_Helper_Char::user_file($this, USER_ITEM);
 
-		if ($ok)
+		if (file_exists($file))
 		{
 			$this->fp_item = HOF_Class_File::fplock_file($file);
 
-			if ($ext == '.dat')
-			{
-				$this->item = HOF_Class_File::ParseFileFP($this->fp_item);
-			}
-			else
-			{
-				$this->item = HOF_Class_Yaml::parse(stream_get_contents($this->fp_item));
-			}
+			$this->item = HOF_Class_Yaml::load($this->fp_item);
 
 			if ($this->item === false) $this->item = array();
 		}
@@ -250,14 +222,13 @@ class HOF_Class_User extends user
 	 */
 	function SaveUserItem()
 	{
-		$dir = USER . $this->id;
-
-		if (!file_exists($dir)) return false;
 		if (!is_array($this->item)) return false;
 
-		list($ok, $file) = $this->_getfilename(USER . $this->id . "/" . ITEM);
+		$dir = HOF_Helper_Char::user_path($this);
 
-		list($file_name, $file_ext) = HOF_Class_File::basename($file);
+		if (!is_dir($dir)) return false;
+
+		$file = HOF_Helper_Char::user_file($this, USER_ITEM);
 
 		// アイテムのソート
 		ksort($this->item, SORT_STRING);
@@ -270,18 +241,7 @@ class HOF_Class_User extends user
 			}
 		}
 
-
-		if ($file_ext == '.dat')
-		{
-			foreach ($this->item as $key => $val)
-			{
-				$text .= "$key=$val\n";
-			}
-		}
-		else
-		{
-			$text = HOF_Class_Yaml::dump($this->item);
-		}
+		$text = HOF_Class_Yaml::dump($this->item);
 
 		if (file_exists($file) && $this->fp_item)
 		{
@@ -301,43 +261,18 @@ class HOF_Class_User extends user
 	 */
 	function LoadData($noExit = false)
 	{
-		list($ok, $file) = $this->_getfilename(USER . $this->id . "/" . DATA);
+		$file = HOF_Helper_Char::user_file($this, USER_DATA);
 
-		if ($ok)
+		if (file_exists($file))
 		{
-
-			if (!isset($this->_cache_user_))
-			{
-				$this->_cache_user_ = new HOF_Class_File_Cache(array(
-					'path' => USER . $this->id . "/",
-				));
-			}
+			$this->_cache_user_();
 
 			$this->file = $file;
-
-			list($this->file_name, $this->file_ext) = HOF_Class_File::basename($this->file);
 
 			$this->fp = HOF_Class_File::fplock_file($file, $noExit);
 			if (!$this->fp) return false;
 
-			if ($this->file_ext == '.dat')
-			{
-				$data = HOF_Class_File::ParseFileFP($this->fp);
-			}
-			else
-			{
-				$data = HOF_Class_Yaml::parse(stream_get_contents($this->fp));
-			}
-
-			//$data	= HOF_Class_File::ParseFile($file);// (2007/7/30 追加)
-			/*
-			$Array	= array("party_memo","party_rank");
-			foreach($Array as $val)
-			{
-			if(!$data["$val"]) continue;
-			$data["$val"]	= explode("<>",$data["$val"]);
-			}
-			*/
+			$data = HOF_Class_Yaml::load($this->fp);
 
 			return $data;
 		}
@@ -352,33 +287,18 @@ class HOF_Class_User extends user
 	 */
 	function SaveData()
 	{
-		$dir = USER . $this->id;
-
 		$this->_cache_user_()->__destruct();
 
 		if (file_exists($this->file) && $this->fp)
 		{
-			list($this->file_name, $this->file_ext) = HOF_Class_File::basename($this->file);
-
-			//print("BBB");
-			//ftruncate($this->fp,0);
-			//rewind($this->fp);
-			//$fp	= fopen($file,"w+");
-			//flock($fp,LOCK_EX);
-			//fputs($this->fp,$this->DataSavingFormat());
 			HOF_Class_File::fpwrite_file($this->fp, $this->DataSavingFormat());
+
 			fclose($this->fp);
 			unset($this->fp);
-			//HOF_Class_File::WriteFile("./user/1234/data2.dat",$this->DataSavingFormat());
-			//HOF_Class_File::WriteFile($file,$this->DataSavingFormat());
-			//HOF_Class_File::fpwrite_file($this->fp,$this->DataSavingFormat());
-			//fclose($this->fp);
 		}
 		else
 		{
-			list($ok, $file) = $this->_getfilename(USER . $this->id . "/" . DATA);
-
-			list($this->file_name, $this->file_ext) = HOF_Class_File::basename($file);
+			$file = HOF_Helper_Char::user_file($this, USER_DATA);
 
 			if (file_exists($file)) HOF_Class_File::WriteFile($file, $this->DataSavingFormat());
 		}
@@ -419,37 +339,10 @@ class HOF_Class_User extends user
 		{
 			if (!isset($this->{$k})) continue;
 
-			if ($this->file_ext == '.dat')
-			{
-				$data[$k] = "$k=" . (is_array($this->{$k}) ? implode("<>", $this->{$k}) : $this->{$k});
-			}
-			else
-			{
-				$data[$k] = $this->{$k};
-			}
+			$data[$k] = $this->{$k};
 		}
 
-		if ($this->file_ext == '.dat')
-		{
-			$text = implode("\n", $data);
-		}
-		else
-		{
-			$text = HOF_Class_Yaml::dump($data);
-		}
-
-
-		/*
-		$Save	= get_object_vars($this);
-		unset($Save["char"]);
-		unset($Save["item"]);
-		unset($Save["islogin"]);
-		foreach($Save as $key => $val) {
-		$text	.= "$key=".(is_array($val) ? implode("<>",$val) : $val)."\n";
-		}
-		*/
-
-		//print("<pre>".print_r($AAA,1)."</pre>");
+		$text = HOF_Class_Yaml::dump($data);
 
 		return $text;
 	}
@@ -553,19 +446,87 @@ class HOF_Class_User extends user
 			return $record;
 		}
 
-		if ($this->file_ext == '.dat' && !is_array($this->rank_record))
-		{
-			/*
-			list($record["all"], $record["win"], $record["lose"], $record["defend"], ) = explode("|", $this->rank_record);
-			*/
-			list($record["all"], $record["win"], $record["lose"], $record["defend"], ) = explode("<>", $this->rank_record);
-		}
-		else
-		{
-			$record = $this->rank_record;
-		}
+		$record = $this->rank_record;
 
 		return $record;
+	}
+
+	/**
+	 * キャラデータを消す
+	 */
+	function DeleteChar($no)
+	{
+		$file = HOF_Helper_Char::char_file($no, $this->id);
+
+		if ($this->char[$no])
+		{
+			$this->char[$no]->fpclose();
+		}
+
+		if (file_exists($file)) unlink($file);
+	}
+
+	/**
+	 * キャラクターを所持してる数をかぞえる。
+	 */
+	function CharCount()
+	{
+		$list_char = HOF_Helper_Char::char_list_by_user($this);
+
+		$no = count($list_char);
+
+		return $no;
+	}
+
+	/**
+	 * データファイル兼キャラファイルのファイルポインタも全部閉じる
+	 */
+	function fpclose_all()
+	{
+		// 基本データ
+		HOF_Class_File::fpclose($this->fp);
+			unset($this->fp);
+
+		// アイテムデータ
+		HOF_Class_File::fpclose($this->fp_item);
+			unset($this->fp_item);
+
+
+		// キャラデータ
+
+			foreach ((array)$this->char as $key => $var)
+			{
+				if (method_exists($this->char[$key], "fpclose"))
+				{
+					$this->char[$key]->fpclose();
+				}
+			}
+
+	}
+
+	/**
+	 * ユーザーの削除(全ファイル)
+	 */
+	function DeleteUser($DeleteFromRank = true)
+	{
+		//ランキングからまず消す。
+		if ($DeleteFromRank)
+		{
+			$Ranking = new HOF_Class_Ranking();
+			if ($Ranking->DeleteRank($this->id)) $Ranking->fpsave(1);
+		}
+
+		$this->fpclose_all();
+
+		$dir = HOF_Helper_Char::user_path($this);
+		$files = glob($dir.'*');
+
+		foreach ($files as $val)
+		{
+			unlink($val);
+		}
+
+		rmdir($dir);
 	}
 
 }
