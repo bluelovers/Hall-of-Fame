@@ -46,7 +46,7 @@
 		</div>
 		<form action="?setting" method="post">
 			PassWord :
-			<input type="text" class="text" name="deletepass" size="20">
+			<input type="text" class="text" name="deletepass" size="20" autocomplete="off">
 			<input type="submit" class="btn" name="delete" value="delete" style="width:100px">
 		</form>
 	</div>
