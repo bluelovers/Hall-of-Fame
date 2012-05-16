@@ -1,14 +1,17 @@
 
 	<?php $this->set('npc.talk.title', '墓地') ?>
-	<?php $this->set('npc.talk.no', $this->get('npc_no', 'ori_002')) ?>
+	<?php $this->set('npc.talk.no', 'mon_034') ?>
 	<?php ob_start(); ?>
+		<p class="recover">Here only show deleted user Team ID.</p>
+		<p class="recover">If you are Team ID owner, You can ask the SYSTEM Recovery.</p>
 
 		<?php foreach((array)$this->output->error as $e): ?>
 			<?php HOF_Helper_Global::ShowError($e[0], $e[1]); ?>
 		<?php endforeach; ?>
 
-		<p class="result">Here only show deleted user Team ID.</p>
-		<p class="result">If you are Team ID owner, You can ask the SYSTEM Recovery.</p>
+		<?php foreach((array)$this->output->msg_result as $e): ?>
+			<?php HOF_Helper_Global::ShowResult($e[0], $e[1]); ?>
+		<?php endforeach; ?>
 
 	<?php $content = ob_get_clean(); ?>
 
@@ -40,7 +43,7 @@
 			</table>
 		</form>
 
-		<p>Please choose your Team ID, the Team ID need match User ID</p>
+		<p class="recover">Please choose your Team ID, the Team ID need match User ID</p>
 
 		<ul>
 		<?php foreach ((array)$this->output->list_deleted_name as $id => $name): ?>
