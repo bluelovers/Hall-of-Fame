@@ -55,11 +55,20 @@ class HOF_Class_File_Cache
 			$this->data[$id]['cache_id'] = $id;
 			$this->data[$id]['cache_file'] = $this->filname($id, false);
 
-			if ($this->data[$id]['cache_timestamp'] && REQUEST_TIME >= ($this->data[$id]['cache_timestamp'] + $this->options['timeout']))
+			if ($this->data[$id]['cache_create'] <= 0) $this->data[$id]['cache_create'] = time();
+
+			$this->data[$id]['cache_timeout'] = $this->data[$id]['cache_timeout'] ? min($this->data[$id]['cache_timeout'], $this->options['timeout']) : $this->options['timeout'];
+
+			if ($this->data[$id]['cache_timestamp'] && REQUEST_TIME >= ($this->data[$id]['cache_timestamp'] + $this->data[$id]['cache_timeout']))
 			{
 				$this->data[$id]['data'] = false;
 
 				$this->data[$id]['timeout'] = true;
+
+				if ($this->data[$id]['cache_timeout'] <= 0 || $this->data[$id]['cache_timeout'] == $this->options['timeout'])
+				{
+					unset($this->data[$id]['cache_timeout']);
+				}
 			}
 			else
 			{
@@ -72,6 +81,16 @@ class HOF_Class_File_Cache
 		}
 
 		return $this->data[$id]['data'];
+	}
+
+	function timeout($id, $timeout = 0)
+	{
+		if (!isset($this->data[$id]))
+		{
+			$this->load($id);
+		}
+
+		$this->data[$id]['cache_timeout'] = $timeout;
 	}
 
 	function data($id, $data = null)
