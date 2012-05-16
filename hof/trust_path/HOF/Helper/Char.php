@@ -10,9 +10,54 @@ class HOF_Helper_Char
 
 	const FILE_CHAR = 'char.%s';
 
+	const NAME_MAX = 16;
+	const NAME_MIN = 2;
+	const NAME_MIN_CHAR = 1;
+
+	function _is_id($val)
+	{
+		return (bool)(is_string($val) || is_numeric($val));
+	}
+
+	function char_is_allow_name($name, $type = 0)
+	{
+		$name = stripslashes($name);
+
+		if (preg_match('/([\t\r\n\<\>]+)/', $name))
+		{
+			$name = '';
+
+			return false;
+		}
+
+		$name = preg_replace('/^["\'\s\t\r\n]+|[\s\t\r\n"\']+$/', '', $name);
+		$name = preg_replace('/\s\s+?/', ' ', $name);
+
+		$name = trim($name, '/\\');
+
+		$len = function_exists('mb_strlen') ? mb_strlen($name) : strlen($name);
+
+		$max = self::NAME_MAX;
+		$min = self::NAME_MIN;
+
+		if ($type != 0)
+		{
+			$min = self::NAME_MIN_CHAR;
+		}
+
+		$name = htmlspecialchars($name, ENT_QUOTES);
+
+		if (!empty($name) && $len >= $min && $len <= $max)
+		{
+			return $name;
+		}
+
+		return false;
+	}
+
 	function char_file_name($char)
 	{
-		if ($char && is_string($char))
+		if ($char && self::_is_id($char))
 		{
 			$id = (string )$char;
 		}
@@ -45,7 +90,7 @@ class HOF_Helper_Char
 
 	function user_path($user)
 	{
-		if ($user && is_string($user))
+		if ($user && self::_is_id($user))
 		{
 			$id = (string )$user;
 		}
