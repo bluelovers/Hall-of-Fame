@@ -86,7 +86,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 	function _main_action_delete_my_data()
 	{
-		if (!$this->DeleteMyData())
+		if (!$message = $this->DeleteMyData())
 		{
 			$this->_main_stop(true);
 		}
@@ -290,8 +290,8 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		}
 
 		$this->input->recruit_no = HOF::$input->post->recruit_no;
-		$this->input->team_name = trim(HOF::$input->post->team_name, ENT_QUOTES);
-		$this->input->char_name = trim(HOF::$input->post->char_name, ENT_QUOTES);
+		$this->input->team_name = HOF::$input->post->team_name;
+		$this->input->char_name = HOF::$input->post->char_name;
 
 		$this->input->done = HOF::$input->post->Done;
 
@@ -303,22 +303,6 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		{
 			if (!$this->input->done) break;
 
-			if (is_numeric(strpos($this->input->team_name, "\t")) || is_numeric(strpos($this->input->char_name, "\t")))
-			{
-				$this->_error('error1');
-				break;
-			}
-			if (is_numeric(strpos($this->input->team_name, "\n")) || is_numeric(strpos($this->input->char_name, "\n")))
-			{
-				$this->_error('error');
-				break;
-			}
-
-			$this->input->team_name = stripslashes($this->input->team_name);
-
-			// 最初のキャラの名前
-			$this->input->char_name = stripslashes($this->input->char_name);
-
 			if (!$this->input->team_name)
 			{
 				$this->_error('Name is blank.');
@@ -327,6 +311,14 @@ class HOF_Controller_Game extends HOF_Class_Controller
 			if (!$this->input->char_name)
 			{
 				$this->_error('Character name is blank.');
+			}
+
+			if (!HOF_Helper_Char::char_is_allow_name(&$this->input->team_name) || !HOF_Helper_Char::char_is_allow_name(&$this->input->char_name, 1))
+			{
+				$this->output->team_name = $this->input->team_name;
+				$this->output->char_name = $this->input->char_name;
+
+				$this->_error('Please check input name.');
 			}
 
 			if (!$this->input->recruit_no)
@@ -418,7 +410,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 			unset($_SESSION["id"]);
 			unset($_SESSION["pass"]);
 			setcookie("NO", "");
-			return true;
+			return 'User Deleted.';
 		}
 	}
 
