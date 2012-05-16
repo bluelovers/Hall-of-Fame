@@ -1126,13 +1126,13 @@ HTML_BYEBYE;
 	function ShowMyCharacters($array = NULL)
 	{
 		// $array ← 色々受け取る
-		if (!$this->user->char) return false;
+		if (empty($this->user->char)) return false;
 
 		$divide = (count($this->user->char) < CHAR_ROW ? count($this->user->char) : CHAR_ROW);
 		$width = floor(100 / $divide); //各セル横幅
 
 		$this->output->width = $this->user->width;
-		$this->output->chars = $this->user->char;
+		$this->output->chars = (array)$this->user->char;
 	}
 
 	/**
