@@ -32,7 +32,7 @@ class HOF_Class_File
 	{
 		if (!$notrash && self::trash_mode())
 		{
-			return self::rename($file, BASE_PATH_TRASH . str_replace(BASE_TRUST_PATH, '', $file), true);
+			return self::rename($file, BASE_PATH_TRASH . str_replace(BASE_TRUST_PATH, '', $file), true, true);
 		}
 		else
 		{
@@ -40,7 +40,7 @@ class HOF_Class_File
 		}
 	}
 
-	function rename($from, $to, $force = false)
+	function rename($from, $to, $force = false, $noerror = false)
 	{
 		self::mkdir(dirname($from));
 		self::mkdir(dirname($to));
@@ -53,7 +53,14 @@ class HOF_Class_File
 			}
 			else
 			{
-				unlink($to);
+				if ($noerror)
+				{
+					@unlink($to);
+				}
+				else
+				{
+					unlink($to);
+				}
 			}
 		}
 
@@ -96,7 +103,7 @@ class HOF_Class_File
 
 		if (!$notrash && self::trash_mode())
 		{
-			self::rename($pathname, BASE_PATH_TRASH . str_replace(BASE_TRUST_PATH, '', $pathname), true);
+			self::rename($pathname, BASE_PATH_TRASH . str_replace(BASE_TRUST_PATH, '', $pathname), true, true);
 		}
 		else
 		{
