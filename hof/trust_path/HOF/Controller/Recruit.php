@@ -84,20 +84,12 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 
 				$name = $this->input->recruit_name;
 
-				$name = stripslashes($name);
-
-				$name = preg_replace('/^["\'\s\t\r\n]+|[\s\t\r\n"\']+$/', '', $name);
-				$name = preg_replace('/\s\s+?/', ' ', $name);
-
-				$len = strlen($name);
-
-				if (0 == $len || 16 < $len)
+				if (!HOF_Helper_Char::char_is_allow_name(&$name, 1))
 				{
 					$this->_error("名前が短すぎるか長すぎです", "margin15");
 					return false;
 				}
 
-				$name = htmlspecialchars($name, ENT_QUOTES);
 			}
 			else
 			{
