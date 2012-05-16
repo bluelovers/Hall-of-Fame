@@ -1,3 +1,5 @@
+
+	<?php if ($this->output->chars): ?>
 	<table cellspacing="0" style="width:100%">
 		<tbody>
 			<tr>
@@ -12,3 +14,4 @@
 			</tr>
 		</tbody>
 	</table>
+	<?php endif; ?>
