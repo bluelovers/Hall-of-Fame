@@ -645,7 +645,7 @@ EOD;
 				{
 					$this->_msg_result($this->char->Name() . " から " . $return . " へ改名しました。", "margin15");
 
-					$this->char->ChangeName($return);
+					$this->char->ChangeName($return, true);
 					$this->char->SaveCharData($this->user->id);
 
 					$this->user->SaveUserItem();
