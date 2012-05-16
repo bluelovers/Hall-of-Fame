@@ -195,7 +195,8 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 		if ($this->is_registered($this->input->newid)) return array(false, "This ID has been already used.");
 
-		$file = USER . $this->input->newid . "/" . DATA . '.yml';
+		$file = HOF_Helper_Char::user_file($this->input->newid, USER_DATA);
+
 		// PASS
 		//if(isset($this->input->pass1))
 		//	trim($this->input->pass1);
@@ -214,23 +215,10 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		// MAKE
 		if (!file_exists($file))
 		{
-			mkdir(USER . $this->input->newid, 0705);
-			$this->RecordRegister($this->input->newid); //ID記録
+			$dir = HOF_Helper_Char::user_path($this->input->newid);
 
-			/*
-			$fp = fopen("$file", "w");
-			flock($fp, LOCK_EX);
-			$now = time();
-			fputs($fp, "id=$_POST[Newid]\n");
-			fputs($fp, "pass=$pass\n");
-			fputs($fp, "last=" . $now . "\n");
-			fputs($fp, "login=" . $now . "\n");
-			fputs($fp, "start=" . $now . substr(microtime(), 2, 6) . "\n");
-			fputs($fp, "money=" . START_MONEY . "\n");
-			fputs($fp, "time=" . START_TIME . "\n");
-			fputs($fp, "record_btl_log=1\n");
-			fclose($fp);
-			*/
+			mkdir($dir, 0705);
+			$this->RecordRegister($this->input->newid); //ID記録
 
 			$data = array(
 				'id' => $this->input->newid,
