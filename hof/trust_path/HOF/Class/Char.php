@@ -581,4 +581,20 @@ class HOF_Class_Char extends char
 		return true;
 	}
 
+	/**
+	 * キャラクターを消す
+	 */
+	function DeleteChar()
+	{
+		if (!file_exists($this->file)) return false;
+
+		if ($this->fp)
+		{
+			fclose($this->fp);
+			unset($this->fp);
+		}
+
+		HOF_Class_File::unlink($this->file);
+	}
+
 }
