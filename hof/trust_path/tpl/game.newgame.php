@@ -1,13 +1,22 @@
 
-	<div style="margin:15px">
-		<h4>とりあえず New Game!</h4>
+	<?php $this->set('npc.talk.title', '招待所') ?>
+	<?php $this->set('npc.talk.no', $this->get('npc_no', 'ori_002')) ?>
+	<?php ob_start(); ?>
 
 		<?php foreach((array)$this->output->error as $e): ?>
 			<?php HOF_Helper_Global::ShowError($e[0], $e[1]); ?>
 		<?php endforeach; ?>
 
+		<p><a href="<?php e(INDEX) ?>?show_deleted_user">墓地</a></p>
+
+	<?php $content = ob_get_clean(); ?>
+
+	<?php e($this->slot('layout/npc.talk.1', $content)) ?>
+
+	<div style="margin:15px">
+		<h4>とりあえず New Game!</h4>
 		<?php if (!$this->output->user_full): ?>
-			<form action="<?php e(INDEX) ?>?newgame" method="post">
+			<form action="<?php e(INDEX) ?>?newgame" method="post" autocomplete="off">
 				<table>
 					<tbody>
 						<tr>
@@ -21,7 +30,7 @@
 							<td><div style="text-align:right">
 									ID:
 								</div></td>
-							<td><input type="text" maxlength="16" class="text" name="Newid" style="width:240px" value="<?php e($this->output->newid) ?>"></td>
+							<td><input type="text" maxlength="16" class="text" name="Newid" style="width:240px" value="<?php e($this->output->newid) ?>" autocomplete="off"></td>
 						</tr>
 						<tr>
 							<td colspan="2"><br />
