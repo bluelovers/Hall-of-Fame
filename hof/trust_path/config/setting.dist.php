@@ -114,6 +114,8 @@ define('DATA_CLASSCHANGE', DATA_DIR . 'data.classchange.php');
 
 define('BASE_PATH_CACHE', BASE_TRUST_PATH . 'cache/');
 
+define('BASE_PATH_TRASH', BASE_PATH_CACHE . 'trash/');
+
 define('DAT_DIR', BASE_TRUST_PATH . 'dat/');
 
 define('AUCTION_ITEM', DAT_DIR . 'auction'.BASE_EXT); //アイテムオークション用のファイル
