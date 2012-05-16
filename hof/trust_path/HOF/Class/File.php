@@ -20,7 +20,98 @@ class HOF_Class_File
 
 	public static function mkdir($pathname)
 	{
+		if (is_dir($pathname))
+		{
+			return true;
+		}
+
 		return mkdir($pathname, 0705, true);
+	}
+
+	function rename($from, $to, $force = false)
+	{
+		self::mkdir(dirname($from));
+		self::mkdir(dirname($to));
+
+		if ($force)
+		{
+			if (is_dir($to))
+			{
+				self::rmdir($to, true, true);
+			}
+			else
+			{
+				unlink($to);
+			}
+		}
+
+		return rename($from, $to);
+	}
+
+	public static function trash_mode()
+	{
+		if (defined('BASE_PATH_TRASH'))
+		{
+			return true;
+		}
+	}
+
+	public static function rmdir($pathname, $force = false, $notrash = false)
+	{
+		if (!is_dir($pathname) || strpos($pathname, BASE_TRUST_PATH) !== 0)
+		{
+			throw new RuntimeException('Folder Not Exists: '.$pathname);
+		}
+
+		if ($force && ($notrash || !self::trash_mode()))
+		{
+			foreach (scandir($pathname) as $path)
+			{
+				if ($path == '.' || $path == '..') continue;
+
+				$subpath = $pathname.'/'.$path;
+
+				if (is_dir($subpath))
+				{
+					self::rmdir($subpath, $force);
+				}
+				else
+				{
+					unlink($subpath);
+				}
+			}
+		}
+
+		if (!$notrash && self::trash_mode())
+		{
+			self::rename($pathname, BASE_PATH_TRASH . str_replace(BASE_TRUST_PATH, '', $pathname), true);
+		}
+		else
+		{
+			rmdir($pathname);
+		}
+	}
+
+	function mvdir($path, $path_put)
+	{
+		$path = rtrim($path, '/').'/';
+		$path_put = rtrim($path_put, '/').'/';
+
+		if (!is_dir($path))
+		{
+			throw new RuntimeException('Folder Not Exists: '.$path);
+		}
+
+		self::mkdir($path_put);
+
+		if ($paths = explode('/', rtrim($path, '/')))
+		{
+			$pathname = end($paths);
+
+			rename($path, $path_put.$pathname);
+
+			return true;
+		}
 	}
 
 	static function basename($file)
