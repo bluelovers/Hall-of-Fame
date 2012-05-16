@@ -1,0 +1,13 @@
+#
+#	$HeadURL$
+#	$Revision$
+#	$Author: bluelovers$
+#	$Date$
+#	$Id$
+#
+# 	@author bluelovers
+# 	@copyright 2010
+#
+
+order deny,allow
+deny from all
