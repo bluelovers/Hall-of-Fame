@@ -51,7 +51,10 @@ class HOF_Class_User extends user
 
 	function __destruct()
 	{
-		$this->_cache_user_()->__destruct();
+		if ($this->id)
+		{
+			$this->_cache_user_()->__destruct();
+		}
 
 		$this->fpclose_all();
 
@@ -159,7 +162,7 @@ class HOF_Class_User extends user
 
 	function &_cache_user_()
 	{
-		if (!isset($this->_cache_user_))
+		if ($this->id && !isset($this->_cache_user_))
 		{
 			$this->_cache_user_ = new HOF_Class_File_Cache(array(
 				'path' => HOF_Helper_Char::user_path($this),
@@ -527,6 +530,20 @@ class HOF_Class_User extends user
 		}
 
 		rmdir($dir);
+	}
+
+	/**
+	 * 名前を変える。
+	 */
+	function ChangeName($new)
+	{
+		if ($this->name == $new) return false;
+
+		$this->name = $new;
+
+		HOF_Model_Main::addUserList($this->id, $new);
+
+		return true;
 	}
 
 }
