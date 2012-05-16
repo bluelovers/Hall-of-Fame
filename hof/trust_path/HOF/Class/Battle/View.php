@@ -265,7 +265,7 @@ EOM
 			foreach ($this->battle->team0_item as $itemno => $amount)
 			{
 				$item = HOF_Model_Data::getItemData($itemno);
-				echo("<img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], IMG_ICON. 'item/' ) . "\" class=\"vcent\">");
+				echo("<img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM ) . "\" class=\"vcent\">");
 				echo("{$item[name]} x {$amount}<br />\n");
 			}
 		}
@@ -286,7 +286,7 @@ EOM
 			foreach ($this->battle->team0_item as $itemno => $amount)
 			{
 				$item = HOF_Model_Data::getItemData($itemno);
-				echo("<img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], IMG_ICON. 'item/' ) . "\" class=\"vcent\">");
+				echo("<img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM ) . "\" class=\"vcent\">");
 				echo("{$item[name]} x {$amount}<br />\n");
 			}
 		}
