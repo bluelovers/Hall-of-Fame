@@ -165,9 +165,18 @@ class HOF_Controller_Game extends HOF_Class_Controller
 	 */
 	function is_registered($id)
 	{
-		if ($registered = HOF_Model_Main::getUserList())
+
+		if ($list = HOF_Model_Main::getUserDelList())
 		{
-			if (array_key_exists($id, $registered))
+			if (array_key_exists($id, $list))
+			{
+				return "This ID has been already deleted.\nWait for next time SYSTEM clear it!\nIf you are this ID owner, You can ask the SYSTEM Recovery.";
+			}
+		}
+
+		if ($list = HOF_Model_Main::getUserList())
+		{
+			if (array_key_exists($id, $list))
 			{
 				return true;
 			}
@@ -204,7 +213,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 		$dir = HOF_Helper_Char::user_path($this->input->newid);
 
-		if (is_dir($dir) || $this->is_registered($this->input->newid)) return array(false, "This ID has been already used.");
+		if (is_dir($dir) || $msg = $this->is_registered($this->input->newid)) return array(false, is_string($msg) ? $msg : "This ID has been already used.");
 
 		$file = HOF_Helper_Char::user_file($this->input->newid, USER_DATA);
 
