@@ -41,12 +41,12 @@ class HOF_Helper_Global
 		}
 		elseif (is_array($message))
 		{
-			$message = implode('<p>', $message);
+			$message = implode("\n", $message);
 		}
 
 		if ($message)
 		{
-			print ('<div class="result' . $add . '">' . $message . '</div>' . "\n");
+			print ('<div class="result' . $add . '">' . nl2br($message) . '</div>' . "\n");
 		}
 	}
 
@@ -63,12 +63,12 @@ class HOF_Helper_Global
 		}
 		elseif (is_array($message))
 		{
-			$message = implode('<p>', $message);
+			$message = implode("\n", $message);
 		}
 
 		if ($message)
 		{
-			print ('<div class="error' . $add . '">' . $message . '</div>' . "\n");
+			print ('<div class="error' . $add . '">' . nl2br($message) . '</div>' . "\n");
 		}
 	}
 
