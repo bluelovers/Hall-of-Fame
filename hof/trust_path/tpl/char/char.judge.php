@@ -20,7 +20,7 @@
 								<?php if ($exp["css"]): ?>
 									<optgroup class="select0" label="<?php e($exp['exp']) ?>"></optgroup>
 								<?php else: ?>
-									<option value="<?php e($val) ?>" <?php e($pattern['judge'] == $val ? ' selected' : '') ?> >&nbsp;&nbsp;&nbsp;
+									<option value="<?php e($val) ?>" <?php e($pattern['judge'] == $val ? ' selected="selected"' : '') ?> >&nbsp;&nbsp;&nbsp;
 										<?php e($exp['exp']) ?>
 									</option>
 								<?php endif; ?>
@@ -36,7 +36,7 @@
 							<!-- 技のoption -->
 							<?php foreach ($this->output->char->skill as $val): ?>
 								<?php $skill = HOF_Model_Data::getSkill($val); ?>
-								<option value="<?php e($val) ?>" <?php e($pattern['action'] == $val ? ' selected' : '') ?>" >
+								<option value="<?php e($val) ?>" <?php e($pattern['action'] == $val ? ' selected="selected"' : '') ?> >
 									<?php e($skill["name"]) ?>
 									<?php if(isset($skill["sp"])): ?>
 										- (SP:<?php e($skill["sp"]) ?>)
