@@ -523,9 +523,9 @@ class HOF_Class_User extends user
 
 		$dir = HOF_Helper_Char::user_path($this);
 
-		HOF_Class_File::rmdir($dir, true);
+		HOF_Model_Main::addUserDelList($this->id, $this->name);
 
-		HOF_Model_Main::addUserDelList($this->id);
+		HOF_Class_File::rmdir($dir, true);
 
 		/*
 		$files = glob($dir.'*');
