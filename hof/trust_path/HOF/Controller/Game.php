@@ -165,18 +165,15 @@ class HOF_Controller_Game extends HOF_Class_Controller
 	 */
 	function is_registered($id)
 	{
-		if ($registered = @file(REGISTER))
+		if ($registered = HOF_Model_Main::getUserList())
 		{
-			// 改行記号必須
-			if (array_search($id . "\n", $registered) !== false && !ereg("[\.\/]+", $id))
+			if (array_key_exists($id, $registered))
 			{
 				return true;
 			}
-			else
-			{
-				return false;
-			}
 		}
+
+		return false;
 	}
 
 	/**
@@ -193,13 +190,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		if (strlen($this->input->newid) < 4 || 16 < strlen($this->input->newid)) //文字制限
  				return array(false, "Bad ID");
 
-		if ($this->is_registered($this->input->newid)) return array(false, "This ID has been already used.");
-
-		$file = HOF_Helper_Char::user_file($this->input->newid, USER_DATA);
-
 		// PASS
-		//if(isset($this->input->pass1))
-		//	trim($this->input->pass1);
 		if (empty($this->input->pass1) || empty($this->input->pass2)) return array(false, "Enter both Password.");
 
 		if (!ereg("[0-9a-zA-Z]{4,16}", $this->input->pass1) || ereg("[^0-9a-zA-Z]+", $this->input->pass1)) return array(false, "Bad Password 1");
@@ -211,14 +202,22 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 		if ($this->input->pass1 !== $this->input->pass2) return array(false, "Password dismatch.");
 
+		$dir = HOF_Helper_Char::user_path($this->input->newid);
+
+		if (is_dir($dir) || $this->is_registered($this->input->newid)) return array(false, "This ID has been already used.");
+
+		$file = HOF_Helper_Char::user_file($this->input->newid, USER_DATA);
+
 		$pass = $this->user->CryptPassword($this->input->pass1);
 		// MAKE
-		if (!file_exists($file))
+		if (!file_exists($file) && !is_dir($dir))
 		{
-			$dir = HOF_Helper_Char::user_path($this->input->newid);
-
 			mkdir($dir, 0705);
-			$this->RecordRegister($this->input->newid); //ID記録
+
+			/**
+			 * ID記録
+			 */
+			HOF_Model_Main::addUserList($this->input->newid);
 
 			$data = array(
 				'id' => $this->input->newid,
@@ -239,17 +238,6 @@ class HOF_Controller_Game extends HOF_Class_Controller
 			$success = "ID : {$this->input->newid} success. Try Login";
 			return array(true, $success); //強引...
 		}
-	}
-
-	/**
-	 * $id を登録済みidとして記録する
-	 */
-	function RecordRegister($id)
-	{
-		$fp = fopen(REGISTER, "a");
-		flock($fp, 2);
-		fputs($fp, "$id\n");
-		fclose($fp);
 	}
 
 	/**
@@ -351,7 +339,8 @@ class HOF_Controller_Game extends HOF_Class_Controller
 				break;
 			}
 
-			$userName = userNameLoad();
+			$userName = HOF_Model_Main::getNameList();
+
 			if (in_array($this->input->team_name, $userName))
 			{
 				$this->_error('その名前は使用されています。');
@@ -387,7 +376,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 			$this->user->name = $this->input->team_name;
 
-			userNameAdd($this->user->name);
+			HOF_Model_Main::addUserList($this->user->id, $this->user->name);
 
 			$this->user->SaveData();
 
@@ -462,7 +451,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		$this->input->id = HOF::$input->post->id;
 
 		//session
-		if ($data = $this->user->LoadData())
+		if ($this->user->id && $data = $this->user->LoadData())
 		{
 			//echo "<div>$data[pass] == $this->pass</div>";
 			if ($this->user->pass == NULL) return false;
@@ -561,7 +550,9 @@ class HOF_Controller_Game extends HOF_Class_Controller
 				HOF_Helper_Global::ShowError('1 to 16 letters?');
 				return false;
 			}
-			$userName = userNameLoad();
+
+			$userName = HOF_Model_Main::getNameList();
+
 			if (in_array($NewName, $userName))
 			{
 				HOF_Helper_Global::ShowError("その名前は使用されている。", "margin15");
@@ -574,11 +565,10 @@ class HOF_Controller_Game extends HOF_Class_Controller
 			}
 			$OldName = $this->user->name;
 			$NewName = htmlspecialchars($NewName, ENT_QUOTES);
-			if ($this->user->ChangeName($NewName))
+			if ($this->user->ChangeName($NewName, true))
 			{
 				HOF_Helper_Global::ShowResult("Name Changed ({$OldName} -> {$NewName})", "margin15");
-				//return false;
-				userNameAdd($NewName);
+
 				return true;
 			}
 			else
