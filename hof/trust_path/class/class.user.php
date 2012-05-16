@@ -38,55 +38,11 @@ class user
 	var $fp_item;
 	var $item;
 
-	
-	//	対象のIDのユーザークラスを作成
-	function __construct($id, $noExit = false)
-	{
-		if ($id)
-		{
-			$this->id = $id;
-			if ($data = $this->LoadData($noExit))
-			{
-				$this->DataUpDate($data); //timeとか増やす
-				$this->SetData($data);
-			}
-		}
-	}
-	
 	//	IPを変更
 	function SetIp($ip)
 	{
 		$this->ip = $ip;
 	}
-	
-	//	ユーザデータを読む
-	function LoadData($noExit = false)
-	{
-		$file = USER . $this->id . "/" . DATA;
-		if (file_exists($file))
-		{
-			$this->file = $file;
-			$this->fp = HOF_Class_File::fplock_file($file, $noExit);
-			if (!$this->fp) return false;
-			$data = HOF_Class_File::ParseFileFP($this->fp);
-			//$data	= HOF_Class_File::ParseFile($file);// (2007/7/30 追加)
-			/*
-			$Array	= array("party_memo","party_rank");
-			foreach($Array as $val)
-			{
-			if(!$data["$val"]) continue;
-			$data["$val"]	= explode("<>",$data["$val"]);
-			}
-			*/
-			return $data;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
-
 
 	/**
 	 * 名前を返す
@@ -103,7 +59,7 @@ class user
 			return false;
 		}
 	}
-	
+
 	//	名前を変える
 	function ChangeName($name)
 	{
@@ -113,13 +69,13 @@ class user
 		$this->name = $name;
 		return true;
 	}
-	
+
 	//	Union戦闘した時間をセット
 	function UnionSetTime()
 	{
 		$this->union_btl_time = time();
 	}
-	
+
 	//	UnionBattleができるかどうか確認する。
 	function CanUnionBattle()
 	{
@@ -135,80 +91,13 @@ class user
 		}
 	}
 
-	
-	//	ランキングの成績
-	// side = ("CHALLENGE","DEFEND")
-	function RankRecord($result, $side, $DefendMatch)
-	{
-		$record = $this->RankRecordLoad();
-
-		$record["all"]++;
-		switch (true)
-		{
-				// 引き分け
-				/*
-				case ($result === "d"):
-				if($side != "CHALLENGE" && $DefendMatch)
-				$record["defend"]++;
-				break;
-				*/
-				// 戦闘結果が挑戦者の勝ち
-			case ($result === 0):
-				if ($side == "CHALLENGER")
-				{
-					$record["win"]++;
-				}
-				else
-				{
-					$record["lose"]++;
-				}
-				break;
-				// 戦闘結果が挑戦者の負け
-			case ($result === 1):
-				if ($side == "CHALLENGER")
-				{
-					$record["lose"]++;
-				}
-				else
-				{
-					$record["win"]++;
-					if ($DefendMatch) $record["defend"]++;
-				}
-				break;
-			default: // 引き分け
-				if ($side != "CHALLENGER" && $DefendMatch) $record["defend"]++;
-				break;
-		}
-
-		$this->rank_record = $record["all"] . "|" . $record["win"] . "|" . $record["lose"] . "|" . $record["defend"];
-	}
-	
-	//	ランキング戦の成績を呼び出す
-	function RankRecordLoad()
-	{
-
-		if (!$this->rank_record)
-		{
-			$record = array(
-				"all" => 0,
-				"win" => 0,
-				"lose" => 0,
-				"defend" => 0,
-				);
-			return $record;
-		}
-
-		list($record["all"], $record["win"], $record["lose"], $record["defend"], ) = explode("|", $this->rank_record);
-		return $record;
-	}
-	
 	//	次のランク戦に挑戦できる時間を記録する。
 	function SetRankBattleTime($time)
 	{
 		$this->rank_btl_time = $time;
 	}
 
-	
+
 	//	ランキング挑戦できるか？(無理なら残り時間を返す)
 	function CanRankBattle()
 	{
@@ -235,14 +124,14 @@ class user
 			}
 	}
 
-	
+
 	//	お金を増やす
 	function GetMoney($no)
 	{
 		$this->money += $no;
 	}
 
-	
+
 	//	お金を減らす
 	function TakeMoney($no)
 	{
@@ -257,7 +146,7 @@ class user
 		}
 	}
 
-	
+
 	//	時間を消費する(総消費時間の加算)
 	function WasteTime($time)
 	{
@@ -266,71 +155,7 @@ class user
 		$this->wtime += $time;
 		return true;
 	}
-	
-	//	キャラクターを所持してる数をかぞえる。
-	function CharCount()
-	{
-		$dir = USER . $this->id;
-		$no = 0;
-		foreach (glob("$dir/*") as $adr)
-		{
-			$number = basename($adr, ".dat");
-			if (is_numeric($number))
-			{ //キャラデータファイル
-				$no++;
-			}
-		}
-		return $no;
-	}
-	
-	//	全所持キャラクターをファイルから読んで $this->char に格納
-	function CharDataLoadAll()
-	{
-		$dir = USER . $this->id;
-		$this->char = array(); //配列の初期化だけしておく
-		foreach (glob("$dir/*") as $adr)
-		{
-			//print("substr:".substr($adr,-20,16)."<br>");//確認用
-			//$number	= substr($adr,-20,16);//↓1行と同じ結果
-			$number = basename($adr, ".dat");
-			if (is_numeric($number))
-			{ //キャラデータファイル
-				//$chardata	= HOF_Class_File::ParseFile($adr);// (2007/7/30 $adr -> $fp)
-				//$this->char[$number]	= new HOF_Class_Char($chardata);
 
-				/*
-				$this->char[$number] = new HOF_Class_Char($adr);
-				*/
-				$this->char[$number] = HOF_Model_Char::newCharFromFile($adr);
-
-				$this->char[$number]->SetUser($this->id); //キャラが誰のか設定する
-
-			}
-		}
-	}
-	
-	//	指定の所持キャラクターをファイルから読んで $this->char に格納後 "返す"。
-	function CharDataLoad($CharNo)
-	{
-		// 既に読んでる場合。
-		if ($this->char[$CharNo]) return $this->char[$CharNo];
-		// 読んで無い場合。
-		$file = USER . $this->id . "/" . $CharNo . ".dat";
-		// そんなキャラいない場合。
-		if (!file_exists($file)) return false;
-
-		// 居る場合。
-		//$chardata	= HOF_Class_File::ParseFile($file);
-		//$this->char[$CharNo]	= new HOF_Class_Char($chardata);
-		/*
-		$this->char[$CharNo] = new HOF_Class_Char($file);
-		*/
-		$this->char[$CharNo] = HOF_Model_Char::newCharFromFile($file);
-
-		$this->char[$CharNo]->SetUser($this->id); //キャラが誰のか設定する
-		return $this->char[$CharNo];
-	}
-	
 	//	アイテムを追加
 	function AddItem($no, $amount = false)
 	{
@@ -340,7 +165,7 @@ class user
 		else  $this->item[$no]++;
 	}
 
-	
+
 	//	アイテムを削除
 	function DeleteItem($no, $amount = false)
 	{
@@ -362,167 +187,19 @@ class user
 		return $amount;
 	}
 
-	
-	//	アイテムデータを読む
-	function LoadUserItem()
-	{
-
-		// 2重に読むのを防止。
-		if (isset($this->item)) return false;
-
-		$file = USER . $this->id . "/" . ITEM;
-
-		if (file_exists($file))
-		{
-			$this->fp_item = HOF_Class_File::fplock_file($file);
-			$this->item = HOF_Class_File::ParseFileFP($this->fp_item);
-			if ($this->item === false) $this->item = array();
-		}
-		else
-		{
-			$this->item = array();
-		}
-	}
-
-	
-	//	アイテムデータを保存する
-	function SaveUserItem()
-	{
-		$dir = USER . $this->id;
-		if (!file_exists($dir)) return false;
-
-		$file = USER . $this->id . "/" . ITEM;
-
-		if (!is_array($this->item)) return false;
-
-		// アイテムのソート
-		ksort($this->item, SORT_STRING);
-
-		foreach ($this->item as $key => $val)
-		{
-			$text .= "$key=$val\n";
-		}
-
-		if (file_exists($file) && $this->fp_item)
-		{
-			HOF_Class_File::fpwrite_file($this->fp_item, $text, 1); //$textが空でも保存する
-			fclose($this->fp_item);
-			unset($this->fp_item);
-		}
-		else
-		{
-			// $textが空でも保存する
-			HOF_Class_File::WriteFile($file, $text, 1);
-		}
-	}
-
-	
-	//	データをセットする。
-	//	※?
-	function SetData(&$data)
-	{
-
-		foreach ($data as $key => $val)
-		{
-			$this->{$key} = $val;
-		}
-		/*
-		$this->name	= $data["name"];
-		$this->login	= $data["login"];
-		$this->last	= $data["last"];
-		$this->start	= $data["start"];
-		*/
-	}
-
-	
 	//	パスワードを暗号化する
 	function CryptPassword($pass)
 	{
 		return substr(crypt($pass, CRYPT_KEY), strlen(CRYPT_KEY));
 	}
 
-	
+
 	//	名前を消す
 	function DeleteName()
 	{
 		$this->name = NULL;
 	}
 
-	
-	//	データを保存する
-	function SaveData()
-	{
-		$dir = USER . $this->id;
-		$file = USER . $this->id . "/" . DATA;
-
-		if (file_exists($this->file) && $this->fp)
-		{
-			//print("BBB");
-			//ftruncate($this->fp,0);
-			//rewind($this->fp);
-			//$fp	= fopen($file,"w+");
-			//flock($fp,LOCK_EX);
-			//fputs($this->fp,$this->DataSavingFormat());
-			HOF_Class_File::fpwrite_file($this->fp, $this->DataSavingFormat());
-			fclose($this->fp);
-			unset($this->fp);
-			//HOF_Class_File::WriteFile("./user/1234/data2.dat",$this->DataSavingFormat());
-			//HOF_Class_File::WriteFile($file,$this->DataSavingFormat());
-			//HOF_Class_File::fpwrite_file($this->fp,$this->DataSavingFormat());
-			//fclose($this->fp);
-		}
-		else
-		{
-			if (file_exists($file)) HOF_Class_File::WriteFile($file, $this->DataSavingFormat());
-		}
-	}
-	/////////////////////////////////////////////////
-	//	データファイル兼キャラファイルのファイルポインタも全部閉じる
-	function fpclose_all()
-	{
-		// 基本データ
-		if (@HOF_Class_File::is_resource_file($this->fp))
-		{
-			fclose($this->fp);
-			unset($this->fp);
-		}
-
-		// アイテムデータ
-		if (@HOF_Class_File::is_resource_file($this->fp_item))
-		{
-			fclose($this->fp_item);
-			unset($this->fp_item);
-		}
-
-		// キャラデータ
-		if ($this->char)
-		{
-			foreach ($this->char as $key => $var)
-			{
-				if (method_exists($this->char[$key], "fpclose")) @$this->char[$key]->fpclose();
-			}
-		}
-
-	}
-	
-	//	ユーザーの削除(全ファイル)
-	function DeleteUser($DeleteFromRank = true)
-	{
-		//ランキングからまず消す。
-		if ($DeleteFromRank)
-		{
-			//include_once (CLASS_RANKING);
-			$Ranking = new HOF_Class_Ranking();
-			if ($Ranking->DeleteRank($this->id)) $Ranking->fpsave(1);
-		}
-
-		$dir = USER . $this->id;
-		$files = glob("$dir/*");
-		$this->fpclose_all();
-		foreach ($files as $val) unlink($val);
-		rmdir($dir);
-	}
-	
 	//	放棄されているかどうか確かめる
 	function IsAbandoned()
 	{
@@ -541,21 +218,6 @@ class user
 			return false;
 		}
 	}
-	
-	//	キャラデータを消す
-	function DeleteChar($no)
-	{
-		$file = USER . $this->id . "/" . $no . ".dat";
-		if ($this->char[$no])
-		{
-			$this->char[$no]->fpclose();
-		}
-		if (file_exists($file)) unlink($file);
-	}
-
-	
-	//
-	//function Load
 
 }
 
