@@ -32,7 +32,7 @@
 						<label>
 							<?php $char->ShowImage() ?>
 							<br/>
-							<input type="radio" id="char_<?php e($i); ?>" name="recruit_no" value="<?php e($i); ?>" style="margin:3px"/>
+							<input type="radio" id="char_<?php e($i); ?>" name="recruit_no" value="<?php e($i); ?>" <?php e($this->output->recruit_no == $i ? ' checked="checked"' : '') ?> style="margin:3px"/>
 						</label>
 					</td>
 					<?php endforeach; ?>
