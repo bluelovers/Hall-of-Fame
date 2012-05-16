@@ -114,8 +114,7 @@ class HOF_Class_Char extends char
 
 		if (!$file) return 0;
 
-		list($this->file_name) = HOF_Class_File::basename($file);
-		$this->Number = $this->file_name;
+		$this->Number = HOF_Helper_Char::char_id_by_file($file);
 
 		$this->file = $file;
 		$this->fp = HOF_Class_File::fplock_file($file);
@@ -126,7 +125,7 @@ class HOF_Class_Char extends char
 		}
 		else
 		{
-			$data = HOF_Class_Yaml::parse(stream_get_contents($this->fp));
+			$data = HOF_Class_Yaml::load($this->fp);
 		}
 
 		$this->SetCharData($data);
@@ -144,36 +143,14 @@ class HOF_Class_Char extends char
 	 */
 	function SaveCharData($id = false)
 	{
-		// モンスターは保存しない。
-		//if($this->monster)	return false;
+		$id = $id ? $id : $this->user;
 
-		if ($id)
-		{
-			$dir = USER . $id;
-		}
-		else
-		{
-			if (!$this->user) return false;
-			$dir = USER . $this->user;
-		}
+		$dir = HOF_Helper_Char::user_path($id);
 
 		// ユーザーが存在しない場合保存しない
 		if (!is_dir($dir)) return false;
 
-		if (isset($this->file_name))
-		{
-			$file = $dir . "/" . $this->file_name . BASE_EXT;
-		}
-		elseif (isset($this->file))
-		{
-			list($this->file_name) = HOF_Class_File::basename($this->file);
-
-			$file = $dir . "/" . $this->file_name . BASE_EXT;
-		}
-		else
-		{
-			$file = $dir . "/" . $this->birth . BASE_EXT;
-		}
+		$file = HOF_Helper_Char::char_file($this, $id);
 
 		if (file_exists($file) && $this->fp)
 		{
