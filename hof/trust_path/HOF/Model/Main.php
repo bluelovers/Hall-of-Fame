@@ -209,6 +209,8 @@ class HOF_Model_Main extends HOF_Class_Array
 			}
 		}
 
+		$list['user'] = array();
+
 		$_list_all = HOF_Helper_Char::user_list(true);
 
 		foreach ((array)$_list_all[0] as $user => $path)
@@ -301,6 +303,26 @@ class HOF_Model_Main extends HOF_Class_Array
 		HOF::cache()->timeout('user_list', 600);
 
 		return (array)$list['name'];
+	}
+
+	function getUserDelList()
+	{
+		$list = HOF::cache()->data('user_del');
+
+		return (array)$list['user_del'];
+	}
+
+	function addUserDelList($id)
+	{
+		$list = HOF::cache()->data('user_del');
+
+		$list['user_del'][$id] = time();
+
+		HOF::cache()->data('user_del', $list);
+
+		HOF::cache()->timeout('user_del', 3600 * 12);
+
+		return (array)$list['user_del'];
 	}
 
 	/**
