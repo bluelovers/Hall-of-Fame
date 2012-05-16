@@ -197,6 +197,112 @@ class HOF_Model_Main extends HOF_Class_Array
 		}
 	}
 
+	function getUserList()
+	{
+		$list = array('user' => array(), 'name' => array());
+
+		if ($list = HOF::cache()->data('user_list'))
+		{
+			if ($list['user'])
+			{
+				return $list['user'];
+			}
+		}
+
+		$_list_all = HOF_Helper_Char::user_list(true);
+
+		foreach ((array)$_list_all[0] as $user => $path)
+		{
+			$file = HOF_Helper_Char::user_file($user, USER_DATA);
+
+			if (file_exists($file))
+			{
+				if ($data = HOF_Class_Yaml::load($file))
+				{
+					if ($data['id'] == $user)
+					{
+						$list['user'][$user] = $data['name'] ? $data['name'] : false;
+
+						$list['name'][] = $data['name'];
+
+						continue;
+					}
+				}
+			}
+
+			$_list_all[1][] = $path;
+		}
+
+		$list['user'] = (array)$list['user'];
+		$list['name'] = array_unique((array)$list['name']);
+
+		HOF::cache()->data('user_list', $list);
+
+		foreach ((array)$_list_all[1] as $path)
+		{
+			HOF_Class_File::mvdir($path, BASE_TRUST_PATH.'user_del/');
+		}
+
+		return $list['user'];
+	}
+
+	/**
+	 * $id を登録済みidとして記録する
+	 */
+	function addUserList($id, $name = false)
+	{
+		$list = HOF::cache()->data('user_list');
+
+		if ($id && (!$name || !isset($list['user'][$id])))
+		{
+			$list['user'][$id] = $name;
+		}
+
+		if (!in_array($name, (array)$list['name']))
+		{
+			$list['name'][] = $name;
+		}
+
+		HOF::cache()->data('user_list', $list);
+
+		HOF::cache()->timeout('user_list', 600);
+
+		return (array)$list['user'];
+	}
+
+	function getNameList()
+	{
+		self::getUserList();
+
+		$list = array('user' => array(), 'name' => array());
+
+		if ($list = HOF::cache()->data('user_list'))
+		{
+			if ($list['name'])
+			{
+				return $list['name'];
+			}
+		}
+
+		return array();
+	}
+
+	function addNameList($name)
+	{
+		$list = HOF::cache()->data('user_list');
+
+		if (!in_array($name, (array)$list['name']))
+		{
+			$list['name'][] = $name;
+		}
+
+		HOF::cache()->data('user_list', $list);
+
+		HOF::cache()->timeout('user_list', 600);
+
+		return (array)$list['name'];
+	}
+
 	/**
 	 * HTML終了部分
 	 */
