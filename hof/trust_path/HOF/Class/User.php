@@ -466,7 +466,7 @@ class HOF_Class_User extends user
 			$this->char[$no]->fpclose();
 		}
 
-		if (file_exists($file)) unlink($file);
+		if (file_exists($file)) HOF_Class_File::unlink($file);
 	}
 
 	/**
@@ -522,6 +522,9 @@ class HOF_Class_User extends user
 		$this->fpclose_all();
 
 		$dir = HOF_Helper_Char::user_path($this);
+
+		HOF_Class_File::rmdir($dir, true);
+		/*
 		$files = glob($dir.'*');
 
 		foreach ($files as $val)
@@ -530,6 +533,7 @@ class HOF_Class_User extends user
 		}
 
 		rmdir($dir);
+		*/
 	}
 
 	/**
