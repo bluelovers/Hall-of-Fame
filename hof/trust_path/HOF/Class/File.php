@@ -28,6 +28,18 @@ class HOF_Class_File
 		return mkdir($pathname, 0705, true);
 	}
 
+	function unlink($file, $notrash = false)
+	{
+		if (!$notrash && self::trash_mode())
+		{
+			return self::rename($file, BASE_PATH_TRASH . str_replace(BASE_TRUST_PATH, '', $file), true);
+		}
+		else
+		{
+			return unlink($file);
+		}
+	}
+
 	function rename($from, $to, $force = false)
 	{
 		self::mkdir(dirname($from));
