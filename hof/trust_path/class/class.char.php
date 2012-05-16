@@ -1190,17 +1190,7 @@ Lv.<?=
 	}
 
 
-	//	キャラクターを消す
-	function DeleteChar()
-	{
-		if (!file_exists($this->file)) return false;
-		if ($this->fp)
-		{
-			fclose($this->fp);
-			unset($this->fp);
-		}
-		unlink($this->file);
-	}
+	//
 
 	//	キャラの変数をセットする。
 	function SetCharData(&$data)
