@@ -87,7 +87,7 @@ define('UNION_BATTLE_NEXT', 60 * 20); //Union次の戦闘までの間隔
 define('INDEX', 'index.php');
 
 // CLASS FILE
-define('CLASS_DIR', BASE_TRUST_PATH . './class/');
+define('CLASS_DIR', BASE_TRUST_PATH . 'class/');
 define('BTL_IMG_CSS', CLASS_DIR . 'class.css_btl_image.php'); // CSS表示
 define('CLASS_MAIN', CLASS_DIR . 'class.main.php');
 define('CLASS_USER', CLASS_DIR . 'class.user.php');
@@ -101,10 +101,10 @@ define('CLASS_JS_ITEMLIST', CLASS_DIR . 'class.JS_itemlist.php');
 define('CLASS_SMITHY', CLASS_DIR . 'class.smithy.php');
 define('CLASS_AUCTION', CLASS_DIR . 'class.auction.php');
 define('GLOBAL_PHP', CLASS_DIR . 'global.php');
-define('COLOR_FILE', BASE_TRUST_PATH . '/HOF/Resource/Color.dat');
+define('COLOR_FILE', BASE_TRUST_PATH . 'HOF/Resource/Color.dat');
 
 // DATA FILE
-define('DATA_DIR', CLASS_DIR . './data/');
+define('DATA_DIR', CLASS_DIR . 'data/');
 
 define('DATA_SKILL_TREE', DATA_DIR . 'data.skilltree.php');
 
@@ -114,37 +114,29 @@ define('DATA_CLASSCHANGE', DATA_DIR . 'data.classchange.php');
 
 define('BASE_PATH_CACHE', BASE_TRUST_PATH . 'cache/');
 
-define('DAT_DIR', BASE_TRUST_PATH . './dat/');
+define('DAT_DIR', BASE_TRUST_PATH . 'dat/');
 
-define('AUCTION_ITEM', DAT_DIR . './auction'.BASE_EXT); //アイテムオークション用のファイル
-define('AUCTION_ITEM_LOG', DAT_DIR . './auction_log.dat'); //アイテムオークション用のログファイル
+define('AUCTION_ITEM', DAT_DIR . 'auction'.BASE_EXT); //アイテムオークション用のファイル
+define('AUCTION_ITEM_LOG', DAT_DIR . 'auction_log.dat'); //アイテムオークション用のログファイル
 
-define('REGISTER', DAT_DIR . './register.dat');
-define('UPDATE', DAT_DIR . './update.dat');
-define('CTRL_TIME_FILE', DAT_DIR . './ctrltime.dat'); //定期管理のための時間記憶ファイル
-define('RANKING', DAT_DIR . './ranking'.BASE_EXT);
-define('BBS_BOTTOM', DAT_DIR . './bbs.dat');
-define('BBS_TOWN', DAT_DIR . './bbs_town.dat');
-define('MANAGE_LOG_FILE', DAT_DIR . './managed.dat'); //定期管理記録ファイル
-define('USER_NAME', DAT_DIR . './username.dat'); //名前保存ファイル
+define('REGISTER', DAT_DIR . 'register.dat');
+define('UPDATE', DAT_DIR . 'update.dat');
+define('CTRL_TIME_FILE', DAT_DIR . 'ctrltime.dat'); //定期管理のための時間記憶ファイル
+define('RANKING', DAT_DIR . 'ranking'.BASE_EXT);
+define('BBS_BOTTOM', DAT_DIR . 'bbs.dat');
+define('BBS_TOWN', DAT_DIR . 'bbs_town.dat');
+define('MANAGE_LOG_FILE', DAT_DIR . 'managed.dat'); //定期管理記録ファイル
+define('USER_NAME', DAT_DIR . 'username.dat'); //名前保存ファイル
 
-// dir
-define('IMG_CHAR', './static/image/char/');
-define('IMG_CHAR_REV', './static/image/char_rev/');
-define('IMG_ICON', './static/image/icon/');
-define('IMG_OTHER', './static/image/other/');
-define('USER', BASE_TRUST_PATH . './user/');
-define('UNION', BASE_TRUST_PATH . './union/');
-/*
-define('DATA', 'data.dat');
-define('ITEM', 'item.dat');
-*/
+define('USER', BASE_TRUST_PATH . 'user/');
+define('UNION', BASE_TRUST_PATH . 'union/');
+
 define('DATA', 'data');
 define('ITEM', 'item');
 
-define('LOG_BATTLE_NORMAL', BASE_TRUST_PATH . './log/normal/');
-define('LOG_BATTLE_RANK', BASE_TRUST_PATH . './log/rank/');
-define('LOG_BATTLE_UNION', BASE_TRUST_PATH . './log/union/');
+define('LOG_BATTLE_NORMAL', BASE_TRUST_PATH . 'log/normal/');
+define('LOG_BATTLE_RANK', BASE_TRUST_PATH . 'log/rank/');
+define('LOG_BATTLE_UNION', BASE_TRUST_PATH . 'log/union/');
 
 // 状態定義
 /*
