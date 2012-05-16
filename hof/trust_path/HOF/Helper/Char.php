@@ -79,6 +79,8 @@ class HOF_Helper_Char
 
 		$m = sprintf($m, '([0-9a-zA-Z]+)');
 
+		$path = rtrim($path, '/').'/';
+
 		if (preg_match('/'.$m.'/', $path, $match))
 		{
 			if ($id = $match[1])
@@ -145,19 +147,23 @@ class HOF_Helper_Char
 		return $list;
 	}
 
-	function user_list()
+	function user_list($all = false)
 	{
-		$list = array();
+		$list = array(array(), array());
 
 		foreach(glob(USER . '*', GLOB_ONLYDIR) as $path)
 		{
 			if ($id = self::user_id_by_path($path))
 			{
-				$list[$id] = $path;
+				$list[0][$id] = $path;
+			}
+			else
+			{
+				$list[1][] = $path ;
 			}
 		}
 
-		return $list;
+		return ($all) ? $list : $list[0];
 	}
 
 }
