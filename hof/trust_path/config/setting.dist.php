@@ -16,7 +16,7 @@ define('BASE_EXT', '.yml');
 define('TITLE', 'Hall of Rumor 噂のホール'); //タイトル
 define('MAX_TIME', 1000); //最大Time
 define('TIME_GAIN_DAY', 6000); //1日に回復する総Time
-define('MAX_CHAR', 10); //最大所持キャラ数
+define('MAX_CHAR', 5); //最大所持キャラ数
 define('MAX_USERS', 500); //最大登録者人数
 define('ABANDONED', 60 * 60 * 24 * 14); //ゲームを放棄されたとみなす期間
 define('CONTROL_PERIOD', 60 * 60 * 12); //定期管理の周期
