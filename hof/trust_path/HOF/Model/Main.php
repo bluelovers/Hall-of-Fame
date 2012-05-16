@@ -235,6 +235,12 @@ class HOF_Model_Main extends HOF_Class_Array
 			$_list_all[1][] = $path;
 		}
 
+		$list_del = HOF::cache()->data('user_del');
+		foreach ((array)$list_del['name_del'] as $id => $name)
+		{
+			$list['name'][] = $name;
+		}
+
 		$list['user'] = (array)$list['user'];
 		$list['name'] = array_unique((array)$list['name']);
 
@@ -242,7 +248,7 @@ class HOF_Model_Main extends HOF_Class_Array
 
 		foreach ((array)$_list_all[1] as $path)
 		{
-			HOF_Class_File::mvdir($path, BASE_TRUST_PATH.'user_del/');
+			HOF_Class_File::rmdir($path, true);
 		}
 
 		return $list['user'];
@@ -255,7 +261,7 @@ class HOF_Model_Main extends HOF_Class_Array
 	{
 		$list = HOF::cache()->data('user_list');
 
-		if ($id && (!$name || !isset($list['user'][$id])))
+		if ($id && ($name || !isset($list['user'][$id])))
 		{
 			$list['user'][$id] = $name;
 		}
@@ -312,15 +318,14 @@ class HOF_Model_Main extends HOF_Class_Array
 		return (array)$list['user_del'];
 	}
 
-	function addUserDelList($id)
+	function addUserDelList($id, $name = false)
 	{
 		$list = HOF::cache()->data('user_del');
 
 		$list['user_del'][$id] = time();
+		$list['name_del'][$id] = $name;
 
 		HOF::cache()->data('user_del', $list);
-
-		HOF::cache()->timeout('user_del', 3600 * 12);
 
 		return (array)$list['user_del'];
 	}
