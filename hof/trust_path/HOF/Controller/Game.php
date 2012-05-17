@@ -131,6 +131,131 @@ class HOF_Controller_Game extends HOF_Class_Controller
 	{
 		$list = HOF_Model_Main::getNameDelList();
 
+		$this->error = $this->output->error = array();
+
+		while (HOF::$input->post->show_deleted_user)
+		{
+			$this->input->deleted_id = HOF::$input->post->deleted_id;
+			$this->input->deleted_pass = HOF::$input->post->deleted_pass;
+			$this->input->deleted_team = HOF::$input->post->deleted_team;
+
+			if (empty($this->input->deleted_id) || empty($this->input->deleted_pass))
+			{
+				$this->_error('Pleast Check input field.');
+
+				break;
+			}
+
+			if (empty($this->input->deleted_team))
+			{
+				$this->_error('Please choose Team ID.');
+
+				break;
+			}
+
+			if ($k = array_search($this->input->deleted_team, $list))
+			{
+				if ($k && !empty($list[$k]) && $list[$k] == $this->input->deleted_team)
+				{
+					$file = HOF_Helper_Char::user_file($k, USER_DATA);
+
+					$file = str_replace(BASE_TRUST_PATH, BASE_PATH_TRASH, $file);
+
+					if ($data = HOF_Class_Yaml::load($file))
+					{
+						if (empty($data['id']) || $data['id'] != $k)
+						{
+							$this->_error('Error: '.__LINE__.'.');
+
+							break;
+						}
+
+						if (empty($data['name']) || $data['name'] != $this->input->deleted_team)
+						{
+							$this->_error('Error Team.');
+							break;
+						}
+
+						if (empty($data['pass']) || $data['pass'] != HOF_Class_User::CryptPassword($this->input->deleted_pass))
+						{
+							$this->_error('Error Password.');
+							break;
+						}
+
+						if (empty($this->error))
+						{
+							$path = HOF_Helper_Char::user_path($data['id']);
+
+							$path_trash = str_replace(BASE_TRUST_PATH, BASE_PATH_TRASH, $path);
+
+							if (!is_dir($path_trash) || is_dir($path))
+							{
+								$this->_error("Sorry this ID can't Recover now.\nThe ID already been used now.\nIf you still want to Recover please contact SYSTEM.");
+								break;
+							}
+							else
+							{
+								try
+								{
+									$id = $data['id'];
+									$name = $data['name'];
+
+									HOF_Class_File::rename($path_trash, $path);
+
+									HOF_Model_Main::getUserList();
+
+									$cache_user_list = HOF::cache()->data('user_list');
+									$cache_user_del = HOF::cache()->data('user_del');
+
+									$cache_user_list['user'][$id] = $name;
+									$cache_user_list['name'][] = $name;
+
+									unset($cache_user_del['user_del'][$id]);
+									unset($cache_user_del['name_del'][$id]);
+
+									HOF::cache()->data('user_list', $cache_user_list);
+									HOF::cache()->data('user_del', $cache_user_del);
+
+									$list = (array)$cache_user_del['name_del'];
+
+									$this->output->msg_result[] = array("ID: $id , Recover ok now.\nYou can use this ID login.");
+								}
+								catch (Exception $e)
+								{
+									$this->_error('Error: '.__LINE__.'.');
+									break;
+								}
+							}
+						}
+						else
+						{
+							$this->_error('Error: '.__LINE__.'.');
+							break;
+						}
+					}
+					else
+					{
+						$this->_error('Error: '.__LINE__.'.');
+						break;
+					}
+				}
+				else
+				{
+					$this->_error('Error: '.__LINE__.'.');
+					break;
+				}
+			}
+			else
+			{
+				$this->_error('Please choose Team ID.');
+				break;
+			}
+
+			break;
+		}
+
+		$list = array_filter((array)$list);
+
 		$this->output->list_deleted_name = $list;
 	}
 
