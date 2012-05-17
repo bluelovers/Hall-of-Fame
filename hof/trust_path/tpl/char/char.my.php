@@ -1,5 +1,12 @@
 
 	<?php if ($this->output->chars): ?>
+
+	<div class="margin15">
+		<?php HOF_Class_Char_View::ShowCharacters($this->output->chars) ?>
+	</div>
+
+		<?php if (0): ?>
+
 	<table cellspacing="0" style="width:100%">
 		<tbody>
 			<tr>
@@ -13,5 +20,5 @@
 				<?php endforeach; ?>
 			</tr>
 		</tbody>
-	</table>
+	</table><?php endif; ?>
 	<?php endif; ?>
