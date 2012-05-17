@@ -176,7 +176,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 							break;
 						}
 
-						if (empty($data['pass']) || $data['pass'] != HOF_Class_User::CryptPassword($this->input->deleted_pass))
+						if (empty($data['pass']) || $data['pass'] != HOF_Helper_Char::CryptPassword($this->input->deleted_pass))
 						{
 							$this->_error('Error Password.');
 							break;
@@ -357,7 +357,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 		$file = HOF_Helper_Char::user_file($this->input->newid, USER_DATA);
 
-		$pass = $this->user->CryptPassword($this->input->pass1);
+		$pass = HOF_Helper_Char::CryptPassword($this->input->pass1);
 		// MAKE
 		if (!file_exists($file) && !is_dir($dir))
 		{
@@ -540,7 +540,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 	//	自分のデータとクッキーを消す
 	function DeleteMyData()
 	{
-		if ($this->user->pass == $this->user->CryptPassword($_POST["deletepass"]))
+		if ($this->user->pass == HOF_Helper_Char::CryptPassword($_POST["deletepass"]))
 		{
 			$this->user->DeleteUser();
 			$this->user->name = NULL;
