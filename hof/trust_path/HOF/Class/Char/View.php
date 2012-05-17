@@ -426,11 +426,12 @@ Lv.<?=
 HTML;
 		}
 
-		print ('<table cellspacing="0" style="width:100%"><tbody><tr>'); //横幅100%
+		//print ('<table cellspacing="0" style="width:100%"><tbody><tr>'); //横幅100%
+		print '<div style="text-align: center;">';
 		foreach ($characters as $char)
 		{
-			if ($i % CHAR_ROW == 0 && $i != 0) print ("\t</tr><tr>\n");
-			print ("\t<td valign=\"bottom\" style=\"width:{$width}%\">"); //キャラ数に応じて%で各セル分割
+			//if ($i % CHAR_ROW == 0 && $i != 0) print ("\t</tr><tr>\n");
+			//print ("\t<td valign=\"bottom\" style=\"width:{$width}%\">"); //キャラ数に応じて%で各セル分割
 
 			/*-------------------*/
 			switch (1)
@@ -447,10 +448,11 @@ HTML;
 					$char->ShowCharLink();
 			}
 
-			print ("</td>\n");
+			//print ("</td>\n");
 			$i++;
 		}
-		print ("</tr></tbody></table>");
+		print '<div class="clearfix"></div></div>';
+		//print ("</tr></tbody></table>");
 	}
 
 }
