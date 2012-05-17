@@ -630,7 +630,7 @@ class HOF_Helper_Item extends HOF_Class_Data
 
 
 			// 特殊製作
-			// 日付や時間帯によっても効果かえれるよ gc_date();
+			// 日付や時間帯によっても効果かえれるよ HOF_Helper_Global::gc_date();
 			case X00:
 				if ($item["type2"] == "WEAPON")
 				{
