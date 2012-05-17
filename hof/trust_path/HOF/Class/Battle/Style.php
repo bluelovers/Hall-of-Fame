@@ -329,7 +329,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 		//$this->div++;
 		// 背景を表示 ( 中央表示の為に左にずらす )
 		$margin = (-1) * round($this->data['css']['size_x'] / 2);
-		$this->output .= "<div style=\"position:relative;left:50%;margin-left:{$margin}px;{$this->data['css']['size']}" . $this->det($this->data['bg'], 0, 0) . "\">\n";
+		$this->output .= "<div style=\"/*position:relative;left:50%;margin-left:{$margin}px;*/margin: auto;{$this->data['css']['size']}" . $this->det($this->data['bg'], 0, 0) . "\">\n";
 		$this->div++;
 
 		/*
@@ -389,13 +389,13 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 
 	function _css_filp()
 	{
-		$css = '
+		$css = ';
 		    -moz-transform: scaleX(-1);
 		    -o-transform: scaleX(-1);
 		    -webkit-transform: scaleX(-1);
 		    transform: scaleX(-1);
 		    filter: FlipH;
-		    -ms-filter: "FlipH";
+		    -ms-filter: \'FlipH\';
   		';
 
   		return $css;
