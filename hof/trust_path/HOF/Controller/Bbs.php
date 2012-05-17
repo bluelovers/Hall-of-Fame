@@ -26,7 +26,7 @@ class HOF_Controller_Bbs extends HOF_Class_Controller
 			$name = ($this->name ? "<span class=\"bold\">{$this->name}</span>" : "名無し");
 			$message = $name . " > " . $_POST["message"];
 			if ($this->UserColor) $message = "<span style=\"color:{$this->UserColor}\">" . $message . "</span>";
-			$message .= " <span class=\"light\">(" . gc_date("Mj G:i") . ")</span>\n";
+			$message .= " <span class=\"light\">(" . HOF_Helper_Global::gc_date("Mj G:i") . ")</span>\n";
 
 			array_unshift($log, $message);
 
