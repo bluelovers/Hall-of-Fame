@@ -57,7 +57,7 @@ class HOF_Class_Battle_View
 		}
 
 		echo <<< EOM
-<table style="width:100%;" cellspacing="0">
+<table style="width:100%;" cellspacing="0" class="battle_frame">
 	<tbody>
 		<tr>
 			<td class="teams">
@@ -100,7 +100,7 @@ EOM
 		// 戦闘ステップ順に自動スクロール
 		echo("<a name=\"s" . $this->battle->Scroll . "\"></a>\n");
 		echo("<div style=\"width:100%;hight:100%;position:relative;\">\n");
-		echo('<div style="position:absolute;bottom:0px;right:0px;">' . "\n");
+		echo('<div style="position:absolute;bottom:0px;right:50px;z-index: 100;">' . "\n");
 		if ($this->battle->Scroll) echo("<a href=\"#s" . ($this->battle->Scroll - 1) . "\">&lt;&lt;</a>\n");
 		else  echo("&lt;&lt;");
 		echo("<a href=\"#s" . (++$this->battle->Scroll) . "\">&gt;&gt;</a>\n");
