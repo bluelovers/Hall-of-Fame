@@ -302,29 +302,6 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 			}
 	}
 
-	//	戦闘中のキャラ名,HP,SP を色を分けて表示する
-	//	それ以外にも必要な物があれば表示するようにした。
-	function ShowHpSp()
-	{
-		if ($this->STATE === 1) $sub = " dmg";
-		else
-			if ($this->STATE === 2) $sub = " spdmg";
-		//名前
-		print ("<span class=\"bold{$sub}\">{$this->name}</span>\n");
-		// チャージor詠唱
-		if ($this->expect_type === 0) print ('<span class="charge">(charging)</span>' . "\n");
-		else
-			if ($this->expect_type === 1) print ('<span class="charge">(casting)</span>' . "\n");
-		// HP,SP
-		print ("<div class=\"hpsp\">\n");
-		$sub = $this->STATE === 1 ? "dmg" : "recover";
-		//print("<span class=\"{$sub}\">HP : ????/{$this->MAXHP}</span><br />\n");//HP
-		print ("<span class=\"{$sub}\">HP : ????/????</span><br />\n"); //HP
-		$sub = $this->STATE === 1 ? "dmg" : "support";
-		print ("<span class=\"{$sub}\">SP : ????/????</span>\n");
-		print ("</div>\n"); //SP
-	}
-
 	//	値の変化を表示する(ダメージ受けた時とか)
 	function ShowValueChange()
 	{
@@ -344,20 +321,6 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 	{
 		if (0 < $this->hp) return true;
 		else  return false;
-	}
-
-	//
-	function LoadData($file)
-	{
-		if (!file_exists($file)) return false;
-
-		$this->file = $file;
-		$this->fp = HOF_Class_File::fplock_file($this->file);
-
-		$this->UnionNo = substr(basename($file), 0, 4);
-		$data = HOF_Class_File::ParseFileFP($this->fp);
-		$this->SetCharData($data);
-		return true;
 	}
 
 	function ShowCharLink()
@@ -473,20 +436,6 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 			$this->LastDefeated = time();
 			return true;
 		}
-	}
-
-	//	キャラデータの保存
-	function SaveCharData()
-	{
-		if (!file_exists($this->file)) return false;
-		$string = "MonsterNumber=" . $this->MonsterNumber . "\n";
-		$string .= "LastDefeated=" . $this->LastDefeated . "\n";
-		$string .= "HP=" . $this->HP . "\n";
-		$string .= "SP=" . $this->SP . "\n";
-
-		HOF_Class_File::fpwrite_file($this->fp, $string);
-		fclose($this->fp);
-		unset($this->fp);
 	}
 
 }
