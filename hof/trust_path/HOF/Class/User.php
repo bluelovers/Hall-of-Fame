@@ -5,12 +5,75 @@
  * @copyright 2012
  */
 
-include_once (CLASS_USER);
+//include_once (CLASS_USER);
 
-class HOF_Class_User extends user
+//class HOF_Class_User extends user
+class HOF_Class_User
 {
 
 	protected static $instance_user;
+
+	/**
+	 * ファイルポインタ
+	 */
+	var $fp;
+	var $file;
+
+	var $id, $pass;
+	var $name, $last, $login, $start;
+	var $money;
+	var $char;
+	var $time;
+
+	/**
+	 * 総消費時間
+	 */
+	var $wtime;
+
+	/**
+	 * IPアドレス
+	 */
+	var $ip;
+
+	var $party_memo;
+
+	/**
+	 * ランキング用のパーティ
+	 */
+	var $party_rank;
+
+	/**
+	 * ランキングPT設定した時間
+	 */
+	var $rank_set_time;
+
+	/**
+	 * 次のランク戦に挑戦できる時間
+	 */
+	var $rank_btl_time;
+	/**
+	 * ランキングの成績
+	 * = "総戦闘回数<>勝利数<>敗北数<>引き分け<>首位防衛";
+	 */
+	var $rank_record;
+
+	/**
+	 * 次のUnion戦に挑戦できる時間
+	 */
+	var $union_btl_time;
+
+	/**
+	 * OPTION
+	 */
+	var $record_btl_log;
+	var $no_JS_itemlist;
+	var $UserColor;
+
+	/**
+	 * ユーザーアイテム用の変数
+	 */
+	var $fp_item;
+	var $item;
 
 	/**
 	 * 対象のIDのユーザークラスを作成
@@ -44,7 +107,7 @@ class HOF_Class_User extends user
 
 	function __toString()
 	{
-		$val = (string)$this->id;
+		$val = (string )$this->id;
 
 		return $val;
 	}
@@ -92,7 +155,8 @@ class HOF_Class_User extends user
 				}
 			}
 
-			if (!empty($party)) {
+			if (!empty($party))
+			{
 				return $party;
 			}
 		}
@@ -164,9 +228,7 @@ class HOF_Class_User extends user
 	{
 		if ($this->id && !isset($this->_cache_user_))
 		{
-			$this->_cache_user_ = new HOF_Class_File_Cache(array(
-				'path' => HOF_Helper_Char::user_path($this),
-			));
+			$this->_cache_user_ = new HOF_Class_File_Cache(array('path' => HOF_Helper_Char::user_path($this), ));
 		}
 
 		return $this->_cache_user_;
@@ -236,7 +298,7 @@ class HOF_Class_User extends user
 		// アイテムのソート
 		ksort($this->item, SORT_STRING);
 
-		foreach($this->item = array_filter($this->item) as $k => $v)
+		foreach ($this->item = array_filter($this->item) as $k => $v)
 		{
 			if (!$k || !$v)
 			{
@@ -488,22 +550,22 @@ class HOF_Class_User extends user
 	{
 		// 基本データ
 		HOF_Class_File::fpclose($this->fp);
-			unset($this->fp);
+		unset($this->fp);
 
 		// アイテムデータ
 		HOF_Class_File::fpclose($this->fp_item);
-			unset($this->fp_item);
+		unset($this->fp_item);
 
 
 		// キャラデータ
 
-			foreach ((array)$this->char as $key => $var)
+		foreach ((array )$this->char as $key => $var)
+		{
+			if (method_exists($this->char[$key], "fpclose"))
 			{
-				if (method_exists($this->char[$key], "fpclose"))
-				{
-					$this->char[$key]->fpclose();
-				}
+				$this->char[$key]->fpclose();
 			}
+		}
 
 	}
 
@@ -532,7 +594,7 @@ class HOF_Class_User extends user
 
 		foreach ($files as $val)
 		{
-			unlink($val);
+		unlink($val);
 		}
 
 		rmdir($dir);
@@ -551,6 +613,186 @@ class HOF_Class_User extends user
 		HOF_Model_Main::addUserList($this->id, $new);
 
 		return true;
+	}
+
+	/**
+	 * 放棄されているかどうか確かめる
+	 */
+	function IsAbandoned()
+	{
+		$now = time();
+		// $this->login がおかしければ終了する。
+		if (strlen($this->login) !== 10)
+		{
+			return false;
+		}
+		if (($this->login + ABANDONED) < $now)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * IPを変更
+	 */
+	function SetIp($ip)
+	{
+		$this->ip = $ip;
+	}
+
+	/**
+	 * 名前を返す
+	 */
+	function Name($opt = false)
+	{
+		if ($this->name)
+		{
+			if ($opt) return '<span class="' . $opt . '">' . $this->name . '</span>';
+			else  return $this->name;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	/**
+	 * Union戦闘した時間をセット
+	 */
+	function UnionSetTime()
+	{
+		$this->union_btl_time = time();
+	}
+
+	/**
+	 * UnionBattleができるかどうか確認する。
+	 */
+	function CanUnionBattle()
+	{
+		$Now = time();
+		$Past = $this->union_btl_time + UNION_BATTLE_NEXT;
+		if ($Past <= $Now)
+		{
+			return true;
+		}
+		else
+		{
+			return abs($Now - $Past);
+		}
+	}
+
+	/**
+	 * 次のランク戦に挑戦できる時間を記録する。
+	 */
+	function SetRankBattleTime($time)
+	{
+		$this->rank_btl_time = $time;
+	}
+
+
+	/**
+	 * ランキング挑戦できるか？(無理なら残り時間を返す)
+	 */
+	function CanRankBattle()
+	{
+		$now = time();
+		if ($this->rank_btl_time <= $now)
+		{
+			return true;
+		}
+		else
+			if (!$this->rank_btl_time)
+			{
+				return true;
+			}
+			else
+			{
+				$left = $this->rank_btl_time - $now;
+				$hour = floor($left / 3600);
+				$minutes = floor(($left % 3600) / 60);
+				$seconds = floor(($left % 3600) % 60);
+				return array(
+					$hour,
+					$minutes,
+					$seconds);
+			}
+	}
+
+
+	/**
+	 * お金を増やす
+	 */
+	function GetMoney($no)
+	{
+		$this->money += $no;
+	}
+
+
+	/**
+	 * お金を減らす
+	 */
+	function TakeMoney($no)
+	{
+		if ($this->money < $no)
+		{
+			return false;
+		}
+		else
+		{
+			$this->money -= $no;
+			return true;
+		}
+	}
+
+
+	/**
+	 * 時間を消費する(総消費時間の加算)
+	 */
+	function WasteTime($time)
+	{
+		if ($this->time < $time) return false;
+		$this->time -= $time;
+		$this->wtime += $time;
+		return true;
+	}
+
+	/**
+	 * アイテムを追加
+	 */
+	function AddItem($no, $amount = false)
+	{
+		if (!isset($this->item)) //どうしたもんか…
+ 				$this->LoadUserItem();
+		if ($amount) $this->item[$no] += $amount;
+		else  $this->item[$no]++;
+	}
+
+
+	/**
+	 * アイテムを削除
+	 */
+	function DeleteItem($no, $amount = false)
+	{
+		if (!isset($this->item)) //どうしたもんか…
+ 				$this->LoadUserItem();
+
+		// 減らす数。
+		if ($this->item[$no] < $amount)
+		{
+			$amount = $this->item[$no];
+			if (!$amount) $amount = 0;
+		}
+		if (!is_numeric($amount)) $amount = 1;
+
+		// 減らす。
+		$this->item[$no] -= $amount;
+		if ($this->item[$no] < 1) unset($this->item[$no]);
+
+		return $amount;
 	}
 
 }
