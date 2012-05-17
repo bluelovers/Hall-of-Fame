@@ -14,6 +14,11 @@ class HOF_Class_Base_Extend_Root implements HOF_Class_Base_Extend_RootInterface
 
 	protected $_extends_method_invalids_ = array();
 
+	protected function _extend_init()
+	{
+
+	}
+
 	public function extend_remove($extend, $idx = null)
 	{
 		if (is_object($extend))
