@@ -32,8 +32,6 @@ class HOF_Class_Char_Pattern
 		$this->char = &$char;
 
 		$this->_pattern_options($options);
-
-		$this->cache['init'] = true;
 	}
 
 	function _pattern_options($options = null)
@@ -98,12 +96,12 @@ class HOF_Class_Char_Pattern
 
 	function _pattern_plus(&$pattern_new)
 	{
-		if ($this->cache['init'] && $this->char->monster)
+		if (!$this->cache['init'] && $this->char->monster)
 		{
 			/**
 			 * skill:3040 蘇生
 			 */
-			if (!$this->char->summon)
+			if (!$this->char->summon && !$this->char->Union)
 			{
 				array_splice($pattern_new, 0, 0, array($this->_fix_pattern_item(array(
 						1405,
@@ -188,7 +186,7 @@ class HOF_Class_Char_Pattern
 
 			$this->char->pattern = $pattern_new;
 
-			$this->cache['init'] = false;
+			$this->cache['init'] = true;
 		}
 
 		return $this->char->pattern;
