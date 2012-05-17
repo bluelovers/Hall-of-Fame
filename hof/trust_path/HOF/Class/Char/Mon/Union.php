@@ -10,6 +10,23 @@ require_once (CLASS_UNION);
 class HOF_Class_Char_Mon_Union extends union
 {
 
+	/**
+	 * コンストラクタ
+	 */
+	function __construct($file = false)
+	{
+		$this->_extend_init();
+
+		$this->LoadData($file);
+	}
+
+	function _extend_init()
+	{
+		$this->extend('HOF_Class_Char_Pattern');
+		$this->extend('HOF_Class_Char_View');
+		$this->extend('HOF_Class_Char_Battle');
+	}
+
 	function LoadData($file)
 	{
 		if (!file_exists($file)) return false;
