@@ -86,7 +86,7 @@ class HOF_Controller_Town extends HOF_Class_Controller
 
 			if ($this->UserColor) $message = "<span style=\"color:{$this->UserColor}\">" . $message . "</span>";
 
-			$message .= " <span class=\"light\">(" . gc_date("Mj G:i") . ")</span>";
+			$message .= " <span class=\"light\">(" . HOF_Helper_Global::gc_date("Mj G:i") . ")</span>";
 
 			array_unshift($log, $message);
 			while (50 < count($log)) array_pop($log);
