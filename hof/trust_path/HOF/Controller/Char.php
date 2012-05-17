@@ -149,7 +149,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		$this->ShowTutorial();
 		$this->ShowMyCharacters();
 
-		RegularControl($this->user->id);
+		HOF_Helper_Global::RegularControl($this->user->id);
 	}
 
 	function _main_action_char()
@@ -630,7 +630,7 @@ EOD;
 	function _main_action_NewName()
 	{
 
-		list($result, $return) = CheckString(HOF::$input->post["NewName"], 16);
+		list($result, $return) = HOF_Helper_Global::CheckString(HOF::$input->post["NewName"], 16);
 
 		if ($result === false)
 		{
