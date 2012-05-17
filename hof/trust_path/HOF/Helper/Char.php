@@ -14,6 +14,14 @@ class HOF_Helper_Char
 	const NAME_MIN = 2;
 	const NAME_MIN_CHAR = 1;
 
+	/**
+	 * パスワードを暗号化する
+	 */
+	function CryptPassword($pass)
+	{
+		return substr(crypt($pass, CRYPT_KEY), strlen(CRYPT_KEY));
+	}
+
 	function _is_id($val)
 	{
 		return (bool)(is_string($val) || is_numeric($val));
