@@ -145,7 +145,7 @@ class HOF_Class_Char_Battle
 
 	function DelayValue()
 	{
-		return sqrt(min(99, $this->char->SPD)) + DELAY_BASE;
+		return sqrt($this->char->SPD) + DELAY_BASE;
 	}
 
 	//	行動を遅らせる(Rate)
