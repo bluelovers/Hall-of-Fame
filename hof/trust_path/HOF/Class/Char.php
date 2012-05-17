@@ -6,7 +6,7 @@
  */
 
 //include_once (DATA_BASE_CHAR);
-include_once (CLASS_CHAR);
+require_once (CLASS_CHAR);
 
 class HOF_Class_Char extends char
 {
@@ -43,7 +43,7 @@ class HOF_Class_Char extends char
 
 		if (!$idx) $idx = $class;
 
-		foreach((array)$this->_extends_[$idx]['method'] as $method)
+		foreach ((array )$this->_extends_[$idx]['method'] as $method)
 		{
 			unset($this->_extends_method_[$method]);
 		}
@@ -109,8 +109,7 @@ class HOF_Class_Char extends char
 
 	function __construct($file = false)
 	{
-		$this->extend('HOF_Class_Char_Pattern');
-		$this->extend('HOF_Class_Char_Job');
+		$this->_extend_init();
 
 		if (!$file) return 0;
 
@@ -129,6 +128,14 @@ class HOF_Class_Char extends char
 		}
 
 		$this->SetCharData($data);
+	}
+
+	function _extend_init()
+	{
+		$this->extend('HOF_Class_Char_Pattern');
+		$this->extend('HOF_Class_Char_Job');
+		$this->extend('HOF_Class_Char_View');
+		$this->extend('HOF_Class_Char_Battle');
 	}
 
 	function __destruct()
@@ -235,34 +242,6 @@ class HOF_Class_Char extends char
 		return $text;
 	}
 
-	/**
-	 * 戦闘中のキャラ名,HP,SP を色を分けて表示する
-	 * それ以外にも必要な物があれば表示するようにした。
-	 */
-	function ShowHpSp()
-	{
-		$output = '';
-
-		if ($this->STATE === 1) $sub = " dmg";
-		else
-			if ($this->STATE === 2) $sub = " spdmg";
-		//名前
-		$output .= "<span class=\"bold{$sub}\">{$this->name}</span>\n";
-		// チャージor詠唱
-		if ($this->expect_type === 0) $output .= '<span class="charge">(charging)</span>' . "\n";
-		else
-			if ($this->expect_type === 1) $output .= '<span class="charge">(casting)</span>' . "\n";
-		// HP,SP
-		$output .= "<div class=\"hpsp\">\n";
-		$sub = $this->STATE === 1 ? "dmg" : "recover";
-		$output .= "<span class=\"{$sub}\">HP : {$this->HP}/{$this->MAXHP}</span><br />\n"; //HP
-		$sub = $this->STATE === 1 ? "dmg" : "support";
-		$output .= "<span class=\"{$sub}\">SP : {$this->SP}/{$this->MAXSP}</span>\n";
-		$output .= "</div>\n"; //SP
-
-		return $output;
-	}
-
 	function setTeamObj(&$team)
 	{
 		$this->team_obj = &$team;
@@ -303,7 +282,7 @@ class HOF_Class_Char extends char
 				}
 			}
 
-			return (array)$list;
+			return (array )$list;
 		}
 
 		if (!in_array($spot, self::$map_equip))
@@ -554,7 +533,7 @@ class HOF_Class_Char extends char
 
 		$add .= ' title="' . HOF_Class_Icon::getImage($this->img, $dir, true) . '"';
 
-		$html = '<img src="' . $url . '" '.$add.'>';
+		$html = '<img src="' . $url . '" ' . $add . '>';
 
 		echo $html;
 	}
