@@ -5,7 +5,7 @@
  * @copyright 2012
  */
 
-include_once (CLASS_UNION);
+require_once (CLASS_UNION);
 
 class HOF_Class_Char_Mon_Union extends union
 {
