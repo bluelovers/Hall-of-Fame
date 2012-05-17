@@ -52,6 +52,90 @@ class HOF_Class_Char_Mon_Union extends union
 		return true;
 	}
 
+	//	キャラの変数をセットする。
+	function SetCharData(&$data)
+	{
+		$this->MonsterNumber = $data["MonsterNumber"];
+		$this->LastDefeated = $data["LastDefeated"];
+
+		$monster = HOF_Model_Char::getBaseMonster($this->MonsterNumber);
+
+		$this->UnionName = $monster["UnionName"];
+
+		$this->name = $monster["name"];
+		$this->level = $monster["level"];
+
+		if ($monster["img"]) $this->img = $monster["img"];
+
+		$this->str = $monster["str"];
+		$this->int = $monster["int"];
+		$this->dex = $monster["dex"];
+		$this->spd = $monster["spd"];
+		$this->luk = $monster["luk"];
+
+		$this->maxhp = $monster["maxhp"];
+		$this->hp = $data["HP"];
+		$this->maxsp = $monster["maxsp"];
+		$this->sp = $data["SP"];
+
+		$this->position = $monster["position"];
+		$this->guard = $monster["guard"];
+
+		//モンスター専用
+		$this->monster = true;
+		$this->exphold = $monster["exphold"];
+		$this->moneyhold = $monster["moneyhold"];
+		$this->itemdrop = $monster["itemdrop"];
+		$this->atk = $monster["atk"];
+		$this->def = $monster["def"];
+		$this->SPECIAL = $monster["SPECIAL"];
+
+		$this->Slave = $monster["Slave"];
+		$this->UnionLand = $monster["land"];
+		$this->LevelLimit = $monster["LevelLimit"];
+
+		// 時間が経過して復活する処理。
+		$Now = time();
+		$Passed = $this->LastDefeated + $monster["cycle"];
+		if ($Passed < $Now && !$this->hp)
+		{
+			$this->hp = $this->maxhp;
+			$this->sp = $this->maxsp;
+		}
+		$this->LastHP = $data["HP"]; //差分を取るためのHP。
+
+		$this->pattern = $monster["pattern"];
+
+
+	}
+
+	//	戦闘用の変数
+	function SetBattleVariable($team = false)
+	{
+		// 再読み込みを防止できる か?
+		if (isset($this->IMG)) return false;
+
+		$this->team = $team; //これ必要か?
+		$this->IMG = $this->img;
+		$this->MAXHP = $this->maxhp;
+		$this->HP = $this->hp;
+		$this->MAXSP = $this->maxsp;
+		$this->SP = $this->sp;
+		$this->STR = $this->str + $this->P_STR;
+		$this->INT = $this->int + $this->P_INT;
+		$this->DEX = $this->dex + $this->P_DEX;
+		$this->SPD = $this->spd + $this->P_SPD;
+		$this->LUK = $this->luk + $this->P_LUK;
+		$this->POSITION = $this->position;
+		$this->STATE = STATE_ALIVE; //生存状態にする
+
+		$this->expect = false; //(数値=詠唱中 false=待機中)
+		$this->ActCount = 0; //行動回数
+		$this->JdgCount = array(); //決定した判断の回数
+
+		$this->pattern(HOF_Class_Char_Pattern::CHECK_PATTERN);
+	}
+
 	/**
 	 * キャラデータの保存
 	 */
