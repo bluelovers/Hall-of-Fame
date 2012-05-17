@@ -43,6 +43,11 @@ h4 {
 .carpet_frame {
 	text-align:center;
 	word-break:break-all;
+	min-width: 150px;
+	min-height: 140px;
+	display: inline-block;
+	vertical-align: text-bottom;
+	margin: auto;
 }
 .carpet0 {
 	padding-bottom : 20px;
@@ -59,8 +64,9 @@ h4 {
 	background-repeat : no-repeat;
 }
 div#main_frame {
-	width : 780px;
-	min-width : 780px;
+	max-width : 780px;
+	min-width : 505px;
+	width: auto;
 	position: relative;
 	min-height : 100%;
 	/*margin	: 0 20px 0 40px;
@@ -84,7 +90,7 @@ div#main_frame {
 	background : #202935;
 }
 #contents {
-	padding-bottom:6em;
+	/*padding-bottom:6em;*/
 }
 #title {
 	padding : 15px;
@@ -97,8 +103,8 @@ div#main_frame {
 	border-top : 1px solid #070b0e;
 	text-align : center;
 	color : #5a708f;
-	position: absolute;
-	bottom: 0;
+	/*position: absolute;
+	bottom: 0;*/
 }
 .error {
 	color : red;
@@ -262,7 +268,22 @@ select {
 	display: inline-block;
 }
 
-.g_item .g_name, .g_skill .g_name
+.g_item .g_name, .g_skill .g_name, .land_frame .g_name
 {
 	text-shadow: 0 0 0.2em #8F7;
+}
+
+.land_frame {
+	 display: inline-block;
+	 min-width: 150px;
+}
+
+.land_frame .g_name {
+	 display: block;
+}
+
+.land_frame .land
+{
+	margin: 0px;
+	padding: 0px;
 }
