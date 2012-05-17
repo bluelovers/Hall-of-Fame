@@ -158,37 +158,6 @@ HTML;
 		return $this->result;
 	}
 
-
-	//	戦闘処理(これを実行して戦闘が処理される)
-	function Process()
-	{
-		$this->objs['view']->BattleHeader();
-
-		//戦闘が終わるまで繰り返す
-		do
-		{
-			if ($this->actions % BATTLE_STAT_TURNS == 0) //一定間隔で状況を表示
- 					$this->objs['view']->BattleState(); //状況の表示
-
-			// 行動キャラ
-			if (DELAY_TYPE === 0) $char = &$this->NextActer();
-			else
-				if (DELAY_TYPE === 1) $char = &$this->NextActerNew();
-
-			$this->Action($char); //行動
-			$result = $this->BattleResult(); //↑の行動で戦闘が終了したかどうかの判定
-
-			//技の使用等でSPDが変化した場合DELAYを再計算する。
-			if ($this->ChangeDelay) $this->SetDelay();
-
-		} while (!$result);
-
-		$this->objs['view']->ShowResult($result); //戦闘の結果表示
-		$this->objs['view']->BattleFoot();
-
-		//$this->SaveCharacters();
-	}
-
 	//	戦闘後のキャラクター状況を保存する。
 	function SaveCharacters()
 	{
@@ -203,106 +172,6 @@ HTML;
 			$char->SaveCharData();
 		}
 	}
-
-
-	//	戦闘終了の判定
-	//	全員死んでる=draw(?)
-	function BattleResult()
-	{
-		if (HOF_Class_Battle_Team::CountAlive($this->team0) == 0) //全員しぼーなら負けにする。
- 				$team0Lose = true;
-		if (HOF_Class_Battle_Team::CountAlive($this->team1) == 0) //全員しぼーなら負けにする。
- 				$team1Lose = true;
-
-		//勝者のチーム番号か引き分けを返す
-		if ($team0Lose && $team1Lose)
-		{
-			$this->result = DRAW;
-			return "draw";
-		}
-		else
-			if ($team0Lose)
-			{ //team1 won
-				$this->result = TEAM_1;
-				return "team1";
-			}
-			else
-				if ($team1Lose)
-				{ // team0 won
-					$this->result = TEAM_0;
-					return "team0";
-
-					// 両チーム生存していて最大行動数に達した時。
-				}
-				else
-					if ($this->BattleMaxTurn <= $this->actions)
-					{
-						// 生存者数の差。
-						/*
-						// 生存者数の差が1人以上なら延長
-						$AliveNumDiff	= abs(HOF_Class_Battle_Team::CountAlive($this->team0) - HOF_Class_Battle_Team::CountAlive($this->team1));
-						if(0 < $AliveNumDiff && $this->BattleMaxTurn < BATTLE_MAX_EXTENDS) {
-						*/
-						$AliveNumDiff = abs(HOF_Class_Battle_Team::CountAlive($this->team0) - HOF_Class_Battle_Team::CountAlive($this->team1));
-						$Not5 = (HOF_Class_Battle_Team::CountAlive($this->team0) != 5 && HOF_Class_Battle_Team::CountAlive($this->team1) != 5);
-						//$lessThan4	= ( HOF_Class_Battle_Team::CountAlive($this->team0) < 5 || HOF_Class_Battle_Team::CountAlive($this->team1) < 5 );
-						//if( ( $lessThan4 || 0 < $AliveNumDiff ) && $this->BattleMaxTurn < BATTLE_MAX_EXTENDS ) {
-						if (($Not5 || 0 < $AliveNumDiff) && $this->BattleMaxTurn < BATTLE_MAX_EXTENDS)
-						{
-							if ($this->ExtendTurns(TURN_EXTENDS, 1)) return false;
-						}
-
-						// 決着着かなければただ引き分けにする。
-						if ($this->BattleResultType == 0)
-						{
-							$this->result = DRAW; //引き分け。
-							return "draw";
-							// 決着着かなければ生存者の数で勝敗をつける。
-						}
-						else
-							if ($this->BattleResultType == 1)
-							{
-								// とりあえず引き分けに設定
-								// (1) 生存者数が多いほうが勝ち
-								// (2) (1) が同じなら総ダメージが多いほうが勝ち
-								// (3) (2) でも同じなら引き分け…???(or防衛側の勝ち)
-
-								$team0Alive = HOF_Class_Battle_Team::CountAliveChars($this->team0);
-								$team1Alive = HOF_Class_Battle_Team::CountAliveChars($this->team1);
-								if ($team1Alive < $team0Alive)
-								{ // team0 won
-									$this->result = TEAM_0;
-									return "team0";
-								}
-								else
-									if ($team0Alive < $team1Alive)
-									{ // team1 won
-										$this->result = TEAM_1;
-										return "team1";
-									}
-									else
-									{
-										$this->result = DRAW;
-										return "draw";
-									}
-							}
-							else
-							{
-								$this->result = DRAW;
-								echo("error321708.<br />おかしいので報告してください。");
-								return "draw"; // エラー回避。
-							}
-
-							$this->result = DRAW;
-						echo("error321709.<br />おかしいので報告してください。");
-						return "draw"; // エラー回避。
-					}
-	}
-
-	//
-
-
-	//
 
 	//	総ダメージを加算する
 	function AddTotalDamage($team, $dmg)
@@ -647,7 +516,6 @@ HTML;
 	//	キャラ全員の行動ディレイを初期化(=SPD)
 	function DelayResetAll()
 	{
-		debug($_GET, __LINE__, __METHOD__);
 
 		if (DELAY_TYPE === 0 || DELAY_TYPE === 1)
 		{
