@@ -14,8 +14,6 @@ class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 
 	public static function load($file, $enablePhpParsing = false)
 	{
-		HOF_Class_Yaml::$enablePhpParsing = $enablePhpParsing;
-
 		if (HOF_Class_File::is_resource_file($file) || file_exists($file))
 		{
 			if (HOF_Class_File::is_resource_file($file))
@@ -27,7 +25,12 @@ class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 				$data = $file;
 			}
 
+			$old = HOF_Class_Yaml::$enablePhpParsing;
+			if ($old != $enablePhpParsing) HOF_Class_Yaml::$enablePhpParsing = $enablePhpParsing;
+
 			$yaml = self::parse($data);
+
+			if ($old != HOF_Class_Yaml::$enablePhpParsing) HOF_Class_Yaml::$enablePhpParsing = $old;
 
 			if (self::$auto_addslashes)
 			{
@@ -38,8 +41,6 @@ class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 		{
 			$yaml = false;
 		}
-
-		HOF_Class_Yaml::$enablePhpParsing = false;
 
 		return $yaml;
 	}
