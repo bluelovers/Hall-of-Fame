@@ -334,6 +334,8 @@ class HOF_Model_Main extends HOF_Class_Array
 
 		HOF::cache()->data('user_del', $list);
 
+		HOF::cache()->timeout('user_del', 3600 * 24 * 3);
+
 		return (array)$list['user_del'];
 	}
 
