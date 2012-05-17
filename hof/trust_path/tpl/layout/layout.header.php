@@ -1,4 +1,6 @@
 
+	<meta name="viewport" content="width=505" />
+
 	<title><?= TITLE ?></title>
 
 			<link rel="stylesheet" href="./static/style/basis.css" type="text/css">
