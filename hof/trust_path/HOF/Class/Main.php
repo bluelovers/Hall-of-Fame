@@ -121,7 +121,7 @@ class HOF_Class_Main extends HOF_Class_User
 			$this->pass = $_SESSION["pass"];
 		}
 
-		if ($this->pass) $this->pass = $this->CryptPassword($this->pass);
+		if ($this->pass) $this->pass = HOF_Helper_Char::CryptPassword($this->pass);
 	}
 
 	/**
@@ -134,7 +134,7 @@ class HOF_Class_Main extends HOF_Class_User
 
 		echo "SES[id]:$_SESSION[id]<br>";
 		echo "SES[pass]:$_SESSION[pass]<br>";
-		echo "SES[pass]:" . $this->CryptPassword($_SESSION[pass]) . "(crypted)<br>";
+		echo "SES[pass]:" . HOF_Helper_Char::CryptPassword($_SESSION[pass]) . "(crypted)<br>";
 
 		echo "CK[NO]:$_COOKIE[NO]<br>";
 		echo "SES[NO]:" . session_id();
