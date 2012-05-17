@@ -33,9 +33,16 @@ class HOF_Class_Char_Mon extends HOF_Class_Char
 
 	function __construct($data)
 	{
-		$this->extend('HOF_Class_Char_Pattern');
+		$this->_extend_init();
 
 		$this->SetCharData($data);
+	}
+
+	function _extend_init()
+	{
+		$this->extend('HOF_Class_Char_Pattern');
+		$this->extend('HOF_Class_Char_View');
+		$this->extend('HOF_Class_Char_Battle');
 	}
 
 	/**
