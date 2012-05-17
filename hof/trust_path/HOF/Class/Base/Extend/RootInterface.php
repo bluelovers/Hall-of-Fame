@@ -7,6 +7,7 @@
 
 interface HOF_Class_Base_Extend_RootInterface
 {
+	//function _extend_init();
 
 	public function extend($extend);
 
