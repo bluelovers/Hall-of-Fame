@@ -806,13 +806,13 @@ class HOF_Class_Ranking extends HOF_Class_Base
 			switch ($Place)
 			{
 				case 0:
-					print ('<img src="' . HOF_Class_Icon::getImageUrl('crown01', IMG_ICON) . '" class="vcent" />');
+					print ('<img src="' . HOF_Class_Icon::getImageUrl('crown01', HOF_Class_Icon::IMG_ICON) . '" class="vcent" />');
 					break;
 				case 1:
-					print ('<img src="' . HOF_Class_Icon::getImageUrl('crown02', IMG_ICON) . '" class="vcent" />');
+					print ('<img src="' . HOF_Class_Icon::getImageUrl('crown02', HOF_Class_Icon::IMG_ICON) . '" class="vcent" />');
 					break;
 				case 2:
-					print ('<img src="' . HOF_Class_Icon::getImageUrl('crown03', IMG_ICON) . '" class="vcent" />');
+					print ('<img src="' . HOF_Class_Icon::getImageUrl('crown03', HOF_Class_Icon::IMG_ICON) . '" class="vcent" />');
 					break;
 				default:
 					if ($Place == $LastPlace) print ("底");
