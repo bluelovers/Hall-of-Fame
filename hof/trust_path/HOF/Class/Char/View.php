@@ -28,14 +28,56 @@ class HOF_Class_Char_View
 			 **/
 			print <<< HTML
 <script type="text/javascript">
-<!--
 function toggleCheckBox(id) {
 	\$(':checkbox#box'+id+'').prop('checked', function (index, oldPropertyValue){
 		return !oldPropertyValue;
 	});
 	\$("#text"+id).toggleClass('unselect');
 }
-// -->
+
+(function(\$){
+
+	\$(function(){
+		\$('.carpet_frame')
+			.parents('table:first')
+			.on('change', '.carpet_frame :checkbox, .carpet_frame :radio', function(){
+				var _this = \$(this);
+
+				_this.parents('.carpet_frame:first').find('div[id^="text"]').addClass('unselect');
+
+				if (_this.prop('checked'))
+				{
+					_this.parents('.carpet_frame:first').find('div[id^="text"]').removeClass('unselect');
+				}
+
+			})
+			.find('.carpet_frame div[id^="text"]')
+				.on('click', function(event){
+
+					var _this = \$(this);
+
+					if (!\$(event.target).is(':input'))
+					{
+
+						_this.parent('.carpet_frame:first')
+							.find(':checkbox, :radio')
+							.prop('checked', function(idx, old){
+								return !old;
+							})
+							.trigger('change')
+						;
+
+					}
+
+				})
+			.end()
+			.find(':checkbox, :radio')
+				.trigger('change')
+		;
+	});
+
+})(jQuery);
+
 </script>
 HTML;
 		}
