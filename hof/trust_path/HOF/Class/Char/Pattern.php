@@ -98,6 +98,17 @@ class HOF_Class_Char_Pattern
 	{
 		if (!$this->cache['init'] && $this->char->monster)
 		{
+			$judge_1000 = array();
+
+			$first_v = reset($pattern_new);
+
+			while ($first_v && $first_v['judge'] == 1000)
+			{
+				$judge_1000[] = array_shift($pattern_new);
+
+				$first_v = reset($pattern_new);
+			}
+
 			/**
 			 * skill:3040 蘇生
 			 */
@@ -110,6 +121,11 @@ class HOF_Class_Char_Pattern
 						1940,
 						10,
 						3040))));
+			}
+
+			foreach((array)$judge_1000 as $v)
+			{
+				array_push($pattern_new, $v);
 			}
 
 			//array_push($pattern_new, $this->_fix_pattern_item(array(1001, 0, 1000)));
