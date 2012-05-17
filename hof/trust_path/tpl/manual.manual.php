@@ -534,18 +534,18 @@ HOF_Class_Icon::getImageUrl('mon_012', IMG_CHAR);
 			<img src="<?=
 
 
-HOF_Class_Icon::getImageUrl('crown01', IMG_ICON)
+HOF_Class_Icon::getImageUrl('crown01', HOF_Class_Icon::IMG_ICON)
 
 ?>" class="vcent">1位 1人<br />
 			<img src="<?=
 
-HOF_Class_Icon::getImageUrl('crown02', IMG_ICON)
+HOF_Class_Icon::getImageUrl('crown02', HOF_Class_Icon::IMG_ICON)
 
 
 ?>" class="vcent">2位 2人<br />
 			<img src="<?=
 
-HOF_Class_Icon::getImageUrl('crown03', IMG_ICON)
+HOF_Class_Icon::getImageUrl('crown03', HOF_Class_Icon::IMG_ICON)
 
 
 ?>" class="vcent">3位 3人<br />
