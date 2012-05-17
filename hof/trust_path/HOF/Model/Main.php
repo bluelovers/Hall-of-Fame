@@ -5,7 +5,7 @@
  * @copyright 2012
  */
 
-include_once (GLOBAL_PHP);
+//include_once (GLOBAL_PHP);
 
 class HOF_Model_Main extends HOF_Class_Array
 {
