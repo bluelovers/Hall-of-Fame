@@ -48,6 +48,7 @@ h4 {
 	display: inline-block;
 	vertical-align: text-bottom;
 	margin: auto;
+	overflow: visible;
 }
 .carpet0 {
 	padding-bottom : 20px;
