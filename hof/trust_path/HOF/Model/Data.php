@@ -223,7 +223,7 @@ class HOF_Model_Data extends HOF_Class_Data
 								{
 									$ok = 1;
 
-									if (gc_date($_k) != $_v)
+									if (HOF_Helper_Global::gc_date($_k) != $_v)
 									{
 										$ok = 0;
 										break;
@@ -300,7 +300,7 @@ class HOF_Model_Data extends HOF_Class_Data
 		array_push($list, "des01");
 		}
 
-		if (DEBUG_LANDAPPEAR_ALL || gc_date("H") == 2 && substr(gc_date("i"), 0, 1) == 5) array_push($list, "horh");
+		if (DEBUG_LANDAPPEAR_ALL || HOF_Helper_Global::gc_date("H") == 2 && substr(HOF_Helper_Global::gc_date("i"), 0, 1) == 5) array_push($list, "horh");
 		return $list;
 
 		*/
@@ -936,7 +936,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		fclose($fp);
 
-		$date = gc_date("m/d H:i:s", substr($time, 0, 10));
+		$date = HOF_Helper_Global::gc_date("m/d H:i:s", substr($time, 0, 10));
 		// 勝利チームによって色を分けて表示
 
 		return array(
