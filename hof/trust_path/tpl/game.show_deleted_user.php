@@ -20,35 +20,42 @@
 	<div class="margin15">
 		<h4>Deleted Team</h4>
 
-		<form action="<?php e(INDEX) ?>?show_deleted_user" method="post" style="padding-left:20px" autocomplete="off">
-			<table>
-				<tbody>
-					<tr>
-						<td><div style="text-align:right">
-								Deleted User ID:
-							</div></td>
-						<td><input type="text" maxlength="16" class="text" name="deleted_id" style="width:160px" value="<?php e($this->output->deleted_id) ?>" autocomplete="off"></td>
-					</tr>
-					<tr>
-						<td><div style="text-align:right">
-								PASS:
-							</div></td>
-						<td><input type="password" maxlength="16" class="text" name="deleted_pass" style="width:160px"></td>
-					</tr>
-					<tr>
-						<td></td>
-						<td><input type="submit" class="btn" name="show_deleted_user" value="Recovery" style="width:80px"></td>
-					</tr>
-				</tbody>
-			</table>
-		</form>
+		<?php if ($this->output->list_deleted_name): ?>
 
-		<p class="recover">Please choose your Team ID, the Team ID need match User ID</p>
+			<form action="<?php e(INDEX) ?>?show_deleted_user" method="post" style="padding-left:20px" autocomplete="off">
+				<table>
+					<tbody>
+						<tr>
+							<td><div style="text-align:right">
+									Deleted User ID:
+								</div></td>
+							<td><input type="text" maxlength="16" class="text" name="deleted_id" style="width:160px" value="<?php e($this->output->deleted_id) ?>" autocomplete="off"></td>
+						</tr>
+						<tr>
+							<td><div style="text-align:right">
+									PASS:
+								</div></td>
+							<td><input type="password" maxlength="16" class="text" name="deleted_pass" style="width:160px"></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><input type="submit" class="btn" name="show_deleted_user" value="Recovery" style="width:80px"> &nbsp;<a href="<?php e(INDEX) ?>">Login?</a></td>
+						</tr>
+					</tbody>
+				</table>
 
-		<ul>
-		<?php foreach ((array)$this->output->list_deleted_name as $id => $name): ?>
-			<?php if (empty($name)) continue ; ?>
-			<li class="dmg" style="display: inline-block; width: auto; margin-right: 1em;"><label><input type="radio" /> <?php e($name) ?></label></li>
-		<?php endforeach; ?>
-		</ul>
+				<p class="recover">Please choose your Team ID, the Team ID need match User ID</p>
+
+				<ul>
+				<?php foreach ((array)$this->output->list_deleted_name as $id => $name): ?>
+					<?php if (empty($name)) continue ; ?>
+					<li class="dmg" style="display: inline-block; width: auto; margin-right: 1em;"><label><input type="radio" name="deleted_team" value="<?php e($name) ?>" /> <?php e($name) ?></label></li>
+				<?php endforeach; ?>
+				</ul>
+
+			</form>
+
+		<?php else: ?>
+			<p>No Deleted Team can Recover, or you can contact SYSTEM.</p>
+		<?php endif; ?>
 	</div>
