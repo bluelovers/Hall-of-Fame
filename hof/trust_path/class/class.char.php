@@ -1030,12 +1030,7 @@ class char extends HOF_Class_Char_Base
 ?></a>
 </div>
 
-<div onClick="toggleCheckBox('<?=
-
-		$flag
-
-
-?>')" id="text<?=
+<div id="text<?=
 
 		$flag
 
@@ -1071,12 +1066,7 @@ Lv.<?=
 ?>
 
 </div>
-<input type="checkbox" onclick="\$('#text<?=
-
-		$flag
-
-
-?>').toggleClass('unselect')" id="box<?=
+<input type="checkbox" id="box<?=
 
 		$flag
 
