@@ -177,11 +177,7 @@ class user
 		return $amount;
 	}
 
-	//	パスワードを暗号化する
-	function CryptPassword($pass)
-	{
-		return substr(crypt($pass, CRYPT_KEY), strlen(CRYPT_KEY));
-	}
+	//
 
 
 	//	名前を消す
