@@ -259,7 +259,7 @@ class HOF_Class_File
 		return self::fplock(array($fp, $key), $noExit);
 	}
 
-	function is_resource_file($fp)
+	static function is_resource_file($fp)
 	{
 		if (is_resource($fp))
 		{
