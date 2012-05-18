@@ -1,0 +1,20 @@
+no: 2480
+check:
+    -
+        and:
+            job:
+                - 300
+            skill:
+                - 2100
+    -
+        and:
+            job:
+                - 301
+            skill:
+                - 2100
+    -
+        and:
+            job:
+                - 302
+            skill:
+                - 2100
