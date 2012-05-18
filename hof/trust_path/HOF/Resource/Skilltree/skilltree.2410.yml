@@ -1,0 +1,8 @@
+no: 2410
+check:
+    -
+        and:
+            job:
+                - 402
+            skill:
+                - 2409
