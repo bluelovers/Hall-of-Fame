@@ -14,6 +14,10 @@ class HOF_Class_Base_Extend_Root implements HOF_Class_Base_Extend_RootInterface
 
 	protected $_extends_method_invalids_ = array();
 
+	protected static $_call_no_warning = false;
+
+	protected $_call_work = false;
+
 	protected function _extend_init()
 	{
 
@@ -73,6 +77,8 @@ class HOF_Class_Base_Extend_Root implements HOF_Class_Base_Extend_RootInterface
 
 	public function __call($func, $argv)
 	{
+		$this->_call_work = false;
+
 		if (!empty($this->_extends_method_[$func]))
 		{
 			$idx = $this->_extends_method_[$func];
@@ -88,9 +94,11 @@ class HOF_Class_Base_Extend_Root implements HOF_Class_Base_Extend_RootInterface
 				$this->_extends_[$idx]['callback'][$func] = array(&$this->_extends_[$idx]['obj'], $func);
 			}
 
+			$this->_call_work = true;
+
 			return call_user_func_array($this->_extends_[$idx]['callback'][$func], $argv);
 		}
-		else
+		elseif (!self::$_call_no_warning)
 		{
 			throw new BadMethodCallException('Call to undefined method ' . get_class($this) . '::' . $func . '()');
 		}
