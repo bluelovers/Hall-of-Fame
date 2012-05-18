@@ -7,6 +7,10 @@ if (!defined('DEBUG'))
 
 function LoadSkillTree($char)
 {
+	$o = new HOF_Class_Skill_Tree(&$char);
+
+	return $o->skill_tree();
+
 	/*
 	習得可能な技を返す。
 	*/
