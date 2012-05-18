@@ -1,0 +1,8 @@
+no: 1019
+check:
+    -
+        and:
+            job:
+                - 101
+            skill:
+                - 1016
