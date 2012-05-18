@@ -8,7 +8,7 @@
 //require_once (CLASS_UNION);
 
 //class HOF_Class_Char_Mon_Union extends union
-class HOF_Class_Char_Mon_Union extends HOF_Class_Char
+class HOF_Class_Char_Mon_Union extends HOF_Class_Char_Base
 {
 
 	var $file;
@@ -43,13 +43,6 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 		$this->_extend_init();
 
 		$file && $this->LoadData($file);
-	}
-
-	function _extend_init()
-	{
-		$this->extend('HOF_Class_Char_Pattern');
-		$this->extend('HOF_Class_Char_View');
-		$this->extend('HOF_Class_Char_Battle_Effect');
 	}
 
 	function union_data($over = false)
@@ -92,37 +85,37 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 		$this->no = $data["no"];
 		$this->last_death = $data["last_death"];
 
-		$monster = HOF_Model_Char::getUnionDataMon($this->no);
+		$data_attr = HOF_Model_Char::getUnionDataMon($this->no);
 
 		$this->team_name = $data['data']['team']['name'];
 
-		$this->name = $monster["name"];
-		$this->level = $monster["level"];
+		$this->name = $data_attr["name"];
+		$this->level = $data_attr["level"];
 
 		$this->img = $data["img"];
 
-		$this->str = $monster["str"];
-		$this->int = $monster["int"];
-		$this->dex = $monster["dex"];
-		$this->spd = $monster["spd"];
-		$this->luk = $monster["luk"];
+		$this->str = $data_attr["str"];
+		$this->int = $data_attr["int"];
+		$this->dex = $data_attr["dex"];
+		$this->spd = $data_attr["spd"];
+		$this->luk = $data_attr["luk"];
 
-		$this->maxhp = $monster["maxhp"];
+		$this->maxhp = $data_attr["maxhp"];
 		$this->hp = $data["hp"];
-		$this->maxsp = $monster["maxsp"];
+		$this->maxsp = $data_attr["maxsp"];
 		$this->sp = $data["sp"];
 
-		$this->position = $monster["position"];
-		$this->guard = $monster["guard"];
+		$this->position = $data_attr["position"];
+		$this->guard = $data_attr["guard"];
 
 		//モンスター専用
 		$this->monster = true;
-		$this->exphold = $monster["exphold"];
-		$this->moneyhold = $monster["moneyhold"];
-		$this->itemdrop = $monster["itemdrop"];
-		$this->atk = $monster["atk"];
-		$this->def = $monster["def"];
-		$this->SPECIAL = $monster["SPECIAL"];
+		$this->exphold = $data_attr["exphold"];
+		$this->moneyhold = $data_attr["moneyhold"];
+		$this->itemdrop = $data_attr["itemdrop"];
+		$this->atk = $data_attr["atk"];
+		$this->def = $data_attr["def"];
+		$this->SPECIAL = $data_attr["SPECIAL"];
 
 		$this->servant = $data['data']['team']['servant'];
 		$this->land = $data["land"];
@@ -138,7 +131,7 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 		}
 		$this->LastHP = $data["hp"]; //差分を取るためのHP。
 
-		$this->pattern = $monster["pattern"];
+		$this->pattern = $data_attr["pattern"];
 
 
 	}
