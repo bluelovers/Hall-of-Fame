@@ -45,7 +45,7 @@ servant:
     1033:
         - 100
         - 0
-land: swamp
+land: swamp2
 name: DragonFleets
 lv_limit: '250'
 pattern:
