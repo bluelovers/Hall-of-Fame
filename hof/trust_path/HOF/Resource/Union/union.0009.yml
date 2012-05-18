@@ -1,0 +1,26 @@
+no: '0009'
+name: Specters
+data:
+    team:
+        name: Specters
+        servant:
+            1092:
+                - 100
+                - 0
+            1093:
+                - 100
+                - 0
+            1094:
+                - 100
+                - 0
+    base:
+        type: mon
+        no: '2009'
+    conditions:
+        lv_limit: '150'
+data_ex:
+    name: Specters
+    level: '120'
+    img: mon_238
+    land: build01
+    cycle: 75600
