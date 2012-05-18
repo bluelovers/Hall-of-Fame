@@ -1,0 +1,10 @@
+no: 3415
+check:
+    -
+        and:
+            job:
+                - 301
+    -
+        and:
+            job:
+                - 302
