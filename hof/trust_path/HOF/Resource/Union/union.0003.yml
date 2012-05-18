@@ -13,6 +13,7 @@ data:
             1094:
                 - 100
                 - 0
+        servantAmount: '6'
     base:
         type: mon
         no: '2003'
