@@ -232,6 +232,9 @@ class HOF_Model_Char extends HOF_Class_Data
 
 			if (!file_exists($file))
 			{
+
+				HOF_Class_File::mkdir(dirname($file));
+
 				$union_base = self::getUnionDataBase($no);
 				$union_mon = self::getUnionDataMon($no);
 
