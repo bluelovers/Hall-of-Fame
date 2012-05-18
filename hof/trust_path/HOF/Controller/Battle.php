@@ -46,6 +46,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		$Union = array();
 
+		/*
 		if ($files = HOF_Class_File::glob(UNION))
 		{
 			foreach ($files as $file)
@@ -53,6 +54,13 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 				$UnionMons = HOF_Model_Char::newUnionFromFile($file);
 				if ($UnionMons->is_Alive()) $Union[] = $UnionMons;
 			}
+		}
+		*/
+
+		foreach(HOF_Model_Char::getUnionList() as $no)
+		{
+			$UnionMons = HOF_Model_Char::newUnion($no);
+			if ($UnionMons->is_Alive()) $Union[] = $UnionMons;
 		}
 
 		if ($Union)
@@ -165,10 +173,10 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			exit;
 		}
 
-		$this->_cache['union'] = HOF_Model_Char::newUnionFromFile();
-
 		$this->input->monster_battle = HOF::$input->post->monster_battle;
 		$this->input->union = HOF::$input->request->union;
+
+		$this->_cache['union'] = HOF_Model_Char::newUnion($this->input->union);
 
 		$this->output->land['name'] = 'Union Monster';
 		$this->output['battle.target.from.action'] = INDEX . '?union=' . $_GET["union"];
@@ -177,7 +185,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	function _check_union()
 	{
 		// 倒されているか、存在しない場合。
-		if (!$this->_cache['union']->UnionNumber($this->input->union) || !$this->_cache['union']->is_Alive())
+		if (!$this->_cache['union']->is_Alive())
 		{
 			$this->_error("Defeated or not Exists.");
 			return false;
@@ -213,7 +221,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		$Union = $this->_cache['union'];
 
 		// ユニオンモンスターのデータ
-		$UnionMob = HOF_Model_Char::getBaseMonster($Union->MonsterNumber);
+		$UnionMob = HOF_Model_Char::getUnionDataMon($Union->id());
 		$this->MemorizeParty(); //パーティー記憶
 		// 自分パーティー
 		foreach ($this->user->char as $key => $val)
@@ -225,9 +233,9 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			}
 		}
 		// 合計レベル制限
-		if ($UnionMob["LevelLimit"] < $TotalLevel)
+		if ($Union->lv_limit < $TotalLevel)
 		{
-			$this->_error('合計レベルオーバー(' . $TotalLevel . '/' . $UnionMob["LevelLimit"] . ')', "margin15");
+			$this->_error('合計レベルオーバー(' . $TotalLevel . '/' . $Union->lv_limit . ')', "margin15");
 			return false;
 		}
 		if (count($MyParty) === 0)
@@ -250,11 +258,11 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		// 敵PT数
 
 		// ランダム敵パーティー
-		if ($UnionMob["SlaveAmount"]) $EneNum = $UnionMob["SlaveAmount"] + 1; //PTメンバと同じ数だけ。
+		if ($UnionMob["servantAmount"]) $EneNum = $UnionMob["servantAmount"] + 1; //PTメンバと同じ数だけ。
 		else  $EneNum = 5; // Union含めて5に固定する。
 
-		if ($UnionMob["SlaveSpecify"]) $EnemyParty = $this->EnemyParty($EneNum - 1, $Union->Slave, $UnionMob["SlaveSpecify"]);
-		else  $EnemyParty = $this->EnemyParty($EneNum - 1, $Union->Slave, $UnionMob["SlaveSpecify"]);
+		if ($UnionMob["servantSpecify"]) $EnemyParty = $this->EnemyParty($EneNum - 1, $Union->servant, $UnionMob["servantSpecify"]);
+		else  $EnemyParty = $this->EnemyParty($EneNum - 1, $Union->servant, $UnionMob["servantSpecify"]);
 
 		// unionMobを配列のおよそ中央に入れる
 		$EnemyParty->insert(floor(count($EnemyParty) / 2), array($Union));
@@ -263,9 +271,9 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		$battle = new HOF_Class_Battle($MyParty, $EnemyParty);
 		$battle->SetUnionBattle();
-		$battle->SetBackGround($Union->UnionLand); //背景
+		$battle->SetBackGround($Union->land); //背景
 		//$battle->SetTeamName($this->user->name,"Union:".$Union->Name());
-		$battle->SetTeamName($this->user->name, $UnionMob["UnionName"]);
+		$battle->SetTeamName($this->user->name, $Union->team_name);
 		$battle->Process(); //戦闘開始
 
 		$battle->SaveCharacters(); //キャラデータ保存
