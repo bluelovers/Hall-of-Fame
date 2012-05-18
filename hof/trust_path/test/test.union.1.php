@@ -23,6 +23,16 @@ foreach (HOF_Class_File::glob(UNION) as $file)
 		$data['data']['team']['name'] = $mon['name'];
 		$data['data']['team']['servant'] = $mon["servant"];
 
+		if (isset($mon["servantAmount"]))
+		{
+			$data['data']['team']['servantAmount'] = $mon["servantAmount"];
+		}
+
+		if (isset($mon["servantSpecify"]))
+		{
+			$data['data']['team']['servantSpecify'] = $mon["servantSpecify"];
+		}
+
 		$data['data']['base'] = array(
 			'type' => 'mon',
 			'no' => $_data["MonsterNumber"],
