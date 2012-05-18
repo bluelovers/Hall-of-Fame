@@ -4,6 +4,21 @@ data:
     team:
         name: BlueSentinel
         servant:
+            1067:
+                - 100
+                - 0
+            1068:
+                - 100
+                - 0
+            1069:
+                - 100
+                - 0
+            1070:
+                - 100
+                - 0
+            1071:
+                - 100
+                - 0
             1092:
                 - 100
                 - 0
@@ -21,6 +36,6 @@ data:
 data_ex:
     name: BlueSentinel
     level: '67'
-    img: mon_117r
-    land: ocean
+    img: mon_195r
+    land: ocean1
     cycle: 61200
