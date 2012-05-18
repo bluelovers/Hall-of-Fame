@@ -422,7 +422,7 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 		}
 		else
 		{
-			echo ($char->Name(bold) . " sunk in thought and couldn't act.<br />(No more patterns)<br />\n");
+			echo ($char->Name('bold') . " sunk in thought and couldn't act.<br />(No more patterns)<br />\n");
 			$char->DelayReset();
 		}
 
@@ -933,7 +933,7 @@ HTML;
 			if ($target[$key]->CharJudgeDead())
 			{ //死んだかどうか
 				// 死亡メッセージ
-				echo("<span class=\"dmg\">" . $target[$key]->Name(bold) . " down.</span><br />\n");
+				echo("<span class=\"dmg\">" . $target[$key]->Name('bold') . " down.</span><br />\n");
 
 				//経験値の取得
 				$exp += $target[$key]->DropExp();
