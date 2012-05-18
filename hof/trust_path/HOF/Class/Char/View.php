@@ -455,6 +455,40 @@ HTML;
 		//print ("</tr></tbody></table>");
 	}
 
+	/**
+	 * IMGタグで画像を表示するのみ
+	 */
+	function ShowImage($class = false, $dir = HOF_Class_Icon::IMG_CHAR)
+	{
+		$url = $this->char->getImageUrl($dir);
+
+		$add = '';
+		if ($class) $add .= ' class="' . $class . '"';
+
+		$add .= ' title="' . HOF_Class_Icon::getImage($this->char->img, $dir, true) . '"';
+
+		$html = '<img src="' . $url . '" ' . $add . '>';
+
+		echo $html;
+	}
+
+	/**
+	 * IMGタグで画像を表示するのみ
+	 */
+	function getImageUrl($dir = HOF_Class_Icon::IMG_CHAR)
+	{
+		$ret = HOF_Class_Icon::getImageUrl($this->char->img, $dir);
+
+		return $ret;
+	}
+
+	//	名前を返す
+	function Name($string = false)
+	{
+		if ($string) return "<span class=\"{$string}\">{$this->char->name}</span>";
+		else  return $this->char->name;
+	}
+
 }
 
 
