@@ -26,9 +26,14 @@ class HOF_Class_Char_Battle_Effect
 		if ($this->char->STATE === 1) $sub = " dmg";
 		elseif ($this->char->STATE === 2) $sub = " spdmg";
 
-		//名前
+		/**
+		 * 名前
+		 */
 		$output .= "<span class=\"bold{$sub}\">{$this->char->name}</span>\n";
-		// チャージor詠唱
+
+		/**
+		 * チャージor詠唱
+		 */
 		if ($this->char->expect_type === 0) $output .= '<span class="charge">(charging)</span>' . "\n";
 		elseif ($this->char->expect_type === 1) $output .= '<span class="charge">(casting)</span>' . "\n";
 
@@ -219,14 +224,6 @@ class HOF_Class_Char_Battle_Effect
 		elseif (DELAY_TYPE === 1) $this->char->delay = 100.1;
 	}
 
-	//
-
-
-	//
-
-	//
-
-
 	//	キャラを後衛化させる。
 	function KnockBack($no = 1)
 	{
@@ -237,7 +234,6 @@ class HOF_Class_Char_Battle_Effect
 		}
 	}
 
-	//
 	//	ステータス強化(+)
 	function PlusSTR($no)
 	{
