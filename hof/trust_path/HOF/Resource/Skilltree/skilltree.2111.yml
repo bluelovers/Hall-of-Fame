@@ -1,0 +1,8 @@
+no: 2111
+check:
+    -
+        and:
+            job:
+                - 103
+            skill:
+                - 2090
