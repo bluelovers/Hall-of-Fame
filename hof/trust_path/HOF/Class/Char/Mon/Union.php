@@ -66,7 +66,11 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 
 	function LoadData($file)
 	{
-		if (!file_exists($file)) return false;
+		if (!file_exists($file))
+		{
+			$this->file = null;
+			return false;
+		}
 
 		$this->file = $file;
 		$this->fp = HOF_Class_File::fplock_file($this->file);
