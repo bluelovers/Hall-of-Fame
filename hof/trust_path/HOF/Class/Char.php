@@ -15,7 +15,7 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	// ファイルポインタ
 	var $fp;
 	var $file;
-	var $Number;
+	var $id;
 
 	// 誰のキャラか?
 	var $user;
@@ -69,7 +69,7 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 
 		if (!$file) return 0;
 
-		$this->Number = HOF_Helper_Char::char_id_by_file($file);
+		$this->id = HOF_Helper_Char::char_id_by_file($file);
 
 		$this->file = $file;
 		$this->fp = HOF_Class_File::fplock_file($file);
