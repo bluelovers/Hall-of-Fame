@@ -1,0 +1,26 @@
+no: '0003'
+name: PlundingBandits
+data:
+    team:
+        name: PlundingBandits
+        servant:
+            1092:
+                - 100
+                - 0
+            1093:
+                - 100
+                - 0
+            1094:
+                - 100
+                - 0
+    base:
+        type: mon
+        no: '2003'
+    conditions:
+        lv_limit: '200'
+data_ex:
+    name: PlundingBandits
+    level: '76'
+    img: mon_216
+    land: sand
+    cycle: 36000
