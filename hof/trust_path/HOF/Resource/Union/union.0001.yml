@@ -1,0 +1,23 @@
+no: '0001'
+name: TaurusRush
+data:
+    team:
+        name: TaurusRush
+        servant:
+            1023:
+                - 300
+                - 0
+            1024:
+                - 100
+                - 0
+    base:
+        type: mon
+        no: '2001'
+    conditions:
+        lv_limit: '200'
+data_ex:
+    name: TaurusRush
+    level: '82'
+    img: mon_014
+    land: mount
+    cycle: 28800
