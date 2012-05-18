@@ -95,6 +95,11 @@ class HOF_Class_User
 
 	static function &getInstance($id, $noExit = false)
 	{
+		if ($id === HOF::user()->id)
+		{
+			return HOF::user();
+		}
+
 		if (isset(self::$instance_user[$id]))
 		{
 			return self::$instance_user[$id];
