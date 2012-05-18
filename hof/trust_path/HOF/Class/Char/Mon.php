@@ -42,7 +42,7 @@ class HOF_Class_Char_Mon extends HOF_Class_Char
 	{
 		$this->extend('HOF_Class_Char_Pattern');
 		$this->extend('HOF_Class_Char_View');
-		$this->extend('HOF_Class_Char_Battle');
+		$this->extend('HOF_Class_Char_Battle_Effect');
 	}
 
 	/**
