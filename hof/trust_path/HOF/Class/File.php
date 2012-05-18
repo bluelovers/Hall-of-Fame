@@ -505,4 +505,10 @@ class HOF_Class_File
 		}
 	}
 
+	function fp_get_contents($fp)
+	{
+		rewind($fp);
+		return stream_get_contents($fp);
+	}
+
 }
