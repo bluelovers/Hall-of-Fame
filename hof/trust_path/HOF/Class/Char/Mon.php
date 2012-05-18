@@ -132,9 +132,9 @@ class HOF_Class_Char_Mon extends HOF_Class_Char_Base
 	 */
 	function SetBattleVariable($team = false)
 	{
-		if ($this->_cache_char_['init'][__FUNCTION__]) return false;
+		if ($this->_cache_char_['init'][__FUNCTION__ ]) return false;
 
-		$this->_cache_char_['init'][__FUNCTION__] = true;
+		$this->_cache_char_['init'][__FUNCTION__ ] = true;
 
 		$this->team = $team; //これ必要か?
 
