@@ -94,7 +94,7 @@ class HOF_Class_Main extends HOF_Class_User
 	 */
 	function Set_ID_PASS()
 	{
-		$id = ($_POST["id"]) ? $_POST["id"] : $_GET["id"];
+		$id = HOF::$input->post->id;
 
 		if ($id)
 		{
@@ -110,7 +110,7 @@ class HOF_Class_Main extends HOF_Class_User
 			$this->id = $_SESSION["id"];
 		}
 
-		$pass = ($_POST["pass"]) ? $_POST["pass"] : $_GET["pass"];
+		$pass = HOF::$input->post->pass;
 		//if($_POST["pass"])
 		if ($pass)
 		{
