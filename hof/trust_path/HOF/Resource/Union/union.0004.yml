@@ -37,6 +37,9 @@ data:
             1099:
                 - 100
                 - 0
+        servantAmount: '3'
+        servantSpecify:
+            - 1099
     base:
         type: mon
         no: '2004'
