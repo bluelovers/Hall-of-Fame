@@ -26,10 +26,10 @@ def:
 itemtable: {  }
 SPECIAL:
     PoisonResist: 50
-SlaveSpecify:
+servantSpecify:
     - 1099
-SlaveAmount: '3'
-Slave:
+servantAmount: '3'
+servant:
     1000:
         - 100
         - 0
@@ -64,8 +64,8 @@ Slave:
         - 100
         - 0
 land: grass
-UnionName: Breakfast
-LevelLimit: '50'
+name: Breakfast
+lv_limit: '50'
 cycle: 259200
 pattern:
     -
