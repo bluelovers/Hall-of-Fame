@@ -24,7 +24,7 @@
 						</tr>
 						<tr>
 							<td></td>
-							<td><input type="submit" class="btn" name="Login" value="login" style="width:80px">
+							<td><input type="submit" class="btn" name="login" value="login" style="width:80px">
 								&nbsp;<a href="?newgame">NewGame?</a></td>
 						</tr>
 					</tbody>
