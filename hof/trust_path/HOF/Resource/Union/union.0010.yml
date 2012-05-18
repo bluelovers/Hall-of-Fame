@@ -1,0 +1,26 @@
+no: '0010'
+name: BlueSentinel
+data:
+    team:
+        name: BlueSentinel
+        servant:
+            1092:
+                - 100
+                - 0
+            1093:
+                - 100
+                - 0
+            1094:
+                - 100
+                - 0
+    base:
+        type: mon
+        no: '2010'
+    conditions:
+        lv_limit: '150'
+data_ex:
+    name: BlueSentinel
+    level: '67'
+    img: mon_117r
+    land: ocean
+    cycle: 61200
