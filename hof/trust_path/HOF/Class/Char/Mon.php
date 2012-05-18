@@ -57,14 +57,14 @@ class HOF_Class_Char_Mon extends HOF_Class_Char_Base
 		{
 			// 死亡状態
 			if ($this->summon) return true;
-			if ($mes) print ($this->Name(bold) . ' <span class="recover">revived</span>!<br />' . "\n");
+			if ($mes) print ($this->Name('bold') . ' <span class="recover">revived</span>!<br />' . "\n");
 			$this->STATE = 0;
 			return true;
 		}
 		if ($this->STATE === STATE_POISON)
 		{
 			// 毒状態
-			if ($mes) print ($this->Name(bold) . "'s <span class=\"spdmg\">poison</span> has cured.<br />\n");
+			if ($mes) print ($this->Name('bold') . "'s <span class=\"spdmg\">poison</span> has cured.<br />\n");
 			$this->STATE = 0;
 			return true;
 		}
