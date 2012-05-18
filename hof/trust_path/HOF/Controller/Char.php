@@ -1087,7 +1087,7 @@ HTML_BYEBYE;
 
 		// スキル表示 //////////////////////////////////////
 		//include(DATA_SKILL);//ActionPatternに移動
-		include_once (DATA_SKILL_TREE);
+		//include_once (DATA_SKILL_TREE);
 		if ($this->char->skill)
 		{
 			print ('<div class="u bold">Mastered</div>');
@@ -1103,7 +1103,7 @@ HTML_BYEBYE;
 			print ('<div class="u bold">Learn New</div>');
 			print ("Skill Point : {$this->char->skillpoint}");
 			print ("<table><tbody>");
-			$tree = LoadSkillTree($this->char);
+			$tree = $this->char->skill_tree();
 			foreach (array_diff($tree, $this->char->skill) as $val)
 			{
 				print ("<tr><td>");
