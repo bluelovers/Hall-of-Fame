@@ -2,7 +2,7 @@ no: plund01
 land:
     name: 賊の巣窟
     name0: 'Plunderer''s Nest'
-    land: sand
+    land: sand1
     proper: Lv10-15
 monster:
     1005:
