@@ -1,6 +1,6 @@
 no: 2010
 name: General
-img: mon_117r
+img: mon_195r
 exphold: 5035
 moneyhold: 3357
 level: '67'
@@ -37,7 +37,7 @@ servant:
     1094:
         - 100
         - 0
-land: ocean
+land: ocean1
 name: BlueSentinel
 lv_limit: '150'
 pattern: {  }
