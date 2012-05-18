@@ -1,0 +1,50 @@
+no: '0004'
+name: Breakfast
+data:
+    team:
+        name: Breakfast
+        servant:
+            1000:
+                - 100
+                - 0
+            1001:
+                - 100
+                - 0
+            1002:
+                - 100
+                - 0
+            1003:
+                - 100
+                - 0
+            1004:
+                - 100
+                - 0
+            1005:
+                - 100
+                - 0
+            1006:
+                - 100
+                - 0
+            1007:
+                - 100
+                - 0
+            1008:
+                - 100
+                - 0
+            1009:
+                - 100
+                - 0
+            1099:
+                - 100
+                - 0
+    base:
+        type: mon
+        no: '2004'
+    conditions:
+        lv_limit: '50'
+data_ex:
+    name: Breakfast
+    level: '30'
+    img: mon_054rz
+    land: grass
+    cycle: 259200
