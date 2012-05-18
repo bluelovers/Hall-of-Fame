@@ -1,0 +1,14 @@
+no: 3215
+check:
+    -
+        and:
+            job:
+                - 103
+            skill:
+                - 3231
+    -
+        and:
+            job:
+                - 203
+            skill:
+                - 2030
