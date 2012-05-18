@@ -12,16 +12,16 @@
 			雇った時点で、そこそこ戦えるように設定してあります。</p>
 		<img src="<?=
 
-HOF_Class_Icon::getImageUrl('mon_079', IMG_CHAR_REV)
+HOF_Class_Icon::getImageUrl('mon_079', HOF_Class_Icon::IMG_CHAR_REV)
 
 ?>" alt="守る人" /> <img src="<?=
 
 
-HOF_Class_Icon::getImageUrl('mon_018', IMG_CHAR_REV);
+HOF_Class_Icon::getImageUrl('mon_018', HOF_Class_Icon::IMG_CHAR_REV);
 
 ?>" alt="痛い攻撃する人" /> <img src="<?=
 
-HOF_Class_Icon::getImageUrl('mon_214', IMG_CHAR_REV)
+HOF_Class_Icon::getImageUrl('mon_214', HOF_Class_Icon::IMG_CHAR_REV)
 
 ?>" alt="治す人" />
 		<p>ではさっそく、戦闘です。<br />
