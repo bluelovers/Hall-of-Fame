@@ -5,7 +5,7 @@
  * @copyright 2012
  */
 
-class HOF_Class_Char_Battle
+class HOF_Class_Char_Battle_Effect
 {
 
 	protected $chat;
@@ -24,14 +24,14 @@ class HOF_Class_Char_Battle
 		$output = '';
 
 		if ($this->char->STATE === 1) $sub = " dmg";
-		else
-			if ($this->char->STATE === 2) $sub = " spdmg";
+		elseif ($this->char->STATE === 2) $sub = " spdmg";
+
 		//名前
 		$output .= "<span class=\"bold{$sub}\">{$this->char->name}</span>\n";
 		// チャージor詠唱
 		if ($this->char->expect_type === 0) $output .= '<span class="charge">(charging)</span>' . "\n";
-		else
-			if ($this->char->expect_type === 1) $output .= '<span class="charge">(casting)</span>' . "\n";
+		elseif ($this->char->expect_type === 1) $output .= '<span class="charge">(casting)</span>' . "\n";
+
 		// HP,SP
 		$output .= "<div class=\"hpsp\">\n";
 		$sub = $this->char->STATE === 1 ? "dmg" : "recover";
@@ -118,8 +118,7 @@ class HOF_Class_Char_Battle
 		{
 			$this->char->delay = $this->char->SPD;
 		}
-		else
-			if (DELAY_TYPE === 1)
+		elseif (DELAY_TYPE === 1)
 			{
 				$this->char->delay = 0;
 			}
@@ -135,8 +134,7 @@ class HOF_Class_Char_Battle
 		{
 			$this->char->delay += $no;
 		}
-		else
-			if (DELAY_TYPE === 1)
+		elseif (DELAY_TYPE === 1)
 			{
 				$this->char->delay += $no * $this->char->DelayValue();
 				//print("DELAY".$this->char->delay."<br />\n");
@@ -165,8 +163,7 @@ class HOF_Class_Char_Battle
 				print (sprintf("%0.1f", $this->char->delay) . "/" . sprintf("%0.1f", $BaseDelay) . ")");
 			}
 		}
-		else
-			if (DELAY_TYPE === 1)
+		elseif (DELAY_TYPE === 1)
 			{
 				if ($Show)
 				{
@@ -199,8 +196,7 @@ class HOF_Class_Char_Battle
 				print (sprintf("%0.1f", $this->char->delay) . "/" . sprintf("%0.1f", $BaseDelay) . ")");
 			}
 		}
-		else
-			if (DELAY_TYPE === 1)
+		elseif (DELAY_TYPE === 1)
 			{
 				$Delay = (100 - $this->char->delay) * ($No / 100); //早まらせる間隔
 				if ($Show)
@@ -220,8 +216,7 @@ class HOF_Class_Char_Battle
 	function Quick($delay)
 	{
 		if (DELAY_TYPE === 0) $this->char->delay = $delay;
-		else
-			if (DELAY_TYPE === 1) $this->char->delay = 100.1;
+		elseif (DELAY_TYPE === 1) $this->char->delay = 100.1;
 	}
 
 	//
@@ -485,13 +480,15 @@ class HOF_Class_Char_Battle
 	{
 		if ($this->char->STATE === STATE_ALIVE) return true;
 		if ($this->char->STATE === STATE_DEAD)
-		{ //死亡状態
+		{
+			//死亡状態
 			if ($mes) print ($this->char->Name(bold) . ' <span class="recover">revived</span>!<br />' . "\n");
 			$this->char->STATE = 0;
 			return true;
 		}
 		if ($this->char->STATE === STATE_POISON)
-		{ //毒状態
+		{
+			//毒状態
 			if ($mes) print ($this->char->Name(bold) . "'s <span class=\"spdmg\">poison</span> has cured.<br />\n");
 			$this->char->STATE = 0;
 			return true;
