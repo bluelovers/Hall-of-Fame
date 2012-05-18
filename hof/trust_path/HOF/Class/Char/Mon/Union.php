@@ -58,7 +58,7 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 		{
 			$data = HOF_Class_Yaml::load($this->fp);
 
-			$this->_source_union_data_ = $data;
+			$this->_source_union_data_ = new HOF_Class_Array($data);
 		}
 
 		return $this->_source_union_data_;
@@ -326,15 +326,12 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 
 	function ShowCharLink()
 	{
-		// <div class="land_<*=$this->UnionLand*>">
-
-
 
 ?>
 	<div class="carpet_frame">
 	<div class="land" style="background-image : url(<?=
 
-		HOF_Class_Icon::getImageUrl("land_" . $this->land, HOF_Class_Icon::IMG_LAND)
+		HOF_Class_Icon::getImageUrl("land_" . $this->union_data()->land, HOF_Class_Icon::IMG_LAND)
 
 
 ?>);">
@@ -349,17 +346,8 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 
 
 ?></a></div>
-	<div class="bold dmg"><?=
-
-		$this->name
-
-
-?></div>LvLimit:<?=
-
-		$this->lv_limit
-
-
-?>
+	<div class="bold dmg"><?php e($this->union_data()->data['team']['name']) ?></div>
+	LvLimit:<?php e($this->union_data()->data['conditions']['lv_limit']) ?>
 	</div><?php
 
 	}
