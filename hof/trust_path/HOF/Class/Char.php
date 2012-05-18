@@ -12,56 +12,26 @@
 class HOF_Class_Char extends HOF_Class_Char_Base
 {
 
-	// ファイルポインタ
-	var $fp;
-	var $file;
-	var $id;
-
-	// 誰のキャラか?
+	/**
+	 * 誰のキャラか?
+	 */
 	var $user;
 
-	/*
+	/**
 	基本的な情報
 	*/
-	var $name, $gender, $job, $job_name, $img, $birth, $level, $exp;
+	var $job, $job_name, $birth, $exp;
 
-	// ステータスポイントとか
+	/**
+	 * ステータスポイントとか
+	 */
 	var $statuspoint;
 	var $skillpoint;
-	// 装備
+
+	/**
+	 * 装備
+	 */
 	var $weapon, $shield, $armor, $item;
-	// 戦闘その他
-	var $position, $guard;
-	// スキル
-	var $skill;
-
-	// 戦闘用変数(BattleVariable) データには保存されない。
-	var $team;
-	var $IMG;
-
-	var $POSITION;
-
-	/*
-	PoisonResist 毒抵抗
-	HealBonus .
-	Barrier
-	Undead
-	*/
-	var $WEAPON; //武器タイプ
-
-	var $map_equip_allow = array(
-		"weapon" => true,
-		"shield" => true,
-		"armor" => true,
-		"item" => true,
-		);
-
-	static $map_equip = array(
-		"weapon" => true,
-		"shield" => true,
-		"armor" => true,
-		"item" => true,
-		);
 
 	function __construct($file = false)
 	{
@@ -69,37 +39,23 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 
 		if (!$file) return 0;
 
-		$this->id = HOF_Helper_Char::char_id_by_file($file);
-
 		$this->file = $file;
-		$this->fp = HOF_Class_File::fplock_file($file);
 
-		if (0 && BASE_EXT == '.dat')
-		{
-			$data = HOF_Class_File::ParseFileFP($this->fp);
-		}
-		else
-		{
-			$data = HOF_Class_Yaml::load($this->fp);
-		}
+		$this->id = HOF_Helper_Char::char_id_by_file($this->file);
+
+		$this->fp = HOF_Class_File::fplock_file($this->file);
+
+		$data = HOF_Class_Yaml::load($this->fp);
 
 		$this->SetCharData($data);
 	}
 
 	function _extend_init()
 	{
-		$this->extend('HOF_Class_Char_Pattern');
+		parent::_extend_init();
+
 		$this->extend('HOF_Class_Char_Job');
-		$this->extend('HOF_Class_Char_View');
-		$this->extend('HOF_Class_Char_Battle_Effect');
 		$this->extend('HOF_Class_Skill_Tree');
-	}
-
-	function __destruct()
-	{
-
-
-		$this->fpclose();
 	}
 
 	/**
@@ -177,46 +133,12 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 		{
 			if (!isset($this->{$k})) continue;
 
-			if (0 && BASE_EXT == '.dat')
-			{
-				$data[$k] = "$k=" . (is_array($this->{$k}) ? implode("<>", $this->{$k}) : $this->{$k});
-			}
-			else
-			{
-				$data[$k] = $this->{$k};
-			}
+			$data[$k] = $this->{$k};
 		}
 
-		if (0 && BASE_EXT == '.dat')
-		{
-			$text = implode("\n", $data);
-		}
-		else
-		{
-			$text = HOF_Class_Yaml::dump($data);
-		}
+		$text = HOF_Class_Yaml::dump($data);
 
 		return $text;
-	}
-
-	function setTeamObj(&$team)
-	{
-		$this->team_obj = &$team;
-	}
-
-	function &getTeamObj()
-	{
-		return $this->team_obj;
-	}
-
-	/**
-	 * ファイルポインタが開かれていれば閉じる
-	 */
-	function fpclose()
-	{
-		HOF_Class_File::fpclose($this->fp);
-
-		unset($this->fp);
 	}
 
 	function &user()
@@ -404,17 +326,6 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	}
 
 	/**
-	 * 召喚力?召喚した時の召喚モンスターの強さ
-	 */
-	function SummonPower()
-	{
-		$DEX_PART = sqrt($this->DEX) * 5; // DEX分の強化分
-		$Strength = 1 + ($DEX_PART + $this->LUK) / 250;
-		if ($this->SPECIAL["Summon"]) $Strength *= (100 + $this->SPECIAL["Summon"]) / 100;
-		return $Strength;
-	}
-
-	/**
 	 * 必要経験値
 	 */
 	function CalcExpNeed()
@@ -479,33 +390,6 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	}
 
 	/**
-	 * IMGタグで画像を表示するのみ
-	 */
-	function ShowImage($class = false, $dir = HOF_Class_Icon::IMG_CHAR)
-	{
-		$url = $this->GetImageURL($dir);
-
-		$add = '';
-		if ($class) $add .= ' class="' . $class . '"';
-
-		$add .= ' title="' . HOF_Class_Icon::getImage($this->img, $dir, true) . '"';
-
-		$html = '<img src="' . $url . '" ' . $add . '>';
-
-		echo $html;
-	}
-
-	/**
-	 * IMGタグで画像を表示するのみ
-	 */
-	function GetImageURL($dir = HOF_Class_Icon::IMG_CHAR)
-	{
-		$ret = HOF_Class_Icon::getImageUrl($this->img, $dir);
-
-		return $ret;
-	}
-
-	/**
 	 * 名前を変える。
 	 */
 	function ChangeName($new, $true = false)
@@ -531,34 +415,6 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 		}
 
 		HOF_Class_File::unlink($this->file);
-	}
-
-	//	特殊技能?の追加
-	function GetSpecial($name, $value)
-	{
-		if (is_bool($value))
-		{
-			$this->SPECIAL["$name"] = $value;
-		}
-		else
-			if (is_array($value))
-			{
-				foreach ($value as $key => $val)
-				{
-					$this->SPECIAL["$name"]["$key"] += $val;
-				}
-			}
-			else
-			{
-				$this->SPECIAL["$name"] += $value;
-			}
-	}
-
-	//	名前を返す
-	function Name($string = false)
-	{
-		if ($string) return "<span class=\"{$string}\">{$this->name}</span>";
-		else  return $this->name;
 	}
 
 	//	経験値を得る
@@ -688,14 +544,6 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 		}
 	}
 
-
-	// 戦闘時のチームを設定(あんまり使ってない)
-	function SetTeam($no)
-	{
-		$this->team = $no;
-	}
-
-
 	//	handle計算
 	function GetHandle()
 	{
@@ -735,83 +583,34 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 		return false;
 	}
 
-	//	経験値を出す(モンスターだけ?)
-	function DropExp()
-	{
-		if (isset($this->exphold))
-		{
-			$exp = $this->exphold;
-			$this->exphold = round($exp / 2);
-			return $exp;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
-	//	お金を出す(モンスターだけ?)
-	function DropMoney()
-	{
-		if (isset($this->moneyhold))
-		{
-			$money = $this->moneyhold;
-			$this->moneyhold = 0;
-			return $money;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
-	//	アイテムを落とす(モンスターだけ?)
-	function DropItem()
-	{
-		if ($this->itemdrop)
-		{
-			$item = $this->itemdrop;
-			// 一度落としたアイテムは消す
-			$this->itemdrop = false;
-			return $item;
-		}
-		else
-		{
-			return false;
-		}
-	}
-
-
-	//
-
 	//	キャラの変数をセットする。
-	function SetCharData(&$data)
+	function SetCharData(&$data_attr)
 	{
-		$this->name = $data["name"];
-		$this->gender = $data["gender"];
-		$this->birth = $data["birth"];
-		$this->level = $data["level"];
-		$this->exp = $data["exp"];
-		$this->statuspoint = $data["statuspoint"];
-		$this->skillpoint = $data["skillpoint"];
+		$this->name = $data_attr["name"];
+		$this->gender = $data_attr["gender"];
+		$this->birth = $data_attr["birth"];
+		$this->level = $data_attr["level"];
+		$this->exp = $data_attr["exp"];
+		$this->statuspoint = $data_attr["statuspoint"];
+		$this->skillpoint = $data_attr["skillpoint"];
 
-		$this->job = $data["job"];
+		$this->job = $data_attr["job"];
 		$this->jobdata();
 
-		if ($data["img"]) $this->img = $data["img"];
+		if ($data_attr["img"]) $this->img = $data_attr["img"];
 
-		$this->str = $data["str"];
-		$this->int = $data["int"];
-		$this->dex = $data["dex"];
-		$this->spd = $data["spd"];
-		$this->luk = $data["luk"];
+		$this->str = $data_attr["str"];
+		$this->int = $data_attr["int"];
+		$this->dex = $data_attr["dex"];
+		$this->spd = $data_attr["spd"];
+		$this->luk = $data_attr["luk"];
 
-		if (isset($data["maxhp"]) && isset($data["hp"]) && isset($data["maxsp"]) && isset($data["sp"]))
+		if (isset($data_attr["maxhp"]) && isset($data_attr["hp"]) && isset($data_attr["maxsp"]) && isset($data_attr["sp"]))
 		{
-			$this->maxhp = $data["maxhp"];
-			$this->hp = $data["hp"];
-			$this->maxsp = $data["maxsp"];
-			$this->sp = $data["sp"];
+			$this->maxhp = $data_attr["maxhp"];
+			$this->hp = $data_attr["hp"];
+			$this->maxsp = $data_attr["maxsp"];
+			$this->sp = $data_attr["sp"];
 		}
 		else
 		{
@@ -821,31 +620,21 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 			$this->sp = $this->maxsp;
 		}
 
-		$this->weapon = $data["weapon"];
-		$this->shield = $data["shield"];
-		$this->armor = $data["armor"];
-		$this->item = $data["item"];
+		$this->weapon = $data_attr["weapon"];
+		$this->shield = $data_attr["shield"];
+		$this->armor = $data_attr["armor"];
+		$this->item = $data_attr["item"];
 
-		$this->position = $data["position"];
-		$this->guard = $data["guard"];
+		$this->position = $data_attr["position"];
+		$this->guard = $data_attr["guard"];
 
-		$this->skill = (is_array($data["skill"]) ? $data["skill"] : explode("<>", $data["skill"]));
+		$this->skill = (is_array($data_attr["skill"]) ? $data_attr["skill"] : explode("<>", $data_attr["skill"]));
 
-		$this->pattern = $data["pattern"];
+		$this->pattern = $data_attr["pattern"];
 
-		if ($data["pattern_memo"]) $this->pattern_memo = $data["pattern_memo"];
+		if ($data_attr["pattern_memo"]) $this->pattern_memo = $data_attr["pattern_memo"];
 
-		//モンスター専用
-		if ($this->monster = $data["monster"])
-		{
-			$this->exphold = $data["exphold"];
-			$this->moneyhold = $data["moneyhold"];
-			$this->itemdrop = $data["itemdrop"];
-			$this->atk = $data["atk"];
-			$this->def = $data["def"];
-			$this->SPECIAL = $data["SPECIAL"];
-		}
-		if ($data["summon"]) $this->summon = $data["summon"];
+		if ($data_attr["summon"]) $this->summon = $data_attr["summon"];
 
 		$this->pattern(HOF_Class_Char_Pattern::CHECK_PATTERN);
 	}
