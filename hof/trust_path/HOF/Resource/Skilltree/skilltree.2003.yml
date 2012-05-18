@@ -1,0 +1,8 @@
+no: 2003
+check:
+    -
+        and:
+            job:
+                - 201
+            skill:
+                - 2002
