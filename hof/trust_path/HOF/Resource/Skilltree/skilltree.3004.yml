@@ -1,0 +1,38 @@
+no: 3004
+check:
+    -
+        and:
+            job:
+                - 300
+            skill:
+                - 3001
+    -
+        and:
+            job:
+                - 300
+            skill:
+                - 3003
+    -
+        and:
+            job:
+                - 301
+            skill:
+                - 3001
+    -
+        and:
+            job:
+                - 301
+            skill:
+                - 3003
+    -
+        and:
+            job:
+                - 302
+            skill:
+                - 3001
+    -
+        and:
+            job:
+                - 302
+            skill:
+                - 3003
