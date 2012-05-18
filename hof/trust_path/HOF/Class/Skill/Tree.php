@@ -15,7 +15,7 @@ class HOF_Class_Skill_Tree
 		$this->char = $char;
 	}
 
-	function skill_tree()
+	public function skill_tree()
 	{
 		$_skill = (array )$this->char->skill;
 		$_job = $this->char->job();
