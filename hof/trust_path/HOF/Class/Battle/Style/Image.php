@@ -43,8 +43,8 @@ class HOF_Class_Battle_Style_Image
 		$type && array_unshift(HOF_Class_Icon::$map_imgtype, $type);
 
 		foreach (array(
-			1 => IMG_CHAR,
-			2 => IMG_CHAR_REV,
+			1 => HOF_Class_Icon::IMG_CHAR,
+			2 => HOF_Class_Icon::IMG_CHAR_REV,
 			) as $_idx => $dir)
 		{
 			for ($j = 1; $j < 6; $j++)
