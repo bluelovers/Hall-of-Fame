@@ -428,7 +428,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 			$y = floor($y);
 
 			if ($char->STATE === STATE_DEAD) $img = $f . DEAD_IMG;
-			else  $img = $char->GetImageUrl($f);
+			else  $img = $char->getImageUrl($f);
 
 			$img_file = HOF_Class_Icon::getImage($char->img, $f);
 
