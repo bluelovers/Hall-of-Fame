@@ -2,7 +2,7 @@ no: swamp1
 land:
     name: '集落?'
     name0: ''
-    land: swamp
+    land: swamp1
     proper: 'Lv??'
 monster:
     1053:
