@@ -1,0 +1,26 @@
+no: 2000
+check:
+    -
+        and:
+            job:
+                - 200
+            skill:
+                - 1002
+    -
+        and:
+            job:
+                - 201
+            skill:
+                - 1002
+    -
+        and:
+            job:
+                - 202
+            skill:
+                - 1002
+    -
+        and:
+            job:
+                - 203
+            skill:
+                - 1002
