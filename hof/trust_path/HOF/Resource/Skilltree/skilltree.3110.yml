@@ -1,0 +1,26 @@
+no: 3110
+check:
+    -
+        and:
+            job:
+                - 100
+            skill:
+                - 1001
+    -
+        and:
+            job:
+                - 101
+            skill:
+                - 1001
+    -
+        and:
+            job:
+                - 102
+            skill:
+                - 1001
+    -
+        and:
+            job:
+                - 103
+            skill:
+                - 1001
