@@ -1,0 +1,26 @@
+no: '0011'
+name: OgreSquad
+data:
+    team:
+        name: OgreSquad
+        servant:
+            1092:
+                - 100
+                - 0
+            1093:
+                - 100
+                - 0
+            1094:
+                - 100
+                - 0
+    base:
+        type: mon
+        no: '2011'
+    conditions:
+        lv_limit: '150'
+data_ex:
+    name: OgreSquad
+    level: '99'
+    img: mon_168
+    land: mount
+    cycle: 68400
