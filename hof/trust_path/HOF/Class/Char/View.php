@@ -232,7 +232,7 @@ class HOF_Class_Char_View
 ?>">
 <a href="?char=<?=
 
-		$this->char->Number
+		$this->char->id
 
 
 ?>"><?php
