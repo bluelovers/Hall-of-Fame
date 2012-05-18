@@ -1,0 +1,18 @@
+no: 3011
+check:
+    -
+        and:
+            job:
+                - 200
+    -
+        and:
+            job:
+                - 201
+    -
+        and:
+            job:
+                - 202
+    -
+        and:
+            job:
+                - 203
