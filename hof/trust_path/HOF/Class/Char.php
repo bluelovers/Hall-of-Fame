@@ -91,7 +91,7 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 		$this->extend('HOF_Class_Char_Pattern');
 		$this->extend('HOF_Class_Char_Job');
 		$this->extend('HOF_Class_Char_View');
-		$this->extend('HOF_Class_Char_Battle');
+		$this->extend('HOF_Class_Char_Battle_Effect');
 		$this->extend('HOF_Class_Skill_Tree');
 	}
 
@@ -689,7 +689,7 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	}
 
 
-	//	戦闘時のチームを設定(あんまり使ってない)
+	// 戦闘時のチームを設定(あんまり使ってない)
 	function SetTeam($no)
 	{
 		$this->team = $no;
