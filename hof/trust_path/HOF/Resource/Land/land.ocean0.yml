@@ -3,7 +3,7 @@ land:
     name: 海中
     name0: ''
     land: ocean
-    proper: 99-99
+    proper: Lv??
 monster:
     1067:
         - 8
