@@ -1,0 +1,32 @@
+no: '0000'
+name: DragonFleets
+data:
+    team:
+        name: DragonFleets
+        servant:
+            1028:
+                - 100
+                - 0
+            1030:
+                - 100
+                - 0
+            1031:
+                - 100
+                - 0
+            1032:
+                - 100
+                - 0
+            1033:
+                - 100
+                - 0
+    base:
+        type: mon
+        no: '2000'
+    conditions:
+        lv_limit: '250'
+data_ex:
+    name: DragonFleets
+    level: '250'
+    img: mon_013r
+    land: swamp
+    cycle: 259200
