@@ -1,0 +1,8 @@
+no: 3122
+check:
+    -
+        and:
+            job:
+                - 101
+            skill:
+                - 3121
