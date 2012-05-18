@@ -32,7 +32,7 @@ itemtable:
 SPECIAL:
     PoisonResist: 50
 cycle: 36000
-Slave:
+servant:
     1092:
         - 100
         - 0
@@ -43,9 +43,9 @@ Slave:
         - 100
         - 0
 land: sand
-SlaveAmount: '6'
-UnionName: PlundingBandits
-LevelLimit: '200'
+servantAmount: '6'
+name: PlundingBandits
+lv_limit: '200'
 pattern:
     -
         judge: 1201
