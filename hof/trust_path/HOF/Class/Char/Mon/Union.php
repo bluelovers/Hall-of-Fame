@@ -16,7 +16,7 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 
 	var $name;
 	var $no;
-	var $last_battle;
+	var $last_death;
 
 	var $servant;
 	var $Union = true;
@@ -74,7 +74,7 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 	function SetCharData(&$data)
 	{
 		$this->no = $data["no"];
-		$this->last_battle = $data["last_battle"];
+		$this->last_death = $data["last_death"];
 
 		$monster = HOF_Model_Char::getUnionDataMon($this->no);
 
@@ -114,7 +114,7 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 
 		// 時間が経過して復活する処理。
 		$Now = time();
-		$Passed = $this->last_battle + $data["cycle"];
+		$Passed = $this->last_death + $data["cycle"];
 		if ($Passed < $Now && !$this->hp)
 		{
 			$this->hp = $this->maxhp;
@@ -163,7 +163,7 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 
 		$data = $this->_source_data_;
 
-		$data['last_battle'] = $this->last_battle;
+		$data['last_death'] = $this->last_death;
 		$data['hp'] = $this->HP;
 		$data['sp'] = $this->SP;
 
@@ -418,7 +418,7 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 			$this->HP = 0;
 			$this->ResetExpect();
 
-			$this->last_battle = time();
+			$this->last_death = time();
 			return true;
 		}
 	}
