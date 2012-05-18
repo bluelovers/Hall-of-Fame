@@ -92,6 +92,7 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 		$this->extend('HOF_Class_Char_Job');
 		$this->extend('HOF_Class_Char_View');
 		$this->extend('HOF_Class_Char_Battle');
+		$this->extend('HOF_Class_Skill_Tree');
 	}
 
 	function __destruct()
@@ -706,8 +707,8 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	//	ポイントを消費して技を覚える。
 	function LearnNewSkill($no)
 	{
-		include_once (DATA_SKILL_TREE);
-		$tree = LoadSkillTree($this);
+		//include_once (DATA_SKILL_TREE);
+		$tree = $this->skill_tree();
 
 		//習得可能技に覚えようとしてるヤツなけりゃ終了
 		if (!in_array($_POST["newskill"], $tree)) return array(false, "スキルツリーに無い");
