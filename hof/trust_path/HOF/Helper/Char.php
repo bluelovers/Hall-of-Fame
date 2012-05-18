@@ -14,6 +14,11 @@ class HOF_Helper_Char
 	const NAME_MIN = 2;
 	const NAME_MIN_CHAR = 1;
 
+	static function uniqid()
+	{
+		return md5(uniqid(HOF::ip(), true));
+	}
+
 	/**
 	 * パスワードを暗号化する
 	 */
@@ -69,9 +74,9 @@ class HOF_Helper_Char
 		{
 			$id = (string )$char;
 		}
-		elseif ($char->Number)
+		elseif ($char->id)
 		{
-			$id = $char->Number;
+			$id = $char->id;
 		}
 		elseif ($char->birth)
 		{
