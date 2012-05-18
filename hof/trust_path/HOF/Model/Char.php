@@ -239,7 +239,7 @@ class HOF_Model_Char extends HOF_Class_Data
 
 				$union_base['name'] = $union_mon['name'];
 
-				$union_base['last_battle'] = 0;
+				$union_base['last_death'] = 0;
 				$union_base['hp'] = $union_mon['hp'];
 				$union_base['sp'] = $union_mon['sp'];
 				$union_base['cycle'] = $union_mon['cycle'];
