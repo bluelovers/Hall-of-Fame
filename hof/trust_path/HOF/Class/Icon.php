@@ -70,6 +70,42 @@ class HOF_Class_Icon
 		return $no;
 	}
 
+	function getImageList($dir)
+	{
+		$_list = HOF::cache()->data('icon_list');
+
+		if (isset($_list[$dir]))
+		{
+			return $_list[$dir];
+		}
+
+		$_dir = BASE_PATH . $dir;
+
+		$map = array_flip(self::$map_imgtype);
+
+		$list = array();
+
+		foreach (glob($_dir.'*.*', GLOB_NOSORT) as $file)
+		{
+			list($name, $ext) = HOF_Class_File::basename($file);
+
+			$_ext = ltrim($ext, '.');
+
+			if (isset($map[$_ext]) && (!isset($list[$name]) || $map["{$list[$name][ext]}"] > $map[$_ext]))
+			{
+				$list[$name]['ext'] = $_ext;
+				$list[$name]['no'] = $name;
+				$list[$name]['file'] = str_replace($_dir, '', $file);
+			}
+		}
+
+		$_list[$dir] = $list;
+
+		HOF::cache()->data('icon_list', $_list);
+
+		return $_list[$dir];
+	}
+
 	/**
 	 * @example HOF_Class_Icon::getImageUrl('ori_003', IMG_CHAR)
 	 */
@@ -102,7 +138,64 @@ class HOF_Class_Icon
 			$no = (string )$no[1];
 		}
 
-		if($dir == self::IMG_LAND) $return_true = true;
+		$_list = self::getImageList($dir);
+		if ($_list[$no])
+		{
+			$file = $_list[$no]['file'];
+			$ret = $dir . $file;
+
+			return $ret;
+		}
+		elseif ($dir == self::IMG_LAND && $_list[$pre.$no])
+		{
+			$file = $_list[$pre.$no]['file'];
+			$ret = $dir . $file;
+
+			return $ret;
+		}
+		elseif ($_list && $dir == self::IMG_LAND)
+		{
+			if (!$_list2 = HOF::cache()->data('icon_land_list'))
+			{
+				$_list2 = array();
+
+				foreach(array_keys($_list) as $_no)
+				{
+					list($_pre, $_no) = explode('_', $_no, 2);
+
+					$_pre .= '_';
+
+					$k = preg_replace('/[\d]+$/', '', $_no);
+
+					$_list2[$k][$_pre][] = $_no;
+				}
+
+				foreach ($_list2 as $k => &$_v)
+				{
+					foreach ($_v as &$_vv)
+					{
+						sort($_vv);
+					}
+				}
+
+				ksort($_list2);
+
+				HOF::cache()->data('icon_land_list', $_list2);
+			}
+
+			$k = preg_replace('/[\d]+$/', '', $no);
+
+			if ($_list2[$k])
+			{
+				$idx = reset($_list2[$k][$pre]);
+
+				$file = $_list[$pre.$idx]['file'];
+
+				$ret = $dir . $file;
+
+				return $ret;
+			}
+		}
 
 		if (!isset(self::$cache[$dir][$pre . $no]))
 		{
