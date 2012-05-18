@@ -1131,10 +1131,14 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		if ($full)
 		{
+			$contents = stream_get_contents($fp);
+
+			/*
 			while (!feof($fp))
 			{
 				$contents .= fread($fp, 8192);
 			}
+			*/
 
 		}
 
