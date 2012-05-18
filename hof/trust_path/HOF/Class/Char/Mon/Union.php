@@ -233,14 +233,14 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char_Base
 			return true;
 			/*
 			if($mes)
-			print($this->Name(bold).' <span class="recover">revived</span>!<br />'."\n");
+			print($this->Name('bold').' <span class="recover">revived</span>!<br />'."\n");
 			$this->STATE = 0;
 			return true;
 			*/
 		}
 		if ($this->STATE === STATE_POISON)
 		{ //毒状態
-			if ($mes) print ($this->Name(bold) . "'s <span class=\"spdmg\">poison</span> has cured.<br />\n");
+			if ($mes) print ($this->Name('bold') . "'s <span class=\"spdmg\">poison</span> has cured.<br />\n");
 			$this->STATE = 0;
 			return true;
 		}
@@ -347,20 +347,20 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char_Base
 
 	function UpMAXHP($no)
 	{
-		print ($this->Name(bold) . " MAXHP(????) extended to ");
+		print ($this->Name('bold') . " MAXHP(????) extended to ");
 		$this->MAXHP = round($this->MAXHP * (1 + $no / 100));
 		print ("????<br />\n");
 	}
 	function UpMAXSP($no)
 	{
-		print ($this->Name(bold) . " MAXSP(????) extended to ");
+		print ($this->Name('bold') . " MAXSP(????) extended to ");
 		$this->MAXSP = round($this->MAXSP * (1 + $no / 100));
 		print ("????<br />\n");
 	}
 	function DownMAXHP($no)
 	{
 		$no /= 2;
-		print ($this->Name(bold) . " MAXHP(????) down to ");
+		print ($this->Name('bold') . " MAXHP(????) down to ");
 		$this->MAXHP = round($this->MAXHP * (1 - $no / 100));
 		if ($this->MAXHP < $this->HP) $this->HP = $this->MAXHP;
 		print ("????<br />\n");
@@ -368,7 +368,7 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char_Base
 	function DownMAXSP($no)
 	{
 		$no /= 2;
-		print ($this->Name(bold) . " MAXSP(????) down to ");
+		print ($this->Name('bold') . " MAXSP(????) down to ");
 		$this->MAXSP = round($this->MAXSP * (1 - $no / 100));
 		if ($this->MAXSP < $this->SP) $this->SP = $this->MAXSP;
 		print ("????<br />\n");
