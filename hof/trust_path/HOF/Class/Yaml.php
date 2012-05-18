@@ -18,7 +18,7 @@ class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 		{
 			if (HOF_Class_File::is_resource_file($file))
 			{
-				$data = stream_get_contents($file);
+				$data = HOF_Class_File::fp_get_contents($file);
 			}
 			else
 			{
