@@ -39,4 +39,25 @@ class HOF_Class_Data extends HOF_Class_Array
 		return $data;
 	}
 
+	static function _load_list($_key, $sort = SORT_NUMERIC)
+	{
+		$list = array();
+
+		$regex = HOF_Class_Data::_filename($_key, '*');
+
+		$regex = '/^' . str_replace('\*', '(.+)', preg_quote($regex, '/')) . '$/i';
+
+		foreach (glob(HOF_Class_Data::_filename($_key, '*')) as $file)
+		{
+			$list[] = preg_replace($regex, '$1', $file);
+		}
+
+		if ($sort)
+		{
+			sort($list, $sort);
+		}
+
+		return $list;
+	}
+
 }
