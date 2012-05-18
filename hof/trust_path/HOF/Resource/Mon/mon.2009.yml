@@ -27,7 +27,7 @@ itemtable: {  }
 SPECIAL:
     PoisonResist: 80
 cycle: 75600
-Slave:
+servant:
     1092:
         - 100
         - 0
@@ -38,6 +38,6 @@ Slave:
         - 100
         - 0
 land: build01
-UnionName: Specters
-LevelLimit: '150'
+name: Specters
+lv_limit: '150'
 pattern: {  }
