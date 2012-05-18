@@ -69,11 +69,11 @@ class HOF_Class_Char_Base extends HOF_Class_Base_Extend_Root
 	public $POSITION;
 
 	/**
-	PoisonResist 毒抵抗
-	HealBonus .
-	Barrier
-	Undead
-	*/
+	 * PoisonResist 毒抵抗
+	 * HealBonus .
+	 * Barrier
+	 * Undead
+	 */
 	public $WEAPON;
 
 	/**
