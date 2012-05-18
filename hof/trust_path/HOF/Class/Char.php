@@ -611,17 +611,16 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 
 	function SetBattleVariable($team = false)
 	{
-		// 再読み込みを防止できるか?
-		if (isset($this->IMG)) return false;
+		if ($this->_cache_char_['init'][__FUNCTION__]) return false;
 
-		//$this->pattern(HOF_Class_Char_Pattern::CHECK_PATTERN);
+		$this->_cache_char_['init'][__FUNCTION__] = true;
 
 		// パッシブスキルを読む
 		$this->LoadPassiveSkills();
 		$this->CalcEquips();
 
 		$this->team = $team;
-		$this->IMG = $this->img;
+
 		$maxhp += $this->maxhp * (1 + ($this->M_MAXHP / 100)) + $this->P_MAXHP;
 		$this->MAXHP = round($maxhp);
 		$hp += $this->hp * (1 + ($this->M_MAXHP / 100)) + $this->P_MAXHP;
