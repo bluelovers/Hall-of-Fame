@@ -102,6 +102,8 @@ class HOF_Class_Icon
 			$no = (string )$no[1];
 		}
 
+		if($dir == self::IMG_LAND) $return_true = true;
+
 		if (!isset(self::$cache[$dir][$pre . $no]))
 		{
 			$file = false;
