@@ -36,7 +36,7 @@ class HOF_Class_Base_Extend_Root implements HOF_Class_Base_Extend_RootInterface
 
 		if (!$idx) $idx = $class;
 
-		foreach((array)$this->_extends_[$idx]['method'] as $method)
+		foreach ((array )$this->_extends_[$idx]['method'] as $method)
 		{
 			unset($this->_extends_method_[$method]);
 		}
