@@ -1,0 +1,8 @@
+no: 3205
+check:
+    -
+        and:
+            job:
+                - 203
+            skill:
+                - 2030
