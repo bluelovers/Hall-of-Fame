@@ -146,11 +146,12 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 	//	戦闘用の変数
 	function SetBattleVariable($team = false)
 	{
-		// 再読み込みを防止できる か?
-		if (isset($this->IMG)) return false;
+		if ($this->_cache_char_['init'][__FUNCTION__]) return false;
+
+		$this->_cache_char_['init'][__FUNCTION__] = true;
 
 		$this->team = $team; //これ必要か?
-		$this->IMG = $this->img;
+
 		$this->MAXHP = $this->maxhp;
 		$this->HP = $this->hp;
 		$this->MAXSP = $this->maxsp;
