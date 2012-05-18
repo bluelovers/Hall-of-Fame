@@ -80,6 +80,11 @@ class HOF_Class_Char_Base extends HOF_Class_Base_Extend_Root
 	public $JdgCount = array();
 
 	/**
+	 * 再読み込みを防止できるか?
+	 */
+	protected $_cache_char_;
+
+	/**
 	 * ファイルポインタが開かれていれば閉じる
 	 */
 	function fpclose()
