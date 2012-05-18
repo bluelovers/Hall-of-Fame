@@ -1,0 +1,50 @@
+no: '0006'
+name: DinnerTime
+data:
+    team:
+        name: DinnerTime
+        servant:
+            1000:
+                - 100
+                - 0
+            1001:
+                - 100
+                - 0
+            1002:
+                - 100
+                - 0
+            1003:
+                - 100
+                - 0
+            1004:
+                - 100
+                - 0
+            1005:
+                - 100
+                - 0
+            1006:
+                - 100
+                - 0
+            1007:
+                - 100
+                - 0
+            1008:
+                - 100
+                - 0
+            1009:
+                - 100
+                - 0
+            1099:
+                - 100
+                - 0
+    base:
+        type: mon
+        no: '2006'
+    conditions:
+        lv_limit: '50'
+data_ex:
+    name: DinnerTime
+    level: '30'
+    img: mon_054r
+    land: grass01
+    cycle: 259200
