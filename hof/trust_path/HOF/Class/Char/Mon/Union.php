@@ -49,7 +49,7 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 	{
 		$this->extend('HOF_Class_Char_Pattern');
 		$this->extend('HOF_Class_Char_View');
-		$this->extend('HOF_Class_Char_Battle');
+		$this->extend('HOF_Class_Char_Battle_Effect');
 	}
 
 	function union_data($over = false)
@@ -270,8 +270,7 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 				print (sprintf("%0.1f", $this->delay) . "/" . sprintf("%0.1f", $BaseDelay) . ")");
 			}
 		}
-		else
-			if (DELAY_TYPE === 1)
+		elseif (DELAY_TYPE === 1)
 			{
 				if ($Show)
 				{
@@ -411,8 +410,6 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 		$exp = ceil($this->exphold * ($dif / $this->maxhp));
 		return $exp;
 	}
-
-
 
 	//	しぼーしてるかどうか確認する。
 	function CharJudgeDead()
