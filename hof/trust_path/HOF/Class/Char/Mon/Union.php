@@ -52,6 +52,18 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 		$this->extend('HOF_Class_Char_Battle');
 	}
 
+	function union_data($over = false)
+	{
+		if ($over)
+		{
+			$data = HOF_Class_Yaml::load($this->fp);
+
+			$this->_source_union_data_ = $data;
+		}
+
+		return $this->_source_union_data_;
+	}
+
 	function LoadData($file)
 	{
 		if (!file_exists($file)) return false;
@@ -59,13 +71,13 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 		$this->file = $file;
 		$this->fp = HOF_Class_File::fplock_file($this->file);
 
-		$this->_source_data_ = HOF_Class_Yaml::load($this->fp);
+		$this->union_data(true);
 
-		$this->id = $this->_source_data_['no'];
+		$this->id = $this->_source_union_data_['no'];
 
 		$this->_init = true;
 
-		$this->SetCharData($this->_source_data_);
+		$this->SetCharData($this->_source_union_data_);
 
 		return true;
 	}
@@ -161,11 +173,11 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 	{
 		if (!file_exists($this->file)) return false;
 
-		$data = $this->_source_data_;
+		$data = $this->union_data();
 
 		$data['last_death'] = $this->last_death;
-		$data['hp'] = $this->HP;
-		$data['sp'] = $this->SP;
+		$data['hp'] = isset($this->HP) ? $this->HP : $this->hp;
+		$data['sp'] = isset($this->SP) ? $this->SP : $this->sp;
 
 		HOF_Class_Yaml::save($this->fp, $data);
 
