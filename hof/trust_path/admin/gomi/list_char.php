@@ -52,7 +52,7 @@ foreach ($chars as $file)
 	print ("<tr><td>");
 	$char->ShowImage();
 	print ("</td><td>");
-	print ($char->Name(bold));
+	print ($char->Name('bold'));
 	print ("</td><td>");
 	print ("Lv:" . $char->level);
 	print ("</td><td>");
