@@ -1,0 +1,26 @@
+no: 2302
+check:
+    -
+        and:
+            job:
+                - 400
+            skill:
+                - 2300
+    -
+        and:
+            job:
+                - 401
+            skill:
+                - 2300
+    -
+        and:
+            job:
+                - 402
+            skill:
+                - 2300
+    -
+        and:
+            job:
+                - 403
+            skill:
+                - 2300
