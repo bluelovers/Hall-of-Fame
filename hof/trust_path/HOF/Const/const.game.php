@@ -22,3 +22,7 @@ define('NO_IMAGE', 'noimage');
 
 define('USER_DATA', 'data'.BASE_EXT);
 define('USER_ITEM', 'item'.BASE_EXT);
+
+
+define('EXPECT_CHARGING', 0);
+define('EXPECT_CASTING', 1);
