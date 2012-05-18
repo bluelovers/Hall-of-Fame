@@ -30,7 +30,7 @@ itemtable:
 SPECIAL:
     PoisonResist: 50
 cycle: 28800
-Slave:
+servant:
     1023:
         - 300
         - 0
@@ -38,8 +38,8 @@ Slave:
         - 100
         - 0
 land: mount
-UnionName: TaurusRush
-LevelLimit: '200'
+name: TaurusRush
+lv_limit: '200'
 pattern:
     -
         judge: 1201
