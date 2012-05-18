@@ -18,8 +18,8 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	var $user;
 
 	/**
-	基本的な情報
-	*/
+	 * 基本的な情報
+	 */
 	var $job, $job_name, $birth, $exp;
 
 	/**
@@ -467,9 +467,9 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 
 	function SetBattleVariable($team = false)
 	{
-		if ($this->_cache_char_['init'][__FUNCTION__]) return false;
+		if ($this->_cache_char_['init'][__FUNCTION__ ]) return false;
 
-		$this->_cache_char_['init'][__FUNCTION__] = true;
+		$this->_cache_char_['init'][__FUNCTION__ ] = true;
 
 		// パッシブスキルを読む
 		$this->LoadPassiveSkills();
