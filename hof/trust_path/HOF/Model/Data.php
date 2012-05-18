@@ -141,6 +141,210 @@ class HOF_Model_Data extends HOF_Class_Data
 		return $list;
 	}
 
+	function getSkillTreeData($no)
+	{
+		$_key = 'skilltree';
+		$_cache_key_ = $_key;
+
+		$list = HOF::$_cache_->data($_cache_key_);
+
+		if (isset($list[$no]))
+		{
+			$data = $list[$no];
+		}
+		else
+		{
+			$data = self::getInstance()->_load($_key, $no);
+
+			$list[$no] = $data;
+
+			HOF::$_cache_->data($_cache_key_, $list);
+		}
+
+		return $data;
+	}
+
+	function getSkillTreeListByJob($_job)
+	{
+		$_cache_key_ = 'skilltree_job';
+
+		$list_all = HOF::$_cache_->data($_cache_key_);
+
+		if (!$_job) $_job = 0;
+
+		if (isset($list_all[$_job]))
+		{
+			return $list_all[$_job];
+		}
+
+		$tree_all = HOF_Model_Data::getSkillTreeList();
+
+		$list = array();
+
+		foreach ($tree_all as $skill)
+		{
+			if ($data = HOF_Model_Data::getSkillTreeData($skill))
+			{
+				foreach ($data['check'] as $check_list)
+				{
+					$_check = -1;
+
+					if ($check_list['not'])
+					{
+						$_check = true;
+
+						foreach ((array )$check_list['not'] as $k => $check_data)
+						{
+							switch ($k)
+							{
+								case 'job':
+									if (in_array($_job, $check_data))
+									{
+										$_check = false;
+									}
+									break;
+									/*
+								case 'skill':
+									if (array_intersect($check_data, $_skill))
+									{
+										$_check = false;
+									}
+									break;
+								case 'lv':
+									foreach ($check_data as $_v)
+									{
+										if ($_lv >= $_v)
+										{
+											$_check = false;
+											break;
+										}
+									}
+									break;
+									*/
+							}
+
+							if ($_check === false)
+							{
+								break;
+							}
+						}
+					}
+
+					if ($_check && $check_list['or'])
+					{
+						$_check = true;
+
+						foreach ((array )$check_list['or'] as $k => $check_data)
+						{
+							switch ($k)
+							{
+								case 'job':
+									if (!in_array($_job, $check_data))
+									{
+										$_check = false;
+									}
+									break;
+									/*
+								case 'skill':
+									if (!array_intersect($check_data, $_skill))
+									{
+										$_check = false;
+									}
+									break;
+								case 'lv':
+									foreach ($check_data as $_v)
+									{
+										if ($_lv < $_v)
+										{
+											$_check = false;
+											break;
+										}
+									}
+									break;
+									*/
+							}
+
+							if ($_check === false)
+							{
+								break;
+							}
+						}
+					}
+
+					if ($_check && $check_list['and'])
+					{
+						$_check = true;
+
+						foreach ((array )$check_list['and'] as $k => $check_data)
+						{
+							switch ($k)
+							{
+								case 'job':
+									if (!in_array($_job, $check_data))
+									{
+										$_check = false;
+									}
+									break;
+									/*
+								case 'skill':
+									if ($check_data != array_intersect($check_data, $_skill))
+									{
+										$_check = false;
+									}
+									break;
+								case 'lv':
+									foreach ($check_data as $_v)
+									{
+										if ($_lv < $_v)
+										{
+											$_check = false;
+											break;
+										}
+									}
+									break;
+									*/
+							}
+
+							if ($_check === false)
+							{
+								break;
+							}
+						}
+					}
+
+					if ($_check === true)
+					{
+						$list[] = $skill;
+						break;
+					}
+				}
+			}
+		}
+
+		$list_all[$_job] = (array)$list;
+
+		HOF::$_cache_->data($_cache_key_, $list_all);
+
+		return $list;
+	}
+
+	function getSkillTreeList()
+	{
+		$_key = 'skilltree';
+		$_cache_key_ = $_key.'_list';
+
+		if ($list = HOF::$_cache_->data($_cache_key_))
+		{
+			return $list;
+		}
+
+		$list = self::_load_list($_key);
+
+		HOF::$_cache_->data($_cache_key_, $list);
+
+		return $list;
+	}
+
 	function getLandList()
 	{
 		$_cache_key_ = 'land_list';
