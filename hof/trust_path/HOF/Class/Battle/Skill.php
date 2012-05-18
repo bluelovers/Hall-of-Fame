@@ -5,8 +5,6 @@
  * @copyright 2012
  */
 
-include_once CLASS_BATTLE;
-
 class HOF_Class_Battle_Skill
 {
 	protected $battle;
