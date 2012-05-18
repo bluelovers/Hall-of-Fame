@@ -1,0 +1,8 @@
+no: 2012
+check:
+    -
+        and:
+            job:
+                - 201
+            skill:
+                - 2011
