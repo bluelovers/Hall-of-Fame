@@ -1,0 +1,29 @@
+no: '0002'
+name: FakeHeroes
+data:
+    team:
+        name: FakeHeroes
+        servant:
+            1095:
+                - 100
+                - 0
+            1096:
+                - 100
+                - 0
+            1097:
+                - 100
+                - 0
+            1098:
+                - 100
+                - 0
+    base:
+        type: mon
+        no: '2002'
+    conditions:
+        lv_limit: '250'
+data_ex:
+    name: FakeHeroes
+    level: '90'
+    img: hero
+    land: pavement01
+    cycle: 43200
