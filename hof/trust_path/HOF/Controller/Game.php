@@ -115,7 +115,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 	function _main_action_login($message = null)
 	{
-		$this->output->message = $message;
+		if ($message) $this->output->message = $message;
 		$this->output->id = $_SESSION["id"];
 
 		$this->output->game_users = HOF_Helper_Global::UserAmount();
@@ -361,7 +361,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		// MAKE
 		if (!file_exists($file) && !is_dir($dir))
 		{
-			mkdir($dir, 0705);
+			HOF_Class_File::mkdir($dir);
 
 			/**
 			 * ID記録
@@ -564,6 +564,8 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 		unset($_SESSION["pass"]);
 
+		HOF_Model_Main::getUserList();
+
 		$this->_main_exec('login', $this->input->action == 'logout' ? 'User Logout!!' : $message);
 	}
 
@@ -573,6 +575,8 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 		if ($message !== true)
 		{
+			$this->output->message = $message;
+
 			//$this->_main_exec($this->input->action ? $this->input->action : 'logout', $message);
 			$this->_main_stop(true);
 		}
@@ -587,7 +591,6 @@ class HOF_Controller_Game extends HOF_Class_Controller
 	 */
 	function CheckLogin()
 	{
-
 		$this->input->pass = HOF::$input->post->pass;
 		$this->input->id = HOF::$input->post->id;
 
