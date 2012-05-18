@@ -1,0 +1,14 @@
+no: 3265
+check:
+    -
+        and:
+            job:
+                - 302
+            skill:
+                - 3250
+    -
+        and:
+            job:
+                - 302
+            skill:
+                - 3255
