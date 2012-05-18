@@ -7,7 +7,7 @@
 
 //include_once (CLASS_MONSTER);
 
-class HOF_Class_Char_Mon extends HOF_Class_Char
+class HOF_Class_Char_Mon extends HOF_Class_Char_Base
 {
 
 	/**
@@ -36,13 +36,6 @@ class HOF_Class_Char_Mon extends HOF_Class_Char
 		$this->_extend_init();
 
 		$this->SetCharData($data);
-	}
-
-	function _extend_init()
-	{
-		$this->extend('HOF_Class_Char_Pattern');
-		$this->extend('HOF_Class_Char_View');
-		$this->extend('HOF_Class_Char_Battle_Effect');
 	}
 
 	/**
@@ -96,42 +89,42 @@ class HOF_Class_Char_Mon extends HOF_Class_Char
 	/**
 	 * キャラの変数をセットする。
 	 */
-	function SetCharData($monster)
+	function SetCharData($data_attr)
 	{
 
-		$this->no = $monster["no"];
+		$this->no = $data_attr["no"];
 
-		$this->name = $monster["name"];
-		$this->level = $monster["level"];
+		$this->name = $data_attr["name"];
+		$this->level = $data_attr["level"];
 
-		if ($monster["img"]) $this->img = $monster["img"];
+		if ($data_attr["img"]) $this->img = $data_attr["img"];
 
-		$this->str = $monster["str"];
-		$this->int = $monster["int"];
-		$this->dex = $monster["dex"];
-		$this->spd = $monster["spd"];
-		$this->luk = $monster["luk"];
+		$this->str = $data_attr["str"];
+		$this->int = $data_attr["int"];
+		$this->dex = $data_attr["dex"];
+		$this->spd = $data_attr["spd"];
+		$this->luk = $data_attr["luk"];
 
-		$this->maxhp = $monster["maxhp"];
-		$this->hp = $monster["hp"];
-		$this->maxsp = $monster["maxsp"];
-		$this->sp = $monster["sp"];
+		$this->maxhp = $data_attr["maxhp"];
+		$this->hp = $data_attr["hp"];
+		$this->maxsp = $data_attr["maxsp"];
+		$this->sp = $data_attr["sp"];
 
-		$this->position = $monster["position"];
-		$this->guard = $monster["guard"];
+		$this->position = $data_attr["position"];
+		$this->guard = $data_attr["guard"];
 
 		// モンスター専用
-		//$this->monster		= $monster["monster"];
+		//$this->monster		= $data_attr["monster"];
 		$this->monster = true;
-		$this->summon = $monster["summon"];
-		$this->exphold = $monster["exphold"];
-		$this->moneyhold = $monster["moneyhold"];
-		$this->itemdrop = $monster["itemdrop"];
-		$this->atk = $monster["atk"];
-		$this->def = $monster["def"];
-		$this->SPECIAL = $monster["SPECIAL"];
+		$this->summon = $data_attr["summon"];
+		$this->exphold = $data_attr["exphold"];
+		$this->moneyhold = $data_attr["moneyhold"];
+		$this->itemdrop = $data_attr["itemdrop"];
+		$this->atk = $data_attr["atk"];
+		$this->def = $data_attr["def"];
+		$this->SPECIAL = $data_attr["SPECIAL"];
 
-		$this->pattern = $monster["pattern"];
+		$this->pattern = $data_attr["pattern"];
 	}
 
 	/**
