@@ -1,0 +1,14 @@
+no: 3012
+check:
+    -
+        and:
+            job:
+                - 201
+            skill:
+                - 3011
+    -
+        and:
+            job:
+                - 202
+            skill:
+                - 3011
