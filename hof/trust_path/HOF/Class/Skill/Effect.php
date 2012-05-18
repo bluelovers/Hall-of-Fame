@@ -297,7 +297,7 @@ class HOF_Class_Skill_Effect
 
 			case 3020: // ManaExtend
 				$target->MAXSP = round($target->MAXSP * 1.2);
-				print ($target->Name(bold) . "'s MAXSP extended to {$target->MAXSP}.<br />\n");
+				print ($target->Name('bold') . "'s MAXSP extended to {$target->MAXSP}.<br />\n");
 				break;
 				/*
 				case 3030: // Reflesh
@@ -330,7 +330,7 @@ class HOF_Class_Skill_Effect
 			case 3055: //CastAsist
 				if ($target->expect && $target->expect_type === 1)
 				{
-					print ("<span class=\"support\">" . $target->Name(bold) . " casting shorted!</span>");
+					print ("<span class=\"support\">" . $target->Name('bold') . " casting shorted!</span>");
 					$target->DelayCut(60, $this->battle->delay, 1);
 					print ("<br />\n");
 				}
@@ -341,7 +341,7 @@ class HOF_Class_Skill_Effect
 				if (!$target->SPECIAL["Barrier"])
 				{
 					$target->GetSpecial("Barrier", true);
-					print ("<span class=\"support\">" . $target->Name(bold) . " got barriered!</span><br />\n");
+					print ("<span class=\"support\">" . $target->Name('bold') . " got barriered!</span><br />\n");
 				}
 				break;
 				/*
@@ -429,7 +429,7 @@ class HOF_Class_Skill_Effect
 				if ($target->POSITION == POSITION_BACK)
 				{
 					$target->POSITION = POSITION_FRONT;
-					print ($target->Name(bold) . " goes forward.<br />");
+					print ($target->Name('bold') . " goes forward.<br />");
 				}
 				$this->StatusChanges($skill, $target);
 				break;
@@ -460,7 +460,7 @@ class HOF_Class_Skill_Effect
 				$add = HOF_Model_Char::newMonSummon($mob);
 				$this->battle->JoinCharacter($user, $add);
 				$add->ShowImage(vcent);
-				print ($add->Name(bold) . " joined to the team.<br />\n");
+				print ($add->Name('bold') . " joined to the team.<br />\n");
 				break;
 
 				//---------------------------------------------//
@@ -472,7 +472,7 @@ class HOF_Class_Skill_Effect
 				if ($skill["MagicCircleAdd"])
 				{
 					$this->battle->changeMagicCircle($user->team, $skill["MagicCircleAdd"]);
-					print ($user->Name(bold) . '<span class="support"> draw MagicCircle x' . $skill["MagicCircleAdd"] . '</span><br />' . "\n");
+					print ($user->Name('bold') . '<span class="support"> draw MagicCircle x' . $skill["MagicCircleAdd"] . '</span><br />' . "\n");
 				}
 				// 魔方陣消す(敵)
 				if ($skill["MagicCircleDeleteEnemy"])
@@ -480,19 +480,19 @@ class HOF_Class_Skill_Effect
 					// 相手チームを指定
 					$EnemyTeam = ($user->team == TEAM_0) ? TEAM_1 : TEAM_0;
 					$this->battle->changeMagicCircle($EnemyTeam, $skill["MagicCircleDeleteEnemy"], -1);
-					print ($user->Name(bold) . '<span class="dmg"> erased enemy MagicCircle x' . $skill["MagicCircleDeleteEnemy"] . '</span><br />' . "\n");
+					print ($user->Name('bold') . '<span class="dmg"> erased enemy MagicCircle x' . $skill["MagicCircleDeleteEnemy"] . '</span><br />' . "\n");
 				}
 				// HP持続回復
 				if ($skill["HpRegen"])
 				{
 					$target->GetSpecial("HpRegen", $skill["HpRegen"]);
-					print ($target->Name(bold) . '<span class="recover"> gained HP regeneration +' . $skill["HpRegen"] . "%</span><br />\n");
+					print ($target->Name('bold') . '<span class="recover"> gained HP regeneration +' . $skill["HpRegen"] . "%</span><br />\n");
 				}
 				// SP持続回復
 				if ($skill["SpRegen"])
 				{
 					$target->GetSpecial("SpRegen", $skill["SpRegen"]);
-					print ($target->Name(bold) . '<span class="support"> gained SP regeneration +' . $skill["SpRegen"] . "%</span><br />\n");
+					print ($target->Name('bold') . '<span class="support"> gained SP regeneration +' . $skill["SpRegen"] . "%</span><br />\n");
 				}
 				// チャージ(詠唱)中のキャラのみに適応する技。
 				if ($skill["priority"] == "Charge" && !$target->expect) break;
@@ -521,7 +521,7 @@ class HOF_Class_Skill_Effect
 						$this->battle->JoinCharacter($user, $add);
 						$add->ShowImage(vcent);
 
-						print ($add->Name(bold) . " joined to the team.<br />\n");
+						print ($add->Name('bold') . " joined to the team.<br />\n");
 					}
 					return true;
 				}
@@ -558,9 +558,9 @@ class HOF_Class_Skill_Effect
 				if ($skill["poison"])
 				{
 					$result = $target->GetPoison($skill["poison"]);
-					if ($result === true) print ($target->Name(bold) . " get <span class=\"spdmg\">poisoned</span>&nbsp;!<br />\n");
+					if ($result === true) print ($target->Name('bold') . " get <span class=\"spdmg\">poisoned</span>&nbsp;!<br />\n");
 					else
-						if ($result === "BLOCK") print ($target->Name(bold) . " blocked poison.<br />\n");
+						if ($result === "BLOCK") print ($target->Name('bold') . " blocked poison.<br />\n");
 				}
 				// ノックバック(後衛化)
 				if ($skill["knockback"]) $target->KnockBack($skill["knockback"]);
@@ -581,7 +581,7 @@ class HOF_Class_Skill_Effect
 	{
 		if (!$skill["delay"]) return false;
 
-		print ($target->Name(bold) . " delayed ");
+		print ($target->Name('bold') . " delayed ");
 		$target->DelayByRate($skill["delay"], $this->battle->delay, 1);
 		print (".<br />\n");
 	}
@@ -780,7 +780,7 @@ class HOF_Class_Skill_Effect
 	{
 		print ('Drained <span class="recover"><span class="bold">' . $value . '</span> HP</span>');
 		$user->HpRecover($value);
-		print (' from ' . $target->Name(bold));
+		print (' from ' . $target->Name('bold'));
 		$target->HpDamage($value);
 		print ("<br />\n");
 	}
@@ -792,7 +792,7 @@ class HOF_Class_Skill_Effect
 	{
 		print ('Drained <span class="support"><span class="bold">' . $value . '</span> SP</span>');
 		$user->SpRecover($value);
-		print (' from ' . $target->Name(bold));
+		print (' from ' . $target->Name('bold'));
 		$target->SpDamage($value);
 		print ("<br />\n");
 	}
