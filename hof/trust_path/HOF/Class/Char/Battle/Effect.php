@@ -119,9 +119,9 @@ class HOF_Class_Char_Battle_Effect
 			$this->char->delay = $this->char->SPD;
 		}
 		elseif (DELAY_TYPE === 1)
-			{
-				$this->char->delay = 0;
-			}
+		{
+			$this->char->delay = 0;
+		}
 	}
 
 	//	行動を近づかせる。
@@ -135,10 +135,10 @@ class HOF_Class_Char_Battle_Effect
 			$this->char->delay += $no;
 		}
 		elseif (DELAY_TYPE === 1)
-			{
-				$this->char->delay += $no * $this->char->DelayValue();
-				//print("DELAY".$this->char->delay."<br />\n");
-			}
+		{
+			$this->char->delay += $no * $this->char->DelayValue();
+			//print("DELAY".$this->char->delay."<br />\n");
+		}
 	}
 
 	function DelayValue()
@@ -164,19 +164,19 @@ class HOF_Class_Char_Battle_Effect
 			}
 		}
 		elseif (DELAY_TYPE === 1)
+		{
+			if ($Show)
 			{
-				if ($Show)
-				{
-					print ("(" . sprintf("%0.0f", $this->char->delay));
-					print ('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
-				}
-				$Delay = $No; //遅らせる間隔
-				$this->char->delay -= $Delay;
-				if ($Show)
-				{
-					print (sprintf("%0.0f", floor($this->char->delay)) . "/" . sprintf("%d", 100) . ")");
-				}
+				print ("(" . sprintf("%0.0f", $this->char->delay));
+				print ('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
 			}
+			$Delay = $No; //遅らせる間隔
+			$this->char->delay -= $Delay;
+			if ($Show)
+			{
+				print (sprintf("%0.0f", floor($this->char->delay)) . "/" . sprintf("%d", 100) . ")");
+			}
+		}
 	}
 
 	//	行動を早送りする(%)
@@ -197,19 +197,19 @@ class HOF_Class_Char_Battle_Effect
 			}
 		}
 		elseif (DELAY_TYPE === 1)
+		{
+			$Delay = (100 - $this->char->delay) * ($No / 100); //早まらせる間隔
+			if ($Show)
 			{
-				$Delay = (100 - $this->char->delay) * ($No / 100); //早まらせる間隔
-				if ($Show)
-				{
-					print ("(" . sprintf("%0.1f", $this->char->delay));
-					print ('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
-				}
-				$this->char->delay += $Delay;
-				if ($Show)
-				{
-					print (sprintf("%0.0f", floor($this->char->delay)) . "/" . sprintf("%d", 100) . ")");
-				}
+				print ("(" . sprintf("%0.1f", $this->char->delay));
+				print ('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
 			}
+			$this->char->delay += $Delay;
+			if ($Show)
+			{
+				print (sprintf("%0.0f", floor($this->char->delay)) . "/" . sprintf("%d", 100) . ")");
+			}
+		}
 	}
 
 	//	即時行動させる。
