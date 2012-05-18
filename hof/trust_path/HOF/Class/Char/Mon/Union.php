@@ -14,15 +14,15 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 	var $file;
 	var $fp;
 
-	var $UnionName;
-	var $MonsterNumber;
-	var $LastDefeated;
+	var $name;
+	var $no;
+	var $last_battle;
 
-	var $Slave;
+	var $servant;
 	var $Union = true;
-	var $UnionNo;
-	var $UnionLand;
-	var $LevelLimit;
+	var $id;
+	var $land;
+	var $lv_limit;
 	/*
 	Unionモンスターはダメージを受けると経験値を渡す。
 	なので、全開のHPと差分を取って死亡判定時に経験値を渡すことにする。
@@ -42,7 +42,7 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 	{
 		$this->_extend_init();
 
-		$this->LoadData($file);
+		$file && $this->LoadData($file);
 	}
 
 	function _extend_init()
@@ -56,23 +56,16 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 	{
 		if (!file_exists($file)) return false;
 
-		list($this->file_name, $this->file_ext) = HOF_Class_File::basename($file);
-
 		$this->file = $file;
 		$this->fp = HOF_Class_File::fplock_file($this->file);
 
-		$this->UnionNo = substr(basename($file), 0, 4);
+		$this->_source_data_ = HOF_Class_Yaml::load($this->fp);
 
-		if ($this->file_ext == '.dat')
-		{
-			$data = HOF_Class_File::ParseFileFP($this->fp);
-		}
-		else
-		{
-			$data = HOF_Class_Yaml::parse(stream_get_contents($this->fp));
-		}
+		$this->id = $this->_source_data_['no'];
 
-		$this->SetCharData($data);
+		$this->_init = true;
+
+		$this->SetCharData($this->_source_data_);
 
 		return true;
 	}
@@ -80,17 +73,17 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 	//	キャラの変数をセットする。
 	function SetCharData(&$data)
 	{
-		$this->MonsterNumber = $data["MonsterNumber"];
-		$this->LastDefeated = $data["LastDefeated"];
+		$this->no = $data["no"];
+		$this->last_battle = $data["last_battle"];
 
-		$monster = HOF_Model_Char::getBaseMonster($this->MonsterNumber);
+		$monster = HOF_Model_Char::getUnionDataMon($this->no);
 
-		$this->UnionName = $monster["UnionName"];
+		$this->team_name = $data['data']['team']['name'];
 
 		$this->name = $monster["name"];
 		$this->level = $monster["level"];
 
-		if ($monster["img"]) $this->img = $monster["img"];
+		$this->img = $data["img"];
 
 		$this->str = $monster["str"];
 		$this->int = $monster["int"];
@@ -99,9 +92,9 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 		$this->luk = $monster["luk"];
 
 		$this->maxhp = $monster["maxhp"];
-		$this->hp = $data["HP"];
+		$this->hp = $data["hp"];
 		$this->maxsp = $monster["maxsp"];
-		$this->sp = $data["SP"];
+		$this->sp = $data["sp"];
 
 		$this->position = $monster["position"];
 		$this->guard = $monster["guard"];
@@ -115,19 +108,19 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 		$this->def = $monster["def"];
 		$this->SPECIAL = $monster["SPECIAL"];
 
-		$this->Slave = $monster["Slave"];
-		$this->UnionLand = $monster["land"];
-		$this->LevelLimit = $monster["LevelLimit"];
+		$this->servant = $data['data']['team']['servant'];
+		$this->land = $data["land"];
+		$this->lv_limit = $data['data']['conditions']['lv_limit'];
 
 		// 時間が経過して復活する処理。
 		$Now = time();
-		$Passed = $this->LastDefeated + $monster["cycle"];
+		$Passed = $this->last_battle + $data["cycle"];
 		if ($Passed < $Now && !$this->hp)
 		{
 			$this->hp = $this->maxhp;
 			$this->sp = $this->maxsp;
 		}
-		$this->LastHP = $data["HP"]; //差分を取るためのHP。
+		$this->LastHP = $data["hp"]; //差分を取るためのHP。
 
 		$this->pattern = $monster["pattern"];
 
@@ -168,40 +161,15 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 	{
 		if (!file_exists($this->file)) return false;
 
-		$Save = array(
-			"MonsterNumber",
-			"LastDefeated",
-			"HP",
-			"SP",
-			);
+		$data = $this->_source_data_;
 
-		$data = array();
+		$data['last_battle'] = $this->last_battle;
+		$data['hp'] = $this->HP;
+		$data['sp'] = $this->SP;
 
-		foreach ($Save as $k)
-		{
-			if (!isset($this->{$k})) continue;
+		HOF_Class_Yaml::save($this->fp, $data);
 
-			if ($this->file_ext == '.dat')
-			{
-				$data[$k] = "$k=" . (is_array($this->{$k}) ? implode("<>", $this->{$k}) : $this->{$k});
-			}
-			else
-			{
-				$data[$k] = $this->{$k};
-			}
-		}
-
-		if ($this->file_ext == '.dat')
-		{
-			$text = implode("\n", $data);
-		}
-		else
-		{
-			$text = HOF_Class_Yaml::dump($data);
-		}
-
-		HOF_Class_File::fpwrite_file($this->fp, $text);
-		fclose($this->fp);
+		HOF_Class_File::fpclose($this->fp);
 		unset($this->fp);
 	}
 
@@ -309,11 +277,28 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 	}
 
 	//	番号で呼び出す
-	function UnionNumber($no)
+	function id($no = null)
 	{
-		$file = UNION . $no . "_Union.dat";
-		if ($this->LoadData($file)) return true;
-		else  return false;
+		if ($no !== null)
+		{
+			$this->id = $no;
+
+			$this->_init = false;
+		}
+
+		if (!$this->_init && $this->id !== null)
+		{
+			$file = HOF_Model_Char::getUnionFile($this->id);
+
+			if (!$ret = $this->LoadData($file))
+			{
+				return false;
+			}
+		}
+
+		if (!$this->id) return false;
+
+		return $this->id;
 	}
 
 	//	ユニオン自体が生きてるかどうか確認する(戦闘外で)
@@ -333,13 +318,13 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 	<div class="carpet_frame">
 	<div class="land" style="background-image : url(<?=
 
-		HOF_Class_Icon::getImageUrl("land_" . $this->UnionLand, HOF_Class_Icon::IMG_LAND)
+		HOF_Class_Icon::getImageUrl("land_" . $this->land, HOF_Class_Icon::IMG_LAND)
 
 
 ?>);">
 	<a href="?union=<?=
 
-		$this->UnionNo
+		$this->id()
 
 
 ?>"><?php
@@ -350,12 +335,12 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 ?></a></div>
 	<div class="bold dmg"><?=
 
-		$this->UnionName
+		$this->name
 
 
 ?></div>LvLimit:<?=
 
-		$this->LevelLimit
+		$this->lv_limit
 
 
 ?>
@@ -433,7 +418,7 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char
 			$this->HP = 0;
 			$this->ResetExpect();
 
-			$this->LastDefeated = time();
+			$this->last_battle = time();
 			return true;
 		}
 	}
