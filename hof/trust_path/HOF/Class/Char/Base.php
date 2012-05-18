@@ -89,9 +89,4 @@ class HOF_Class_Char_Base extends HOF_Class_Base_Extend_Root
 		unset($this->fp);
 	}
 
-	static function uniqid()
-	{
-		return md5(uniqid(HOF::ip(), true));
-	}
-
 }
