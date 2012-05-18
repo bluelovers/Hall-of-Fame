@@ -1,0 +1,8 @@
+no: 2024
+check:
+    -
+        and:
+            job:
+                - 201
+            skill:
+                - 2021
