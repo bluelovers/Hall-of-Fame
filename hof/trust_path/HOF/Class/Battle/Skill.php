@@ -41,11 +41,11 @@ class HOF_Class_Battle_Skill
 		{
 			if (!$skill["limit"][$My->WEAPON])
 			{
-				echo('<span class="u">' . $My->Name(bold));
+				echo('<span class="u">' . $My->Name('bold'));
 				echo('<span class="dmg"> Failed </span>to ');
 				echo("<img src=\"" . HOF_Class_Icon::getImageUrl($skill["img"], HOF_Class_Icon::IMG_SKILL) . "\" class=\"vcent\"/>");
 				echo($skill[name] . "</span><br />\n");
-				//echo($My->Name(bold)." Failed to use ".$skill["name"]."<br />\n");
+				//echo($My->Name('bold')." Failed to use ".$skill["name"]."<br />\n");
 				echo("(Weapon type doesnt match)<br />\n");
 				$My->DelayReset(); // 行動順をリセット
 				return true;
@@ -55,7 +55,7 @@ class HOF_Class_Battle_Skill
 		// SP不足
 		if ($My->SP < $skill["sp"])
 		{
-			echo($My->Name(bold) . " failed to " . $skill["name"] . "(SP shortage)");
+			echo($My->Name('bold') . " failed to " . $skill["name"] . "(SP shortage)");
 			if ($My->expect)
 			{ //もし詠唱や貯め途中でSPが不足した場合
 				$My->ResetExpect();
@@ -71,12 +71,12 @@ class HOF_Class_Battle_Skill
 			// 物理か魔法によって文を変える
 			if ($skill["type"] == 0)
 			{ //物理
-				echo('<span class="charge">' . $My->Name(bold) . ' start charging.</span>');
+				echo('<span class="charge">' . $My->Name('bold') . ' start charging.</span>');
 				$My->expect_type = CHARGE;
 			}
 			else
 			{ //魔法
-				echo('<span class="charge">' . $My->Name(bold) . ' start casting.</span>');
+				echo('<span class="charge">' . $My->Name('bold') . ' start casting.</span>');
 				$My->expect_type = CAST;
 			}
 			$My->expect = $skill_no; //詠唱・貯め完了と同時に使用する技
@@ -99,7 +99,7 @@ class HOF_Class_Battle_Skill
 			$My->ActCount++;
 
 			// 行動内容の表示(行動する)
-			echo('<div class="u">' . $My->Name(bold));
+			echo('<div class="u">' . $My->Name('bold'));
 			echo("<img src=\"" . HOF_Class_Icon::getImageUrl($skill["img"], HOF_Class_Icon::IMG_SKILL) . "\" class=\"vcent\"/>");
 			echo($skill[name] . "</div>\n");
 
@@ -108,7 +108,7 @@ class HOF_Class_Battle_Skill
 			{
 				if ($this->battle->MagicCircleDelete($My->team, $skill["MagicCircleDeleteTeam"]))
 				{
-					echo($My->Name(bold) . '<span class="charge"> use MagicCircle x' . $skill["MagicCircleDeleteTeam"] . '</span><br />' . "\n");
+					echo($My->Name('bold') . '<span class="charge"> use MagicCircle x' . $skill["MagicCircleDeleteTeam"] . '</span><br />' . "\n");
 					// 魔法陣消費失敗
 				}
 				else
@@ -214,7 +214,7 @@ class HOF_Class_Battle_Skill
 		if ($skill["charge"]["1"])
 		{
 			$My->DelayReset();
-			echo($My->Name(bold) . " Delayed");
+			echo($My->Name('bold') . " Delayed");
 			$My->DelayByRate($skill["charge"]["1"], $this->battle->delay, 1);
 			echo("<br />\n");
 			return false;
