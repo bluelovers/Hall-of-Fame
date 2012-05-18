@@ -130,8 +130,8 @@ define('BBS_TOWN', DAT_DIR . 'bbs_town.dat');
 define('MANAGE_LOG_FILE', DAT_DIR . 'managed.dat'); //定期管理記録ファイル
 define('USER_NAME', DAT_DIR . 'username.dat'); //名前保存ファイル
 
-define('USER', BASE_TRUST_PATH . 'user/');
-define('UNION', BASE_TRUST_PATH . 'union/');
+define('USER', DAT_DIR . 'user/');
+define('UNION', DAT_DIR . 'union/');
 
 define('DATA', 'data');
 define('ITEM', 'item');
