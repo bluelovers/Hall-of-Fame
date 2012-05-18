@@ -1,0 +1,26 @@
+no: '0008'
+name: 'Bird''sNest'
+data:
+    team:
+        name: 'Bird''sNest'
+        servant:
+            1092:
+                - 100
+                - 0
+            1093:
+                - 100
+                - 0
+            1094:
+                - 100
+                - 0
+    base:
+        type: mon
+        no: '2008'
+    conditions:
+        lv_limit: '150'
+data_ex:
+    name: 'Bird''sNest'
+    level: '70'
+    img: mon_208r
+    land: nest
+    cycle: 97200
