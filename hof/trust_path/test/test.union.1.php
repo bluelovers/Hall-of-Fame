@@ -18,24 +18,24 @@ foreach (HOF_Class_File::glob(UNION) as $file)
 		$mon = HOF_Model_Char::getBaseMonster($_data["MonsterNumber"]);
 
 		$data['no'] = substr(basename($file), 0, 4);
-		$data['name'] = $mon['UnionName'];
+		$data['name'] = $mon['name'];
 
-		$data['data']['team']['name'] = $mon['UnionName'];
-		$data['data']['team']['servant'] = $mon["Slave"];
+		$data['data']['team']['name'] = $mon['name'];
+		$data['data']['team']['servant'] = $mon["servant"];
 
 		$data['data']['base'] = array(
 			'type' => 'mon',
 			'no' => $_data["MonsterNumber"],
 		);
 
-		$data['data_ex']['name'] = $mon['UnionName'];
+		$data['data_ex']['name'] = $mon['name'];
 		$data['data_ex']['level'] = $mon['level'];
 		$data['data_ex']['img'] = $mon['img'];
 
 		$data['data_ex']['land'] = $mon['land'];
 		$data['data_ex']['cycle'] = $mon["cycle"];
 
-		$data['data']['conditions']['lv_limit'] = $mon['LevelLimit'];
+		$data['data']['conditions']['lv_limit'] = $mon['lv_limit'];
 
 		/*
 		$data['data']["last_battle"] = 0;
