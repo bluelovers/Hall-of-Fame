@@ -28,5 +28,5 @@ data_ex:
     name: DragonFleets
     level: '250'
     img: mon_013r
-    land: swamp
+    land: swamp2
     cycle: 259200
