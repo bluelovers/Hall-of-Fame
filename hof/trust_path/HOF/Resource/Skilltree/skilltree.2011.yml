@@ -1,0 +1,26 @@
+no: 2011
+check:
+    -
+        and:
+            job:
+                - 200
+            skill:
+                - 2010
+    -
+        and:
+            job:
+                - 201
+            skill:
+                - 2010
+    -
+        and:
+            job:
+                - 202
+            skill:
+                - 2010
+    -
+        and:
+            job:
+                - 203
+            skill:
+                - 2010
