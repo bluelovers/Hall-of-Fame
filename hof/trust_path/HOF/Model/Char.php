@@ -133,8 +133,145 @@ class HOF_Model_Char extends HOF_Class_Data
 		return $char;
 	}
 
+	function getUnionDataBase($no)
+	{
+		$_key = 'union';
+		$_cache_key_ = $_key.'_base';
+
+		$list = HOF::$_cache_->data($_cache_key_);
+
+		if (isset($list[$no]))
+		{
+			$data = $list[$no];
+		}
+		else
+		{
+			$data = self::getInstance()->_load($_key, $no);
+
+			$list[$no] = $data;
+
+			HOF::$_cache_->data($_cache_key_, $list);
+		}
+
+		return $data;
+	}
+
+	function getUnionDataMon($no)
+	{
+		$_key = 'union';
+		$_cache_key_ = $_key.'_mon';
+
+		$list = HOF::$_cache_->data($_cache_key_);
+
+		if (isset($list[$no]))
+		{
+			$data = $list[$no];
+		}
+		else
+		{
+			$data = false;
+
+			if ($union_base = self::getUnionDataBase($no))
+			{
+				$data = self::getInstance()->_load($union_base['data']['base']['type'], $union_base['data']['base']['no']);
+
+				$data = array_merge($data, (array)$union_base['data_ex']);
+
+				$data['_source_'] = $union_base;
+
+				$list[$no] = $data;
+
+				HOF::$_cache_->data($_cache_key_, $list);
+			}
+		}
+
+		if ($data)
+		{
+			$data = self::_fixMonData($data);
+		}
+
+		return $data;
+	}
+
+	function getUnionList()
+	{
+		$_key = 'union';
+		$_cache_key_ = $_key.'_list';
+
+		if ($list = HOF::$_cache_->data($_cache_key_))
+		{
+			return $list;
+		}
+
+		$list = self::_load_list($_key);
+
+		HOF::$_cache_->data($_cache_key_, $list);
+
+		return $list;
+	}
+
+	function getUnionFile($no, $skip = false)
+	{
+		$file = UNION.'union.'.$no.'.yml';
+
+		if (!$skip && !file_exists($file))
+		{
+			self::getUnionData($no, true);
+		}
+
+		return $file;
+	}
+
+	function getUnionData($no, $skip = false)
+	{
+		$all = self::getUnionList();
+
+		if (in_array($no, (array)$all))
+		{
+			$file = self::getUnionFile($no, true);
+
+			if (!file_exists($file))
+			{
+				$union_base = self::getUnionDataBase($no);
+				$union_mon = self::getUnionDataMon($no);
+
+				unset($union_base['data_ex']);
+
+				$union_base['name'] = $union_mon['name'];
+
+				$union_base['last_battle'] = 0;
+				$union_base['hp'] = $union_mon['hp'];
+				$union_base['sp'] = $union_mon['sp'];
+				$union_base['cycle'] = $union_mon['cycle'];
+				$union_base['land'] = $union_mon['land'];
+				$union_base['img'] = $union_mon['img'];
+
+				HOF_Class_Yaml::save($file, $union_base);
+			}
+
+			if ($skip) return;
+
+			$data = HOF_Class_Yaml::load($file);
+
+			return $data;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
 	function newUnionFromFile($file = null)
 	{
+		$char = new HOF_Class_Char_Mon_Union($file);
+
+		return $char;
+	}
+
+	function newUnion($no)
+	{
+		$file = self::getUnionFile($no);
+
 		$char = new HOF_Class_Char_Mon_Union($file);
 
 		return $char;
@@ -173,19 +310,19 @@ class HOF_Model_Char extends HOF_Class_Data
 
 	 * ユニオンと一緒に出る雑魚出現確率
 	 * 2個目の変数は無視
-	 * "Slave" = array(
+	 * "servant" = array(
 	 * 敵番号 => (確立,0)
 	 * );
 	 * "land" = 土地(背景)
 
 	 * 必ず出現する雑魚を指定する
-	 * "SlaveSpecify"	=> array(敵番号, ),
-	 * "UnionName" = ユニオンの団体の名称
-	 * "LevelLimit" = レベル制限
+	 * "servantSpecify"	=> array(敵番号, ),
+	 * "name" = ユニオンの団体の名称
+	 * "lv_limit" = レベル制限
 
 	 * 雑魚の出現数を指定する
 	 * 省略してもOK
-	 * "SlaveAmount" => "6",
+	 * "servantAmount" => "6",
 	 */
 	function getBaseMonster($no, $over = false)
 	{
@@ -193,6 +330,13 @@ class HOF_Model_Char extends HOF_Class_Data
 
 		if (!$data) return false;
 
+		$data = self::_fixMonData($data);
+
+		return $data;
+	}
+
+	function _fixMonData($data)
+	{
 		static $overlap;
 
 		///// 色々変数追加・編集 /////////////////////
