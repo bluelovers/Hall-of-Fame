@@ -1,0 +1,23 @@
+no: '0007'
+name: 'Ape''sRevenge'
+data:
+    team:
+        name: 'Ape''sRevenge'
+        servant:
+            1100:
+                - 100
+                - 0
+            1101:
+                - 100
+                - 0
+    base:
+        type: mon
+        no: '2007'
+    conditions:
+        lv_limit: '100'
+data_ex:
+    name: 'Ape''sRevenge'
+    level: '54'
+    img: mon_008r
+    land: jungle
+    cycle: 259200
