@@ -38,7 +38,7 @@ foreach (HOF_Class_File::glob(UNION) as $file)
 		$data['data']['conditions']['lv_limit'] = $mon['lv_limit'];
 
 		/*
-		$data['data']["last_battle"] = 0;
+		$data['data']["last_death"] = 0;
 		$data['hp'] = 0;
 		$data['sp'] = 0;
 		*/
