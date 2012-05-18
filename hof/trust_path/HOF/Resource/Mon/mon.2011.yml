@@ -27,7 +27,7 @@ itemtable: {  }
 SPECIAL:
     PoisonResist: 50
 cycle: 68400
-Slave:
+servant:
     1092:
         - 100
         - 0
@@ -38,6 +38,6 @@ Slave:
         - 100
         - 0
 land: mount
-UnionName: OgreSquad
-LevelLimit: '150'
+name: OgreSquad
+lv_limit: '150'
 pattern: {  }
