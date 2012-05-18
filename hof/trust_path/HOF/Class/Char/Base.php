@@ -7,10 +7,28 @@
 
 class HOF_Class_Char_Base extends HOF_Class_Base_Extend_Root
 {
+	// ファイルポインタ
+	public $fp;
+	public $file;
+
 	public $id;
 
 	public $name;
 	public $gender = GENDER_UNKNOW;
+
+	public $img;
+
+	public $level;
+
+	/**
+	 * 戦闘用変数(BattleVariable) データには保存されない。
+	 */
+	public $team;
+
+	/**
+	 * スキル
+	 */
+	public $skill;
 
 	/**
 	 * ステータス
@@ -42,6 +60,21 @@ class HOF_Class_Char_Base extends HOF_Class_Base_Extend_Root
 	 * $atk=array(物理,魔法); $def=array(物理/,物理-,魔法/,魔法-);
 	 */
 	public $atk, $def;
+
+	/**
+	 * 戦闘その他
+	 */
+	public $position, $guard;
+
+	public $POSITION;
+
+	/**
+	PoisonResist 毒抵抗
+	HealBonus .
+	Barrier
+	Undead
+	*/
+	public $WEAPON;
 
 	/**
 	 * 行動までの時間
@@ -85,6 +118,32 @@ class HOF_Class_Char_Base extends HOF_Class_Base_Extend_Root
 	protected $_cache_char_;
 
 	/**
+	 * 武器タイプ
+	 */
+
+	var $map_equip_allow = array(
+		"weapon" => true,
+		"shield" => true,
+		"armor" => true,
+		"item" => true,
+		);
+
+	static $map_equip = array(
+		"weapon" => true,
+		"shield" => true,
+		"armor" => true,
+		"item" => true,
+		);
+
+	function _extend_init()
+	{
+		$this->extend('HOF_Class_Char_Pattern');
+		$this->extend('HOF_Class_Char_View');
+		$this->extend('HOF_Class_Char_Battle_Effect');
+		$this->extend('HOF_Class_Char_Battle');
+	}
+
+	/**
 	 * ファイルポインタが開かれていれば閉じる
 	 */
 	function fpclose()
@@ -92,6 +151,11 @@ class HOF_Class_Char_Base extends HOF_Class_Base_Extend_Root
 		HOF_Class_File::fpclose($this->fp);
 
 		unset($this->fp);
+	}
+
+	function __destruct()
+	{
+		$this->fpclose();
 	}
 
 }
