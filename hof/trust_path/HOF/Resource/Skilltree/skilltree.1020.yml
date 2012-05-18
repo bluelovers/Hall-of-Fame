@@ -1,0 +1,8 @@
+no: 1020
+check:
+    -
+        and:
+            job:
+                - 103
+            skill:
+                - 1003
