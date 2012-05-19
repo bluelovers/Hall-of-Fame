@@ -492,7 +492,7 @@ class HOF_Class_Item_Auction
 				print ("</td></tr>\n");
 				// アイテム
 				print ('<tr><td colspan="7" style="text-align:left;padding-left:15px" class="td6">');
-				$item = HOF_Model_Data::getItemData($article_list["item"]);
+				$item = HOF_Class_Item::newInstance($article_list["item"]);
 				print ('<form action="?menu=auction" method="post">');
 				// 入札フォーム
 				if ($bidding)
@@ -504,7 +504,7 @@ class HOF_Class_Item_Auction
 					print ('<input type="hidden" name="article_no" value="' . $article_list["no"] . '">');
 					print ('</span>');
 				}
-				print (HOF_Class_Item::ShowItemDetail($item, $article_list["amount"], 1));
+				print ($item->html($article_list["amount"], 1));
 				print ("</form>");
 				print ("</td></tr>\n");
 			}
@@ -685,8 +685,8 @@ class HOF_Class_Item_Auction
 				print (HOF_Helper_Global::MoneyFormat($article_list["price"]));
 				// アイテム
 				print ('</td><td class="td7" style="text-align:left">');
-				$item = HOF_Model_Data::getItemData($article_list["item"]);
-				print (HOF_Class_Item::ShowItemDetail($item, $article_list["amount"], 1));
+				$item = HOF_Class_Item::newInstance($article_list["item"]);
+				print ($item->html($article_list["amount"], 1));
 				// 合計入札数
 				print ("</td><td class=\"td7\">");
 				print ($article_list["TotalBid"]);
