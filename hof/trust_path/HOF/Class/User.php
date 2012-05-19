@@ -65,9 +65,11 @@ class HOF_Class_User
 	/**
 	 * OPTION
 	 */
+	/*
 	var $record_btl_log;
 	var $no_JS_itemlist;
 	var $UserColor;
+	*/
 
 	/**
 	 * ユーザーアイテム用の変数
@@ -135,8 +137,8 @@ class HOF_Class_User
 	function DataUpDate(&$data)
 	{
 		$now = time();
-		$diff = $now - $data["last"];
-		$data["last"] = $now;
+		$diff = $now - $data['timestamp']["last"];
+		$data['timestamp']["last"] = $now;
 		$gain = $diff / (24 * 60 * 60) * TIME_GAIN_DAY;
 		$data["time"] += $gain;
 		if (MAX_TIME < $data["time"]) $data["time"] = MAX_TIME;
@@ -381,13 +383,22 @@ class HOF_Class_User
 	{
 
 		$Save = array(
+
+			'uniqid',
+
 			"id",
 			"pass",
 			"ip",
 			"name",
+
+			/*
 			"last",
 			"login",
 			"start",
+			*/
+			'timestamp',
+			'options',
+
 			"money",
 			"time",
 			"wtime",
@@ -397,10 +408,11 @@ class HOF_Class_User
 			"rank_btl_time",
 			"rank_record",
 			"union_btl_time",
-			// opt
+			/*
 			"record_btl_log",
 			"no_JS_itemlist",
 			"UserColor",
+			*/
 			);
 
 		$data = array();
@@ -429,6 +441,7 @@ class HOF_Class_User
 			$this->{$key} = $val;
 		}
 
+		/*
 		if (!is_array($this->party_memo))
 		{
 			$this->party_memo = explode("<>", $this->party_memo);
@@ -438,6 +451,7 @@ class HOF_Class_User
 		{
 			$this->party_rank = explode("<>", $this->party_rank);
 		}
+		*/
 
 		/*
 		$this->name	= $data["name"];
@@ -627,11 +641,11 @@ class HOF_Class_User
 	{
 		$now = time();
 		// $this->login がおかしければ終了する。
-		if (strlen($this->login) !== 10)
+		if (strlen($this->timestamp['login']) !== 10)
 		{
 			return false;
 		}
-		if (($this->login + ABANDONED) < $now)
+		if (($this->timestamp['login'] + ABANDONED) < $now)
 		{
 			return true;
 		}
