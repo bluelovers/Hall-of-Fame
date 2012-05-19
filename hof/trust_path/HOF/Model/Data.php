@@ -843,19 +843,6 @@ class HOF_Model_Data extends HOF_Class_Data
 			return false;
 		}
 
-		//@include_once (DATA_ENCHANT);
-
-		//アイテムの種類
-		$base = substr($no, 0, 4);
-
-		//精錬値
-		$refine = (int)substr($no, 4, 2);
-
-		// 付加能力
-		$option0 = substr($no, 6, 3);
-		$option1 = substr($no, 9, 3);
-		$option2 = substr($no, 12, 3);
-
 		/**
 		 * 設定項目
 		 * ---------------------------------------------
@@ -907,13 +894,19 @@ class HOF_Model_Data extends HOF_Class_Data
 		 * P_PIERCE = array(物理,魔法),
 		 *--------------------------------------------
 		 */
+
+		/**
+		 * アイテムの種類
+		 */
+		$base = substr($no, 0, 4);
+
 		$data = self::getInstance()->_load('item', $base);
 
 		$data["id"] = $no;
 
 		if ($source) return $data;
 
-		$data = HOF_Helper_Item::parseItemData($data);
+		$data = HOF_Helper_Item::parseItemData($data, $no);
 
 		return $data;
 	}
