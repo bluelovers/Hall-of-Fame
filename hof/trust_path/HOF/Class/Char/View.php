@@ -8,7 +8,7 @@
 class HOF_Class_Char_View
 {
 
-	protected $chat;
+	protected $char;
 
 	function __construct($char)
 	{
@@ -267,14 +267,35 @@ class HOF_Class_Char_View
 	}
 
 
-	//	checkboxも表示する
-	function ShowCharRadio($birth, $checked = null)
+	/**
+	 * checkboxも表示する
+	 */
+	function ShowCharRadio($checked = null, $input_type = 'checkbox')
 	{
 		static $flag = 0;
 
 		$flag++;
-		if (CHAR_ROW % 2 == 0 && $flag % (CHAR_ROW + 1) == 0) //carpetの並びを交互にする
- 				$flag++;
+		if (CHAR_ROW % 2 == 0 && $flag % (CHAR_ROW + 1) == 0)
+		{
+			/**
+			 * carpetの並びを交互にする
+			 */
+			$flag++;
+		}
+
+		$output = new HOF_Class_Array();
+
+		$output->char = $this->char;
+		$output->flag = $flag;
+
+		//$output->birth = $birth;
+		$output->checked = $checked;
+
+		$output->input_type = ($input_type) ? $input_type : 'checkbox';
+
+		HOF_Class_View::render(null, $output, 'layout/char/input.radio')->output();
+
+		return;
 
 		// onclick="Element.toggleClassName(this,'unselect')"
 
@@ -368,7 +389,7 @@ Lv.<?=
 		$divide = (count($characters) < CHAR_ROW ? count($characters) : CHAR_ROW);
 		$width = floor(100 / $divide); //各セル横幅
 
-		if ($type == "CHECKBOX")
+		if ($type == INPUT_CHECKBOX || $type == INPUT_RADIO)
 		{
 			/**
 			 * 選擇出擊的隊員時
@@ -387,6 +408,18 @@ Lv.<?=
 
 				if (_this.prop('checked'))
 				{
+					if (_this.is(':radio'))
+					{
+						var _form = _this.parents('form');
+
+						if (!_form.size())
+						{
+							_form = _this.parents('#contents');
+						}
+
+						_form.find('[name="' + _this.attr('name') + '"]:radio').filter(':not([value="' + _this.val() + '"])').trigger('change');
+					}
+
 					_this.parents('.carpet_frame:first').find('div[id^="text"]').removeClass('unselect');
 				}
 				else
@@ -426,6 +459,8 @@ Lv.<?=
 HTML;
 		}
 
+		if (!is_array($checked)) $checked = array();
+
 		//print ('<table cellspacing="0" style="width:100%"><tbody><tr>'); //横幅100%
 		print '<div style="text-align: center;">';
 		foreach ($characters as $char)
@@ -439,10 +474,15 @@ HTML;
 				case ($type === MONSTER):
 					$char->ShowCharWithLand($checked);
 					break;
-				case ($type === CHECKBOX):
-					if (!is_array($checked)) $checked = array();
+				case ($type === INPUT_CHECKBOX):
+				case ($type === INPUT_RADIO):
+					/*
 					if (in_array($char->birth, $checked)) $char->ShowCharRadio($char->birth, " checked");
 					else  $char->ShowCharRadio($char->birth);
+					*/
+
+					$char->ShowCharRadio(in_array($char->id, $checked), $type);
+
 					break;
 				default:
 					$char->ShowCharLink();
