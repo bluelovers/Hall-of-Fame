@@ -22,6 +22,15 @@ class HOF_Helper_Char
 		return md5(uniqid($uuid . $seed, true));
 	}
 
+	function uniqid_birth($t = null)
+	{
+		// time() . substr(microtime(), 2, 6);
+
+		if (!$t) $t = HOF_Helper_Date::microtime();
+
+		return $t[1].$t[0];
+	}
+
 	/**
 	 * パスワードを暗号化する
 	 */
