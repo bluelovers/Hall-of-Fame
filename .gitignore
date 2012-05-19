@@ -1,8 +1,11 @@
 
 /hof/trust_path/test.php
 /hof/trust_path/bootstrap.options.php
-#/hof/trust_path/test
+
 /hof/trust_path/user
 
 /hof/trust_path/config/setting.php
 /hof/trust_path/cache
+
+/hof/trust_path/dat/union
+/hof/trust_path/dat/user
