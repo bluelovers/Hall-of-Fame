@@ -74,15 +74,22 @@ class HOF_Class_Item extends HOF_Class_Base_ObjectAttr
 	 */
 	function __construct($no)
 	{
-		$data = HOF_Model_Data::getItemData($no, true);
+		if (is_array($no))
+		{
+			$data = $no;
+		}
+		else
+		{
+			$data = HOF_Model_Data::getItemData($no, true);
+		}
 
 		$_source_data_ = $data;
 
-		$data = HOF_Helper_Item::parseItemData($data);
+		$data = HOF_Helper_Item::parseItemData($data, $data['id']);
 
 		parent::__construct((array)$data);
 
-		$this->id = $no;
+		//$this->id = $this->id;
 		$this->icon = $this->img;
 
 		$this->_source_data_ = $_source_data_;
@@ -264,7 +271,7 @@ class HOF_Class_Item extends HOF_Class_Base_ObjectAttr
 	/**
 	 * アイテムの詳細を返す...ちょっと修正したいな。
 	 */
-	function ShowItemDetail($item, $amount = false, $text = false, $need = false)
+	static function ShowItemDetail($item, $amount = false, $text = false, $need = false)
 	{
 		if (!$item) return false;
 
