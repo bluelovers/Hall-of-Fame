@@ -118,7 +118,7 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 		foreach ($ShopList as $itemNo)
 		{
 			if (!$_POST["check_" . $itemNo]) continue;
-			$item = HOF_Model_Data::getItemData($itemNo);
+			$item = HOF_Class_Item::newInstance($itemNo);
 			if (!$item) continue;
 			$amount = (int)$_POST["amount_" . $itemNo];
 			if ($amount < 0) $amount = 0;
@@ -134,7 +134,7 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 			print ("</td><td class=\"td7\">");
 			print ("= " . HOF_Helper_Global::MoneyFormat($Total) . "\n");
 			print ("</td><td class=\"td8\">");
-			print (HOF_Class_Item::ShowItemDetail($item) . "\n");
+			print ($item->html() . "\n");
 			print ("</td></tr>\n");
 			$this->user->AddItem($itemNo, $amount);
 		}
@@ -165,7 +165,7 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 		foreach ($this->user->item as $itemNo => $amountHave)
 		{
 			if (!$_POST["check_" . $itemNo]) continue;
-			$item = HOF_Model_Data::getItemData($itemNo);
+			$item = HOF_Class_Item::newInstance($itemNo);
 			if (!$item) continue;
 			$amount = (int)$_POST["amount_" . $itemNo];
 			if ($amount < 0) $amount = 0;
@@ -181,7 +181,7 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 			print ("</td><td class=\"td7\">");
 			print ("= " . HOF_Helper_Global::MoneyFormat($Total) . "\n");
 			print ("</td><td class=\"td8\">");
-			print (HOF_Class_Item::ShowItemDetail($item) . "\n");
+			print ($item->html() . "\n");
 			print ("</td></tr>\n");
 		}
 		print ("<tr><td colspan=\"4\" class=\"td8\">合計 : " . HOF_Helper_Global::MoneyFormat($getMoney) . "</td></tr>");
