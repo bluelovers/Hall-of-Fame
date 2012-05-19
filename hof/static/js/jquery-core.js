@@ -159,4 +159,15 @@ jQuery(function($) {
 		});
 	}
 
+	$('td[valign]')
+		.each(function()
+		{
+			var _this = $(this);
+
+			_this
+				.css('vertical-align', _this.attr('valign'))
+			;
+		})
+	;
+
 });
