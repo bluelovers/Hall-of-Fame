@@ -14,9 +14,12 @@ class HOF_Helper_Char
 	const NAME_MIN = 2;
 	const NAME_MIN_CHAR = 1;
 
-	static function uniqid()
+	static function uniqid($seed = null)
 	{
-		return md5(uniqid(HOF::ip(), true));
+		static $uuid;
+		if (!isset($uuid)) $uid = md5(HOF::user()->id.HOF::ip());
+
+		return md5(uniqid($uuid . $seed, true));
 	}
 
 	/**
@@ -98,7 +101,7 @@ class HOF_Helper_Char
 
 		$file = $file;
 
-		return $path.$file;
+		return $path . $file;
 	}
 
 	function user_path($user)
@@ -137,13 +140,13 @@ class HOF_Helper_Char
 
 		$m = sprintf($m, '([0-9a-zA-Z]+)');
 
-		$path = rtrim($path, '/').'/';
+		$path = rtrim($path, '/') . '/';
 
-		if (preg_match('/'.$m.'/', $path, $match))
+		if (preg_match('/' . $m . '/', $path, $match))
 		{
 			if ($id = $match[1])
 			{
-				return (string)$id;
+				return (string )$id;
 			}
 		}
 
@@ -158,11 +161,11 @@ class HOF_Helper_Char
 
 		$m = sprintf($m, '([0-9a-zA-Z]+)', '.+');
 
-		if (preg_match('/'.$m.'/', $file, $match))
+		if (preg_match('/' . $m . '/', $file, $match))
 		{
 			if ($id = $match[1])
 			{
-				return (string)$id;
+				return (string )$id;
 			}
 		}
 
@@ -177,11 +180,11 @@ class HOF_Helper_Char
 
 		$m = sprintf($m, '([0-9a-zA-Z]+)');
 
-		if (preg_match('/'.$m.'/', $file, $match))
+		if (preg_match('/' . $m . '/', $file, $match))
 		{
 			if ($id = $match[1])
 			{
-				return (string)$id;
+				return (string )$id;
 			}
 		}
 
@@ -209,7 +212,7 @@ class HOF_Helper_Char
 	{
 		$list = array(array(), array());
 
-		foreach(glob(USER . '*', GLOB_ONLYDIR) as $path)
+		foreach (glob(USER . '*', GLOB_ONLYDIR) as $path)
 		{
 			if ($id = self::user_id_by_path($path))
 			{
@@ -217,7 +220,7 @@ class HOF_Helper_Char
 			}
 			else
 			{
-				$list[1][] = $path ;
+				$list[1][] = $path;
 			}
 		}
 
