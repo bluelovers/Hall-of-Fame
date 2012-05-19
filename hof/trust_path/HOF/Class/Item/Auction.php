@@ -286,10 +286,7 @@ class HOF_Class_Item_Auction
 		{
 			$key = 'end';
 		}
-		elseif ($type == 'no')
-		{
-			$key = 'No';
-		}
+
 
 		usort($this->article_list, HOF_Class_Array_Comparer_MuliteSubKey::newInstance($key)->sort_desc($desc)->callback());
 
@@ -640,17 +637,10 @@ class HOF_Class_Item_Auction
 	{
 		// 終了時刻の計算
 		$Now = time();
-		$end = $Now + round($now + (60 * 60 * $time));
+		$end = $Now + round((60 * 60 * $time));
 
 		// 開始価格のあれ
-		if (ereg("^[0-9]", $StartPrice))
-		{
-			$price = (int)$StartPrice;
-		}
-		else
-		{
-			$price = 0;
-		}
+		$price = max(0, intval($StartPrice));
 
 		// コメント処理
 		$comment = str_replace("\t", "", $comment);
