@@ -18,6 +18,69 @@ class HOF_Controller_Gamedata extends HOF_Class_Controller
 
 	function _main_action_job()
 	{
+		$gamedata = HOF::cache()->data('gamedata');
+
+		if (!isset($gamedata['job']))
+		{
+
+			$_data = HOF_Model_Data::getJobConditions();
+
+			$list_data = $list_job = array();
+
+			foreach ($_data['job_from'] as $job => $v)
+			{
+				$list_job[] = $job;
+
+				foreach($v as $k)
+				{
+					$list_job[] = $k;
+				}
+			}
+
+			foreach ($list_job as $job)
+			{
+				$data = HOF_Model_Data::getJobData($job);
+
+				$skills = HOF_Model_Data::getSkillTreeListByJob($job);
+
+				array_shift($skills);
+				array_pop($skills);
+
+				shuffle($skills);
+
+				$skills_key = array_rand((array)$skills, 3);
+
+				$data['skill'] = array();
+
+				foreach ($skills_key as $k)
+				{
+					$v = $skills[$k];
+
+					$data['skill'][$v] = HOF_Model_Data::getSkill($v);
+				}
+
+				ksort($data['skill']);
+
+				$data["equip"] = implode(', ', $data["equip"]);
+
+				$list_data[$job] = $data;
+			}
+
+
+			$gamedata['job']['job_from'] = $_data['job_from'];
+			$gamedata['job']['list_data'] = $list_data;
+
+			HOF::cache()->data('gamedata', $gamedata);
+		}
+
+		$this->output->job_from = $gamedata['job']['job_from'];
+
+		$this->output->list = $gamedata['job']['list_data'];
+
+		$this->options['escapeHtml'] = false;
+
+		return;
+
 		$list = HOF_Model_Data::getJobList();
 
 		/**
