@@ -10,13 +10,20 @@ class HOF_Class_Skill extends HOF_Class_Base_ObjectAttr
 
 	function __construct($no)
 	{
-		$data = HOF_Model_Data::getSkill($no, true);
+		if (is_array($no))
+		{
+			$data = $no;
+		}
+		else
+		{
+			$data = HOF_Model_Data::getSkill($no, true);
+		}
 
 		$_source_data_ = $data;
 
 		parent::__construct((array)$data);
 
-		$this->id = $no;
+		$this->id = $this->no;
 		$this->icon = $this->img;
 
 		$this->_source_data_ = $_source_data_;
@@ -94,7 +101,7 @@ class HOF_Class_Skill extends HOF_Class_Base_ObjectAttr
 		$data['img'] = $this->icon();
 		$data['name'] = $this->name();
 
-		return self::ShowItemDetail($data, $radio, $text);
+		return self::ShowSkillDetail($data, $radio, $text);
 	}
 
 	function name()
