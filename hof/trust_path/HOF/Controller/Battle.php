@@ -465,7 +465,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			//お金を増やす
 			$this->user->GetMoney($UserMoney);
 			//戦闘ログの保存
-			if ($this->user->record_btl_log) $battle->RecordLog();
+			if ($this->user->options['record_btl_log']) $battle->RecordLog();
 
 			// アイテムを受け取る
 			if ($itemdrop = $battle->ReturnItemGet(0))
