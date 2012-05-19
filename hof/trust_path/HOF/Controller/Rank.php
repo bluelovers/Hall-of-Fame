@@ -13,7 +13,7 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 	 */
 	var $Ranking;
 
-	function _init()
+	function _main_init()
 	{
 		$this->Ranking = new HOF_Class_Ranking();
 
@@ -22,6 +22,7 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 
 	function _main_input()
 	{
+		$this->input->input_char_id = (array )HOF::$input->post->input_char_id;
 
 		if (HOF::$input->server->QUERY_STRING == 'rank')
 		{
@@ -181,7 +182,7 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 			foreach ($this->user->char as $key => $val)
 			{
 				//チェックされたやつリスト
-				if (HOF::$input->post["char_" . $key]) $checked[] = $key;
+				if (in_array($key, $this->input->input_char_id)) $checked[] = $key;
 			}
 
 			// 設定キャラ数が多いか少なすぎる
