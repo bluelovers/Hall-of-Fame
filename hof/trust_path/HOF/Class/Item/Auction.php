@@ -262,33 +262,38 @@ class HOF_Class_Item_Auction
 
 	function article_item_sortby($type)
 	{
-		switch ($type)
+		if (empty($type))
 		{
-			case "no":
-				usort($this->article_list, "HOF_Class_Item_Auction_Sort::sortByNo");
-				$this->sort = "no";
-				break;
-			case "time":
-				usort($this->article_list, "HOF_Class_Item_Auction_Sort::sortByTime");
-				$this->sort = "time";
-				break;
-			case "price":
-				usort($this->article_list, "HOF_Class_Item_Auction_Sort::sortByPrice");
-				$this->sort = "price";
-				break;
-			case "rprice":
-				usort($this->article_list, "HOF_Class_Item_Auction_Sort::sortByRPrice");
-				$this->sort = "rprice";
-				break;
-			case "bid":
-				usort($this->article_list, "HOF_Class_Item_Auction_Sort::sortByTotalBid");
-				$this->sort = "bid";
-				break;
-			default:
-				usort($this->article_list, "HOF_Class_Item_Auction_Sort::sortByTime");
-				$this->sort = "time";
-				break;
+			$type = 'time';
 		}
+
+		$key = $type;
+
+		if ($type == 'rprice')
+		{
+			$key = 'price';
+		}
+		elseif ($type == 'price')
+		{
+			$desc = true;
+		}
+		elseif ($type == 'bid')
+		{
+			$key = 'TotalBid';
+			$desc = true;
+		}
+		elseif ($type == 'time')
+		{
+			$key = 'end';
+		}
+		elseif ($type == 'no')
+		{
+			$key = 'No';
+		}
+
+		usort($this->article_list, array(HOF_Class_Array_Comparer_MuliteSubKey::newInstance($key)->sort_desc($desc), 'compare'));
+
+		$this->sort = $type;
 	}
 
 	/**
