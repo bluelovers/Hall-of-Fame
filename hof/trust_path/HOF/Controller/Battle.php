@@ -15,7 +15,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 	protected $_cache;
 
-	function _init()
+	function _main_init()
 	{
 		$this->user = &HOF::user();
 
@@ -34,6 +34,8 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	{
 
 		$this->input->memory_party = HOF::$input->post->memory_party;
+
+		$this->input->input_char_id = (array )HOF::$input->post->input_char_id;
 
 	}
 
@@ -229,7 +231,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		foreach ($this->user->char as $key => $val)
 		{
 			//チェックされたやつリスト
-			if (HOF::$input->post["char_" . $key])
+			if (in_array($key, $this->input->input_char_id))
 			{
 				$MyParty[] = $this->user->char[$key];
 				$TotalLevel += $this->user->char[$key]->level; //自分PTの合計レベル
@@ -333,7 +335,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			foreach ($this->user->char as $key => $val)
 			{
 				//チェックされたやつリスト
-				if (HOF::$input->post["char_" . $key]) $MyParty[] = $this->user->char[$key];
+				if (in_array($key, $this->input->input_char_id)) $MyParty[] = $this->user->char[$key];
 			}
 			if (count($MyParty) === 0)
 			{
@@ -369,9 +371,13 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			//$temp	= $this->party_memo;//一時的に記憶
 			//$this->party_memo	= array();
 			foreach ($this->user->char as $key => $val)
-			{ //チェックされたやつリスト
-				if ($_POST["char_" . $key]) //$this->party_memo[]	 = $key;
- 						$PartyMemo[] = $key;
+			{
+				//チェックされたやつリスト
+				if (in_array($key, $this->input->input_char_id))
+				{
+					//$this->party_memo[]	 = $key;
+					$PartyMemo[] = $key;
+				}
 			}
 			//if(5 < count($this->party_memo) )//5人以上は駄目
 			//	$this->party_memo	= $temp;
@@ -411,7 +417,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			// 自分パーティー
 			foreach ($this->user->char as $key => $val)
 			{ //チェックされたやつリスト
-				if (HOF::$input->post["char_" . $key]) $MyParty[] = $this->user->char[$key];
+				if (in_array($key, $this->input->input_char_id)) $MyParty[] = $this->user->char[$key];
 			}
 
 			if (count($MyParty) === 0)
