@@ -294,89 +294,6 @@ class HOF_Class_Char_View
 		$output->input_type = ($input_type) ? $input_type : 'checkbox';
 
 		HOF_Class_View::render(null, $output, 'layout/char/input.radio')->output();
-
-		return;
-
-		// onclick="Element.toggleClassName(this,'unselect')"
-
-
-
-?>
-<div class="carpet_frame">
-<div class="carpet<?=
-
-		$flag % 2
-
-
-?>">
-<a href="?char=<?=
-
-		$this->char->birth
-
-
-?>"><?php
-
-		$this->char->ShowImage();
-
-
-?></a>
-</div>
-
-<div id="text<?=
-
-		$flag
-
-
-?>" <?
-
-		print ($checked ? null : ' class="unselect"');
-
-
-?>>
-<?=
-
-		$this->char->name
-
-
-?>
-<?php
-
-		if ($this->char->statuspoint) print ('<span class="bold charge">*</span>');
-
-
-?><br />
-Lv.<?=
-
-		$this->char->level
-
-
-?>&nbsp;<?=
-
-		$this->char->job_name
-
-
-?>
-
-</div>
-<input type="checkbox" id="box<?=
-
-		$flag
-
-
-?>" name="char_<?=
-
-		$birth
-
-
-?>" value="1"<?=
-
-		$checked
-
-
-?>>
-
-</div><?php
-
 	}
 
 	/**
@@ -461,14 +378,9 @@ HTML;
 
 		if (!is_array($checked)) $checked = array();
 
-		//print ('<table cellspacing="0" style="width:100%"><tbody><tr>'); //横幅100%
 		print '<div style="text-align: center;">';
 		foreach ($characters as $char)
 		{
-			//if ($i % CHAR_ROW == 0 && $i != 0) print ("\t</tr><tr>\n");
-			//print ("\t<td valign=\"bottom\" style=\"width:{$width}%\">"); //キャラ数に応じて%で各セル分割
-
-			/*-------------------*/
 			switch (1)
 			{
 				case ($type === MONSTER):
@@ -476,23 +388,15 @@ HTML;
 					break;
 				case ($type === INPUT_CHECKBOX):
 				case ($type === INPUT_RADIO):
-					/*
-					if (in_array($char->birth, $checked)) $char->ShowCharRadio($char->birth, " checked");
-					else  $char->ShowCharRadio($char->birth);
-					*/
-
 					$char->ShowCharRadio(in_array($char->id, $checked), $type);
 
 					break;
 				default:
 					$char->ShowCharLink();
 			}
-
-			//print ("</td>\n");
 			$i++;
 		}
 		print '<div class="clearfix"></div></div>';
-		//print ("</tr></tbody></table>");
 	}
 
 	/**
