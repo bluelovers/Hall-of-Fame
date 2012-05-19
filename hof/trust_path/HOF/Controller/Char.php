@@ -865,7 +865,6 @@ HTML_BYEBYE;
 	 */
 	function _main_action_kick()
 	{
-		//$this->user->DeleteChar($this->char->birth);
 		$this->char->DeleteChar();
 		$host = $_SERVER['HTTP_HOST'];
 		$uri = rtrim(dirname($_SERVER['PHP_SELF']));
@@ -1048,7 +1047,7 @@ HTML_BYEBYE;
 			$EquipList->SetID("equip");
 			$EquipList->SetName("type_equip");
 			// JSを使用しない。
-			if ($this->user->no_JS_itemlist) $EquipList->NoJS();
+			if ($this->user->options['no_JS_itemlist']) $EquipList->NoJS();
 			reset($this->user->item); //これが無いと装備変更時に表示されない
 			foreach ($this->user->item as $key => $val)
 			{
@@ -1140,8 +1139,8 @@ HTML_BYEBYE;
 	 */
 	function ShowTutorial()
 	{
-		$last = $this->user->last;
-		$start = substr($this->user->start, 0, 10);
+		$last = $this->user->timestamp['last'];
+		$start = substr($this->user->timestamp['create'], 0, 10);
 		$term = 60 * 60 * 1;
 
 		if (($last - $start) < $term)
