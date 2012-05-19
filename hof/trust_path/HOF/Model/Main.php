@@ -197,6 +197,36 @@ class HOF_Model_Main extends HOF_Class_Array
 		}
 	}
 
+	static function user_create_data($id, $pass, $append = array())
+	{
+		$now = HOF_Helper_Date::microtime();
+
+		$data = array(
+
+			'uniqid' => HOF_Helper_Char::uniqid('user'),
+
+			'id' => $id,
+			'pass' => $pass,
+
+			'ip' => HOF::ip(),
+
+			'timestamp' => array(
+				'create' => HOF_Helper_Char::uniqid_birth($now),
+
+				'last' => $now[1],
+				'login' => $now[1],
+			),
+
+			'options' => array(
+				'record_btl_log' => 1,
+			),
+		);
+
+		$data = array_merge($data, (array)$append);
+
+		return $data;
+	}
+
 	function getUserList()
 	{
 		$list = array('user' => array(), 'name' => array());
