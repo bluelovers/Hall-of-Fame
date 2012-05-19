@@ -237,7 +237,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		{
 			// 入会してた場合　入札できるように
 			$this->ItemAuction->article_item_sortby($this->input->sort);
-			$this->ItemAuction->article_item_show2(true);
+			$this->ItemAuction->article_item_show(true);
 
 			if (AUCTION_EXHIBIT_TOGGLE)
 			{
@@ -248,7 +248,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		else
 		{
 			// 入札できない
-			$this->ItemAuction->article_item_show2(false);
+			$this->ItemAuction->article_item_show(false);
 		}
 	}
 	/**
