@@ -101,6 +101,7 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	function DataSavingFormat()
 	{
 		$Save = array(
+			"id",
 			"name",
 			"gender",
 			"job",
@@ -592,6 +593,16 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	//	キャラの変数をセットする。
 	function SetCharData(&$data_attr)
 	{
+
+		if ($this->file)
+		{
+			$this->id = HOF_Helper_Char::char_id_by_file($this->file);
+		}
+		else
+		{
+			$this->id = $data_attr["id"] ? $data_attr["id"] : $data_attr["birth"];
+		}
+
 		$this->name = $data_attr["name"];
 		$this->gender = $data_attr["gender"];
 		$this->birth = $data_attr["birth"];
