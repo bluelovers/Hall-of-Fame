@@ -61,9 +61,15 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	/**
 	 * キャラデータの保存
 	 */
-	function SaveCharData($id = false)
+	function SaveCharData()
 	{
-		$id = $id ? $id : $this->user;
+		if (!$this->user || (string)$this->user != $this->user()->id)
+		{
+			throw new RuntimeException('Char User Null!');
+
+			exit('Char User Null!');
+		}
+		$id = $this->user;
 
 		$dir = HOF_Helper_Char::user_path($id);
 
