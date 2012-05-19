@@ -25,6 +25,9 @@ class HOF_Class_Array_Comparer_MuliteSubKey
 		return $this;
 	}
 
+	/**
+	 * @return self
+	 */
 	function newInstance($keys)
 	{
 		if (is_array($keys))
@@ -39,6 +42,19 @@ class HOF_Class_Array_Comparer_MuliteSubKey
 		return new self($keys);
 	}
 
+	/**
+	 * array($this, 'compare')
+	 *
+	 * @return array
+	 */
+	function callback()
+	{
+		return array($this, 'compare');
+	}
+
+	/**
+	 * @return self
+	 */
 	function sort_desc($sort_desc = null)
 	{
 		if ($sort_desc !== null)
