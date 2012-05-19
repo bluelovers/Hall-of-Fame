@@ -368,18 +368,26 @@ class HOF_Controller_Game extends HOF_Class_Controller
 			 */
 			HOF_Model_Main::addUserList($this->input->newid);
 
+			/*
+			$now = HOF_Helper_Date::microtime();
+
 			$data = array(
 				'id' => $this->input->newid,
 				'pass' => $pass,
-				'last' => $now,
-				'login' => $now,
-				'start' => $now . substr(microtime(), 2, 6),
+				'last' => $now[1],
+				'login' => $now[1],
+				'start' => HOF_Helper_Char::uniqid_birth($now),
 				'money' => START_MONEY,
 				'time' => START_TIME,
 				'record_btl_log' => 1,
 				);
+			*/
+
+			$data = HOF_Model_Main::user_create_data($this->input->newid, $pass);
 
 			HOF_Class_Yaml::save($file, $data);
+
+			file_put_contents(HOF_Helper_Char::user_file($this->input->newid, USER_UUID), $data['uniqid'], LOCK_EX);
 
 			//print("ID:$_POST[Newid] success.<BR>");
 			$_SESSION["id"] = $this->input->newid;
@@ -654,18 +662,18 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		$this->input->no_JS_itemlist = HOF::$input->post->no_JS_itemlist;
 
 		$this->output->colors = HOF_Model_Data::getColorList();
-		$this->output->UserColor = $this->user->UserColor;
+		$this->output->UserColor = $this->user->options['UserColor'];
 
 		if ($this->SettingProcess()) $this->user->SaveData();
 
 		$this->user->fpclose_all();
 
-		if ($this->user->record_btl_log)
+		if ($this->user->options['record_btl_log'])
 		{
 			$this->output->record_btl_log = " checked";
 		}
 
-		if ($this->user->no_JS_itemlist)
+		if ($this->user->options['no_JS_itemlist'])
 		{
 			$this->output->no_JS_itemlist = " checked";
 		}
@@ -726,16 +734,23 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 		if ($this->input->setting01)
 		{
+			/*
 			if ($this->input->record_battle_log) $this->user->record_btl_log = 1;
 			else  $this->user->record_btl_log = false;
 
+
 			if ($this->input->no_JS_itemlist) $this->user->no_JS_itemlist = 1;
 			else  $this->user->no_JS_itemlist = false;
+			*/
+
+			$this->user->options['record_btl_log'] = (bool)$this->input->record_battle_log;
+			$this->user->options['no_JS_itemlist'] = (bool)$this->input->no_JS_itemlist;
 		}
+
 		if ($this->input->color)
 		{
 			if (strlen($this->input->color) != 6 && !ereg("^[0369cf]{6}", $this->input->color)) return "error 12072349";
-			$this->user->UserColor = $this->input->color;
+			$this->user->options['UserColor'] = $this->input->color;
 			HOF_Helper_Global::ShowResult("Setting changed.", "margin15");
 			return true;
 		}
