@@ -369,7 +369,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 			$ExhibitList->SetName("type_auc");
 
 			// JSを使用しない。
-			if ($this->user->no_JS_itemlist) $ExhibitList->NoJS();
+			if ($this->user->options['no_JS_itemlist']) $ExhibitList->NoJS();
 
 			foreach ($this->user->item as $no => $amount)
 			{
