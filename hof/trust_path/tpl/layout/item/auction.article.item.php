@@ -7,7 +7,7 @@
 	<table style="width:725px;text-align:center" cellpadding="0" cellspacing="0" border="0">
 		<tr>
 			<td class="td9"><a href="<?php e($this->output->query) ?>&sort=no"<?php e($this->output->style_no) ?>>番号</a></td>
-			<td class="td9"><a href="<?php e($this->output->query) ?>&sort=no"<?php e($this->output->style_no) ?>>残り</a></td>
+			<td class="td9"><a href="<?php e($this->output->query) ?>&sort=time"<?php e($this->output->style_time) ?>>残り</a></td>
 			<td class="td9">
 				<a href="<?php e($this->output->query) ?>&sort=price"<?php e($this->output->style_price) ?>>価格</a>
 				&nbsp;<a href="<?php e($this->output->query) ?>&sort=rprice"<?php e($this->output->style_rprice) ?>>(昇)</a>
@@ -79,7 +79,7 @@
 
 		<tr>
 			<td class="td9"><a href="<?php e($this->output->query) ?>&sort=no"<?php e($this->output->style_no) ?>>番号</a></td>
-			<td class="td9"><a href="<?php e($this->output->query) ?>&sort=no"<?php e($this->output->style_no) ?>>残り</a></td>
+			<td class="td9"><a href="<?php e($this->output->query) ?>&sort=time"<?php e($this->output->style_time) ?>>残り</a></td>
 			<td class="td9">
 				<a href="<?php e($this->output->query) ?>&sort=price"<?php e($this->output->style_price) ?>>価格</a>
 				&nbsp;<a href="<?php e($this->output->query) ?>&sort=rprice"<?php e($this->output->style_rprice) ?>>(昇)</a>
