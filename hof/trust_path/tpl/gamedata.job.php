@@ -4,59 +4,18 @@
 	<div style="margin:15px">
 		<h4>職業(Job)</h4>
 		<ul>
-			<li>
-				<a href="#100">Warrior</a>
-				<ul>
-					<li>
-						<a href="#101">RoyalGuard</a>
-					</li>
-					<li>
-						<a href="#102">Sacrier</a>
-					</li>
-					<li>
-						<a href="#103">WitchHunt</a>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<a href="#200">Sorcerer</a>
-				<ul>
-					<li>
-						<a href="#201">Warlock</a>
-					</li>
-					<li>
-						<a href="#202">Summoner</a>
-					</li>
-					<li>
-						<a href="#203">Necromancer</a>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<a href="#300">Priest</a>
-				<ul>
-					<li>
-						<a href="#301">Bishop</a>
-					</li>
-					<li>
-						<a href="#302">Druid</a>
-					</li>
-				</ul>
-			</li>
-			<li>
-				<a href="#400">Hunter</a>
-				<ul>
-					<li>
-						<a href="#401">Sniper</a>
-					</li>
-					<li>
-						<a href="#402">BeastTamer</a>
-					</li>
-					<li>
-						<a href="#403">Murderer</a>
-					</li>
-				</ul>
-			</li>
+			<?php foreach($this->output->job_from as $job => $v): ?>
+				<li>
+					<a href="#<?php e($job) ?>"><?php e($this->output->list[$job]['job_name']) ?></a>
+					<ul>
+						<?php foreach((array)$v as $_k): ?>
+							<li>
+								<a href="#<?php e($_k) ?>"><?php e($this->output->list[$_k]['job_name']) ?></a>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				</li>
+			<?php endforeach; ?>
 		</ul>
 		<h4>Variety</h4>
 		<table cellspacing="0" style="width:740px">
