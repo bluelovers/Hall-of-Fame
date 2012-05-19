@@ -517,11 +517,11 @@ foreach ($sample as $val)
 		<p style="margin:15px"> <img src="<?=
 
 
-HOF_Class_Icon::getImageUrl('mon_100r', IMG_CHAR);
+HOF_Class_Icon::getImageUrl('mon_100r', HOF_Class_Icon::IMG_CHAR);
 
 ?>"> <img src="<?=
 
-HOF_Class_Icon::getImageUrl('mon_012', IMG_CHAR);
+HOF_Class_Icon::getImageUrl('mon_012', HOF_Class_Icon::IMG_CHAR);
 
 
 ?>"><br />
