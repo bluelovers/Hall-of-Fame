@@ -14,8 +14,19 @@ class HOF_Helper_Item extends HOF_Class_Data
 	return $price;
 }
 
-	function parseItemData($data)
+	function parseItemData($data, $no)
 	{
+		//アイテムの種類
+		$base = substr($no, 0, 4);
+
+		//精錬値
+		$refine = (int)substr($no, 4, 2);
+
+		// 付加能力
+		$option0 = substr($no, 6, 3);
+		$option1 = substr($no, 9, 3);
+		$option2 = substr($no, 12, 3);
+
 		// 精錬値
 		if ($refine)
 		{
