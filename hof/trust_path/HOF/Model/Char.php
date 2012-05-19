@@ -91,7 +91,7 @@ class HOF_Model_Char extends HOF_Class_Data
 		unset($data['name']);
 
 		$data['id'] = HOF_Helper_Char::uniqid('char');
-		$data['birth'] = time() . substr(microtime(), 2, 6);
+		$data['birth'] = HOF_Helper_Char::uniqid_birth();
 
 		if (!empty($append))
 		{
