@@ -140,7 +140,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 			// キャラを保存する
 			$char->SaveCharData();
 
-			$_exists_chars_[$char->birth] = $char->name;
+			$_exists_chars_[$char->id] = $char->name;
 
 			$this->user->_cache_user_()->data('char_list', $_exists_chars_);
 
