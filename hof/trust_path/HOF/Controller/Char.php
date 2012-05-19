@@ -230,7 +230,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		// ポイントを減らす。
 		$this->char->statuspoint -= $Sum;
 
-		$this->char->SaveCharData($this->user->id);
+		$this->char->SaveCharData();
 
 		return true;
 	}
@@ -264,7 +264,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		$this->char->guard = $this->input->guard;
 
-		$this->char->SaveCharData($this->user->id);
+		$this->char->SaveCharData();
 
 		$this->_msg_result($this->char->Name() . " の配置を {$pos} に。<br />前衛の時 {$guard} ように設定。\n", "margin15");
 
@@ -280,7 +280,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		if ($this->char->pattern($pattern))
 		{
-			$this->char->SaveCharData($this->user->id);
+			$this->char->SaveCharData();
 			$this->_msg_result("パターン設定保存 完了", "margin15");
 
 			return true;
@@ -324,7 +324,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		if ($this->char->pattern($pattern))
 		{
-			$this->char->SaveCharData($this->user->id);
+			$this->char->SaveCharData();
 
 			if ($this->input->TestBattle)
 			{
@@ -340,7 +340,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	{
 		if ($this->char->pattern_switch())
 		{
-			$this->char->SaveCharData($this->user->id);
+			$this->char->SaveCharData();
 			$this->_msg_result("パターン交換 完了", "margin15");
 			return true;
 		}
@@ -357,7 +357,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		if ($this->char->pattern_insert($this->input->pattern_no, null, true))
 		{
-			$this->char->SaveCharData($this->user->id);
+			$this->char->SaveCharData();
 			$this->_msg_result("パターン追加 完了", "margin15");
 
 			return true;
@@ -375,7 +375,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		if ($this->char->pattern_remove($this->input->pattern_no))
 		{
-			$this->char->SaveCharData($this->user->id);
+			$this->char->SaveCharData();
 			$this->_msg_result("パターン削除 完了", "margin15");
 			return true;
 		}
@@ -410,7 +410,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		$this->user->SaveUserItem();
 
 		$this->char->{$this->input->spot} = NULL;
-		$this->char->SaveCharData($this->user->id);
+		$this->char->SaveCharData();
 
 		$this->_msg_result($this->char->Name() . " の {$item[name]} を はずした。", "margin15");
 
@@ -466,7 +466,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				$this->char->item = NULL;
 			}
 			$this->user->SaveUserItem();
-			$this->char->SaveCharData($this->user->id);
+			$this->char->SaveCharData();
 			$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
 			return true;
 		}
@@ -523,7 +523,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		$this->user->SaveUserItem();
 
-		$this->char->SaveCharData($this->user->id);
+		$this->char->SaveCharData();
 
 		if (!$fail)
 		{
@@ -592,7 +592,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			}
 
 			// 保存
-			$this->char->SaveCharData($this->user->id);
+			$this->char->SaveCharData();
 
 			$this->_msg_result("転職 完了", "margin15");
 
@@ -646,7 +646,7 @@ EOD;
 					$this->_msg_result($this->char->Name() . " から " . $return . " へ改名しました。", "margin15");
 
 					$this->char->ChangeName($return, true);
-					$this->char->SaveCharData($this->user->id);
+					$this->char->SaveCharData();
 
 					$this->user->SaveUserItem();
 
@@ -739,7 +739,7 @@ EOD;
 
 				$this->char->spd -= $dif;
 				$this->char->statuspoint += $dif;
-				$this->char->SaveCharData($this->user->id);
+				$this->char->SaveCharData();
 
 				$this->user->SaveUserItem();
 
@@ -824,7 +824,7 @@ EOD;
 					$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
 				}
 
-				$this->char->SaveCharData($this->user->id);
+				$this->char->SaveCharData();
 
 				$this->user->SaveUserItem();
 
