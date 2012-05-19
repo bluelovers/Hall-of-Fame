@@ -136,7 +136,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 		$this->user->SaveUserItem();
 
 		print ("<p>");
-		print (HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($done)));
+		print (HOF_Class_Item::newInstance($done)->html());
 
 		print ("\n<br />ができたぜ！</p>\n");
 		return true;
@@ -147,8 +147,6 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 	 */
 	function SmithyCreateShow()
 	{
-		//$result	= $this->SmithyCreateProcess();
-
 		$CanCreate = HOF_Class_Item_Create::CanCreate($this->user);
 
 		$CreateList = new HOF_Class_Item_Style_List();
@@ -163,14 +161,17 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 		foreach ($CanCreate as $item_no)
 		{
 			$item = HOF_Model_Data::getItemData($item_no);
-			if (!HOF_Class_Item_Create::HaveNeeds($item, $this->user->item)) // 素材不足なら次
+			if (!HOF_Class_Item_Create::HaveNeeds($item, $this->user->item))
+			{
+				// 素材不足なら次
  					continue;
+				}
+
 			// NoTable
-			//$head	= '<input type="radio" name="ItemNo" value="'.$item_no.'">'.HOF_Class_Item::ShowItemDetail($item,false,1,$this->user->item)."<br />";
-			//$CreatePrice	= $item["buy"];
+
 			$CreatePrice = 0; //
 			$head = '<tr><td class="td7"><input type="radio" name="ItemNo" value="' . $item_no . '"></td>';
-			$head .= '<td class="td7">' . HOF_Helper_Global::MoneyFormat($CreatePrice) . '</td><td class="td8">' . HOF_Class_Item::ShowItemDetail($item, false, 1, $this->user->item) . "</td>";
+			$head .= '<td class="td7">' . HOF_Helper_Global::MoneyFormat($CreatePrice) . '</td><td class="td8">' . HOF_Class_Item::newInstance($item)->html(false, 1, $this->user->item) . "</td>";
 			$CreateList->AddItem($item, $head);
 		}
 		if ($head)
@@ -203,7 +204,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 				if ($item = HOF_Model_Data::getItemData($item_no))
 				{
 					print ('<input type="radio" name="AddMaterial" value="' . $item_no . '" class="vcent">');
-					print (HOF_Class_Item::ShowItemDetail($item, $this->user->item["$item_no"], 1) . "<br />\n");
+					print (HOF_Class_Item::newInstance($item)->html($this->user->item["$item_no"], 1) . "<br />\n");
 				}
 			}
 
@@ -228,8 +229,8 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 		for ($i = 6000; $i < 7000; $i++)
 		{
 			if (!$this->user->item["$i"]) continue;
-			$item = HOF_Model_Data::getItemData($i);
-			HOF_Class_Item::ShowItemDetail($item, $this->user->item["$i"]);
+
+			HOF_Class_Item::newInstance($i)->html($this->user->item["$i"]);
 			print ("<br />\n");
 		}
 
@@ -359,13 +360,10 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 				// 精錬可能な物だけ表示させる。
 				if (!$possible[$item["type"]]) continue;
 				$price = $item["buy"] / 2;
-				// NoTable
-				//			$string	= '<input type="radio" class="vcent" name="item_no" value="'.$no.'">';
-				//			$string	.= "<span style=\"padding-right:10px;width:10ex\">".HOF_Helper_Global::MoneyFormat($price)."</span>".HOF_Class_Item::ShowItemDetail($item,$val,1)."<br />";
 
 				$string = '<tr>';
 				$string .= '<td class="td7"><input type="radio" class="vcent" name="item_no" value="' . $no . '">';
-				$string .= '</td><td class="td7">' . HOF_Helper_Global::MoneyFormat($price) . '</td><td class="td8">' . HOF_Class_Item::ShowItemDetail($item, $val, 1) . "<td>";
+				$string .= '</td><td class="td7">' . HOF_Helper_Global::MoneyFormat($price) . '</td><td class="td8">' . HOF_Class_Item::newInstance($item)->html($val, 1) . "<td>";
 				$string .= "</tr>";
 
 				$goods->AddItem($item, $string);
