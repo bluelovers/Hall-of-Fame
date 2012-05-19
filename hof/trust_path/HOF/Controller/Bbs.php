@@ -8,6 +8,16 @@
 class HOF_Controller_Bbs extends HOF_Class_Controller
 {
 
+	/**
+	 * @var HOF_Class_User
+	 */
+	var $user;
+
+	function _main_init()
+	{
+		$this->user = &HOF::user();
+	}
+
 	function _main_before()
 	{
 		if (!BBS_BOTTOM_TOGGLE) return false;
@@ -23,9 +33,9 @@ class HOF_Controller_Bbs extends HOF_Class_Controller
 			$_POST["message"] = htmlspecialchars($_POST["message"], ENT_QUOTES);
 			$_POST["message"] = stripslashes($_POST["message"]);
 
-			$name = ($this->name ? "<span class=\"bold\">{$this->name}</span>" : "名無し");
+			$name = ($this->user->name ? "<span class=\"bold\">{$this->user->name}</span>" : "名無し");
 			$message = $name . " > " . $_POST["message"];
-			if ($this->UserColor) $message = "<span style=\"color:{$this->UserColor}\">" . $message . "</span>";
+			if ($this->user->options['UserColor']) $message = "<span style=\"color:{$this->user->options[UserColor]}\">" . $message . "</span>";
 			$message .= " <span class=\"light\">(" . HOF_Helper_Global::gc_date("Mj G:i") . ")</span>\n";
 
 			array_unshift($log, $message);
