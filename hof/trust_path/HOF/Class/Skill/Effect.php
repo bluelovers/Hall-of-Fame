@@ -508,7 +508,7 @@ class HOF_Class_Skill_Effect
 					foreach ($skill["summon"] as $SummonNo)
 					{
 						// 召喚力?
-						$Strength = $user->SUmmonPower();
+						$Strength = $user->SummonPower();
 						$add = HOF_Model_Char::newMonSummon($SummonNo, $Strength);
 
 						// 速攻
