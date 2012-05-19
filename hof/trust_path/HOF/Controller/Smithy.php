@@ -157,7 +157,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 		$CreateList->ListTableInsert("<tr><td class=\"td9\"></td><td class=\"align-center td9\">製作費</td><td class=\"align-center td9\">Item</td></tr>"); // テーブルの最初と最後の行に表示させるやつ。
 
 		// JSを使用しない。
-		if ($this->user->no_JS_itemlist) $CreateList->NoJS();
+		if ($this->user->options['no_JS_itemlist']) $CreateList->NoJS();
 		foreach ($CanCreate as $item_no)
 		{
 			$item = HOF_Model_Data::getItemData($item_no);
@@ -353,7 +353,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 			$goods->ListTableInsert("<tr><td class=\"td9\"></td><td class=\"align-center td9\">精錬費</td><td class=\"align-center td9\">Item</td></tr>"); // テーブルの最初と最後の行に表示させるやつ。
 
 			// JSを使用しない。
-			if ($this->user->no_JS_itemlist) $goods->NoJS();
+			if ($this->user->options['no_JS_itemlist']) $goods->NoJS();
 			foreach ($this->user->item as $no => $val)
 			{
 				$item = HOF_Model_Data::getItemData($no);
