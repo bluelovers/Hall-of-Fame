@@ -399,7 +399,7 @@ $sample = array(
 	5000);
 foreach ($sample as $val)
 {
-	HOF_Class_Item::ShowItemDetail(HOF_Model_Data::getItemData($val));
+	echo HOF_Class_Item::newInstance($val)->html();
 	print ("<br />\n");
 }
 
