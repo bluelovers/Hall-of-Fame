@@ -448,69 +448,45 @@ class HOF_Class_Item_Auction
 	}
 
 	/**
-	 * 出品物一覧を表示する(その1) 表示の並びが違うだけ
+	 * 出品物一覧を表示する(その2) 表示の並びが違うだけ
 	 */
 	function article_item_show($bidding = false)
 	{
-		if (count($this->article_list) == 0)
-		{
-			print ("競売物無し(no auction)<br />\n");
-			return false;
-		}
-		else
+
+		$this->output->article_list = array();
+
+		$this->output->bidding = $bidding;
+
+		$this->output->article_count = $this->article_count();
+		$this->output->sort = $this->sort;
+
+		$this->output->{"style_" . $this->sort} = ' class="a0"';
+
+		$this->output->query = '?menu=' . $this->QUERY;
+
+		if ($this->article_list)
 		{
 			$Now = time();
-			$exp = '<tr><td class="td9">番号</td><td class="td9">価格</td><td class="td9">入札者</td><td class="td9">入札数</td><td class="td9">残り</td>' . '<td class="td9">出品者</td><td class="td9">コメント</td></tr>' . "\n";
-			print ('<table style="width:725px;text-align:center" cellpadding="0" cellspacing="0" border="0">' . "{$exp}\n");
+
 			foreach ($this->article_list as $article_list)
 			{
 
-				print ("<tr><td class=\"td7\">");
-				// 競売番号
-				print ($article_list["no"]);
-				print ("</td><td class=\"td7\">");
-				// 現在入札価格
-				print (HOF_Helper_Global::MoneyFormat($article_list["price"]));
-				print ("</td><td class=\"td7\">");
-				// 入札者
-				if (!$article_list["bidder"]) $bidder = "-";
-				else  $bidder = $this->tmpuser_get_name($article_list["bidder"]);
-				print ($bidder);
-				print ("</td><td class=\"td7\">");
-				// 合計入札数
-				print ($article_list["TotalBid"]);
-				print ("</td><td class=\"td7\">");
-				// 終了時刻
-				print ($this->article_time_left($Now, $article_list["end"]));
-				print ("</td><td class=\"td7\">");
-				// 出品者
-				$exhibitor = $this->tmpuser_get_name($article_list["exhibitor"]);
-				print ($exhibitor);
-				print ("</td><td class=\"td8\">");
-				// コメント
-				print ($article_list["comment"] ? $article_list["comment"] : "&nbsp;");
-				print ("</td></tr>\n");
-				// アイテム
-				print ('<tr><td colspan="7" style="text-align:left;padding-left:15px" class="td6">');
-				$item = HOF_Class_Item::newInstance($article_list["item"]);
-				print ('<form action="?menu=auction" method="post">');
-				// 入札フォーム
-				if ($bidding)
-				{
-					print ('<a href="#" onClick="$(\'Bid' . $article_list["no"] . '\').toggle()">入札</a>');
-					print ('<span style="display:none" id="Bid' . $article_list["no"] . '">');
-					print ('&nbsp;<input type="text" name="BidPrice" style="width:80px" class="text" value="' . $this->article_price_bid_min($article_list["price"]) . '">');
-					print ('<input type="submit" value="Bid" class="btn">');
-					print ('<input type="hidden" name="article_no" value="' . $article_list["no"] . '">');
-					print ('</span>');
-				}
-				print ($item->html($article_list["amount"], 1));
-				print ("</form>");
-				print ("</td></tr>\n");
+				$article_list['bidder_name'] = $article_list["bidder"] ? $this->tmpuser_get_name($article_list["bidder"]) : '-';
+				$article_list['exhibitor_name'] = $this->tmpuser_get_name($article_list["exhibitor"]);
+
+				$article_list['end_left'] = $this->article_time_left($Now, $article_list["end"]);
+
+				$article_list['item_show'] = HOF_Class_Item::newInstance($article_list["item"])->html($article_list["amount"], 1);
+
+				$article_list['price_bid_min'] = $this->article_price_bid_min($article_list["price"]);
+
+				$this->output->article_list[] = $article_list;
 			}
-			print ("{$exp}</table>\n");
-			return true;
 		}
+
+		HOF_Class_View::render(null, $this->output, 'layout/item/auction.article.item')->output();
+
+		return !empty($this->article_list);
 	}
 
 	function tmpuser_get_name_temp($UserID)
@@ -650,80 +626,7 @@ class HOF_Class_Item_Auction
 		}
 	}
 
-	/**
-	 * 出品物一覧を表示する(その2) 表示の並びが違うだけ
-	 */
-	function article_item_show2($bidding = false)
-	{
-		if (count($this->article_list) == 0)
-		{
-			print ("競売物無し(no auction)<br />\n");
-			return false;
-		}
-		else
-		{
-			$Now = time();
-			// ソートされている色を変える(可変変数)
-			if ($this->sort) ${"Style_" . $this->sort} = ' class="a0"';
-			$exp = '<tr><td class="td9"><a href="?menu=' . $this->QUERY . '&sort=no"' . $Style_no . '>no</a></td>' . '<td class="td9"><a href="?menu=' . $this->QUERY . '&sort=time"' . $Style_time . '>残り</td>' . '<td class="td9"><a href="?menu=' . $this->QUERY . '&sort=price"' . $Style_price . '>価格</a>' . '<br /><a href="?menu=' . $this->QUERY . '&sort=rprice"' . $Style_rprice . '>(昇)</a></td>' . '<td class="td9">Item</td>' . '<td class="td9"><a href="?menu=' . $this->QUERY . '&sort=bid"' . $Style_bid .
-				'>Bids</a></td>' . '<td class="td9">入札者</td><td class="td9">出品者</td></tr>' . "\n";
 
-			print ("総出品数:" . $this->article_count() . "\n");
-			print ('<table style="width:725px;text-align:center" cellpadding="0" cellspacing="0" border="0">' . "\n");
-			print ($exp);
-			foreach ($this->article_list as $article_list)
-			{
-
-				// 競売番号
-				print ("<tr><td rowspan=\"2\" class=\"td7\">");
-				print ($article_list["no"]);
-				// 終了時刻
-				print ("</td><td class=\"td7\">");
-				print ($this->article_time_left($Now, $article_list["end"]));
-				// 現在入札価格
-				print ("</td><td class=\"td7\">");
-				print (HOF_Helper_Global::MoneyFormat($article_list["price"]));
-				// アイテム
-				print ('</td><td class="td7" style="text-align:left">');
-				$item = HOF_Class_Item::newInstance($article_list["item"]);
-				print ($item->html($article_list["amount"], 1));
-				// 合計入札数
-				print ("</td><td class=\"td7\">");
-				print ($article_list["TotalBid"]);
-				// 入札者
-				print ("</td><td class=\"td7\">");
-				if (!$article_list["bidder"]) $bidder = "-";
-				else  $bidder = $this->tmpuser_get_name($article_list["bidder"]);
-				print ($bidder);
-				// 出品者
-				print ("</td><td class=\"td8\">");
-				$exhibitor = $this->tmpuser_get_name($article_list["exhibitor"]);
-				print ($exhibitor);
-				// コメント
-				print ("</td></tr><tr>");
-				print ("<td colspan=\"6\" class=\"td8\" style=\"text-align:left\">");
-				print ('<form action="?menu=auction" method="post">');
-				// 入札フォーム
-				if ($bidding)
-				{
-					print ('<a style="margin:0 10px" href="#" onClick="$(\'#Bid' . $article_list["no"] . '\').toggle(); return false;">入札</a>');
-					print ('<span style="display:none" id="Bid' . $article_list["no"] . '">');
-					print ('&nbsp;<input type="text" name="BidPrice" style="width:80px" class="text" value="' . $this->article_price_bid_min($article_list["price"]) . '">');
-					print ('<input type="submit" value="Bid" class="btn">');
-					print ('<input type="hidden" name="article_no" value="' . $article_list["no"] . '">');
-					print ('</span>');
-				}
-				print ($article_list["comment"] ? $article_list["comment"] : "&nbsp;");
-				print ("</form>");
-				print ("</td></tr>\n");
-
-				print ("</td></tr>\n");
-			}
-			print ($exp);
-			print ("</table>\n");
-			return true;
-		}
-	}
 
 	/**
 	 * アイテムを出品する
