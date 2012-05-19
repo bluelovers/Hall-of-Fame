@@ -148,7 +148,7 @@ class HOF_Class_Main extends HOF_Class_User
 	 */
 	function RenewLoginTime()
 	{
-		$this->login = time();
+		$this->timestamp['login'] = time();
 	}
 
 	function FirstLogin($over = false)
