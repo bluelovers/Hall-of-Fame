@@ -135,8 +135,10 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 				return false;
 			}
 
+			$char->SetUser($this->user->id);
+
 			// キャラを保存する
-			$char->SaveCharData($this->user->id);
+			$char->SaveCharData();
 
 			$_exists_chars_[$char->birth] = $char->name;
 
