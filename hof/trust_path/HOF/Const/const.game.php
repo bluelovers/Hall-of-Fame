@@ -1,6 +1,9 @@
 <?php
 
-define('BASE_EXT', '.yml');
+define('EXT_YAML', '.yml');
+define('EXT_DAT', '.dat');
+
+define('BASE_EXT', EXT_YAML);
 
 define('GENDER_UNKNOW', 0);
 define('GENDER_BOY', 1);
@@ -22,6 +25,7 @@ define('NO_IMAGE', 'noimage');
 
 define('USER_DATA', 'data'.BASE_EXT);
 define('USER_ITEM', 'item'.BASE_EXT);
+define('USER_UUID', 'uuid'.EXT_DAT);
 
 define('EXPECT_CHARGING', 0);
 define('EXPECT_CASTING', 1);
