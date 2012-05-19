@@ -9,7 +9,7 @@
 
 		<?php foreach($data as $v): ?>
 
-			<?php HOF_Class_Item::ShowItemDetail($v); ?>
+			<?php e(HOF_Class_Item::newInstance($v)->html()); ?>
 
 			<br />
 
