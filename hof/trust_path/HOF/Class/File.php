@@ -478,11 +478,11 @@ class HOF_Class_File
 			case LOG_BATTLE_RANK:
 			case LOG_BATTLE_UNION:
 				/* */
-			case UNION:
+			case BASE_PATH_UNION:
 				$ret = @glob($path . '*.dat', $flags);
 				break;
 				/* */
-			case USER:
+			case BASE_PATH_USER:
 				$ret = @glob($path . '*', $flags | GLOB_ONLYDIR);
 				break;
 				/* */
