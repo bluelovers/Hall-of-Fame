@@ -274,28 +274,29 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 	 */
 	function RecordLog($type = false)
 	{
+		$log = array();
+
 		if ($type == "RANK")
 		{
 			$file = LOG_BATTLE_RANK;
 			$log = HOF_Class_File::glob(LOG_BATTLE_RANK);
 			$logAmount = MAX_BATTLE_LOG_RANK;
 		}
+		elseif ($type == "UNION")
+		{
+			$file = LOG_BATTLE_UNION;
+			$log = HOF_Class_File::glob(LOG_BATTLE_UNION);
+			$logAmount = MAX_BATTLE_LOG_UNION;
+		}
 		else
-			if ($type == "UNION")
-			{
-				$file = LOG_BATTLE_UNION;
-				$log = HOF_Class_File::glob(LOG_BATTLE_UNION);
-				$logAmount = MAX_BATTLE_LOG_UNION;
-			}
-			else
-			{
-				$file = LOG_BATTLE_NORMAL;
-				$log = HOF_Class_File::glob(LOG_BATTLE_NORMAL);
-				$logAmount = MAX_BATTLE_LOG;
-			}
+		{
+			$file = LOG_BATTLE_NORMAL;
+			$log = HOF_Class_File::glob(LOG_BATTLE_NORMAL);
+			$logAmount = MAX_BATTLE_LOG;
+		}
 
-			// 古いログを消す
-			$i = 0;
+		// 古いログを消す
+		$i = 0;
 		while ($logAmount <= count($log))
 		{
 			HOF_Class_File::unlink($log["$i"], 1);
@@ -304,7 +305,10 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 		}
 
 		// 新しいログを作る
-		$time = time() . substr(microtime(), 2, 6);
+		//$time = time() . substr(microtime(), 2, 6);
+
+		$time = HOF_Helper_Char::uniqid_birth();
+
 		$file .= $time . ".dat";
 
 		$head = $time . "\n"; //開始時間(1行目)
@@ -314,6 +318,8 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 		$head .= $this->result . "\n"; //勝利チーム(5行目)
 		$head .= $this->actions . "\n"; //総ターン数(6行目)
 		$head .= "\n"; // 改行(7行目)
+
+		HOF_Class_File::mkdir(dirname($file));
 
 		HOF_Class_File::WriteFile($file, $head . ob_get_contents());
 	}
@@ -692,28 +698,28 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 	//	戦闘にキャラクターを途中参加させる。
 	function JoinCharacter($user, $add)
 	{
-		foreach ($this->team0 as $char)
-		{
-			if ($user === $char)
-			{
-				//array_unshift($this->team0,$add);
-				$this->team0->addChar($add, TEAM_0);
+	foreach ($this->team0 as $char)
+	{
+	if ($user === $char)
+	{
+	//array_unshift($this->team0,$add);
+	$this->team0->addChar($add, TEAM_0);
 
-				//dump($this->team0);
-				$this->ChangeDelay();
-				return 0;
-			}
-		}
-		foreach ($this->team1 as $char)
-		{
-			if ($user === $char)
-			{
-				//array_unshift($this->team1,$add);
-				$this->team1->addChar($add, TEAM_1);
-				$this->ChangeDelay();
-				return 0;
-			}
-		}
+	//dump($this->team0);
+	$this->ChangeDelay();
+	return 0;
+	}
+	}
+	foreach ($this->team1 as $char)
+	{
+	if ($user === $char)
+	{
+	//array_unshift($this->team1,$add);
+	$this->team1->addChar($add, TEAM_1);
+	$this->ChangeDelay();
+	return 0;
+	}
+	}
 	}
 	*/
 
@@ -818,12 +824,12 @@ HTML;
 		$Alive = HOF_Class_Battle_Team::CountAliveChars($team);
 		if ($Alive === 0) return false;
 		$ExpGet = ceil($exp / $Alive); //生存者にだけ経験値を分ける。
-		echo("Alives get {$ExpGet}exps.<br />\n");
+		echo ("Alives get {$ExpGet}exps.<br />\n");
 		foreach ($team as $key => $char)
 		{
 			if ($char->STATE === 1) continue; //死亡者にはEXPあげない
 			if ($team[$key]->GetExp($ExpGet)) //LvUpしたならtrueが返る
- 					echo("<span class=\"levelup\">" . $char->Name() . " LevelUp!</span><br />\n");
+ 					echo ("<span class=\"levelup\">" . $char->Name() . " LevelUp!</span><br />\n");
 		}
 	}
 
@@ -914,7 +920,7 @@ HTML;
 			// 誰かが後衛を守りに入ったのでそれを表示する
 			if ($defender)
 			{
-				echo('<span class="bold">' . $defender->name . '</span> protected <span class="bold">' . $target->name . '</span>!<br />' . "\n");
+				echo ('<span class="bold">' . $defender->name . '</span> protected <span class="bold">' . $target->name . '</span>!<br />' . "\n");
 				return $defender;
 			}
 		}
@@ -933,7 +939,7 @@ HTML;
 			if ($target[$key]->CharJudgeDead())
 			{ //死んだかどうか
 				// 死亡メッセージ
-				echo("<span class=\"dmg\">" . $target[$key]->Name('bold') . " down.</span><br />\n");
+				echo ("<span class=\"dmg\">" . $target[$key]->Name('bold') . " down.</span><br />\n");
 
 				//経験値の取得
 				$exp += $target[$key]->DropExp();
@@ -946,9 +952,9 @@ HTML;
 				{
 					$itemdrop["$item"]++;
 					$item = HOF_Model_Data::getItemData($item);
-					echo($char->Name("bold") . " dropped");
-					echo("<img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\" class=\"vcent\"/>\n");
-					echo("<span class=\"bold u\">{$item[name]}</span>.<br />\n");
+					echo ($char->Name("bold") . " dropped");
+					echo ("<img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\" class=\"vcent\"/>\n");
+					echo ("<span class=\"bold u\">{$item[name]}</span>.<br />\n");
 				}
 
 				//召喚キャラなら消す。
@@ -1202,13 +1208,13 @@ HTML;
 		$money = ceil($money * MONEY_RATE);
 		if ($team === $this->team0)
 		{
-			echo("{$this->team0_name} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
+			echo ("{$this->team0_name} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
 			$this->team0_money += $money;
 		}
 		else
 			if ($team === $this->team1)
 			{
-				echo("{$this->team1_name} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
+				echo ("{$this->team1_name} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
 				$this->team1_money += $money;
 			}
 	}
