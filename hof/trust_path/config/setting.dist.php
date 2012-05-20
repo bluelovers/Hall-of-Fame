@@ -86,29 +86,7 @@ define('UNION_BATTLE_NEXT', 60 * 20); //Union次の戦闘までの間隔
 // files
 define('INDEX', 'index.php');
 
-// CLASS FILE
-define('CLASS_DIR', BASE_TRUST_PATH . 'class/');
-define('BTL_IMG_CSS', CLASS_DIR . 'class.css_btl_image.php'); // CSS表示
-define('CLASS_MAIN', CLASS_DIR . 'class.main.php');
-define('CLASS_USER', CLASS_DIR . 'class.user.php');
-define('CLASS_CHAR', CLASS_DIR . 'class.char.php');
-define('CLASS_MONSTER', CLASS_DIR . 'class.monster.php');
-define('CLASS_UNION', CLASS_DIR . 'class.union.php');
-define('CLASS_BATTLE', CLASS_DIR . 'class.battle.php');
-define('CLASS_SKILL_EFFECT', CLASS_DIR . 'class.skill_effect.php');
-define('CLASS_RANKING', CLASS_DIR . 'class.rank2.php');
-define('CLASS_JS_ITEMLIST', CLASS_DIR . 'class.JS_itemlist.php');
-define('CLASS_SMITHY', CLASS_DIR . 'class.smithy.php');
-define('CLASS_AUCTION', CLASS_DIR . 'class.auction.php');
-define('GLOBAL_PHP', CLASS_DIR . 'global.php');
 define('COLOR_FILE', BASE_TRUST_PATH . 'HOF/Resource/Color.dat');
-
-// DATA FILE
-define('DATA_DIR', CLASS_DIR . 'data/');
-
-define('DATA_SKILL_TREE', DATA_DIR . 'data.skilltree.php');
-
-define('DATA_CLASSCHANGE', DATA_DIR . 'data.classchange.php');
 
 // DAT
 
@@ -128,15 +106,14 @@ define('BBS_BOTTOM', DAT_DIR . 'bbs.dat');
 define('BBS_TOWN', DAT_DIR . 'bbs_town.dat');
 define('MANAGE_LOG_FILE', DAT_DIR . 'managed.dat'); //定期管理記録ファイル
 
-define('USER', DAT_DIR . 'user/');
-define('UNION', DAT_DIR . 'union/');
+define('BASE_PATH_USER', DAT_DIR . 'user/');
+define('BASE_PATH_UNION', DAT_DIR . 'union/');
 
-define('DATA', 'data');
-define('ITEM', 'item');
+define('BASE_PATH_LOG', BASE_PATH_CACHE . 'log/');
 
-define('LOG_BATTLE_NORMAL', BASE_PATH_CACHE . 'log/normal/');
-define('LOG_BATTLE_RANK', BASE_PATH_CACHE . 'log/rank/');
-define('LOG_BATTLE_UNION', BASE_PATH_CACHE . 'log/union/');
+define('LOG_BATTLE_NORMAL', BASE_PATH_LOG . 'normal/');
+define('LOG_BATTLE_RANK', BASE_PATH_LOG . 'rank/');
+define('LOG_BATTLE_UNION', BASE_PATH_LOG . 'union/');
 
 // 状態定義
 /*
@@ -144,20 +121,6 @@ define('FRONT', 'front');
 define('BACK', 'back');
 */
 
-define('TEAM_0', 0);
-define('TEAM_1', 1);
-define('WIN', 0);
-define('LOSE', 1);
-define('DRAW', 'd');
-
-/*
-define('ALIVE', 0);
-define('DEAD', 1);
-define('POISON', 2);
-*/
-
-define('CHARGE', 0);
-define('CAST', 1);
 
 
 ?>
