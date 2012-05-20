@@ -121,14 +121,12 @@ define('DAT_DIR', BASE_TRUST_PATH . 'dat/');
 define('AUCTION_ITEM', DAT_DIR . 'auction'.BASE_EXT); //アイテムオークション用のファイル
 define('AUCTION_ITEM_LOG', DAT_DIR . 'auction_log.dat'); //アイテムオークション用のログファイル
 
-define('REGISTER', DAT_DIR . 'register.dat');
 define('UPDATE', DAT_DIR . 'update.dat');
 define('CTRL_TIME_FILE', DAT_DIR . 'ctrltime.dat'); //定期管理のための時間記憶ファイル
 define('RANKING', DAT_DIR . 'ranking'.BASE_EXT);
 define('BBS_BOTTOM', DAT_DIR . 'bbs.dat');
 define('BBS_TOWN', DAT_DIR . 'bbs_town.dat');
 define('MANAGE_LOG_FILE', DAT_DIR . 'managed.dat'); //定期管理記録ファイル
-define('USER_NAME', DAT_DIR . 'username.dat'); //名前保存ファイル
 
 define('USER', DAT_DIR . 'user/');
 define('UNION', DAT_DIR . 'union/');
@@ -136,9 +134,9 @@ define('UNION', DAT_DIR . 'union/');
 define('DATA', 'data');
 define('ITEM', 'item');
 
-define('LOG_BATTLE_NORMAL', BASE_TRUST_PATH . 'log/normal/');
-define('LOG_BATTLE_RANK', BASE_TRUST_PATH . 'log/rank/');
-define('LOG_BATTLE_UNION', BASE_TRUST_PATH . 'log/union/');
+define('LOG_BATTLE_NORMAL', BASE_PATH_CACHE . 'log/normal/');
+define('LOG_BATTLE_RANK', BASE_PATH_CACHE . 'log/rank/');
+define('LOG_BATTLE_UNION', BASE_PATH_CACHE . 'log/union/');
 
 // 状態定義
 /*
