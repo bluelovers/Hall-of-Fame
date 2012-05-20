@@ -116,7 +116,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 	function _main_action_login($message = null)
 	{
 		if ($message) $this->output->message = $message;
-		$this->output->id = $_SESSION["id"];
+		$this->output->id = HOF::user()->session()->id();
 
 		$this->output->game_users = HOF_Helper_Global::UserAmount();
 		$this->output->game_users_max = MAX_USERS;
@@ -357,41 +357,18 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 		$file = HOF_Helper_Char::user_file($this->input->newid, USER_DATA);
 
-		$pass = HOF_Helper_Char::CryptPassword($this->input->pass1);
 		// MAKE
 		if (!file_exists($file) && !is_dir($dir))
 		{
-			HOF_Class_File::mkdir($dir);
+			HOF_Model_Main::user_create($this->input->newid, $this->input->pass1);
 
-			/**
-			 * ID記録
-			 */
-			HOF_Model_Main::addUserList($this->input->newid);
-
-			/*
-			$now = HOF_Helper_Date::microtime();
-
-			$data = array(
-				'id' => $this->input->newid,
-				'pass' => $pass,
-				'last' => $now[1],
-				'login' => $now[1],
-				'start' => HOF_Helper_Char::uniqid_birth($now),
-				'money' => START_MONEY,
-				'time' => START_TIME,
-				'record_btl_log' => 1,
-				);
-			*/
-
-			$data = HOF_Model_Main::user_create_data($this->input->newid, $pass);
-
-			HOF_Class_Yaml::save($file, $data);
-
-			file_put_contents(HOF_Helper_Char::user_file($this->input->newid, USER_UUID), $data['uniqid'], LOCK_EX);
+			HOF::user()->session()->id($this->input->newid)->session_update();
 
 			//print("ID:$_POST[Newid] success.<BR>");
+			/*
 			$_SESSION["id"] = $this->input->newid;
 			setcookie("NO", session_id(), time() + COOKIE_EXPIRE);
+			*/
 			$success = "ID : {$this->input->newid} success. Try Login";
 			return array(true, $success); //強引...
 		}
@@ -557,9 +534,15 @@ class HOF_Controller_Game extends HOF_Class_Controller
 			$this->user->pass = NULL;
 			$this->user->id = NULL;
 			$this->user->islogin = false;
+
+			/*
 			unset($_SESSION["id"]);
 			unset($_SESSION["pass"]);
 			setcookie("NO", "");
+			*/
+
+			HOF::user()->session()->session_delete();
+
 			return 'User Deleted.';
 		}
 	}
@@ -572,7 +555,10 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 		$this->user->islogin = false;
 
+		/*
 		unset($_SESSION["pass"]);
+		*/
+		HOF::user()->session()->pass(false, true);
 
 		HOF_Model_Main::getUserList();
 
@@ -626,10 +612,16 @@ class HOF_Controller_Game extends HOF_Class_Controller
 				if ($this->input->pass)
 				{
 					// ちょうど今ログインするなら
+					/*
 					$_SESSION["id"] = $this->user->id;
 					$_SESSION["pass"] = $this->input->pass;
 
 					setcookie("NO", session_id(), time() + COOKIE_EXPIRE);
+					*/
+
+					$pass = HOF_Model_Main::user_pass_encode($this->user->id, $this->input->pass);
+
+					HOF::user()->session()->id($this->user->id)->pass($pass)->session_update();
 				}
 
 				// ログイン状態
