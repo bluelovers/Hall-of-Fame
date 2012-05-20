@@ -57,6 +57,9 @@ class HOF_Model_Main extends HOF_Class_Array
 		$this->user_name = &$this->user->id;
 
 		ob_start();
+
+		//debug($_SESSION, HOF::user()->session(), $_POST, $this->id, $this->pass);
+
 		$this->Order();
 		$content = ob_get_clean();
 
@@ -197,13 +200,86 @@ class HOF_Model_Main extends HOF_Class_Array
 		}
 	}
 
+	static function user_get_uuid($id)
+	{
+		if (!$id) return false;
+
+		static $_cache;
+
+		if (isset($_cache[$id])) return $_cache[$id];
+
+		$file = HOF_Helper_Char::user_file($id, USER_UUID);
+
+		if (!file_exists($file))
+		{
+			$uniqid = false;
+		}
+		else
+		{
+			$uniqid = file_get_contents($file, LOCK_EX);
+		}
+
+		$_cache[$id] = $uniqid;
+
+		return $uniqid;
+	}
+
+	static function user_pass_encode($id, $pass)
+	{
+		if ($uniqid = HOF_Model_Main::user_get_uuid($id))
+		{
+			$pass = HOF_Class_Crypto_MD5::newInstance($uniqid)->encode($pass);
+
+			return $pass;
+		}
+
+		return false;
+	}
+
+	static function uset_check_uuid($id, $uuid)
+	{
+		$uniqid = self::user_get_uuid($id);
+
+		if (!$uniqid || !$uuid || $uniqid !== $uuid)
+		{
+			return false;
+		}
+
+		return $uniqid;
+	}
+
+	static function user_create($id, $pass, $append = array())
+	{
+		$dir = HOF_Helper_Char::user_path($id);
+		$file = HOF_Helper_Char::user_file($id, USER_DATA);
+
+		HOF_Class_File::mkdir($dir);
+
+		/**
+		 * ID記録
+		 */
+		HOF_Model_Main::addUserList($id);
+
+		$data = HOF_Model_Main::user_create_data($id, $pass, $append);
+
+		HOF_Class_Yaml::save($file, $data);
+
+		file_put_contents(HOF_Helper_Char::user_file($id, USER_UUID), $data['uniqid'], LOCK_EX);
+
+		return true;
+	}
+
 	static function user_create_data($id, $pass, $append = array())
 	{
 		$now = HOF_Helper_Date::microtime();
 
+		$uuid = HOF_Helper_Char::uniqid('user.'.$id);
+
+		$pass = HOF_Class_Crypto_MD5::newInstance($uuid)->encode($pass);
+
 		$data = array(
 
-			'uniqid' => HOF_Helper_Char::uniqid('user'),
+			'uniqid' => $uuid,
 
 			'id' => $id,
 			'pass' => $pass,
