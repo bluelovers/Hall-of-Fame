@@ -27,8 +27,15 @@ define('USER_DATA', 'data'.BASE_EXT);
 define('USER_ITEM', 'item'.BASE_EXT);
 define('USER_UUID', 'uuid'.EXT_DAT);
 
-define('EXPECT_CHARGING', 0);
-define('EXPECT_CASTING', 1);
+define('EXPECT_CHARGE', 0);
+define('EXPECT_CAST', 1);
 
 define('INPUT_CHECKBOX', 'checkbox');
 define('INPUT_RADIO', 'radio');
+
+define('TEAM_0', 0);
+define('TEAM_1', 1);
+
+define('BATTLE_WIN', 0);
+define('BATTLE_LOSE', 1);
+define('BATTLE_DRAW', 'd');
