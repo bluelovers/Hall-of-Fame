@@ -9,7 +9,7 @@ require_once ("./bootstrap.php");
 
 $gamer = array();
 
-foreach (glob(USER.'*', GLOB_ONLYDIR) as $user)
+foreach (glob(BASE_PATH_USER.'*', GLOB_ONLYDIR) as $user)
 {
 
 	$user = explode('/', $user);
