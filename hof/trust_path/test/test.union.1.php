@@ -9,7 +9,7 @@ require_once ("./bootstrap.php");
 
 $dir = __DIR__.'/union/';
 
-foreach (HOF_Class_File::glob(UNION) as $file)
+foreach (HOF_Class_File::glob(BASE_PATH_UNION) as $file)
 {
 	if ($_data = HOF_Class_File::ParseFile($file))
 	{
