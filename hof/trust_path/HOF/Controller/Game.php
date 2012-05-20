@@ -269,7 +269,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		/**
 		 * 登録者数が限界の場合
 		 */
-		if (MAX_USERS <= count(HOF_Class_File::glob(USER)))
+		if (MAX_USERS <= count(HOF_Class_File::glob(BASE_PATH_USER)))
 		{
 			$this->_error('Maximum users.<br />登録者数が限界に達してしまった様です。');
 
