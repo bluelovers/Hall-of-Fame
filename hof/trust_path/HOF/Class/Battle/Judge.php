@@ -289,7 +289,7 @@ class HOF_Class_Battle_Judge
 				foreach ($MyTeam as $char)
 				{
 					if ($char->STATE === STATE_DEAD) continue;
-					if ($char->expect_type === CHARGE) $charge++;
+					if ($char->expect_type === EXPECT_CHARGE) $charge++;
 				}
 				if ($Quantity <= $charge) return true;
 				break;
@@ -298,7 +298,7 @@ class HOF_Class_Battle_Judge
 				foreach ($MyTeam as $char)
 				{
 					if ($char->STATE === STATE_DEAD) continue;
-					if ($char->expect_type === CHARGE) $charge++;
+					if ($char->expect_type === EXPECT_CHARGE) $charge++;
 				}
 				if ($charge <= $Quantity) return true;
 				break;
@@ -307,7 +307,7 @@ class HOF_Class_Battle_Judge
 				foreach ($MyTeam as $char)
 				{
 					if ($char->STATE === STATE_DEAD) continue;
-					if ($char->expect_type === CAST) $cast++;
+					if ($char->expect_type === EXPECT_CAST) $cast++;
 				}
 				if ($Quantity <= $cast) return true;
 				break;
@@ -316,7 +316,7 @@ class HOF_Class_Battle_Judge
 				foreach ($MyTeam as $char)
 				{
 					if ($char->STATE === STATE_DEAD) continue;
-					if ($char->expect_type === CHARGE) $cast++;
+					if ($char->expect_type === EXPECT_CHARGE) $cast++;
 				}
 				if ($cast <= $Quantity) return true;
 				break;
@@ -325,7 +325,7 @@ class HOF_Class_Battle_Judge
 				foreach ($MyTeam as $char)
 				{
 					if ($char->STATE === STATE_DEAD) continue;
-					if ($char->expect_type === CAST || $char->expect_type === CHARGE) $expect++;
+					if ($char->expect_type === EXPECT_CAST || $char->expect_type === EXPECT_CHARGE) $expect++;
 				}
 				if ($Quantity <= $expect) return true;
 				break;
@@ -334,7 +334,7 @@ class HOF_Class_Battle_Judge
 				foreach ($MyTeam as $char)
 				{
 					if ($char->STATE === STATE_DEAD) continue;
-					if ($char->expect_type === CAST || $char->expect_type === CHARGE) $expect++;
+					if ($char->expect_type === EXPECT_CAST || $char->expect_type === EXPECT_CHARGE) $expect++;
 				}
 				if ($expect <= $Quantity) return true;
 				break;
@@ -344,7 +344,7 @@ class HOF_Class_Battle_Judge
 				foreach ($EnemyTeam as $char)
 				{
 					if ($char->STATE === STATE_DEAD) continue;
-					if ($char->expect_type === CHARGE) $charge++;
+					if ($char->expect_type === EXPECT_CHARGE) $charge++;
 				}
 				if ($Quantity <= $charge) return true;
 				break;
@@ -353,7 +353,7 @@ class HOF_Class_Battle_Judge
 				foreach ($EnemyTeam as $char)
 				{
 					if ($char->STATE === STATE_DEAD) continue;
-					if ($char->expect_type === CHARGE) $charge++;
+					if ($char->expect_type === EXPECT_CHARGE) $charge++;
 				}
 				if ($charge <= $Quantity) return true;
 				break;
@@ -362,7 +362,7 @@ class HOF_Class_Battle_Judge
 				foreach ($EnemyTeam as $char)
 				{
 					if ($char->STATE === STATE_DEAD) continue;
-					if ($char->expect_type === CAST) $cast++;
+					if ($char->expect_type === EXPECT_CAST) $cast++;
 				}
 				if ($Quantity <= $cast) return true;
 				break;
@@ -371,7 +371,7 @@ class HOF_Class_Battle_Judge
 				foreach ($EnemyTeam as $char)
 				{
 					if ($char->STATE === STATE_DEAD) continue;
-					if ($char->expect_type === CAST) $cast++;
+					if ($char->expect_type === EXPECT_CAST) $cast++;
 				}
 				if ($cast <= $Quantity) return true;
 				break;
@@ -380,7 +380,7 @@ class HOF_Class_Battle_Judge
 				foreach ($EnemyTeam as $char)
 				{
 					if ($char->STATE === STATE_DEAD) continue;
-					if ($char->expect_type === CAST || $char->expect_type === CHARGE) $expect++;
+					if ($char->expect_type === EXPECT_CAST || $char->expect_type === EXPECT_CHARGE) $expect++;
 				}
 				if ($Quantity <= $expect) return true;
 				break;
@@ -389,7 +389,7 @@ class HOF_Class_Battle_Judge
 				foreach ($EnemyTeam as $char)
 				{
 					if ($char->STATE === STATE_DEAD) continue;
-					if ($char->expect_type === CAST || $char->expect_type === CHARGE) $expect++;
+					if ($char->expect_type === EXPECT_CAST || $char->expect_type === EXPECT_CHARGE) $expect++;
 				}
 				if ($expect <= $Quantity) return true;
 				break;
