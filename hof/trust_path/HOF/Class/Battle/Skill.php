@@ -72,12 +72,12 @@ class HOF_Class_Battle_Skill
 			if ($skill["type"] == 0)
 			{ //物理
 				echo('<span class="charge">' . $My->Name('bold') . ' start charging.</span>');
-				$My->expect_type = CHARGE;
+				$My->expect_type = EXPECT_CHARGE;
 			}
 			else
 			{ //魔法
 				echo('<span class="charge">' . $My->Name('bold') . ' start casting.</span>');
-				$My->expect_type = CAST;
+				$My->expect_type = EXPECT_CAST;
 			}
 			$My->expect = $skill_no; //詠唱・貯め完了と同時に使用する技
 			// ↓使ってないのでコメントにした。
