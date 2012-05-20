@@ -282,7 +282,7 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 			$log = HOF_Class_File::glob(LOG_BATTLE_RANK);
 			$logAmount = MAX_BATTLE_LOG_RANK;
 		}
-		elseif ($type == "UNION")
+		elseif ($type == "BASE_PATH_UNION")
 		{
 			$file = LOG_BATTLE_UNION;
 			$log = HOF_Class_File::glob(LOG_BATTLE_UNION);
@@ -465,7 +465,7 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 		//勝者のチーム番号か引き分けを返す
 		if ($team0Lose && $team1Lose)
 		{
-			$this->result = DRAW;
+			$this->result = BATTLE_DRAW;
 			return "draw";
 		}
 		elseif ($team0Lose)
@@ -500,7 +500,7 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 			// 決着着かなければただ引き分けにする。
 			if ($this->BattleResultType == 0)
 			{
-				$this->result = DRAW; //引き分け。
+				$this->result = BATTLE_DRAW; //引き分け。
 				return "draw";
 				// 決着着かなければ生存者の数で勝敗をつける。
 			}
@@ -527,18 +527,18 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 				}
 				else
 				{
-					$this->result = DRAW;
+					$this->result = BATTLE_DRAW;
 					return "draw";
 				}
 			}
 			else
 			{
-				$this->result = DRAW;
+				$this->result = BATTLE_DRAW;
 				echo ("error321708.<br />おかしいので報告してください。");
 				return "draw"; // エラー回避。
 			}
 
-			$this->result = DRAW;
+			$this->result = BATTLE_DRAW;
 			echo ("error321709.<br />おかしいので報告してください。");
 			return "draw"; // エラー回避。
 		}
