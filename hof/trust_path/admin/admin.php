@@ -80,8 +80,8 @@ if ($login)
 	print <<< MENU
 <form action="?" method="post">
 <a href="?">TOP</a>
-<a href="?menu=user">USER</a>
-<a href="?menu=data">DATA</a>
+<a href="?menu=user">BASE_PATH_USER</a>
+<a href="?menu=data">FILE_DATA</a>
 <a href="?menu=other">OTHER</a>
 <input type="submit" value="logout" name="logout" />
 </form>
@@ -93,7 +93,7 @@ MENU;
 	*/
 	if ($_GET["menu"] === "user")
 	{
-		$userList = HOF_Class_File::glob(USER);
+		$userList = HOF_Class_File::glob(BASE_PATH_USER);
 		print ("<p>ALL_USER</p>\n");
 		foreach ($userList as $user)
 		{
@@ -111,8 +111,8 @@ MENU;
 	else
 		if ($_POST["UserData"])
 		{
-			$userFileList = glob(USER . $_POST["userID"] . "/*");
-			print ("<p>USER :" . $_POST["userID"] . "</p>\n");
+			$userFileList = glob(BASE_PATH_USER . $_POST["userID"] . "/*");
+			print ("<p>BASE_PATH_USER :" . $_POST["userID"] . "</p>\n");
 			foreach ($userFileList as $file)
 			{
 				print ('<form action="?" method="post">');
@@ -153,7 +153,7 @@ MENU;
 			else
 				if ($_POST["UserFileDet"])
 				{
-					$file = USER . $_POST["userID"] . "/" . $_POST["userFile"];
+					$file = BASE_PATH_USER . $_POST["userID"] . "/" . $_POST["userFile"];
 					// データの修正
 					if ($_POST["changeData"])
 					{
@@ -188,7 +188,7 @@ MENU;
 				else
 					if ($_GET["menu"] === "data")
 					{
-						print <<< DATA
+						print <<< FILE_DATA
 <br>
 <form action="?" method="post">
 <ul>
@@ -210,7 +210,7 @@ MENU;
 データが増えるほど処理も増えます。
 </p>
 </form>
-DATA;
+FILE_DATA;
 					}
 
 	/*
@@ -219,7 +219,7 @@ DATA;
 					else
 						if ($_POST["UserDataDetail"])
 						{
-							$userFileList = HOF_Class_File::glob(USER);
+							$userFileList = HOF_Class_File::glob(BASE_PATH_USER);
 							foreach ($userFileList as $user)
 							{
 								$user = new HOF_Class_User(basename($user, ".dat"));
@@ -236,7 +236,7 @@ DATA;
 						else
 							if ($_POST["UserCharDetail"])
 							{
-								$userFileList = HOF_Class_File::glob(USER);
+								$userFileList = HOF_Class_File::glob(BASE_PATH_USER);
 								foreach ($userFileList as $user)
 								{
 									$userDir = glob($user . "/*");
@@ -285,7 +285,7 @@ DATA;
 							else
 								if ($_POST["ItemDataDetail"])
 								{
-									$userFileList = HOF_Class_File::glob(USER);
+									$userFileList = HOF_Class_File::glob(BASE_PATH_USER);
 									$userAmount = count($userFileList);
 									$items = array();
 									foreach ($userFileList as $user)
@@ -306,7 +306,7 @@ DATA;
 								else
 									if ($_POST["UserIpShow"])
 									{
-										$userFileList = HOF_Class_File::glob(USER);
+										$userFileList = HOF_Class_File::glob(BASE_PATH_USER);
 										$ipList = array();
 										foreach ($userFileList as $user)
 										{
@@ -336,7 +336,7 @@ DATA;
 											print ("<p>壊れている可能性のあるファイル<br>\n");
 											$baseSize = $_POST["brokenSize"] ? (int)$_POST["brokenSize"] : 100;
 											print ("※{$baseSize}byte 以下のファイルを探しただけ(アイテムデータは除く).</p>");
-											$userFileList = HOF_Class_File::glob(USER);
+											$userFileList = HOF_Class_File::glob(BASE_PATH_USER);
 											foreach ($userFileList as $user)
 											{
 												$userDir = glob($user . "/*");
@@ -372,7 +372,7 @@ DATA;
 															HOF_Class_File::glob_del(LOG_BATTLE_RANK);
 															print ("<p>ランキング戦闘ログを削除しました。</p>\n");
 														}
-												print <<< DATA
+												print <<< FILE_DATA
 <br>
 <form action="?" method="post">
 <input type="hidden" name="adminBattleLog" value="1">
@@ -382,7 +382,7 @@ DATA;
 <li><input type="submit" name="deleteLogRanking" value=" + ">ランキングログを全部削除する</li>
 </ul>
 </form>
-DATA;
+FILE_DATA;
 											}
 
 	/*
