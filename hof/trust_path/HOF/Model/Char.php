@@ -213,7 +213,7 @@ class HOF_Model_Char extends HOF_Class_Data
 
 	function getUnionFile($no, $skip = false)
 	{
-		$file = UNION.'union.'.$no.'.yml';
+		$file = BASE_PATH_UNION.'union.'.$no.'.yml';
 
 		if (!$skip && !file_exists($file))
 		{
