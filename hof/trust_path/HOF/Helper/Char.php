@@ -36,7 +36,7 @@ class HOF_Helper_Char
 	 */
 	function CryptPassword($pass)
 	{
-		return substr(crypt($pass, CRYPT_KEY), strlen(CRYPT_KEY));
+		return HOF_Class_Crypto_HOF::newInstance(CRYPT_KEY)->encode($pass);
 	}
 
 	function _is_id($val)
