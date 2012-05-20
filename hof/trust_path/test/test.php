@@ -145,7 +145,7 @@ var_export(HOF_Class_Icon::getRandNo(HOF_Class_Icon::IMG_CHAR, 'ori_002'));
 
 
 /*
-foreach(glob(USER.'admin/*.dat') as $file)
+foreach(glob(BASE_PATH_USER.'admin/*.dat') as $file)
 {
 
 	$fp = HOF_Class_File::fplock_file($file);
