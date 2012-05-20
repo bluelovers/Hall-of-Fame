@@ -34,8 +34,8 @@ class HOF_Class_Char_Battle_Effect
 		/**
 		 * チャージor詠唱
 		 */
-		if ($this->char->expect_type === EXPECT_CHARGING) $output .= '<span class="charge">(charging)</span>' . "\n";
-		elseif ($this->char->expect_type === EXPECT_CASTING) $output .= '<span class="charge">(casting)</span>' . "\n";
+		if ($this->char->expect_type === EXPECT_CHARGE) $output .= '<span class="charge">(charging)</span>' . "\n";
+		elseif ($this->char->expect_type === EXPECT_CAST) $output .= '<span class="charge">(casting)</span>' . "\n";
 
 		// HP,SP
 		$output .= "<div class=\"hpsp\">\n";
