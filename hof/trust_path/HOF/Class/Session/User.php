@@ -165,7 +165,7 @@ class HOF_Class_Session_User
 	 */
 	protected function SessionSwitch()
 	{
-		session_save_path(BASE_PATH_CACHE.'session/');
+		//session_save_path(BASE_PATH_CACHE.'session/');
 
 		/**
 		 * session消滅の時間(?)
@@ -198,7 +198,7 @@ class HOF_Class_Session_User
 		$_COOKIE["NO"] = $NewID;
 
 		session_id($OldID);
-		session_start();
+		//session_start();
 
 		session_unset();
 
@@ -216,7 +216,7 @@ class HOF_Class_Session_User
 		}
 
 		session_id($NewID);
-		session_start();
+		//session_start();
 		$_SESSION = unserialize($temp);
 
 		$this->session_decode();
