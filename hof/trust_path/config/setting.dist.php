@@ -24,7 +24,7 @@ define('RECORD_IP', 1); //IPを記録するか？(0=NO 1=YES)
 
 // other
 define('DEBUG', 0); // 0=OFF
-define('SESSION_SWITCH', 1); // 0=OFF
+define('SESSION_SWITCH', 0); // 0=OFF
 define('CHAR_ROW', 5); // 1画面のキャラの列数
 define('CRYPT_KEY', '$1$12345678$'); //パス符号化キー(ゲーム設置後は変えるな)
 define('COOKIE_EXPIRE', 60 * 60 * 24 * 3); //60*60*24*3
