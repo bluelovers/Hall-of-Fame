@@ -128,7 +128,7 @@ class HOF_Helper_Char
 			throw new InvalidArgumentException("User Null.");
 		}
 
-		$path = USER . $id . '/';
+		$path = BASE_PATH_USER . $id . '/';
 
 		return $path;
 	}
@@ -221,7 +221,7 @@ class HOF_Helper_Char
 	{
 		$list = array(array(), array());
 
-		foreach (glob(USER . '*', GLOB_ONLYDIR) as $path)
+		foreach (glob(BASE_PATH_USER . '*', GLOB_ONLYDIR) as $path)
 		{
 			if ($id = self::user_id_by_path($path))
 			{
