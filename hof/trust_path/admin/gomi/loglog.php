@@ -9,7 +9,7 @@
 
 include_once ("../trust_path/bootstrap.php");
 $admin = "../"; // index.php からの距離
-$users = glob($admin . USER . "/*");
+$users = glob($admin . BASE_PATH_USER . "/*");
 print ("Users : " . count($users) . " / " . MAX_USERS . "<br />\n");
 
 print ("--- ManageLog<br />\n");
