@@ -282,7 +282,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 
 	function _fpsave()
 	{
-//		error_reporting(E_ALL);
+		//		error_reporting(E_ALL);
 
 		$this->content->info['update_last'] = (int)$this->content->info['update'];
 		$this->content->info['update'] = time();
@@ -304,12 +304,12 @@ class HOF_Class_Ranking extends HOF_Class_Base
 
 		$this->content->ksort();
 
-//		var_dump($dump);
-//		debug($dump);
-//
-//		error_reporting(0);
-//
-//		exit();
+		//		var_dump($dump);
+		//		debug($dump);
+		//
+		//		error_reporting(0);
+		//
+		//		exit();
 
 		HOF_Class_Yaml::save($this->fp, $dump);
 	}
@@ -411,7 +411,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 
 			if ($this->place_change_result)
 			{
-				switch($this->place_change_result)
+				switch ($this->place_change_result)
 				{
 					case self::PLACE_BACK:
 						$message = '順位減少';
@@ -493,20 +493,18 @@ class HOF_Class_Ranking extends HOF_Class_Base
 		{
 			return self::CHALLENGER_WIN;
 		}
+		elseif ($Result === TEAM_1)
+		{
+			return self::DEFENDER_WIN;
+		}
+		elseif ($Result === BATTLE_DRAW)
+		{
+			return self::DRAW_GAME;
+		}
 		else
-			if ($Result === TEAM_1)
-			{
-				return self::DEFENDER_WIN;
-			}
-			else
-				if ($Result === DRAW)
-				{
-					return self::DRAW_GAME;
-				}
-				else
-				{
-					return self::DRAW_GAME; //(エラー)予定では出ないエラー(回避用)
-				}
+		{
+			return self::DRAW_GAME; //(エラー)予定では出ないエラー(回避用)
+		}
 	}
 
 	/**
@@ -760,7 +758,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 			return array($cache['rank'], $cache['key']);
 		}
 
-		foreach ((array)$this->content->data as $rank => $val)
+		foreach ((array )$this->content->data as $rank => $val)
 		{
 			foreach ((array )$val as $key => $val2)
 			{
@@ -781,7 +779,6 @@ class HOF_Class_Ranking extends HOF_Class_Base
 	 */
 	function ShowRanking($from = false, $to = false, $bold_id = false)
 	{
-
 
 
 		// 範囲が無い場合は全ランキングを表示
