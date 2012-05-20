@@ -49,7 +49,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		$Union = array();
 
 		/*
-		if ($files = HOF_Class_File::glob(UNION))
+		if ($files = HOF_Class_File::glob(BASE_PATH_UNION))
 		{
 		foreach ($files as $file)
 		{
@@ -296,7 +296,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		$battle->SaveCharacters(); //キャラデータ保存
 		list($UserMoney) = $battle->ReturnMoney(); //戦闘で得た合計金額
 		$this->user->GetMoney($UserMoney); //お金を増やす
-		$battle->RecordLog("UNION");
+		$battle->RecordLog("BASE_PATH_UNION");
 		// アイテムを受け取る
 		if ($itemdrop = $battle->ReturnItemGet(0))
 		{
