@@ -140,7 +140,7 @@ class HOF_Class_User
 		$diff = $now - $data['timestamp']["last"];
 		$data['timestamp']["last"] = $now;
 		$gain = $diff / (24 * 60 * 60) * TIME_GAIN_DAY;
-		$data["time"] += $gain;
+		$data["time"] += (int)$gain;
 		if (MAX_TIME < $data["time"]) $data["time"] = MAX_TIME;
 	}
 
