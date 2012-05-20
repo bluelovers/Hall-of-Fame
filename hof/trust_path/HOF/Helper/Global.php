@@ -18,7 +18,7 @@ class HOF_Helper_Global
 		}
 		else
 		{
-			$amount = count(HOF_Class_File::glob(USER));
+			$amount = count(HOF_Class_File::glob(BASE_PATH_USER));
 			return $amount;
 		}
 	}
@@ -83,7 +83,7 @@ class HOF_Helper_Global
 	//	期限切れアカウントの一斉削除
 	function DeleteAbandonAccount()
 	{
-		$list = HOF_Class_File::glob(USER);
+		$list = HOF_Class_File::glob(BASE_PATH_USER);
 		$now = time();
 
 		// ユーザー一覧を取得する
