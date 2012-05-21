@@ -138,22 +138,13 @@ class HOF_Class_Icon
 			$no = (string )$no[1];
 		}
 
-		$_list = self::getImageList($dir);
-		if ($_list[$no])
-		{
-			$file = $_list[$no]['file'];
-			$ret = $dir . $file;
+		$_icon_cache = HOF::cache()->data('icon_cache');
 
-			return $ret;
-		}
-		elseif ($dir == self::IMG_LAND && $_list[$pre.$no])
+		if ($_icon_cache[$dir][$pre.$no])
 		{
-			$file = $_list[$pre.$no]['file'];
-			$ret = $dir . $file;
-
-			return $ret;
+			return $_icon_cache[$dir][$pre.$no];
 		}
-		elseif ($_list && $dir == self::IMG_LAND)
+		elseif ($dir == self::IMG_LAND && ($_list = self::getImageList($dir)))
 		{
 			if (!$_list2 = HOF::cache()->data('icon_land_list'))
 			{
@@ -193,11 +184,15 @@ class HOF_Class_Icon
 
 				$ret = $dir . $file;
 
+				$_icon_cache[$dir][$pre.$no] = $ret;
+
+				HOF::cache()->data('icon_cache', $_icon_cache);
+
 				return $ret;
 			}
 		}
 
-		if (!isset(self::$cache[$dir][$pre . $no]))
+		if (!isset($_icon_cache[$dir][$pre . $no]))
 		{
 			$file = false;
 
@@ -216,17 +211,19 @@ class HOF_Class_Icon
 				}
 			}
 
-			self::$cache[$dir][$pre . $no] = $file;
+			$_icon_cache[$dir][$pre . $no] = $file;
 		}
 
-		if (self::$cache[$dir][$pre . $no])
+		if ($_icon_cache[$dir][$pre . $no])
 		{
-			$ret = self::$cache[$dir][$pre . $no];
+			$ret = $_icon_cache[$dir][$pre . $no];
 		}
 		else
 		{
 			$ret = $dir . $pre . ($return_true ? $no : NO_IMAGE) . '.' . reset(self::$map_imgtype);
 		}
+
+		HOF::cache()->data('icon_cache', $_icon_cache);
 
 		/*
 		if ($no == 'eiyusenki_018')
