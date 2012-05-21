@@ -33,7 +33,7 @@ class HOF_Helper_Date
 		}
 		else
 		{
-			return array((int)substr($microsec, 2, self::MICROTIME_LEN), (int)$time);
+			return array((int)substr($microsec, 2, self::MICROTIME_LEN), (int)$time, $microtime);
 		}
 	}
 
