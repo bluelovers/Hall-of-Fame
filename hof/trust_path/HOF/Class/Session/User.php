@@ -107,7 +107,7 @@ class HOF_Class_Session_User
 			unset($this->pass);
 		}
 
-		$this->cookies_update();
+		//$this->cookies_update();
 
 		return $this;
 	}
@@ -119,14 +119,17 @@ class HOF_Class_Session_User
 
 		$this->session_update();
 
+		/*
 		setcookie('NO', '', -1, BASE_URL_ROOT);
 		unset($_COOKIE['NO']);
+		*/
 
 		HOF::session()->forgetMe();
 
 		return $this;
 	}
 
+	/*
 	public function cookies_update()
 	{
 		$session_id = HOF::session()->getId();
@@ -136,6 +139,7 @@ class HOF_Class_Session_User
 
 		return $this;
 	}
+	*/
 
 	public function session_decode()
 	{
