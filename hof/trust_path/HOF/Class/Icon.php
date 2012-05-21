@@ -46,11 +46,11 @@ class HOF_Class_Icon
 	{
 		$_dir = BASE_PATH . $dir;
 
-		$files = glob($_dir.'*', GLOB_NOSORT);
+		$files = glob($_dir . '*', GLOB_NOSORT);
 
-		while(!$no)
+		while (!$no)
 		{
-			$t = (array)array_rand($files, min(count($files) - 1, 5));
+			$t = (array )array_rand($files, min(count($files) - 1, 5));
 			shuffle($t);
 
 			foreach ($t as $v)
@@ -85,7 +85,7 @@ class HOF_Class_Icon
 
 		$list = array();
 
-		foreach (glob($_dir.'*.*', GLOB_NOSORT) as $file)
+		foreach (glob($_dir . '*.*', GLOB_NOSORT) as $file)
 		{
 			list($name, $ext) = HOF_Class_File::basename($file);
 
@@ -113,7 +113,7 @@ class HOF_Class_Icon
 	{
 		$file = self::getImage($no, $dir, $return_true);
 
-		return BASE_URL.'/'.$file;
+		return BASE_URL . '/' . $file;
 	}
 
 	/**
@@ -127,22 +127,20 @@ class HOF_Class_Icon
 
 		if (is_array($no))
 		{
-			$pre = (string )$no[1];
-			$no = (string )$no[0];
+			list($no, $pre) = $no;
 		}
-		elseif (is_string($no) && $dir == self::IMG_LAND)
+		elseif (is_string($no) && strpos($no, '_'))
 		{
-			$no = explode('_', $no, 2);
+			list($pre, $no) = explode('_', $no, 2);
 
-			$pre = (string )$no[0].'_';
-			$no = (string )$no[1];
+			$pre .= '_';
 		}
 
 		$_icon_cache = HOF::cache()->data('icon_cache');
 
-		if ($_icon_cache[$dir][$pre.$no])
+		if ($_icon_cache[$dir][$pre . $no])
 		{
-			return $_icon_cache[$dir][$pre.$no];
+			return $_icon_cache[$dir][$pre . $no];
 		}
 		elseif ($dir == self::IMG_LAND && ($_list = self::getImageList($dir)))
 		{
@@ -150,7 +148,7 @@ class HOF_Class_Icon
 			{
 				$_list2 = array();
 
-				foreach(array_keys($_list) as $_no)
+				foreach (array_keys($_list) as $_no)
 				{
 					list($_pre, $_no) = explode('_', $_no, 2);
 
@@ -176,15 +174,24 @@ class HOF_Class_Icon
 
 			$k = preg_replace('/[\d]+$/', '', $no);
 
-			if ($_list2[$k])
+			if ($_list2[$k][$pre])
 			{
-				$idx = reset($_list2[$k][$pre]);
+				$idx = array_search($no, $_list2[$k][$pre]);
 
-				$file = $_list[$pre.$idx]['file'];
+				if ($idx === 0 || $idx > 0)
+				{
+					$idx = $no;
+				}
+				else
+				{
+					$idx = reset($_list2[$k][$pre]);
+				}
+
+				$file = $_list[$pre . $idx]['file'];
 
 				$ret = $dir . $file;
 
-				$_icon_cache[$dir][$pre.$no] = $ret;
+				$_icon_cache[$dir][$pre . $no] = $ret;
 
 				HOF::cache()->data('icon_cache', $_icon_cache);
 
@@ -228,18 +235,18 @@ class HOF_Class_Icon
 		/*
 		if ($no == 'eiyusenki_018')
 		{
-			var_dump(array(
-				$no,
-				$dir,
-				$_dir,
-				$pre,
-				$return_true,
-				$ret,
-				in_array($dir, self::$map_dir),
-				BASE_PATH_STATIC,
-				BASE_PATH,
-			));
-			exit();
+		var_dump(array(
+		$no,
+		$dir,
+		$_dir,
+		$pre,
+		$return_true,
+		$ret,
+		in_array($dir, self::$map_dir),
+		BASE_PATH_STATIC,
+		BASE_PATH,
+		));
+		exit();
 		}
 		*/
 
