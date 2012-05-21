@@ -139,6 +139,7 @@ class HOF_Class_Char_View
 	function ShowCharWithLand($land)
 	{
 
+		if (is_array($land)) $land = reset($land);
 
 ?>
 	<div class="carpet_frame">
@@ -376,7 +377,7 @@ class HOF_Class_Char_View
 HTML;
 		}
 
-		if (!is_array($checked)) $checked = array();
+		if (!is_array($checked)) $checked = array($checked);
 
 		print '<div style="text-align: center;">';
 		foreach ($characters as $char)
