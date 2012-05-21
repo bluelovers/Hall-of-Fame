@@ -22,8 +22,6 @@ class HOF_Model_Data extends HOF_Class_Data
 			parent::__construct();
 
 			self::$_instance = $this;
-
-			HOF::$_cache_ = new HOF_Class_File_Cache();
 		}
 
 		return self::$_instance;
@@ -120,7 +118,7 @@ class HOF_Model_Data extends HOF_Class_Data
 		$_key = 'skill';
 		$_cache_key_ = $_key.'_list';
 
-		if ($list = HOF::$_cache_->data($_cache_key_))
+		if ($list = HOF::cache()->data($_cache_key_))
 		{
 			return $list;
 		}
@@ -136,7 +134,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		sort($list, SORT_NUMERIC);
 
-		HOF::$_cache_->data($_cache_key_, $list);
+		HOF::cache()->data($_cache_key_, $list);
 
 		return $list;
 	}
@@ -146,7 +144,7 @@ class HOF_Model_Data extends HOF_Class_Data
 		$_key = 'skilltree';
 		$_cache_key_ = $_key;
 
-		$list = HOF::$_cache_->data($_cache_key_);
+		$list = HOF::cache()->data($_cache_key_);
 
 		if (isset($list[$no]))
 		{
@@ -158,7 +156,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 			$list[$no] = $data;
 
-			HOF::$_cache_->data($_cache_key_, $list);
+			HOF::cache()->data($_cache_key_, $list);
 		}
 
 		return $data;
@@ -168,7 +166,7 @@ class HOF_Model_Data extends HOF_Class_Data
 	{
 		$_cache_key_ = 'skilltree_job';
 
-		$list_all = HOF::$_cache_->data($_cache_key_);
+		$list_all = HOF::cache()->data($_cache_key_);
 
 		if (!$_job) $_job = 0;
 
@@ -323,7 +321,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		$list_all[$_job] = (array)$list;
 
-		HOF::$_cache_->data($_cache_key_, $list_all);
+		HOF::cache()->data($_cache_key_, $list_all);
 
 		return $list;
 	}
@@ -333,14 +331,14 @@ class HOF_Model_Data extends HOF_Class_Data
 		$_key = 'skilltree';
 		$_cache_key_ = $_key.'_list';
 
-		if ($list = HOF::$_cache_->data($_cache_key_))
+		if ($list = HOF::cache()->data($_cache_key_))
 		{
 			return $list;
 		}
 
 		$list = self::_load_list($_key);
 
-		HOF::$_cache_->data($_cache_key_, $list);
+		HOF::cache()->data($_cache_key_, $list);
 
 		return $list;
 	}
@@ -349,7 +347,7 @@ class HOF_Model_Data extends HOF_Class_Data
 	{
 		$_cache_key_ = 'land_list';
 
-		if ($list = HOF::$_cache_->data($_cache_key_))
+		if ($list = HOF::cache()->data($_cache_key_))
 		{
 			return $list;
 		}
@@ -365,7 +363,7 @@ class HOF_Model_Data extends HOF_Class_Data
 			$list[] = preg_replace($regex, '$1', $file);
 		}
 
-		HOF::$_cache_->data($_cache_key_, $list);
+		HOF::cache()->data($_cache_key_, $list);
 
 		return $list;
 	}
@@ -530,7 +528,7 @@ class HOF_Model_Data extends HOF_Class_Data
 	{
 		$_cache_key_ = 'land';
 
-		$list = HOF::$_cache_->data($_cache_key_);
+		$list = HOF::cache()->data($_cache_key_);
 
 		if (isset($list[$no]))
 		{
@@ -542,7 +540,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 			$list[$no] = $data;
 
-			HOF::$_cache_->data($_cache_key_, $list);
+			HOF::cache()->data($_cache_key_, $list);
 		}
 
 		/*
@@ -566,7 +564,7 @@ class HOF_Model_Data extends HOF_Class_Data
 	{
 		$_cache_key_ = 'judge';
 
-		$list = HOF::$_cache_->data($_cache_key_);
+		$list = HOF::cache()->data($_cache_key_);
 
 		if (isset($list[$no]))
 		{
@@ -578,7 +576,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 			$list[$no] = $data;
 
-			HOF::$_cache_->data($_cache_key_, $list);
+			HOF::cache()->data($_cache_key_, $list);
 		}
 
 		return $data;
@@ -592,7 +590,7 @@ class HOF_Model_Data extends HOF_Class_Data
 	{
 		$_cache_key_ = 'job_conditions';
 
-		if ($data = HOF::$_cache_->data($_cache_key_))
+		if ($data = HOF::cache()->data($_cache_key_))
 		{
 			return $data;
 		}
@@ -617,7 +615,7 @@ class HOF_Model_Data extends HOF_Class_Data
 			}
 		}
 
-		HOF::$_cache_->data($_cache_key_, $data);
+		HOF::cache()->data($_cache_key_, $data);
 
 		return $data;
 	}
@@ -628,7 +626,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		$_cache_key_ = $_key.'_list';
 
-		if ($list = HOF::$_cache_->data($_cache_key_))
+		if ($list = HOF::cache()->data($_cache_key_))
 		{
 			return $list;
 		}
@@ -644,7 +642,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		sort($list, SORT_NUMERIC);
 
-		HOF::$_cache_->data($_cache_key_, $list);
+		HOF::cache()->data($_cache_key_, $list);
 
 		return $list;
 	}
@@ -665,7 +663,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 			$_cache_key_ = 'judge_list';
 
-			if ($list = HOF::$_cache_->data($_cache_key_))
+			if ($list = HOF::cache()->data($_cache_key_))
 			{
 				return $list;
 			}
@@ -681,7 +679,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 			sort($list, SORT_NUMERIC);
 
-			HOF::$_cache_->data($_cache_key_, (array)$list);
+			HOF::cache()->data($_cache_key_, (array)$list);
 
 			return $list;
 		}
@@ -916,7 +914,7 @@ class HOF_Model_Data extends HOF_Class_Data
 		$_key = 'item';
 		$_cache_key_ = $_key.'_list';
 
-		if ($list = HOF::$_cache_->data($_cache_key_))
+		if ($list = HOF::cache()->data($_cache_key_))
 		{
 			return $list;
 		}
@@ -932,7 +930,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		sort($list, SORT_NUMERIC);
 
-		HOF::$_cache_->data($_cache_key_, $list);
+		HOF::cache()->data($_cache_key_, $list);
 
 		return $list;
 	}
@@ -948,7 +946,7 @@ class HOF_Model_Data extends HOF_Class_Data
 	{
 		$_cache_key_ = 'job';
 
-		$list = HOF::$_cache_->data($_cache_key_);
+		$list = HOF::cache()->data($_cache_key_);
 
 		if (isset($list[$no]))
 		{
@@ -960,7 +958,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 			$list[$no] = $data;
 
-			HOF::$_cache_->data($_cache_key_, $list);
+			HOF::cache()->data($_cache_key_, $list);
 		}
 
 		return $data;
@@ -1213,7 +1211,7 @@ class HOF_Model_Data extends HOF_Class_Data
 	{
 		$_cache_key_ = 'guard';
 
-		$list = HOF::$_cache_->data($_cache_key_);
+		$list = HOF::cache()->data($_cache_key_);
 
 		if (isset($list[$no]))
 		{
@@ -1227,7 +1225,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 			$list[$no] = $data;
 
-			HOF::$_cache_->data($_cache_key_, $list);
+			HOF::cache()->data($_cache_key_, $list);
 		}
 
 		if (!$data && $default)
@@ -1243,7 +1241,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		$_cache_key_ = 'guard_list';
 
-		if ($list = HOF::$_cache_->data($_cache_key_))
+		if ($list = HOF::cache()->data($_cache_key_))
 		{
 			return $list;
 		}
@@ -1261,7 +1259,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		sort($list, SORT_STRING | SORT_NUMERIC | SORT_ASC);
 
-		HOF::$_cache_->data($_cache_key_, $list);
+		HOF::cache()->data($_cache_key_, $list);
 
 		return $list;
 	}
