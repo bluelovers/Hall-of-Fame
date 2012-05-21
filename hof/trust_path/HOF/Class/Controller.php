@@ -5,7 +5,7 @@
  * @copyright 2012
  */
 
-class HOF_Class_Controller
+abstract class HOF_Class_Controller
 {
 
 	var $controller;
