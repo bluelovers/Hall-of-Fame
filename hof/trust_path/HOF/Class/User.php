@@ -77,6 +77,8 @@ class HOF_Class_User
 	var $fp_item;
 	var $item;
 
+	protected $_user_cache_;
+
 	/**
 	 * 対象のIDのユーザークラスを作成
 	 */
@@ -112,6 +114,21 @@ class HOF_Class_User
 		}
 	}
 
+	function &cache()
+	{
+		if (!$this->id) return false;
+
+		if (!isset($this->_user_cache_))
+		{
+			$this->_user_cache_ = new HOF_Class_File_Cache(array(
+				'path' => BASE_PATH_CACHE.'user/'.$this->id.'/',
+				'timeout' => 3600,
+			));
+		}
+
+		return $this->_user_cache_;
+	}
+
 	function __toString()
 	{
 		$val = (string )$this->id;
@@ -123,6 +140,8 @@ class HOF_Class_User
 	{
 		if ($this->id)
 		{
+			$this->cache()->__destruct();
+
 			$this->_cache_user_()->__destruct();
 		}
 
