@@ -14,7 +14,11 @@ class HOF
 
 	const CHARSET = 'UTF-8';
 
-	public static $_cache_;
+	protected static $_cache_;
+
+	protected static $_session_;
+
+	public static $session;
 
 	function __construct()
 	{
@@ -24,6 +28,12 @@ class HOF
 			self::$input = new HOF_Class_Request;
 
 			self::$_cache_ = new HOF_Class_File_Cache();
+
+			self::$_session_ = new HOF_Class_Session();
+
+			HOF_Class_Session::start();
+
+			self::$session = self::session()->getNamespace();
 		}
 		else
 		{
@@ -48,9 +58,30 @@ class HOF
 		return self::$instance;
 	}
 
+	/**
+	 * @return HOF_Class_Request
+	 */
+	public static function &request()
+	{
+		return self::$input;
+	}
+
+	/**
+	 * @return HOF_Class_File_Cache
+	 */
 	public static function &cache()
 	{
 		return self::$_cache_;
+	}
+
+	/**
+	 * @return HOF_Class_Session
+	 */
+	public static function session($namespace = null)
+	{
+		if ($namespace !== null) return self::session()->getNamespace($namespace);
+
+		return self::$_session_;
 	}
 
 	public static function putintoClassParts($str)
