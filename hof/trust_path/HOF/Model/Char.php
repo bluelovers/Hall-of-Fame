@@ -334,12 +334,12 @@ class HOF_Model_Char extends HOF_Class_Data
 
 		if (!$data) return false;
 
-		$data = self::_fixMonData($data);
+		$data = self::_fixMonData($data, $over);
 
 		return $data;
 	}
 
-	function _fixMonData($data)
+	function _fixMonData($data, $over = null)
 	{
 		static $overlap;
 
@@ -384,27 +384,6 @@ class HOF_Model_Char extends HOF_Class_Data
 				}
 			}
 		}
-
-		// bluelovers
-		// 修正當 mon 沒有設定行動條件時的 BUG
-		if (0 && empty($data['pattern']))
-		{
-			/**
-			 * 沒有行動判定時 則預設為 一定
-			 * 沒有行動條件時 則設定為 0
-			 * 沒有設定技能時 為 攻擊
-			 */
-			$pattern_new = array(
-				'judge' => 1000,
-				'quantity' => 0,
-				'action' => 1000,
-			);
-
-			$data['pattern'] = array();
-
-			$data['pattern'][] = $pattern_new;
-		}
-		// bluelovers
 
 		$data["monster"] = "1";
 
