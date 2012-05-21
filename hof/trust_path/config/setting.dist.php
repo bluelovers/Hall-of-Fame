@@ -62,7 +62,7 @@ define('RANK_BATTLE_NEXT_WIN', 60 * 1); //ランキング戦 勝ったとき次�
 
 // battle setting
 define('NORMAL_BATTLE_TIME', 100); //通常のモンスターとの戦闘で消費する時間
-define('ENEMY_INCREASE', 0); //敵の増員(ランダム)
+define('ENEMY_INCREASE', 1); //敵の増員(ランダム)
 define('BATTLE_MAX_TURNS', 100); //戦闘の最大行動回数(戦闘が数値以上長引くと終了させる)
 define('TURN_EXTENDS', 20); // 決着がつきそうな場合延長するターン数。
 define('BATTLE_MAX_EXTENDS', 100); //延長した場合の最大行動回数(延長の限界)
