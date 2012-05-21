@@ -27,7 +27,14 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		$this->user->LoadUserItem();
 		$this->user->CharDataLoadAll();
 
-		$this->_cache['lands'] = HOF_Model_Data::getLandAppear($this->user);
+		if (!$this->_cache['lands'] = $this->user->cache()->data('land_appear'))
+		{
+			$this->_cache['lands'] = HOF_Model_Data::getLandAppear($this->user);
+
+			$this->user->cache()->data('land_appear', $this->_cache['lands']);
+		}
+
+		//debug($this->_cache['lands']);
 	}
 
 	function _main_input()
@@ -44,7 +51,18 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	 */
 	function _main_action_hunt()
 	{
-		$mapList = $this->_cache['lands'];
+		$mapList = array();
+
+		if ($list = $this->_cache['lands'])
+		{
+			foreach ($list as $k => $v)
+			{
+				if ($data = HOF_Model_Data::getLandInfo($k))
+				{
+					$mapList[$k] = array_merge($data, (array)$v);
+				}
+			}
+		}
 
 		$Union = array();
 
@@ -399,9 +417,6 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		if ($this->input->monster_battle)
 		{
 			$this->MemorizeParty(); //パーティー記憶
-			// そのマップで戦えるかどうか確認する。
-
-			$land = $this->_cache['lands'];
 
 			// Timeが足りてるかどうか確認する
 			if ($this->user->time < NORMAL_BATTLE_TIME)
