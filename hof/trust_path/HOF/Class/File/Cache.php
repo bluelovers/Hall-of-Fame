@@ -93,7 +93,7 @@ class HOF_Class_File_Cache
 		$this->data[$id]['cache_timeout'] = $timeout;
 	}
 
-	function data($id, $data = null)
+	function data($id, $data = null, $save = false)
 	{
 		if (!isset($this->data[$id]))
 		{
@@ -103,6 +103,11 @@ class HOF_Class_File_Cache
 		if ($data !== null)
 		{
 			$this->data[$id]['data'] = $data;
+		}
+
+		if ($save)
+		{
+			$this->save($id);
 		}
 
 		return empty($this->data[$id]['data']) ? false : $this->data[$id]['data'];
@@ -133,7 +138,7 @@ class HOF_Class_File_Cache
 			foreach ((array)$this->fp as $id => $fp)
 			{
 				$this->save($id);
-				HOF_Class_File::fpclose($fp);
+				$this->close($fp);
 			}
 		}
 	}
