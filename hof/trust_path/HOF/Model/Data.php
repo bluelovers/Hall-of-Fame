@@ -444,6 +444,8 @@ class HOF_Model_Data extends HOF_Class_Data
 						}
 					}
 
+					$_data = $allow;
+
 					/**
 					 * @global DEBUG_LANDAPPEAR_ALL - force allow land
 					 *
@@ -454,14 +456,15 @@ class HOF_Model_Data extends HOF_Class_Data
 					 */
 					if (DEBUG_LANDAPPEAR_ALL)
 					{
-						$land['_cache']['allow'] = $allow;
+						$_data = array();
+						$_data['_cache']['allow'] = $allow;
 
 						$allow = DEBUG_LANDAPPEAR_ALL;
 					}
 
 					if ($allow > 0)
 					{
-						$list[$no] = $land;
+						$list[$no] = $_data;
 					}
 				}
 			}
