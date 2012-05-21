@@ -35,6 +35,8 @@ class HOF_Class_Session
 	{
 		self::setOptions();
 
+		return $this;
+
 		if ($_COOKIE["NO"] && self::sessionExists($_COOKIE["NO"]))
 		{
 			/**
