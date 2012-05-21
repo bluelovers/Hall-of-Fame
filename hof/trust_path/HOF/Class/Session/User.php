@@ -15,6 +15,11 @@ class HOF_Class_Session_User
 
 	protected $crypto;
 
+	/**
+	 * @return Zend_Session_Namespace
+	 */
+	protected $session;
+
 	public function __construct()
 	{
 		if (!isset(self::$instance))
@@ -26,9 +31,13 @@ class HOF_Class_Session_User
 			die('error!!');
 		}
 
-		$this->crypto = new HOF_Class_Crypto_Discuz(CRYPT_KEY . $_SERVER["HTTP_USER_AGENT"], COOKIE_EXPIRE);
+		$this->crypto = new HOF_Class_Crypto_Discuz(md5(CRYPT_KEY . $_SERVER["HTTP_USER_AGENT"] . HOF::session()->getId()), COOKIE_EXPIRE);
 
-		$this->SessionSwitch();
+		$this->session = HOF::session()->getNamespace('HOF_User_Auth');
+
+		$this->session_decode();
+
+		//debug($this->id, $this->pass, $this->session->id, $this->session->pass);
 	}
 
 	/**
@@ -75,24 +84,24 @@ class HOF_Class_Session_User
 		if ($id)
 		{
 			$id = $this->crypto()->encode($id);
-			$_SESSION['id'] = $id;
+			$this->session->id = $id;
 
 			if ($pass)
 			{
 				$pass = $this->crypto()->encode($pass);
-				$_SESSION['pass'] = $pass;
+				$this->session->pass = $pass;
 			}
 			else
 			{
-				unset($_SESSION['pass']);
+				unset($this->session->pass);
 
 				unset($this->pass);
 			}
 		}
 		else
 		{
-			unset($_SESSION['id']);
-			unset($_SESSION['pass']);
+			unset($this->session->id);
+			unset($this->session->pass);
 
 			unset($this->id);
 			unset($this->pass);
@@ -110,26 +119,28 @@ class HOF_Class_Session_User
 
 		$this->session_update();
 
-		setcookie('NO', '');
+		setcookie('NO', '', -1, BASE_URL_ROOT);
 		unset($_COOKIE['NO']);
+
+		HOF::session()->forgetMe();
 
 		return $this;
 	}
 
 	public function cookies_update()
 	{
-		$session_id = session_id();
+		$session_id = HOF::session()->getId();
 
 		$_COOKIE['NO'] = $session_id;
-		setcookie('NO', $session_id, time() + COOKIE_EXPIRE);
+		setcookie('NO', $session_id, REQUEST_TIME + COOKIE_EXPIRE, BASE_URL_ROOT);
 
 		return $this;
 	}
 
 	public function session_decode()
 	{
-		$id = $_SESSION['id'];
-		$pass = $_SESSION['pass'];
+		$id = $this->session->id;
+		$pass = $this->session->pass;
 
 		if ($id)
 		{
@@ -143,87 +154,21 @@ class HOF_Class_Session_User
 			}
 			else
 			{
-				unset($_SESSION['pass']);
+				unset($this->session->pass);
 
 				unset($this->pass);
 			}
 		}
 		else
 		{
-			unset($_SESSION['id']);
-			unset($_SESSION['pass']);
+			unset($this->session->id);
+			unset($this->session->pass);
 
 			unset($this->id);
 			unset($this->pass);
 		}
 
 		return $this;
-	}
-
-	/**
-	 * 保存されているセッション番号を変更する。
-	 */
-	protected function SessionSwitch()
-	{
-		session_save_path(BASE_PATH_CACHE . 'session/');
-
-		$currentCookieParams = session_get_cookie_params();
-
-		session_set_cookie_params(COOKIE_EXPIRE, '/'.BASE_URL_ROOT, $currentCookieParams['domain'], $currentCookieParams["secure"], $currentCookieParams["httponly"]);
-
-		/**
-		 * session消滅の時間(?)
-		 * how about "session_set_cookie_params()"?
-		 */
-		//session_cache_expire(COOKIE_EXPIRE / 60);
-		session_cache_expire(COOKIE_EXPIRE);
-		if ($_COOKIE["NO"])
-		{
-			//クッキーに保存してあるセッションIDのセッションを呼び出す
-			session_id($_COOKIE["NO"]);
-		}
-
-		session_start();
-		if (!SESSION_SWITCH)
-		{
-			$this->session_decode();
-
-			//switchしないならここで終了
-			return false;
-		}
-		//print_r($_SESSION);
-		//dump($_SESSION);
-		$OldID = session_id();
-		$temp = serialize($_SESSION);
-
-		session_regenerate_id();
-		$NewID = session_id();
-		setcookie("NO", $NewID, time() + COOKIE_EXPIRE);
-		$_COOKIE["NO"] = $NewID;
-
-		session_id($OldID);
-		//session_start();
-
-		session_unset();
-
-		if ($_SESSION)
-		{
-			/**
-			 * session_destroy();//Sleipnirだとおかしい...?(最初期)
-			 * unset($_SESSION);//こっちは大丈夫(やっぱりこれは駄目かも)(修正後)
-			 * 結局,セッションをforeachでループして1個づつunset(2007/9/14 再修正)
-			 */
-			foreach ($_SESSION as $key => $val)
-			{
-				unset($_SESSION[$key]);
-			}
-		}
-
-		session_id($NewID);
-		//session_start();
-		$_SESSION = unserialize($temp);
-
-		$this->session_decode();
 	}
 
 }
