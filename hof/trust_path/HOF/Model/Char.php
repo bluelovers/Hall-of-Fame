@@ -45,7 +45,7 @@ class HOF_Model_Char extends HOF_Class_Data
 
 		$_cache_key_ = $_key.'_base_list';
 
-		if ($list = HOF::$_cache_->data($_cache_key_))
+		if ($list = HOF::cache()->data($_cache_key_))
 		{
 			return $list;
 		}
@@ -61,7 +61,7 @@ class HOF_Model_Char extends HOF_Class_Data
 
 		sort($list, SORT_NUMERIC);
 
-		HOF::$_cache_->data($_cache_key_, $list);
+		HOF::cache()->data($_cache_key_, $list);
 
 		return $list;
 	}
@@ -73,7 +73,7 @@ class HOF_Model_Char extends HOF_Class_Data
 	{
 		$_cache_key_ = 'char_base';
 
-		$list = HOF::$_cache_->data($_cache_key_);
+		$list = HOF::cache()->data($_cache_key_);
 
 		if (isset($list[$no]))
 		{
@@ -85,7 +85,7 @@ class HOF_Model_Char extends HOF_Class_Data
 
 			$list[$no] = $data;
 
-			HOF::$_cache_->data($_cache_key_, $list);
+			HOF::cache()->data($_cache_key_, $list);
 		}
 
 		unset($data['name']);
@@ -139,7 +139,7 @@ class HOF_Model_Char extends HOF_Class_Data
 		$_key = 'union';
 		$_cache_key_ = $_key.'_base';
 
-		$list = HOF::$_cache_->data($_cache_key_);
+		$list = HOF::cache()->data($_cache_key_);
 
 		if (isset($list[$no]))
 		{
@@ -151,7 +151,7 @@ class HOF_Model_Char extends HOF_Class_Data
 
 			$list[$no] = $data;
 
-			HOF::$_cache_->data($_cache_key_, $list);
+			HOF::cache()->data($_cache_key_, $list);
 		}
 
 		return $data;
@@ -162,7 +162,7 @@ class HOF_Model_Char extends HOF_Class_Data
 		$_key = 'union';
 		$_cache_key_ = $_key.'_mon';
 
-		$list = HOF::$_cache_->data($_cache_key_);
+		$list = HOF::cache()->data($_cache_key_);
 
 		if (isset($list[$no]))
 		{
@@ -182,7 +182,7 @@ class HOF_Model_Char extends HOF_Class_Data
 
 				$list[$no] = $data;
 
-				HOF::$_cache_->data($_cache_key_, $list);
+				HOF::cache()->data($_cache_key_, $list);
 			}
 		}
 
@@ -199,14 +199,14 @@ class HOF_Model_Char extends HOF_Class_Data
 		$_key = 'union';
 		$_cache_key_ = $_key.'_list';
 
-		if ($list = HOF::$_cache_->data($_cache_key_))
+		if ($list = HOF::cache()->data($_cache_key_))
 		{
 			return $list;
 		}
 
 		$list = self::_load_list($_key);
 
-		HOF::$_cache_->data($_cache_key_, $list);
+		HOF::cache()->data($_cache_key_, $list);
 
 		return $list;
 	}
