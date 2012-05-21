@@ -7,10 +7,13 @@
 
 require_once ("../bootstrap.php");
 
+//Zend_Session::$_unitTestEnabled = true;
+
 echo '<pre>';
 
 function _e($v)
 {
-	echo $v."\n";
+	$argv = func_get_args();
+	echo implode(' ', $argv)."\n";
 }
 
