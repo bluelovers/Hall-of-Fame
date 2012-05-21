@@ -43,6 +43,11 @@ class HOF
 
 	function __destruct()
 	{
+		if (self::user()->id && self::user()->cache())
+		{
+			self::user()->cache()->__destruct();
+		}
+
 		self::$_cache_->__destruct();
 
 		HOF_Class_File::fpclose_all();
