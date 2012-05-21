@@ -26,7 +26,7 @@ class HOF_Class_Session_User
 			die('error!!');
 		}
 
-		$this->crypto = new HOF_Class_Crypto_Discuz(CRYPT_KEY.$_SERVER["HTTP_USER_AGENT"], COOKIE_EXPIRE);
+		$this->crypto = new HOF_Class_Crypto_Discuz(CRYPT_KEY . $_SERVER["HTTP_USER_AGENT"], COOKIE_EXPIRE);
 
 		$this->SessionSwitch();
 	}
@@ -63,7 +63,7 @@ class HOF_Class_Session_User
 		}
 		else
 		{
-			throw new BadMethodCallException('Call to undefined method '.get_class($this).'::'.$func.'()');
+			throw new BadMethodCallException('Call to undefined method ' . get_class($this) . '::' . $func . '()');
 		}
 	}
 
@@ -165,7 +165,11 @@ class HOF_Class_Session_User
 	 */
 	protected function SessionSwitch()
 	{
-		session_save_path(BASE_PATH_CACHE.'session/');
+		session_save_path(BASE_PATH_CACHE . 'session/');
+
+		$currentCookieParams = session_get_cookie_params();
+
+		session_set_cookie_params(COOKIE_EXPIRE, '/'.BASE_URL_ROOT, $currentCookieParams['domain'], $currentCookieParams["secure"], $currentCookieParams["httponly"]);
 
 		/**
 		 * session消滅の時間(?)
