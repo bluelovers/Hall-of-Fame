@@ -96,10 +96,16 @@ class HOF_Model_Main extends HOF_Class_Array
 				return 0;
 				break;
 
+			/*
 			case ($_GET["menu"] === "rank"):
 			case ($_SERVER["QUERY_STRING"] === "rank"):
 
 				HOF_Class_Controller::newInstance('rank')->main()->_main_stop();
+				return 0;
+				break;
+			*/
+			case ($this->request->controller == 'rank'):
+				HOF_Class_Controller::newInstance($this->request->controller, $this->request->action, $this->request->extra)->main()->_main_stop();
 				return 0;
 				break;
 		}
