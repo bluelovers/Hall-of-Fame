@@ -64,6 +64,7 @@ class HOF_Class_View
 			$output = preg_replace('/[ \t\r]+(\n)/is', '\\1', $output);
 			$output = preg_replace('/(\n)[ \t\r]+/is', '\\1', $output);
 			$output = preg_replace('/(\n)\s+/is', '\\1', $output);
+			$output = preg_replace('/( ){2,}/is', "\\1", $output);
 		}
 
 		if ($nolf)
