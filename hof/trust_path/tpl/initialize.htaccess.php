@@ -16,9 +16,11 @@ RewriteRule ^static/image/(icon/(item|skill))/.*$ static/image/$1/noimage.png [L
 
 RewriteRule ^(static/image) - [L]
 
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteRule ^.*	index.php [L,QSA]
+<?php if (BASE_URL_REWRITE): ?>
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteRule ^.*	index.php [L,QSA]
+<?php endif; ?>
 
 <Files *.dat>
 	order allow,deny
