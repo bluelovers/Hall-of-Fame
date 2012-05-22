@@ -113,7 +113,7 @@ class HOF_Class_Icon
 	{
 		$file = self::getImage($no, $dir, $return_true);
 
-		return BASE_URL . '/' . $file;
+		return BASE_URL . $file;
 	}
 
 	/**
