@@ -183,7 +183,7 @@ class HOF_Class_Battle_Style_Image
 
 		// 修正可直接顯示合成後圖片而不會顯示亂碼
 		@header("Content-Type: image/{$type}");
-		@header('Content-Disposition: filename=battle' . gmdate('YmdHis', time()) . '.png');
+		@header('Content-Disposition: filename=battle_' . gmdate('YmdHis', time()) . '.png');
 
 		$func = 'image' . $type;
 		$func($this->image);
