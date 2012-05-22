@@ -208,6 +208,11 @@ final class HOF
 		return $str;
 	}
 
+	public static function end()
+	{
+		exit();
+	}
+
 	public static function escapeHtml($string)
 	{
 		if (is_array($string))
