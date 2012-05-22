@@ -611,7 +611,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		$Name = $this->char->Name();
 
 		$message = <<< EOD
-<form action="?char={$_GET[char]}" method="post" class="margin15">
+<form action="{BASE_URL}?char={$_GET[char]}" method="post" class="margin15">
 半角英数16文字 (全角1文字=半角2文字)<br />
 <input type="text" name="NewName" style="width:160px" class="text" />
 <input type="submit" class="btn" name="NameChange" value="Change" />
@@ -671,7 +671,7 @@ EOD;
 
 		print ('<div class="margin15">' . "\n");
 		print ("使用するアイテム<br />\n");
-		print ('<form action="?char=' . $_GET[char] . '" method="post">' . "\n");
+		print ('<form action="'.BASE_URL.'?char=' . $_GET[char] . '" method="post">' . "\n");
 		print ('<select name="itemUse">' . "\n");
 
 		$resetItem = array(
@@ -850,7 +850,7 @@ EOD;
 		$message = <<< HTML_BYEBYE
 <div class="margin15">
 {$Name} を 解雇しますか?<br>
-<form action="?char={$_GET[char]}" method="post">
+<form action="{BASE_URL}?char={$_GET[char]}" method="post">
 <input type="submit" class="btn" name="kick" value="Yes">
 <input type="submit" class="btn" value="No">
 </form>
@@ -932,7 +932,7 @@ HTML_BYEBYE;
 
 ?>
 <div style="margin:0 15px">
-	<h4>Equipment<a href="?manual#equip" target="_blank" class="a0">?</a></h4>
+	<h4>Equipment<a href="<?php e(BASE_URL) ?>?manual#equip" target="_blank" class="a0">?</a></h4>
 	<div class="bold u">
 		Current Equip's
 	</div>
@@ -990,7 +990,7 @@ HTML_BYEBYE;
 ?></td>
 		</tr>
 	</table>
-	<form action="?char=<?=
+	<form action="<?php e(BASE_URL) ?>?char=<?=
 
 		$this->input->char
 
@@ -1059,7 +1059,7 @@ HTML_BYEBYE;
 			}
 			print ($EquipList->GetJavaScript("list0"));
 			print ($EquipList->ShowSelect());
-			print ('<form action="?char=' . $this->input->char . '" method="post">' . "\n");
+			print ('<form action="'.BASE_URL.'?char=' . $this->input->char . '" method="post">' . "\n");
 			print ('<div id="list0">' . $EquipList->ShowDefault() . '</div>' . "\n");
 			print ('<input type="submit" class="btn" name="equip_item" value="Equip">' . "\n");
 			print ("</form>\n");
@@ -1077,7 +1077,7 @@ HTML_BYEBYE;
 
 
 ?>" method="post" style="padding:0 15px">
-	<h4>Skill<a href="?manual#skill" target="_blank" class="a0">?</a></h4>
+	<h4>Skill<a href="<?php e(BASE_URL) ?>?manual#skill" target="_blank" class="a0">?</a></h4>
 	<?php
 
 		// スキル表示 //////////////////////////////////////
