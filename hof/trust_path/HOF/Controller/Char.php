@@ -866,13 +866,9 @@ HTML_BYEBYE;
 	function _main_action_kick()
 	{
 		$this->char->DeleteChar();
-		$host = $_SERVER['HTTP_HOST'];
-		$uri = rtrim(dirname($_SERVER['PHP_SELF']));
-		//$uri   = rtrim(dirname($_SERVER['PHP_SELF']), '/\\');
-		$extra = INDEX;
-		header("Location: http://$host$uri/$extra");
-		exit;
-		break;
+
+		header("Location: ".HOF::url());
+		HOF::end();
 	}
 
 	/**
