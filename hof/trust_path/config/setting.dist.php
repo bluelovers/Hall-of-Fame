@@ -94,6 +94,8 @@ define('COLOR_FILE', BASE_TRUST_PATH . 'HOF/Resource/Color.dat');
 
 define('BASE_PATH_CACHE', BASE_TRUST_PATH . 'cache/');
 
+define('BASE_PATH_CACHE_USER', BASE_PATH_CACHE . 'user/');
+
 define('BASE_PATH_TRASH', BASE_PATH_CACHE . 'trash/');
 
 define('BASE_PATH_SESSION', BASE_PATH_CACHE . 'session/');
@@ -118,13 +120,3 @@ define('BASE_PATH_LOG', BASE_PATH_CACHE . 'log/');
 define('LOG_BATTLE_NORMAL', BASE_PATH_LOG . 'normal/');
 define('LOG_BATTLE_RANK', BASE_PATH_LOG . 'rank/');
 define('LOG_BATTLE_UNION', BASE_PATH_LOG . 'union/');
-
-// 状態定義
-/*
-define('FRONT', 'front');
-define('BACK', 'back');
-*/
-
-
-
-?>
