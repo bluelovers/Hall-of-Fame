@@ -48,8 +48,6 @@ class HOF_Model_Main extends HOF_Class_Array
 
 		parent::__construct();
 
-		HOF::getInstance();
-
 		$this->ip = HOF::ip();
 
 		$this->user = &HOF::user();
