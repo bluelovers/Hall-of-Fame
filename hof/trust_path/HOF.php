@@ -385,13 +385,6 @@ final class HOF
 			}
 		}
 
-		if (!empty($extra) && is_string($extra))
-		{
-			$m = array();
-			parse_str($extra, $m);
-			$extra = $m;
-		}
-
 		if (!empty($extra) && is_array($extra))
 		{
 			$params = array_merge($params, $extra);
@@ -404,6 +397,11 @@ final class HOF
 		if ($param = http_build_query($params))
 		{
 			$url .= '?' . $param;
+		}
+
+		if (!empty($extra) && is_string($extra))
+		{
+			$url .= (strpos($url, '?') ? '&' : '?') . $extra;
 		}
 
 		return $url;
