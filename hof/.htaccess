@@ -1,12 +1,6 @@
 #
-#	$HeadURL$
-#	$Revision$
-#	$Author: bluelovers$
-#	$Date$
-#	$Id$
-#
 # 	@author bluelovers
-# 	@copyright 2010
+# 	@copyright 2012
 #
 
 Options All -Indexes
@@ -14,13 +8,17 @@ Options All -Indexes
 RewriteEngine On
 #RewriteBase /
 
-RewriteRule (\.svn|\.git|user|union|log|data|class)[\/\\].* ReadMe.html [NC,L]
+RewriteRule (\.svn|\.git|trust_path)[\/\\].* ReadMe.html [NC,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^static/image/(char|char_rev)/.*$ static/image/$1/noimage.png [L]
-
 RewriteRule ^static/image/(icon/(item|skill))/.*$ static/image/$1/noimage.png [L]
 
+RewriteRule ^(static/image) - [L]
+
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^.*	index.php [L,QSA]
 
 <Files *.dat>
 	order allow,deny
@@ -44,6 +42,9 @@ RewriteRule ^static/image/(icon/(item|skill))/.*$ static/image/$1/noimage.png [L
 
 <FilesMatch "\.(ttf|otf|fon|ttc)$">
 	<IfModule mod_headers.c>
+		Header set Access-Control-Allow-Origin "*"
+	</IfModule>
+	<IfModule mod_headers>
 		Header set Access-Control-Allow-Origin "*"
 	</IfModule>
 </FilesMatch>
