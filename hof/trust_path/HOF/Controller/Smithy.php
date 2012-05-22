@@ -13,9 +13,12 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 	 */
 	var $user;
 
-	function _init()
+	function _main_init()
 	{
 		$this->user = &HOF::user();
+
+		$this->options['defaultAction'] = 'refine';
+		$this->options['allowActions'] = true;
 	}
 
 	function _main_before()
@@ -181,7 +184,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 
 
 ?>
-		<form action="<?php e(BASE_URL) ?>?menu=create" method="post">
+		<form action="<?php e(HOF::url('smithy', 'create')) ?>" method="post">
 			<div id="list">
 				<?=
 
@@ -373,7 +376,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 			print ('精錬可能な物一覧');
 			// 種類のセレクトボックス
 			print ($goods->ShowSelect());
-			print ('<form action="'.BASE_URL.'?menu=refine" method="post">' . "\n");
+			print ('<form action="'.HOF::url('smithy', 'refine').'" method="post">' . "\n");
 			// [Refine]button
 			print ('<input type="submit" value="Refine" name="refine" class="btn">' . "\n");
 			// 精錬回数の指定
