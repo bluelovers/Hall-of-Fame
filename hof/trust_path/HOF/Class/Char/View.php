@@ -231,7 +231,7 @@ class HOF_Class_Char_View
 
 
 ?>">
-<a href="?char=<?=
+<a href="<?php e(BASE_URL) ?>?char=<?=
 
 		$this->char->id
 
