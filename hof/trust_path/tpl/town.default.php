@@ -66,7 +66,7 @@
 			</ul>
 		</div>
 		<h4>広場</h4>
-		<form action="<?php e(BASE_URL) ?>?town" method="post">
+		<form action="<?php e(HOF::url('town')) ?>" method="post">
 			<input type="text" maxlength="60" name="message" class="text" style="width:300px"/>
 			<input type="submit" value="post" class="btn" style="width:100px" />
 		</form>
