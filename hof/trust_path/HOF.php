@@ -53,6 +53,8 @@ final class HOF
 			self::$instance = $this;
 			self::$input = new HOF_Class_Request;
 
+			self::$input->server->REQUEST_URI = substr(self::$input->server->REQUEST_URI, strlen(BASE_URL_ROOT) - 1);
+
 			self::$_cache_ = new HOF_Class_File_Cache();
 
 			self::$_session_ = new HOF_Class_Session();
@@ -348,20 +350,22 @@ final class HOF
 			unset($controller);
 		}
 
+		$urls = array();
+
 		if (BASE_URL_REWRITE || !($controller || $action))
 		{
-			$url = BASE_URL;
+			$urls[] = rtrim(BASE_URL, '/');
 		}
 		else
 		{
-			$url = BASE_URL . INDEX;
+			$urls[] = BASE_URL . INDEX;
 		}
 
 		if ($controller)
 		{
 			if (DURA_USE_REWRITE)
 			{
-				$url .= $controller . '/';
+				$urls[] = $controller;
 			}
 			else
 			{
@@ -373,7 +377,7 @@ final class HOF
 		{
 			if (BASE_URL_REWRITE)
 			{
-				$url .= $action . '/';
+				$urls[] = $action;
 			}
 			else
 			{
@@ -381,12 +385,21 @@ final class HOF
 			}
 		}
 
-		if (is_array($extra))
+		if (!empty($extra) && is_string($extra))
+		{
+			$m = array();
+			parse_str($extra, $m);
+			$extra = $m;
+		}
+
+		if (!empty($extra) && is_array($extra))
 		{
 			$params = array_merge($params, $extra);
 		}
 
 		$params = array_filter((array)$params);
+
+		$url = implode('/', $urls);
 
 		if ($param = http_build_query($params))
 		{
