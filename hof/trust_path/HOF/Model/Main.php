@@ -452,7 +452,7 @@ class HOF_Model_Main extends HOF_Class_Array
 		$unit = array('b','kb','mb','gb','tb','pb');
 
 		$size = memory_get_usage();
-		$size = bcdiv($size, pow(1024, ($i = floor(log($size,1024)))), 4).' '.$unit[$i];
+		$size = rtrim(bcdiv($size, pow(1024, ($i = floor(log($size,1024)))), 4), '0.').' '.$unit[$i];
 
 		$ios = function_exists('get_included_files') ? count(get_included_files()) : 0;
 		$umem = function_exists('memory_get_usage') ? $size : 0;
@@ -472,7 +472,7 @@ class HOF_Model_Main extends HOF_Class_Array
 
 ?>
 			<a href="?manual">Manual</a> - <a href="?tutorial">Tutorial</a> - <a href="?gamedata=job">GameData</a> - <a href="#top">Top</a><br>
-			Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008. Fork (c) 2012 bluelovers<br>
+			Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008. Fork (c) <?php e(gmdate('Y', REQUEST_TIME)) ?> bluelovers<br>
 
 			, <?= $debuginfo['ios'] ?> ios, <?= $debuginfo['umem'] ?>
 
