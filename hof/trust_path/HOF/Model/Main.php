@@ -150,12 +150,10 @@ class HOF_Model_Main extends HOF_Class_Array
 				case ($_SERVER["QUERY_STRING"] === "item"):
 					HOF_Class_Controller::newInstance('item')->main();
 					return 0;
-					*/
 				case ($_GET["menu"] === "refine"):
 				case ($_GET["menu"] === "create"):
 					HOF_Class_Controller::newInstance('Smithy', $_GET["menu"])->main();
 					return 0;
-					/*
 				case ($_GET["menu"] === "buy"):
 				case ($_GET["menu"] === "sell"):
 				case ($_GET["menu"] === "work"):
