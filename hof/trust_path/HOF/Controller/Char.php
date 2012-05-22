@@ -932,7 +932,7 @@ HTML_BYEBYE;
 
 ?>
 <div style="margin:0 15px">
-	<h4>Equipment<a href="<?php e(BASE_URL) ?>?manual#equip" target="_blank" class="a0">?</a></h4>
+	<h4>Equipment<a href="<?php e(HOF::url('manual', 'manual', '#equip')) ?>" target="_blank" class="a0">?</a></h4>
 	<div class="bold u">
 		Current Equip's
 	</div>
@@ -1077,7 +1077,7 @@ HTML_BYEBYE;
 
 
 ?>" method="post" style="padding:0 15px">
-	<h4>Skill<a href="<?php e(BASE_URL) ?>?manual#skill" target="_blank" class="a0">?</a></h4>
+	<h4>Skill<a href="<?php e(HOF::url('manual', 'manual', '#skill')) ?>" target="_blank" class="a0">?</a></h4>
 	<?php
 
 		// スキル表示 //////////////////////////////////////
