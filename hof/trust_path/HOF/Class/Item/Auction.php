@@ -464,7 +464,7 @@ class HOF_Class_Item_Auction
 
 		$this->output->{"style_" . $this->sort} = ' class="a0"';
 
-		$this->output->query = '?menu=' . $this->QUERY;
+		$this->output->query = $this->QUERY;
 
 		if ($this->article_list)
 		{
