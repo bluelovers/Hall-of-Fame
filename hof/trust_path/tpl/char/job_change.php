@@ -3,7 +3,7 @@
 <?php if ($this->output->job_change_list): ?>
 </form>
 
-	<form action="?char=<?php e($this->output->char_id) ?>" method="post" style="padding:0 15px">
+	<form action="<?php e(BASE_URL) ?>?char=<?php e($this->output->char_id) ?>" method="post" style="padding:0 15px">
 		<h4>JobChange</h4>
 		<table>
 			<tbody>
