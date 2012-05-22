@@ -1,6 +1,6 @@
 
 	<form action="<?php e(BASE_URL) ?>?char=<?php e($this->output->char_id) ?>" method="post" style="padding:5px 0 0 15px">
-		<h4>Character Status<a href="<?php e(BASE_URL) ?>?manual#charstat" target="_blank" class="a0">?</a></h4>
+		<h4>Character Status<a href="<?php e(HOF::url('manual', 'manual', '#charstat')) ?>" target="_blank" class="a0">?</a></h4>
 		<?php $this->output->char->ShowCharDetail(); ?>
 		<?php if ($this->output->user_item["7500"]):?>
 		<!-- 改名 -->
