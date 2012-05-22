@@ -61,7 +61,7 @@
 		<a name="caution"></a>
 		<h4 name="caution">caution! <a href="#content">↑</a></h4>
 		<p class="error" style="margin-left:50px;font-size:200%"> めんどくさいめんどくさい。登録後に表示される<br />
-			<a href="<?php e(BASE_URL) ?>?tutorial" class="a0">チュートリアル</a>だけ見ればおｋ</p>
+			<a href="<?php e(HOF::url('manual', 'tutorial')) ?>" class="a0">チュートリアル</a>だけ見ればおｋ</p>
 		<p class="error" style="margin-left:50px">このゲームは発展途上です！</p>
 		<p class="error" style="margin-left:50px">※このゲームは腐っています。<br />
 			紛れも無く終わっています。</p>
