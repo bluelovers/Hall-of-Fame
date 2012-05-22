@@ -8,7 +8,7 @@
 				ここでは&nbsp;アイテムの精錬ができるぜ！<br />
 				精錬する物と精錬回数を選んでくれ。<br />
 				ただし壊れても責任は持てないぜ。<br />
-				弟がやってる<span class="bold">製作工房</span>は<a href="<?php e(BASE_URL) ?>?menu=create">アッチ</a>だ。
+				弟がやってる<span class="bold">製作工房</span>は<a href="<?php e(HOF::url('smithy', 'create')) ?>">アッチ</a>だ。
 	<?php $content = ob_get_clean(); ?>
 
 	<?php e($this->slot('layout/npc.talk.1', $content)) ?>
