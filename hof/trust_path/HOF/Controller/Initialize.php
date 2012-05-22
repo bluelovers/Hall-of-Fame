@@ -11,10 +11,28 @@ class HOF_Controller_Initialize extends HOF_Class_Controller
 	function _main_init()
 	{
 		$this->options['autoView'] = false;
+		$this->options['autoViewOutput'] = false;
 	}
 
 	function _main_after()
 	{
+		echo '<pre>';
+
+		if ($this->error)
+		{
+			echo implode("\n", $this->error);
+		}
+		else
+		{
+			touch(DAT_DIR.'initialize'.EXT_LOCK);
+
+			$this->msg[] = 'Initialize End.';
+		}
+
+		echo implode("\n", $this->msg);
+
+		echo '</pre>';
+
 		exit();
 	}
 
@@ -77,8 +95,19 @@ class HOF_Controller_Initialize extends HOF_Class_Controller
 
 		debug($list);
 
-		touch(DAT_DIR.'initialize'.EXT_LOCK);
+		$this->_main_action_htaccess();
+	}
 
+	function _main_action_htaccess()
+	{
+		$this->action = 'htaccess';
+		$this->_main_view();
+
+		file_put_contents(BASE_PATH.'.htaccess', (string)$this->content, LOCK_EX);
+
+		$this->msg[] = '.htaccess OK!';
+
+		unset($this->content);
 	}
 
 }
