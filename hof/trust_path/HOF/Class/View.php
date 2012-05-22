@@ -60,7 +60,7 @@ class HOF_Class_View
 		if (!$source)
 		{
 			$output = preg_replace('/^[\s\t\n]*|[\s\n\t]*$/is', '', $output);
-			$output = preg_replace('/\s*(\t)\s*/is', "\\1\n", $output);
+			$output = preg_replace('/[ \r]*(\t+)[ \r]*/is', "\\1", $output);
 			$output = preg_replace('/[ \t\r]+(\n)/is', '\\1', $output);
 			$output = preg_replace('/(\n)[ \t\r]+/is', '\\1', $output);
 			$output = preg_replace('/(\n)\s+/is', '\\1', $output);
