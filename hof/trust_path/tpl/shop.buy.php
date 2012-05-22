@@ -4,7 +4,7 @@
 	<div style="margin:15px">
 		<h4>買う</h4>
 
-		<form action="<?php e(BASE_URL) ?>?menu=buy" method="post">
+		<form action="<?php e(HOF::url('shop', 'buy')) ?>" method="post">
 			<table cellspacing="0" data-item="table">
 
 				<thead>
