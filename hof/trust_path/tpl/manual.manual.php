@@ -52,7 +52,7 @@
 				<a href="#ranking">ランキング</a>
 			</li>
 			<li>
-				<a href="<?php e(BASE_URL) ?>?manual2">高度なマニュアル</a>
+				<a href="<?php e(HOF::url('manual', 'manual2')) ?>">高度なマニュアル</a>
 			</li>
 			<li>
 				<a href="#cr">使用している画像</a>
