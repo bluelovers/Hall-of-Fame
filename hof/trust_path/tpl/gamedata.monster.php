@@ -1,4 +1,4 @@
-<?php $this->extend('gamedata.layout') ?>
+<?php $this->extend('gamedata/layout') ?>
 
 	<div style="margin:0 15px">
 		<h4>モンスター</h4>
