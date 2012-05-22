@@ -127,9 +127,11 @@ class HOF_Model_Main extends HOF_Class_Array
 					HOF_Class_Controller::newInstance('Battle', $_SERVER["QUERY_STRING"])->main();
 					return 0;
 					// 街
+				/*
 				case ($_SERVER["QUERY_STRING"] === "town"):
 					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
 					return 0;
+				*/
 					// シミュれ
 				case ($_SERVER["QUERY_STRING"] === "simulate"):
 					HOF_Class_Controller::newInstance('Battle', $_SERVER["QUERY_STRING"])->main();
@@ -186,6 +188,9 @@ class HOF_Model_Main extends HOF_Class_Array
 	{
 		switch (true)
 		{
+			case ($this->request->controller):
+				HOF_Class_Controller::newInstance($this->request->controller, $this->request->action, $this->request->extra)->main();
+				return true;
 			case ($_SERVER["QUERY_STRING"] === "bbs"):
 				HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
 				return true;
@@ -209,9 +214,6 @@ class HOF_Model_Main extends HOF_Class_Array
 				HOF_Class_Controller::newInstance('log', 'log', $this->request->extra)->main();
 				return true;
 			*/
-			case ($this->request->controller == 'log'):
-				HOF_Class_Controller::newInstance($this->request->controller, $this->request->action, $this->request->extra)->main();
-				return true;
 			case ($_GET["gamedata"]):
 				HOF_Class_Controller::newInstance('gamedata', $_GET["gamedata"])->main();
 				return true;
@@ -488,11 +490,11 @@ class HOF_Model_Main extends HOF_Class_Array
 			<a href="<?php e(HOF::url('log', 'update')) ?>">UpDate</a> -
 			<?php
 
-		if (BBS_BOTTOM_TOGGLE) print ('<a href="?bbs">BBS</a> - ' . "\n");
+		if (BBS_BOTTOM_TOGGLE) print ('<a href="'.BASE_URL.'?bbs">BBS</a> - ' . "\n");
 
 
 ?>
-			<a href="?manual">Manual</a> - <a href="?tutorial">Tutorial</a> - <a href="?gamedata=job">GameData</a> - <a href="#top">Top</a><br>
+			<a href="<?php e(BASE_URL) ?>?manual">Manual</a> - <a href="<?php e(BASE_URL) ?>?tutorial">Tutorial</a> - <a href="<?php e(BASE_URL) ?>?gamedata=job">GameData</a> - <a href="#top">Top</a><br>
 			Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008. Fork (c) <?php e(gmdate('Y', REQUEST_TIME)) ?> bluelovers<br>
 
 			, <?= $debuginfo['ios'] ?> ios, <?= $debuginfo['umem'] ?>
@@ -517,10 +519,10 @@ class HOF_Model_Main extends HOF_Class_Array
 			print ('<div id="menu">' . "\n");
 			//print('<span class="divide"></span>');//区切り
 			print ('<a href="' . HOF::url() . '">Top</a><span class="divide"></span>');
-			print ('<a href="?hunt">Hunt</a><span class="divide"></span>');
-			print ('<a href="?item">Item</a><span class="divide"></span>');
-			print ('<a href="?town">Town</a><span class="divide"></span>');
-			print ('<a href="?setting">Setting</a><span class="divide"></span>');
+			print ('<a href="'.BASE_URL.'?hunt">Hunt</a><span class="divide"></span>');
+			print ('<a href="'.BASE_URL.'?item">Item</a><span class="divide"></span>');
+			print ('<a href="' . HOF::url('town') . '">Town</a><span class="divide"></span>');
+			print ('<a href="'.BASE_URL.'?setting">Setting</a><span class="divide"></span>');
 			print ('<a href="' . HOF::url('log') . '">Log</a><span class="divide"></span>');
 			if (BBS_OUT) print ('<a href="' . BBS_OUT . '">BBS</a><span class="divide"></span>' . "\n");
 			print ('</div><div id="menu2">' . "\n");
@@ -583,9 +585,9 @@ class HOF_Model_Main extends HOF_Class_Array
 			{ //// ログアウト状態の人、来客用の表示
 				print ('<div id="menu">');
 				print ('<a href="' . HOF::url() . '">トップ</a><span class="divide"></span>' . "\n");
-				print ('<a href="?newgame">新規</a><span class="divide"></span>' . "\n");
-				print ('<a href="?manual">ルールとマニュアル</a><span class="divide"></span>' . "\n");
-				print ('<a href="?gamedata=job">ゲームデータ</a><span class="divide"></span>' . "\n");
+				print ('<a href="'.BASE_URL.'?newgame">新規</a><span class="divide"></span>' . "\n");
+				print ('<a href="'.BASE_URL.'?manual">ルールとマニュアル</a><span class="divide"></span>' . "\n");
+				print ('<a href="'.BASE_URL.'?gamedata=job">ゲームデータ</a><span class="divide"></span>' . "\n");
 				print ('<a href="' . HOF::url('log') . '">戦闘ログ</a><span class="divide"></span>' . "\n");
 				if (BBS_OUT) print ('<a href="' . BBS_OUT . '">総合BBS</a><span class="divide"></span>' . "\n");
 
