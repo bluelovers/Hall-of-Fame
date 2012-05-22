@@ -13,9 +13,12 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 	 */
 	var $user;
 
-	function _init()
+	function _main_init()
 	{
 		$this->user = &HOF::user();
+
+		$this->options['defaultAction'] = 'buy';
+		$this->options['allowActions'] = true;
 	}
 
 	function _main_before()
@@ -85,6 +88,11 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 		}
 
 		$this->output->shoplist = $list;
+	}
+
+	function _main_action_work()
+	{
+
 	}
 
 	/**
