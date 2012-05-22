@@ -44,6 +44,15 @@ abstract class HOF_Class_Controller
 		'method_action_pre' => '_main_action_',
 
 		'defaultAction' => self::DEFAULT_ACTION,
+
+		/**
+		 * allowActions
+		 * 				-1		only use default action
+		 * 				false|0	default or dev
+		 * 				true	auto get action list and only use it
+		 *
+		 * @var array|bool|int
+		 */
 		'allowActions' => false,
 
 		);
