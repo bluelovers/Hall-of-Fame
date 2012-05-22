@@ -1,5 +1,5 @@
 
-	<?php $this->extend('gamedata.layout') ?>
+	<?php $this->extend('gamedata/layout') ?>
 
 	<div style="margin:15px">
 		<h4>職業(Job)</h4>
