@@ -328,12 +328,7 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char_Base
 
 
 ?>);">
-	<a href="<?php e(BASE_URL) ?>?union=<?=
-
-		$this->id()
-
-
-?>"><?php
+	<a href="<?php e(HOF::url('battle', 'union', array('union' => $this->id))) ?>"><?php
 
 		$this->ShowImage();
 
