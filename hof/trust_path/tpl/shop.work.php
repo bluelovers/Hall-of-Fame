@@ -5,7 +5,7 @@
 
 	<div style="margin:15px">
 		<h4>アルバイトする！</h4>
-		<form method="post" action="?menu=work">
+		<form method="post" action="<?php e(BASE_URL) ?>?menu=work">
 			<p>1回 100Time<br />
 				給与 :
 				<?php e(HOF_Helper_Global::MoneyFormat($this->output->work_each_pay)) ?>/回</p>
