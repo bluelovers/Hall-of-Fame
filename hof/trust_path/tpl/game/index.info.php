@@ -31,7 +31,7 @@
 						戦闘の状況に応じて技を使い分けます。
 					</li>
 					<li>
-						<a href="?log" class="a0">こちら</a>で戦闘ログが回覧できます。
+						<a href="<?php e(HOF::url('log')) ?>" class="a0">こちら</a>で戦闘ログが回覧できます。
 					</li>
 				</ul>
 			</div>
