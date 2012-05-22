@@ -23,11 +23,6 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 	function _main_input()
 	{
 		$this->input->input_char_id = (array )HOF::$input->post->input_char_id;
-
-		if (HOF::$input->server->QUERY_STRING == 'rank')
-		{
-			$this->_main_setup('rank_all');
-		}
 	}
 
 	function _main_before()
