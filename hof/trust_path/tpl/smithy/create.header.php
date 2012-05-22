@@ -8,7 +8,7 @@
 				ここでは&nbsp;アイテムの製作ができるぜ！<br />
 				お前さんが持ってる素材から作れそうな装備を作れるぜ。<br />
 				特別な素材を練り込めば特殊な武器も作れるぜ。<br />
-				兄がやってる<span class="bold">精錬工房</span>は<a href="?menu=refine">コッチ</a>だ。<br />
+				兄がやってる<span class="bold">精錬工房</span>は<a href="<?php e(BASE_URL) ?>?menu=refine">コッチ</a>だ。<br />
 				<a href="#mat">所持素材一覧</a>
 	<?php $content = ob_get_clean(); ?>
 
