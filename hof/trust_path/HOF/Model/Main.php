@@ -72,7 +72,7 @@ class HOF_Model_Main extends HOF_Class_Array
 
 	function _router()
 	{
-		if (!BASE_URL_REWRITE || BASE_URL_REWRITE && !preg_match('/^\/(?P<controller>[a-zA-Z\.\-_]+)(?:\/(?P<action>[a-zA-Z\.\-_]+))?(?:\/?\??(?P<extra>.*))?$/', HOF::request()->server->REQUEST_URI, $m))
+		if (!BASE_URL_REWRITE || BASE_URL_REWRITE && !preg_match('/^\/(?P<controller>[a-zA-Z\.\-_]+)(?:\/(?P<action>[a-zA-Z0-9\.\-_]+))?(?:\/?\??(?P<extra>.*))?$/', HOF::request()->server->REQUEST_URI, $m))
 		{
 			$m['controller'] = HOF::request()->request->controller;
 			$m['action'] = HOF::request()->request->action;
@@ -80,6 +80,8 @@ class HOF_Model_Main extends HOF_Class_Array
 		}
 
 		$this->request->exchangeArray($m);
+
+		//debug($this->request);
 	}
 
 	function Order()
@@ -143,10 +145,12 @@ class HOF_Model_Main extends HOF_Class_Array
 				case ($_GET["common"]):
 					HOF_Class_Controller::newInstance('Battle', 'common')->main();
 					return 0;
+					/*
 					// アイテム一覧
 				case ($_SERVER["QUERY_STRING"] === "item"):
 					HOF_Class_Controller::newInstance('item')->main();
 					return 0;
+					*/
 				case ($_GET["menu"] === "refine"):
 				case ($_GET["menu"] === "create"):
 					HOF_Class_Controller::newInstance('Smithy', $_GET["menu"])->main();
@@ -191,6 +195,7 @@ class HOF_Model_Main extends HOF_Class_Array
 			case ($this->request->controller):
 				HOF_Class_Controller::newInstance($this->request->controller, $this->request->action, $this->request->extra)->main();
 				return true;
+				/*
 			case ($_SERVER["QUERY_STRING"] === "bbs"):
 				HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
 				return true;
@@ -199,6 +204,7 @@ class HOF_Model_Main extends HOF_Class_Array
 			case ($_SERVER["QUERY_STRING"] === "tutorial"):
 				HOF_Class_Controller::newInstance('manual', $_SERVER["QUERY_STRING"])->main();
 				return true;
+				*/
 			/*
 			case ($_SERVER["QUERY_STRING"] === "update"):
 				HOF_Class_Controller::newInstance('log', $_SERVER["QUERY_STRING"])->main();
@@ -490,11 +496,11 @@ class HOF_Model_Main extends HOF_Class_Array
 			<a href="<?php e(HOF::url('log', 'update')) ?>">UpDate</a> -
 			<?php
 
-		if (BBS_BOTTOM_TOGGLE) print ('<a href="'.BASE_URL.'?bbs">BBS</a> - ' . "\n");
+		if (BBS_BOTTOM_TOGGLE) print ('<a href="'.HOF::url('bbs').'">BBS</a> - ' . "\n");
 
 
 ?>
-			<a href="<?php e(BASE_URL) ?>?manual">Manual</a> - <a href="<?php e(BASE_URL) ?>?tutorial">Tutorial</a> - <a href="<?php e(HOF::url('gamedata')) ?>">GameData</a> - <a href="#top">Top</a><br>
+			<a href="<?php e(HOF::url('manual')) ?>">Manual</a> - <a href="<?php e(HOF::url('manual', 'tutorial')) ?>">Tutorial</a> - <a href="<?php e(HOF::url('gamedata')) ?>">GameData</a> - <a href="#top">Top</a><br>
 			Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008. Fork (c) <?php e(gmdate('Y', REQUEST_TIME)) ?> bluelovers<br>
 
 			, <?= $debuginfo['ios'] ?> ios, <?= $debuginfo['umem'] ?>
@@ -520,7 +526,7 @@ class HOF_Model_Main extends HOF_Class_Array
 			//print('<span class="divide"></span>');//区切り
 			print ('<a href="' . HOF::url() . '">Top</a><span class="divide"></span>');
 			print ('<a href="'.BASE_URL.'?hunt">Hunt</a><span class="divide"></span>');
-			print ('<a href="'.BASE_URL.'?item">Item</a><span class="divide"></span>');
+			print ('<a href="' . HOF::url('item') . '">Item</a><span class="divide"></span>');
 			print ('<a href="' . HOF::url('town') . '">Town</a><span class="divide"></span>');
 			print ('<a href="'.BASE_URL.'?setting">Setting</a><span class="divide"></span>');
 			print ('<a href="' . HOF::url('log') . '">Log</a><span class="divide"></span>');
@@ -586,7 +592,7 @@ class HOF_Model_Main extends HOF_Class_Array
 				print ('<div id="menu">');
 				print ('<a href="' . HOF::url() . '">トップ</a><span class="divide"></span>' . "\n");
 				print ('<a href="'.BASE_URL.'?newgame">新規</a><span class="divide"></span>' . "\n");
-				print ('<a href="'.BASE_URL.'?manual">ルールとマニュアル</a><span class="divide"></span>' . "\n");
+				print ('<a href="'.HOF::url('manual') .'">ルールとマニュアル</a><span class="divide"></span>' . "\n");
 				print ('<a href="'.BASE_URL.'?gamedata=job">ゲームデータ</a><span class="divide"></span>' . "\n");
 				print ('<a href="' . HOF::url('log') . '">戦闘ログ</a><span class="divide"></span>' . "\n");
 				if (BBS_OUT) print ('<a href="' . BBS_OUT . '">総合BBS</a><span class="divide"></span>' . "\n");
