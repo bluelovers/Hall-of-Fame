@@ -6,14 +6,14 @@
 
 	<table style="width:100%;text-align:center" cellpadding="0" cellspacing="0" border="0">
 		<tr>
-			<td class="td7 td6"><a href="<?php e($this->output->query) ?>&sort=no"<?php e($this->output->style_no) ?>>番号</a></td>
-			<td class="td7 td6"><a href="<?php e($this->output->query) ?>&sort=time"<?php e($this->output->style_time) ?>>残り</a></td>
+			<td class="td7 td6"><a href="<?php e(HOF::url($this->output->query[0], $this->output->query[1], $this->output->query[2].'&sort=no')) ?>" <?php e($this->output->style_no) ?>>番号</a></td>
+			<td class="td7 td6"><a href="<?php e(HOF::url($this->output->query[0], $this->output->query[1], $this->output->query[2].'&sort=time')) ?>"<?php e($this->output->style_time) ?>>残り</a></td>
 			<td class="td7 td6">
-				<a href="<?php e($this->output->query) ?>&sort=price"<?php e($this->output->style_price) ?>>価格</a>
-				&nbsp;<a href="<?php e($this->output->query) ?>&sort=rprice"<?php e($this->output->style_rprice) ?>>(昇)</a>
+				<a href="<?php e(HOF::url($this->output->query[0], $this->output->query[1], $this->output->query[2].'&sort=price')) ?>"<?php e($this->output->style_price) ?>>価格</a>
+				&nbsp;<a href="<?php e(HOF::url($this->output->query[0], $this->output->query[1], $this->output->query[2].'&sort=rprice')) ?>"<?php e($this->output->style_rprice) ?>>(昇)</a>
 			</td>
-			<td class="td7 td6"><a href="<?php e($this->output->query) ?>&sort=item"<?php e($this->output->style_item) ?>>Item</a></td>
-			<td class="td7 td6"><a href="<?php e($this->output->query) ?>&sort=bid"<?php e($this->output->style_bid) ?>>入札数</a></td>
+			<td class="td7 td6"><a href="<?php e(HOF::url($this->output->query[0], $this->output->query[1], $this->output->query[2].'&sort=item')) ?>"<?php e($this->output->style_item) ?>>Item</a></td>
+			<td class="td7 td6"><a href="<?php e(HOF::url($this->output->query[0], $this->output->query[1], $this->output->query[2].'&sort=bid')) ?>"<?php e($this->output->style_bid) ?>>入札数</a></td>
 			<td class="td7 td6">入札者</td>
 			<td class="td7 td6">出品者</td>
 		</tr>
@@ -78,14 +78,14 @@
 		<?php endforeach; ?>
 
 		<tr>
-			<td class="td7 td6"><a href="<?php e($this->output->query) ?>&sort=no"<?php e($this->output->style_no) ?>>番号</a></td>
-			<td class="td7 td6"><a href="<?php e($this->output->query) ?>&sort=time"<?php e($this->output->style_time) ?>>残り</a></td>
+			<td class="td7 td6"><a href="<?php e(HOF::url($this->output->query[0], $this->output->query[1], $this->output->query[2].'&sort=no')) ?>" <?php e($this->output->style_no) ?>>番号</a></td>
+			<td class="td7 td6"><a href="<?php e(HOF::url($this->output->query[0], $this->output->query[1], $this->output->query[2].'&sort=time')) ?>"<?php e($this->output->style_time) ?>>残り</a></td>
 			<td class="td7 td6">
-				<a href="<?php e($this->output->query) ?>&sort=price"<?php e($this->output->style_price) ?>>価格</a>
-				&nbsp;<a href="<?php e($this->output->query) ?>&sort=rprice"<?php e($this->output->style_rprice) ?>>(昇)</a>
+				<a href="<?php e(HOF::url($this->output->query[0], $this->output->query[1], $this->output->query[2].'&sort=price')) ?>"<?php e($this->output->style_price) ?>>価格</a>
+				&nbsp;<a href="<?php e(HOF::url($this->output->query[0], $this->output->query[1], $this->output->query[2].'&sort=rprice')) ?>"<?php e($this->output->style_rprice) ?>>(昇)</a>
 			</td>
-			<td class="td7 td6"><a href="<?php e($this->output->query) ?>&sort=item"<?php e($this->output->style_item) ?>>Item</a></td>
-			<td class="td7 td6"><a href="<?php e($this->output->query) ?>&sort=bid"<?php e($this->output->style_bid) ?>>入札数</a></td>
+			<td class="td7 td6"><a href="<?php e(HOF::url($this->output->query[0], $this->output->query[1], $this->output->query[2].'&sort=item')) ?>"<?php e($this->output->style_item) ?>>Item</a></td>
+			<td class="td7 td6"><a href="<?php e(HOF::url($this->output->query[0], $this->output->query[1], $this->output->query[2].'&sort=bid')) ?>"<?php e($this->output->style_bid) ?>>入札数</a></td>
 			<td class="td7 td6">入札者</td>
 			<td class="td7 td6">出品者</td>
 		</tr>
