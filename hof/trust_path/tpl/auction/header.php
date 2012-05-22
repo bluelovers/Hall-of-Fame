@@ -31,5 +31,5 @@
 	<?php e($this->slot('layout/npc.talk.1', $content)) ?>
 
 <div class="margin15">
-	<h4>アイテム オークション(Item Auction) <a href="?menu=auction">更新</a></h4>
+	<h4>アイテム オークション(Item Auction) <a href="<?php e(BASE_URL) ?>?menu=auction">更新</a></h4>
 	<div class="margin15">
