@@ -37,7 +37,7 @@
 			</li>
 		</ul>
 
-		<a href="?menu=auction">一覧に戻る</a>
+		<a href="<?php e(BASE_URL) ?>?menu=auction">一覧に戻る</a>
 	</div>
 
 	<h4>出品する</h4>
