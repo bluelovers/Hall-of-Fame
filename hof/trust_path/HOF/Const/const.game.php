@@ -2,6 +2,7 @@
 
 define('EXT_YAML', '.yml');
 define('EXT_DAT', '.dat');
+define('EXT_LOCK', '.lock');
 
 define('BASE_EXT', EXT_YAML);
 
