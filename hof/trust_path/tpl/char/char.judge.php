@@ -1,6 +1,6 @@
 
-	<form action="?char=<?php e($this->output->char_id) ?>" method="post" style="padding:0 15px">
-		<h4>Action Pattern<a href="?manual#jdg" target="_blank" class="a0">?</a></h4>
+	<form action="<?php e(BASE_URL) ?>?char=<?php e($this->output->char_id) ?>" method="post" style="padding:0 15px">
+		<h4>Action Pattern<a href="<?php e(BASE_URL) ?>?manual#jdg" target="_blank" class="a0">?</a></h4>
 		<table cellspacing="5">
 			<tbody>
 				<?php for ($i = 0; $i < $this->output->pattern_max; $i++): ?>
@@ -54,7 +54,7 @@
 		</table>
 		<input type="submit" class="btn" value="Set Pattern" name="pattern_change">
 		<input type="submit" class="btn" value="Set & Test" name="TestBattle">
-		&nbsp;<a href="?simulate">Simulate</a>
+		&nbsp;<a href="<?php e(BASE_URL) ?>?simulate">Simulate</a>
 		<br />
 		<input type="submit" class="btn" value="Switch Pattern" name="pattern_memo">
 		<input type="submit" class="btn" value="Add" name="pattern_insert">
