@@ -25,7 +25,7 @@ HOF_Class_Icon::getImageUrl('mon_214', HOF_Class_Icon::IMG_CHAR_REV)
 
 ?>" alt="治す人" />
 		<p>ではさっそく、戦闘です。<br />
-			メニューの 狩り(Hunt) → <a href="<?php e(BASE_URL) ?>?common=gb0">ゴブリンと遊ぶ</a><span class="light">(リンクはログインしてる場合のみ有効)</span><br />
+			メニューの 狩り(Hunt) → <a href="<?php e(HOF::url('battle', 'common', array('land' => 'gb0'))) ?>">ゴブリンと遊ぶ</a><span class="light">(リンクはログインしてる場合のみ有効)</span><br />
 			雇った人たちにチェックをつけたら、<br />
 			Battle !</p>
 		<p>ちゃんとできていれば、<br />
