@@ -1104,7 +1104,7 @@ class HOF_Model_Data extends HOF_Class_Data
 		// 数行だけ読み込む。
 
 		// 開始時間 1行目
-		$time = fgets($fp);
+		$time = trim(fgets($fp));
 
 		// チーム名 2行目
 		$team = explode("<>", fgets($fp));
