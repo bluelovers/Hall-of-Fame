@@ -1,6 +1,6 @@
 #
 #	@author		bluelovers
-#	@copyright	2012
+#	@copyright	<?php e(gmdate('Y', REQUEST_TIME)) ?>
 #
 
 Options All -Indexes
