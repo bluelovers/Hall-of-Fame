@@ -73,7 +73,7 @@ class HOF_Model_Main extends HOF_Class_Array
 	function _router()
 	{
 
-		if (BASE_URL_REWRITE && preg_match('/^\/(?P<controller>[a-zA-Z\.\-_]+)(?:\/(?P<action>[a-zA-Z0-9\.\-_]+))?(?:\/?\??(?P<extra>.*))?$/', HOF::request()->server->REQUEST_URI, $m))
+		if (BASE_URL_REWRITE && preg_match('/^\/(?P<controller>[a-zA-Z0-9\.\-_]+)(?:\/(?P<action>[a-zA-Z0-9\.\-_]+))?(?:\/?\??(?P<extra>.*))?$/', HOF::request()->server->REQUEST_URI, $m))
 		{
 			if ($m['controller'] == basename($_SERVER['PHP_SELF']))
 			{
@@ -99,13 +99,12 @@ class HOF_Model_Main extends HOF_Class_Array
 		// まだユーザデータ読んでません
 		switch (true)
 		{
-			case ($_GET["menu"] === "auction"):
+				/*
+				case ($_GET["menu"] === "auction"):
 
 				HOF_Class_Controller::newInstance('auction')->main()->_main_stop();
 				return 0;
 				break;
-
-				/*
 				case ($_GET["menu"] === "rank"):
 				case ($_SERVER["QUERY_STRING"] === "rank"):
 
@@ -113,7 +112,7 @@ class HOF_Model_Main extends HOF_Class_Array
 				return 0;
 				break;
 				*/
-			case ($this->request->controller == 'rank'):
+			case ($this->request->controller == 'rank' || $this->request->controller == 'auction'):
 				HOF_Class_Controller::newInstance($this->request->controller, $this->request->action, $this->request->extra)->main()->_main_stop();
 				return 0;
 				break;
@@ -140,9 +139,11 @@ class HOF_Model_Main extends HOF_Class_Array
 					HOF_Class_Controller::getInstance('game', $_SERVER["QUERY_STRING"])->main();
 					return 0;
 					// 狩場
+					/*
 				case ($_SERVER["QUERY_STRING"] === "hunt"):
 					HOF_Class_Controller::newInstance('Battle', $_SERVER["QUERY_STRING"])->main();
 					return 0;
+					*/
 					// 街
 					/*
 					case ($_SERVER["QUERY_STRING"] === "town"):
@@ -150,6 +151,7 @@ class HOF_Model_Main extends HOF_Class_Array
 					return 0;
 					*/
 					// シミュれ
+				/*
 				case ($_SERVER["QUERY_STRING"] === "simulate"):
 					HOF_Class_Controller::newInstance('Battle', $_SERVER["QUERY_STRING"])->main();
 					return 0;
@@ -160,6 +162,7 @@ class HOF_Model_Main extends HOF_Class_Array
 				case ($_GET["common"]):
 					HOF_Class_Controller::newInstance('Battle', 'common')->main();
 					return 0;
+					*/
 					/*
 					// アイテム一覧
 					case ($_SERVER["QUERY_STRING"] === "item"):
@@ -572,16 +575,19 @@ class HOF_Model_Main extends HOF_Class_Array
 		if (DEBUG) print ("<pre>" . print_r(get_object_vars($this), 1) . "</pre>");
 	}
 
-	//	上部に表示されるメニュー。
-	//	ログインしてる人用とそうでない人。
+	/**
+	 * 上部に表示されるメニュー。
+	 * ログインしてる人用とそうでない人。
+	 */
 	function MyMenu()
 	{
 		if ($this->user->name && $this->user->islogin)
-		{ // ログインしてる人用
+		{
+			// ログインしてる人用
 			print ('<div id="menu">' . "\n");
 			//print('<span class="divide"></span>');//区切り
 			print ('<a href="' . HOF::url() . '">Top</a><span class="divide"></span>');
-			print ('<a href="' . BASE_URL . '?hunt">Hunt</a><span class="divide"></span>');
+			print ('<a href="' . HOF::url('battle', 'hunt') . '">Hunt</a><span class="divide"></span>');
 			print ('<a href="' . HOF::url('item') . '">Item</a><span class="divide"></span>');
 			print ('<a href="' . HOF::url('town') . '">Town</a><span class="divide"></span>');
 			print ('<a href="' . BASE_URL . '?setting">Setting</a><span class="divide"></span>');
@@ -649,7 +655,7 @@ class HOF_Model_Main extends HOF_Class_Array
 				print ('<a href="' . HOF::url() . '">トップ</a><span class="divide"></span>' . "\n");
 				print ('<a href="' . BASE_URL . '?newgame">新規</a><span class="divide"></span>' . "\n");
 				print ('<a href="' . HOF::url('manual') . '">ルールとマニュアル</a><span class="divide"></span>' . "\n");
-				print ('<a href="' . BASE_URL . '?gamedata=job">ゲームデータ</a><span class="divide"></span>' . "\n");
+				print ('<a href="' . HOF::url('gamedata'). '">ゲームデータ</a><span class="divide"></span>' . "\n");
 				print ('<a href="' . HOF::url('log') . '">戦闘ログ</a><span class="divide"></span>' . "\n");
 				if (BBS_OUT) print ('<a href="' . BBS_OUT . '">総合BBS</a><span class="divide"></span>' . "\n");
 
