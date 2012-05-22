@@ -56,7 +56,7 @@ class HOF_Model_Main extends HOF_Class_Array
 
 		$this->user_name = &$this->user->id;
 
-		$this->request = new HOF_Class_Array((array)$this->request);
+		$this->request = new HOF_Class_Array((array )$this->request);
 
 		$this->_router();
 
@@ -72,7 +72,16 @@ class HOF_Model_Main extends HOF_Class_Array
 
 	function _router()
 	{
-		if (!BASE_URL_REWRITE || BASE_URL_REWRITE && !preg_match('/^\/(?P<controller>[a-zA-Z\.\-_]+)(?:\/(?P<action>[a-zA-Z0-9\.\-_]+))?(?:\/?\??(?P<extra>.*))?$/', HOF::request()->server->REQUEST_URI, $m))
+
+		if (BASE_URL_REWRITE && preg_match('/^\/(?P<controller>[a-zA-Z\.\-_]+)(?:\/(?P<action>[a-zA-Z0-9\.\-_]+))?(?:\/?\??(?P<extra>.*))?$/', HOF::request()->server->REQUEST_URI, $m))
+		{
+			if ($m['controller'] == basename($_SERVER['PHP_SELF']))
+			{
+				unset($m);
+			}
+		}
+
+		if (!BASE_URL_REWRITE || !$m)
 		{
 			$m['controller'] = HOF::request()->request->controller;
 			$m['action'] = HOF::request()->request->action;
@@ -96,14 +105,14 @@ class HOF_Model_Main extends HOF_Class_Array
 				return 0;
 				break;
 
-			/*
-			case ($_GET["menu"] === "rank"):
-			case ($_SERVER["QUERY_STRING"] === "rank"):
+				/*
+				case ($_GET["menu"] === "rank"):
+				case ($_SERVER["QUERY_STRING"] === "rank"):
 
 				HOF_Class_Controller::newInstance('rank')->main()->_main_stop();
 				return 0;
 				break;
-			*/
+				*/
 			case ($this->request->controller == 'rank'):
 				HOF_Class_Controller::newInstance($this->request->controller, $this->request->action, $this->request->extra)->main()->_main_stop();
 				return 0;
@@ -135,11 +144,11 @@ class HOF_Model_Main extends HOF_Class_Array
 					HOF_Class_Controller::newInstance('Battle', $_SERVER["QUERY_STRING"])->main();
 					return 0;
 					// 街
-				/*
-				case ($_SERVER["QUERY_STRING"] === "town"):
+					/*
+					case ($_SERVER["QUERY_STRING"] === "town"):
 					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
 					return 0;
-				*/
+					*/
 					// シミュれ
 				case ($_SERVER["QUERY_STRING"] === "simulate"):
 					HOF_Class_Controller::newInstance('Battle', $_SERVER["QUERY_STRING"])->main();
@@ -153,19 +162,19 @@ class HOF_Model_Main extends HOF_Class_Array
 					return 0;
 					/*
 					// アイテム一覧
-				case ($_SERVER["QUERY_STRING"] === "item"):
+					case ($_SERVER["QUERY_STRING"] === "item"):
 					HOF_Class_Controller::newInstance('item')->main();
 					return 0;
-				case ($_GET["menu"] === "refine"):
-				case ($_GET["menu"] === "create"):
+					case ($_GET["menu"] === "refine"):
+					case ($_GET["menu"] === "create"):
 					HOF_Class_Controller::newInstance('Smithy', $_GET["menu"])->main();
 					return 0;
-				case ($_GET["menu"] === "buy"):
-				case ($_GET["menu"] === "sell"):
-				case ($_GET["menu"] === "work"):
+					case ($_GET["menu"] === "buy"):
+					case ($_GET["menu"] === "sell"):
+					case ($_GET["menu"] === "work"):
 					HOF_Class_Controller::newInstance('shop', $_GET["menu"])->main();
 					return 0;
-				case ($_SERVER["QUERY_STRING"] === "recruit"):
+					case ($_SERVER["QUERY_STRING"] === "recruit"):
 					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
 					return 0;
 					*/
@@ -202,33 +211,33 @@ class HOF_Model_Main extends HOF_Class_Array
 				HOF_Class_Controller::newInstance($this->request->controller, $this->request->action, $this->request->extra)->main();
 				return true;
 				/*
-			case ($_SERVER["QUERY_STRING"] === "bbs"):
+				case ($_SERVER["QUERY_STRING"] === "bbs"):
 				HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
 				return true;
-			case ($_SERVER["QUERY_STRING"] === "manual"):
-			case ($_SERVER["QUERY_STRING"] === "manual2"):
-			case ($_SERVER["QUERY_STRING"] === "tutorial"):
+				case ($_SERVER["QUERY_STRING"] === "manual"):
+				case ($_SERVER["QUERY_STRING"] === "manual2"):
+				case ($_SERVER["QUERY_STRING"] === "tutorial"):
 				HOF_Class_Controller::newInstance('manual', $_SERVER["QUERY_STRING"])->main();
 				return true;
 				*/
-			/*
-			case ($_SERVER["QUERY_STRING"] === "update"):
+				/*
+				case ($_SERVER["QUERY_STRING"] === "update"):
 				HOF_Class_Controller::newInstance('log', $_SERVER["QUERY_STRING"])->main();
 				return true;
-			case ($_SERVER["QUERY_STRING"] === "log"):
-			case ($_SERVER["QUERY_STRING"] === "clog"):
-			case ($_SERVER["QUERY_STRING"] === "ulog"):
-			case ($_SERVER["QUERY_STRING"] === "rlog"):
-			case ($_GET["log"]):
-			case ($_GET["clog"]):
-			case ($_GET["ulog"]):
-			case ($_GET["rlog"]):
+				case ($_SERVER["QUERY_STRING"] === "log"):
+				case ($_SERVER["QUERY_STRING"] === "clog"):
+				case ($_SERVER["QUERY_STRING"] === "ulog"):
+				case ($_SERVER["QUERY_STRING"] === "rlog"):
+				case ($_GET["log"]):
+				case ($_GET["clog"]):
+				case ($_GET["ulog"]):
+				case ($_GET["rlog"]):
 				HOF_Class_Controller::newInstance('log', 'log', $this->request->extra)->main();
 				return true;
-			case ($_GET["gamedata"]):
+				case ($_GET["gamedata"]):
 				HOF_Class_Controller::newInstance('gamedata', $_GET["gamedata"])->main();
 				return true;
-			*/
+				*/
 
 		}
 	}
@@ -306,7 +315,7 @@ class HOF_Model_Main extends HOF_Class_Array
 	{
 		$now = HOF_Helper_Date::microtime();
 
-		$uuid = HOF_Helper_Char::uniqid('user.'.$id);
+		$uuid = HOF_Helper_Char::uniqid('user.' . $id);
 
 		$pass = HOF_Class_Crypto_MD5::newInstance($uuid)->encode($pass);
 
@@ -324,14 +333,12 @@ class HOF_Model_Main extends HOF_Class_Array
 
 				'last' => $now[1],
 				'login' => $now[1],
-			),
+				),
 
-			'options' => array(
-				'record_btl_log' => 1,
-			),
-		);
+			'options' => array('record_btl_log' => 1, ),
+			);
 
-		$data = array_merge($data, (array)$append);
+		$data = array_merge($data, (array )$append);
 
 		return $data;
 	}
@@ -352,7 +359,7 @@ class HOF_Model_Main extends HOF_Class_Array
 
 		$_list_all = HOF_Helper_Char::user_list(true);
 
-		foreach ((array)$_list_all[0] as $user => $path)
+		foreach ((array )$_list_all[0] as $user => $path)
 		{
 			$file = HOF_Helper_Char::user_file($user, USER_DATA);
 
@@ -375,17 +382,17 @@ class HOF_Model_Main extends HOF_Class_Array
 		}
 
 		$list_del = HOF::cache()->data('user_del');
-		foreach ((array)$list_del['name_del'] as $id => $name)
+		foreach ((array )$list_del['name_del'] as $id => $name)
 		{
 			$list['name'][] = $name;
 		}
 
-		$list['user'] = (array)$list['user'];
-		$list['name'] = array_unique((array)$list['name']);
+		$list['user'] = (array )$list['user'];
+		$list['name'] = array_unique((array )$list['name']);
 
 		HOF::cache()->data('user_list', $list);
 
-		foreach ((array)$_list_all[1] as $path)
+		foreach ((array )$_list_all[1] as $path)
 		{
 			HOF_Class_File::rmdir($path, true);
 		}
@@ -405,7 +412,7 @@ class HOF_Model_Main extends HOF_Class_Array
 			$list['user'][$id] = $name;
 		}
 
-		if (!in_array($name, (array)$list['name']))
+		if (!in_array($name, (array )$list['name']))
 		{
 			$list['name'][] = $name;
 		}
@@ -414,7 +421,7 @@ class HOF_Model_Main extends HOF_Class_Array
 
 		HOF::cache()->timeout('user_list', 600);
 
-		return (array)$list['user'];
+		return (array )$list['user'];
 	}
 
 	function getNameList()
@@ -438,7 +445,7 @@ class HOF_Model_Main extends HOF_Class_Array
 	{
 		$list = HOF::cache()->data('user_list');
 
-		if (!in_array($name, (array)$list['name']))
+		if (!in_array($name, (array )$list['name']))
 		{
 			$list['name'][] = $name;
 		}
@@ -447,21 +454,21 @@ class HOF_Model_Main extends HOF_Class_Array
 
 		HOF::cache()->timeout('user_list', 600);
 
-		return (array)$list['name'];
+		return (array )$list['name'];
 	}
 
 	function getUserDelList()
 	{
 		$list = HOF::cache()->data('user_del');
 
-		return (array)$list['user_del'];
+		return (array )$list['user_del'];
 	}
 
 	function getNameDelList()
 	{
 		$list = HOF::cache()->data('user_del');
 
-		return (array)$list['name_del'];
+		return (array )$list['name_del'];
 	}
 
 	function addUserDelList($id, $name = false)
@@ -475,7 +482,7 @@ class HOF_Model_Main extends HOF_Class_Array
 
 		HOF::cache()->timeout('user_del', 3600 * 24 * 3);
 
-		return (array)$list['user_del'];
+		return (array )$list['user_del'];
 	}
 
 	/**
@@ -484,10 +491,16 @@ class HOF_Model_Main extends HOF_Class_Array
 	function Foot()
 	{
 
-		$unit = array('b','kb','mb','gb','tb','pb');
+		$unit = array(
+			'b',
+			'kb',
+			'mb',
+			'gb',
+			'tb',
+			'pb');
 
 		$size = memory_get_usage();
-		$size = rtrim(bcdiv($size, pow(1024, ($i = floor(log($size,1024)))), 4), '0.').' '.$unit[$i];
+		$size = rtrim(bcdiv($size, pow(1024, ($i = floor(log($size, 1024)))), 4), '0.') . ' ' . $unit[$i];
 
 		$ios = function_exists('get_included_files') ? count(get_included_files()) : 0;
 		$umem = function_exists('memory_get_usage') ? $size : 0;
@@ -496,20 +509,57 @@ class HOF_Model_Main extends HOF_Class_Array
 			'ios' => $ios,
 			'umem' => $umem,
 			);
+
+
 ?>
 		</div>
 		<div id="foot">
-			<a href="<?php e(HOF::url('log', 'update')) ?>">UpDate</a> -
+			<a href="<?php
+
+		e(HOF::url('log', 'update'))
+
+
+?>">UpDate</a> -
 			<?php
 
-		if (BBS_BOTTOM_TOGGLE) print ('<a href="'.HOF::url('bbs').'">BBS</a> - ' . "\n");
+		if (BBS_BOTTOM_TOGGLE) print ('<a href="' . HOF::url('bbs') . '">BBS</a> - ' . "\n");
 
 
 ?>
-			<a href="<?php e(HOF::url('manual')) ?>">Manual</a> - <a href="<?php e(HOF::url('manual', 'tutorial')) ?>">Tutorial</a> - <a href="<?php e(HOF::url('gamedata')) ?>">GameData</a> - <a href="#top">Top</a><br>
-			Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008. Fork (c) <?php e(gmdate('Y', REQUEST_TIME)) ?> bluelovers<br>
+			<a href="<?php
 
-			, <?= $debuginfo['ios'] ?> ios, <?= $debuginfo['umem'] ?>
+		e(HOF::url('manual'))
+
+
+?>">Manual</a> - <a href="<?php
+
+		e(HOF::url('manual', 'tutorial'))
+
+
+?>">Tutorial</a> - <a href="<?php
+
+		e(HOF::url('gamedata'))
+
+
+?>">GameData</a> - <a href="#top">Top</a><br>
+			Copy Right <a href="http://tekito.kanichat.com/" target="_blank">Tekito</a> 2007-2008. Fork (c) <?php
+
+		e(gmdate('Y', REQUEST_TIME))
+
+
+?> bluelovers<br>
+
+			, <?=
+
+		$debuginfo['ios']
+
+
+?> ios, <?=
+
+		$debuginfo['umem']
+
+
+?>
 
 		</div>
 <?php
@@ -531,10 +581,10 @@ class HOF_Model_Main extends HOF_Class_Array
 			print ('<div id="menu">' . "\n");
 			//print('<span class="divide"></span>');//区切り
 			print ('<a href="' . HOF::url() . '">Top</a><span class="divide"></span>');
-			print ('<a href="'.BASE_URL.'?hunt">Hunt</a><span class="divide"></span>');
+			print ('<a href="' . BASE_URL . '?hunt">Hunt</a><span class="divide"></span>');
 			print ('<a href="' . HOF::url('item') . '">Item</a><span class="divide"></span>');
 			print ('<a href="' . HOF::url('town') . '">Town</a><span class="divide"></span>');
-			print ('<a href="'.BASE_URL.'?setting">Setting</a><span class="divide"></span>');
+			print ('<a href="' . BASE_URL . '?setting">Setting</a><span class="divide"></span>');
 			print ('<a href="' . HOF::url('log') . '">Log</a><span class="divide"></span>');
 			if (BBS_OUT) print ('<a href="' . BBS_OUT . '">BBS</a><span class="divide"></span>' . "\n");
 			print ('</div><div id="menu2">' . "\n");
@@ -597,9 +647,9 @@ class HOF_Model_Main extends HOF_Class_Array
 			{ //// ログアウト状態の人、来客用の表示
 				print ('<div id="menu">');
 				print ('<a href="' . HOF::url() . '">トップ</a><span class="divide"></span>' . "\n");
-				print ('<a href="'.BASE_URL.'?newgame">新規</a><span class="divide"></span>' . "\n");
-				print ('<a href="'.HOF::url('manual') .'">ルールとマニュアル</a><span class="divide"></span>' . "\n");
-				print ('<a href="'.BASE_URL.'?gamedata=job">ゲームデータ</a><span class="divide"></span>' . "\n");
+				print ('<a href="' . BASE_URL . '?newgame">新規</a><span class="divide"></span>' . "\n");
+				print ('<a href="' . HOF::url('manual') . '">ルールとマニュアル</a><span class="divide"></span>' . "\n");
+				print ('<a href="' . BASE_URL . '?gamedata=job">ゲームデータ</a><span class="divide"></span>' . "\n");
 				print ('<a href="' . HOF::url('log') . '">戦闘ログ</a><span class="divide"></span>' . "\n");
 				if (BBS_OUT) print ('<a href="' . BBS_OUT . '">総合BBS</a><span class="divide"></span>' . "\n");
 
