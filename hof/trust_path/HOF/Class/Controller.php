@@ -20,8 +20,6 @@ abstract class HOF_Class_Controller
 
 	public $_stop = null;
 
-	public $allowActions = array();
-
 	public $view = null;
 
 	/**
@@ -44,6 +42,9 @@ abstract class HOF_Class_Controller
 		'autoViewOutputRender' => true,
 
 		'method_action_pre' => '_main_action_',
+
+		'defaultAction' => self::DEFAULT_ACTION,
+		'allowActions' => false,
 
 		);
 
@@ -97,8 +98,23 @@ abstract class HOF_Class_Controller
 
 		$this->_main_call('_main_init');
 
+		$this->__construct_init();
+
 		return $this;
 
+	}
+
+	protected function __construct_init()
+	{
+		if ($this->action == self::DEFAULT_ACTION && $this->action != $this->options['defaultAction'])
+		{
+			$this->action = $this->options['defaultAction'];
+		}
+
+		if ($this->options['allowActions'] === true)
+		{
+			$this->options['allowActions'] = $this->_main_list_action();
+		}
 	}
 
 	public function _setup_fix($_controller = null, $_action = null)
@@ -107,8 +123,17 @@ abstract class HOF_Class_Controller
 
 		if (!$_cache[$_controller][$_action])
 		{
-			$controller = $_controller ? $_controller : self::DEFAULT_CONTROLLER;
-			$action = $_action ? $_action : self::DEFAULT_ACTION;
+
+			if (isset($this))
+			{
+				$controller = $_controller ? $_controller : ($this->controller ? $this->controller : self::DEFAULT_CONTROLLER);
+				$action = $_action ? $_action : $this->options['defaultAction'];
+			}
+			else
+			{
+				$controller = $_controller ? $_controller : self::DEFAULT_CONTROLLER;
+				$action = $_action ? $_action : self::DEFAULT_ACTION;
+			}
 
 			$Controller = HOF::putintoClassParts($controller);
 			$Action = HOF::putintoClassParts($action);
@@ -220,9 +245,9 @@ abstract class HOF_Class_Controller
 		{
 			$this->_main_stop(false);
 
-			if ($this->action != self::DEFAULT_ACTION && !empty($this->allowActions) && !in_array($this->action, $this->allowActions))
+			if ($this->action != $this->options['defaultAction'] && !empty($this->options['allowActions']) && !in_array($this->action, (array)$this->options['allowActions']))
 			{
-				$this->action = self::DEFAULT_ACTION;
+				$this->action = $this->options['defaultAction'];
 			}
 
 			$_action = $this->action;
@@ -263,7 +288,7 @@ abstract class HOF_Class_Controller
 		{
 			$_method = $this->options['method_action_pre'] . $_s['Action'];
 
-			if(!$ret = method_exists($this, $_method))
+			if (!$ret = method_exists($this, $_method))
 			{
 
 			}
