@@ -186,11 +186,8 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	{
 		if ($this->user->CanUnionBattle() !== true)
 		{
-			$host = $_SERVER['HTTP_HOST'];
-			$uri = rtrim(dirname($_SERVER['PHP_SELF']));
-			$extra = INDEX;
-			header("Location: http://$host$uri/$extra?hunt");
-			exit;
+			header("Location: ".HOF::url()."?hunt");
+			HOF::end();
 		}
 
 		$this->input->monster_battle = HOF::$input->post->monster_battle;
