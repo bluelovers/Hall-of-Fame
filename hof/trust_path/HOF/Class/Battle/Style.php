@@ -305,10 +305,13 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 			*/
 		}
 
+		/*
 		$url = BTL_IMG;
 
 		$param = http_build_query($params);
 		$url .= '?' . $param;
+		*/
+		$url = HOF::url('image', 'battle_'.gmdate('YmdHis', time()).'.png', $params);
 
 		// ←これが表示されるのみ
 		$this->output = '<img src="' . $url . '">';
