@@ -9,7 +9,7 @@
 
 		<?php e($this->output->select) ?>
 
-		<form action="?menu=auction" method="post">
+		<form action="<?php e(BASE_URL) ?>?menu=auction" method="post">
 				<?php e($this->output->show) ?>
 				<table>
 					<tr>
