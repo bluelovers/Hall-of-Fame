@@ -1,6 +1,6 @@
 
 	<form action="<?php e(BASE_URL) ?>?char=<?php e($this->output->char_id) ?>" method="post" style="padding:0 15px">
-		<h4>Action Pattern<a href="<?php e(BASE_URL) ?>?manual#jdg" target="_blank" class="a0">?</a></h4>
+		<h4>Action Pattern<a href="<?php e(HOF::url('manual', 'manual', '#jdg')) ?>" target="_blank" class="a0">?</a></h4>
 		<table cellspacing="5">
 			<tbody>
 				<?php for ($i = 0; $i < $this->output->pattern_max; $i++): ?>
