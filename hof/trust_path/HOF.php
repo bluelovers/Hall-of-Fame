@@ -401,7 +401,7 @@ final class HOF
 
 		if (!empty($extra) && is_string($extra))
 		{
-			$url .= (strpos($url, '?') ? '&' : '?') . $extra;
+			$url .= (strpos($url, '?') ? '&' : '?') . trim($extra, '?&');
 		}
 
 		return $url;
