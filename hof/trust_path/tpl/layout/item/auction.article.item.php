@@ -4,18 +4,18 @@
 
 	総出品数: <?php e($this->output->article_count) ?>
 
-	<table style="width:725px;text-align:center" cellpadding="0" cellspacing="0" border="0">
+	<table style="width:100%;text-align:center" cellpadding="0" cellspacing="0" border="0">
 		<tr>
-			<td class="td9"><a href="<?php e($this->output->query) ?>&sort=no"<?php e($this->output->style_no) ?>>番号</a></td>
-			<td class="td9"><a href="<?php e($this->output->query) ?>&sort=time"<?php e($this->output->style_time) ?>>残り</a></td>
-			<td class="td9">
+			<td class="td7 td6"><a href="<?php e($this->output->query) ?>&sort=no"<?php e($this->output->style_no) ?>>番号</a></td>
+			<td class="td7 td6"><a href="<?php e($this->output->query) ?>&sort=time"<?php e($this->output->style_time) ?>>残り</a></td>
+			<td class="td7 td6">
 				<a href="<?php e($this->output->query) ?>&sort=price"<?php e($this->output->style_price) ?>>価格</a>
 				&nbsp;<a href="<?php e($this->output->query) ?>&sort=rprice"<?php e($this->output->style_rprice) ?>>(昇)</a>
 			</td>
-			<td class="td9"><a href="<?php e($this->output->query) ?>&sort=item"<?php e($this->output->style_item) ?>>Item</a></td>
-			<td class="td9"><a href="<?php e($this->output->query) ?>&sort=bid"<?php e($this->output->style_bid) ?>>入札数</a></td>
-			<td class="td9">入札者</td>
-			<td class="td9">出品者</td>
+			<td class="td7 td6"><a href="<?php e($this->output->query) ?>&sort=item"<?php e($this->output->style_item) ?>>Item</a></td>
+			<td class="td7 td6"><a href="<?php e($this->output->query) ?>&sort=bid"<?php e($this->output->style_bid) ?>>入札数</a></td>
+			<td class="td7 td6">入札者</td>
+			<td class="td7 td6">出品者</td>
 		</tr>
 
 		<?php foreach ($this->output->article_list as $article_list): ?>
@@ -78,16 +78,16 @@
 		<?php endforeach; ?>
 
 		<tr>
-			<td class="td9"><a href="<?php e($this->output->query) ?>&sort=no"<?php e($this->output->style_no) ?>>番号</a></td>
-			<td class="td9"><a href="<?php e($this->output->query) ?>&sort=time"<?php e($this->output->style_time) ?>>残り</a></td>
-			<td class="td9">
+			<td class="td7 td6"><a href="<?php e($this->output->query) ?>&sort=no"<?php e($this->output->style_no) ?>>番号</a></td>
+			<td class="td7 td6"><a href="<?php e($this->output->query) ?>&sort=time"<?php e($this->output->style_time) ?>>残り</a></td>
+			<td class="td7 td6">
 				<a href="<?php e($this->output->query) ?>&sort=price"<?php e($this->output->style_price) ?>>価格</a>
 				&nbsp;<a href="<?php e($this->output->query) ?>&sort=rprice"<?php e($this->output->style_rprice) ?>>(昇)</a>
 			</td>
-			<td class="td9"><a href="<?php e($this->output->query) ?>&sort=item"<?php e($this->output->style_item) ?>>Item</a></td>
-			<td class="td9"><a href="<?php e($this->output->query) ?>&sort=bid"<?php e($this->output->style_bid) ?>>入札数</a></td>
-			<td class="td9">入札者</td>
-			<td class="td9">出品者</td>
+			<td class="td7 td6"><a href="<?php e($this->output->query) ?>&sort=item"<?php e($this->output->style_item) ?>>Item</a></td>
+			<td class="td7 td6"><a href="<?php e($this->output->query) ?>&sort=bid"<?php e($this->output->style_bid) ?>>入札数</a></td>
+			<td class="td7 td6">入札者</td>
+			<td class="td7 td6">出品者</td>
 		</tr>
 
 	</table>
