@@ -3,7 +3,7 @@
 		<h4>Teams</h4>
 	</div>
 
-	<form action="<?php e($this->get('battle.target.from.action', INDEX . '?common=' . $this->get('battle.target.id'))) ?>" method="post">
+	<form action="<?php e($this->get('battle.target.from.action', HOF::url('battle', 'common', array('land' => $this->get('battle.target.id'))))) ?>" method="post">
 
 		<?php e(HOF_Class_Char_View::ShowCharacters(HOF::user()->char, INPUT_CHECKBOX, HOF::user()->party_memo)); ?>
 
