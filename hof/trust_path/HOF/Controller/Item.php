@@ -18,6 +18,9 @@ class HOF_Controller_Item extends HOF_Class_Controller
 		$this->user = &HOF::user();
 	}
 
+	/**
+	 * アイテム一覧
+	 */
 	function _main_action_default()
 	{
 		$this->user->LoadUserItem();
