@@ -54,7 +54,7 @@
 		</table>
 		<input type="submit" class="btn" value="Set Pattern" name="pattern_change">
 		<input type="submit" class="btn" value="Set & Test" name="TestBattle">
-		&nbsp;<a href="<?php e(BASE_URL) ?>?simulate">Simulate</a>
+		&nbsp;<a href="<?php e(HOF::url('battle', 'simulate')) ?>">Simulate</a>
 		<br />
 		<input type="submit" class="btn" value="Switch Pattern" name="pattern_memo">
 		<input type="submit" class="btn" value="Add" name="pattern_insert">
