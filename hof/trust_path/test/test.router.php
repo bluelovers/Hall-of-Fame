@@ -34,3 +34,8 @@ foreach ($c as $ov)
 	_e($v, HOF::putintoClassParts($v), HOF::putintoPathParts(HOF::putintoClassParts($v)));
 }
 
+$str = 'log';
+
+parse_str($str, $extra);
+
+debug($extra);
