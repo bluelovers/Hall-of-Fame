@@ -5,6 +5,9 @@
  * @copyright 2012
  */
 
+/**
+ * 街
+ */
 class HOF_Controller_Town extends HOF_Class_Controller
 {
 
