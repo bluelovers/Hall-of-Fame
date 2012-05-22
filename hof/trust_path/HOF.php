@@ -5,21 +5,39 @@
  * @copyright 2012
  */
 
-class HOF
+final class HOF
 {
 
+	/**
+	 * @var HOF_Class_Request
+	 */
 	public static $input = null;
 
+	/**
+	 * @var HOF
+	 */
 	protected static $instance;
 
 	const CHARSET = 'UTF-8';
 
+	/**
+	 * @var HOF_Class_File_Cache
+	 */
 	protected static $_cache_;
 
+	/**
+	 * @var HOF_Class_Session
+	 */
 	protected static $_session_;
 
+	/**
+	 * @var HOF_Class_Main
+	 */
 	protected static $_user_;
 
+	/**
+	 * @var Zend_Session_Namespace
+	 */
 	public static $session;
 
 	/**
@@ -75,6 +93,9 @@ class HOF
 		}
 	}
 
+	/**
+	 * @return HOF_Class_Controller
+	 */
 	public static function run($controller, $action = null)
 	{
 		return HOF_Class_Controller::newInstance($controller, $action)->main();
@@ -92,6 +113,9 @@ class HOF
 		HOF_Class_File::fpclose_all();
 	}
 
+	/**
+	 * @return HOF
+	 */
 	public static function &getInstance()
 	{
 		if (!isset(self::$instance))
@@ -130,12 +154,18 @@ class HOF
 
 	public static function putintoClassParts($str)
 	{
+		/*
 		static $cache;
 
 		$k = $str;
 
-		if (!isset($cache[$k]))
+		if (0 && !isset($cache[$k]))
 		{
+			$str = $cache[$k];
+		}
+		else
+		{
+			*/
 			// 支援 將 AbcDef => abc_def
 
 			$str = preg_replace('/([A-Z])/', ' $1', $str);
@@ -144,46 +174,36 @@ class HOF
 			$str = str_replace(' ', '', ucwords($str));
 
 			/*
-			$str = preg_replace('/[\.\-]+/', '_', $str);
-			$str = preg_replace('/([A-Z])/', '_$1', $str);
-			$str = preg_replace('/_{2,}/', '_', $str);
-
-			$str = preg_replace('/[^a-zA-Z0-9_]/', '', $str);
-
-			$str = explode('_', strtolower($str));
-			$str = array_map('ucfirst', $str);
-			$str = implode('', $str);
-			*/
-
 			$cache[$k] = $str;
 		}
-		else
-		{
-			$str = $cache[$k];
-		}
+		*/
 
 		return $str;
 	}
 
 	public static function putintoPathParts($str)
 	{
+		/*
 		static $cache;
 
 		$k = $str;
 
-		if (!isset($cache[$k]))
+		if (0 && isset($cache[$k]))
 		{
+			$str = $cache[$k];
+		}
+		else
+		{
+			*/
 			$str = preg_replace('/[^a-zA-Z0-9]/', '', $str);
 			$str = preg_replace('/([A-Z])/', '_$1', $str);
 			$str = strtolower($str);
 			$str = trim($str, '_');
 
+			/*
 			$cache[$k] = $str;
 		}
-		else
-		{
-			$str = $cache[$k];
-		}
+		*/
 
 		return $str;
 	}
@@ -325,11 +345,11 @@ class HOF
 
 		if (BASE_URL_REWRITE || !($controller || $action))
 		{
-			$url = BASE_URL . '/';
+			$url = BASE_URL;
 		}
 		else
 		{
-			$url = BASE_URL . '/index.php';
+			$url = BASE_URL . INDEX;
 		}
 
 		if ($controller)
