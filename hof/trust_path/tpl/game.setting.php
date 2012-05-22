@@ -1,7 +1,7 @@
 
 	<div style="margin:15px">
 		<h4>Setting</h4>
-		<form action="?setting" method="post">
+		<form action="<?php e(BASE_URL) ?>?setting" method="post">
 			<table>
 				<tbody>
 					<tr>
@@ -30,7 +30,7 @@
 			<input type="submit" class="btn" name="logout" value="logout" style="width:100px">
 		</form>
 		<h4>チーム名の変更</h4>
-		<form action="?setting" method="post">
+		<form action="<?php e(BASE_URL) ?>?setting" method="post">
 			費用 :
 			<?php e(HOF_Helper_Global::MoneyFormat(NEW_NAME_COST)) ?>
 			<br />
@@ -44,7 +44,7 @@
 		<div class="u">
 			※データの削除
 		</div>
-		<form action="?setting" method="post">
+		<form action="<?php e(BASE_URL) ?>?setting" method="post">
 			PassWord :
 			<input type="text" class="text" name="deletepass" size="20" autocomplete="off">
 			<input type="submit" class="btn" name="delete" value="delete" style="width:100px">
