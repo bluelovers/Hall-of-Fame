@@ -14,6 +14,8 @@ class HOF_Model_Main extends HOF_Class_Array
 
 	protected static $instance;
 
+	public $request;
+
 	public static function &getInstance()
 	{
 		if (!isset(self::$instance))
@@ -54,6 +56,10 @@ class HOF_Model_Main extends HOF_Class_Array
 
 		$this->user_name = &$this->user->id;
 
+		$this->request = new HOF_Class_Array((array)$this->request);
+
+		$this->_router();
+
 		ob_start();
 
 		//debug($_SESSION, HOF::user()->session(), $_POST, $this->id, $this->pass);
@@ -62,6 +68,18 @@ class HOF_Model_Main extends HOF_Class_Array
 		$content = ob_get_clean();
 
 		HOF_Class_View::render(null, array(), 'layout/layout.body', $content)->output();
+	}
+
+	function _router()
+	{
+		if (!BASE_URL_REWRITE || BASE_URL_REWRITE && !preg_match('/^\/(?P<controller>[a-zA-Z\.\-_]+)(?:\/(?P<action>[a-zA-Z\.\-_]+))?(?:\/?\??(?P<extra>.*))?$/', HOF::request()->server->REQUEST_URI, $m))
+		{
+			$m['controller'] = HOF::request()->request->controller;
+			$m['action'] = HOF::request()->request->action;
+			$m['extra'] = HOF::request()->request->extra;
+		}
+
+		$this->request->exchangeArray($m);
 	}
 
 	function Order()
@@ -168,9 +186,6 @@ class HOF_Model_Main extends HOF_Class_Array
 	{
 		switch (true)
 		{
-			case ($_SERVER["QUERY_STRING"] === "update"):
-				HOF_Class_Controller::newInstance('log', $_SERVER["QUERY_STRING"])->main();
-				return true;
 			case ($_SERVER["QUERY_STRING"] === "bbs"):
 				HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
 				return true;
@@ -179,17 +194,23 @@ class HOF_Model_Main extends HOF_Class_Array
 			case ($_SERVER["QUERY_STRING"] === "tutorial"):
 				HOF_Class_Controller::newInstance('manual', $_SERVER["QUERY_STRING"])->main();
 				return true;
+			/*
+			case ($_SERVER["QUERY_STRING"] === "update"):
+				HOF_Class_Controller::newInstance('log', $_SERVER["QUERY_STRING"])->main();
+				return true;
 			case ($_SERVER["QUERY_STRING"] === "log"):
 			case ($_SERVER["QUERY_STRING"] === "clog"):
 			case ($_SERVER["QUERY_STRING"] === "ulog"):
 			case ($_SERVER["QUERY_STRING"] === "rlog"):
-				HOF_Class_Controller::newInstance('log')->main();
-				return true;
 			case ($_GET["log"]):
 			case ($_GET["clog"]):
 			case ($_GET["ulog"]):
 			case ($_GET["rlog"]):
-				HOF_Class_Controller::newInstance('log', 'log')->main();
+				HOF_Class_Controller::newInstance('log', 'log', $this->request->extra)->main();
+				return true;
+			*/
+			case ($this->request->controller == 'log'):
+				HOF_Class_Controller::newInstance($this->request->controller, $this->request->action, $this->request->extra)->main();
 				return true;
 			case ($_GET["gamedata"]):
 				HOF_Class_Controller::newInstance('gamedata', $_GET["gamedata"])->main();
@@ -464,7 +485,7 @@ class HOF_Model_Main extends HOF_Class_Array
 ?>
 		</div>
 		<div id="foot">
-			<a href="?update">UpDate</a> -
+			<a href="<?php e(HOF::url('log', 'update')) ?>">UpDate</a> -
 			<?php
 
 		if (BBS_BOTTOM_TOGGLE) print ('<a href="?bbs">BBS</a> - ' . "\n");
@@ -500,7 +521,7 @@ class HOF_Model_Main extends HOF_Class_Array
 			print ('<a href="?item">Item</a><span class="divide"></span>');
 			print ('<a href="?town">Town</a><span class="divide"></span>');
 			print ('<a href="?setting">Setting</a><span class="divide"></span>');
-			print ('<a href="?log">Log</a><span class="divide"></span>');
+			print ('<a href="' . HOF::url('log') . '">Log</a><span class="divide"></span>');
 			if (BBS_OUT) print ('<a href="' . BBS_OUT . '">BBS</a><span class="divide"></span>' . "\n");
 			print ('</div><div id="menu2">' . "\n");
 
@@ -565,7 +586,7 @@ class HOF_Model_Main extends HOF_Class_Array
 				print ('<a href="?newgame">新規</a><span class="divide"></span>' . "\n");
 				print ('<a href="?manual">ルールとマニュアル</a><span class="divide"></span>' . "\n");
 				print ('<a href="?gamedata=job">ゲームデータ</a><span class="divide"></span>' . "\n");
-				print ('<a href="?log">戦闘ログ</a><span class="divide"></span>' . "\n");
+				print ('<a href="' . HOF::url('log') . '">戦闘ログ</a><span class="divide"></span>' . "\n");
 				if (BBS_OUT) print ('<a href="' . BBS_OUT . '">総合BBS</a><span class="divide"></span>' . "\n");
 
 				print ('</div><div id="menu2">');
