@@ -22,6 +22,12 @@ class HOF
 
 	public static $session;
 
+	/**
+     * Word delimiter characters
+     * @var array
+     */
+    protected static $_wordDelimiter = array('-', '.', '_');
+
 	function __construct()
 	{
 		if (!isset(self::$instance))
@@ -131,6 +137,13 @@ class HOF
 		if (!isset($cache[$k]))
 		{
 			// 支援 將 AbcDef => abc_def
+
+			$str = preg_replace('/([A-Z])/', ' $1', $str);
+			$str = str_replace(self::$_wordDelimiter, ' ', strtolower($str));
+			$str = preg_replace('/[^a-z0-9 ]/', '', $str);
+			$str = str_replace(' ', '', ucwords($str));
+
+			/*
 			$str = preg_replace('/[\.\-]+/', '_', $str);
 			$str = preg_replace('/([A-Z])/', '_$1', $str);
 			$str = preg_replace('/_{2,}/', '_', $str);
@@ -140,6 +153,7 @@ class HOF
 			$str = explode('_', strtolower($str));
 			$str = array_map('ucfirst', $str);
 			$str = implode('', $str);
+			*/
 
 			$cache[$k] = $str;
 		}
