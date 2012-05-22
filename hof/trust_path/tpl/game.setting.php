@@ -26,7 +26,7 @@
 			<input type="hidden" name="setting01" value="1">
 		</form>
 		<h4>Logout</h4>
-		<form action="<?php e(INDEX) ?>" method="post">
+		<form action="<?php e(HOF::url()) ?>" method="post">
 			<input type="submit" class="btn" name="logout" value="logout" style="width:100px">
 		</form>
 		<h4>チーム名の変更</h4>
