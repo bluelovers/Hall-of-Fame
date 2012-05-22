@@ -16,7 +16,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 	function _init()
 	{
 		$this->ItemAuction = new HOF_Class_Item_Auction('item');
-		$this->ItemAuction->article_form_query("auction");
+		$this->ItemAuction->article_form_query(array('auction'));
 		$this->ItemAuction->article_item_check_success(); // 競売が終了した品物を調べる
 		$this->ItemAuction->save_user();
 
