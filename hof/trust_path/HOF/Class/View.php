@@ -14,6 +14,9 @@ class HOF_Class_View
 	var $extend = null;
 	var $body = null;
 
+	/**
+	 * @var HOF_Class_Controller
+	 */
 	var $controller;
 
 	protected static $_suppressNotFoundWarnings = false;
@@ -28,11 +31,38 @@ class HOF_Class_View
 		$this->template_file = self::_getTplFile($this->template);
 	}
 
+	function controller()
+	{
+		if ($this->controller)
+		{
+			return $this->controller->controller;
+		}
+	}
+
+	function action()
+	{
+		if ($this->controller)
+		{
+			return $this->controller->action;
+		}
+	}
+
+	function extra()
+	{
+		if ($this->controller)
+		{
+			return $this->controller->extra;
+		}
+	}
+
 	function __toString()
 	{
 		return $this->body();
 	}
 
+	/**
+	 * @return HOF_Class_View
+	 */
 	static function render($controller, $output, $template = null, $content = null)
 	{
 		$_this = new self($controller, &$output, $template);
@@ -75,6 +105,9 @@ class HOF_Class_View
 		return $output;
 	}
 
+	/**
+	 * @return HOF_Class_View
+	 */
 	function output()
 	{
 		$output = $this->__toString();
@@ -89,6 +122,9 @@ class HOF_Class_View
 		return $this;
 	}
 
+	/**
+	 * @return HOF_Class_View
+	 */
 	function slot($name, $content = null)
 	{
 		$view = self::render($this->controller, &$this->output, $name, $content);
@@ -151,6 +187,9 @@ class HOF_Class_View
 		}
 	}
 
+	/**
+	 * @return HOF_Class_View
+	 */
 	function set($k, $v)
 	{
 		$this->output[$k] = $v;
