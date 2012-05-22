@@ -123,9 +123,9 @@ abstract class HOF_Class_Controller
 				'action' => $action,
 				);
 
-			$_cache[$controller][$action] = $ret;
+			//$_cache[$controller][$action] = $ret;
 			$_cache[$_controller][$_action] = $ret;
-			$_cache[$Controller][$Action] = $ret;
+			//$_cache[$Controller][$Action] = $ret;
 		}
 
 		return $_cache[$_controller][$_action];
