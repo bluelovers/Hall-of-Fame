@@ -39,7 +39,7 @@
 						</tr>
 						<tr>
 							<td></td>
-							<td><input type="submit" class="btn" name="show_deleted_user" value="Recovery" style="width:80px"> &nbsp;<a href="<?php e(INDEX) ?>">Login?</a></td>
+							<td><input type="submit" class="btn" name="show_deleted_user" value="Recovery" style="width:80px"> &nbsp;<a href="<?php e(HOF::url()) ?>">Login?</a></td>
 						</tr>
 					</tbody>
 				</table>
