@@ -213,10 +213,10 @@ class HOF_Model_Main extends HOF_Class_Array
 			case ($_GET["rlog"]):
 				HOF_Class_Controller::newInstance('log', 'log', $this->request->extra)->main();
 				return true;
-			*/
 			case ($_GET["gamedata"]):
 				HOF_Class_Controller::newInstance('gamedata', $_GET["gamedata"])->main();
 				return true;
+			*/
 
 		}
 	}
@@ -494,7 +494,7 @@ class HOF_Model_Main extends HOF_Class_Array
 
 
 ?>
-			<a href="<?php e(BASE_URL) ?>?manual">Manual</a> - <a href="<?php e(BASE_URL) ?>?tutorial">Tutorial</a> - <a href="<?php e(BASE_URL) ?>?gamedata=job">GameData</a> - <a href="#top">Top</a><br>
+			<a href="<?php e(BASE_URL) ?>?manual">Manual</a> - <a href="<?php e(BASE_URL) ?>?tutorial">Tutorial</a> - <a href="<?php e(HOF::url('gamedata')) ?>">GameData</a> - <a href="#top">Top</a><br>
 			Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008. Fork (c) <?php e(gmdate('Y', REQUEST_TIME)) ?> bluelovers<br>
 
 			, <?= $debuginfo['ios'] ?> ios, <?= $debuginfo['umem'] ?>
