@@ -3,7 +3,7 @@
 
 	<!-- ステータス上昇 -->
 	<form action="<?php e(BASE_URL) ?>?char=<?php e($this->output->char_id) ?>" method="post" style="padding:0 15px">
-		<h4>Status <a href="<?php e(BASE_URL) ?>?manual#statup" target="_blank" class="a0">?</a></h4>
+		<h4>Status <a href="<?php e(HOF::url('manual', 'manual', '#statup')) ?>" target="_blank" class="a0">?</a></h4>
 		<?php $Stat = array(
 				"Str",
 				"Int",
