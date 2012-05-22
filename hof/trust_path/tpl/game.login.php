@@ -7,7 +7,7 @@
 				<div class="recover margin15"><?php e($this->output->message) ?></div>
 			<?php endif; ?>
 
-			<form action="<?php e(INDEX) ?>" method="post" style="padding-left:20px">
+			<form action="<?php e(HOF::url()) ?>" method="post" style="padding-left:20px">
 				<table>
 					<tbody>
 						<tr>
