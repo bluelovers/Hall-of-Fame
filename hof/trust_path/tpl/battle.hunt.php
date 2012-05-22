@@ -7,7 +7,7 @@
 		<div class="land_frame">
 			<div class="land" style="background-image : url(<?php e(HOF_Class_Icon::getImageUrl('land_'.$land['land']['land'], HOF_Class_Icon::IMG_LAND)) ?>);">
 			</div>
-			<span class="g_name"><a href="<?php e(BASE_URL) ?>?common=<?php e($map) ?>">
+			<span class="g_name"><a href="<?php e(HOF::url('battle', 'common', array('land' => $map))) ?>">
 			<?php e($land['land']['name']) ?>
 			</a></span> <span>(
 			<?php e($land['land']['proper']) ?>
