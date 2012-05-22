@@ -17,30 +17,8 @@ class HOF_Controller_Log extends HOF_Class_Controller
 
 	function _main_input()
 	{
-		foreach (self::$map_logtype as $_k => $_v)
-		{
-			if (isset(HOF::$input->request[$_k]))
-			{
-
-				$this->input->action = $_k;
-
-				if (!empty(HOF::$input->request[$_k]))
-				{
-					$this->input->log = HOF::$input->request[$_k];
-				}
-
-				break;
-			}
-		}
-
-		if ($this->input->log)
-		{
-			$this->_main_setup('log');
-		}
-		elseif ($this->input->action)
-		{
-			$this->_main_setup();
-		}
+		$this->input->action = HOF::request()->request->log;
+		$this->input->log = HOF::request()->request->no;
 	}
 
 	function _main_action_update()
@@ -75,6 +53,8 @@ class HOF_Controller_Log extends HOF_Class_Controller
 
 		$idx = $this->input->action;
 
+		if (empty($idx)) $idx = 'log';
+
 		if ($idx != 'log')
 		{
 			$this->output->full_log = true;
@@ -90,12 +70,15 @@ class HOF_Controller_Log extends HOF_Class_Controller
 
 		// common
 
+		$limit = 0;
+
 		foreach ($map as $_k)
 		{
 			$log = HOF_Class_File::glob($_k);
 			foreach (array_reverse($log) as $file)
 			{
-				$logs[$_k][] = HOF_Model_Data::getLogBattleFile($file);
+				$logs[$_k][$limit] = HOF_Model_Data::getLogBattleFile($file);
+
 				$limit++;
 				if (!$this->output->full_log && 30 <= $limit)
 				{
@@ -113,7 +96,7 @@ class HOF_Controller_Log extends HOF_Class_Controller
 	{
 		$idx = $this->input->action;
 
-		if ($idx == 'log' || $idx == 'clog')
+		if ($idx == 'log')
 		{
 			$idx = 'clog';
 		}
