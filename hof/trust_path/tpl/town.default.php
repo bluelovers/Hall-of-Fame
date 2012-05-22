@@ -35,13 +35,13 @@
 				<?php if ($this->output->list['Smithy']): ?>
 
 				<li>
-					鍛冶屋(Smithy)
+					<a href="<?php e(HOF::url('smithy')) ?>">鍛冶屋(Smithy)</a>
 					<ul>
 						<li>
-							<a href="<?php e(BASE_URL) ?>?menu=refine">精錬工房(Refine)</a>
+							<a href="<?php e(HOF::url('smithy', 'refine')) ?>">精錬工房(Refine)</a>
 						</li>
 						<li>
-							<a href="<?php e(BASE_URL) ?>?menu=create">製作工房(Create)</a>
+							<a href="<?php e(HOF::url('smithy', 'create')) ?>">製作工房(Create)</a>
 						</li>
 					</ul>
 				</li>
