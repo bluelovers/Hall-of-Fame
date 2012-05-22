@@ -1,5 +1,5 @@
 
-	<div style="margin:15px">
+	<div class="margin15">
 		<h4><?php e($this->get('npc.talk.title')) ?></h4>
 		<div>
 			<div style="float:left; min-width:70px; margin-right: 1em; text-align: center;">
