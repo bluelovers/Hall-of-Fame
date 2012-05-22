@@ -15,7 +15,7 @@
 			</p>
 		</div>
 	<?php elseif ($this->output->char_recruit): ?>
-		<form action="?recruit" method="post" style="margin:15px">
+		<form action="<?php e(BASE_URL) ?>?recruit" method="post" style="margin:15px">
 			<h4>Sort of New Character</h4>
 			<table cellspacing="0">
 				<tbody>
