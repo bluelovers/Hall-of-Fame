@@ -59,7 +59,7 @@
 				<?php if ($this->output->list['colosseum']): ?>
 
 				<li>
-					<a href="<?php e(BASE_URL) ?>?menu=rank">コロシアム(Colosseum)</a>
+					<a href="<?php e(HOF::url('rank')) ?>">コロシアム(Colosseum)</a>
 				</li>
 
 				<?php endif; ?>
