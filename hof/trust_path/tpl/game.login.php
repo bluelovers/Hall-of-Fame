@@ -25,7 +25,7 @@
 						<tr>
 							<td></td>
 							<td><input type="submit" class="btn" name="login" value="login" style="width:80px">
-								&nbsp;<a href="?newgame">NewGame?</a></td>
+								&nbsp;<a href="<?php e(BASE_URL) ?>?newgame">NewGame?</a></td>
 						</tr>
 					</tbody>
 				</table>
