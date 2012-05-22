@@ -495,7 +495,7 @@ class HOF_Model_Main extends HOF_Class_Array
 		{ // ログインしてる人用
 			print ('<div id="menu">' . "\n");
 			//print('<span class="divide"></span>');//区切り
-			print ('<a href="' . INDEX . '">Top</a><span class="divide"></span>');
+			print ('<a href="' . HOF::url() . '">Top</a><span class="divide"></span>');
 			print ('<a href="?hunt">Hunt</a><span class="divide"></span>');
 			print ('<a href="?item">Item</a><span class="divide"></span>');
 			print ('<a href="?town">Town</a><span class="divide"></span>');
@@ -561,7 +561,7 @@ class HOF_Model_Main extends HOF_Class_Array
 			else
 			{ //// ログアウト状態の人、来客用の表示
 				print ('<div id="menu">');
-				print ('<a href="' . INDEX . '">トップ</a><span class="divide"></span>' . "\n");
+				print ('<a href="' . HOF::url() . '">トップ</a><span class="divide"></span>' . "\n");
 				print ('<a href="?newgame">新規</a><span class="divide"></span>' . "\n");
 				print ('<a href="?manual">ルールとマニュアル</a><span class="divide"></span>' . "\n");
 				print ('<a href="?gamedata=job">ゲームデータ</a><span class="divide"></span>' . "\n");
