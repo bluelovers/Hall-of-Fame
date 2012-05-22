@@ -1,6 +1,6 @@
 	<div class="carpet_frame">
 		<div class="carpet<?php e($this->output->flag % 2) ?>">
-			<a href="?char=<?php e($this->output->char->id) ?>">
+			<a href="<?php e(BASE_URL) ?>?char=<?php e($this->output->char->id) ?>">
 			<?php $this->output->char->ShowImage(); ?>
 			</a>
 		</div>
