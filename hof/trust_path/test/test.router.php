@@ -15,15 +15,21 @@ $c = array(
 	'FooBar',
 );
 
-foreach ($c as $v)
+foreach ($c as $ov)
 {
-	_e($v, HOF::putintoClassParts($v), HOF::putintoPathParts(HOF::putintoClassParts($v)));
-
-	$v = ucfirst($v);
+	$v = $ov;
 
 	_e($v, HOF::putintoClassParts($v), HOF::putintoPathParts(HOF::putintoClassParts($v)));
 
-	$v = ucwords($v);
+	$v = '-'.$ov.'-';
+
+	_e($v, HOF::putintoClassParts($v), HOF::putintoPathParts(HOF::putintoClassParts($v)));
+
+	$v = ucfirst($ov);
+
+	_e($v, HOF::putintoClassParts($v), HOF::putintoPathParts(HOF::putintoClassParts($v)));
+
+	$v = ucwords($ov);
 
 	_e($v, HOF::putintoClassParts($v), HOF::putintoPathParts(HOF::putintoClassParts($v)));
 }
