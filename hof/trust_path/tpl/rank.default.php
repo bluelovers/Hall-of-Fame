@@ -3,8 +3,8 @@
 	<?php if ($this->output->show): ?>
 
 	<div style="margin:15px">
-		<form action="?menu=rank" method="post">
-			<h4>ランキング(Ranking) -<a href="?rank">全ランキングを見る</a>&nbsp;<a href="?manual#ranking" target="_blank" class="a0">?</a></h4>
+		<form action="<?php e(BASE_URL) ?>?menu=rank" method="post">
+			<h4>ランキング(Ranking) -<a href="<?php e(BASE_URL) ?>?rank">全ランキングを見る</a>&nbsp;<a href="?manual#ranking" target="_blank" class="a0">?</a></h4>
 
 			<div style="width:100%;padding-left:30px">
 				<div style="float:left;width:50%">
