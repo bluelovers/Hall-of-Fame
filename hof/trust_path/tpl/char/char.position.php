@@ -1,6 +1,6 @@
 
 	<form action="<?php e(BASE_URL) ?>?char=<?php e($this->output->char_id) ?>" method="post" style="padding:0 15px">
-		<h4>Position & Guarding<a href="<?php e(BASE_URL) ?>?manual#posi" target="_blank" class="a0">?</a></h4>
+		<h4>Position & Guarding<a href="<?php e(HOF::url('manual', 'manual', '#posi')) ?>" target="_blank" class="a0">?</a></h4>
 		<table>
 			<tbody>
 				<tr>
