@@ -13,7 +13,7 @@
 			<?php endif; ?>
 
 			<?php if (!$this->output->full_log): ?>
-				<a href="<?php e(HOF::url($this->controller(), null, 'log='.$this->output->idx)) ?>">全表示</a>
+				<a href="<?php e(HOF::url($this->controller(), null, array('log' => $this->output->idx))) ?>">全表示</a>
 			<?php endif; ?>
 		</h4>
 
