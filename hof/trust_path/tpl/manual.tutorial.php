@@ -8,7 +8,7 @@
 			傷ついた前衛を後衛が治してあげる。という具合です。</p>
 		<h4>とりあえず やてみろ！</h4>
 		<p>戦士(Warrior), 魔法使い(Sorecerer) と 僧侶(Priest) が揃うように<br />
-			メニューの <span class="bold">街(Town) → </span><a href="?recruit">人材斡旋所(Recruit)</a> から雇ってみましょ <span class="light">(リンクはログインしてる場合のみ有効)</span><br />
+			メニューの <span class="bold">街(Town) → </span><a href="<?php e(BASE_URL) ?>?recruit">人材斡旋所(Recruit)</a> から雇ってみましょ <span class="light">(リンクはログインしてる場合のみ有効)</span><br />
 			雇った時点で、そこそこ戦えるように設定してあります。</p>
 		<img src="<?=
 
@@ -25,7 +25,7 @@ HOF_Class_Icon::getImageUrl('mon_214', HOF_Class_Icon::IMG_CHAR_REV)
 
 ?>" alt="治す人" />
 		<p>ではさっそく、戦闘です。<br />
-			メニューの 狩り(Hunt) → <a href="?common=gb0">ゴブリンと遊ぶ</a><span class="light">(リンクはログインしてる場合のみ有効)</span><br />
+			メニューの 狩り(Hunt) → <a href="<?php e(BASE_URL) ?>?common=gb0">ゴブリンと遊ぶ</a><span class="light">(リンクはログインしてる場合のみ有効)</span><br />
 			雇った人たちにチェックをつけたら、<br />
 			Battle !</p>
 		<p>ちゃんとできていれば、<br />
