@@ -32,15 +32,46 @@ class HOF
 			self::$_cache_ = new HOF_Class_File_Cache();
 
 			self::$_session_ = new HOF_Class_Session();
-
-			HOF_Class_Session::start();
-
-			self::$session = self::session()->getNamespace();
 		}
 		else
 		{
 			die('error!!');
 		}
+	}
+
+	public static function setup()
+	{
+		static $do;
+
+		if ($do) return;
+
+		HOF_Class_Session::start();
+
+		self::$session = self::session()->getNamespace();
+	}
+
+	public static function router($controller = null, $action = null)
+	{
+		if (!file_exists(DAT_DIR.'initialize'.EXT_LOCK))
+		{
+			return self::run('initialize');
+		}
+
+		HOF::setup();
+
+		if ($controller !== null)
+		{
+			return self::run($controller, $action);
+		}
+		else
+		{
+			return new HOF_Model_Main();
+		}
+	}
+
+	public static function run($controller, $action = null)
+	{
+		return HOF_Class_Controller::newInstance($controller, $action)->main();
 	}
 
 	function __destruct()
