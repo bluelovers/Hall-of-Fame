@@ -7,7 +7,7 @@
 		<div class="land_frame">
 			<div class="land" style="background-image : url(<?php e(HOF_Class_Icon::getImageUrl('land_'.$land['land']['land'], HOF_Class_Icon::IMG_LAND)) ?>);">
 			</div>
-			<span class="g_name"><a href="?common=<?php e($map) ?>">
+			<span class="g_name"><a href="<?php e(BASE_URL) ?>?common=<?php e($map) ?>">
 			<?php e($land['land']['name']) ?>
 			</a></span> <span>(
 			<?php e($land['land']['proper']) ?>
@@ -35,14 +35,14 @@
 <?php else: ?>
 <?php endif; ?>
 	<div style="margin:0 15px">
-		<h4>Union Battle Log <a href="?ulog">全表示</a></h4>
+		<h4>Union Battle Log <a href="<?php e(HOF::url('log', null, array('log' => 'ulog'))) ?>">全表示</a></h4>
 		<div style="margin:0 20px">
 			<?php foreach ($this->output->logs as $log): ?>
-			[ <a href="?ulog=<?php e($log['time']) ?>">
+			[ <a href="<?php e(HOF::url('log', 'log', array('log' => 'ulog', 'no' => $log['time']))) ?>">
 			<?php e($log['date']) ?>
-			</a> ] 
-			
-			<!-- 総ターン数 --> 
+			</a> ]
+
+			<!-- 総ターン数 -->
 			<span class="bold">
 			<?php e($log['act']) ?>
 			</span>turns
