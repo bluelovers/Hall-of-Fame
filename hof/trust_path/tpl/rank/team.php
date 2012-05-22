@@ -8,7 +8,7 @@
 		</p>
 	</div>
 
-	<form action="<?php e(BASE_URL) ?>?menu=rank" method="post">
+	<form action="<?php e(HOF::url('rank')) ?>" method="post">
 
 		<?php e(HOF_Class_Char_View::ShowCharacters(HOF::user()->char, INPUT_CHECKBOX, HOF::user()->party_rank)); ?>
 
