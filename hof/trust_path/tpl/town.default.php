@@ -26,7 +26,7 @@
 
 				<li>
 					<p>
-						<a href="<?php e(BASE_URL) ?>?recruit">人材斡旋所(Recruit)</a>
+						<a href="<?php e(HOF::url('recruit')) ?>">人材斡旋所(Recruit)</a>
 					</p>
 				</li>
 
