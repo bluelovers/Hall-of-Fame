@@ -51,7 +51,7 @@
 				<?php if ($this->output->list['Auction']): ?>
 
 				<li>
-					<a href="<?php e(BASE_URL) ?>?menu=auction">オークション会場(Auction)
+					<a href="<?php e(HOF::url('auction')) ?>">オークション会場(Auction)
 				</li>
 
 				<?php endif; ?>
