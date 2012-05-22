@@ -4,7 +4,7 @@
 			<br/>
 			<a href="#btm">to bottom</a>
 		</p>
-		<form action="?update" method="post">
+		<form action="<?php e(HOF::url($this->controller(), $this->action())) ?>" method="post">
 			<?php if ($this->output->updatepass): ?>
 			<textarea class="text" rows="12" cols="60" name="updatetext"><?php e($this->output->update) ?></textarea>
 			<br/>
