@@ -95,27 +95,10 @@ class HOF_Model_Main extends HOF_Class_Array
 
 	function Order()
 	{
-		// ログイン処理する前に処理するもの
-		// まだユーザデータ読んでません
-		switch (true)
+		if ($this->request->controller == 'rank' || $this->request->controller == 'auction')
 		{
-				/*
-				case ($_GET["menu"] === "auction"):
-
-				HOF_Class_Controller::newInstance('auction')->main()->_main_stop();
-				return 0;
-				break;
-				case ($_GET["menu"] === "rank"):
-				case ($_SERVER["QUERY_STRING"] === "rank"):
-
-				HOF_Class_Controller::newInstance('rank')->main()->_main_stop();
-				return 0;
-				break;
-				*/
-			case ($this->request->controller == 'rank' || $this->request->controller == 'auction'):
-				HOF_Class_Controller::newInstance($this->request->controller, $this->request->action, $this->request->extra)->main()->_main_stop();
-				return 0;
-				break;
+			HOF_Class_Controller::newInstance($this->request->controller, $this->request->action, $this->request->extra)->main()->_main_stop();
+			return 0;
 		}
 
 		if (true === $message = HOF::user()->CheckLogin())
@@ -134,53 +117,9 @@ class HOF_Model_Main extends HOF_Class_Array
 					{
 						return 0;
 					}
-					// 設定
 				case ($_SERVER["QUERY_STRING"] === "setting"):
 					HOF_Class_Controller::getInstance('game', $_SERVER["QUERY_STRING"])->main();
 					return 0;
-					// 狩場
-					/*
-				case ($_SERVER["QUERY_STRING"] === "hunt"):
-					HOF_Class_Controller::newInstance('Battle', $_SERVER["QUERY_STRING"])->main();
-					return 0;
-					*/
-					// 街
-					/*
-					case ($_SERVER["QUERY_STRING"] === "town"):
-					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
-					return 0;
-					*/
-					// シミュれ
-				/*
-				case ($_SERVER["QUERY_STRING"] === "simulate"):
-					HOF_Class_Controller::newInstance('Battle', $_SERVER["QUERY_STRING"])->main();
-					return 0;
-					// ユニオン
-				case ($_GET["union"]):
-					HOF_Class_Controller::newInstance('Battle', 'union')->main();
-					return 0;
-				case ($_GET["common"]):
-					HOF_Class_Controller::newInstance('Battle', 'common')->main();
-					return 0;
-					*/
-					/*
-					// アイテム一覧
-					case ($_SERVER["QUERY_STRING"] === "item"):
-					HOF_Class_Controller::newInstance('item')->main();
-					return 0;
-					case ($_GET["menu"] === "refine"):
-					case ($_GET["menu"] === "create"):
-					HOF_Class_Controller::newInstance('Smithy', $_GET["menu"])->main();
-					return 0;
-					case ($_GET["menu"] === "buy"):
-					case ($_GET["menu"] === "sell"):
-					case ($_GET["menu"] === "work"):
-					HOF_Class_Controller::newInstance('shop', $_GET["menu"])->main();
-					return 0;
-					case ($_SERVER["QUERY_STRING"] === "recruit"):
-					HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
-					return 0;
-					*/
 				case ($_GET["char"]):
 				default:
 					HOF_Class_Controller::newInstance('char')->main();
@@ -208,40 +147,10 @@ class HOF_Model_Main extends HOF_Class_Array
 	 */
 	function OptionOrder()
 	{
-		switch (true)
+		if ($this->request->controller)
 		{
-			case ($this->request->controller):
-				HOF_Class_Controller::newInstance($this->request->controller, $this->request->action, $this->request->extra)->main();
-				return true;
-				/*
-				case ($_SERVER["QUERY_STRING"] === "bbs"):
-				HOF_Class_Controller::newInstance($_SERVER["QUERY_STRING"])->main();
-				return true;
-				case ($_SERVER["QUERY_STRING"] === "manual"):
-				case ($_SERVER["QUERY_STRING"] === "manual2"):
-				case ($_SERVER["QUERY_STRING"] === "tutorial"):
-				HOF_Class_Controller::newInstance('manual', $_SERVER["QUERY_STRING"])->main();
-				return true;
-				*/
-				/*
-				case ($_SERVER["QUERY_STRING"] === "update"):
-				HOF_Class_Controller::newInstance('log', $_SERVER["QUERY_STRING"])->main();
-				return true;
-				case ($_SERVER["QUERY_STRING"] === "log"):
-				case ($_SERVER["QUERY_STRING"] === "clog"):
-				case ($_SERVER["QUERY_STRING"] === "ulog"):
-				case ($_SERVER["QUERY_STRING"] === "rlog"):
-				case ($_GET["log"]):
-				case ($_GET["clog"]):
-				case ($_GET["ulog"]):
-				case ($_GET["rlog"]):
-				HOF_Class_Controller::newInstance('log', 'log', $this->request->extra)->main();
-				return true;
-				case ($_GET["gamedata"]):
-				HOF_Class_Controller::newInstance('gamedata', $_GET["gamedata"])->main();
-				return true;
-				*/
-
+			HOF_Class_Controller::newInstance($this->request->controller, $this->request->action, $this->request->extra)->main();
+			return true;
 		}
 	}
 
@@ -655,7 +564,7 @@ class HOF_Model_Main extends HOF_Class_Array
 				print ('<a href="' . HOF::url() . '">トップ</a><span class="divide"></span>' . "\n");
 				print ('<a href="' . BASE_URL . '?newgame">新規</a><span class="divide"></span>' . "\n");
 				print ('<a href="' . HOF::url('manual') . '">ルールとマニュアル</a><span class="divide"></span>' . "\n");
-				print ('<a href="' . HOF::url('gamedata'). '">ゲームデータ</a><span class="divide"></span>' . "\n");
+				print ('<a href="' . HOF::url('gamedata') . '">ゲームデータ</a><span class="divide"></span>' . "\n");
 				print ('<a href="' . HOF::url('log') . '">戦闘ログ</a><span class="divide"></span>' . "\n");
 				if (BBS_OUT) print ('<a href="' . BBS_OUT . '">総合BBS</a><span class="divide"></span>' . "\n");
 
