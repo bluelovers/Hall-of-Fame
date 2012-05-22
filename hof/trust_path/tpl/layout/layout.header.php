@@ -3,7 +3,9 @@
 
 	<title><?= TITLE ?></title>
 
-	<base href="<?php e(BASE_URL) ?>">
+	<?php if (!BASE_URL_REWRITE): ?>
+		<base href="<?php e(BASE_URL) ?>"/>
+	<?php endif; ?>
 
 	<link rel="stylesheet" href="<?php e(BASE_URL) ?>static/style/basis.css" type="text/css">
 	<link rel="stylesheet" href="<?php e(BASE_URL) ?>static/style/style.css" type="text/css">
