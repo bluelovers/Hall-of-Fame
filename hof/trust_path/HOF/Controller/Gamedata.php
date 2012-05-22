@@ -10,7 +10,7 @@ class HOF_Controller_Gamedata extends HOF_Class_Controller
 
 	function _main_before()
 	{
-		if ($this->action == self::DEFAULT_ACTION)
+		if (!in_array($this->action, $this->_main_list_action(array('default'))))
 		{
 			$this->action = 'job';
 		}
