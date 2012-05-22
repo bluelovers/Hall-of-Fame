@@ -6,16 +6,16 @@
 				<?php if ($this->output->list['Shop']): ?>
 
 				<li>
-					店(Shop)
+					<a href="<?php e(HOF::url('shop')) ?>">店(Shop)</a>
 					<ul>
 						<li>
-							<a href="<?php e(BASE_URL) ?>?menu=buy">買う(Buy)</a>
+							<a href="<?php e(HOF::url('shop', 'buy')) ?>">買う(Buy)</a>
 						</li>
 						<li>
-							<a href="<?php e(BASE_URL) ?>?menu=sell">売る(Sell)</a>
+							<a href="<?php e(HOF::url('shop', 'sell')) ?>">売る(Sell)</a>
 						</li>
 						<li>
-							<a href="<?php e(BASE_URL) ?>?menu=work">アルバイト</a>
+							<a href="<?php e(HOF::url('shop', 'work')) ?>">アルバイト</a>
 						</li>
 					</ul>
 				</li>
