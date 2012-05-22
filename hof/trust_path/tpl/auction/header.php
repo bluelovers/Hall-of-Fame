@@ -30,6 +30,6 @@
 
 	<?php e($this->slot('layout/npc.talk.1', $content)) ?>
 
-<div style="margin:15px 0 0 15px">
-	<h4>アイテム オークション(Item Auction)</h4>
-	<div style="margin-left:20px">
+<div class="margin15">
+	<h4>アイテム オークション(Item Auction) <a href="?menu=auction">更新</a></h4>
+	<div class="margin15">
