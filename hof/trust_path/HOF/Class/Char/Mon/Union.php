@@ -328,7 +328,7 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char_Base
 
 
 ?>);">
-	<a href="?union=<?=
+	<a href="<?php e(BASE_URL) ?>?union=<?=
 
 		$this->id()
 
