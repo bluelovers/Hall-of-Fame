@@ -132,10 +132,12 @@ class HOF_Model_Main extends HOF_Class_Array
 			{
 				case ($this->OptionOrder()):
 					return false;
+					/*
 				case ($_POST["Make"]):
 				case ($_SERVER["QUERY_STRING"] === "newgame"):
 					HOF_Class_Controller::getInstance('game', "newgame")->main();
 					return false;
+					*/
 				default:
 					HOF_Class_Controller::getInstance('game', "login")->main();
 			}
@@ -562,7 +564,7 @@ class HOF_Model_Main extends HOF_Class_Array
 			{ //// ログアウト状態の人、来客用の表示
 				print ('<div id="menu">');
 				print ('<a href="' . HOF::url() . '">トップ</a><span class="divide"></span>' . "\n");
-				print ('<a href="' . BASE_URL . '?newgame">新規</a><span class="divide"></span>' . "\n");
+				print ('<a href="' . HOF::url('game', 'newgame') . '">新規</a><span class="divide"></span>' . "\n");
 				print ('<a href="' . HOF::url('manual') . '">ルールとマニュアル</a><span class="divide"></span>' . "\n");
 				print ('<a href="' . HOF::url('gamedata') . '">ゲームデータ</a><span class="divide"></span>' . "\n");
 				print ('<a href="' . HOF::url('log') . '">戦闘ログ</a><span class="divide"></span>' . "\n");
