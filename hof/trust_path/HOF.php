@@ -261,4 +261,100 @@ class HOF
 		return $ip;
 	}
 
+	/**
+	 * @param mixed|$controller
+	 * @param string|$action
+	 * @param array|$extra
+	 */
+	public static function redirect($controller = null, $action = null, $extra = array())
+	{
+
+		if (is_array($controller))
+		{
+			list($controller, $action, $extra) = $controller;
+		}
+
+		$url = self::url((string)$controller, (string)$action, (array)$extra);
+		header('Location: ' . $url);
+		/*
+		die;
+		*/
+		// bluelovers
+		Dura::_exit();
+		// bluelovers
+	}
+
+	/**
+	 * @param mixed|$controller
+	 * @param string|$action
+	 * @param array|$extra
+	 */
+	public static function url($controller = null, $action = null, $extra = array())
+	{
+
+		if (is_array($controller))
+		{
+			list($controller, $action, $extra) = $controller;
+		}
+
+		$params = array();
+
+		if ($action == HOF_Class_Controller::DEFAULT_ACTION)
+		{
+			unset($action);
+		}
+
+		if ($controller == HOF_Class_Controller::DEFAULT_CONTROLLER && !$action)
+		{
+			unset($controller);
+		}
+
+		if (BASE_URL_REWRITE || !($controller || $action))
+		{
+			$url = BASE_URL . '/';
+		}
+		else
+		{
+			$url = BASE_URL . '/index.php';
+		}
+
+		if ($controller)
+		{
+			if (DURA_USE_REWRITE)
+			{
+				$url .= $controller . '/';
+			}
+			else
+			{
+				$params['controller'] = $controller;
+			}
+		}
+
+		if ($action)
+		{
+			if (BASE_URL_REWRITE)
+			{
+				$url .= $action . '/';
+			}
+			else
+			{
+				$params['action'] = $action;
+			}
+		}
+
+		if (is_array($extra))
+		{
+			$params = array_merge($params, $extra);
+		}
+
+		$params = array_filter((array)$params);
+
+		if ($param = http_build_query($params))
+		{
+			$url .= '?' . $param;
+		}
+
+		return $url;
+	}
+
 }
