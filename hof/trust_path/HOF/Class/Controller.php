@@ -10,6 +10,7 @@ abstract class HOF_Class_Controller
 
 	var $controller;
 	var $action;
+	var $extra;
 
 	protected $input = array();
 	protected $output = array();
@@ -52,7 +53,7 @@ abstract class HOF_Class_Controller
 
 	protected static $instance = array();
 
-	public static function &newInstance($controller, $action = null)
+	public static function &newInstance($controller, $action = null, $extra = null)
 	{
 		$_s = self::_setup_fix($controller, $action);
 
@@ -63,31 +64,32 @@ abstract class HOF_Class_Controller
 			die("Invalid Access {$_s[Controller]}::{$_s[Action]}");
 		}
 
-		self::$instance[$_s['controller']] = new $class($_s['controller'], $_s['action']);
+		self::$instance[$_s['controller']] = new $class($_s['controller'], $_s['action'], $extra);
 
 		return self::$instance[$_s['controller']];
 	}
 
-	public static function &getInstance($controller, $action = null)
+	public static function &getInstance($controller, $action = null, $extra = null)
 	{
 		$_s = self::_setup_fix($controller, $action);
 
 		if (isset(self::$instance[$_s['controller']]))
 		{
-			return self::$instance[$_s['controller']]->_main_setup($_s['action']);
+			return self::$instance[$_s['controller']]->_main_setup($_s['action'], $extra);
 		}
 		else
 		{
-			return self::newInstance($_s['controller'], $_s['action']);
+			return self::newInstance($_s['controller'], $_s['action'], $extra);
 		}
 	}
 
-	public function __construct($controller, $action = null)
+	public function __construct($controller, $action = null, $extra = null)
 	{
 		$_s = self::_setup_fix($controller, $action);
 
 		$this->controller = $_s['controller'];
 		$this->action = $_s['action'];
+		$this->extra = $extra;
 
 		$this->output = new HOF_Class_Array($this->output);
 		$this->input = new HOF_Class_Array($this->input);
