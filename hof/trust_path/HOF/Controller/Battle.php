@@ -20,6 +20,8 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		$this->user = &HOF::user();
 
 		$this->options['escapeHtml'] = false;
+		$this->options['defaultAction'] = 'hunt';
+		$this->options['allowActions'] = true;
 	}
 
 	function _main_before()
@@ -44,6 +46,9 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		$this->input->input_char_id = (array )HOF::$input->post->input_char_id;
 
+		$this->input->land = HOF::$input->request->land;
+
+		$this->output['battle.target.from.action'] = HOF::url($this->controller, $this->action, array('land' => $this->input->land));
 	}
 
 	/**
@@ -132,10 +137,9 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	function _main_action_common()
 	{
 		$this->input->monster_battle = HOF::$input->post->monster_battle;
-		$this->input->common = HOF::$input->request['common'];
+		$this->input->common = $this->input->land;
 
 		$this->output['battle.target.id'] = $this->input->common;
-		$this->output['battle.target.from.action'] = INDEX . '?common=' . $this->output['battle.target.id'];
 
 		if ($this->_check_land())
 		{
@@ -179,24 +183,24 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		$this->input->monster_battle = HOF::$input->post->monster_battle;
 
 		$this->output->land['name'] = '模擬戦';
-		$this->output['battle.target.from.action'] = INDEX . '?simulate';
 	}
 
 	function _main_action_union()
 	{
 		if ($this->user->CanUnionBattle() !== true)
 		{
-			header("Location: ".HOF::url()."?hunt");
+			header("Location: ".HOF::url($this->controller));
 			HOF::end();
 		}
 
 		$this->input->monster_battle = HOF::$input->post->monster_battle;
 		$this->input->union = HOF::$input->request->union;
 
+		$this->output['battle.target.from.action'] = HOF::url($this->controller, $this->action, array('union' => $this->input->union));
+
 		$this->_cache['union'] = HOF_Model_Char::newUnion($this->input->union);
 
 		$this->output->land['name'] = 'Union Monster';
-		$this->output['battle.target.from.action'] = INDEX . '?union=' . $_GET["union"];
 	}
 
 	function _check_union()
@@ -498,7 +502,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	 */
 	function _check_land()
 	{
-		if (!array_key_exists($this->input->common, $this->_cache['lands']))
+		if (!array_key_exists($this->input->land, $this->_cache['lands']))
 		{
 			$this->_error('マップが出現して無い (not appeared or not exist)', 'margin15');
 
