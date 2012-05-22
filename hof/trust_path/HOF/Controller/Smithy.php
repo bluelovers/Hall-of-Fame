@@ -181,7 +181,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 
 
 ?>
-		<form action="?menu=create" method="post">
+		<form action="<?php e(BASE_URL) ?>?menu=create" method="post">
 			<div id="list">
 				<?=
 
@@ -373,7 +373,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 			print ('精錬可能な物一覧');
 			// 種類のセレクトボックス
 			print ($goods->ShowSelect());
-			print ('<form action="?menu=refine" method="post">' . "\n");
+			print ('<form action="'.BASE_URL.'?menu=refine" method="post">' . "\n");
 			// [Refine]button
 			print ('<input type="submit" value="Refine" name="refine" class="btn">' . "\n");
 			// 精錬回数の指定
