@@ -21,7 +21,7 @@
 					入会しますか?
 					<br />
 
-					<form action="" method="post">
+					<form action="<?php e(HOF::url('auction')) ?>" method="post">
 						<input type="submit" value="入会する" name="JoinMember" class="btn"/>
 					</form>
 
@@ -31,5 +31,5 @@
 	<?php e($this->slot('layout/npc.talk.1', $content)) ?>
 
 <div class="margin15">
-	<h4>アイテム オークション(Item Auction) <a href="<?php e(BASE_URL) ?>?menu=auction">更新</a></h4>
+	<h4>アイテム オークション(Item Auction) <a href="<?php e(HOF::url('auction')) ?>">更新</a></h4>
 	<div class="margin15">
