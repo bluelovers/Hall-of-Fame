@@ -12,8 +12,9 @@ RewriteRule (\.svn|\.git|trust_path)[\/\\].* ReadMe.html [NC,L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^static/image/(char|char_rev)/.*$ static/image/$1/noimage.png [L]
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^static/image/(icon/(item|skill))/.*$ static/image/$1/noimage.png [L]
-
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^(static/image) - [L]
 
 <?php if (BASE_URL_REWRITE): ?>
