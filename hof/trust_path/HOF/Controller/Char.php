@@ -999,12 +999,7 @@ HTML_BYEBYE;
 ?></td>
 		</tr>
 	</table>
-	<form action="<?php e(BASE_URL) ?>?char=<?=
-
-		$this->input->char
-
-
-?>" method="post">
+	<form action="<?php e(HOF::url('char', null, array('char' => $this->input->char))) ?>" method="post">
 		<table>
 			<tr>
 				<td class="align-right">Weapon :</td>
@@ -1068,7 +1063,7 @@ HTML_BYEBYE;
 			}
 			print ($EquipList->GetJavaScript("list0"));
 			print ($EquipList->ShowSelect());
-			print ('<form action="'.BASE_URL.'?char=' . $this->input->char . '" method="post">' . "\n");
+			print ('<form action="'.HOF::url('char', null, array('char' => $this->input->char)) . '" method="post">' . "\n");
 			print ('<div id="list0">' . $EquipList->ShowDefault() . '</div>' . "\n");
 			print ('<input type="submit" class="btn" name="equip_item" value="Equip">' . "\n");
 			print ("</form>\n");
@@ -1080,12 +1075,7 @@ HTML_BYEBYE;
 		print ("</div>\n");
 
 ?>
-<form action="?char=<?=
-
-		$this->input->char
-
-
-?>" method="post" style="padding:0 15px">
+<form action="<?php e(HOF::url('char', null, array('char' => $this->input->char))) ?>" method="post" style="padding:0 15px">
 	<h4>Skill<a href="<?php e(HOF::url('manual', 'manual', '#skill')) ?>" target="_blank" class="a0">?</a></h4>
 	<?php
 
