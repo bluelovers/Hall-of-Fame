@@ -411,7 +411,7 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	/**
 	 * キャラクターを消す
 	 */
-	function DeleteChar()
+	function char_delete()
 	{
 		if (!file_exists($this->file)) return false;
 
