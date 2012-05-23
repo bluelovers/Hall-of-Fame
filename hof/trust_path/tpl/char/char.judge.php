@@ -5,49 +5,40 @@
 			<tbody>
 				<?php for ($i = 0; $i < $this->output->pattern_max; $i++): ?>
 				<tr>
-					<td>
-						<!-- No -->
-						<?php e($i + 1) ?>
-					</td>
-					<td>
-						<!-- JudgeSelect(判定の種類) -->
+					<td><!-- No -->
+						<?php e($i + 1) ?></td>
+					<td><!-- JudgeSelect(判定の種類) -->
 						<select name="judge<?php e($i) ?>">
 							<?php $_init = 0; ?>
 							<?php $pattern = $this->output->char->pattern_item($i); ?>
 							<!-- 判断のoption -->
-							<?php foreach ($this->output->judge_list as $val): ?>
-								<?php $exp = HOF_Model_Data::getJudgeData($val); ?>
-								<?php if ($exp["css"]): ?>
-									<optgroup class="select0" label="<?php e($exp['exp']) ?>"></optgroup>
-								<?php else: ?>
-									<option value="<?php e($val) ?>" <?php e($pattern['judge'] == $val ? ' selected="selected"' : '') ?> >&nbsp;&nbsp;&nbsp;
-										<?php e($exp['exp']) ?>
-									</option>
-								<?php endif; ?>
+							<?php foreach ($this->output->judge_list as $val => $exp): ?>
+							<?php if ($exp["css"]): ?>
+							<optgroup class="select0" label="<?php e($exp['exp']) ?>"></optgroup>
+							<?php else: ?>
+							<option value="<?php e($val) ?>" <?php e($pattern['judge'] == $val ? ' selected="selected"' : '') ?> style="padding-left: 2em;" >
+							<?php e($exp['exp']) ?>
+							</option>
+							<?php endif; ?>
 							<?php endforeach; ?>
-						</select>
-					</td>
-					<td>
-						<!-- 数値(量) -->
+						</select></td>
+					<td><!-- 数値(量) -->
 						<input type="text" name="quantity<?php e($i) ?>" maxlength="4" value="<?php e($pattern['quantity']) ?>" style="width:56px" class="text"></td>
-					<td>
-						<!-- SkillSelect(技の種類) -->
+					<td><!-- SkillSelect(技の種類) -->
 						<select name="skill<?php e($i) ?>">
 							<!-- 技のoption -->
-							<?php foreach ($this->output->char->skill as $val): ?>
-								<?php $skill = HOF_Model_Data::getSkill($val); ?>
-								<option value="<?php e($val) ?>" <?php e($pattern['action'] == $val ? ' selected="selected"' : '') ?> >
-									<?php e($skill["name"]) ?>
-									<?php if(isset($skill["sp"])): ?>
-										- (SP:<?php e($skill["sp"]) ?>)
-									<?php endif; ?>
-								</option>
+							<?php foreach ($this->output->skill_list as $val => $skill): ?>
+							<option value="<?php e($val) ?>" <?php e($pattern['action'] == $val ? ' selected="selected"' : '') ?> >
+							<?php e($skill["name"]) ?>
+							<?php if(isset($skill["sp"])): ?>
+							- (SP:
+							<?php e($skill["sp"]) ?>
+							)
+							<?php endif; ?>
+							</option>
 							<?php endforeach; ?>
-						</select>
-					</td>
-					<td>
-						<input type="radio" name="pattern_no" value="<?php e($i) ?>">
-					</td>
+						</select></td>
+					<td><input type="radio" name="pattern_no" value="<?php e($i) ?>"></td>
 				</tr>
 				<?php endfor; ?>
 			</tbody>
