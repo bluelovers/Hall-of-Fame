@@ -1,25 +1,3 @@
 no: 1799
 exp: 召喚
 css: true
-subs:
-    1800:
-        no: 1800
-        exp: '味方の 召喚キャラが ○○匹以上'
-        tag:
-            no: '1799'
-            exp: 召喚
-        quantity: true
-    1801:
-        no: 1801
-        exp: '味方の 召喚キャラが ○○匹以下'
-        tag:
-            no: '1799'
-            exp: 召喚
-        quantity: true
-    1805:
-        no: 1805
-        exp: '味方の 召喚キャラが ○○匹'
-        tag:
-            no: '1799'
-            exp: 召喚
-        quantity: true
