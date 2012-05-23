@@ -29,33 +29,21 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 	{
 		$this->_input();
 
-		if (true === $message = $this->user->CheckLogin())
-		{
-
-			if ($this->user->FirstLogin())
-			{
-				$this->_main_stop(true);
-
-				return 0;
-			}
-
-			// アイテムデータ読む
-			$this->user->LoadUserItem();
-			$this->AuctionJoinMember();
-
-			if (!AUCTION_TOGGLE) HOF_Helper_Global::ShowError("機能停止中");
-			if (!AUCTION_EXHIBIT_TOGGLE) HOF_Helper_Global::ShowError("出品停止中");
-
-
-		}
-		else
+		if (!$this->user->allowPlay())
 		{
 			$this->_main_stop(true);
 
-			$c = HOF_Class_Controller::getInstance('game', 'login')
-				->_main_exec('login', $message ? $message : null)
-			;
+			HOF_Class_Controller::getInstance('game', 'login')->_main_exec('login');
+
+			return;
 		}
+
+		// アイテムデータ読む
+		$this->user->LoadUserItem();
+		$this->AuctionJoinMember();
+
+		if (!AUCTION_TOGGLE) HOF_Helper_Global::ShowError("機能停止中");
+		if (!AUCTION_EXHIBIT_TOGGLE) HOF_Helper_Global::ShowError("出品停止中");
 
 	}
 
@@ -300,11 +288,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 			HOF_Helper_Global::ShowError("Wait {$SessionLeft}seconds to ReExhibit.");
 			return false;
 		}
-		elseif (
-			!$this->input->_timestamp
-			|| $this->input->_timestamp >= REQUEST_TIME
-			|| ($_SESSION["AuctionExhibit"] && $this->input->_timestamp <= $_SESSION["AuctionExhibit"])
-		)
+		elseif (!$this->input->_timestamp || $this->input->_timestamp >= REQUEST_TIME || ($_SESSION["AuctionExhibit"] && $this->input->_timestamp <= $_SESSION["AuctionExhibit"]))
 		{
 			HOF_Helper_Global::ShowError("Unknow Error!!");
 			return false;
