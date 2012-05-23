@@ -204,7 +204,7 @@ class HOF_Model_Char extends HOF_Class_Data
 			return $list;
 		}
 
-		$list = self::_load_list($_key);
+		$list = self::getInstance()->_load_list($_key);
 
 		HOF::cache()->data($_cache_key_, $list);
 
