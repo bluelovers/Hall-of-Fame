@@ -40,7 +40,7 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 
 	function _main_action_default()
 	{
-		$this->user->CharDataLoadAll();
+		$this->user->char_all();
 
 		$RankProcess = $this->RankProcess($this->Ranking);
 
