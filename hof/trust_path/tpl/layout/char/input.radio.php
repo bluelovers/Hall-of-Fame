@@ -1,6 +1,6 @@
 	<div class="carpet_frame">
 		<div class="carpet<?php e($this->output->flag % 2) ?>">
-			<a href="<?php e(HOF::url('char', null, array('char' => $this->output->char->id))) ?>">
+			<a href="<?php e(HOF::url('char', 'char', array('char' => $this->output->char->id))) ?>">
 			<?php $this->output->char->ShowImage(); ?>
 			</a>
 		</div>
