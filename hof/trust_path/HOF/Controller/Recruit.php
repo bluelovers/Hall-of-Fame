@@ -33,6 +33,15 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 	function _main_before()
 	{
 		$this->_input();
+
+		if (!$this->user->allowPlay())
+		{
+			$this->_main_stop(true);
+
+			HOF_Class_Controller::getInstance('game', 'login')->_main_exec('login');
+
+			return;
+		}
 	}
 
 	function _input()
