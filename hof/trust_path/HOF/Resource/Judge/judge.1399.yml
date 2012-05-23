@@ -1,39 +1,3 @@
 no: 1399
 exp: 生死
 css: true
-subs:
-    1400:
-        no: 1400
-        exp: '味方の生存者が ○○人以上'
-        tag:
-            no: '1399'
-            exp: 生死
-        quantity: true
-    1401:
-        no: 1401
-        exp: '味方の生存者が ○○人以下'
-        tag:
-            no: '1399'
-            exp: 生死
-        quantity: true
-    1405:
-        no: 1405
-        exp: '味方の死者が ○○人以上'
-        tag:
-            no: '1399'
-            exp: 生死
-        quantity: true
-    1406:
-        no: 1406
-        exp: '味方の死者が ○○人以下'
-        tag:
-            no: '1399'
-            exp: 生死
-        quantity: true
-    1410:
-        no: 1410
-        exp: '(初期設定が)前衛の生存者 ○○人以上'
-        tag:
-            no: '1399'
-            exp: 生死
-        quantity: true
