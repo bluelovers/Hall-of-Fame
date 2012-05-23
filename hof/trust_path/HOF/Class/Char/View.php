@@ -231,12 +231,7 @@ class HOF_Class_Char_View
 
 
 ?>">
-<a href="<?php e(BASE_URL) ?>?char=<?=
-
-		$this->char->id
-
-
-?>"><?php
+<a href="<?php e(HOF::url('char', null, array('char' => $this->char->id))) ?>"><?php
 
 		$this->char->ShowImage();
 
