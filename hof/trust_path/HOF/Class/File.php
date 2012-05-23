@@ -514,4 +514,12 @@ class HOF_Class_File
 		return stream_get_contents($fp);
 	}
 
+	function fpunlock($fp)
+	{
+		if (self::is_resource_file($fp))
+		{
+			return flock($fp, LOCK_UN);
+		}
+	}
+
 }
