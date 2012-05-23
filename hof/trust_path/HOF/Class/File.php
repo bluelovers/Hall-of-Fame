@@ -153,6 +153,11 @@ class HOF_Class_File
 		return array($name, $ext);
 	}
 
+	function opened_files_add($file)
+	{
+		self::$opened_files[str_replace(BASE_PATH, '', $file)]++;
+	}
+
 	function fpopen($file, $mode = 'r+')
 	{
 		$fp = fopen($file, $mode);
@@ -163,9 +168,9 @@ class HOF_Class_File
 		$data['file'] = $file;
 		$data['lock'] = 0;
 
-		self::$opened_files[str_replace(BASE_PATH, '', $file)]++;
-
 		array_push(self::$data, $data);
+
+		self::opened_files_add($file);
 
 		return $fp;
 	}
@@ -398,6 +403,8 @@ class HOF_Class_File
 		else:
 		$fp	= fopen($file,"w+");*/
 
+		self::opened_files_add($file);
+
 		$fp = fopen($file, "w+");
 		//@stream_encoding($fp, HOF::CHARSET);
 		flock($fp, LOCK_EX);
@@ -433,6 +440,8 @@ class HOF_Class_File
 	 */
 	function ParseFile($file)
 	{
+		self::opened_files_add($file);
+
 		$fp = @fopen($file, "r+");
 		if (!$fp) return false;
 		flock($fp, LOCK_EX | LOCK_NB);
