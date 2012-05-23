@@ -27,25 +27,15 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 
 	function _main_before()
 	{
-		if (true === $message = $this->user->CheckLogin())
-		{
 
-			if ($this->user->FirstLogin())
-			{
-				$this->_main_stop(true);
-
-				return false;
-			}
-
-
-		}
-		else
+		if (!$this->user->allowPlay())
 		{
 			$this->_main_stop(true);
 
-			$c = HOF_Class_Controller::getInstance('game', 'login')->_main_exec('login', $message ? $message : null);
-		}
+			HOF_Class_Controller::getInstance('game', 'login')->_main_exec('login');
 
+			return;
+		}
 	}
 
 	function _main_action_default()
