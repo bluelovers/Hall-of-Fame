@@ -151,7 +151,7 @@ class HOF_Model_Main extends HOF_Class_Array
 	{
 		if ($this->request->controller)
 		{
-			HOF_Class_Controller::newInstance($this->request->controller, $this->request->action, $this->request->extra)->main();
+			HOF_Class_Controller::getInstance($this->request->controller, $this->request->action, $this->request->extra)->main();
 			return true;
 		}
 	}
@@ -501,7 +501,7 @@ class HOF_Model_Main extends HOF_Class_Array
 			print ('<a href="' . HOF::url('battle', 'hunt') . '">Hunt</a><span class="divide"></span>');
 			print ('<a href="' . HOF::url('item') . '">Item</a><span class="divide"></span>');
 			print ('<a href="' . HOF::url('town') . '">Town</a><span class="divide"></span>');
-			print ('<a href="' . BASE_URL . '?setting">Setting</a><span class="divide"></span>');
+			print ('<a href="' . HOF::url('game', 'setting') . '">Setting</a><span class="divide"></span>');
 			print ('<a href="' . HOF::url('log') . '">Log</a><span class="divide"></span>');
 			if (BBS_OUT) print ('<a href="' . BBS_OUT . '">BBS</a><span class="divide"></span>' . "\n");
 			print ('</div><div id="menu2">' . "\n");
