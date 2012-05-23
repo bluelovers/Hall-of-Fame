@@ -1,25 +1,3 @@
 no: 1839
 exp: 魔法陣
 css: true
-subs:
-    1840:
-        no: 1840
-        exp: '味方の魔法陣の数が ○○個以上'
-        tag:
-            no: '1839'
-            exp: 魔法陣
-        quantity: true
-    1841:
-        no: 1841
-        exp: '味方の魔法陣の数が ○○個以下'
-        tag:
-            no: '1839'
-            exp: 魔法陣
-        quantity: true
-    1845:
-        no: 1845
-        exp: '味方の魔法陣の数が ○○個'
-        tag:
-            no: '1839'
-            exp: 魔法陣
-        quantity: true
