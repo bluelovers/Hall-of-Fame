@@ -18,6 +18,18 @@ class HOF_Controller_Item extends HOF_Class_Controller
 		$this->user = &HOF::user();
 	}
 
+	function _main_before()
+	{
+		if (!$this->user->allowPlay())
+		{
+			$this->_main_stop(true);
+
+			HOF_Class_Controller::getInstance('game', 'login')->_main_exec('login');
+
+			return;
+		}
+	}
+
 	/**
 	 * アイテム一覧
 	 */
