@@ -118,6 +118,18 @@ class HOF_Class_Main extends HOF_Class_User
 		$this->timestamp['login'] = time();
 	}
 
+	function allowPlay()
+	{
+		static $flag;
+
+		if (!isset($flag) || $over)
+		{
+			$flag = ($this->CheckLogin() && !$this->FirstLogin()) ? true : false;
+		}
+
+		return $flag;
+	}
+
 	function FirstLogin($over = false)
 	{
 		static $flag;
