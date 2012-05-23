@@ -25,6 +25,15 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 	{
 		$this->_input();
 
+		if (!$this->user->allowPlay())
+		{
+			$this->_main_stop(true);
+
+			HOF_Class_Controller::getInstance('game', 'login')->_main_exec('login');
+
+			return;
+		}
+
 		$this->user->LoadUserItem();
 
 		$this->output->npc_no = HOF_Class_Icon::getRandNo(HOF_Class_Icon::IMG_CHAR, 'ori_002');
