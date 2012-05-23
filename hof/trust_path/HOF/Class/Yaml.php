@@ -22,6 +22,8 @@ class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 			}
 			else
 			{
+				HOF_Class_File::opened_files_add($file);
+
 				$data = $file;
 			}
 
