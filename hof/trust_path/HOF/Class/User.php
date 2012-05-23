@@ -142,7 +142,7 @@ class HOF_Class_User
 		{
 			$this->cache()->__destruct();
 
-			$this->_cache_user_()->__destruct();
+			$this->cache()->__destruct();
 		}
 
 		$this->fpclose_all();
@@ -174,7 +174,7 @@ class HOF_Class_User
 
 			foreach ($this->party_rank as $no)
 			{
-				$char = $this->CharDataLoad($no);
+				$char = $this->char($no);
 				if ($char)
 				{
 					$party[] = $char;
@@ -223,47 +223,58 @@ class HOF_Class_User
 		return array($ok, $file);
 	}
 
-	/**
-	 * 全所持キャラクターをファイルから読んで $this->char に格納
-	 */
-	function CharDataLoadAll()
+	function char_list($over = null)
 	{
-		$list = array();
+		if (!$over && $list = $this->cache()->data('char_list'))
+		{
+			return $list;
+		}
 
-		//配列の初期化だけしておく
-		$this->char = array();
+		$list = array();
 
 		if ($list_char = HOF_Helper_Char::char_list_by_user($this))
 		{
 			foreach ($list_char as $no => $file)
 			{
-				$this->char[$no] = HOF_Model_Char::newCharFromFile($file);
-				$this->char[$no]->SetUser($this->id);
+				$char = HOF_Model_Char::newCharFromFile($file);
 
-				$list[$no] = $this->char[$no]->name;
+				$list[$no] = $char->name;
 			}
 		}
 
-		$this->_cache_user_()->data('char_list', $list);
+		$this->cache()->data('char_list', $list);
 
-		$this->_cache_user_()->save('char_list');
+		$this->cache()->save('char_list');
 
+		return $list;
 	}
 
-	function &_cache_user_()
+	/**
+	 * 全所持キャラクターをファイルから読んで $this->char に格納
+	 */
+	function char_all()
 	{
-		if ($this->id && !isset($this->_cache_user_))
-		{
-			$this->_cache_user_ = new HOF_Class_File_Cache(array('path' => HOF_Helper_Char::user_path($this), ));
-		}
+		//配列の初期化だけしておく
+		$this->char = array();
 
-		return $this->_cache_user_;
+		if ($list_char = $this->char_list())
+		{
+			foreach (array_keys($list_char) as $no)
+			{
+				$file = HOF_Helper_Char::char_file($no, $this->id);
+
+				$this->char[$no] = HOF_Model_Char::newCharFromFile($file);
+				$this->char[$no]->SetUser($this->id);
+			}
+
+			return $this->char;
+		}
 	}
 
 	/**
 	 * 指定の所持キャラクターをファイルから読んで $this->char に格納後 "返す"。
 	 */
-	function CharDataLoad($CharNo)
+	function char($CharNo)
 	{
 		if ($this->char[$CharNo]) return $this->char[$CharNo];
 
@@ -275,11 +286,11 @@ class HOF_Class_User
 
 		$this->char[$CharNo]->SetUser($this->id);
 
-		$list = $this->_cache_user_()->data('char_list');
+		$list = $this->cache()->data('char_list');
 
 		$list[$CharNo] = $this->char[$CharNo]->name;
 
-		$this->_cache_user_()->data('char_list', $list);
+		$this->cache()->data('char_list', $list);
 
 		return $this->char[$CharNo];
 	}
@@ -356,7 +367,7 @@ class HOF_Class_User
 
 		if (file_exists($file))
 		{
-			$this->_cache_user_();
+			$this->cache();
 
 			$this->file = $file;
 
@@ -378,7 +389,7 @@ class HOF_Class_User
 	 */
 	function SaveData()
 	{
-		$this->_cache_user_()->__destruct();
+		$this->cache()->__destruct();
 
 		if (file_exists($this->file) && $this->fp)
 		{
@@ -557,7 +568,7 @@ class HOF_Class_User
 	/**
 	 * キャラデータを消す
 	 */
-	function DeleteChar($no)
+	function char_delete($no)
 	{
 		$file = HOF_Helper_Char::char_file($no, $this->id);
 
@@ -572,13 +583,11 @@ class HOF_Class_User
 	/**
 	 * キャラクターを所持してる数をかぞえる。
 	 */
-	function CharCount()
+	function char_count()
 	{
-		$list_char = HOF_Helper_Char::char_list_by_user($this);
+		$list_char = $this->char_list(true);
 
-		$no = count($list_char);
-
-		return $no;
+		return count($list_char);
 	}
 
 	/**
