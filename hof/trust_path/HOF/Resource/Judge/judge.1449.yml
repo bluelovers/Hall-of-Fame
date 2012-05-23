@@ -1,32 +1,3 @@
 no: 1449
 exp: 生死(敵)
 css: true
-subs:
-    1450:
-        no: 1450
-        exp: '相手の生存者が ○○人以上'
-        tag:
-            no: '1449'
-            exp: 生死(敵)
-        quantity: true
-    1451:
-        no: 1451
-        exp: '相手の生存者が ○○人以下'
-        tag:
-            no: '1449'
-            exp: 生死(敵)
-        quantity: true
-    1455:
-        no: 1455
-        exp: '相手の死者が ○○人以上'
-        tag:
-            no: '1449'
-            exp: 生死(敵)
-        quantity: true
-    1456:
-        no: 1456
-        exp: '相手の死者が ○○人以下'
-        tag:
-            no: '1449'
-            exp: 生死(敵)
-        quantity: true
