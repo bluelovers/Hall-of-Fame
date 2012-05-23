@@ -17,7 +17,7 @@ foreach (glob(BASE_PATH_USER.'*', GLOB_ONLYDIR) as $user)
 	$name = end($user);
 
 	$data = HOF_Class_User::getInstance($name);
-	$data->CharDataLoadAll();
+	$data->char_all();
 
 	$data->_cache();
 
