@@ -45,6 +45,15 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	{
 		parent::_main_before();
 
+		if (!$this->user->allowPlay())
+		{
+			$this->_main_stop(true);
+
+			HOF_Class_Controller::getInstance('game', 'login')->_main_exec('login');
+
+			return;
+		}
+
 		$action = $this->action;
 
 		if ($this->input->action == 'char')
