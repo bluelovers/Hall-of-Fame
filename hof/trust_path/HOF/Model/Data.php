@@ -41,6 +41,22 @@ class HOF_Model_Data extends HOF_Class_Data
 		return self::$_instance;
 	}
 
+	function _load_list_cache($_key, $sort = null)
+	{
+		$_cache_key_ = $_key.'_list';
+
+		if ($list = HOF::cache()->data($_cache_key_))
+		{
+			return $list;
+		}
+
+		$list = self::getInstance()->_load_list($_key, $sort);
+
+		HOF::cache()->data($_cache_key_, $list);
+
+		return $list;
+	}
+
 	/**
 	 * こちらは技に関する基本的な情報
 	 *
@@ -116,27 +132,7 @@ class HOF_Model_Data extends HOF_Class_Data
 	function getSkillList()
 	{
 		$_key = 'skill';
-		$_cache_key_ = $_key.'_list';
-
-		if ($list = HOF::cache()->data($_cache_key_))
-		{
-			return $list;
-		}
-
-		$regex = HOF_Class_Data::_filename($_key, '*');
-
-		$regex = '/^' . str_replace('\*', '(.+)', preg_quote($regex, '/')) . '$/i';
-
-		foreach (glob(HOF_Class_Data::_filename($_key, '*')) as $file)
-		{
-			$list[] = preg_replace($regex, '$1', $file);
-		}
-
-		sort($list, SORT_NUMERIC);
-
-		HOF::cache()->data($_cache_key_, $list);
-
-		return $list;
+		return self::_load_list_cache($_key);
 	}
 
 	function getSkillTreeData($no)
@@ -144,6 +140,9 @@ class HOF_Model_Data extends HOF_Class_Data
 		$_key = 'skilltree';
 		$_cache_key_ = $_key;
 
+		$data = self::getInstance()->_load($_key, $no);
+
+		/*
 		$list = HOF::cache()->data($_cache_key_);
 
 		if (isset($list[$no]))
@@ -158,6 +157,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 			HOF::cache()->data($_cache_key_, $list);
 		}
+		*/
 
 		return $data;
 	}
@@ -329,43 +329,13 @@ class HOF_Model_Data extends HOF_Class_Data
 	function getSkillTreeList()
 	{
 		$_key = 'skilltree';
-		$_cache_key_ = $_key.'_list';
-
-		if ($list = HOF::cache()->data($_cache_key_))
-		{
-			return $list;
-		}
-
-		$list = self::_load_list($_key);
-
-		HOF::cache()->data($_cache_key_, $list);
-
-		return $list;
+		return self::_load_list_cache($_key);
 	}
 
 	function getLandList()
 	{
-		$_cache_key_ = 'land_list';
-
-		if ($list = HOF::cache()->data($_cache_key_))
-		{
-			return $list;
-		}
-
 		$_key = 'land';
-
-		$regex = HOF_Class_Data::_filename($_key, '*');
-
-		$regex = '/^' . str_replace('\*', '(.+)', preg_quote($regex, '/')) . '$/i';
-
-		foreach (glob(HOF_Class_Data::_filename($_key, '*')) as $file)
-		{
-			$list[] = preg_replace($regex, '$1', $file);
-		}
-
-		HOF::cache()->data($_cache_key_, $list);
-
-		return $list;
+		return self::_load_list_cache($_key);
 	}
 
 	/**
@@ -626,169 +596,13 @@ class HOF_Model_Data extends HOF_Class_Data
 	function getJobList()
 	{
 		$_key = 'job';
-
-		$_cache_key_ = $_key.'_list';
-
-		if ($list = HOF::cache()->data($_cache_key_))
-		{
-			return $list;
-		}
-
-		$regex = HOF_Class_Data::_filename($_key, '*');
-
-		$regex = '/^' . str_replace('\*', '(.+)', preg_quote($regex, '/')) . '$/i';
-
-		foreach (glob(HOF_Class_Data::_filename($_key, '*')) as $file)
-		{
-			$list[] = preg_replace($regex, '$1', $file);
-		}
-
-		sort($list, SORT_NUMERIC);
-
-		HOF::cache()->data($_cache_key_, $list);
-
-		return $list;
+		return self::_load_list_cache($_key);
 	}
 
 	function getJudgeList()
 	{
-		// 自動読み込み(forでループさせてるから無駄な処理)
-		if (JUDGE_LIST_AUTO_LOAD)
-		{
-			/*
-			for ($i = 1000; $i < 2500; $i++)
-			{
-			if (HOF_Model_Data::getJudgeData($i) !== false) $list[] = $i;
-			}
-			return $list;
-			// 手動(追加した判断は自分で書き足せ)
-			*/
-
-			$_cache_key_ = 'judge_list';
-
-			if ($list = HOF::cache()->data($_cache_key_))
-			{
-				return $list;
-			}
-
-			$regex = HOF_Class_Data::_filename('judge', '*');
-
-			$regex = '/^' . str_replace('\*', '(.+)', preg_quote($regex, '/')) . '$/i';
-
-			foreach (glob(HOF_Class_Data::_filename('judge', '*')) as $file)
-			{
-				$list[] = preg_replace($regex, '$1', $file);
-			}
-
-			sort($list, SORT_NUMERIC);
-
-			HOF::cache()->data($_cache_key_, (array)$list);
-
-			return $list;
-		}
-		else
-		{
-			return array(
-				1000,
-				1001,
-				1099,
-				1100,
-				1101,
-				1105,
-				1106,
-				1110,
-				1111,
-				1121,
-				1125,
-				1126,
-				1199,
-				1200,
-				1201,
-				1205,
-				1206,
-				1210,
-				1211,
-				1221,
-				1225,
-				1226,
-				1399,
-				1400,
-				1401,
-				1405,
-				1406,
-				1410,
-				1449,
-				1450,
-				1451,
-				1455,
-				1456,
-				1499,
-				1500,
-				1501,
-				1505,
-				1506,
-				1510,
-				1511,
-				1549,
-				1550,
-				1551,
-				1555,
-				1556,
-				1560,
-				1561,
-				1599,
-				1600,
-				1610,
-				1611,
-				1612,
-				1613,
-				1614,
-				1615,
-				1616,
-				1617,
-				1618,
-				1699,
-				1700,
-				1701,
-				1710,
-				1711,
-				1712,
-				1715,
-				1716,
-				1717,
-				1749,
-				1750,
-				1751,
-				1752,
-				1755,
-				1756,
-				1757,
-				1799,
-				1800,
-				1801,
-				1805,
-				1819,
-				1820,
-				1821,
-				1825,
-				1839,
-				1840,
-				1841,
-				1845,
-				1849,
-				1850,
-				1851,
-				1855,
-				1899,
-				1900,
-				1901,
-				1902,
-				1919,
-				1920,
-				1939,
-				1940,
-				);
-		}
+		$_key = 'judge';
+		return self::_load_list_cache($_key);
 	}
 
 	/**
@@ -915,27 +729,7 @@ class HOF_Model_Data extends HOF_Class_Data
 	function getItemList()
 	{
 		$_key = 'item';
-		$_cache_key_ = $_key.'_list';
-
-		if ($list = HOF::cache()->data($_cache_key_))
-		{
-			return $list;
-		}
-
-		$regex = HOF_Class_Data::_filename($_key, '*');
-
-		$regex = '/^' . str_replace('\*', '(.+)', preg_quote($regex, '/')) . '$/i';
-
-		foreach (glob(HOF_Class_Data::_filename($_key, '*')) as $file)
-		{
-			$list[] = preg_replace($regex, '$1', $file);
-		}
-
-		sort($list, SORT_NUMERIC);
-
-		HOF::cache()->data($_cache_key_, $list);
-
-		return $list;
+		return self::_load_list_cache($_key);
 	}
 
 	/**
@@ -1241,30 +1035,8 @@ class HOF_Model_Data extends HOF_Class_Data
 
 	function getGuardList()
 	{
-
-		$_cache_key_ = 'guard_list';
-
-		if ($list = HOF::cache()->data($_cache_key_))
-		{
-			return $list;
-		}
-
 		$_key = 'guard';
-
-		$regex = HOF_Class_Data::_filename($_key, '*');
-
-		$regex = '/^' . str_replace('\*', '(.+)', preg_quote($regex, '/')) . '$/i';
-
-		foreach (glob(HOF_Class_Data::_filename($_key, '*')) as $file)
-		{
-			$list[] = preg_replace($regex, '$1', $file);
-		}
-
-		sort($list, SORT_STRING | SORT_NUMERIC | SORT_ASC);
-
-		HOF::cache()->data($_cache_key_, $list);
-
-		return $list;
+		return self::_load_list_cache($_key, SORT_STRING | SORT_NUMERIC | SORT_ASC);
 	}
 
 	function getChatAttrBaseList()
