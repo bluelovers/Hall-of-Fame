@@ -26,7 +26,9 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		$this->_cache = new HOF_Class_Array($this->_cache);
 
-		$this->user->CharDataLoadAll();
+		//$this->user->char_all();
+
+		$this->_cache->char_list = $this->user->char_list();
 
 		$this->_cache->map_subaction = array();
 	}
@@ -45,6 +47,11 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	{
 		parent::_main_before();
 
+		if ($this->action != 'char')
+		{
+			$this->user->char_all();
+		}
+
 		if (!$this->user->allowPlay())
 		{
 			$this->_main_stop(true);
@@ -60,14 +67,15 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		{
 			$this->user->LoadUserItem();
 
-			$this->char = &$this->user->char[$this->input->char];
+			//$this->char = &$this->user->char[$this->input->char];
+			$this->char = &$this->user->char($this->input->char);
 
 			if (!$this->char)
 			{
 				return $this->_main_stop(true);
 			}
 
-			$this->output->char_url = HOF::url($this->controller, null, array('char' => $this->char->id));
+			$this->output->char_url = HOF::url($this->controller, 'char', array('char' => $this->char->id));
 		}
 
 		$this->_router();
@@ -88,6 +96,8 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		$this->options['autoView'] = true;
 		$this->options['escapeHtml'] = false;
+
+		$this->output->char_list = $this->_cache->char_list;
 	}
 
 	function _router()
@@ -170,15 +180,6 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		$this->CharStatShow();
 
 		$this->output->content = ob_get_clean();
-
-		$char_list = array();
-
-		foreach ($this->user->char as $key => $val)
-		{
-			$char_list[$key] = $val->name;
-		}
-
-		$this->output->char_list = $char_list;
 	}
 
 	function _main_after()
@@ -876,7 +877,7 @@ HTML_BYEBYE;
 	 */
 	function _main_action_kick()
 	{
-		$this->char->DeleteChar();
+		$this->char->char_delete();
 
 		header("Location: ".HOF::url());
 		HOF::end();
