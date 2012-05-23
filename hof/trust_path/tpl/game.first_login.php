@@ -1,4 +1,4 @@
-<form action="<?php e(HOF::url()) ?>" method="post" style="margin:15px">
+<form action="<?php e(HOF::url('game', 'first_login')) ?>" method="post" style="margin:15px">
 		<h4>Name of Team</h4>
 
 		<?php foreach((array)$this->output->error as $e): ?>
