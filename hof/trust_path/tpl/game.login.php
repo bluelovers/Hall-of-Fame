@@ -7,7 +7,7 @@
 				<div class="recover margin15"><?php e($this->output->message) ?></div>
 			<?php endif; ?>
 
-			<form action="<?php e(HOF::url()) ?>" method="post" style="padding-left:20px">
+			<form action="<?php e(HOF::url().HOF::request()->server->REQUEST_URI) ?>" method="post" style="padding-left:20px">
 				<table>
 					<tbody>
 						<tr>
@@ -25,7 +25,7 @@
 						<tr>
 							<td></td>
 							<td><input type="submit" class="btn" name="login" value="login" style="width:80px">
-								&nbsp;<a href="<?php e(BASE_URL) ?>?newgame">NewGame?</a></td>
+								&nbsp;<a href="<?php e(HOF::url('game', 'newgame')) ?>">NewGame?</a></td>
 						</tr>
 					</tbody>
 				</table>
