@@ -335,7 +335,7 @@ class HOF_Model_Data extends HOF_Class_Data
 	function getLandList()
 	{
 		$_key = 'land';
-		return self::_load_list_cache($_key);
+		return self::_load_list_cache($_key, SORT_STRING | SORT_NUMERIC | SORT_ASC);
 	}
 
 	/**
