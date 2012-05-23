@@ -3,7 +3,7 @@
 <?php if ($this->output->job_change_list): ?>
 </form>
 
-	<form action="<?php e(HOF::url('char', null, array('char' => $this->output->char_id))) ?>" method="post" style="padding:0 15px">
+	<form action="<?php e($this->output->char_url) ?>" method="post" style="padding:0 15px">
 		<h4>JobChange</h4>
 		<table>
 			<tbody>
