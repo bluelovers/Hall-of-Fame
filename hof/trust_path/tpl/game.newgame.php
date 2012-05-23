@@ -7,7 +7,7 @@
 			<?php HOF_Helper_Global::ShowError($e[0], $e[1]); ?>
 		<?php endforeach; ?>
 
-		<p><a href="<?php e(INDEX) ?>?show_deleted_user">墓地</a></p>
+		<p><a href="<?php e(HOF::url('game', 'show_deleted_user')) ?>">墓地</a></p>
 
 	<?php $content = ob_get_clean(); ?>
 
@@ -16,7 +16,7 @@
 	<div style="margin:15px">
 		<h4>とりあえず New Game!</h4>
 		<?php if (!$this->output->user_full): ?>
-			<form action="<?php e(INDEX) ?>?newgame" method="post" autocomplete="off">
+			<form action="<?php e(HOF::url('game', 'newgame')) ?>" method="post" autocomplete="off">
 				<table>
 					<tbody>
 						<tr>
