@@ -917,7 +917,20 @@ HTML_BYEBYE;
 		 * Action Pattern 行動判定
 		 * 行動判定条件一覧
 		 */
-		$this->output->judge_list = HOF_Model_Data::getJudgeList();
+		$this->output->judge_list = array();
+		$judge_list = HOF_Model_Data::getJudgeList();
+
+		foreach($judge_list as $k)
+		{
+			$this->output->judge_list[$k] = HOF_Model_Data::getJudgeData($k);
+		}
+
+		$this->output->skill_list = array();
+
+		foreach($this->char->skill as $k)
+		{
+			$this->output->skill_list[$k] = HOF_Model_Data::getSkill($k);
+		}
 
 		/**
 		 * 前衛の時の後衛守り
@@ -1088,10 +1101,9 @@ HTML_BYEBYE;
 		{
 			print ('<div class="u bold">Mastered</div>');
 			print ("<table><tbody>");
-			foreach ($this->char->skill as $val)
+			foreach ($this->output->skill_list as $val => $skill)
 			{
 				print ("<tr><td>");
-				$skill = HOF_Model_Data::getSkill($val);
 				HOF_Class_Skill::ShowSkillDetail($skill);
 				print ("</td></tr>");
 			}
