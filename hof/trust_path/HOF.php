@@ -354,7 +354,7 @@ final class HOF
 
 		if (BASE_URL_REWRITE || !($controller || $action))
 		{
-			$urls[] = rtrim(BASE_URL, '/');
+			$urls[] = substr(BASE_URL, 0, -1);
 		}
 		else
 		{
@@ -388,15 +388,20 @@ final class HOF
 		if (!empty($extra) && is_array($extra))
 		{
 			$params = array_merge($params, $extra);
-		}
 
-		$params = array_filter((array)$params);
+			unset($extra);
+		}
 
 		$url = implode('/', $urls);
 
-		if ($param = http_build_query($params))
+		if ($params)
 		{
-			$url .= '?' . $param;
+			$params = array_filter((array)$params);
+
+			if ($param = http_build_query($params))
+			{
+				$url .= '?' . $param;
+			}
 		}
 
 		if (!empty($extra) && is_string($extra))
