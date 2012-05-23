@@ -30,6 +30,19 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		$this->input->login = HOF::$input->request->login;
 		$this->input->logout = HOF::$input->request->logout;
 
+		if (HOF_Model_Main::getInstance()->request->controller == $this->controller)
+		{
+			$this->input->action = HOF_Model_Main::getInstance()->request->action;
+		}
+
+		if ($this->input->action == 'logout' || HOF::$input->request['logout'] || $this->input->logout)
+		{
+			$this->input->action = 'logout';
+
+			$this->_main_exec('logout');
+		}
+
+		/*
 		$QUERY_STRING = HOF::$input->server->QUERY_STRING;
 
 		if (HOF::$input->request['logout'])
@@ -54,6 +67,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		{
 			$this->input->action = 'login';
 		}
+		*/
 
 		//error_reporting(E_ALL);
 	}
@@ -61,6 +75,11 @@ class HOF_Controller_Game extends HOF_Class_Controller
 	function _main_before()
 	{
 		parent::_main_before();
+
+		if (!in_array($this->action, array('logout', 'check_login')))
+		{
+			HOF::user()->CheckLogin();
+		}
 
 		if ($this->action != 'first_login' && $this->action != 'check_login')
 		{
@@ -80,6 +99,13 @@ class HOF_Controller_Game extends HOF_Class_Controller
 	 */
 	function _main_action_first_login()
 	{
+		if (HOF::user()->CheckLogin() !== true)
+		{
+			$this->_main_exec('login');
+
+			return;
+		}
+
 		if (!$this->FirstLogin())
 		{
 			$this->_main_stop(true);
@@ -89,11 +115,21 @@ class HOF_Controller_Game extends HOF_Class_Controller
 			$this->user->fpclose_all();
 		}
 
-
+		if (HOF_Model_Main::getInstance()->request->controller == $this->controller && HOF_Model_Main::getInstance()->request->action == $this->action)
+		{
+			header("Location: ".HOF::url());
+			HOF::end();
+		}
 	}
 
 	function _main_action_delete_my_data()
 	{
+		if (HOF::user()->CheckLogin() !== true)
+		{
+			header("Location: ".HOF::url());
+			HOF::end();
+		}
+
 		if (!$message = $this->DeleteMyData())
 		{
 			$this->_main_stop(true);
@@ -102,6 +138,14 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		{
 			$this->user->fpclose_all();
 			$this->_main_exec('login', $message);
+		}
+
+		if (HOF_Model_Main::getInstance()->request->controller == $this->controller && HOF_Model_Main::getInstance()->request->action == $this->action)
+		{
+			HOF::session(true)->login_message = $message;
+
+			header("Location: ".HOF::url());
+			HOF::end();
 		}
 	}
 
@@ -115,7 +159,24 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 	function _main_action_login($message = null)
 	{
-		if ($message) $this->output->message = $message;
+		if ($this->input->action != 'logout' && HOF::user()->CheckLogin() === true)
+		{
+			$this->_main_exec('first_login');
+
+			return;
+		}
+
+		if (!$message)
+		{
+			$message = HOF::session(true)->login_message;
+			unset(HOF::session(true)->login_message);
+		}
+
+		if ($message)
+		{
+			$this->output->message = $message;
+		}
+
 		$this->output->id = HOF::user()->session()->id();
 
 		$this->output->game_users = HOF_Helper_Global::UserAmount();
@@ -264,6 +325,14 @@ class HOF_Controller_Game extends HOF_Class_Controller
 	 */
 	function _main_action_newgame()
 	{
+
+		if (HOF::user()->CheckLogin() === true)
+		{
+			$this->_main_exec('first_login');
+
+			return;
+		}
+
 		$this->output->newid = $this->input->newid;
 
 		/**
@@ -284,6 +353,15 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 			if (true === $bool)
 			{
+
+				if (HOF_Model_Main::getInstance()->request->controller == $this->controller && HOF_Model_Main::getInstance()->request->action == $this->action)
+				{
+					HOF::session(true)->login_message = $message;
+
+					header("Location: ".HOF::url());
+					HOF::end();
+				}
+
 				$this->_main_exec('login', $message);
 			}
 			elseif ($message)
@@ -562,6 +640,14 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 		HOF_Model_Main::getUserList();
 
+		if (HOF_Model_Main::getInstance()->request->controller == $this->controller && HOF_Model_Main::getInstance()->request->action == $this->action)
+		{
+			HOF::session(true)->login_message = 'User Logout!!';
+
+			header("Location: ".HOF::url());
+			HOF::end();
+		}
+
 		$this->_main_exec('login', $this->input->action == 'logout' ? 'User Logout!!' : $message);
 	}
 
@@ -579,6 +665,12 @@ class HOF_Controller_Game extends HOF_Class_Controller
 		else
 		{
 			$this->_main_stop(true);
+		}
+
+		if (HOF_Model_Main::getInstance()->request->controller == $this->controller && HOF_Model_Main::getInstance()->request->action == $this->action)
+		{
+			header("Location: ".HOF::url());
+			HOF::end();
 		}
 	}
 
@@ -647,6 +739,13 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 	function _main_action_setting()
 	{
+		if (!HOF::user()->allowPlay())
+		{
+			$this->_main_exec('login');
+
+			return;
+		}
+
 		$this->input->NewName = HOF::$input->post->NewName;
 		$this->input->setting01 = HOF::$input->post->setting01;
 		$this->input->record_battle_log = HOF::$input->post->record_battle_log;
