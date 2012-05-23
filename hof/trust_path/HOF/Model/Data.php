@@ -893,6 +893,8 @@ class HOF_Model_Data extends HOF_Class_Data
 			return false;
 		}
 
+		HOF_Class_File::opened_files_add($file);
+
 		$fp = fopen($file, "r");
 
 		// 数行だけ読み込む。
