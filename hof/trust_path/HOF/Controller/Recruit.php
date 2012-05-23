@@ -66,7 +66,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 
 		if ($this->RecruitProcess()) $this->user->SaveData();
 
-		$this->output->error_max = (MAX_CHAR <= $this->user->CharCount());
+		$this->output->error_max = (MAX_CHAR <= $this->user->char_count());
 
 		$this->user->fpclose_all();
 	}
@@ -106,7 +106,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 				return false;
 			}
 
-			$_exists_chars_ = $this->user->_cache_user_()->data('char_list');
+			$_exists_chars_ = $this->user->cache()->data('char_list');
 
 			if (in_array($name, (array)$_exists_chars_))
 			{
@@ -151,7 +151,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 
 			$_exists_chars_[$char->id] = $char->name;
 
-			$this->user->_cache_user_()->data('char_list', $_exists_chars_);
+			$this->user->cache()->data('char_list', $_exists_chars_);
 
 			HOF_Helper_Global::ShowResult($char->Name() . "($char->job_name) が仲間になった！", "margin15");
 			return true;
@@ -161,7 +161,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 	function RecruitShow()
 	{
 
-		$this->output->error_max = (MAX_CHAR <= $this->user->CharCount());
+		$this->output->error_max = (MAX_CHAR <= $this->user->char_count());
 
 		if (!$this->output->error_max)
 		{
