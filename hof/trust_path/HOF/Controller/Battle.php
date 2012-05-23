@@ -26,6 +26,16 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 	function _main_before()
 	{
+
+		if (!$this->user->allowPlay())
+		{
+			$this->_main_stop(true);
+
+			HOF_Class_Controller::getInstance('game', 'login')->_main_exec('login');
+
+			return;
+		}
+
 		$this->user->LoadUserItem();
 		$this->user->CharDataLoadAll();
 
