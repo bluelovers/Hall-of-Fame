@@ -37,7 +37,11 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		}
 
 		$this->user->LoadUserItem();
-		$this->user->CharDataLoadAll();
+
+		if ($this->action != 'hunt')
+		{
+			$this->user->char_all();
+		}
 
 		if (!$this->_cache['lands'] = $this->user->cache()->data('land_appear'))
 		{
