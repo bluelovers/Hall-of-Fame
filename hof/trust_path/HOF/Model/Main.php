@@ -483,7 +483,12 @@ class HOF_Model_Main extends HOF_Class_Array
 	//	変数の表示
 	function Debug()
 	{
-		if (DEBUG) print ("<pre>" . print_r(get_object_vars($this), 1) . "</pre>");
+		if (DEBUG)
+		{
+			//print ("<pre>" . print_r(get_object_vars($this), 1) . "</pre>");
+
+			debug(HOF_Class_File::$opened_files);
+		}
 	}
 
 	/**
