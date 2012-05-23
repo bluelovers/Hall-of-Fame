@@ -9,6 +9,7 @@ class HOF_Class_File
 {
 
 	static $data = array();
+	static $opened_files = array();
 
 	public static function fpclose_all()
 	{
@@ -161,6 +162,8 @@ class HOF_Class_File
 		$data['fp'] = $fp;
 		$data['file'] = $file;
 		$data['lock'] = 0;
+
+		self::$opened_files[str_replace(BASE_PATH, '', $file)]++;
 
 		array_push(self::$data, $data);
 
