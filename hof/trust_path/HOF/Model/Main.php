@@ -7,7 +7,7 @@
 
 //include_once (GLOBAL_PHP);
 
-class HOF_Model_Main extends HOF_Class_Array
+class HOF_Model_Main
 {
 	public $ip;
 	public $user_name;
