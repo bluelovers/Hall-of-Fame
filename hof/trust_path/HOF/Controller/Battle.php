@@ -60,6 +60,8 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		$this->input->input_char_id = (array )HOF::$input->post->input_char_id;
 
+		//debug($this->input->input_char_id, $_POST);
+
 		$this->input->land = HOF::$input->request->land;
 
 		$this->output['battle.target.from.action'] = HOF::url($this->controller, $this->action, array('land' => $this->input->land));
