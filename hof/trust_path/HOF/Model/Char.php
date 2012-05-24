@@ -95,7 +95,7 @@ class HOF_Model_Char extends HOF_Class_Data
 
 		if (!empty($append))
 		{
-			$append = self::_fixArray($append);
+			$append = HOF_Class_Array::_fixArray($append);
 
 			$data = array_merge($data, (array )$append);
 		}
@@ -401,7 +401,7 @@ class HOF_Model_Char extends HOF_Class_Data
 			$append = $no;
 		}
 
-		$append = self::_fixArray($append);
+		$append = HOF_Class_Array::_fixArray($append);
 
 		$char = new HOF_Class_Char_Mon($append);
 
