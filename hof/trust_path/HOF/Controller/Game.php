@@ -754,7 +754,6 @@ class HOF_Controller_Game extends HOF_Class_Controller
 			return;
 		}
 
-		$this->input->NewName = HOF::$input->post->NewName;
 		$this->input->setting01 = HOF::$input->post->setting01;
 		$this->input->record_battle_log = HOF::$input->post->record_battle_log;
 		$this->input->color = HOF::$input->post->color;
@@ -816,6 +815,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 	protected function user_rename()
 	{
+		$this->input->NewName = HOF::$input->post->NewName;
 		$this->input->setting_rename = HOF::request()->post->setting_rename;
 
 		if ($this->input->NewName || $this->input->setting_rename)
@@ -826,9 +826,11 @@ class HOF_Controller_Game extends HOF_Class_Controller
 				return false;
 			}
 
+			$NewName = HOF_Helper_Char::char_is_allow_name($this->input->NewName);
+
 			if (!$NewName || !$this->input->NewName || $NewName != $this->input->NewName)
 			{
-				$this->output->error['setting_rename'][] = array('error1');
+				$this->output->error['setting_rename'][] = array('Bad Name.');
 				return false;
 			}
 
@@ -836,7 +838,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 			if (in_array($NewName, $userName))
 			{
-				$this->output->error['setting_rename'][] = array("その名前は使用されている。", "margin15");
+				$this->output->error['setting_rename'][] = array("{$NewName} は、名前は既に使用されている。", "margin15");
 				return false;
 			}
 
