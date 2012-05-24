@@ -416,11 +416,14 @@ class HOF_Model_Main extends HOF_Class_Array
 		$size = memory_get_usage();
 		$size = rtrim(bcdiv($size, pow(1024, ($i = floor(log($size, 1024)))), 4), '0.') . ' ' . $unit[$i];
 
+		$ios2 = array_sum((array)HOF_Class_File::$opened_files);
+
 		$ios = function_exists('get_included_files') ? count(get_included_files()) : 0;
 		$umem = function_exists('memory_get_usage') ? $size : 0;
 		$debuginfo = array(
 			//'time' => number_format(($mtime[1] + $mtime[0] - $discuz_starttime), 6),
 			'ios' => $ios,
+			'ios2' => $ios2,
 			'umem' => $umem,
 			);
 
@@ -465,7 +468,7 @@ class HOF_Model_Main extends HOF_Class_Array
 
 			, <?=
 
-		$debuginfo['ios']
+		$debuginfo['ios'] . '+' . $debuginfo['ios2']
 
 
 ?> ios, <?=
