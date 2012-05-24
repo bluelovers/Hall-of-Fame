@@ -130,22 +130,30 @@ class HOF_Controller_Game extends HOF_Class_Controller
 			HOF::end();
 		}
 
+		$this->input->delete = HOF::$input->post->delete;
+
+		if (!$this->input->delete)
+		{
+			return;
+		}
+
 		if (!$message = $this->DeleteMyData())
 		{
-			$this->_main_stop(true);
+			//$this->_main_stop(true);
+			$this->output->error['delete_my_data'][] = array('Error', 'margin15');
 		}
 		else
 		{
 			$this->user->fpclose_all();
 			$this->_main_exec('login', $message);
-		}
 
-		if (HOF_Model_Main::getInstance()->request->controller == $this->controller && HOF_Model_Main::getInstance()->request->action == $this->action)
-		{
-			HOF::session(true)->login_message = $message;
+			if (HOF_Model_Main::getInstance()->request->controller == $this->controller && HOF_Model_Main::getInstance()->request->action == $this->action)
+			{
+				HOF::session(true)->login_message = $message;
 
-			header("Location: ".HOF::url());
-			HOF::end();
+				header("Location: ".HOF::url());
+				HOF::end();
+			}
 		}
 	}
 
@@ -774,55 +782,6 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 	function SettingProcess()
 	{
-		if ($this->input->NewName)
-		{
-			$NewName = $this->input->NewName;
-			if (is_numeric(strpos($NewName, "\t")))
-			{
-				HOF_Helper_Global::ShowError('error1');
-				return false;
-			}
-			$NewName = trim($NewName);
-			$NewName = stripslashes($NewName);
-			if (!$NewName)
-			{
-				HOF_Helper_Global::ShowError('Name is blank.');
-				return false;
-			}
-			$length = strlen($NewName);
-			if (0 == $length || 16 < $length)
-			{
-				HOF_Helper_Global::ShowError('1 to 16 letters?');
-				return false;
-			}
-
-			$userName = HOF_Model_Main::getNameList();
-
-			if (in_array($NewName, $userName))
-			{
-				HOF_Helper_Global::ShowError("その名前は使用されている。", "margin15");
-				return false;
-			}
-			if (!$this->user->TakeMoney(NEW_NAME_COST))
-			{
-				HOF_Helper_Global::ShowError('money not enough');
-				return false;
-			}
-			$OldName = $this->user->name;
-			$NewName = htmlspecialchars($NewName, ENT_QUOTES);
-			if ($this->user->ChangeName($NewName, true))
-			{
-				HOF_Helper_Global::ShowResult("Name Changed ({$OldName} -> {$NewName})", "margin15");
-
-				return true;
-			}
-			else
-			{
-				HOF_Helper_Global::ShowError("?"); //名前が同じ？
-				return false;
-			}
-		}
-
 		if ($this->input->setting01)
 		{
 			/*
@@ -844,6 +803,56 @@ class HOF_Controller_Game extends HOF_Class_Controller
 			$this->user->options['UserColor'] = $this->input->color;
 			HOF_Helper_Global::ShowResult("Setting changed.", "margin15");
 			return true;
+		}
+	}
+
+	function _main_action_setting_rename()
+	{
+		if ($this->user_rename())
+		{
+			$this->user->SaveData();
+		}
+	}
+
+	protected function user_rename()
+	{
+		$this->input->setting_rename = HOF::request()->post->setting_rename;
+
+		if ($this->input->NewName || $this->input->setting_rename)
+		{
+			if (!$this->user->TakeMoney(NEW_NAME_COST))
+			{
+				$this->output->error['setting_rename'][] = array('money not enough');
+				return false;
+			}
+
+			if (!$NewName || !$this->input->NewName || $NewName != $this->input->NewName)
+			{
+				$this->output->error['setting_rename'][] = array('error1');
+				return false;
+			}
+
+			$userName = HOF_Model_Main::getNameList();
+
+			if (in_array($NewName, $userName))
+			{
+				$this->output->error['setting_rename'][] = array("その名前は使用されている。", "margin15");
+				return false;
+			}
+
+			$OldName = $this->user->name;
+
+			if ($this->user->ChangeName($NewName, true))
+			{
+				$this->output->msg_result['setting_rename'][] = array("Name Changed ({$OldName} -> {$NewName})", "margin15");
+
+				return true;
+			}
+			else
+			{
+				$this->output->error['setting_rename'][] = array("?"); //名前が同じ？
+				return false;
+			}
 		}
 	}
 
