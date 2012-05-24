@@ -1,6 +1,6 @@
 <!-- 転職 -->
 
-<?php if ($this->output->job_change_list): ?>
+<?php if (!empty($this->output->job_change_list)): ?>
 </form>
 
 	<form action="<?php e($this->output->char_url) ?>" method="post" style="padding:0 15px">
