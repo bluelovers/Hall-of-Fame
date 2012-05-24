@@ -29,24 +29,8 @@
 		<form action="<?php e(HOF::url('game', 'logout')) ?>" method="post">
 			<input type="submit" class="btn" name="logout" value="logout" style="width:100px">
 		</form>
-		<h4>チーム名の変更</h4>
-		<form action="<?php e(HOF::url('game', 'setting')) ?>" method="post">
-			費用 :
-			<?php e(HOF_Helper_Global::MoneyFormat(NEW_NAME_COST)) ?>
-			<br />
-			16文字まで(全角=2文字)
-			<br />
-			新しい名前 :
-			<input type="text" class="text" name="NewName" size="20">
-			<input type="submit" class="btn" value="change" style="width:100px">
-		</form>
-		<h4>脱出口</h4>
-		<div class="u">
-			※データの削除
-		</div>
-		<form action="<?php e(HOF::url('game', 'setting')) ?>" method="post">
-			PassWord :
-			<input type="text" class="text" name="deletepass" size="20" autocomplete="off">
-			<input type="submit" class="btn" name="delete" value="delete" style="width:100px">
-		</form>
 	</div>
+
+	<?php e($this->slot('game.setting_rename')) ?>
+
+	<?php e($this->slot('game.delete_my_data')) ?>
