@@ -18,8 +18,6 @@ class HOF_Class_Request extends HOF_Class_Array
 	{
 		parent::__construct();
 
-		unset($this->_data_default_);
-
 		$this->setup($input);
 	}
 
