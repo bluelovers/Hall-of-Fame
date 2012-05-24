@@ -195,32 +195,7 @@ class HOF_Class_User
 	 */
 	function is_exist()
 	{
-		return (!isset($this->name) || empty($this->name)) ? false : true;
-	}
-
-	function _getfilename($path)
-	{
-		$ok = 0;
-
-		$map = array(".yml", ".dat");
-
-		foreach ($map as $ext)
-		{
-			$file = $path . $ext;
-			if (file_exists($file))
-			{
-				$ok = 1;
-
-				break;
-			}
-		}
-
-		if (!$ok)
-		{
-			$file = $path . reset($map);
-		}
-
-		return array($ok, $file);
+		return (!$this->id || !isset($this->name) || empty($this->name)) ? false : true;
 	}
 
 	function char_list($over = null)
