@@ -17,8 +17,6 @@ class HOF_Class_Battle_Team extends HOF_Class_Array
 
 		parent::__construct($team);
 
-		unset($this->_data_default_);
-
 		if (!empty($team))
 		{
 			$this->update();
