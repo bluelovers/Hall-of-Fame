@@ -42,6 +42,8 @@ class HOF_Class_Array extends ArrayObject
 
 	static $ARRAYOBJECT = 'HOF_Class_Array';
 
+	protected $ARRAYOBJECT_AUTO = 0;
+
 	function __construct($input = null, $deep = 0, $loop = 0)
 	{
 		if ($input === null) $input = (isset($this->_data_default_) && !empty($this->_data_default_)) ? $this->_data_default_ : array();
@@ -50,6 +52,11 @@ class HOF_Class_Array extends ArrayObject
 
 		$this->setFlags(self::ARRAY_PROP_BOTH);
 		$this->exchangeArray($input);
+
+		if ($loop > 0)
+		{
+			$this->ARRAYOBJECT_AUTO = $loop;
+		}
 
 		$this->_toArrayObjectRecursive(&$this, $loop);
 	}
@@ -89,14 +96,35 @@ class HOF_Class_Array extends ArrayObject
 	{
 		if (!$ARRAYOBJECT) $ARRAYOBJECT = self::$ARRAYOBJECT;
 
+		if (isset($this))
+		{
+			if (is_array($append) && !($append instanceof $ARRAYOBJECT))
+			{
+				$append = new $ARRAYOBJECT($append);
+			}
+
+			if ($loop > 0 && ($append instanceof $ARRAYOBJECT) && count($append) > 0)
+			{
+				foreach ($append as &$v)
+				{
+					if (is_array($v))
+					{
+						$v = new $ARRAYOBJECT($v, 0, $loop - 1);
+					}
+				}
+			}
+
+			return $append;
+		}
+
 		if (is_array($append) && !($append instanceof $ARRAYOBJECT))
 		{
 			$append = new $ARRAYOBJECT($append);
 		}
 
-		if ($loop > 0 && is_array($append) && count($append) > 0)
+		if ($loop > 0 && ($append instanceof $ARRAYOBJECT) && count($append) > 0)
 		{
-			foreach($append as $k => $v)
+			foreach ($append as $k => $v)
 			{
 				$append[$k] = self::_toArrayObjectRecursive($v, $loop - 1, $ARRAYOBJECT);
 			}
@@ -116,7 +144,7 @@ class HOF_Class_Array extends ArrayObject
 
 		if ($loop > 0 && is_array($append))
 		{
-			foreach($append as $k => $v)
+			foreach ($append as $k => $v)
 			{
 				$append[$k] = self::_fixArrayRecursive($v, $loop - 1);
 			}
@@ -157,13 +185,13 @@ class HOF_Class_Array extends ArrayObject
 		$j = 0;
 		$do = true;
 
-		foreach($array as $k => &$v)
+		foreach ($array as $k => &$v)
 		{
 			if ($do && ($k == $offset || ($offset == 0 && $j == 0) || $offset === $j))
 			{
 				$do = false;
 
-				foreach($insert as &$i)
+				foreach ($insert as &$i)
 				{
 					$new[] = $i;
 				}
@@ -178,13 +206,33 @@ class HOF_Class_Array extends ArrayObject
 		{
 			$do = false;
 
-			foreach($insert as &$i)
+			foreach ($insert as &$i)
 			{
 				$new[] = $i;
 			}
 		}
 
 		$this->exchangeArray($new);
+	}
+
+	public function offsetGet($name)
+	{
+		//var_dump(array(__FUNCTION__, func_get_args()));
+
+		return call_user_func_array(array(parent, __FUNCTION__ ), func_get_args());
+	}
+
+	public function offsetSet($name, $value)
+	{
+		if ($this->ARRAYOBJECT_AUTO && is_array($value))
+		{
+			$ARRAYOBJECT = self::$ARRAYOBJECT;
+			$value = new $ARRAYOBJECT($value, 0, $this->ARRAYOBJECT_AUTO - 1);
+
+			//var_dump(array(__FUNCTION__, $value));
+		}
+
+		return call_user_func(array(parent, __FUNCTION__ ), $name, $value);
 	}
 
 }
