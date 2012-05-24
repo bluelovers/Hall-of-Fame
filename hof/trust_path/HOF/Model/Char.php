@@ -119,7 +119,7 @@ class HOF_Model_Char extends HOF_Class_Data
 
 		if (!empty($append))
 		{
-			$append = self::_fixArray($append);
+			$append = HOF_Class_Array::_fixArray($append);
 
 			$char->SetCharData($append);
 		}
