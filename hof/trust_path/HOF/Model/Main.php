@@ -93,58 +93,30 @@ class HOF_Model_Main
 
 	function Order()
 	{
+		/*
 		if ($this->request->controller == 'rank' || $this->request->controller == 'auction')
 		{
 			HOF_Class_Controller::newInstance($this->request->controller, $this->request->action, $this->request->extra)->main()->_main_stop();
 			return 0;
 		}
+		*/
 
-		if (true === $message = HOF::user()->CheckLogin())
+		if (true === HOF::user()->allowPlay())
 		{
-			if (HOF::user()->FirstLogin())
+			if (!$this->OptionOrder())
 			{
-				return 0;
-			}
-
-			switch (true)
-			{
-				case ($this->OptionOrder()):
-					return false;
-				case ($_POST["delete"]):
-					if (!HOF_Class_Controller::getInstance('game', 'DeleteMyData')->main()->_main_stop())
-					{
-						return 0;
-					}
-				case ($_SERVER["QUERY_STRING"] === "setting"):
-					HOF_Class_Controller::getInstance('game', $_SERVER["QUERY_STRING"])->main();
-					return 0;
-				case ($_GET["char"]):
-				default:
-					HOF_Class_Controller::newInstance('char')->main();
-					return 0;
+				HOF_Class_Controller::newInstance('char')->main();
 			}
 		}
 		else
 		{
-			switch (true)
+			if (!$this->OptionOrder())
 			{
-				case ($this->OptionOrder()):
-					return false;
-					/*
-				case ($_POST["Make"]):
-				case ($_SERVER["QUERY_STRING"] === "newgame"):
-					HOF_Class_Controller::getInstance('game', "newgame")->main();
-					return false;
-					*/
-				default:
-					HOF_Class_Controller::getInstance('game', "login")->main();
+				HOF_Class_Controller::getInstance('game', "login")->main();
 			}
 		}
 	}
 
-	/**
-	 * UpDate,BBS,Manual等
-	 */
 	function OptionOrder()
 	{
 		if ($this->request->controller)
