@@ -5,11 +5,16 @@
  * @copyright 2012
  */
 
-class HOF_Class_Data extends HOF_Class_Array
+class HOF_Class_Data
 {
 
 	var $autocache = false;
 	var $data;
+
+	function __construct()
+	{
+
+	}
 
 	/**
 	 * $_key = strtolower($_key);
