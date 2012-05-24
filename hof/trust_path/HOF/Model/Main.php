@@ -48,8 +48,6 @@ class HOF_Model_Main
 			die('error!!');
 		}
 
-		parent::__construct();
-
 		$this->ip = HOF::ip();
 
 		$this->user = &HOF::user();
