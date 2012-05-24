@@ -100,7 +100,7 @@ class HOF_Class_Array extends ArrayObject
 		{
 			if (is_array($append) && !($append instanceof $ARRAYOBJECT))
 			{
-				$append = new $ARRAYOBJECT($append);
+				$append = new $ARRAYOBJECT($append, 0, $loop);
 			}
 
 			if ($loop > 0 && ($append instanceof $ARRAYOBJECT) && count($append) > 0)
