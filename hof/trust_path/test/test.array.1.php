@@ -28,3 +28,8 @@ var_dump($arr['c']);
 $arr['d'] = array(789, array(999));
 
 var_dump($arr['d']);
+
+foreach($arr as $k => $v)
+{
+	debug($k);
+}
