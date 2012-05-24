@@ -14,6 +14,23 @@
 class HOF_Class_Request extends HOF_Class_Array
 {
 
+	/**
+	 * @var HOF_Class_Request_Query
+	 */
+	public $get;
+	/**
+	 * @var HOF_Class_Request_Query
+	 */
+	public $post;
+	/**
+	 * @var HOF_Class_Request_Query
+	 */
+	public $request;
+	/**
+	 * @var HOF_Class_Request_Query
+	 */
+	public $server;
+
 	function __construct($input = null)
 	{
 		parent::__construct();
@@ -25,10 +42,17 @@ class HOF_Class_Request extends HOF_Class_Array
 	{
 		if ($input === null)
 		{
+			$input_map = array(
+				'get' => '_GET',
+				'post' => '_POST',
+				'server' => '_SERVER',
+				'request' => '_REQUEST'
+			);
+
 			$input = array(
-				'get' => (array)$_GET,
-				'post' => (array)$_POST,
-				'server' => (array)$_SERVER,
+				'get' => $_GET,
+				'post' => $_POST,
+				'server' => $_SERVER,
 			);
 
 			foreach($input['get'] as $k => $v)
@@ -43,7 +67,7 @@ class HOF_Class_Request extends HOF_Class_Array
 
 			foreach ($input as $k => $v)
 			{
-				$input[$k] = new self($v);
+				$input[$k] = new HOF_Class_Request_Query($input_map[$k], $v);
 			}
 		}
 
@@ -54,7 +78,7 @@ class HOF_Class_Request extends HOF_Class_Array
 
 	function query()
 	{
-		return http_build_query($this->request);
+		return (string)$this->request;
 	}
 
 	function __toString()
