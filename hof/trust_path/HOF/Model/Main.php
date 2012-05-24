@@ -460,7 +460,7 @@ class HOF_Model_Main
 		{
 			//print ("<pre>" . print_r(get_object_vars($this), 1) . "</pre>");
 
-			debug(HOF_Class_File::$opened_files);
+			debug(HOF_Class_File::$opened_files, (string)HOF::request(), (string)HOF::request()->post, (string)HOF::request()->get);
 		}
 	}
 
