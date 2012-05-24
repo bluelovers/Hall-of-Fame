@@ -90,7 +90,7 @@ class HOF_Class_Array extends ArrayObject
 			{
 				$this->$k = &$this[$k];
 			}
-			else
+			elseif (strpos($k, 'ARRAYOBJECT') === false)
 			{
 				$this->offsetSet($k, &$this->$k);
 			}
@@ -158,7 +158,7 @@ class HOF_Class_Array extends ArrayObject
 		return $append;
 	}
 
-	function toArray($public = false)
+	function toArray($public = false, $fix = false)
 	{
 		if ($public)
 		{
@@ -175,10 +175,26 @@ class HOF_Class_Array extends ArrayObject
 				$list[$prop->getName()] = 1;
 			}
 
-			return array_diff_key($this->toArray(), (array)$list);
+			$data = $this->toArray();
+
+			foreach ($data as $k => $v)
+			{
+				if ($v instanceof self::$ARRAYOBJECT)
+				{
+					$data[$k] = $v->toArray($public, $fix);
+				}
+			}
+
+			$ret = array_diff_key($data, (array)$list);
+		}
+		else
+		{
+			$ret = $this->getArrayCopy();
 		}
 
-		return $this->getArrayCopy();
+		if ($fix) self::_fixArrayRecursive(&$ret, self::ARRAY_RECURSIVE_ALL);
+
+		return $ret;
 	}
 
 	function _fixArrayRecursive($append, $loop = 1)
