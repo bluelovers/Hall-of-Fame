@@ -13,7 +13,7 @@ class HOF_Class_Request_Query extends HOF_Class_Array
 
 	function __construct($source_name, $source_data)
 	{
-		parent::__construct((array)$source_data, 0, 1);
+		parent::__construct((array)$source_data);
 
 		$this->SOURCE_DATA = $source_data;
 		$this->SOURCE_NAME = $source_name;
@@ -21,7 +21,7 @@ class HOF_Class_Request_Query extends HOF_Class_Array
 
 	function query()
 	{
-		return http_build_query($this->toArray(true));
+		return http_build_query($this->toArray(true, true));
 	}
 
 	function __toString()
