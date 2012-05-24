@@ -65,14 +65,38 @@ class HOF_Class_Array extends ArrayObject
 	{
 		$array = parent::exchangeArray($input);
 
+		/*
 		if (empty($input))
 		{
 			$keep = true;
 		}
+		*/
 
 		/**
 		 * fix bug when exists class prop
 		 */
+		$reflect = new ReflectionClass($this);
+		$props = $reflect->getProperties();
+		foreach ($props as $prop)
+		{
+			$k = $prop->getName();
+
+			if ($prop->isStatic() || $prop->isPrivate())
+			{
+				continue;
+			}
+
+			if ($this->offsetExists($k))
+			{
+				$this->$k = &$this[$k];
+			}
+			else
+			{
+				$this->offsetSet($k, &$this->$k);
+			}
+		}
+
+		/*
 		foreach (get_class_vars(get_class($this)) as $k => $v)
 		{
 			if (0 && $keep && $v !== null)
@@ -83,11 +107,12 @@ class HOF_Class_Array extends ArrayObject
 			{
 				$this->$k = &$this[$k];
 			}
-			elseif (0)
+			elseif (0 && property_exists($this, $k))
 			{
-				$this->$k = $this->$k;
+				self::offsetSet($k, &$this->$k);
 			}
 		}
+		*/
 
 		return $array;
 	}
@@ -133,8 +158,26 @@ class HOF_Class_Array extends ArrayObject
 		return $append;
 	}
 
-	function toArray()
+	function toArray($public = false)
 	{
+		if ($public)
+		{
+			$reflect = new ReflectionClass($this);
+			$props = $reflect->getProperties();
+
+			foreach ($props as $prop)
+			{
+				if ($prop->isStatic() || $prop->isPrivate() || $prop->isPublic())
+				{
+					continue;
+				}
+
+				$list[$prop->getName()] = 1;
+			}
+
+			return array_diff_key($this->toArray(), (array)$list);
+		}
+
 		return $this->getArrayCopy();
 	}
 
@@ -215,13 +258,7 @@ class HOF_Class_Array extends ArrayObject
 		$this->exchangeArray($new);
 	}
 
-	public function offsetGet($name)
-	{
-		//var_dump(array(__FUNCTION__, func_get_args()));
-
-		return call_user_func_array(array(parent, __FUNCTION__ ), func_get_args());
-	}
-
+	/*
 	public function offsetSet($name, $value)
 	{
 		if ($this->ARRAYOBJECT_AUTO && is_array($value))
@@ -232,7 +269,8 @@ class HOF_Class_Array extends ArrayObject
 			//var_dump(array(__FUNCTION__, $value));
 		}
 
-		return call_user_func(array(parent, __FUNCTION__ ), $name, $value);
+		return parent::offsetSet($name, $value);
 	}
+	*/
 
 }
