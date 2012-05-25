@@ -120,11 +120,13 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 			}
 			// 追加素材のアイテムデータ
 			$ADD = HOF_Model_Data::getItemData($this->input->AddMaterial);
-			$this->DeleteItem($this->input->AddMaterial);
+			$this->user->DeleteItem($this->input->AddMaterial);
 		}
 
-		// アイテムの製作
-		// お金を減らす
+		/**
+		 * イテムの製作
+		 * お金を減らす
+		 */
 		//$Price	= $item["buy"];
 		$Price = 0;
 		if (!$this->user->TakeMoney($Price))
@@ -132,17 +134,26 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 			HOF_Helper_Global::ShowError("お金が足りません。" . HOF_Helper_Global::MoneyFormat($Price) . "必要です。");
 			return false;
 		}
-		// 素材を減らす
+
+		/**
+		 * 素材を減らす
+		 */
 		foreach ($item["need"] as $M_item => $M_amount)
 		{
 			$this->user->DeleteItem($M_item, $M_amount);
 		}
 
-		$item = new HOF_Class_Item_Smithy($_POST["ItemNo"]);
+		$item = new HOF_Class_Item_Smithy($this->input->ItemNo);
 		$item->CreateItem();
-		// 付加効果
+
+		/**
+		 * 付加効果
+		 */
 		if ($ADD["Add"]) $item->AddSpecial($ADD["Add"]);
-		// できたアイテムを保存する
+
+		/**
+		 * できたアイテムを保存する
+		 */
 		$done = $item->ReturnItem();
 		$this->user->AddItem($done);
 		$this->user->SaveUserItem();
@@ -172,12 +183,12 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 		if ($this->user->options['no_JS_itemlist']) $CreateList->NoJS();
 		foreach ($CanCreate as $item_no)
 		{
-			$item = HOF_Model_Data::getItemData($item_no);
-			if (!HOF_Class_Item_Create::HaveNeeds($item, $this->user->item))
+			//$item = HOF_Model_Data::getItemData($item_no);
+			if (!$item = HOF_Class_Item_Create::HaveNeeds($item_no, $this->user->item))
 			{
 				// 素材不足なら次
- 					continue;
-				}
+				continue;
+			}
 
 			// NoTable
 
@@ -210,9 +221,9 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 
 			// 追加素材の表示
 			print ('<div class="bold u" style="margin-top:15px">追加素材</div>' . "\n");
-			for ($item_no = 7000; $item_no < 7200; $item_no++)
+			foreach (HOF_Model_Data::getItemCreateMaterialList('material_plus') as $item_no)
 			{
-				if (!$this->user->item["$item_no"]) continue;
+				if (!$this->user->item[$item_no]) continue;
 				if ($item = HOF_Model_Data::getItemData($item_no))
 				{
 					print ('<input type="radio" name="AddMaterial" value="' . $item_no . '" class="vcent">');
@@ -238,11 +249,12 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 		print ("</div>\n");
 		print ("<h4>所持素材一覧<a name=\"mat\"></a> <a href=\"#sm\">↑</a></h4>");
 		print ("<div style=\"margin:0 15px\">");
-		for ($i = 6000; $i < 7000; $i++)
-		{
-			if (!$this->user->item["$i"]) continue;
 
-			HOF_Class_Item::newInstance($i)->html($this->user->item["$i"]);
+		foreach (HOF_Model_Data::getItemCreateMaterialList() as $i)
+		{
+			if (!$this->user->item[$i]) continue;
+
+			echo HOF_Class_Item::newInstance($i)->html($this->user->item[$i]);
 			print ("<br />\n");
 		}
 
@@ -385,7 +397,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 			print ('精錬可能な物一覧');
 			// 種類のセレクトボックス
 			print ($goods->ShowSelect());
-			print ('<form action="'.HOF::url('smithy', 'refine').'" method="post">' . "\n");
+			print ('<form action="' . HOF::url('smithy', 'refine') . '" method="post">' . "\n");
 			// [Refine]button
 			print ('<input type="submit" value="Refine" name="refine" class="btn">' . "\n");
 			// 精錬回数の指定
