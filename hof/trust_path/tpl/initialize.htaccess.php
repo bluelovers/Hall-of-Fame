@@ -1,6 +1,6 @@
 #
 #	@author		bluelovers
-#	@copyright	<?php e(gmdate('Y', REQUEST_TIME)) ?>
+#	@copyright	<?php e(HOF::date('Y')) ?>
 #
 
 Options All -Indexes
