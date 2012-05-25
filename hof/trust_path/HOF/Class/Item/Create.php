@@ -13,6 +13,9 @@ class HOF_Class_Item_Create
 	 */
 	function CanCreate($user)
 	{
+		$list = HOF_Model_Data::getItemCreateList();
+
+		return $list;
 
 		/**
 		 * 	// ※表示に時間かかる
@@ -167,10 +170,20 @@ class HOF_Class_Item_Create
 	/**
 	 * 作れるか素材があるか問う
 	 */
-	function HaveNeeds($item, $UserItem)
+	function HaveNeeds($no, $UserItem)
 	{
 		// ユーザーのアイテムが無い場合は無理
 		if (!$UserItem) return false;
+
+		if (is_string($no))
+		{
+			$item = HOF_Model_Data::getItemCreateData($no);
+		}
+		else
+		{
+			$item = $no;
+		}
+
 		// 作成できない武器防具は無理
 		if (!$item["need"]) return false;
 
@@ -178,7 +191,13 @@ class HOF_Class_Item_Create
 		{
 			if ($UserItem[$NeedNo] < $Amount) return false;
 		}
-		return true;
+
+		if (is_string($no))
+		{
+			$item = HOF_Model_Data::getItemData($no);
+		}
+
+		return $item;
 	}
 
 	/**
