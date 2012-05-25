@@ -431,7 +431,7 @@ class HOF_Model_Main
 ?>">GameData</a> - <a href="#top">Top</a><br>
 			Copy Right <a href="http://tekito.kanichat.com/" target="_blank">Tekito</a> 2007-2008. Fork (c) <?php
 
-		e(gmdate('Y', REQUEST_TIME))
+		e(HOF::date('Y'))
 
 
 ?> bluelovers<br>
