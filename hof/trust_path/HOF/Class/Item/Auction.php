@@ -69,11 +69,15 @@ class HOF_Class_Item_Auction
 
 	var $exhibit_cost = 500;
 
-	var $exhibit_time = array(1, 3, 6, 12, 18, 24);
+	var $exhibit_time = array(
+		1,
+		3,
+		6,
+		12,
+		18,
+		24);
 
-	static $options = array(
-		'ip_check' => false,
-	);
+	static $options = array('ip_check' => false, );
 
 	/**
 	 * 経過ログ
@@ -148,7 +152,7 @@ class HOF_Class_Item_Auction
 			$data = HOF_Class_Yaml::load($this->fp);
 
 			$this->last_article_no = (int)$data['no'];
-			$this->article_list = (array)$data['list'];
+			$this->article_list = (array )$data['list'];
 
 			foreach ($this->article_list as $k => $v)
 			{
@@ -393,26 +397,53 @@ class HOF_Class_Item_Auction
 		$left = $end - $now;
 		// $int=true なら差分だけ返す
 		if ($int) return $left;
+
 		if ($left < 1)
-		{ // 終了している場合はfalse
+		{
+			// 終了している場合はfalse
 			return false;
 		}
+
+		$ret = '';
+
+		if ($hour = floor($left / 3600))
+		{
+			$ret .= f(Zend_Locale::getTranslation(array('hour', 'other'), 'unit'), $hour);
+		}
+
+		if ($minutes = floor(($left % 3600) / 60))
+		{
+			$ret .= ' '.f(Zend_Locale::getTranslation(array('minute', 'other'), 'unit'), $hour);
+		}
+
+		if ($second = floor(($left % 3600) % 60))
+		{
+			$ret .= ' '.f(Zend_Locale::getTranslation(array('second', 'other'), 'unit'), $second);
+		}
+
+		/*
 		if ($left < 601)
 		{
-			return "{$left}秒";
+			$ret = f(Zend_Locale::getTranslation(array('hour', 'other'), 'unit'), $left);
+		}
+		elseif ($left < 3601)
+		{
+			$minutes = floor($left / 60);
+			$ret = f(Zend_Locale::getTranslation(array('minute', 'other'), 'unit'), $minutes);
 		}
 		else
-			if ($left < 3601)
-			{
-				$minutes = floor($left / 60);
-				return "{$minutes}分";
-			}
-			else
-			{
-				$hour = floor($left / 3600);
-				$minutes = floor(($left % 3600) / 60);
-				return "{$hour}時間{$minutes}分";
-			}
+		{
+			$hour = floor($left / 3600);
+			$minutes = floor(($left % 3600) / 60);
+
+			$ret = f(Zend_Locale::getTranslation(array('hour', 'other'), 'unit'), $hour);
+			$ret .= ' '.f(Zend_Locale::getTranslation(array('minute', 'other'), 'unit'), $minutes);
+		}
+		*/
+
+		//$ret = str_replace(' ', '', $ret);
+
+		return trim($ret);
 	}
 
 	/**
@@ -629,7 +660,6 @@ class HOF_Class_Item_Auction
 	}
 
 
-
 	/**
 	 * アイテムを出品する
 	 */
@@ -748,7 +778,7 @@ class HOF_Class_Item_Auction
 
 		if ($price < $min)
 		{
-			$msg = "< {$item[name]} > 出品価格 ( ".HOF_Helper_Global::MoneyFormat($price).' < '.HOF_Helper_Global::MoneyFormat($min).' )  に誤りがあります。';
+			$msg = "< {$item[name]} > 出品価格 ( " . HOF_Helper_Global::MoneyFormat($price) . ' < ' . HOF_Helper_Global::MoneyFormat($min) . ' )  に誤りがあります。';
 		}
 
 		return $msg;
