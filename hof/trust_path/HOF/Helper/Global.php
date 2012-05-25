@@ -75,6 +75,11 @@ class HOF_Helper_Global
 	function gc_date()
 	{
 		$_args = func_get_args();
+
+		$_args[1] = ($_args[1] !== null ? $_args[1] : REQUEST_TIME);
+
+		return HOF::date($_args[1], $_args[0]);
+
 		$_args[1] = ($_args[1] ? $_args[1] : time()) + 8 * 3600;
 
 		return call_user_func_array('date', $_args);
