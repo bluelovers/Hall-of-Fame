@@ -25,12 +25,12 @@
 				<?php e($article_list["no"]) ?>
 			</td>
 
-			<td class="td7">
+			<td class="td7 nowrap">
 				<!-- 終了時刻 -->
 				<?php e($article_list['end_left']) ?>
 			</td>
 
-			<td class="td7">
+			<td class="td7 nowrap">
 				<!-- 現在入札価格 -->
 				<?php e(HOF_Helper_Global::MoneyFormat($article_list["price"])) ?>
 			</td>
