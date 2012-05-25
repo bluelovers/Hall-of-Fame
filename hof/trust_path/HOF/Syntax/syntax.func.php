@@ -38,3 +38,18 @@ function a($var, $loop = 3)
 {
 	return HOF_Class_Array::_fixArrayRecursive($var, $loop);
 }
+
+function f($format)
+{
+	$argv = func_get_args();
+	array_shift($argv);
+
+	foreach ($argv as $i => $v)
+	{
+		$list['{'.$i.'}'] = $v;
+	}
+
+	$text = strtr((string)$format, (array)$list);
+
+	return $text;
+}
