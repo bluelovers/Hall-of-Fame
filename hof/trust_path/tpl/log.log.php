@@ -24,7 +24,7 @@
 		<div style="padding:15px 0;width:100%;text-align:center" class="break">
 			<h2>battle log*</h2>
 			this battle starts at<br />
-			<?php e(HOF_Helper_Global::gc_date("m/d H:i:s", substr($this->output->log['time'], 0, 10))) ?>
+			<?php e(HOF_Helper_Global::gc_date("m/d(D) H:i:s", substr($this->output->log['time'], 0, 10))) ?>
 		</div>
 
 		<?php e($this->output->log['contents']); ?>
