@@ -35,6 +35,8 @@ final class HOF
 	 */
 	protected static $_user_;
 
+	protected static $_date_;
+
 	/**
 	 * @var Zend_Session_Namespace
 	 */
@@ -45,6 +47,11 @@ final class HOF
      * @var array
      */
     protected static $_wordDelimiter = array('-', '.', '_');
+
+    public static $local = 'ja';
+
+    public static $timezone = 'Asia/Taipei';
+    //public static $timezone = 'Asia/Tokyo';
 
 	function __construct()
 	{
@@ -58,6 +65,11 @@ final class HOF
 			self::$_cache_ = new HOF_Class_File_Cache();
 
 			self::$_session_ = new HOF_Class_Session();
+
+			$locale = new Zend_Locale(self::$local);
+			Zend_Registry::set('Zend_Locale', $locale);
+
+			self::$_date_ = new HOF_Class_Date();
 		}
 		else
 		{
@@ -410,6 +422,26 @@ final class HOF
 		}
 
 		return $url;
+	}
+
+	function date($timestamp = null, $format = null)
+	{
+		if ($timestamp && is_numeric($format) || $timestamp !== null && !is_numeric($timestamp))
+		{
+			list($format, $timestamp) = array($timestamp, $format);
+		}
+
+		if ($timestamp !== null)
+		{
+			self::$_date_->setTimestamp($timestamp);
+		}
+
+		if ($format !== null)
+		{
+			return self::$_date_->toString($format);
+		}
+
+		return self::$_date_;
 	}
 
 }
