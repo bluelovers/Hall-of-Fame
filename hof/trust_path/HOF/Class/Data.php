@@ -8,7 +8,7 @@
 class HOF_Class_Data
 {
 
-	var $autocache = false;
+	var $autocache = true;
 	var $data;
 
 	function __construct()
