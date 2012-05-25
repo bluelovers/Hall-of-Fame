@@ -1029,7 +1029,7 @@ class HOF_Model_Data extends HOF_Class_Data
 
 		fclose($fp);
 
-		$date = HOF_Helper_Global::gc_date("m/d H:i:s", substr($time, 0, 10));
+		$date = HOF_Helper_Global::gc_date("m/d(D) H:i:s", substr($time, 0, 10));
 		// 勝利チームによって色を分けて表示
 
 		return array(
