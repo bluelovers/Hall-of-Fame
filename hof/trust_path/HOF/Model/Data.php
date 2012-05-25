@@ -726,6 +726,101 @@ class HOF_Model_Data extends HOF_Class_Data
 		return $data;
 	}
 
+	function getItemCreateMaterialList($key = 'material')
+	{
+		if (!$list_material = HOF::cache()->data('smithy_create_material_list'))
+		{
+			self::getItemCreateList(true);
+
+			$list_material = HOF::cache()->data('smithy_create_material_list');
+		}
+
+		if (!$key) $key = 'material';
+
+		return $list_material[$key];
+	}
+
+	function getItemCreateList($over = false)
+	{
+		if ($over || !$list = HOF::cache()->data('smithy_create_list'))
+		{
+			$list = array();
+
+			$list_material = array();
+			$list_create = array();
+
+			$_list = HOF_Model_Data::getItemList();
+
+			foreach ($_list as $no)
+			{
+				$item = HOF_Model_Data::getItemData($no);
+
+				if (!empty($item['need']))
+				{
+					$list[] = $no;
+
+					foreach(array_keys($item['need']) as $v)
+					{
+						$list_material['material'][] = $v;
+					}
+
+					$list_create[$no] = array(
+						'need' => $item['need'],
+					);
+				}
+
+				if ($item['type'] = 'Material' && $item['Add'])
+				{
+					$list_material['material'][] = $no;
+
+					$list_material['material_plus'][] = $no;
+
+					$list_material['add_plus'][] = $item['Add'];
+				}
+			}
+
+			foreach ($list_material as &$v)
+			{
+				$v = array_unique($v);
+				sort($v);
+			}
+
+			HOF::cache()->data('smithy_create_list', $list);
+			HOF::cache()->data('smithy_create_material_list', $list_material);
+			HOF::cache()->data('smithy_create', $list_create);
+		}
+
+		return $list;
+	}
+
+	function getItemCreateData($no)
+	{
+		if ($list = HOF::cache()->data('smithy_create'))
+		{
+			if ($list[$no])
+			{
+				return $list[$no];
+			}
+		}
+
+		$list_all = self::getItemCreateList();
+
+		if (!in_array($no, $list_all))
+		{
+			return false;
+		}
+
+		$item = self::getItemData($no);
+
+		$list[$no] = array(
+			'need' => $item['need'],
+		);
+
+		HOF::cache()->data('smithy_create', $list);
+
+		return $list[$no];
+	}
+
 	function getItemList()
 	{
 		$_key = 'item';
