@@ -473,14 +473,14 @@ class HOF_Class_Item_Auction
 				$this->tmpuser_get_item($article_list["bidder"], $article_list["item"], $article_list["amount"]);
 				$this->tmpuser_get_money($article_list["exhibitor"], $article_list["price"]);
 				// 結果をログに残せ
-				$this->log->add("no.{$article_list[no]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\"><span class=\"bold\">{$item[name]} x{$article_list[amount]}</span>個 を " . $this->tmpuser_get_name_temp($article_list["bidder"]) . " が " . HOF_Helper_Global::MoneyFormat($article_list["price"]) . " で<span class=\"recover\">落札しました。</span>");
+				$this->log->add("no.{$article_list[no]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\" class=\"vcent\"><span class=\"bold\">{$item[name]} x{$article_list[amount]}</span>個 を " . $this->tmpuser_get_name_temp($article_list["bidder"]) . " が " . HOF_Helper_Global::MoneyFormat($article_list["price"]) . " で<span class=\"recover\">落札しました。</span>");
 			}
 			else
 			{
 				// 入札が無かった場合、出品者に返却。
 				$this->tmpuser_get_item($article_list["exhibitor"], $article_list["item"], $article_list["amount"]);
 				// 結果をログに残せ
-				$this->log->add("no.{$article_list[no]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\"><span class=\"bold\">{$item[name]} x{$article_list[amount]}</span>個 は<span class=\"dmg\">入札者無しで流れました。</span>");
+				$this->log->add("no.{$article_list[no]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\" class=\"vcent\"><span class=\"bold\">{$item[name]} x{$article_list[amount]}</span>個 は<span class=\"dmg\">入札者無しで流れました。</span>");
 			}
 			// 最後に消す
 			unset($this->article_list["$no"]);
@@ -718,7 +718,7 @@ class HOF_Class_Item_Auction
 		array_unshift($this->article_list, $New);
 		$itemData = HOF_Model_Data::getItemData($item);
 
-		$this->log->add("no." . $this->last_article_no . " に <img src=\"" . HOF_Class_Icon::getImageUrl($itemData["img"], HOF_Class_Icon::IMG_ITEM) . "\"><span class=\"bold\">{$itemData[name]} x{$amount}</span>個が<span class=\"charge\">出品されました。</span>");
+		$this->log->add("no." . $this->last_article_no . " に <img src=\"" . HOF_Class_Icon::getImageUrl($itemData["img"], HOF_Class_Icon::IMG_ITEM) . "\" class=\"vcent\"><span class=\"bold\">{$itemData[name]} x{$amount}</span>個が<span class=\"charge\">出品されました。</span>");
 
 		$this->changed['data']++;
 		$this->changed['add']++;
