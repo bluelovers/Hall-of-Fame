@@ -107,6 +107,7 @@ class HOF_Class_Item_Auction
 
 	function __destruct()
 	{
+		$this->log->__destruct();
 		$this->fpclose();
 	}
 
@@ -378,6 +379,13 @@ class HOF_Class_Item_Auction
 		$this->article_list["$article_no"]["price"] = $BidPrice;
 		$this->article_list["$article_no"]["TotalBid"]++;
 		$this->article_list["$article_no"]["bidder"] = $Bidder;
+
+		$this->article_list["$article_no"]['bid_log'][] = array(
+			'time' => REQUEST_TIME,
+			'bidder' => $Bidder,
+			'price' => $BidPrice,
+		);
+
 		$this->changed['data']++;
 
 		$this->changed['bid']++;
@@ -413,7 +421,7 @@ class HOF_Class_Item_Auction
 
 		if ($minutes = floor(($left % 3600) / 60))
 		{
-			$ret .= ' '.f(Zend_Locale::getTranslation(array('minute', 'other'), 'unit'), $hour);
+			$ret .= ' '.f(Zend_Locale::getTranslation(array('minute', 'other'), 'unit'), $minutes);
 		}
 
 		if ($second = floor(($left % 3600) % 60))
@@ -684,6 +692,7 @@ class HOF_Class_Item_Auction
 		$New = array(
 			// 競売品番号
 			"no" => $this->last_article_no,
+			"start" => $Now,
 			// 終了時刻
 			"end" => $end,
 			// 今の入札価格
