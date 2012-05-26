@@ -35,6 +35,7 @@ class HOF_Class_Item_Auction_Log
 
 		if ($this->AuctionType == "item")
 		{
+			/*
 			$this->fp = HOF_Class_File::fplock_file($this->file, 0, true);
 
 			while (!feof($this->fp))
@@ -43,6 +44,9 @@ class HOF_Class_Item_Auction_Log
 				if (!$str) continue;
 				$this->AuctionLog[] = $str;
 			}
+			*/
+
+			$this->AuctionLog = HOF::log()->data('auction_log');
 		}
 	}
 
@@ -53,6 +57,9 @@ class HOF_Class_Item_Auction_Log
 	{
 		if ($this->AuctionType == "item")
 		{
+			HOF::log()->data('auction_log', $this->AuctionLog);
+
+			/*
 			if (empty($this->AuctionLog)) return false;
 
 			// 30行以下に収める
@@ -67,13 +74,19 @@ class HOF_Class_Item_Auction_Log
 			}
 
 			HOF_Class_File::fpwrite_file($this->fp, $string);
+			*/
 		}
 	}
 
 	function close()
 	{
+
+		HOF::log()->close('auction_log');
+
+		/*
 		@fclose($this->fp);
 		unset($this->fp);
+		*/
 	}
 
 	function get()
@@ -92,6 +105,6 @@ class HOF_Class_Item_Auction_Log
 	{
 		$this->get();
 
-		array_unshift($this->AuctionLog, $string);
+		array_push($this->AuctionLog, $string);
 	}
 }
