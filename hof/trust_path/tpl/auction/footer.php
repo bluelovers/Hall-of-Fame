@@ -5,5 +5,5 @@
 	<h4>オークションログ(AuctionLog)</h4>
 
 	<div style="margin-left:20px">
-		<?php e(implode('<br>', $this->controller->ItemAuction->log->get())); ?>
+		<?php e(implode('<br>', array_reverse($this->controller->ItemAuction->log->get()))); ?>
 	</div>
