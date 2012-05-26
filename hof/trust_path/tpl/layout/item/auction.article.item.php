@@ -61,7 +61,7 @@
 
 				<!-- 入札フォーム -->
 				<?php if ($this->output->bidding): ?>
-				<form action="<?php e($this->output->query) ?>" method="post">
+				<form action="<?php e(HOF::url($this->output->query)) ?>" method="post">
 					<a href="#" onclick="$('#Bid<?php e($article_list["no"]) ?>').toggle()" style="margin:0 10px">入札</a>
 
 					<span style="display:none" id="Bid<?php e($article_list["no"]) ?>"> &nbsp;
