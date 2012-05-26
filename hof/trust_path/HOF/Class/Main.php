@@ -92,25 +92,6 @@ class HOF_Class_Main extends HOF_Class_User
 	}
 
 	/**
-	 * セッション情報を表示する。
-	 */
-	function ShowSession()
-	{
-		echo "this->id:$this->id<br>";
-		echo "this->pass:$this->pass<br>";
-
-		echo "SES[id]:$_SESSION[id]<br>";
-		echo "SES[pass]:$_SESSION[pass]<br>";
-		echo "SES[pass]:" . HOF_Helper_Char::CryptPassword($_SESSION[pass]) . "(crypted)<br>";
-
-		echo "CK[NO]:$_COOKIE[NO]<br>";
-		echo "SES[NO]:" . session_id();
-
-		dump($_COOKIE);
-		dump($_SESSION);
-	}
-
-	/**
 	 * ログインした時間を設定する
 	 */
 	function RenewLoginTime()
