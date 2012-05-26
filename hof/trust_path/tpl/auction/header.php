@@ -12,7 +12,7 @@
 					<a href="<?php e(HOF::url('auction')) ?>">一覧</a> | <a href="<?php e(HOF::url('auction', 'exhibit')) ?>">出品</a>
 
 					<br />
-					<a href="#log">記録の回覧</a>
+					<a href="<?php e(HOF::url('auction', 'log')) ?>">記録の回覧</a>
 
 				<?php else: ?>
 
