@@ -21,11 +21,22 @@
 					入会しますか?
 					<br />
 
-					<form action="<?php e(HOF::url('auction')) ?>" method="post">
+					<form action="<?php e(HOF::url('auction', $this->output->action)) ?>" method="post">
 						<input type="submit" value="入会する" name="JoinMember" class="btn"/>
 					</form>
 
 				<?php endif; ?>
+
+				<br /><br />
+
+				<?php foreach((array)$this->output->msg_error as $e): ?>
+					<?php HOF_Helper_Global::ShowError($e[0], $e[1]); ?>
+				<?php endforeach; ?>
+
+				<?php foreach((array)$this->output->msg_result as $e): ?>
+					<?php HOF_Helper_Global::ShowResult($e[0], $e[1]); ?>
+				<?php endforeach; ?>
+
 	<?php $content = ob_get_clean(); ?>
 
 	<?php e($this->slot('layout/npc.talk.1', $content)) ?>
