@@ -81,18 +81,14 @@ class HOF_Controller_Town extends HOF_Class_Controller
 	 */
 	function _town_bbs()
 	{
-		$file = BBS_TOWN;
-
-		if (!file_exists($file)) return false;
-
-		$log = file($file);
+		$log = HOF::log()->data('bbs_town');
 
 		if ($this->input->message && strlen($this->input->message) < 121)
 		{
 			$this->input->message = htmlspecialchars($this->input->message, ENT_QUOTES);
 			$this->input->message = stripslashes($this->input->message);
 
-			$name = "<span class=\"bold\">{$this->name}</span>";
+			$name = "<span class=\"bold\">{$this->user->name}</span>";
 
 			$message = $name . " > " . $this->input->message;
 
@@ -100,11 +96,12 @@ class HOF_Controller_Town extends HOF_Class_Controller
 
 			$message .= " <span class=\"light\">(" . HOF_Helper_Global::gc_date("Mj G:i") . ")</span>";
 
-			array_unshift($log, $message);
-			while (50 < count($log)) array_pop($log);
+			$log[] = $message;
 
-			HOF_Class_File::WriteFile($file, implode(null, $log));
+			HOF::log()->data('bbs_town', $log);
 		}
+
+		$log = array_reverse($log);
 
 		return $log;
 	}
