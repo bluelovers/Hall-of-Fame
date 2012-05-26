@@ -450,11 +450,6 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 			HOF::user()->session()->id($this->input->newid)->session_update();
 
-			//print("ID:$_POST[Newid] success.<BR>");
-			/*
-			$_SESSION["id"] = $this->input->newid;
-			setcookie("NO", session_id(), time() + COOKIE_EXPIRE);
-			*/
 			$success = "ID : {$this->input->newid} success. Try Login";
 			return array(true, $success); //強引...
 		}
@@ -621,12 +616,6 @@ class HOF_Controller_Game extends HOF_Class_Controller
 			$this->user->id = NULL;
 			$this->user->islogin = false;
 
-			/*
-			unset($_SESSION["id"]);
-			unset($_SESSION["pass"]);
-			setcookie("NO", "");
-			*/
-
 			HOF::user()->session()->session_delete();
 
 			return 'User Deleted.';
@@ -641,9 +630,6 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 		$this->user->islogin = false;
 
-		/*
-		unset($_SESSION["pass"]);
-		*/
 		HOF::user()->session()->pass(false, true);
 
 		HOF_Model_Main::getUserList();
@@ -712,13 +698,6 @@ class HOF_Controller_Game extends HOF_Class_Controller
 				if ($this->input->pass)
 				{
 					// ちょうど今ログインするなら
-					/*
-					$_SESSION["id"] = $this->user->id;
-					$_SESSION["pass"] = $this->input->pass;
-
-					setcookie("NO", session_id(), time() + COOKIE_EXPIRE);
-					*/
-
 					$pass = HOF_Model_Main::user_pass_encode($this->user->id, $this->input->pass);
 
 					HOF::user()->session()->id($this->user->id)->pass($pass)->session_update();
