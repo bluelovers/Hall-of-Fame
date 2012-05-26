@@ -51,9 +51,9 @@ class HOF_Class_Item_Auction_Log
 	 */
 	function save()
 	{
-		if ($parent->AuctionType == "item")
+		if ($this->AuctionType == "item")
 		{
-			if (!empty($this->AuctionLog)) return false;
+			if (empty($this->AuctionLog)) return false;
 
 			// 30行以下に収める
 			while (100 < count($this->AuctionLog))
