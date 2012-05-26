@@ -66,10 +66,10 @@ final class HOF
 
 			self::$_session_ = new HOF_Class_Session();
 
+			Zend_Date::setOptions(array('format_type' => 'php', 'fix_dst' => False,));
+
 			$locale = new Zend_Locale(self::$local);
 			Zend_Registry::set('Zend_Locale', $locale);
-
-			self::$_date_ = new HOF_Class_Date();
 		}
 		else
 		{
@@ -426,6 +426,11 @@ final class HOF
 
 	function date($timestamp = null, $format = null)
 	{
+		if (!isset(self::$_date_))
+		{
+			self::$_date_ = new HOF_Class_Date();
+		}
+
 		if ($timestamp && is_numeric($format) || $timestamp !== null && !is_numeric($timestamp))
 		{
 			list($format, $timestamp) = array($timestamp, $format);
@@ -438,7 +443,7 @@ final class HOF
 
 		if ($format !== null)
 		{
-			return self::$_date_->toString($format);
+			return self::$_date_->toString($format, 'php');
 		}
 
 		return self::$_date_;
