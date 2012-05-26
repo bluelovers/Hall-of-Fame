@@ -96,18 +96,17 @@ class HOF_Class_Item_Auction
 			$this->AuctionType = "item";
 			$this->fpread();
 			// キャラオークション
+
+			$this->log = HOF::log()->data('auction_log');
 		}
 		elseif ($type == "char")
 		{
 			$this->AuctionType = "char";
 		}
-
-		$this->log = new HOF_Class_Item_Auction_Log(&$this);
 	}
 
 	function __destruct()
 	{
-		$this->log->__destruct();
 		$this->fpclose();
 	}
 
@@ -219,7 +218,10 @@ class HOF_Class_Item_Auction
 			HOF_Class_File::WriteFile($this->file, $string, true);
 		}
 
-		$this->log->save();
+		if ($this->AuctionType == "item")
+		{
+			HOF::log()->data('auction_log', $this->log);
+		}
 	}
 
 	/**
@@ -392,7 +394,7 @@ class HOF_Class_Item_Auction
 
 		$item = HOF_Model_Data::getItemData($article_list["item"]);
 		//$this->log->add("no.".$article_list["no"]." <span class=\"bold\">{$item[name]} x{$article_list[amount]}</span>個に ".HOF_Helper_Global::MoneyFormat($BidPrice)." で ".$this->tmpuser_get_name($Bidder)." が<span class=\"support\">入札しました。</span>");
-		$this->log->add("no." . $article_list["no"] . " <span class=\"bold\">{$item[name]} x{$article_list[amount]}</span>個に " . HOF_Helper_Global::MoneyFormat($BidPrice) . " で " . $BidderName . " が<span class=\"support\">入札しました。</span>");
+		$this->log[] = "no." . $article_list["no"] . " <span class=\"bold\">{$item[name]} x{$article_list[amount]}</span>個に " . HOF_Helper_Global::MoneyFormat($BidPrice) . " で " . $BidderName . " が<span class=\"support\">入札しました。</span>";
 
 		return true;
 	}
@@ -473,14 +475,14 @@ class HOF_Class_Item_Auction
 				$this->tmpuser_get_item($article_list["bidder"], $article_list["item"], $article_list["amount"]);
 				$this->tmpuser_get_money($article_list["exhibitor"], $article_list["price"]);
 				// 結果をログに残せ
-				$this->log->add("no.{$article_list[no]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\" class=\"vcent\"><span class=\"bold\">{$item[name]} x{$article_list[amount]}</span>個 を " . $this->tmpuser_get_name_temp($article_list["bidder"]) . " が " . HOF_Helper_Global::MoneyFormat($article_list["price"]) . " で<span class=\"recover\">落札しました。</span>");
+				$this->log[] = "no.{$article_list[no]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\" class=\"vcent\"><span class=\"bold\">{$item[name]} x{$article_list[amount]}</span>個 を " . $this->tmpuser_get_name_temp($article_list["bidder"]) . " が " . HOF_Helper_Global::MoneyFormat($article_list["price"]) . " で<span class=\"recover\">落札しました。</span>";
 			}
 			else
 			{
 				// 入札が無かった場合、出品者に返却。
 				$this->tmpuser_get_item($article_list["exhibitor"], $article_list["item"], $article_list["amount"]);
 				// 結果をログに残せ
-				$this->log->add("no.{$article_list[no]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\" class=\"vcent\"><span class=\"bold\">{$item[name]} x{$article_list[amount]}</span>個 は<span class=\"dmg\">入札者無しで流れました。</span>");
+				$this->log[] = "no.{$article_list[no]} <img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM) . "\" class=\"vcent\"><span class=\"bold\">{$item[name]} x{$article_list[amount]}</span>個 は<span class=\"dmg\">入札者無しで流れました。</span>";
 			}
 			// 最後に消す
 			unset($this->article_list["$no"]);
@@ -718,7 +720,7 @@ class HOF_Class_Item_Auction
 		array_unshift($this->article_list, $New);
 		$itemData = HOF_Model_Data::getItemData($item);
 
-		$this->log->add("no." . $this->last_article_no . " に <img src=\"" . HOF_Class_Icon::getImageUrl($itemData["img"], HOF_Class_Icon::IMG_ITEM) . "\" class=\"vcent\"><span class=\"bold\">{$itemData[name]} x{$amount}</span>個が<span class=\"charge\">出品されました。</span>");
+		$this->log[] = "no." . $this->last_article_no . " に <img src=\"" . HOF_Class_Icon::getImageUrl($itemData["img"], HOF_Class_Icon::IMG_ITEM) . "\" class=\"vcent\"><span class=\"bold\">{$itemData[name]} x{$amount}</span>個が<span class=\"charge\">出品されました。</span>";
 
 		$this->changed['data']++;
 		$this->changed['add']++;
