@@ -9,7 +9,7 @@
 
 		<?php e($this->output->select) ?>
 
-		<form action="<?php e(HOF::url('auction')) ?>" method="post">
+		<form action="<?php e(HOF::url('auction', 'exhibit')) ?>" method="post">
 				<?php e($this->output->show) ?>
 				<table>
 					<tr>
