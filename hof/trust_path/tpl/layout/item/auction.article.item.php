@@ -62,7 +62,7 @@
 				<!-- 入札フォーム -->
 				<?php if ($this->output->bidding): ?>
 				<form action="<?php e(HOF::url($this->output->query)) ?>" method="post">
-					<a href="#" onclick="$('#Bid<?php e($article_list["no"]) ?>').toggle()" style="margin:0 10px">入札</a>
+					<a href="javascript:void(0)" onclick="$('#Bid<?php e($article_list["no"]) ?>').toggle()" style="margin:0 10px">入札</a>
 
 					<span style="display:none" id="Bid<?php e($article_list["no"]) ?>"> &nbsp;
 						<input type="text" name="BidPrice" style="width:80px" class="text" value="<?php e($article_list['price_bid_min']) ?>">
