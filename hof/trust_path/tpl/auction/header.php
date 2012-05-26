@@ -9,7 +9,11 @@
 					ようこそオークション会場へ。
 					<br />
 
+					<a href="<?php e(HOF::url('auction')) ?>">一覧</a> | <a href="<?php e(HOF::url('auction', 'exhibit')) ?>">出品</a>
+
+					<br />
 					<a href="#log">記録の回覧</a>
+
 				<?php else: ?>
 
 					オークションへの出品・入札には入会が必要です。
