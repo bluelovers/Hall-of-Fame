@@ -53,19 +53,19 @@ class HOF_Class_File_Log
 	{
 		if (!HOF_Class_File::is_resource_file($this->fp[$id]) && $this->fp[$id] = HOF_Class_File::fplock_file($this->filname($id), 0, true))
 		{
-			$this->data[$id] = array();
+			$this->data[$id]['data'] = array();
 
 			rewind($this->fp[$id]);
 			while (!feof($this->fp[$id]))
 			{
 				if ($str = trim(fgets($this->fp[$id])))
 				{
-				$this->data[$id][] = $str;
+					$this->data[$id]['data'][] = $str;
 				}
 			}
 		}
 
-		return $this->data[$id];
+		return $this->data[$id]['data'];
 	}
 
 	function timeout($id, $timeout = 0)
@@ -82,7 +82,9 @@ class HOF_Class_File_Log
 
 		if ($data !== null)
 		{
-			$this->data[$id] = $data;
+			$this->data[$id]['data'] = $data;
+
+			$this->data[$id]['changed']++;
 		}
 
 		if ($save)
@@ -90,24 +92,24 @@ class HOF_Class_File_Log
 			$this->save($id);
 		}
 
-		return (array)$this->data[$id];
+		return (array)$this->data[$id]['data'];
 	}
 
 	function save($id)
 	{
-		if (HOF_Class_File::is_resource_file($this->fp[$id]))
+		if ($this->data[$id]['changed'] && HOF_Class_File::is_resource_file($this->fp[$id]))
 		{
 			ftruncate($this->fp[$id], 0);
 			rewind($this->fp[$id]);
 
-			$this->data[$id] = (array)$this->data[$id];
+			$this->data[$id]['data'] = (array)$this->data[$id]['data'];
 
-			if (count($this->data[$id]) > $this->options['max'])
+			if (count($this->data[$id]['data']) > $this->options['max'])
 			{
-				$this->data[$id] = array_slice($this->data[$id], 0 - $this->options['max_keep']);
+				$this->data[$id]['data'] = array_slice($this->data[$id]['data'], 0 - $this->options['max_keep']);
 			}
 
-			foreach($this->data[$id] as $line)
+			foreach($this->data[$id]['data'] as $line)
 			{
 				if ($line = trim(str_replace("\n", '', $line)))
 				{
