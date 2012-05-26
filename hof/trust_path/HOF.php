@@ -26,6 +26,11 @@ final class HOF
 	protected static $_cache_;
 
 	/**
+	 * @var HOF_Class_File_Log
+	 */
+	protected static $_log_;
+
+	/**
 	 * @var HOF_Class_Session
 	 */
 	protected static $_session_;
@@ -68,6 +73,7 @@ final class HOF
 			self::$input->server->REQUEST_URI = substr(self::$input->server->REQUEST_URI, strlen(BASE_URL_ROOT) - 1);
 
 			self::$_cache_ = new HOF_Class_File_Cache();
+			self::$_log_ = new HOF_Class_File_Log();
 
 			self::$_session_ = new HOF_Class_Session();
 
@@ -167,6 +173,14 @@ final class HOF
 	public static function &cache()
 	{
 		return self::$_cache_;
+	}
+
+	/**
+	 * @return HOF_Class_File_Log
+	 */
+	public static function &log()
+	{
+		return self::$_log_;
 	}
 
 	/**
