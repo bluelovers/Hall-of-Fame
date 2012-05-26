@@ -61,7 +61,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		$this->input->last_article_no = HOF::request()->post->article_no;
 		$this->input->BidPrice = max(0, intval(HOF::request()->post->BidPrice));
 
-		$this->input->sort = HOF::request()->post->sort;
+		$this->input->sort = HOF::request()->request->sort;
 
 		$this->input->_timestamp = HOF::request()->post->_timestamp;
 
@@ -129,6 +129,10 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		if ($this->AuctionEnter())
 		{
 			$this->_main_exec($this->input->action);
+		}
+		else
+		{
+			$this->_main_exec('log');
 		}
 	}
 
