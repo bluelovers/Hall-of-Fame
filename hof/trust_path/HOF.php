@@ -43,15 +43,20 @@ final class HOF
 	public static $session;
 
 	/**
-     * Word delimiter characters
-     * @var array
-     */
-    protected static $_wordDelimiter = array('-', '.', '_');
+	 * Word delimiter characters
+	 * @var array
+	 */
+	protected static $_wordDelimiter = array(
+		'-',
+		'.',
+		'_');
 
-    public static $local = 'ja';
+	public static $local = 'ja';
 
-    public static $timezone = 'Asia/Taipei';
-    //public static $timezone = 'Asia/Tokyo';
+	public static $timezone = 'Asia/Taipei';
+	//public static $timezone = 'Asia/Tokyo';
+
+	public static $_destruct_call;
 
 	function __construct()
 	{
@@ -66,7 +71,10 @@ final class HOF
 
 			self::$_session_ = new HOF_Class_Session();
 
-			Zend_Date::setOptions(array('format_type' => 'php', 'fix_dst' => False,));
+			Zend_Date::setOptions(array(
+				'format_type' => 'php',
+				'fix_dst' => False,
+				));
 
 			$locale = new Zend_Locale(self::$local);
 			Zend_Registry::set('Zend_Locale', $locale);
@@ -90,7 +98,7 @@ final class HOF
 
 	public static function router($controller = null, $action = null)
 	{
-		if (!file_exists(DAT_DIR.'initialize'.EXT_LOCK))
+		if (!file_exists(DAT_DIR . 'initialize' . EXT_LOCK))
 		{
 			return self::run('initialize');
 		}
@@ -120,6 +128,11 @@ final class HOF
 		if (isset(self::$_user_) && self::user()->id && self::user()->cache())
 		{
 			self::user()->cache()->__destruct();
+		}
+
+		foreach ((array )self::$_destruct_call as $func)
+		{
+			@call_user_func($func);
 		}
 
 		self::$_cache_->__destruct();
@@ -175,20 +188,20 @@ final class HOF
 
 		if (0 && !isset($cache[$k]))
 		{
-			$str = $cache[$k];
+		$str = $cache[$k];
 		}
 		else
 		{
-			*/
-			// 支援 將 AbcDef => abc_def
+		*/
+		// 支援 將 AbcDef => abc_def
 
-			$str = preg_replace('/([A-Z])/', ' $1', $str);
-			$str = str_replace(self::$_wordDelimiter, ' ', strtolower($str));
-			$str = preg_replace('/[^a-z0-9 ]/', '', $str);
-			$str = str_replace(' ', '', ucwords($str));
+		$str = preg_replace('/([A-Z])/', ' $1', $str);
+		$str = str_replace(self::$_wordDelimiter, ' ', strtolower($str));
+		$str = preg_replace('/[^a-z0-9 ]/', '', $str);
+		$str = str_replace(' ', '', ucwords($str));
 
-			/*
-			$cache[$k] = $str;
+		/*
+		$cache[$k] = $str;
 		}
 		*/
 
@@ -204,18 +217,18 @@ final class HOF
 
 		if (0 && isset($cache[$k]))
 		{
-			$str = $cache[$k];
+		$str = $cache[$k];
 		}
 		else
 		{
-			*/
-			$str = preg_replace('/[^a-zA-Z0-9]/', '', $str);
-			$str = preg_replace('/([A-Z])/', '_$1', $str);
-			$str = strtolower($str);
-			$str = trim($str, '_');
+		*/
+		$str = preg_replace('/[^a-zA-Z0-9]/', '', $str);
+		$str = preg_replace('/([A-Z])/', '_$1', $str);
+		$str = strtolower($str);
+		$str = trim($str, '_');
 
-			/*
-			$cache[$k] = $str;
+		/*
+		$cache[$k] = $str;
 		}
 		*/
 
@@ -288,7 +301,10 @@ final class HOF
 
 	public static function ip($ipv6 = false, $allow_private = true)
 	{
-		$keys = array('HTTP_X_FORWARDED_FOR', 'HTTP_CLIENT_IP', 'REMOTE_ADDR');
+		$keys = array(
+			'HTTP_X_FORWARDED_FOR',
+			'HTTP_CLIENT_IP',
+			'REMOTE_ADDR');
 
 		$flags = FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE;
 
@@ -327,7 +343,7 @@ final class HOF
 			list($controller, $action, $extra) = $controller;
 		}
 
-		$url = self::url((string)$controller, (string)$action, (array)$extra);
+		$url = self::url((string )$controller, (string )$action, (array )$extra);
 		header('Location: ' . $url);
 		/*
 		die;
@@ -408,7 +424,7 @@ final class HOF
 
 		if ($params)
 		{
-			$params = array_filter((array)$params);
+			$params = array_filter((array )$params);
 
 			if ($param = http_build_query($params))
 			{
