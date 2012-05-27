@@ -241,9 +241,9 @@ class HOF_Class_User
 				$this->char[$no] = HOF_Model_Char::newCharFromFile($file);
 				$this->char[$no]->SetUser($this->id);
 			}
-
-			return $this->char;
 		}
+
+		return $this->char;
 	}
 
 	/**
