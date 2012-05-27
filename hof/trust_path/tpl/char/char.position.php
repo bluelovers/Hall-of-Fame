@@ -1,5 +1,5 @@
 
-	<form action="<?php e($this->output->char_url) ?>" method="post" style="padding:0 15px">
+	<form action="<?php e(HOF::url('char', 'action', array('char' => $this->output->char_id))) ?>" method="post">
 		<h4>Position & Guarding<a href="<?php e(HOF::url('manual', 'manual', '#posi')) ?>" target="_blank" class="a0">?</a></h4>
 		<table>
 			<tbody>
