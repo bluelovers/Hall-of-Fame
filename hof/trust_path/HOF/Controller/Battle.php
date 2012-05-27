@@ -38,13 +38,13 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		if (in_array($this->action, array('simulate', 'union', 'common')))
 		{
-			$this->user->LoadUserItem();
+			$this->user->item();
 			$this->user->char_all();
 		}
 
 		if (!$this->_cache['lands'] = $this->user->cache()->data('land_appear'))
 		{
-			$this->user->LoadUserItem();
+			$this->user->item();
 			$this->_cache['lands'] = HOF_Model_Data::getLandAppear($this->user);
 
 			$this->user->cache()->data('land_appear', $this->_cache['lands']);
@@ -337,7 +337,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		// アイテムを受け取る
 		if ($itemdrop = $battle->ReturnItemGet(0))
 		{
-			$this->user->LoadUserItem();
+			$this->user->item();
 			foreach ($itemdrop as $itemno => $amount) $this->user->AddItem($itemno, $amount);
 			$this->user->SaveUserItem();
 		}
@@ -502,7 +502,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			// アイテムを受け取る
 			if ($itemdrop = $battle->ReturnItemGet(0))
 			{
-				$this->user->LoadUserItem();
+				$this->user->item();
 				foreach ($itemdrop as $itemno => $amount) $this->user->AddItem($itemno, $amount);
 				$this->user->SaveUserItem();
 			}
