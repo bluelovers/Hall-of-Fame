@@ -35,7 +35,7 @@ class HOF_Controller_Item extends HOF_Class_Controller
 	 */
 	function _main_action_default()
 	{
-		$this->user->LoadUserItem();
+		$this->user->item();
 	}
 
 	function _main_after()
