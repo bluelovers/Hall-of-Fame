@@ -113,6 +113,11 @@ abstract class HOF_Class_Controller
 
 	}
 
+	function __toString()
+	{
+		return (string)$this->controller;
+	}
+
 	protected function __construct_init()
 	{
 		if ($this->action == self::DEFAULT_ACTION && $this->action != $this->options['defaultAction'])
