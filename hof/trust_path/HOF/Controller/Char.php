@@ -511,8 +511,6 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	{
 		if ($list = $this->char->unequip('all'))
 		{
-			$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
-
 			foreach($list as $no)
 			{
 				if (!$no) continue;
@@ -523,6 +521,8 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 				$this->user->item_add($no);
 			}
+
+			$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
 
 			$this->user->item_save();
 			$this->char->SaveCharData();
@@ -697,8 +697,54 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function _main_action_job_change()
 	{
+		while(1)
+		{
+			if (!$this->input->{$this->action} = HOF::request()->post->{$this->action})
+			{
+				break;
+			}
 
-		$this->output->job_change_list = array();
+			$this->input->job = HOF::$input->post["job"];
+
+			if (!$this->input->job)
+			{
+				$this->_msg_error("職 未選択", "margin15");
+				break;
+			}
+
+			if ($v = $this->char->job_change_to($this->input->job))
+			{
+				if (!empty($v[1]))
+				{
+					/**
+					 * 装備を全部解除
+					 */
+					foreach((array)$v[1] as $item)
+					{
+						$this->user->item_add($item);
+
+						$_item = HOF_Model_Data::newItem($item);
+						$this->_msg_error($this->char->Name().' unequip '.$_item->name(), "margin15");
+					}
+
+					$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
+
+					$this->user->item_save();
+				}
+
+				// 保存
+				$this->char->SaveCharData();
+
+				$this->_msg_result("転職 完了", "margin15");
+
+				break;
+			}
+
+			$this->_msg_error("failed.", "margin15");
+	 		break;
+ 		}
+
+ 		$this->output->job_change_list = array();
 
 		foreach ((array)$this->char->job_change_list() as $job)
 		{
@@ -706,45 +752,6 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 			$this->output->job_change_list[] = $newjob;
 		}
-
-		if (!$this->input->{$this->action} = HOF::request()->post->{$this->action})
-		{
-			return false;
-		}
-
-		$this->input->job = HOF::$input->post["job"];
-
-		if (!$this->input->job)
-		{
-			$this->_msg_error("職 未選択", "margin15");
-			return false;
-		}
-
-		if ($v = $this->char->job_change_to($this->input->job))
-		{
-			if (!empty($v[1]))
-			{
-				/**
-				 * 装備を全部解除
-				 */
-				foreach((array)$v[1] as $item)
-				{
-					$this->user->item_add($item);
-				}
-
-				$this->user->item_save();
-			}
-
-			// 保存
-			$this->char->SaveCharData();
-
-			$this->_msg_result("転職 完了", "margin15");
-
-			return true;
-		}
-
-		$this->_msg_error("failed.", "margin15");
- 		return false;
 	}
 
 	/**
