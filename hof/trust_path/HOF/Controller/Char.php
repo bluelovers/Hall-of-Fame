@@ -47,11 +47,6 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	{
 		parent::_main_before();
 
-		if ($this->action != 'char')
-		{
-			$this->user->char_all();
-		}
-
 		if (!$this->user->allowPlay())
 		{
 			$this->_main_stop(true);
@@ -78,7 +73,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			$this->output->char_url = HOF::url($this->controller, 'char', array('char' => $this->char->id));
 		}
 
-		$this->_router();
+		//$this->_router();
 
 		if ($action != 'default' && !$this->input->char)
 		{
@@ -87,7 +82,9 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		if ($this->input->char)
 		{
-			$this->_main_setup('char');
+			$this->char_detail();
+
+			//$this->_main_setup('char');
 		}
 		else
 		{
@@ -98,6 +95,10 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		$this->options['escapeHtml'] = false;
 
 		$this->output->char_list = $this->_cache->char_list;
+
+		$this->output->action = $this->action;
+
+		//debug($this->action, $action, $this->input);
 	}
 
 	function _router()
@@ -123,6 +124,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 					$this->input->{$k} = HOF::$input->post->{$k};
 
 					$_action = $v;
+					break;
 				}
 			}
 		}
@@ -131,12 +133,13 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		{
 			$this->input->action = $_action;
 
-			$this->options['autoView'] = false;
+			//$this->options['autoView'] = false;
 
 			$this->_main_exec_once($this->input->action);
 		}
 	}
 
+	/*
 	function _main_result($action, $ret)
 	{
 		$this->_cache->log['action'][$action][] = $ret;
@@ -149,6 +152,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			}
 		}
 	}
+	*/
 
 	function _msg_error($message, $add = 'magrin15')
 	{
@@ -175,6 +179,24 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 	function _main_action_char()
 	{
+
+	}
+
+	function _main_action_equip()
+	{
+		foreach(array(
+			'equip_item',
+			'equip_remove',
+			'equip_remove_all',
+		) as $k)
+		{
+			if ($this->input->$k = HOF::request()->post->$k)
+			{
+				$this->{'_'.$k}();
+				break;
+			}
+		}
+
 		ob_start();
 
 		$this->CharStatShow();
@@ -186,6 +208,8 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	{
 		$this->user->fpclose_all();
 
+		//debug($this->action, $action, $this->input);
+
 		parent::_main_after();
 	}
 
@@ -194,6 +218,12 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function _main_action_stup()
 	{
+		if (!$this->input->{$this->action} = HOF::request()->post->{$this->action})
+		{
+			return false;
+		}
+
+
 		$Stat = HOF_Model_Data::getChatAttrBaseList();
 
 		/**
@@ -250,7 +280,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * 配置・他設定(防御)
 	 */
-	function _main_action_position()
+	function _judge_position()
 	{
 		$this->input->position = HOF::$input->post->position;
 		$this->input->guard = HOF::$input->post->guard;
@@ -283,12 +313,57 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		return true;
 	}
 
+	function _main_action_action()
+	{
+		$this->output->pattern_max = $this->char->pattern_max();
+
+		/**
+		 * Action Pattern 行動判定
+		 * 行動判定条件一覧
+		 */
+		$this->output->judge_list = array();
+		$judge_list = HOF_Model_Data::getJudgeList();
+
+		foreach($judge_list as $k)
+		{
+			$this->output->judge_list[$k] = HOF_Model_Data::getJudgeData($k);
+		}
+
+		$this->skill_list();
+
+		/**
+		 * 前衛の時の後衛守り
+		 */
+		$this->output->guard_list = array();
+
+		foreach((array)HOF_Model_Data::getGuardList() as $k)
+		{
+			$this->output->guard_list[$k] = HOF_Model_Data::getGuardData($k);
+		}
+
+		foreach(array(
+			'pattern_change',
+			'TestBattle',
+			'pattern_memo',
+			'pattern_insert',
+			'pattern_remove',
+			'position',
+		) as $k)
+		{
+			if ($this->input->$k = HOF::request()->post->$k)
+			{
+				$this->{'_judge_'.$k}();
+				break;
+			}
+		}
+	}
+
 	/**
 	 * 行動設定
 	 */
-	function _main_action_pattern_change()
+	function _judge_pattern_change()
 	{
-		$pattern = $this->_pattern_input();
+		$pattern = $this->_judge_pattern_input();
 
 		if ($this->char->pattern($pattern))
 		{
@@ -303,7 +378,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		return false;
 	}
 
-	function _pattern_input()
+	function _judge_pattern_input()
 	{
 		$max = $this->char->pattern_max();
 
@@ -330,7 +405,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * 行動設定 兼 模擬戦
 	 */
-	function _main_action_TestBattle()
+	function _judge_TestBattle()
 	{
 		$pattern = $this->_pattern_input();
 
@@ -348,7 +423,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * 行動パターンメモ(交換)
 	 */
-	function _main_action_pattern_memo()
+	function _judge_pattern_memo()
 	{
 		if ($this->char->pattern_switch())
 		{
@@ -361,7 +436,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * 指定行に追加
 	 */
-	function _main_action_pattern_insert()
+	function _judge_pattern_insert()
 	{
 		$this->input->pattern_no = HOF::$input->post["pattern_no"];
 
@@ -379,7 +454,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * 指定行を削除
 	 */
-	function _main_action_pattern_remove()
+	function _judge_pattern_remove()
 	{
 		$this->input->pattern_no = HOF::$input->post["pattern_no"];
 
@@ -396,7 +471,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * 指定箇所だけ装備をはずす
 	 */
-	function _main_action_remove()
+	function _equip_remove()
 	{
 		$this->input->spot = HOF::$input->post["spot"];
 
@@ -432,7 +507,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * 装備全部はずす
 	 */
-	function _main_action_remove_all()
+	function _equip_remove_all()
 	{
 		if ($list = $this->char->unequip('all'))
 		{
@@ -448,6 +523,9 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 				$this->user->item_add($no);
 			}
+
+			$this->user->item_save();
+			$this->char->SaveCharData();
 
 			return true;
 		}
@@ -488,7 +566,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * 指定物を装備する
 	 */
-	function _main_action_equip_item()
+	function _equip_item()
 	{
 		$this->input->item_no = HOF::$input->post["item_no"];
 
@@ -515,7 +593,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		if ($fail)
 		{
-			$this->_msg_error("Handle Over.", "margin15");
+			$this->_msg_error("Handle Over. Can't Equip {$item[name]}.", "margin15");
 		}
 		else
 		{
@@ -533,46 +611,85 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			$this->user->item_add($no);
 		}
 
-		$this->user->item_save();
-
-		$this->char->SaveCharData();
-
 		if (!$fail)
 		{
 			$this->_msg_result("{$this->char->name} は {$item[name]} を装備した.", "margin15");
 		}
 
+		$this->user->item_save();
+		$this->char->SaveCharData();
+
 		return $fail ? false : true;
+	}
+
+	function skill_list()
+	{
+		$this->output->skill_list = array();
+
+		foreach($this->char->skill as $k)
+		{
+			$this->output->skill_list[$k] = HOF_Model_Data::getSkill($k);
+		}
 	}
 
 	/**
 	 * スキル習得
 	 */
-	function _main_action_learnskill()
+	function _main_action_skill_learn()
 	{
-		$this->input->newskill = HOF::$input->post["newskill"];
+		$this->skill_list();
 
-		if (!$this->input->newskill)
+		$this->output->skill_learn = array();
+
+		$tree = $this->char->skill_tree();
+		$skill_learn = array_diff($tree, (array)$this->char->skill);
+
+		$result = false;
+
+		$this->input->{$this->action} = HOF::request()->post->{$this->action};
+
+		while ($this->input->{$this->action})
 		{
-			$this->_msg_error("スキル未選択", "margin15");
-			return false;
+			$this->input->newskill = HOF::$input->post["newskill"];
+
+			if (!$this->input->newskill)
+			{
+				$this->_msg_error("スキル未選択", "margin15");
+				break;
+			}
+
+			$this->char->SetUser($this->user->id);
+
+			list($result, $message) = $this->char->LearnNewSkill($this->input->newskill);
+
+			if ($result)
+			{
+				$this->char->SaveCharData();
+				$this->_msg_result($message, "margin15");
+
+				$skill_learn_old = $skill_learn;
+
+				$tree = $this->char->skill_tree();
+				$skill_learn = array_diff($tree, (array)$this->char->skill);
+				if ($skill_learn_new = array_diff($skill_learn, $skill_learn_old))
+				{
+					$this->_msg_result("新スキル習得可能", "margin15");
+				}
+			}
+			else
+			{
+				$this->_msg_error($message, "margin15");
+			}
+
+			break;
 		}
 
-		$this->char->SetUser($this->user->id);
-
-		list($result, $message) = $this->char->LearnNewSkill($this->input->newskill);
-
-		if ($result)
+		foreach($skill_learn as $val)
 		{
-			$this->char->SaveCharData();
-			$this->_msg_result($message, "margin15");
-		}
-		else
-		{
-			$this->_msg_error($message, "margin15");
-		}
+			$skill = HOF_Model_Data::getSkill($val);
 
-		return true;
+			$this->output->skill_learn[$val] = $skill;
+		}
 	}
 
 	/**
@@ -580,6 +697,21 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function _main_action_job_change()
 	{
+
+		$this->output->job_change_list = array();
+
+		foreach ((array)$this->char->job_change_list() as $job)
+		{
+			$newjob = new HOF_Class_Char_Job(array('job' => $job, 'gender' => $this->char->gender));
+
+			$this->output->job_change_list[] = $newjob;
+		}
+
+		if (!$this->input->{$this->action} = HOF::request()->post->{$this->action})
+		{
+			return false;
+		}
+
 		$this->input->job = HOF::$input->post["job"];
 
 		if (!$this->input->job)
@@ -883,65 +1015,33 @@ HTML_BYEBYE;
 		HOF::end();
 	}
 
+	function char_detail()
+	{
+		if (!$this->char)
+		{
+			print ("Not exists");
+			return false;
+		}
+
+		// 戦闘用変数の設定。
+		$this->char->SetBattleVariable();
+
+		$this->output->char_id = $this->input->char;
+		$this->output->char = $this->char;
+	}
+
 	/**
 	 * キャラクター詳細表示・装備変更などなど
 	 * 長すぎる...(200行以上)
 	 */
 	function CharStatShow()
 	{
-
-		if (!$this->char)
+		if ($this->char_detail() === false)
 		{
-			print ("Not exists");
 			return false;
-		}
-		// 戦闘用変数の設定。
-		$this->char->SetBattleVariable();
-
-		$this->output->char_id = $this->input->char;
-
-		$this->output->job_change_list = array();
-
-		foreach ((array)$this->char->job_change_list() as $job)
-		{
-			$newjob = new HOF_Class_Char_Job(array('job' => $job, 'gender' => $this->char->gender));
-
-			$this->output->job_change_list[] = $newjob;
 		}
 
 		$this->output->user_item = $this->user->item;
-		$this->output->char = $this->char;
-
-		$this->output->pattern_max = $this->char->pattern_max();
-
-		/**
-		 * Action Pattern 行動判定
-		 * 行動判定条件一覧
-		 */
-		$this->output->judge_list = array();
-		$judge_list = HOF_Model_Data::getJudgeList();
-
-		foreach($judge_list as $k)
-		{
-			$this->output->judge_list[$k] = HOF_Model_Data::getJudgeData($k);
-		}
-
-		$this->output->skill_list = array();
-
-		foreach($this->char->skill as $k)
-		{
-			$this->output->skill_list[$k] = HOF_Model_Data::getSkill($k);
-		}
-
-		/**
-		 * 前衛の時の後衛守り
-		 */
-		$this->output->guard_list = array();
-
-		foreach((array)HOF_Model_Data::getGuardList() as $k)
-		{
-			$this->output->guard_list[$k] = HOF_Model_Data::getGuardData($k);
-		}
 
 		$JobData = $this->char->jobdata();
 
@@ -956,7 +1056,7 @@ HTML_BYEBYE;
 
 
 ?>
-<div style="margin:0 15px">
+<div>
 	<h4>Equipment<a href="<?php e(HOF::url('manual', 'manual', '#equip')) ?>" target="_blank" class="a0">?</a></h4>
 	<div class="bold u">
 		Current Equip's
@@ -1015,7 +1115,7 @@ HTML_BYEBYE;
 ?></td>
 		</tr>
 	</table>
-	<form action="<?php e($this->output->char_url) ?>" method="post">
+	<form action="<?php e(HOF::url('char', 'equip', array('char' => $this->output->char_id))) ?>" method="post">
 		<table>
 			<tr>
 				<td class="align-right">Weapon :</td>
@@ -1039,8 +1139,8 @@ HTML_BYEBYE;
 			</tr>
 				</tbody>
 		</table>
-		<input type="submit" class="btn" name="remove" value="Remove">
-		<input type="submit" class="btn" name="remove_all" value="Remove All">
+		<input type="submit" class="btn" name="equip_remove" value="Remove">
+		<input type="submit" class="btn" name="equip_remove_all" value="Remove All">
 	</form>
 </div>
 <?php
@@ -1054,7 +1154,7 @@ HTML_BYEBYE;
 			"Armor" => "5999",
 			"Item" => "9999");
 
-		print ("<div style=\"padding:15px 15px 0 15px\">\n");
+		print ("<div>\n");
 		print ("\t<div class=\"bold u\">Stock & Allowed to Equip</div>\n");
 		if ($this->user->item)
 		{
@@ -1079,7 +1179,7 @@ HTML_BYEBYE;
 			}
 			print ($EquipList->GetJavaScript("list0"));
 			print ($EquipList->ShowSelect());
-			print ('<form action="'.$this->output->char_url . '" method="post">' . "\n");
+			print ('<form action="' . HOF::url('char', 'equip', array('char' => $this->output->char_id)) . '" method="post">' . "\n");
 			print ('<div id="list0">' . $EquipList->ShowDefault() . '</div>' . "\n");
 			print ('<input type="submit" class="btn" name="equip_item" value="Equip">' . "\n");
 			print ("</form>\n");
@@ -1090,43 +1190,6 @@ HTML_BYEBYE;
 		}
 		print ("</div>\n");
 
-?>
-<form action="<?php e($this->output->char_url) ?>" method="post" style="padding:0 15px">
-	<h4>Skill<a href="<?php e(HOF::url('manual', 'manual', '#skill')) ?>" target="_blank" class="a0">?</a></h4>
-	<?php
-
-		// スキル表示 //////////////////////////////////////
-		//include(DATA_SKILL);//ActionPatternに移動
-		//include_once (DATA_SKILL_TREE);
-		if ($this->char->skill)
-		{
-			print ('<div class="u bold">Mastered</div>');
-			print ("<table><tbody>");
-			foreach ($this->output->skill_list as $val => $skill)
-			{
-				print ("<tr><td>");
-				HOF_Class_Skill::ShowSkillDetail($skill);
-				print ("</td></tr>");
-			}
-			print ("</tbody></table>");
-			print ('<div class="u bold">Learn New</div>');
-			print ("Skill Point : {$this->char->skillpoint}");
-			print ("<table><tbody>");
-			$tree = $this->char->skill_tree();
-			foreach (array_diff($tree, $this->char->skill) as $val)
-			{
-				print ("<tr><td>");
-				$skill = HOF_Model_Data::getSkill($val);
-				HOF_Class_Skill::ShowSkillDetail($skill, 1);
-				print ("</td></tr>");
-			}
-			print ("</tbody></table>");
-			//dump($this->char->skill);
-			//dump($tree);
-			print ('<input type="submit" class="btn" name="learnskill" value="Learn">' . "\n");
-			print ('<input type="hidden" name="learnskill" value="1">' . "\n");
-		}
-
 	}
 
 	/**
@@ -1134,6 +1197,8 @@ HTML_BYEBYE;
 	 */
 	function ShowMyCharacters($array = NULL)
 	{
+		$this->user->char_all();
+
 		// $array ← 色々受け取る
 		if (empty($this->user->char)) return false;
 
