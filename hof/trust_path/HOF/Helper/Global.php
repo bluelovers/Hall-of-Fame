@@ -88,14 +88,16 @@ class HOF_Helper_Global
 	//	期限切れアカウントの一斉削除
 	function DeleteAbandonAccount()
 	{
-		$list = HOF_Class_File::glob(BASE_PATH_USER);
+		$list = HOF_Helper_Char::user_list();
 		$now = time();
 
 		// ユーザー一覧を取得する
 		foreach ($list as $file)
 		{
 			if (!is_dir($file)) continue;
-			$UserID = substr($file, strrpos($file, "/") + 1);
+
+			$UserID = HOF_Helper_Char::user_id_by_path($file);
+
 			$user = new HOF_Class_User($UserID, true);
 
 			// 消されるユーザー
@@ -129,8 +131,7 @@ class HOF_Helper_Global
 
 		// 一通りユーザチェックが終わったのでランキングをどうするか
 		if ($RankChange === true) $Ranking->fpsave();
-		else
-			if ($RankChange === false) $Ranking->fpclose();
+		elseif ($RankChange === false) $Ranking->fpclose();
 
 		//print("<pre>".print_r($list,1)."</pre>");
 	}
@@ -145,40 +146,38 @@ class HOF_Helper_Global
 		*/
 		if (19 <= self::gc_date("H") || self::gc_date("H") <= 1) return false;
 
-		$now = time();
 
-		$fp = HOF_Class_File::fplock_file(CTRL_TIME_FILE, true);
-		if (!$fp) return false;
-		//$ctrltime	= file_get_contents(CTRL_TIME_FILE);
-		$ctrltime = trim(fgets($fp, 1024));
-		// 周期がまだなら終了
-		if ($now < $ctrltime)
+
+		if (!$fp = HOF_Class_File::fplock_file(CTRL_TIME_FILE, true, true)) return false;
+
+		$now = time();
+		$ctrltime = trim(fgets($fp, 10));
+
+		$ret = false;
+
+		if ($now > $ctrltime)
 		{
-			fclose($fp);
-			unset($fp);
-			return false;
+			// 管理の処理
+			self::RecordManage(self::gc_date("Y M d G:i:s", $now) . ": auto regular control by {$value}.");
+
+			self::DeleteAbandonAccount(); //その1 放棄ユーザの掃除
+
+			// 定期管理が終わったら次の管理時刻を書き込んで終了する。
+			HOF_Class_File::fpwrite_file($fp, $now + CONTROL_PERIOD);
+
+			$ret = true;
 		}
 
-		// 管理の処理
-		self::RecordManage(self::gc_date("Y M d G:i:s", $now) . ": auto regular control by {$value}.");
-
-		self::DeleteAbandonAccount(); //その1 放棄ユーザの掃除
-
-		// 定期管理が終わったら次の管理時刻を書き込んで終了する。
-		HOF_Class_File::fpwrite_file($fp, $now + CONTROL_PERIOD);
-		fclose($fp);
-		unset($fp);
+		HOF_Class_File::fpclose($fp);
+		return $ret;
 	}
 
 	function RecordManage($string)
 	{
 		$file = MANAGE_LOG_FILE;
 
-		$fp = @fopen($file, "r+") or die();
-		$text = fread($fp, 2048);
-		ftruncate($fp, 0);
-		rewind($fp);
-		fwrite($fp, $string . "\n" . $text);
+		$fp = @fopen($file, "ab") or die();
+		fwrite($fp, $string . "\n");
 	}
 
 	/*
