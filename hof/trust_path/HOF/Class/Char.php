@@ -316,12 +316,16 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 			{
 				$fail = true;
 
+				$this->{$equip_type} = null;
+
+				/*
 				// handle over
 				foreach ($old as $key => $val)
 				{
 					// 元に戻す。
 					$this->{$key} = $val;
 				}
+				*/
 
 				//return false;
 			}
