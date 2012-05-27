@@ -66,63 +66,14 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 	var $BattleResultType = 0; // 0=決着着かなければDraw 1=生存者の数で勝敗を決める
 	var $UnionBattle; // 残りHP総HPを隠す(????/????)
 
-	protected $_extends_ = array();
-	protected $_extends_method_ = array();
-
-	protected $_extends_method_invalids_ = array();
-
-	function extend($extend)
-	{
-		$this->_extends_[$class] = null;
-
-		if (is_object($extend))
-		{
-			$class = get_class($extend);
-			$this->_extends_[$class]['obj'] = &$extend;
-		}
-		else
-		{
-			$class = $extend;
-			$this->_extends_[$class]['obj'] = null;
-		}
-
-		$this->_extends_[$class]['class'] = $class;
-
-		$methods = HOF_Helper_Object::get_public_methods($class, $this->_extends_method_invalids_);
-
-		foreach ($methods as $v)
-		{
-			$this->_extends_method_[$v] = $class;
-		}
-
-		return $this;
-	}
-
-	function __call($func, $argv)
-	{
-		if (isset($this->_extends_method_[$func]) && !empty($this->_extends_method_[$func]))
-		{
-			$class = $this->_extends_method_[$func];
-
-			if (!isset($this->_extends_[$class]['obj']))
-			{
-				$this->_extends_[$class]['obj'] = new $class(&$this);
-			}
-
-			return call_user_func_array(array($this->_extends_[$class]['obj'], $func), $argv);
-		}
-		else
-		{
-			throw new BadMethodCallException('Call to undefined method ' . get_class($this) . '::' . $func . '()');
-		}
-	}
-
 	/**
 	 * @param $team0 $MyParty
 	 * @param $team1 $EnemyParty
 	 */
 	function __construct($team0, $team1)
 	{
+
+		$this->_extend_init();
 
 		$team0 = HOF_Class_Battle_Team::newInstance($team0);
 		$team1 = HOF_Class_Battle_Team::newInstance($team1);
@@ -141,8 +92,6 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 		$this->SetDelay(); //ディレイ計算
 		$this->DelayResetAll(); //初期化
 
-		$this->objs['view'] = new HOF_Class_Battle_View(&$this);
-
 		$this->teams[0]['team'] = &$this->team0;
 		$this->teams[1]['team'] = &$this->team1;
 
@@ -157,11 +106,13 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 
 		$this->teams[0]['team']->update();
 		$this->teams[1]['team']->update();
+	}
 
+	protected function _extend_init()
+	{
+		$this->extend('HOF_Class_Battle_View');
 		$this->extend('HOF_Class_Skill_Effect');
 		$this->extend('HOF_Class_Battle_Skill');
-
-
 	}
 
 	function outputImage()
@@ -170,30 +121,6 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 
 		echo $output;
 	}
-
-	/*
-	function SkillEffect($skill, $skill_no, &$user, &$target)
-	{
-	if (!isset($this->objs['SkillEffect']))
-	{
-	$this->objs['SkillEffect'] = new HOF_Class_Skill_Effect(&$this);
-	}
-
-	return $this->objs['SkillEffect']->SkillEffect($skill, $skill_no, &$user, &$target);
-	}
-
-	function UseSkill($skill_no, &$JudgedTarget, &$My, &$MyTeam, &$Enemy)
-	{
-	$_key = 'Battle_Skill';
-
-	if (!isset($this->objs[$_key]))
-	{
-	$this->objs[$_key] = new HOF_Class_Battle_Skill(&$this);
-	}
-
-	return $this->objs[$_key]->UseSkill($skill_no, &$JudgedTarget, &$My, &$MyTeam, &$Enemy);
-	}
-	*/
 
 	/**
 	 * 魔方陣を追加する
@@ -544,10 +471,51 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 		}
 	}
 
+	function initEnterBattlefield()
+	{
+		$list = array();
+
+		foreach ($this->teams as $idx => $data)
+		{
+			foreach ($data['team'] as $char)
+			{
+				$list[] = array('dis' => $char->DelayValue(), 'char' => $char);
+			}
+		}
+
+		usort($list, HOF_Class_Array_Comparer_MuliteSubKey::newInstance('dis')->comp_func('bccomp')->sort_desc(true)->callback());
+
+		foreach ($list as $data)
+		{
+			$this->showEnterBattlefield($data['char']);
+		}
+	}
+
+	function showEnterBattlefield($char, $mode = true)
+	{
+		echo ("<tr><td class=\"ttd2\">\n");
+
+		if ($char->team === TEAM_0)
+		{
+			echo ("</td><td class=\"ttd1\">\n");
+		}
+
+		$char->enterBattlefield();
+
+		if ($char->team === TEAM_1)
+		{
+			echo ("</td><td class=\"ttd1\">&nbsp;\n");
+		}
+
+		echo ("</td></tr>\n");
+	}
+
 	//	戦闘処理(これを実行して戦闘が処理される)
 	function Process()
 	{
-		$this->objs['view']->BattleHeader();
+		$this->BattleHeader();
+
+		$this->initEnterBattlefield();
 
 		//戦闘が終わるまで繰り返す
 		do
@@ -555,7 +523,7 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 			if ($this->actions % BATTLE_STAT_TURNS == 0)
 			{
 				//一定間隔で状況を表示
-				$this->objs['view']->BattleState(); //状況の表示
+				$this->BattleState(); //状況の表示
 			}
 
 			// 行動キャラ
@@ -579,8 +547,8 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 
 		} while (!$result);
 
-		$this->objs['view']->ShowResult($result); //戦闘の結果表示
-		$this->objs['view']->BattleFoot();
+		$this->ShowResult($result); //戦闘の結果表示
+		$this->BattleFoot();
 
 		//$this->SaveCharacters();
 	}
@@ -821,15 +789,30 @@ HTML;
 			$this->team1_exp += $exp;
 		}
 
-		$Alive = HOF_Class_Battle_Team::CountAliveChars($team);
-		if ($Alive === 0) return false;
-		$ExpGet = ceil($exp / $Alive); //生存者にだけ経験値を分ける。
+		$Alive = HOF_Class_Battle_Team::CountTrueChars($team);
+
+		if ($Alive == 0) return false;
+
+		/**
+		 * 生存者にだけ経験値を分ける
+		 */
+		$ExpGet = ceil($exp / $Alive);
 		echo ("Alives get {$ExpGet}exps.<br />\n");
+
 		foreach ($team as $key => $char)
 		{
-			if ($char->STATE === 1) continue; //死亡者にはEXPあげない
-			if ($team[$key]->GetExp($ExpGet)) //LvUpしたならtrueが返る
- 					echo ("<span class=\"levelup\">" . $char->Name() . " LevelUp!</span><br />\n");
+			/**
+			 * 死亡者にはEXPあげない
+			 */
+			if ($char->STATE === STATE_DEAD) continue;
+
+			/**
+			 * LvUpしたならtrueが返る
+			 */
+			if ($team[$key]->GetExp($ExpGet))
+			{
+				echo ("<span class=\"levelup\">" . $char->Name() . " LevelUp!</span><br />\n");
+			}
 		}
 	}
 
@@ -1211,12 +1194,11 @@ HTML;
 			echo ("{$this->team0_name} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
 			$this->team0_money += $money;
 		}
-		else
-			if ($team === $this->team1)
-			{
-				echo ("{$this->team1_name} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
-				$this->team1_money += $money;
-			}
+		elseif ($team === $this->team1)
+		{
+			echo ("{$this->team1_name} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
+			$this->team1_money += $money;
+		}
 	}
 
 	//	ユーザーデータに得る合計金額を渡す
