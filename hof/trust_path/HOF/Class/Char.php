@@ -428,31 +428,6 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 		HOF_Class_File::unlink($this->file);
 	}
 
-	//	経験値を得る
-	function GetExp($exp)
-	{
-		if ($this->monster) return false; //モンスターは経験値を得ない
-		if (MAX_LEVEL <= $this->level) return false; //最大レベルの場合経験値を得ない
-
-		$this->exp += $exp;
-		$need = $this->CalcExpNeed($this->level); // 必要な経験値
-		if ($need <= $this->exp)
-		{
-			$this->LevelUp();
-			return true;
-		}
-	}
-
-	//	レベルあげる時の処理
-	function LevelUp()
-	{
-		$this->exp = 0;
-		$this->level++;
-		$this->statuspoint += GET_STATUS_POINT; //ステポをもらえる。
-		$this->skillpoint += GET_SKILL_POINT;
-	}
-
-
 	//	パッシブスキルを読み込む
 	function LoadPassiveSkills()
 	{
