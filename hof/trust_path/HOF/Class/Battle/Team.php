@@ -12,7 +12,7 @@ class HOF_Class_Battle_Team extends HOF_Class_Array
 	{
 		if ($team instanceof self)
 		{
-			$team = $team->toArray();
+			$team = $team->toArray(true);
 		}
 
 		parent::__construct($team);
@@ -72,15 +72,15 @@ class HOF_Class_Battle_Team extends HOF_Class_Array
 	{
 		if ($who instanceof self)
 		{
-			$team = $who->toArray();
+			$team = $who->toArray(true);
 		}
 		elseif ($who instanceof HOF_Class_Char)
 		{
-			$team = $who->getTeamObj()->toArray();
+			$team = $who->getTeamObj()->toArray(true);
 		}
 		elseif (@isset($this))
 		{
-			$team = $this->toArray();
+			$team = $this->toArray(true);
 		}
 		else
 		{
