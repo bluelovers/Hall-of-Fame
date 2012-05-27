@@ -13,7 +13,7 @@
  * $battle->Process();//戦闘開始
  */
 //class HOF_Class_Battle extends battle implements HOF_Class_Base_Extend_RootInterface
-class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
+class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 {
 
 	/*
@@ -78,34 +78,26 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 		$team0 = HOF_Class_Battle_Team::newInstance($team0);
 		$team1 = HOF_Class_Battle_Team::newInstance($team1);
 
-		$this->team0 = $team0;
-		$this->team1 = $team1;
+		$this->teams[TEAM_0]['team'] = $team0;
+		$this->teams[TEAM_1]['team'] = $team1;
 
-		// 各チームに戦闘専用の変数を設定する(class.char.php)
-		// 装備の特殊機能等を計算して設定する。
-		// 戦闘専用の変数は大文字英語だったりする。class.char.phpを参照。
-		//  $this->team["$key"] で渡すこと.(引数はチーム番号)
-		foreach ($this->team0 as $key => $char) $this->team0["$key"]->SetBattleVariable(TEAM_0);
-		foreach ($this->team1 as $key => $char) $this->team1["$key"]->SetBattleVariable(TEAM_1);
+		/**
+		 * 各チームに戦闘専用の変数を設定する(class.char.php)
+		 * 装備の特殊機能等を計算して設定する。
+		 * 戦闘専用の変数は大文字英語だったりする。class.char.phpを参照。
+		 */
+		foreach ($this->teams[TEAM_0]['team'] as $key => $char) $this->teams[TEAM_0]['team']["$key"]->SetBattleVariable(TEAM_0);
+		foreach ($this->teams[TEAM_1]['team'] as $key => $char) $this->teams[TEAM_1]['team']["$key"]->SetBattleVariable(TEAM_1);
 
 		// delay関連
 		$this->SetDelay(); //ディレイ計算
 		$this->DelayResetAll(); //初期化
 
-		$this->teams[0]['team'] = &$this->team0;
-		$this->teams[1]['team'] = &$this->team1;
+		$this->teams[TEAM_0]['no'] = TEAM_0;
+		$this->teams[TEAM_1]['no'] = TEAM_1;
 
-		$this->teams[0]['mc'] = &$this->team0_mc;
-		$this->teams[1]['mc'] = &$this->team1_mc;
-
-		$this->teams[0]['name'] = &$this->team0_name;
-		$this->teams[1]['name'] = &$this->team1_name;
-
-		$this->teams[0]['no'] = TEAM_0;
-		$this->teams[1]['no'] = TEAM_1;
-
-		$this->teams[0]['team']->update();
-		$this->teams[1]['team']->update();
+		$this->teams[TEAM_0]['team']->update();
+		$this->teams[TEAM_1]['team']->update();
 	}
 
 	protected function _extend_init()
@@ -117,7 +109,7 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 
 	function outputImage()
 	{
-		$output = HOF_Class_Battle_Style::newInstance(BTL_IMG_TYPE)->setBg($this->BackGround)->setTeams($this->team1, $this->team0)->setMagicCircle($this->team1_mc, $this->team0_mc)->exec();
+		$output = HOF_Class_Battle_Style::newInstance(BTL_IMG_TYPE)->setBg($this->BackGround)->setTeams($this->teams[TEAM_1]['team'], $this->teams[TEAM_0]['team'])->setMagicCircle($this->teams[TEAM_1]['mc'], $this->teams[TEAM_0]['mc'])->exec();
 
 		echo $output;
 	}
@@ -133,11 +125,11 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 
 		if ($team == TEAM_0)
 		{
-			$team_mc = &$this->team0_mc;
+			$team_mc = &$this->teams[TEAM_0]['mc'];
 		}
 		else
 		{
-			$team_mc = &$this->team1_mc;
+			$team_mc = &$this->teams[TEAM_1]['mc'];
 		}
 
 		if ($del)
@@ -167,8 +159,8 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 	{
 		$count = 0;
 
-		$count += HOF_Class_Battle_Team::CountDead($this->team0);
-		$count += HOF_Class_Battle_Team::CountDead($this->team1);
+		$count += HOF_Class_Battle_Team::CountDead($this->teams[TEAM_0]['team']);
+		$count += HOF_Class_Battle_Team::CountDead($this->teams[TEAM_1]['team']);
 
 		return $count;
 	}
@@ -239,8 +231,8 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 		$file .= $time . ".dat";
 
 		$head = $time . "\n"; //開始時間(1行目)
-		$head .= $this->team0_name . "<>" . $this->team1_name . "\n"; //参加チーム(2行目)
-		$head .= count($this->team0) . "<>" . count($this->team1) . "\n"; //参加人数(3行目)
+		$head .= $this->teams[TEAM_0]['name'] . "<>" . $this->teams[TEAM_1]['name'] . "\n"; //参加チーム(2行目)
+		$head .= count($this->teams[TEAM_0]['team']) . "<>" . count($this->teams[TEAM_1]['team']) . "\n"; //参加人数(3行目)
 		$head .= $this->team0_ave_lv . "<>" . $this->team1_ave_lv . "\n"; //平均レベル(4行目)
 		$head .= $this->result . "\n"; //勝利チーム(5行目)
 		$head .= $this->actions . "\n"; //総ターン数(6行目)
@@ -276,12 +268,12 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 		}
 
 		// 自分のチームはどちらか?
-		foreach ($this->team0 as $val)
+		foreach ($this->teams[TEAM_0]['team'] as $val)
 		{
 			if ($val === $char)
 			{
-				$MyTeam = &$this->team0;
-				$EnemyTeam = &$this->team1;
+				$MyTeam = &$this->teams[TEAM_0]['team'];
+				$EnemyTeam = &$this->teams[TEAM_1]['team'];
 				break;
 			}
 		}
@@ -289,8 +281,8 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 		//チーム0でないならチーム1
 		if (empty($MyTeam))
 		{
-			$MyTeam = &$this->team1;
-			$EnemyTeam = &$this->team0;
+			$MyTeam = &$this->teams[TEAM_1]['team'];
+			$EnemyTeam = &$this->teams[TEAM_0]['team'];
 		}
 
 		//行動の判定(使用する技の判定)
@@ -348,6 +340,8 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 		// 戦闘の総行動回数を増やす。
 		$this->actions++;
 
+		//debug(__LINE__, count($MyTeam), count($EnemyTeam));
+
 		if ($skill)
 		{
 			$this->UseSkill($skill, &$return, &$char, &$MyTeam, &$EnemyTeam);
@@ -377,13 +371,13 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 	//	全員死んでる=draw(?)
 	function BattleResult()
 	{
-		if (HOF_Class_Battle_Team::CountAlive($this->team0) == 0)
+		if (HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_0]['team']) == 0)
 		{
 			//全員しぼーなら負けにする。
 			$team0Lose = true;
 		}
 
-		if (HOF_Class_Battle_Team::CountAlive($this->team1) == 0)
+		if (HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_1]['team']) == 0)
 		{
 			//全員しぼーなら負けにする。
 			$team1Lose = true;
@@ -393,17 +387,17 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 		if ($team0Lose && $team1Lose)
 		{
 			$this->result = BATTLE_DRAW;
-			return "draw";
+			return $this->result;
 		}
 		elseif ($team0Lose)
 		{ //team1 won
 			$this->result = TEAM_1;
-			return "team1";
+			return $this->result;
 		}
 		elseif ($team1Lose)
 		{ // team0 won
 			$this->result = TEAM_0;
-			return "team0";
+			return $this->result;
 
 			// 両チーム生存していて最大行動数に達した時。
 		}
@@ -412,12 +406,12 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 			// 生存者数の差。
 			/*
 			// 生存者数の差が1人以上なら延長
-			$AliveNumDiff	= abs(HOF_Class_Battle_Team::CountAlive($this->team0) - HOF_Class_Battle_Team::CountAlive($this->team1));
+			$AliveNumDiff	= abs(HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_0]['team']) - HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_1]['team']));
 			if(0 < $AliveNumDiff && $this->BattleMaxTurn < BATTLE_MAX_EXTENDS) {
 			*/
-			$AliveNumDiff = abs(HOF_Class_Battle_Team::CountAlive($this->team0) - HOF_Class_Battle_Team::CountAlive($this->team1));
-			$Not5 = (HOF_Class_Battle_Team::CountAlive($this->team0) != 5 && HOF_Class_Battle_Team::CountAlive($this->team1) != 5);
-			//$lessThan4	= ( HOF_Class_Battle_Team::CountAlive($this->team0) < 5 || HOF_Class_Battle_Team::CountAlive($this->team1) < 5 );
+			$AliveNumDiff = abs(HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_0]['team']) - HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_1]['team']));
+			$Not5 = (HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_0]['team']) != 5 && HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_1]['team']) != 5);
+			//$lessThan4	= ( HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_0]['team']) < 5 || HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_1]['team']) < 5 );
 			//if( ( $lessThan4 || 0 < $AliveNumDiff ) && $this->BattleMaxTurn < BATTLE_MAX_EXTENDS ) {
 			if (($Not5 || 0 < $AliveNumDiff) && $this->BattleMaxTurn < BATTLE_MAX_EXTENDS)
 			{
@@ -428,7 +422,7 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 			if ($this->BattleResultType == 0)
 			{
 				$this->result = BATTLE_DRAW; //引き分け。
-				return "draw";
+				return $this->result;
 				// 決着着かなければ生存者の数で勝敗をつける。
 			}
 			elseif ($this->BattleResultType == 1)
@@ -438,37 +432,39 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 				// (2) (1) が同じなら総ダメージが多いほうが勝ち
 				// (3) (2) でも同じなら引き分け…???(or防衛側の勝ち)
 
-				$team0Alive = HOF_Class_Battle_Team::CountAliveChars($this->team0);
-				$team1Alive = HOF_Class_Battle_Team::CountAliveChars($this->team1);
+				$team0Alive = HOF_Class_Battle_Team::CountAliveChars($this->teams[TEAM_0]['team']);
+				$team1Alive = HOF_Class_Battle_Team::CountAliveChars($this->teams[TEAM_1]['team']);
 				if ($team1Alive < $team0Alive)
 				{
 					// team0 won
 					$this->result = TEAM_0;
-					return "team0";
+					return $this->result;
 				}
 				elseif ($team0Alive < $team1Alive)
 				{
 					// team1 won
 					$this->result = TEAM_1;
-					return "team1";
+					return $this->result;
 				}
 				else
 				{
 					$this->result = BATTLE_DRAW;
-					return "draw";
+					return $this->result;
 				}
 			}
 			else
 			{
 				$this->result = BATTLE_DRAW;
 				echo ("error321708.<br />おかしいので報告してください。");
-				return "draw"; // エラー回避。
+				return $this->result; // エラー回避。
 			}
 
 			$this->result = BATTLE_DRAW;
 			echo ("error321709.<br />おかしいので報告してください。");
-			return "draw"; // エラー回避。
+			return $this->result; // エラー回避。
 		}
+
+		return false;
 	}
 
 	function initEnterBattlefield()
@@ -545,7 +541,7 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 				$this->SetDelay();
 			}
 
-		} while (!$result);
+		} while ($result === null || $result === false);
 
 		$this->ShowResult($result); //戦闘の結果表示
 		$this->BattleFoot();
@@ -563,38 +559,38 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 		// 次の行動まで最も距離が短い人を探す。
 		$nextDis = 1000;
 
-		foreach ($this->team0 as $key => $char)
+		foreach ($this->teams[TEAM_0]['team'] as $key => $char)
 		{
 			if ($char->STATE === STATE_DEAD) continue;
 
-			$charDis = $this->team0[$key]->nextDis();
+			$charDis = $this->teams[TEAM_0]['team'][$key]->nextDis();
 
 			if ($charDis == $nextDis)
 			{
-				$NextChar[] = &$this->team0["$key"];
+				$NextChar[] = &$this->teams[TEAM_0]['team']["$key"];
 			}
 			elseif ($charDis <= $nextDis)
 			{
 				$nextDis = $charDis;
-				$NextChar = array(&$this->team0["$key"]);
+				$NextChar = array(&$this->teams[TEAM_0]['team']["$key"]);
 			}
 		}
 
 		// ↑と同じ。
-		foreach ($this->team1 as $key => $char)
+		foreach ($this->teams[TEAM_1]['team'] as $key => $char)
 		{
 			if ($char->STATE === STATE_DEAD) continue;
 
-			$charDis = $this->team1[$key]->nextDis();
+			$charDis = $this->teams[TEAM_1]['team'][$key]->nextDis();
 
 			if ($charDis == $nextDis)
 			{
-				$NextChar[] = &$this->team1["$key"];
+				$NextChar[] = &$this->teams[TEAM_1]['team']["$key"];
 			}
 			elseif ($charDis <= $nextDis)
 			{
 				$nextDis = $charDis;
-				$NextChar = array(&$this->team1["$key"]);
+				$NextChar = array(&$this->teams[TEAM_1]['team']["$key"]);
 			}
 		}
 
@@ -616,14 +612,14 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 			}
 		}
 
-		foreach ($this->team0 as $key => $char)
+		foreach ($this->teams[TEAM_0]['team'] as $key => $char)
 		{
-			$this->team0["$key"]->Delay($nextDis);
+			$this->teams[TEAM_0]['team']["$key"]->Delay($nextDis);
 		}
 
-		foreach ($this->team1 as $key => $char)
+		foreach ($this->teams[TEAM_1]['team'] as $key => $char)
 		{
-			$this->team1["$key"]->Delay($nextDis);
+			$this->teams[TEAM_1]['team']["$key"]->Delay($nextDis);
 		}
 
 		// エラーが出たらこれでたしかめろ。
@@ -666,24 +662,24 @@ class HOF_Class_Battle implements HOF_Class_Base_Extend_RootInterface
 	//	戦闘にキャラクターを途中参加させる。
 	function JoinCharacter($user, $add)
 	{
-	foreach ($this->team0 as $char)
+	foreach ($this->teams[TEAM_0]['team'] as $char)
 	{
 	if ($user === $char)
 	{
-	//array_unshift($this->team0,$add);
-	$this->team0->addChar($add, TEAM_0);
+	//array_unshift($this->teams[TEAM_0]['team'],$add);
+	$this->teams[TEAM_0]['team']->addChar($add, TEAM_0);
 
-	//dump($this->team0);
+	//dump($this->teams[TEAM_0]['team']);
 	$this->ChangeDelay();
 	return 0;
 	}
 	}
-	foreach ($this->team1 as $char)
+	foreach ($this->teams[TEAM_1]['team'] as $char)
 	{
 	if ($user === $char)
 	{
-	//array_unshift($this->team1,$add);
-	$this->team1->addChar($add, TEAM_1);
+	//array_unshift($this->teams[TEAM_1]['team'],$add);
+	$this->teams[TEAM_1]['team']->addChar($add, TEAM_1);
 	$this->ChangeDelay();
 	return 0;
 	}
@@ -749,12 +745,12 @@ HTML;
 	function SaveCharacters()
 	{
 		//チーム0
-		foreach ($this->team0 as $char)
+		foreach ($this->teams[TEAM_0]['team'] as $char)
 		{
 			$char->SaveCharData();
 		}
 		//チーム1
-		foreach ($this->team1 as $char)
+		foreach ($this->teams[TEAM_1]['team'] as $char)
 		{
 			$char->SaveCharData();
 		}
@@ -764,9 +760,9 @@ HTML;
 	function AddTotalDamage($team, $dmg)
 	{
 		if (!is_numeric($dmg)) return false;
-		if ($team == $this->team0) $this->team0_dmg += $dmg;
+		if ($team == $this->teams[TEAM_0]['team']) $this->team0_dmg += $dmg;
 		else
-			if ($team == $this->team1) $this->team1_dmg += $dmg;
+			if ($team == $this->teams[TEAM_1]['team']) $this->team1_dmg += $dmg;
 	}
 
 
@@ -780,7 +776,7 @@ HTML;
 
 		$exp = round(EXP_RATE * $exp);
 
-		if ($team === $this->team0)
+		if ($team === $this->teams[TEAM_0]['team'])
 		{
 			$this->team0_exp += $exp;
 		}
@@ -820,7 +816,7 @@ HTML;
 	function GetItem($itemdrop, $MyTeam)
 	{
 		if (!$itemdrop) return false;
-		if ($MyTeam === $this->team0)
+		if ($MyTeam === $this->teams[TEAM_0]['team'])
 		{
 			foreach ($itemdrop as $itemno => $amount)
 			{
@@ -1054,14 +1050,14 @@ HTML;
 	function &NextActer()
 	{
 		// 最もディレイが大きい人を探す
-		foreach ($this->team0 as $key => $char)
+		foreach ($this->teams[TEAM_0]['team'] as $key => $char)
 		{
 			if ($char->STATE === 1) continue;
 			// 最初は誰でもいいのでとりあえず最初の人とする。
 			if (!isset($delay))
 			{
 				$delay = $char->delay;
-				$NextChar = &$this->team0["$key"];
+				$NextChar = &$this->teams[TEAM_0]['team']["$key"];
 				continue;
 			}
 			// キャラが今のディレイより多ければ交代
@@ -1073,11 +1069,11 @@ HTML;
 					if (mt_rand(0, 1)) continue;
 				}
 				$delay = $char->delay;
-				$NextChar = &$this->team0["$key"];
+				$NextChar = &$this->teams[TEAM_0]['team']["$key"];
 			}
 		}
 		// ↑と同じ。
-		foreach ($this->team1 as $key => $char)
+		foreach ($this->teams[TEAM_1]['team'] as $key => $char)
 		{
 			if ($char->STATE === 1) continue;
 			if ($delay <= $char->delay)
@@ -1087,20 +1083,20 @@ HTML;
 					if (mt_rand(0, 1)) continue;
 				}
 				$delay = $char->delay;
-				$NextChar = &$this->team1["$key"];
+				$NextChar = &$this->teams[TEAM_1]['team']["$key"];
 			}
 		}
 		// 全員ディレイ減少
 		$dif = $this->delay - $NextChar->delay; //戦闘基本ディレイと行動者のディレイの差分
 		if ($dif < 0) //もしも差分が0以下になったら…
  				return $NextChar;
-		foreach ($this->team0 as $key => $char)
+		foreach ($this->teams[TEAM_0]['team'] as $key => $char)
 		{
-			$this->team0["$key"]->Delay($dif);
+			$this->teams[TEAM_0]['team']["$key"]->Delay($dif);
 		}
-		foreach ($this->team1 as $key => $char)
+		foreach ($this->teams[TEAM_1]['team'] as $key => $char)
 		{
-			$this->team1["$key"]->Delay($dif);
+			$this->teams[TEAM_1]['team']["$key"]->Delay($dif);
 		}
 		/*// エラーが出たらこれで。
 		if(!is_object($NextChar)) {
@@ -1121,13 +1117,13 @@ HTML;
 
 		if (DELAY_TYPE === 0 || DELAY_TYPE === 1)
 		{
-			foreach ($this->team0 as $key => $char)
+			foreach ($this->teams[TEAM_0]['team'] as $key => $char)
 			{
-				$this->team0["$key"]->DelayReset();
+				$this->teams[TEAM_0]['team']["$key"]->DelayReset();
 			}
-			foreach ($this->team1 as $key => $char)
+			foreach ($this->teams[TEAM_1]['team'] as $key => $char)
 			{
-				$this->team1["$key"]->DelayReset();
+				$this->teams[TEAM_1]['team']["$key"]->DelayReset();
 			}
 		}
 	}
@@ -1140,26 +1136,25 @@ HTML;
 		if (DELAY_TYPE === 0)
 		{
 			//SPDの最大値と合計を求める
-			foreach ($this->team0 as $key => $char)
+			foreach ($this->teams[TEAM_0]['team'] as $key => $char)
 			{
 				$TotalSPD += $char->SPD;
 				if ($MaxSPD < $char->SPD) $MaxSPD = $char->SPD;
 			}
-			//dump($this->team0);
-			foreach ($this->team1 as $char)
+			//dump($this->teams[TEAM_0]['team']);
+			foreach ($this->teams[TEAM_1]['team'] as $char)
 			{
 				$TotalSPD += $char->SPD;
 				if ($MaxSPD < $char->SPD) $MaxSPD = $char->SPD;
 			}
 			//平均SPD
-			$AverageSPD = $TotalSPD / (count($this->team0) + count($this->team1));
+			$AverageSPD = $TotalSPD / (count($this->teams[TEAM_0]['team']) + count($this->teams[TEAM_1]['team']));
 			//基準delayとか
 			$AveDELAY = $AverageSPD * DELAY;
 			$this->delay = $MaxSPD + $AveDELAY; //その戦闘の基準ディレイ
 			$this->ChangeDelay = false; //falseにしないと毎回DELAYを計算し直してしまう。
 		}
-		else
-			if (DELAY_TYPE === 1)
+		elseif (DELAY_TYPE === 1)
 			{
 			}
 	}
@@ -1178,8 +1173,8 @@ HTML;
 	//	チームの名前を設定
 	function SetTeamName($name1, $name2)
 	{
-		$this->team0_name = $name1;
-		$this->team1_name = $name2;
+		$this->teams[TEAM_0]['name'] = $name1;
+		$this->teams[TEAM_1]['name'] = $name2;
 	}
 
 
@@ -1189,14 +1184,14 @@ HTML;
 	{
 		if (!$money) return false;
 		$money = ceil($money * MONEY_RATE);
-		if ($team === $this->team0)
+		if ($team === $this->teams[TEAM_0]['team'])
 		{
-			echo ("{$this->team0_name} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
+			echo ("{$this->teams[TEAM_0]['name']} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
 			$this->team0_money += $money;
 		}
-		elseif ($team === $this->team1)
+		elseif ($team === $this->teams[TEAM_1]['team'])
 		{
-			echo ("{$this->team1_name} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
+			echo ("{$this->teams[TEAM_1]['name']} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
 			$this->team1_money += $money;
 		}
 	}
@@ -1212,14 +1207,14 @@ HTML;
 	{
 		if ($team == TEAM_0)
 		{
-			$this->team0_mc += $amount;
-			if (5 < $this->team0_mc) $this->team0_mc = 5;
+			$this->teams[TEAM_0]['mc'] += $amount;
+			if (5 < $this->teams[TEAM_0]['mc']) $this->teams[TEAM_0]['mc'] = 5;
 			return true;
 		}
 		else
 		{
-			$this->team1_mc += $amount;
-			if (5 < $this->team1_mc) $this->team1_mc = 5;
+			$this->teams[TEAM_1]['mc'] += $amount;
+			if (5 < $this->teams[TEAM_1]['mc']) $this->teams[TEAM_1]['mc'] = 5;
 			return true;
 		}
 	}
@@ -1229,14 +1224,14 @@ HTML;
 	{
 		if ($team == TEAM_0)
 		{
-			if ($this->team0_mc < $amount) return false;
-			$this->team0_mc -= $amount;
+			if ($this->teams[TEAM_0]['mc'] < $amount) return false;
+			$this->teams[TEAM_0]['mc'] -= $amount;
 			return true;
 		}
 		else
 		{
-			if ($this->team1_mc < $amount) return false;
-			$this->team1_mc -= $amount;
+			if ($this->teams[TEAM_1]['mc'] < $amount) return false;
+			$this->teams[TEAM_1]['mc'] -= $amount;
 			return true;
 		}
 	}
