@@ -1,10 +1,9 @@
 <!-- 転職 -->
 
-<?php if (!empty($this->output->job_change_list)): ?>
-</form>
+	<h4>JobChange</h4>
 
-	<form action="<?php e($this->output->char_url) ?>" method="post" style="padding:0 15px">
-		<h4>JobChange</h4>
+<?php if (!empty($this->output->job_change_list)): ?>
+	<form action="<?php e(HOF::url('char', 'job_change', array('char' => $this->output->char_id))) ?>" method="post">
 		<table>
 			<tbody>
 				<tr>
@@ -22,4 +21,9 @@
 		<input type="submit" class="btn" name="job_change" value="JobChange">
 		<input type="hidden" name="job_change" value="1">
 	</form>
+
+	<?php else: ?>
+
+	None.
+
 	<?php endif; ?>
