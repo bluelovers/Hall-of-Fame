@@ -3,7 +3,7 @@ land:
     name: 海
     name0: ''
     land: sea
-    proper: Lv??
+    proper: 'Lv??'
 monster:
     1060:
         - 7
@@ -26,16 +26,3 @@ monster:
     1066:
         - 5
         - 0
-subs:
-    land:
-        sea1:
-            no: sea1
-            land:
-                name: 海(西海岸)
-                name0: ''
-                land: sea
-                proper: Lv??
-            monster:
-                1065:
-                    - 100
-                    - 1
