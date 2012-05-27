@@ -34,7 +34,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 
 		$this->_input();
 
-		$this->user->item();
+		//$this->user->item();
 	}
 
 	function _input()
@@ -120,7 +120,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 			}
 			// 追加素材のアイテムデータ
 			$ADD = HOF_Model_Data::getItemData($this->input->AddMaterial);
-			$this->user->DeleteItem($this->input->AddMaterial);
+			$this->user->item_remove($this->input->AddMaterial);
 		}
 
 		/**
@@ -140,7 +140,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 		 */
 		foreach ($item["need"] as $M_item => $M_amount)
 		{
-			$this->user->DeleteItem($M_item, $M_amount);
+			$this->user->item_remove($M_item, $M_amount);
 		}
 
 		$item = new HOF_Class_Item_Smithy($this->input->ItemNo);
@@ -155,7 +155,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 		 * できたアイテムを保存する
 		 */
 		$done = $item->ReturnItem();
-		$this->user->AddItem($done);
+		$this->user->item_add($done);
 		$this->user->SaveUserItem();
 
 		print ("<p>");
@@ -195,7 +195,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 			$CreatePrice = 0; //
 			$head = '<tr><td class="td7"><input type="radio" name="ItemNo" value="' . $item_no . '"></td>';
 			$head .= '<td class="td7">' . HOF_Helper_Global::MoneyFormat($CreatePrice) . '</td><td class="td8">' . HOF_Class_Item::newInstance($item)->html(false, 1, $this->user->item) . "</td>";
-			$CreateList->AddItem($item, $head);
+			$CreateList->item_add($item, $head);
 		}
 		if ($head)
 		{
@@ -301,7 +301,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 			return false;
 		}
 		// ここから精錬を始める処理
-		$this->user->DeleteItem($this->input->item_no); // アイテムは消えるか変化するので消す
+		$this->user->item_remove($this->input->item_no); // アイテムは消えるか変化するので消す
 		$Price = round($item["buy"] / 2);
 		// 最大精錬数の調整。
 		if (REFINE_LIMIT < ($item["refine"] + $times))
@@ -330,13 +330,13 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 			else
 			{
 				HOF_Helper_Global::ShowError("Not enough money.<br />\n");
-				$this->user->AddItem($obj_item->ReturnItem());
+				$this->user->item_add($obj_item->ReturnItem());
 				break;
 			}
 			// 指定回数精錬を成功しきった場合。
 			if ($i == ($times - 1))
 			{
-				$this->user->AddItem($obj_item->ReturnItem());
+				$this->user->item_add($obj_item->ReturnItem());
 			}
 		}
 		print ("Money Used : " . HOF_Helper_Global::MoneyFormat($Price) . " x " . $Trys . " = " . HOF_Helper_Global::MoneyFormat($MoneySum) . "<br />\n");
@@ -390,7 +390,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 				$string .= '</td><td class="td7">' . HOF_Helper_Global::MoneyFormat($price) . '</td><td class="td8">' . HOF_Class_Item::newInstance($item)->html($val, 1) . "<td>";
 				$string .= "</tr>";
 
-				$goods->AddItem($item, $string);
+				$goods->item_add($item, $string);
 			}
 			// JavaScript部分の書き出し
 			print ($goods->GetJavaScript("list"));
