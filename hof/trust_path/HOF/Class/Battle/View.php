@@ -25,7 +25,7 @@ class HOF_Class_Battle_View
 	function BattleHeader()
 	{
 		// チーム0
-		foreach ($this->battle->team0 as $char)
+		foreach ($this->battle->teams[TEAM_0]['team'] as $char)
 		{
 			// 合計LV
 			$team0_total_lv += $char->level;
@@ -36,18 +36,18 @@ class HOF_Class_Battle_View
 		}
 
 		// チーム0平均LV
-		$team0_avelv = round($team0_total_lv / count($this->battle->team0) * 10) / 10;
+		$team0_avelv = round($team0_total_lv / count($this->battle->teams[TEAM_0]['team']) * 10) / 10;
 		$this->battle->team0_ave_lv = $team0_avelv;
 
 		// チーム1
-		foreach ($this->battle->team1 as $char)
+		foreach ($this->battle->teams[TEAM_1]['team'] as $char)
 		{
 
 			$team1_total_lv += $char->level;
 			$team1_total_hp += $char->HP;
 			$team1_total_maxhp += $char->MAXHP;
 		}
-		$team1_avelv = round($team1_total_lv / count($this->battle->team1) * 10) / 10;
+		$team1_avelv = round($team1_total_lv / count($this->battle->teams[TEAM_1]['team']) * 10) / 10;
 		$this->battle->team1_ave_lv = $team1_avelv;
 
 		if ($this->battle->UnionBattle)
@@ -62,14 +62,14 @@ class HOF_Class_Battle_View
 		<tr>
 			<td class="teams">
 				<div class="bold">
-					{$this->battle->team1_name}
+					{$this->battle->teams[TEAM_1]['name']}
 				</div>
 				Total Lv : {$team1_total_lv} <br>
 				Average Lv : {$team1_avelv} <br>
 				Total HP : {$team1_total_hp} / {$team1_total_maxhp} </td>
 			<td class="teams ttd1">
 				<div class="bold">
-					{$this->battle->team0_name}
+					{$this->battle->teams[TEAM_0]['name']}
 				</div>
 				Total Lv : {$team0_total_lv} <br>
 				Average Lv : {$team0_avelv} <br>
@@ -130,7 +130,7 @@ EOM
 		echo("<table style=\"width:100%\"><tbody><tr><td style=\"width:50%\">\n"); // team1-backs
 
 		// 	左側チーム後衛
-		foreach ($this->battle->team1 as $char)
+		foreach ($this->battle->teams[TEAM_1]['team'] as $char)
 		{
 			// 召喚キャラが死亡している場合は飛ばす
 			if ($char->STATE === STATE_DEAD && $char->summon == true) continue;
@@ -140,7 +140,7 @@ EOM
 
 		// 	左側チーム前衛
 		echo("</td><td style=\"width:50%\">\n");
-		foreach ($this->battle->team1 as $char)
+		foreach ($this->battle->teams[TEAM_1]['team'] as $char)
 		{
 			// 召喚キャラが死亡している場合は飛ばす
 			if ($char->STATE === STATE_DEAD && $char->summon == true) continue;
@@ -154,7 +154,7 @@ EOM
 
 		// 	右側チーム前衛
 		echo("<table style=\"width:100%\"><tbody><tr><td style=\"width:50%\">\n");
-		foreach ($this->battle->team0 as $char)
+		foreach ($this->battle->teams[TEAM_0]['team'] as $char)
 		{
 			// 召喚キャラが死亡している場合は飛ばす
 			if ($char->STATE === STATE_DEAD && $char->summon == true) continue;
@@ -163,7 +163,7 @@ EOM
 
 		// 	右側チーム後衛
 		echo("</td><td style=\"width:50%\">\n");
-		foreach ($this->battle->team0 as $char)
+		foreach ($this->battle->teams[TEAM_0]['team'] as $char)
 		{
 			// 召喚キャラが死亡している場合は飛ばす
 			if ($char->STATE === STATE_DEAD && $char->summon == true) continue;
@@ -183,7 +183,7 @@ EOM
 		// 左側のチーム(戦闘を受けた側)
 		$TotalAlive2 = 0;
 		// 残りHP / 合計HP の 表示
-		foreach ($this->battle->team1 as $char)
+		foreach ($this->battle->teams[TEAM_1]['team'] as $char)
 		{
 			//チーム1
 			if ($char->STATE !== STATE_DEAD) $TotalAlive2++;
@@ -193,7 +193,7 @@ EOM
 
 		// 右側のチーム(戦闘を仕掛けた側)
 		$TotalAlive1 = 0;
-		foreach ($this->battle->team0 as $char)
+		foreach ($this->battle->teams[TEAM_0]['team'] as $char)
 		{
 			//チーム0
 			if ($char->STATE !== STATE_DEAD) $TotalAlive1++;
@@ -211,12 +211,12 @@ EOM
 			echo('<tr><td class="teams break">' . "\n");
 			// 左側チーム
 			echo("HP remain : {$TotalHp2}/{$TotalMaxHp2}<br />\n");
-			echo("Alive : {$TotalAlive2}/" . count($this->battle->team1) . "<br />\n");
+			echo("Alive : {$TotalAlive2}/" . count($this->battle->teams[TEAM_1]['team']) . "<br />\n");
 			echo("TotalDamage : {$this->battle->team1_dmg}<br />\n");
 			// 右側チーム
 			echo('</td><td class="teams break">' . "\n");
 			echo("HP remain : {$TotalHp1}/{$TotalMaxHp1}<br />\n");
-			echo("Alive : {$TotalAlive1}/" . count($this->battle->team0) . "<br />\n");
+			echo("Alive : {$TotalAlive1}/" . count($this->battle->teams[TEAM_0]['team']) . "<br />\n");
 			echo("TotalDamage : {$this->battle->team0_dmg}<br />\n");
 			echo("</td></tr>\n");
 			return false;
@@ -228,14 +228,14 @@ EOM
 		echo('<tr><td colspan="2" style="text-align:center;padding:10px 0px" class="break' . $BreakTop . '">' . "\n");
 		//echo($this->battle->actions."%".BATTLE_STAT_TURNS."<br>");
 		echo("<a name=\"s{$this->battle->Scroll}\"></a>\n"); // スクロールの最後
-		if ($result == "draw")
+		if ($result == BATTLE_DRAW)
 		{
 			echo("<span style=\"font-size:150%\">Draw Game</span><br />\n");
 		}
 		else
 		{
-			$Team = &$this->battle->{$result};
-			$TeamName = $this->battle->{$result . "_name"};
+			$Team = &$this->battle->teams[$result]['team'];
+			$TeamName = $this->battle->teams[$result]['name'];
 			echo("<span style=\"font-size:200%\">{$TeamName} Wins!</span><br />\n");
 		}
 
@@ -252,7 +252,7 @@ EOM
 		}
 		*/
 		// 左側チーム
-		echo("Alive : {$TotalAlive2}/" . count($this->battle->team1) . "<br />\n");
+		echo("Alive : {$TotalAlive2}/" . count($this->battle->teams[TEAM_1]['team']) . "<br />\n");
 		echo("TotalDamage : {$this->battle->team1_dmg}<br />\n");
 		if ($this->battle->team1_exp) //得た経験値
  				echo("TotalExp : " . $this->battle->team1_exp . "<br />\n");
@@ -273,7 +273,7 @@ EOM
 		// 右側チーム
 		echo('</td><td class="teams">');
 		echo("HP remain : {$TotalHp1}/{$TotalMaxHp1}<br />\n");
-		echo("Alive : {$TotalAlive1}/" . count($this->battle->team0) . "<br />\n");
+		echo("Alive : {$TotalAlive1}/" . count($this->battle->teams[TEAM_0]['team']) . "<br />\n");
 		echo("TotalDamage : {$this->battle->team0_dmg}<br />\n");
 		if ($this->battle->team0_exp) //得た経験値
  				echo("TotalExp : " . $this->battle->team0_exp . "<br />\n");
