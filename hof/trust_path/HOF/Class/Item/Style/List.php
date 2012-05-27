@@ -19,7 +19,7 @@
  * $item	= HOF_Model_Data::getItemData($no);
  * $head	= '<input type="radio" name="item_no" value="'.$no.'" class="vcent">'.HOF_Helper_Global::MoneyFormat($item["buy"]);
  * $head	.= HOF_Class_Item::ShowItemDetail($item,false,1);
- * $list0->AddItem($item,$head);
+ * $list0->item_add($item,$head);
  * }
  * print($list0->GetJavaScript("list"));
  * print($list0->ShowSelect());
@@ -146,7 +146,7 @@ class HOF_Class_Item_Style_List
 	/**
 	 * アイテムの追加
 	 */
-	function AddItem($item, $string = null)
+	function item_add($item, $string = null)
 	{
 
 		if ($string === null && !empty($item))
