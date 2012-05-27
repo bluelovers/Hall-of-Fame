@@ -606,7 +606,7 @@ class HOF_Class_Item_Auction
 			{
 				foreach ($user["user_get_item"] as $itemNo => $amount)
 				{
-					$user["user"]->AddItem($itemNo, $amount);
+					$user["user"]->item_add($itemNo, $amount);
 				}
 				$user["user"]->SaveUserItem();
 			}
