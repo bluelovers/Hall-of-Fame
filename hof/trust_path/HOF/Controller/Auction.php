@@ -39,7 +39,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		}
 
 		// アイテムデータ読む
-		$this->user->LoadUserItem();
+		$this->user->item();
 
 		if (!AUCTION_TOGGLE) $this->_msg_error("機能停止中");
 		if (!AUCTION_EXHIBIT_TOGGLE) $this->_msg_error("出品停止中");
