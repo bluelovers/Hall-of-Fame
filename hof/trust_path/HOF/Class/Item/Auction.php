@@ -294,7 +294,6 @@ class HOF_Class_Item_Auction
 			$key = 'end';
 		}
 
-
 		usort($this->article_list, HOF_Class_Array_Comparer_MuliteSubKey::newInstance($key)->sort_desc($desc)->callback());
 
 		$this->sort = $type;
