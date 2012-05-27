@@ -156,7 +156,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 		 */
 		$done = $item->ReturnItem();
 		$this->user->item_add($done);
-		$this->user->SaveUserItem();
+		$this->user->item_save();
 
 		print ("<p>");
 		print (HOF_Class_Item::newInstance($done)->html());
@@ -340,7 +340,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 			}
 		}
 		print ("Money Used : " . HOF_Helper_Global::MoneyFormat($Price) . " x " . $Trys . " = " . HOF_Helper_Global::MoneyFormat($MoneySum) . "<br />\n");
-		$this->user->SaveUserItem();
+		$this->user->item_save();
 		return true;
 		/*// お金が足りてるか計算
 		$Price	= round($item["buy"]/2);
