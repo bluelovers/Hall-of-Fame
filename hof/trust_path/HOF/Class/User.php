@@ -75,7 +75,7 @@ class HOF_Class_User
 	 * ユーザーアイテム用の変数
 	 */
 	var $fp_item;
-	var $item;
+	//var $item;
 
 	protected $_user_cache_;
 
@@ -270,28 +270,44 @@ class HOF_Class_User
 		return $this->char[$CharNo];
 	}
 
+	function &__get($k)
+	{
+		if ($k == 'item')
+		{
+			return $this->$k();
+		}
+	}
+
+	function __isset($k)
+	{
+		return isset($this->$k);
+	}
+
 	/**
 	 * アイテムデータを読む
 	 */
-	function item()
+	function &item($no = null)
 	{
-		// 2重に読むのを防止。
-		if (isset($this->item)) return false;
-
-		$file = HOF_Helper_Char::user_file($this, USER_ITEM);
-
-		if (file_exists($file))
+		/**
+		 * 2重に読むのを防止。
+		 */
+		if (!isset($this->item) || $no === true)
 		{
-			$this->fp_item = HOF_Class_File::fplock_file($file);
+			$file = HOF_Helper_Char::user_file($this, USER_ITEM);
+
+			$this->fp_item = HOF_Class_File::fplock_file($file, true, true);
 
 			$this->item = HOF_Class_Yaml::load($this->fp_item);
 
-			if ($this->item === false) $this->item = array();
+			$this->item = (array)$this->item;
 		}
-		else
+
+		if ($no !== null && $no !== true && $no !== false)
 		{
-			$this->item = array();
+			return $this->item[$no];;
 		}
+
+		return $this->item;
 	}
 
 	/**
@@ -299,13 +315,11 @@ class HOF_Class_User
 	 */
 	function SaveUserItem()
 	{
-		if (!is_array($this->item)) return false;
+		if (!isset($this->item)) return false;
 
 		$dir = HOF_Helper_Char::user_path($this);
 
 		if (!is_dir($dir)) return false;
-
-		$file = HOF_Helper_Char::user_file($this, USER_ITEM);
 
 		// アイテムのソート
 		ksort($this->item, SORT_STRING);
@@ -318,19 +332,9 @@ class HOF_Class_User
 			}
 		}
 
-		$text = HOF_Class_Yaml::dump($this->item);
-
-		if (file_exists($file) && $this->fp_item)
-		{
-			HOF_Class_File::fpwrite_file($this->fp_item, $text, 1); //$textが空でも保存する
-			fclose($this->fp_item);
-			unset($this->fp_item);
-		}
-		else
-		{
-			// $textが空でも保存する
-			HOF_Class_File::WriteFile($file, $text, 1);
-		}
+		$file = HOF_Helper_Char::user_file($this, USER_ITEM);
+		HOF_Class_Yaml::save($this->fp_item ? $this->fp_item : $file, (array)$this->item);
+		unset($this->fp_item);
 	}
 
 	/**
@@ -785,10 +789,8 @@ class HOF_Class_User
 	/**
 	 * アイテムを追加
 	 */
-	function AddItem($no, $amount = false)
+	function item_add($no, $amount = false)
 	{
-		if (!isset($this->item)) //どうしたもんか…
- 				$this->item();
 		if ($amount) $this->item[$no] += $amount;
 		else  $this->item[$no]++;
 	}
@@ -797,11 +799,8 @@ class HOF_Class_User
 	/**
 	 * アイテムを削除
 	 */
-	function DeleteItem($no, $amount = false)
+	function item_remove($no, $amount = false)
 	{
-		if (!isset($this->item)) //どうしたもんか…
- 				$this->item();
-
 		// 減らす数。
 		if ($this->item[$no] < $amount)
 		{
