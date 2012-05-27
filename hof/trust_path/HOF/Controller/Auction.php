@@ -39,7 +39,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		}
 
 		// アイテムデータ読む
-		$this->user->item();
+		//$this->user->item();
 
 		if (!AUCTION_TOGGLE) $this->_msg_error("機能停止中");
 		if (!AUCTION_EXHIBIT_TOGGLE) $this->_msg_error("出品停止中");
@@ -169,7 +169,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		}
 
 		// アイテムを足す
-		$this->user->AddItem(9000);
+		$this->user->item_add(9000);
 		$this->user->SaveUserItem();
 		$this->user->SaveData();
 		$this->_msg_result("オークション会員になりました。<br />\n");
@@ -357,7 +357,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		// 減らす(所持数より多く指定された場合その数を調節する)
 		HOF::session(true)->AuctionExhibit = REQUEST_TIME; //セッションで2重出品を防ぐ
 
-		$amount = $this->user->DeleteItem($this->input->item_no, $amount);
+		$amount = $this->user->item_remove($this->input->item_no, $amount);
 		$this->user->SaveUserItem();
 
 		// 出品する
@@ -394,7 +394,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 
 				$head .= $item->html($amount) . "</label>";
 
-				$ExhibitList->AddItem($item, $head);
+				$ExhibitList->item_add($item, $head);
 			}
 
 			$this->output->select = $ExhibitList->GetJavaScript("list");
