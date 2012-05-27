@@ -34,7 +34,7 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 			return;
 		}
 
-		$this->user->item();
+		//$this->user->item();
 
 		$this->output->npc_no = HOF_Class_Icon::getRandNo(HOF_Class_Icon::IMG_CHAR, 'ori_002');
 
@@ -153,7 +153,7 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 			print ("</td><td class=\"td8\">");
 			print ($item->html() . "\n");
 			print ("</td></tr>\n");
-			$this->user->AddItem($itemNo, $amount);
+			$this->user->item_add($itemNo, $amount);
 		}
 		print ("<tr><td colspan=\"4\" class=\"td8\">合計 : " . HOF_Helper_Global::MoneyFormat($moneyNeed) . "</td></tr>");
 		print ("</table>\n");
@@ -186,7 +186,7 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 			if (!$item) continue;
 			$amount = (int)$_POST["amount_" . $itemNo];
 			if ($amount < 0) $amount = 0;
-			$Deleted = $this->user->DeleteItem($itemNo, $amount);
+			$Deleted = $this->user->item_remove($itemNo, $amount);
 			//print("$itemNo x $Deleted<br>");
 			$sellPrice = HOF_Helper_Item::ItemSellPrice($item);
 			$Total = $Deleted * $sellPrice;
