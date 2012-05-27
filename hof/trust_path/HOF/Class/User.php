@@ -273,7 +273,7 @@ class HOF_Class_User
 	/**
 	 * アイテムデータを読む
 	 */
-	function LoadUserItem()
+	function item()
 	{
 		// 2重に読むのを防止。
 		if (isset($this->item)) return false;
@@ -788,7 +788,7 @@ class HOF_Class_User
 	function AddItem($no, $amount = false)
 	{
 		if (!isset($this->item)) //どうしたもんか…
- 				$this->LoadUserItem();
+ 				$this->item();
 		if ($amount) $this->item[$no] += $amount;
 		else  $this->item[$no]++;
 	}
@@ -800,7 +800,7 @@ class HOF_Class_User
 	function DeleteItem($no, $amount = false)
 	{
 		if (!isset($this->item)) //どうしたもんか…
- 				$this->LoadUserItem();
+ 				$this->item();
 
 		// 減らす数。
 		if ($this->item[$no] < $amount)
