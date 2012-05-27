@@ -278,10 +278,12 @@ class HOF_Class_User
 		}
 	}
 
+	/*
 	function __isset($k)
 	{
 		return isset($this->$k);
 	}
+	*/
 
 	/**
 	 * アイテムデータを読む
@@ -313,7 +315,7 @@ class HOF_Class_User
 	/**
 	 * アイテムデータを保存する
 	 */
-	function SaveUserItem()
+	function item_save()
 	{
 		if (!isset($this->item)) return false;
 
