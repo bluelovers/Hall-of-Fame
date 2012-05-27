@@ -36,6 +36,8 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 
 			return;
 		}
+
+		parent::_main_before();
 	}
 
 	function _main_action_default()
@@ -75,6 +77,11 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 		}
 
 		$this->user->fpclose_all();
+	}
+
+	function _main_action_rank_all()
+	{
+
 	}
 
 	function _error($s, $a = null)
