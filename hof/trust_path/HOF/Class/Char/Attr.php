@@ -25,15 +25,96 @@ class HOF_Class_Char_Attr
 	}
 
 	/**
+	 * 必要経験値
+	 */
+	function CalcExpNeed()
+	{
+		if ($this->char->Union)
+		{
+			$exp = 50;
+
+			return $exp;
+		}
+		elseif ($this->char->monster)
+		{
+			$exp = 3;
+
+			return $exp;
+		}
+
+		switch ($this->char->level)
+		{
+			case 40:
+				$exp = 30000;
+				break;
+			case 41:
+				$exp = 40000;
+				break;
+			case 42:
+				$exp = 50000;
+				break;
+			case 43:
+				$exp = 60000;
+				break;
+			case 44:
+				$exp = 70000;
+				break;
+			case 45:
+				$exp = 80000;
+				break;
+			case 46:
+				$exp = 100000;
+				break;
+			case 47:
+				$exp = 250000;
+				break;
+			case 48:
+				$exp = 500000;
+				break;
+			case 49:
+				$exp = 999990;
+				break;
+			case 50:
+			case (50 <= $this->char->level):
+				$exp = "MAX";
+				break;
+			case (21 < $this->char->level):
+				$exp = 2 * pow($this->char->level, 3) + 100 * $this->char->level + 100;
+				$exp -= substr($exp, -2);
+				$exp /= 5;
+				break;
+			default:
+				$exp = pow($this->char->level - 1, 2) / 2 * 100 + 100;
+				$exp /= 5;
+				break;
+		}
+
+		return $exp;
+	}
+
+	/**
 	 * 経験値を得る
 	 */
 	function GetExp($exp)
 	{
-		// モンスターは経験値を得ない
-		if ($this->char->monster) return false;
+		if ($this->char->summon)
+		{
+			return false;
+		}
+
+		$max_level = MAX_LEVEL;
+
+		if ($this->char->monster)
+		{
+			// モンスターは経験値を得ない
+			//return false;
+
+			$exp = 1;
+			$max_level *= $this->char->Union ? 5 : 1.2;
+		}
 
 		// 最大レベルの場合経験値を得ない
-		if (MAX_LEVEL <= $this->char->level) return false;
+		if (floor($max_level) <= $this->char->level) return false;
 
 		$this->char->exp += $exp;
 
@@ -55,6 +136,21 @@ class HOF_Class_Char_Attr
 		$this->char->level++;
 		$this->char->statuspoint += GET_STATUS_POINT; //ステポをもらえる。
 		$this->char->skillpoint += GET_SKILL_POINT;
+	}
+
+	function id($id = null)
+	{
+		if (!isset($this->char->ID))
+		{
+			$this->char->ID = HOF_Helper_Char::uniqid(get_class($this->char).$this->char->name);
+		}
+
+		if ($id !== null)
+		{
+			$this->char->ID = $id;
+		}
+
+		return $this->char->ID;
 	}
 
 }
