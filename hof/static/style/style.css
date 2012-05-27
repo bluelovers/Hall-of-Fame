@@ -312,3 +312,13 @@ select {
 	normal(依網頁預設)
 	style.word-wrap[break-word] ，但是其相對較麻煩，word-wrap:break-word; 只對所屬Object Width有作用
 */
+
+.g_list, .g_list li
+{
+	list-style: none outside none;
+}
+
+.g_list
+{
+	margin-left: 0px;
+}
