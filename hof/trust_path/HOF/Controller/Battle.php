@@ -38,13 +38,13 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		if (in_array($this->action, array('simulate', 'union', 'common')))
 		{
-			$this->user->item();
+			//$this->user->item();
 			$this->user->char_all();
 		}
 
 		if (!$this->_cache['lands'] = $this->user->cache()->data('land_appear'))
 		{
-			$this->user->item();
+			//$this->user->item();
 			$this->_cache['lands'] = HOF_Model_Data::getLandAppear($this->user);
 
 			$this->user->cache()->data('land_appear', $this->_cache['lands']);
@@ -335,10 +335,10 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		$this->user->GetMoney($UserMoney); //お金を増やす
 		$battle->RecordLog("BASE_PATH_UNION");
 		// アイテムを受け取る
-		if ($itemdrop = $battle->ReturnItemGet(0))
+		if ($itemdrop = $battle->ReturnItemGet(TEAM_0))
 		{
-			$this->user->item();
-			foreach ($itemdrop as $itemno => $amount) $this->user->AddItem($itemno, $amount);
+			//$this->user->item();
+			foreach ($itemdrop as $itemno => $amount) $this->user->item_add($itemno, $amount);
 			$this->user->SaveUserItem();
 		}
 
@@ -431,6 +431,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	 */
 	function MonsterBattle()
 	{
+
 		if ($this->input->monster_battle)
 		{
 			$this->MemorizeParty(); //パーティー記憶
@@ -500,10 +501,10 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			if ($this->user->options['record_btl_log']) $battle->RecordLog();
 
 			// アイテムを受け取る
-			if ($itemdrop = $battle->ReturnItemGet(0))
+			if ($itemdrop = $battle->ReturnItemGet(TEAM_0))
 			{
-				$this->user->item();
-				foreach ($itemdrop as $itemno => $amount) $this->user->AddItem($itemno, $amount);
+				//$this->user->item();
+				foreach ($itemdrop as $itemno => $amount) $this->user->item_add($itemno, $amount);
 				$this->user->SaveUserItem();
 			}
 
