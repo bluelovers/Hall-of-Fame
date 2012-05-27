@@ -337,61 +337,6 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	}
 
 	/**
-	 * 必要経験値
-	 */
-	function CalcExpNeed()
-	{
-		switch ($this->level)
-		{
-			case 40:
-				$no = 30000;
-				break;
-			case 41:
-				$no = 40000;
-				break;
-			case 42:
-				$no = 50000;
-				break;
-			case 43:
-				$no = 60000;
-				break;
-			case 44:
-				$no = 70000;
-				break;
-			case 45:
-				$no = 80000;
-				break;
-			case 46:
-				$no = 100000;
-				break;
-			case 47:
-				$no = 250000;
-				break;
-			case 48:
-				$no = 500000;
-				break;
-			case 49:
-				$no = 999990;
-				break;
-			case 50:
-			case (50 <= $this->level):
-				$no = "MAX";
-				break;
-			case (21 < $this->level):
-				$no = 2 * pow($this->level, 3) + 100 * $this->level + 100;
-				$no -= substr($no, -2);
-				$no /= 5;
-				break;
-			default:
-				$no = pow($this->level - 1, 2) / 2 * 100 + 100;
-				$no /= 5;
-				break;
-		}
-
-		return $no;
-	}
-
-	/**
 	 * 新ワザを追加する。
 	 */
 	function GetNewSkill($no)
@@ -569,17 +514,39 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 		return false;
 	}
 
+	function id($id = null)
+	{
+		if (!isset($this->id))
+		{
+			if ($this->file)
+			{
+				$this->id = HOF_Helper_Char::char_id_by_file($this->file);
+			}
+			else
+			{
+				$this->id = HOF_Helper_Char::uniqid(get_class($this).$this->name);
+			}
+		}
+
+		if ($id !== null)
+		{
+			$this->id = $id;
+		}
+
+		return $this->ID = $this->id;
+	}
+
 	//	キャラの変数をセットする。
 	function SetCharData(&$data_attr)
 	{
 
 		if ($this->file)
 		{
-			$this->id = HOF_Helper_Char::char_id_by_file($this->file);
+			$this->id(HOF_Helper_Char::char_id_by_file($this->file));
 		}
 		else
 		{
-			$this->id = $data_attr["id"] ? $data_attr["id"] : $data_attr["birth"];
+			$this->id($data_attr["id"] ? $data_attr["id"] : $data_attr["birth"]);
 		}
 
 		$this->name = $data_attr["name"];
