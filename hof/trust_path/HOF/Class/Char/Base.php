@@ -137,6 +137,7 @@ class HOF_Class_Char_Base extends HOF_Class_Base_Extend_Root
 
 	function _extend_init()
 	{
+		$this->extend('HOF_Class_Char_Attr');
 		$this->extend('HOF_Class_Char_Pattern');
 		$this->extend('HOF_Class_Char_View');
 		$this->extend('HOF_Class_Char_Battle_Effect');
