@@ -3,7 +3,7 @@ land:
     name: 砂漠
     name0: ''
     land: sand
-    proper: Lv??
+    proper: 'Lv??'
 monster:
     1083:
         - 100
