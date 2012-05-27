@@ -522,6 +522,10 @@ class HOF_Class_Skill_Effect
 						$add->ShowImage(vcent);
 
 						print ($add->Name('bold') . " joined to the team.<br />\n");
+
+						$add->enterBattlefield();
+
+						echo '<br/>';
 					}
 					return true;
 				}
