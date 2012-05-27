@@ -65,7 +65,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		if ($this->input->action == 'char')
 		{
-			$this->user->LoadUserItem();
+			$this->user->item();
 
 			//$this->char = &$this->user->char[$this->input->char];
 			$this->char = &$this->user->char($this->input->char);
