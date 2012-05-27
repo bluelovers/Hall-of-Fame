@@ -34,7 +34,7 @@ class HOF_Controller_Smithy extends HOF_Class_Controller
 
 		$this->_input();
 
-		$this->user->LoadUserItem();
+		$this->user->item();
 	}
 
 	function _input()
