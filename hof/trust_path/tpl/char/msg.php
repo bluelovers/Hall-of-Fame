@@ -1,5 +1,5 @@
 
-	<div class="margin15">
+	<div>
 
 		<?php foreach((array)$this->output->_msg_error as $v): ?>
 			<?php HOF_Helper_Global::ShowError($v[0], $v[1]); ?>
