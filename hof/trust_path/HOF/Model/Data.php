@@ -349,7 +349,7 @@ class HOF_Model_Data extends HOF_Class_Data
 		{
 			foreach ($lands as $no)
 			{
-				if ($land = self::getLandInfo($no))
+				if ($land = self::getLandData($no))
 				{
 					$allow = 1;
 
@@ -497,7 +497,7 @@ class HOF_Model_Data extends HOF_Class_Data
 	 * 確率の合計は気にしなくていい。
 	 * 出現確率 = ("確率"/全体の確率合計)
 	 */
-	function getLandInfo($no)
+	function getLandData($no)
 	{
 		$_cache_key_ = 'land';
 
