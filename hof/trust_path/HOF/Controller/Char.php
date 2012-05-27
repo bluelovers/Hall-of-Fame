@@ -65,7 +65,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		if ($this->input->action == 'char')
 		{
-			$this->user->item();
+			//$this->user->item();
 
 			//$this->char = &$this->user->char[$this->input->char];
 			$this->char = &$this->user->char($this->input->char);
@@ -418,7 +418,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		$item = HOF_Model_Data::getItemData($this->char->{$this->input->spot});
 		if (!$item) return false;
 
-		$this->user->AddItem($this->char->{$this->input->spot});
+		$this->user->item_add($this->char->{$this->input->spot});
 		$this->user->SaveUserItem();
 
 		$this->char->{$this->input->spot} = NULL;
@@ -446,7 +446,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 				$this->_msg_error($this->char->Name().' unequip '.$_item->name(), "margin15");
 
-				$this->user->AddItem($no);
+				$this->user->item_add($no);
 			}
 
 			return true;
@@ -459,22 +459,22 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		{
 			if ($this->char->weapon)
 			{
-				$this->user->AddItem($this->char->weapon);
+				$this->user->item_add($this->char->weapon);
 				$this->char->weapon = NULL;
 			}
 			if ($this->char->shield)
 			{
-				$this->user->AddItem($this->char->shield);
+				$this->user->item_add($this->char->shield);
 				$this->char->shield = NULL;
 			}
 			if ($this->char->armor)
 			{
-				$this->user->AddItem($this->char->armor);
+				$this->user->item_add($this->char->armor);
 				$this->char->armor = NULL;
 			}
 			if ($this->char->item)
 			{
-				$this->user->AddItem($this->char->item);
+				$this->user->item_add($this->char->item);
 				$this->char->item = NULL;
 			}
 			$this->user->SaveUserItem();
@@ -519,7 +519,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		}
 		else
 		{
-			$this->user->DeleteItem($this->input->item_no);
+			$this->user->item_remove($this->input->item_no);
 		}
 
 		foreach ($return as $no)
@@ -530,7 +530,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 			$this->_msg_error($this->char->Name().' unequip '.$_item->name(), "margin15");
 
-			$this->user->AddItem($no);
+			$this->user->item_add($no);
 		}
 
 		$this->user->SaveUserItem();
@@ -597,7 +597,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				 */
 				foreach((array)$v[1] as $item)
 				{
-					$this->user->AddItem($item);
+					$this->user->item_add($item);
 				}
 
 				$this->user->SaveUserItem();
@@ -653,7 +653,7 @@ EOD;
 		{
 			if ($result === true)
 			{
-				if ($this->user->DeleteItem("7500", 1) == 1)
+				if ($this->user->item_remove("7500", 1) == 1)
 				{
 					$this->_msg_result($this->char->Name() . " から " . $return . " へ改名しました。", "margin15");
 
@@ -739,7 +739,7 @@ EOD;
 		// 石ころをSPD1に戻すアイテムにする
 		if ($this->input->itemUse == 6000)
 		{
-			if ($this->user->DeleteItem(6000) == 0)
+			if ($this->user->item_remove(6000) == 0)
 			{
 				$this->_msg_error("アイテムがありません。", "margin15");
 				return false;
@@ -802,7 +802,7 @@ EOD;
 
 			if ($pointBack)
 			{
-				if ($this->user->DeleteItem($this->input->itemUse) == 0)
+				if ($this->user->item_remove($this->input->itemUse) == 0)
 				{
 					$this->_msg_error("アイテムがありません。", "margin15");
 					return false;
@@ -815,22 +815,22 @@ EOD;
 				{
 					if ($this->char->weapon)
 					{
-						$this->user->AddItem($this->char->weapon);
+						$this->user->item_add($this->char->weapon);
 						$this->char->weapon = NULL;
 					}
 					if ($this->char->shield)
 					{
-						$this->user->AddItem($this->char->shield);
+						$this->user->item_add($this->char->shield);
 						$this->char->shield = NULL;
 					}
 					if ($this->char->armor)
 					{
-						$this->user->AddItem($this->char->armor);
+						$this->user->item_add($this->char->armor);
 						$this->char->armor = NULL;
 					}
 					if ($this->char->item)
 					{
-						$this->user->AddItem($this->char->item);
+						$this->user->item_add($this->char->item);
 						$this->char->item = NULL;
 					}
 					$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
@@ -1075,7 +1075,7 @@ HTML_BYEBYE;
 				$head = '<label><input type="radio" name="item_no" value="' . $key . '" class="vcent">';
 				$head .= $item->html($val) . "</label>";
 
-				$EquipList->AddItem($item, $head);
+				$EquipList->item_add($item, $head);
 			}
 			print ($EquipList->GetJavaScript("list0"));
 			print ($EquipList->ShowSelect());
