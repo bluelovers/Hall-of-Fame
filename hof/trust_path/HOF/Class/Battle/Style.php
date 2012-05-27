@@ -173,7 +173,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 	function setMagicCircle($team1_mc, $team2_mc)
 	{
 		/*
-		$this->team1_mc = $team2_mc;
+		$this->teams[TEAM_1]['mc'] = $team2_mc;
 		$this->team2_mc = $team1_mc;
 		*/
 
@@ -337,9 +337,9 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 
 		/*
 		// 魔方陣を表示する
-		if (0 < $this->team1_mc)
+		if (0 < $this->teams[TEAM_1]['mc'])
 		{
-			$this->output .= "<div style=\"{$this->data['css']['size']}" . $this->det(HOF_Class_Icon::IMG_LAND . "mc0_" . $this->team1_mc . ".gif", 280, 0) . "\">\n";
+			$this->output .= "<div style=\"{$this->data['css']['size']}" . $this->det(HOF_Class_Icon::IMG_LAND . "mc0_" . $this->teams[TEAM_1]['mc'] . ".gif", 280, 0) . "\">\n";
 			$this->div++;
 		}
 		if (0 < $this->team2_mc)
