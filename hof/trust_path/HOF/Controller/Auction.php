@@ -170,7 +170,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 
 		// アイテムを足す
 		$this->user->item_add(9000);
-		$this->user->SaveUserItem();
+		$this->user->item_save();
 		$this->user->SaveData();
 		$this->_msg_result("オークション会員になりました。<br />\n");
 
@@ -358,7 +358,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 		HOF::session(true)->AuctionExhibit = REQUEST_TIME; //セッションで2重出品を防ぐ
 
 		$amount = $this->user->item_remove($this->input->item_no, $amount);
-		$this->user->SaveUserItem();
+		$this->user->item_save();
 
 		// 出品する
 		$this->ItemAuction->article_item_add($this->input->item_no, $amount, $this->user->id, $this->input->ExhibitTime, $this->input->StartPrice, $this->input->Comment);
