@@ -419,7 +419,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		if (!$item) return false;
 
 		$this->user->item_add($this->char->{$this->input->spot});
-		$this->user->SaveUserItem();
+		$this->user->item_save();
 
 		$this->char->{$this->input->spot} = NULL;
 		$this->char->SaveCharData();
@@ -477,7 +477,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				$this->user->item_add($this->char->item);
 				$this->char->item = NULL;
 			}
-			$this->user->SaveUserItem();
+			$this->user->item_save();
 			$this->char->SaveCharData();
 			$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
 			return true;
@@ -533,7 +533,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			$this->user->item_add($no);
 		}
 
-		$this->user->SaveUserItem();
+		$this->user->item_save();
 
 		$this->char->SaveCharData();
 
@@ -600,7 +600,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 					$this->user->item_add($item);
 				}
 
-				$this->user->SaveUserItem();
+				$this->user->item_save();
 			}
 
 			// 保存
@@ -660,7 +660,7 @@ EOD;
 					$this->char->ChangeName($return, true);
 					$this->char->SaveCharData();
 
-					$this->user->SaveUserItem();
+					$this->user->item_save();
 
 					return true;
 				}
@@ -753,7 +753,7 @@ EOD;
 				$this->char->statuspoint += $dif;
 				$this->char->SaveCharData();
 
-				$this->user->SaveUserItem();
+				$this->user->item_save();
 
 				$this->_msg_result("ポイント還元成功 ", "margin15");
 
@@ -838,7 +838,7 @@ EOD;
 
 				$this->char->SaveCharData();
 
-				$this->user->SaveUserItem();
+				$this->user->item_save();
 
 				$this->_msg_result("ポイント還元成功 ", "margin15");
 
