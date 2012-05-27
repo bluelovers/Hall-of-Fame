@@ -565,4 +565,9 @@ class HOF_Class_Char_Battle_Effect
 		$this->char->ShowValueChange($Before, $this->char->SP);
 	}
 
+	function enterBattlefield($leave = false)
+	{
+		printf('<span class="%s"><span class="bold">%s</span> Lv.%d %s the Battlefield.</span>', $leave ? 'dmg' : 'result', $this->char->name, $this->char->level, $leave ? 'leave' : 'enter');
+	}
+
 }
