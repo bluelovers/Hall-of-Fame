@@ -35,7 +35,7 @@ class HOF_Controller_Item extends HOF_Class_Controller
 	 */
 	function _main_action_default()
 	{
-		$this->user->item();
+		//$this->user->item();
 	}
 
 	function _main_after()
@@ -58,7 +58,7 @@ class HOF_Controller_Item extends HOF_Class_Controller
 			{
 				$item = HOF_Class_Item::newInstance($no);
 				$string = $item->html($val);
-				$goods->AddItem($item, $string);
+				$goods->item_add($item, $string);
 			}
 
 			echo $goods->output();
