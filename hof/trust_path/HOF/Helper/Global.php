@@ -151,9 +151,11 @@ class HOF_Helper_Global
 		if (!$fp = HOF_Class_File::fplock_file(CTRL_TIME_FILE, true, true)) return false;
 
 		$now = time();
-		$ctrltime = trim(fgets($fp, 10));
+		$ctrltime = trim(fgets($fp));
 
 		$ret = false;
+
+		//debug($now, $ctrltime, $now > $ctrltime);
 
 		if ($now > $ctrltime)
 		{
@@ -174,9 +176,15 @@ class HOF_Helper_Global
 
 	function RecordManage($string)
 	{
-		$file = MANAGE_LOG_FILE;
+		static $fp;
 
-		$fp = @fopen($file, "ab") or die();
+		if (!isset($fp))
+		{
+			$file = MANAGE_LOG_FILE;
+
+			$fp = @HOF_Class_File::fpopen($file, "ab") or die();
+		}
+
 		fwrite($fp, $string . "\n");
 	}
 
