@@ -127,7 +127,7 @@ class HOF_Class_Battle_Team extends HOF_Class_Array
 		$no = 0; //初期化
 		foreach ((array)$team as $char)
 		{
-			if ($char->STATE !== 1) $no++;
+			if ($char->STATE !== STATE_DEAD) $no++;
 		}
 		return $no;
 	}
@@ -142,10 +142,24 @@ class HOF_Class_Battle_Team extends HOF_Class_Array
 		$no = 0; //初期化
 		foreach ((array)$team as $char)
 		{
-			if ($char->STATE === 1) continue;
+			if ($char->STATE === STATE_DEAD) continue;
 			if ($char->monster) continue;
 			$no++;
 		}
+		return $no;
+	}
+
+	function CountTrueChars($who = null)
+	{
+		$team = self::_getTeamArray($who);
+
+		$no = 0; //初期化
+		foreach ((array)$team as $char)
+		{
+			if ($char->summon) continue;
+			$no++;
+		}
+
 		return $no;
 	}
 
