@@ -160,7 +160,7 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 		print ("</div>");
 		if ($this->user->TakeMoney($moneyNeed))
 		{
-			$this->user->SaveUserItem();
+			$this->user->item_save();
 			return true;
 		}
 		else
@@ -204,7 +204,7 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 		print ("<tr><td colspan=\"4\" class=\"td8\">合計 : " . HOF_Helper_Global::MoneyFormat($getMoney) . "</td></tr>");
 		print ("</table>\n");
 		print ("</div>");
-		$this->user->SaveUserItem();
+		$this->user->item_save();
 		$this->user->GetMoney($getMoney);
 		return true;
 	}
