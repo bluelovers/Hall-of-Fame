@@ -1,5 +1,5 @@
 
-	<form action="<?php e($this->output->char_url) ?>" method="post" style="padding:5px 0 0 15px">
+	<form action="<?php e($this->output->char_url) ?>" method="post">
 		<h4>Character Status<a href="<?php e(HOF::url('manual', 'manual', '#charstat')) ?>" target="_blank" class="a0">?</a></h4>
 		<?php $this->output->char->ShowCharDetail(); ?>
 		<?php if ($this->output->user_item["7500"]):?>
