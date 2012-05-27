@@ -608,7 +608,7 @@ class HOF_Class_Item_Auction
 				{
 					$user["user"]->item_add($itemNo, $amount);
 				}
-				$user["user"]->SaveUserItem();
+				$user["user"]->item_save();
 			}
 
 			/**
