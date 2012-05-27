@@ -25,6 +25,11 @@ class HOF_Class_View
 	{
 		$this->controller = $controller;
 
+		if ($this->controller instanceof HOF_Class_Controller)
+		{
+			$this->action = $this->controller->action;
+		}
+
 		$this->output = &$output;
 		$this->template = $template;
 
