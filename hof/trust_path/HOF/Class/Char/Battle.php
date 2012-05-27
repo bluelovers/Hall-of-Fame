@@ -65,11 +65,20 @@ class HOF_Class_Char_Battle
 	//	経験値を出す(モンスターだけ?)
 	function DropExp()
 	{
+		if ($this->char->summon)
+		{
+			return false;
+		}
+
 		if (isset($this->char->exphold))
 		{
 			$exp = $this->char->exphold;
 			$this->char->exphold = round($exp / 2);
 			return $exp;
+		}
+		elseif ($this->char->user)
+		{
+			return 1;
 		}
 		else
 		{
@@ -80,6 +89,11 @@ class HOF_Class_Char_Battle
 	//	お金を出す(モンスターだけ?)
 	function DropMoney()
 	{
+		if ($this->char->summon)
+		{
+			return false;
+		}
+
 		if (isset($this->char->moneyhold))
 		{
 			$money = $this->char->moneyhold;
@@ -95,6 +109,11 @@ class HOF_Class_Char_Battle
 	//	アイテムを落とす(モンスターだけ?)
 	function DropItem()
 	{
+		if ($this->char->summon)
+		{
+			return false;
+		}
+
 		if ($this->char->itemdrop)
 		{
 			$item = $this->char->itemdrop;
