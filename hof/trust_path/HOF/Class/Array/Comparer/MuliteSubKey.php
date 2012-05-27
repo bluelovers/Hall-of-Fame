@@ -10,6 +10,7 @@ class HOF_Class_Array_Comparer_MuliteSubKey
 
 	var $keys;
 	var $sort_desc = false;
+	var $comp_func = 'strcmp';
 
 	function __construct($keys)
 	{
@@ -65,6 +66,16 @@ class HOF_Class_Array_Comparer_MuliteSubKey
 		return $this;
 	}
 
+	function comp_func($func = null)
+	{
+		if ($func !== null)
+		{
+			$this->comp_func = $func;
+		}
+
+		return $this;
+	}
+
 	function compare($a, $b)
 	{
 		$i = 0;
@@ -73,7 +84,8 @@ class HOF_Class_Array_Comparer_MuliteSubKey
 		$cmp = 0;
 		while ($cmp == 0 && $i < $c)
 		{
-			$cmp = strcmp($a[$this->keys[$i]], $b[$this->keys[$i]]);
+			//$cmp = strcmp($a[$this->keys[$i]], $b[$this->keys[$i]]);
+			$cmp = call_user_func($this->comp_func, $a[$this->keys[$i]], $b[$this->keys[$i]]);
 
 			if ($this->sort_desc)
 			{
