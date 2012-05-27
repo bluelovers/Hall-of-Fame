@@ -36,15 +36,15 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			return;
 		}
 
-		$this->user->LoadUserItem();
-
-		if ($this->action != 'hunt')
+		if (in_array($this->action, array('simulate', 'union', 'common')))
 		{
+			$this->user->LoadUserItem();
 			$this->user->char_all();
 		}
 
 		if (!$this->_cache['lands'] = $this->user->cache()->data('land_appear'))
 		{
+			$this->user->LoadUserItem();
 			$this->_cache['lands'] = HOF_Model_Data::getLandAppear($this->user);
 
 			$this->user->cache()->data('land_appear', $this->_cache['lands']);
