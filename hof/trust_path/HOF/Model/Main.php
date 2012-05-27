@@ -276,6 +276,8 @@ class HOF_Model_Main
 
 		HOF::cache()->data('user_list', $list);
 
+		$now = REQUEST_TIME;
+
 		foreach ((array )$_list_all[1] as $path)
 		{
 			HOF_Class_File::rmdir($path, true);
