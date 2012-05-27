@@ -339,7 +339,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		{
 			//$this->user->item();
 			foreach ($itemdrop as $itemno => $amount) $this->user->item_add($itemno, $amount);
-			$this->user->SaveUserItem();
+			$this->user->item_save();
 		}
 
 		return true;
@@ -505,7 +505,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			{
 				//$this->user->item();
 				foreach ($itemdrop as $itemno => $amount) $this->user->item_add($itemno, $amount);
-				$this->user->SaveUserItem();
+				$this->user->item_save();
 			}
 
 			//dump($itemdrop);
