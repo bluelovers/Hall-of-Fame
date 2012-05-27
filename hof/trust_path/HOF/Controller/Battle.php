@@ -67,24 +67,13 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		$this->output['battle.target.from.action'] = HOF::url($this->controller, $this->action, array('land' => $this->input->land));
 	}
 
-	/**
-	 * 狩場
-	 */
 	function _main_action_hunt()
 	{
-		$mapList = array();
 
-		if ($list = $this->_cache['lands'])
-		{
-			foreach ($list as $k => $v)
-			{
-				if ($data = HOF_Model_Data::getLandInfo($k))
-				{
-					$mapList[$k] = array_merge($data, (array)$v);
-				}
-			}
-		}
+	}
 
+	function _main_action_list_union()
+	{
 		$Union = array();
 
 		/*
@@ -133,8 +122,6 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			if (15 <= $limit) break;
 		}
 
-		$this->output->maps = $mapList;
-
 		$this->output->union = $Union;
 		$this->output->union_showchar = $union_showchar;
 
@@ -143,8 +130,27 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		$this->output->left_second = $left_second;
 
 		$this->output->logs = $logs;
+	}
 
-		$this->user->fpclose_all();
+	/**
+	 * 狩場
+	 */
+	function _main_action_list_common()
+	{
+		$mapList = array();
+
+		if ($list = $this->_cache['lands'])
+		{
+			foreach ($list as $k => $v)
+			{
+				if ($data = HOF_Model_Data::getLandData($k))
+				{
+					$mapList[$k] = array_merge($data, (array)$v);
+				}
+			}
+		}
+
+		$this->output->maps = $mapList;
 	}
 
 	/**
@@ -159,7 +165,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		if ($this->_check_land())
 		{
-			$land_data = HOF_Model_Data::getLandInfo($this->input->common);
+			$land_data = HOF_Model_Data::getLandData($this->input->common);
 			$land = $land_data['land'];
 
 			ob_start();
@@ -190,8 +196,6 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		}
 
 		$this->output->monster_battle = $this->_cache['MonsterBattle'];
-
-		$this->user->fpclose_all();
 	}
 
 	function _main_action_simulate()
@@ -246,8 +250,6 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 				$this->UnionShow();
 			}
 		}
-
-		$this->user->fpclose_all();
 	}
 
 	//	Unionモンスターの処理
@@ -357,8 +359,6 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		{
 			$this->user->SaveData();
 		}
-
-		$this->user->fpclose_all();
 	}
 
 	function SimuBattleProcess()
@@ -474,10 +474,10 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 			//	include (DATA_MONSTER);
 			/*
-			list($Land, $MonsterList) = HOF_Model_Data::getLandInfo($this->input->common);
+			list($Land, $MonsterList) = HOF_Model_Data::getLandData($this->input->common);
 			*/
 
-			$land_data = HOF_Model_Data::getLandInfo($this->input->common);
+			$land_data = HOF_Model_Data::getLandData($this->input->common);
 
 			$Land = $land_data['land'];
 			$MonsterList = $land_data['monster'];
