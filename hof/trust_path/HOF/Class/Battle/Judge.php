@@ -16,17 +16,17 @@ class HOF_Class_Battle_Judge
 		//計算したりする。
 		if ($My->team == TEAM_0)
 		{
-			$MyTeam = $classBattle->team0;
-			$EnemyTeam = $classBattle->team1;
-			$MyTeamMC = $classBattle->team0_mc;
-			$EnemyTeamMC = $classBattle->team1_mc;
+			$MyTeam = $classBattle->teams[TEAM_0]['team'];
+			$EnemyTeam = $classBattle->teams[TEAM_1]['team'];
+			$MyTeamMC = $classBattle->teams[TEAM_0]['mc'];
+			$EnemyTeamMC = $classBattle->teams[TEAM_1]['mc'];
 		}
 		else
 		{
-			$MyTeam = $classBattle->team1;
-			$EnemyTeam = $classBattle->team0;
-			$MyTeamMC = $classBattle->team1_mc;
-			$EnemyTeamMC = $classBattle->team0_mc;
+			$MyTeam = $classBattle->teams[TEAM_1]['team'];
+			$EnemyTeam = $classBattle->teams[TEAM_0]['team'];
+			$MyTeamMC = $classBattle->teams[TEAM_1]['mc'];
+			$EnemyTeamMC = $classBattle->teams[TEAM_0]['mc'];
 		}
 
 		$pattern = $My->pattern_item($JudgeKey);
