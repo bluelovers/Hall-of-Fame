@@ -19,7 +19,7 @@ class HOF_Class_File_Log
 
 		'path' => BASE_PATH_LOG,
 
-		'timeout' => 86400,
+		'timeout' => 2592000,
 
 		'max' => 150,
 		'max_keep' => 100,
