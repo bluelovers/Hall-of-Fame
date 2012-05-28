@@ -296,28 +296,17 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 			switch ($equip_type)
 			{
 				case EQUIP_SLOT_MAIN_HAND:
-
-					if ($item["dh"] && $this->equip->{EQUIP_SLOT_OFF_HAND})
-					{
-						/**
-						 * 両手持ちの武器の場合。
-						 * 盾を装備していたらはずす。
-						 */
-						$return[] = $this->unequip(EQUIP_SLOT_OFF_HAND);
-					}
-
-					break;
-
 				case EQUIP_SLOT_OFF_HAND:
 
-					if ($this->equip->{EQUIP_SLOT_MAIN_HAND})
-					{
-						//両手武器ならそれははずす
-						$_item = HOF_Model_Data::newItem($this->equip->{EQUIP_SLOT_MAIN_HAND});
+					$chk = $equip_type == EQUIP_SLOT_MAIN_HAND ? EQUIP_SLOT_OFF_HAND : EQUIP_SLOT_MAIN_HAND;
 
-						if ($_item["dh"])
+					if ($this->equip->{$chk})
+					{
+						$_item = HOF_Model_Data::newItem($this->equip->{$chk});
+
+						if ($item["dh"] || $_item["dh"])
 						{
-							$return[] = $this->unequip(EQUIP_SLOT_MAIN_HAND);
+							$return[] = $this->unequip($chk);
 						}
 					}
 
@@ -363,7 +352,7 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	function GetNewSkill($no)
 	{
 		$this->skill[] = $no;
-		asort($this->skill);
+		sort($this->skill);
 	}
 
 	/**
