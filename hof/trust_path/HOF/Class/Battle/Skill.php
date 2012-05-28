@@ -17,8 +17,14 @@ class HOF_Class_Battle_Skill
 		$this->battle = &$battle;
 	}
 
-	function UseSkill($skill_no, &$JudgedTarget, &$My, &$MyTeam, &$Enemy)
+	//function UseSkill($skill_no, &$JudgedTarget, &$My, &$MyTeam, &$Enemy)
+	function UseSkill($skill_no, &$JudgedTarget, &$My)
 	{
+		list($_MyTeam, $_EnemyTeam) = $this->battle->teamToggle($My->team);
+
+		$MyTeam = &$this->battle->teams[$_MyTeam]['team'];
+		$Enemy = &$this->battle->teams[$_EnemyTeam]['team'];
+
 		/**
 		 * 技データ読む
 		 */
@@ -28,7 +34,10 @@ class HOF_Class_Battle_Skill
 		{
 			$skill["sp"] *= 0.7;
 
-			if (in_array($skill_no, array(3040, 5030, 5063)))
+			if (in_array($skill_no, array(
+				3040,
+				5030,
+				5063)))
 			{
 				$skill["sp"] *= 0.1;
 			}
@@ -41,12 +50,12 @@ class HOF_Class_Battle_Skill
 		{
 			if (!$skill["limit"][$My->WEAPON])
 			{
-				echo('<span class="u">' . $My->Name('bold'));
-				echo('<span class="dmg"> Failed </span>to ');
-				echo("<img src=\"" . HOF_Class_Icon::getImageUrl($skill["img"], HOF_Class_Icon::IMG_SKILL) . "\" class=\"vcent\"/>");
-				echo($skill[name] . "</span><br />\n");
+				echo ('<span class="u">' . $My->Name('bold'));
+				echo ('<span class="dmg"> Failed </span>to ');
+				echo ("<img src=\"" . HOF_Class_Icon::getImageUrl($skill["img"], HOF_Class_Icon::IMG_SKILL) . "\" class=\"vcent\"/>");
+				echo ($skill[name] . "</span><br />\n");
 				//echo($My->Name('bold')." Failed to use ".$skill["name"]."<br />\n");
-				echo("(Weapon type doesnt match)<br />\n");
+				echo ("(Weapon type doesnt match)<br />\n");
 				$My->DelayReset(); // 行動順をリセット
 				return true;
 			}
@@ -55,7 +64,7 @@ class HOF_Class_Battle_Skill
 		// SP不足
 		if ($My->SP < $skill["sp"])
 		{
-			echo($My->Name('bold') . " failed to " . $skill["name"] . "(SP shortage)");
+			echo ($My->Name('bold') . " failed to " . $skill["name"] . "(SP shortage)");
 			if ($My->expect)
 			{ //もし詠唱や貯め途中でSPが不足した場合
 				$My->ResetExpect();
@@ -71,12 +80,12 @@ class HOF_Class_Battle_Skill
 			// 物理か魔法によって文を変える
 			if ($skill["type"] == 0)
 			{ //物理
-				echo('<span class="charge">' . $My->Name('bold') . ' start charging.</span>');
+				echo ('<span class="charge">' . $My->Name('bold') . ' start charging.</span>');
 				$My->expect_type = EXPECT_CHARGE;
 			}
 			else
 			{ //魔法
-				echo('<span class="charge">' . $My->Name('bold') . ' start casting.</span>');
+				echo ('<span class="charge">' . $My->Name('bold') . ' start casting.</span>');
 				$My->expect_type = EXPECT_CAST;
 			}
 			$My->expect = $skill_no; //詠唱・貯め完了と同時に使用する技
@@ -84,7 +93,7 @@ class HOF_Class_Battle_Skill
 			//$My->target_expect	= $JudgedTarget;//一応ターゲットも保存
 			//詠唱・貯め時間の設定。
 			$My->DelayByRate($skill["charge"]["0"], $this->battle->delay, 1);
-			echo("<br />\n");
+			echo ("<br />\n");
 
 			// 戦闘の総行動回数を減らす(貯めor詠唱 は行動に入れない)
 			$this->battle->actions--;
@@ -99,21 +108,21 @@ class HOF_Class_Battle_Skill
 			$My->ActCount++;
 
 			// 行動内容の表示(行動する)
-			echo('<div class="u">' . $My->Name('bold'));
-			echo("<img src=\"" . HOF_Class_Icon::getImageUrl($skill["img"], HOF_Class_Icon::IMG_SKILL) . "\" class=\"vcent\"/>");
-			echo($skill[name] . "</div>\n");
+			echo ('<div class="u">' . $My->Name('bold'));
+			echo ("<img src=\"" . HOF_Class_Icon::getImageUrl($skill["img"], HOF_Class_Icon::IMG_SKILL) . "\" class=\"vcent\"/>");
+			echo ($skill[name] . "</div>\n");
 
 			// 魔法陣を消費(味方)
 			if ($skill["MagicCircleDeleteTeam"])
 			{
 				if ($this->battle->MagicCircleDelete($My->team, $skill["MagicCircleDeleteTeam"]))
 				{
-					echo($My->Name('bold') . '<span class="charge"> use MagicCircle x' . $skill["MagicCircleDeleteTeam"] . '</span><br />' . "\n");
+					echo ($My->Name('bold') . '<span class="charge"> use MagicCircle x' . $skill["MagicCircleDeleteTeam"] . '</span><br />' . "\n");
 					// 魔法陣消費失敗
 				}
 				else
 				{
-					echo('<span class="dmg">failed!(MagicCircle isn\'t enough)</span><br />' . "\n");
+					echo ('<span class="dmg">failed!(MagicCircle isn\'t enough)</span><br />' . "\n");
 					$My->DelayReset(); // 行動順をリセット
 					return true;
 				}
@@ -153,44 +162,42 @@ class HOF_Class_Battle_Skill
 			for ($i = 0; $i < $skill["target"]["2"]; $i++)
 			{ //単体に複数回実行
 				$dmg = $this->battle->SkillEffect($skill, $skill_no, &$My, &$target);
-				$this->battle->AddTotalDamage($MyTeam, $dmg);
+				$this->battle->AddTotalDamage($My->team, $dmg);
 			}
 
 			// 複数に使用
 		}
-		else
-			if ($skill["target"]["1"] == "multi")
+		elseif ($skill["target"]["1"] == "multi")
+		{
+			for ($i = 0; $i < $skill["target"]["2"]; $i++)
 			{
+				$target = &$this->battle->SelectTarget($candidate, $skill); //対象を選択
+				if ($defender = &$this->battle->Defending($target, $candidate, $skill)) //守りに入るキャラ
+ 						$target = &$defender;
+				$dmg = $this->battle->SkillEffect($skill, $skill_no, &$My, &$target);
+				$this->battle->AddTotalDamage($My->team, $dmg);
+			}
+
+			// 全体に使用
+		}
+		elseif ($skill["target"]["1"] == "all")
+		{
+			foreach ($candidate as $key => $char)
+			{
+				$target = &$candidate[$key];
+				//if($char->STATE === STATE_DEAD) continue;//死亡者はパス。
+				if ($skill["priority"] != "Dead")
+				{ //一時的に。
+					if ($char->STATE === STATE_DEAD) continue; //死亡者はパス。
+				}
+				// 全体攻撃は守りに入れない(とする)
 				for ($i = 0; $i < $skill["target"]["2"]; $i++)
 				{
-					$target = &$this->battle->SelectTarget($candidate, $skill); //対象を選択
-					if ($defender = &$this->battle->Defending($target, $candidate, $skill)) //守りに入るキャラ
- 							$target = &$defender;
 					$dmg = $this->battle->SkillEffect($skill, $skill_no, &$My, &$target);
-					$this->battle->AddTotalDamage($MyTeam, $dmg);
+					$this->battle->AddTotalDamage($My->team, $dmg);
 				}
-
-				// 全体に使用
 			}
-			else
-				if ($skill["target"]["1"] == "all")
-				{
-					foreach ($candidate as $key => $char)
-					{
-						$target = &$candidate[$key];
-						//if($char->STATE === STATE_DEAD) continue;//死亡者はパス。
-						if ($skill["priority"] != "Dead")
-						{ //一時的に。
-							if ($char->STATE === STATE_DEAD) continue; //死亡者はパス。
-						}
-						// 全体攻撃は守りに入れない(とする)
-						for ($i = 0; $i < $skill["target"]["2"]; $i++)
-						{
-							$dmg = $this->battle->SkillEffect($skill, $skill_no, &$My, &$target);
-							$this->battle->AddTotalDamage($MyTeam, $dmg);
-						}
-					}
-				}
+		}
 
 		// 使用後使用者に影響する効果等
 		if ($skill["umove"]) $My->Move($skill["umove"]);
@@ -201,6 +208,7 @@ class HOF_Class_Battle_Skill
 			$Sacrier[] = &$My;
 			$this->battle->JudgeTargetsDead($Sacrier);
 		}
+
 		list($exp, $money, $itemdrop) = $this->battle->JudgeTargetsDead($candidate); //又、取得する経験値を得る
 
 		$this->battle->GetExp($exp, $My->team);
@@ -214,9 +222,9 @@ class HOF_Class_Battle_Skill
 		if ($skill["charge"]["1"])
 		{
 			$My->DelayReset();
-			echo($My->Name('bold') . " Delayed");
+			echo ($My->Name('bold') . " Delayed");
 			$My->DelayByRate($skill["charge"]["1"], $this->battle->delay, 1);
-			echo("<br />\n");
+			echo ("<br />\n");
 			return false;
 		}
 
