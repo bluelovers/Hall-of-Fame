@@ -122,17 +122,17 @@ class HOF_Class_Char_Base extends HOF_Class_Base_Extend_Root
 	 */
 
 	var $map_equip_allow = array(
-		"weapon" => true,
-		"shield" => true,
-		"armor" => true,
-		"item" => true,
+		EQUIP_SLOT_MAIN_HAND => true,
+		EQUIP_SLOT_OFF_HAND => true,
+		EQUIP_SLOT_ARMOR => true,
+		EQUIP_SLOT_ITEM => true,
 		);
 
 	static $map_equip = array(
-		"weapon" => true,
-		"shield" => true,
-		"armor" => true,
-		"item" => true,
+		EQUIP_SLOT_MAIN_HAND => true,
+		EQUIP_SLOT_OFF_HAND => true,
+		EQUIP_SLOT_ARMOR => true,
+		EQUIP_SLOT_ITEM => true,
 		);
 
 	function _extend_init()
