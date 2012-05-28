@@ -64,7 +64,6 @@ servant:
         - 100
         - 0
 land: grass
-name: Breakfast
 lv_limit: '50'
 cycle: 259200
 pattern:
