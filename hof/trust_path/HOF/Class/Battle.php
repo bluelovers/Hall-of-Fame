@@ -90,8 +90,13 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		 * 装備の特殊機能等を計算して設定する。
 		 * 戦闘専用の変数は大文字英語だったりする。class.char.phpを参照。
 		 */
-		foreach ($this->teams[TEAM_0]['team'] as $key => $char) $this->teams[TEAM_0]['team']["$key"]->SetBattleVariable(TEAM_0);
-		foreach ($this->teams[TEAM_1]['team'] as $key => $char) $this->teams[TEAM_1]['team']["$key"]->SetBattleVariable(TEAM_1);
+		foreach ($this->teams as $idx => &$data)
+		{
+			foreach ($data['team'] as &$char)
+			{
+				$char->SetBattleVariable($idx);
+			}
+		}
 
 		// delay関連
 		$this->SetDelay(); //ディレイ計算
@@ -336,7 +341,8 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 
 		if ($skill)
 		{
-			$this->UseSkill($skill, &$return, &$char, &$MyTeam, &$EnemyTeam);
+			//$this->UseSkill($skill, &$return, &$char, &$MyTeam, &$EnemyTeam);
+			$this->UseSkill($skill, &$return, &$char);
 			// 行動できなかった場合の処理
 		}
 		else
@@ -359,8 +365,10 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		echo ("</td></tr>\n");
 	}
 
-	//	戦闘終了の判定
-	//	全員死んでる=draw(?)
+	/**
+	 * 戦闘終了の判定
+	 * 全員死んでる=draw(?)
+	 */
 	function BattleResult()
 	{
 		if (HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_0]['team']) == 0)
@@ -605,26 +613,31 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		$this->BattleResultType = $var;
 	}
 
-	//	UnionBattleである事にする。
+	/**
+	 * UnionBattleである事にする。
+	 */
 	function SetUnionBattle()
 	{
 		$this->UnionBattle = true;
 	}
 
-	//	背景画像をセットする。
+	/**
+	 * 背景画像をセットする。
+	 */
 	function SetBackGround($bg)
 	{
 		$this->BackGround = $bg;
 	}
 
-	//	限界ターン数を決めちゃう。
+	/**
+	 * 限界ターン数を決めちゃう。
+	 */
 	function LimitTurns($no)
 	{
 		$this->BattleMaxTurn = $no;
 		$this->NoExtends = true; //これ以上延長はしない。
 	}
 
-	//
 	function NoResult()
 	{
 		$this->NoResult = true;
@@ -662,13 +675,17 @@ HTML;
 		}
 	}
 
-	//	挑戦者側が勝利したか？
+	/**
+	 * 挑戦者側が勝利したか？
+	 */
 	function ReturnBattleResult()
 	{
 		return $this->result;
 	}
 
-	//	戦闘後のキャラクター状況を保存する。
+	/**
+	 * 戦闘後のキャラクター状況を保存する。
+	 */
 	function SaveCharacters()
 	{
 		foreach ($this->teams as $idx => &$data)
@@ -680,15 +697,21 @@ HTML;
 		}
 	}
 
-	//	総ダメージを加算する
+	/**
+	 * 総ダメージを加算する
+	 */
 	function AddTotalDamage($team, $dmg)
 	{
 		if (!is_numeric($dmg)) return false;
-		if ($team == $this->teams[TEAM_0]['team']) $this->teams[TEAM_0]['dmg'] += $dmg;
-		elseif ($team == $this->teams[TEAM_1]['team']) $this->teams[TEAM_1]['dmg'] += $dmg;
+
+		list($_my) = $this->teamToggle($team);
+
+		$this->teams[$_my]['dmg'] += $dmg;
 	}
 
-	//	経験値を得る
+	/**
+	 * 経験値を得る
+	 */
 	function GetExp($exp, $team)
 	{
 		if (!$exp) return false;
