@@ -43,4 +43,4 @@ pattern:
         quantity: 0
         action: 1000
 info:
-    desc: 'SPがあるときは、強い攻撃をたまにしてくる程度。'
+    desc: SPがあるときは、強い攻撃をたまにしてくる程度。
