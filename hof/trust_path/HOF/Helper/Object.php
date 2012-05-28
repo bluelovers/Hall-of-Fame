@@ -59,4 +59,12 @@ class HOF_Helper_Object
 		return (array)$methods;
 	}
 
+	function ArrayObject($input)
+	{
+		$obj = new ArrayObject($input);
+		$obj->setFlags(HOF_Class_Array::ARRAY_PROP_BOTH);
+
+		return $obj;
+	}
+
 }
