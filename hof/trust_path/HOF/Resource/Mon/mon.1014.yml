@@ -39,4 +39,4 @@ pattern:
         quantity: 0
         action: 1000
 info:
-    desc: '魔法で攻撃しないと倒しにくい。'
+    desc: 魔法で攻撃しないと倒しにくい。
