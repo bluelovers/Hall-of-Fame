@@ -12,8 +12,6 @@ dex: '5'
 spd: '3'
 luk: '1'
 job: '200'
-weapon: '1700'
-armor: '5200'
 skill:
     - 1000
     - 1002
@@ -35,3 +33,6 @@ pattern:
         action: '1000'
 data_ex:
     recruit_money: 2000
+equip:
+    main_hand: '1700'
+    armor: '5200'
