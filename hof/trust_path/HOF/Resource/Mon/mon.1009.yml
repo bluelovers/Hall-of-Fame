@@ -49,4 +49,4 @@ pattern:
         quantity: 0
         action: 1000
 info:
-    desc: 'HPが高い。'
+    desc: HPが高い。
