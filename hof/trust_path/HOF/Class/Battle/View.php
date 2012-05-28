@@ -37,7 +37,7 @@ class HOF_Class_Battle_View
 
 		// チーム0平均LV
 		$team0_avelv = round($team0_total_lv / count($this->battle->teams[TEAM_0]['team']) * 10) / 10;
-		$this->battle->team0_ave_lv = $team0_avelv;
+		$this->battle->teams[TEAM_0]['ave_lv'] = $team0_avelv;
 
 		// チーム1
 		foreach ($this->battle->teams[TEAM_1]['team'] as $char)
@@ -48,7 +48,7 @@ class HOF_Class_Battle_View
 			$team1_total_maxhp += $char->MAXHP;
 		}
 		$team1_avelv = round($team1_total_lv / count($this->battle->teams[TEAM_1]['team']) * 10) / 10;
-		$this->battle->team1_ave_lv = $team1_avelv;
+		$this->battle->teams[TEAM_1]['ave_lv'] = $team1_avelv;
 
 		if ($this->battle->UnionBattle)
 		{
@@ -212,12 +212,12 @@ EOM
 			// 左側チーム
 			echo("HP remain : {$TotalHp2}/{$TotalMaxHp2}<br />\n");
 			echo("Alive : {$TotalAlive2}/" . count($this->battle->teams[TEAM_1]['team']) . "<br />\n");
-			echo("TotalDamage : {$this->battle->team1_dmg}<br />\n");
+			echo("TotalDamage : {$this->battle->teams[TEAM_1]['dmg']}<br />\n");
 			// 右側チーム
 			echo('</td><td class="teams break">' . "\n");
 			echo("HP remain : {$TotalHp1}/{$TotalMaxHp1}<br />\n");
 			echo("Alive : {$TotalAlive1}/" . count($this->battle->teams[TEAM_0]['team']) . "<br />\n");
-			echo("TotalDamage : {$this->battle->team0_dmg}<br />\n");
+			echo("TotalDamage : {$this->battle->teams[TEAM_0]['dmg']}<br />\n");
 			echo("</td></tr>\n");
 			return false;
 		}
@@ -253,16 +253,16 @@ EOM
 		*/
 		// 左側チーム
 		echo("Alive : {$TotalAlive2}/" . count($this->battle->teams[TEAM_1]['team']) . "<br />\n");
-		echo("TotalDamage : {$this->battle->team1_dmg}<br />\n");
-		if ($this->battle->team1_exp) //得た経験値
- 				echo("TotalExp : " . $this->battle->team1_exp . "<br />\n");
-		if ($this->battle->team1_money) //得たお金
- 				echo("Funds : " . HOF_Helper_Global::MoneyFormat($this->battle->team1_money) . "<br />\n");
-		if ($this->battle->team1_item)
+		echo("TotalDamage : {$this->battle->teams[TEAM_1]['dmg']}<br />\n");
+		if ($this->battle->teams[TEAM_1]['exp']) //得た経験値
+ 				echo("TotalExp : " . $this->battle->teams[TEAM_1]['exp'] . "<br />\n");
+		if ($this->battle->teams[TEAM_1]['money']) //得たお金
+ 				echo("Funds : " . HOF_Helper_Global::MoneyFormat($this->battle->teams[TEAM_1]['money']) . "<br />\n");
+		if ($this->battle->teams[TEAM_1]['item'])
 		{
 			//得たアイテム
 			echo("<div class=\"bold\">Items</div>\n");
-			foreach ($this->battle->team0_item as $itemno => $amount)
+			foreach ($this->battle->teams[TEAM_0]['item'] as $itemno => $amount)
 			{
 				$item = HOF_Model_Data::getItemData($itemno);
 				echo("<img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM ) . "\" class=\"vcent\">");
@@ -274,16 +274,16 @@ EOM
 		echo('</td><td class="teams">');
 		echo("HP remain : {$TotalHp1}/{$TotalMaxHp1}<br />\n");
 		echo("Alive : {$TotalAlive1}/" . count($this->battle->teams[TEAM_0]['team']) . "<br />\n");
-		echo("TotalDamage : {$this->battle->team0_dmg}<br />\n");
-		if ($this->battle->team0_exp) //得た経験値
- 				echo("TotalExp : " . $this->battle->team0_exp . "<br />\n");
-		if ($this->battle->team0_money) //得たお金
- 				echo("Funds : " . HOF_Helper_Global::MoneyFormat($this->battle->team0_money) . "<br />\n");
-		if ($this->battle->team0_item)
+		echo("TotalDamage : {$this->battle->teams[TEAM_0]['dmg']}<br />\n");
+		if ($this->battle->teams[TEAM_0]['exp']) //得た経験値
+ 				echo("TotalExp : " . $this->battle->teams[TEAM_0]['exp'] . "<br />\n");
+		if ($this->battle->teams[TEAM_0]['money']) //得たお金
+ 				echo("Funds : " . HOF_Helper_Global::MoneyFormat($this->battle->teams[TEAM_0]['money']) . "<br />\n");
+		if ($this->battle->teams[TEAM_0]['item'])
 		{
 			//得たアイテム
 			echo("<div class=\"bold\">Items</div>\n");
-			foreach ($this->battle->team0_item as $itemno => $amount)
+			foreach ($this->battle->teams[TEAM_0]['item'] as $itemno => $amount)
 			{
 				$item = HOF_Model_Data::getItemData($itemno);
 				echo("<img src=\"" . HOF_Class_Icon::getImageUrl($item["img"], HOF_Class_Icon::IMG_ITEM ) . "\" class=\"vcent\">");
