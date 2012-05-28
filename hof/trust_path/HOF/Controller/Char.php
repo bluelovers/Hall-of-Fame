@@ -28,8 +28,6 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		//$this->user->char_all();
 
-		$this->_cache->char_list = $this->user->char_list();
-
 		$this->_cache->map_subaction = array();
 	}
 
@@ -55,6 +53,8 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 			return;
 		}
+
+		$this->_cache->char_list = $this->user->char_list();
 
 		$action = $this->action;
 
@@ -179,7 +179,20 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 	function _main_action_char()
 	{
-
+		foreach(array(
+			'NewName',
+			'byebye',
+			'kick',
+			'rename',
+			'resetVarious',
+		) as $k)
+		{
+			if ($this->input->$k = HOF::request()->post->$k)
+			{
+				$this->{'_char_'.$k}();
+				break;
+			}
+		}
 	}
 
 	function _main_action_equip()
@@ -727,7 +740,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	/**
 	 * 改名(表示)
 	 */
-	function _main_action_rename()
+	function _char_rename()
 	{
 		$Name = $this->char->Name();
 
@@ -748,7 +761,7 @@ EOD;
 	/**
 	 * 改名(処理)
 	 */
-	function _main_action_NewName()
+	function _char_NewName()
 	{
 
 		list($result, $return) = HOF_Helper_Global::CheckString(HOF::$input->post["NewName"], 16);
@@ -821,7 +834,7 @@ EOD;
 	/**
 	 * 各種リセットの処理
 	 */
-	function _main_action_resetVarious()
+	function _char_resetVarious()
 	{
 		$this->input->itemUse = HOF::$input->post["itemUse"];
 
@@ -955,7 +968,7 @@ EOD;
 	/**
 	 * サヨナラ(表示)
 	 */
-	function _main_action_byebye()
+	function _char_byebye()
 	{
 		$Name = $this->char->Name();
 		$message = <<< HTML_BYEBYE
@@ -974,7 +987,7 @@ HTML_BYEBYE;
 	/**
 	 * サヨナラ(処理)
 	 */
-	function _main_action_kick()
+	function _char_kick()
 	{
 		$this->char->char_delete();
 
