@@ -1,5 +1,5 @@
 no: 2011
-name: EdgarOgre
+name: OgreSquad
 img: mon_168
 exphold: 5040
 moneyhold: 3360
@@ -50,6 +50,5 @@ servant:
         - 100
         - 0
 land: mount
-name: OgreSquad
 lv_limit: '150'
 pattern: {  }
