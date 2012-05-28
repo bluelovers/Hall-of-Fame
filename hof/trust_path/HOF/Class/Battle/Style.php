@@ -275,42 +275,8 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 					${$u}++;
 				}
 			}
-
-			/*
-			foreach ($team['team'] as $char)
-			{
-				// 画像はキャラに設定されている画像の拡張子までの名前
-				if ($char->STATE === 1)
-				{
-					$img = $DeadImg;
-				}
-				else
-				{
-					$img = substr($char->img, 0, strpos($char->img, "."));
-				}
-
-				if ($char->POSITION == POSITION_FRONT)
-				{
-					// 前衛
-					$url .= "f{$k}{$f}=$img&";
-					$f++;
-				}
-				else
-				{
-					// 後衛
-					$url .= "b{$k}{$b}=$img&";
-					$b++;
-				}
-			}
-			*/
 		}
 
-		/*
-		$url = BTL_IMG;
-
-		$param = http_build_query($params);
-		$url .= '?' . $param;
-		*/
 		$url = HOF::url('image', 'battle_'.gmdate('YmdHis', time()).'.png', $params);
 
 		// ←これが表示されるのみ
