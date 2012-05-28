@@ -1,5 +1,5 @@
 no: 2001
-name: Minotaur
+name: TaurusRush
 img: mon_014
 exphold: 7600
 moneyhold: 5067
@@ -38,7 +38,6 @@ servant:
         - 100
         - 0
 land: mount
-name: TaurusRush
 lv_limit: '200'
 pattern:
     -
