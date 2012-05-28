@@ -197,7 +197,7 @@ final class HOF
 		return self::$_session_;
 	}
 
-	public static function putintoClassParts($str)
+	public static function putintoClassParts($str, $sep = '')
 	{
 		/*
 		static $cache;
@@ -216,7 +216,7 @@ final class HOF
 		$str = preg_replace('/([A-Z])/', ' $1', $str);
 		$str = str_replace(self::$_wordDelimiter, ' ', strtolower($str));
 		$str = preg_replace('/[^a-z0-9 ]/', '', $str);
-		$str = str_replace(' ', '', ucwords($str));
+		$str = str_replace(' ', $sep, ucwords($str));
 
 		/*
 		$cache[$k] = $str;
