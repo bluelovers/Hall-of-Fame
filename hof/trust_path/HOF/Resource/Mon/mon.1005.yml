@@ -41,4 +41,4 @@ pattern:
         quantity: 0
         action: 2000
 info:
-    desc: 'レベルが低いと強く感じる。'
+    desc: レベルが低いと強く感じる。
