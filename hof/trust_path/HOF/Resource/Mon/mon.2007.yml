@@ -1,5 +1,5 @@
 no: 2007
-name: KingMonkey
+name: 'Ape''sRevenge'
 img: mon_008r
 exphold: 1530
 moneyhold: 1020
@@ -37,7 +37,6 @@ servant:
         - 100
         - 0
 land: jungle
-name: 'Ape''sRevenge'
 lv_limit: '100'
 pattern:
     -
