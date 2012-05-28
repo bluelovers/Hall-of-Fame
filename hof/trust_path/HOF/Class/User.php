@@ -238,6 +238,8 @@ class HOF_Class_User
 			{
 				$file = HOF_Helper_Char::char_file($no, $this->id);
 
+				if (!file_exists($file)) continue;
+
 				$this->char[$no] = HOF_Model_Char::newCharFromFile($file);
 				$this->char[$no]->SetUser($this->id);
 			}
@@ -559,6 +561,8 @@ class HOF_Class_User
 		}
 
 		if (file_exists($file)) HOF_Class_File::unlink($file);
+
+		$this->cache()->timeout('char_list', -1);
 	}
 
 	/**
