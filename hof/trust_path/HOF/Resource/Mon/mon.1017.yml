@@ -42,4 +42,4 @@ pattern:
         quantity: 0
         action: 2031
 info:
-    desc: '洞窟のボス。倒すと奥に行けるようになる。'
+    desc: 洞窟のボス。倒すと奥に行けるようになる。
