@@ -40,3 +40,9 @@ define('TEAM_1', 1);
 define('BATTLE_WIN', 0);
 define('BATTLE_LOSE', 1);
 define('BATTLE_DRAW', 'd');
+
+define('EQUIP_SLOT_MAIN_HAND', 'main_hand');
+define('EQUIP_SLOT_OFF_HAND', 'off_hand');
+define('EQUIP_SLOT_ARMOR', 'armor');
+define('EQUIP_SLOT_ITEM', 'item');
+
