@@ -482,7 +482,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			return false;
 		}
 
-		if (!$this->char->{$this->input->spot})
+		if (!$this->char->equip->{$this->input->spot})
 		{
 			// $this と $this->char の区別注意！
 			$this->_msg_error("指定された箇所には装備無し", "margin15");
@@ -490,13 +490,13 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			return false;
 		}
 
-		$item = HOF_Model_Data::getItemData($this->char->{$this->input->spot});
-		if (!$item) return false;
+		if ($item = $this->char->unequip($this->input->spot))
+		{
+			$this->user->item_add($item);
 
-		$this->user->item_add($this->char->{$this->input->spot});
-		$this->user->item_save();
+			$this->user->item_save();
+		}
 
-		$this->char->{$this->input->spot} = NULL;
 		$this->char->SaveCharData();
 
 		$this->_msg_result($this->char->Name() . " の {$item[name]} を はずした。", "margin15");
@@ -531,36 +531,6 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		}
 
 		return false;
-
-		/*
-		if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->char->item)
-		{
-			if ($this->char->weapon)
-			{
-				$this->user->item_add($this->char->weapon);
-				$this->char->weapon = NULL;
-			}
-			if ($this->char->shield)
-			{
-				$this->user->item_add($this->char->shield);
-				$this->char->shield = NULL;
-			}
-			if ($this->char->armor)
-			{
-				$this->user->item_add($this->char->armor);
-				$this->char->armor = NULL;
-			}
-			if ($this->char->item)
-			{
-				$this->user->item_add($this->char->item);
-				$this->char->item = NULL;
-			}
-			$this->user->item_save();
-			$this->char->SaveCharData();
-			$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
-			return true;
-		}
-		*/
 	}
 
 	/**
@@ -589,7 +559,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			return false;
 		}
 
-		list ($fail, $return) = $this->char->Equip($item);
+		list ($fail, $return) = $this->char->setEquip($item);
 
 		if ($fail)
 		{
@@ -950,29 +920,19 @@ EOD;
 				$this->char->statuspoint += $pointBack;
 
 				// 装備も全部解除
-				if ($this->char->weapon || $this->char->shield || $this->char->armor || $this->char->item)
+				if ($items = $this->char->unequip('all'))
 				{
-					if ($this->char->weapon)
+					foreach((array)$items as $item)
 					{
-						$this->user->item_add($this->char->weapon);
-						$this->char->weapon = NULL;
+						$this->user->item_add($item);
+
+						$_item = HOF_Model_Data::newItem($item);
+						$this->_msg_error($this->char->Name().' unequip '.$_item->name(), "margin15");
 					}
-					if ($this->char->shield)
-					{
-						$this->user->item_add($this->char->shield);
-						$this->char->shield = NULL;
-					}
-					if ($this->char->armor)
-					{
-						$this->user->item_add($this->char->armor);
-						$this->char->armor = NULL;
-					}
-					if ($this->char->item)
-					{
-						$this->user->item_add($this->char->item);
-						$this->char->item = NULL;
-					}
+
 					$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
+
+					$this->user->item_save();
 				}
 
 				$this->char->SaveCharData();
@@ -1052,22 +1012,24 @@ HTML_BYEBYE;
 
 		$JobData = $this->char->jobdata();
 
-		// 装備中の物表示 ////////////////////////////////
-		$weapon = HOF_Class_Item::newInstance($this->char->weapon);
-		$shield = HOF_Class_Item::newInstance($this->char->shield);
-		$armor = HOF_Class_Item::newInstance($this->char->armor);
-		$item = HOF_Class_Item::newInstance($this->char->item);
+		$handle = $this->char->GetHandle(true);
 
-		$handle = 0;
-		$handle = $weapon["handle"] + $shield["handle"] + $armor["handle"] + $item["handle"];
+		/**
+		 * 装備中の物表示
+		 */
+		$this->output->equip = array();
 
+		foreach ($this->char->map_equip_allow as $slot => $allow)
+		{
+			if ($allow && $this->char->equip->{$slot})
+			{
+				$item = HOF_Class_Item::newInstance($this->char->equip->{$slot});
+
+				$this->output->equip[$slot] = $item;
+			}
+		}
 
 ?>
-<div>
-	<h4>Equipment<a href="<?php e(HOF::url('manual', 'manual', '#equip')) ?>" target="_blank" class="a0">?</a></h4>
-	<div class="bold u">
-		Current Equip's
-	</div>
 	<table>
 		<tr>
 			<td class="dmg" style="text-align:right">Atk :</td>
@@ -1122,34 +1084,6 @@ HTML_BYEBYE;
 ?></td>
 		</tr>
 	</table>
-	<form action="<?php e(HOF::url('char', 'equip', array('char' => $this->output->char_id))) ?>" method="post">
-		<table>
-			<tr>
-				<td class="align-right">Weapon :</td>
-				<td><label><input type="radio" class="vcent" name="spot" value="weapon">
-					<?php e($weapon->html()); ?></label></td>
-			</tr>
-			<tr>
-				<td class="align-right">Shield :</td>
-				<td><label><input type="radio" class="vcent" name="spot" value="shield">
-					<?php e($shield->html()); ?></label></td>
-			</tr>
-			<tr>
-				<td class="align-right">Armor :</td>
-				<td><label><input type="radio" class="vcent" name="spot" value="armor">
-					<?php e($armor->html()); ?></label></td>
-			</tr>
-			<tr>
-				<td class="align-right">Item :</td>
-				<td><label><input type="radio" class="vcent" name="spot" value="item">
-					<?php e($item->html()); ?></label></td>
-			</tr>
-				</tbody>
-		</table>
-		<input type="submit" class="btn" name="equip_remove" value="Remove">
-		<input type="submit" class="btn" name="equip_remove_all" value="Remove All">
-	</form>
-</div>
 <?php
 
 		// 装備可能な物表示 ////////////////////////////////
