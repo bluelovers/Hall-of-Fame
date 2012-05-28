@@ -42,4 +42,4 @@ pattern:
         quantity: 0
         action: 5002
 info:
-    desc: '仲間を呼んで吸血攻撃をしてくる。'
+    desc: 仲間を呼んで吸血攻撃をしてくる。
