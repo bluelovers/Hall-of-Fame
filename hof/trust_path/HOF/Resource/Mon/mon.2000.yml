@@ -1,5 +1,5 @@
 no: 2000
-name: DarkDragon
+name: DragonFleets
 img: mon_013r
 exphold: 15200
 moneyhold: 10133
@@ -46,7 +46,6 @@ servant:
         - 100
         - 0
 land: swamp2
-name: DragonFleets
 lv_limit: '250'
 pattern:
     -
