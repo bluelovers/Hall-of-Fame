@@ -1029,6 +1029,8 @@ HTML_BYEBYE;
 			}
 		}
 
+		$this->char->CalcEquips();
+
 ?>
 	<table>
 		<tr>
