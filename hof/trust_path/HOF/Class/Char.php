@@ -31,7 +31,7 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	/**
 	 * 装備
 	 */
-	var $weapon, $shield, $armor, $item;
+	//var $weapon, $shield, $armor, $item;
 
 	function __construct($file = false)
 	{
@@ -63,7 +63,7 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	 */
 	function SaveCharData()
 	{
-		if (!$this->user || (string)$this->user != $this->user()->id)
+		if (!$this->user || (string )$this->user != $this->user()->id)
 		{
 			throw new RuntimeException('Char User Null!');
 
@@ -78,16 +78,21 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 
 		$file = HOF_Helper_Char::char_file($this, $id);
 
+		HOF_Class_Yaml::save($this->fp ? $this->fp : $file, $this->DataSavingFormat());
+		$this->fpclose();
+
+		/*
 		if (file_exists($file) && $this->fp)
 		{
-			//sleep(10);//ファイルロック確認用
-			HOF_Class_File::fpwrite_file($this->fp, $this->DataSavingFormat());
-			$this->fpclose();
+		//sleep(10);//ファイルロック確認用
+		HOF_Class_File::fpwrite_file($this->fp, $this->DataSavingFormat());
+		$this->fpclose();
 		}
 		else
 		{
-			HOF_Class_File::WriteFile($file, $this->DataSavingFormat());
+		HOF_Class_File::WriteFile($file, $this->DataSavingFormat());
 		}
+		*/
 	}
 
 	/**
@@ -116,10 +121,9 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 			"dex",
 			"spd",
 			"luk",
-			"weapon",
-			"shield",
-			"armor",
-			"item",
+
+			'equip',
+
 			"position",
 			"guard",
 			"skill",
@@ -143,9 +147,13 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 			$data[$k] = $this->{$k};
 		}
 
+		return $data;
+
+		/*
 		$text = HOF_Class_Yaml::dump($data);
 
 		return $text;
+		*/
 	}
 
 	function &user()
@@ -155,12 +163,12 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 		return $user;
 	}
 
-	function unequip($spot)
+	function unequip($slot)
 	{
 
-		if ($spot == 'all')
+		if ($slot == 'all')
 		{
-			foreach (array_keys(self::$map_equip) as $k)
+			foreach ($this->equip as $k => $no)
 			{
 				if ($item = $this->unequip($k))
 				{
@@ -171,23 +179,45 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 			return (array )$list;
 		}
 
-		if (!in_array($spot, self::$map_equip))
+		if (!in_array($slot, self::$map_equip))
 		{
 			return false;
 		}
 
-		if ($item = $this->{$spot})
+		if ($item = $this->equip->{$slot})
 		{
-			$this->{$spot} = NULL;
+			$this->equip->{$slot} = NULL;
 		}
 
 		return $item;
 	}
 
+	function hasEquip($slot)
+	{
+		if ($slot == 'all')
+		{
+			foreach ($this->equip as $k => $no)
+			{
+				if (!$no) continue;
+
+				$list[] = $no;
+			}
+
+			return (array )$list;
+		}
+
+		if ($item = $this->equip->{$slot})
+		{
+			return $item;
+		}
+
+		return null;
+	}
+
 	/**
 	 * アイテムを装備する(職が装備可能な物かどうかは調べない)
 	 */
-	function Equip($item)
+	function setEquip($item)
 	{
 		/**
 		 * はずした装備
@@ -201,17 +231,17 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 		 */
 		$old = array();
 
-		foreach (array_keys(self::$map_equip) as $k)
+		foreach ($this->equip as $k => $no)
 		{
 			$v = $this->map_equip_allow[$k];
 
-			if (!$v && $this->{$k})
+			if (!$v && $no)
 			{
 				$return[] = $this->unequip($k);
 			}
-			elseif ($v && $this->{$k})
+			elseif ($v && $no)
 			{
-				$old[$k] = $this->{$k};
+				$old[$k] = $no;
 			}
 		}
 
@@ -235,24 +265,24 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 			case "CrossBow":
 			case "Whip":
 
-				$equip_type = 'weapon';
+				$equip_type = EQUIP_SLOT_MAIN_HAND;
 
 
 				break;
 			case "Shield": //盾
 			case "MainGauche":
 			case "Book":
-				$equip_type = 'shield';
+				$equip_type = EQUIP_SLOT_OFF_HAND;
 
 
 				break;
 			case "Armor": //鎧
 			case "Cloth":
 			case "Robe":
-				$equip_type = 'armor';
+				$equip_type = EQUIP_SLOT_ARMOR;
 				break;
 			case "Item":
-				$equip_type = 'item';
+				$equip_type = EQUIP_SLOT_ITEM;
 				break;
 			default:
 				$fail = true;
@@ -265,36 +295,36 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 
 			switch ($equip_type)
 			{
-				case 'weapon':
+				case EQUIP_SLOT_MAIN_HAND:
 
-					if ($item["dh"] && $this->shield)
+					if ($item["dh"] && $this->equip->{EQUIP_SLOT_OFF_HAND})
 					{
 						/**
 						 * 両手持ちの武器の場合。
 						 * 盾を装備していたらはずす。
 						 */
-						$return[] = $this->unequip('shield');
+						$return[] = $this->unequip(EQUIP_SLOT_OFF_HAND);
 					}
 
 					break;
 
-				case 'shield':
+				case EQUIP_SLOT_OFF_HAND:
 
-					if ($this->weapon)
+					if ($this->equip->{EQUIP_SLOT_MAIN_HAND})
 					{
 						//両手武器ならそれははずす
-						$weapon = HOF_Model_Data::newItem($this->weapon);
+						$_item = HOF_Model_Data::newItem($this->equip->{EQUIP_SLOT_MAIN_HAND});
 
-						if ($weapon["dh"])
+						if ($_item["dh"])
 						{
-							$return[] = $this->unequip('weapon');
+							$return[] = $this->unequip(EQUIP_SLOT_MAIN_HAND);
 						}
 					}
 
 					break;
 			}
 
-			$this->{$equip_type} = $item["id"];
+			$this->equip->{$equip_type} = $item["id"];
 		}
 		else
 		{
@@ -303,27 +333,18 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 
 		if (!$fail)
 		{
-			$handle = 0;
-
-			foreach (array_keys(self::$map_equip) as $k)
-			{
-				$_item = HOF_Model_Data::newItem($this->{$k});
-
-				$handle += $_item->handle();
-			}
-
-			if ($this->GetHandle() < $handle)
+			if ($this->GetHandle() < $this->GetHandle(true))
 			{
 				$fail = true;
 
-				$this->{$equip_type} = null;
+				$this->equip->{$equip_type} = null;
 
 				/*
 				// handle over
 				foreach ($old as $key => $val)
 				{
-					// 元に戻す。
-					$this->{$key} = $val;
+				// 元に戻す。
+				$this->{$key} = $val;
 				}
 				*/
 
@@ -433,24 +454,23 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	function CalcEquips()
 	{
 		if ($this->monster) return false; //mobは設定せんでいい
-		$equip = array(
-			"weapon",
-			"shield",
-			"armor",
-			"item"); //装備箇所
+
 		$this->atk = array(0, 0);
 		$this->def = array(
 			0,
 			0,
 			0,
 			0);
-		foreach ($equip as $place)
+
+		foreach ($this->equip as $place => $no)
 		{
-			if (!$this->{$place}) continue;
+			$allow = $this->map_equip_allow[$place];
+
+			if (!$this->equip->{$place} || !$allow) continue;
 			// 武器タイプの記憶
 
-			$item = HOF_Model_Data::getItemData($this->{$place});
-			if ($place == "weapon") $this->WEAPON = $item["type"];
+			$item = HOF_Model_Data::getItemData($this->equip->{$place});
+			if ($place == EQUIP_SLOT_MAIN_HAND) $this->WEAPON = $item["type"];
 			$this->atk[0] += $item[atk][0]; //物理攻撃力
 			$this->atk[1] += $item[atk][1]; //魔法〃
 			$this->def[0] += $item[def][0]; //物理防御(÷)
@@ -476,8 +496,24 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	}
 
 	//	handle計算
-	function GetHandle()
+	function GetHandle($equip = false)
 	{
+		if ($equip)
+		{
+			$handle = 0;
+
+			foreach ($this->equip as $k => $no)
+			{
+				if (!$no) continue;
+
+				$_item = HOF_Model_Data::newItem($no);
+
+				$handle += $_item->handle();
+			}
+
+			return $handle;
+		}
+
 		$handle = 5 + floor($this->level / 10) + floor($this->dex / 5);
 		return $handle;
 	}
@@ -485,21 +521,28 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 	//	ポイントを消費して技を覚える。
 	function LearnNewSkill($no)
 	{
+		//もし習得済みなら?
+		if (in_array($no, $this->skill)) return array(false, "{$skill[name]} は修得済み.");
+
 		//include_once (DATA_SKILL_TREE);
 		$tree = $this->skill_tree();
 
 		//習得可能技に覚えようとしてるヤツなけりゃ終了
-		if (!in_array($_POST["newskill"], $tree)) return array(false, "スキルツリーに無い");
+		if (!in_array($no, $tree)) return array(false, "スキルツリーに無い");
+
 		$skill = HOF_Model_Data::getSkill($no);
-		//もし習得済みなら?
-		if (in_array($no, $this->skill)) return array(false, "{$skill[name]} は修得済み.");
+
 		if ($this->UseSkillPoint($skill["learn"]))
 		{
 			$this->GetNewSkill($skill["no"]);
+
 			//$this->SaveCharData();
 			return array(true, $this->Name() . " は {$skill[name]} を修得した。");
 		}
-		else  return array(false, "スキルポイント不足");
+		else
+		{
+			return array(false, "スキルポイント不足");
+		}
 	}
 
 
@@ -524,7 +567,7 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 			}
 			else
 			{
-				$this->id = HOF_Helper_Char::uniqid(get_class($this).$this->name);
+				$this->id = HOF_Helper_Char::uniqid(get_class($this) . $this->name);
 			}
 		}
 
@@ -583,10 +626,7 @@ class HOF_Class_Char extends HOF_Class_Char_Base
 			$this->sp = $this->maxsp;
 		}
 
-		$this->weapon = $data_attr["weapon"];
-		$this->shield = $data_attr["shield"];
-		$this->armor = $data_attr["armor"];
-		$this->item = $data_attr["item"];
+		$this->equip = HOF_Helper_Object::ArrayObject((array )$data_attr["equip"]);
 
 		$this->position = $data_attr["position"];
 		$this->guard = $data_attr["guard"];
