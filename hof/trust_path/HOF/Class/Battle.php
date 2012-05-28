@@ -689,22 +689,15 @@ HTML;
 	}
 
 	//	経験値を得る
-	function GetExp($exp, &$team)
+	function GetExp($exp, $team)
 	{
 		if (!$exp) return false;
 
 		$exp = round(EXP_RATE * $exp);
 
-		if ($team === $this->teams[TEAM_0]['team'])
-		{
-			$this->teams[TEAM_0]['exp'] += $exp;
-		}
-		else
-		{
-			$this->teams[TEAM_1]['exp'] += $exp;
-		}
+		$this->teams[$team]['exp'] += $exp;
 
-		$Alive = HOF_Class_Battle_Team::CountTrueChars($team);
+		$Alive = HOF_Class_Battle_Team::CountTrueChars($this->teams[$team]['team']);
 
 		if ($Alive == 0) return false;
 
@@ -714,7 +707,7 @@ HTML;
 		$ExpGet = ceil($exp / $Alive);
 		echo ("Alives get {$ExpGet}exps.<br />\n");
 
-		foreach ($team as $key => $char)
+		foreach ($this->teams[$team]['team'] as $key => &$char)
 		{
 			/**
 			 * 死亡者にはEXPあげない
@@ -724,35 +717,29 @@ HTML;
 			/**
 			 * LvUpしたならtrueが返る
 			 */
-			if ($team[$key]->GetExp($ExpGet))
+			if ($char->GetExp($ExpGet))
 			{
 				echo ("<span class=\"levelup\">" . $char->Name() . " LevelUp!</span><br />\n");
 			}
 		}
 	}
 
-	//	アイテムを取得する(チームが)
+	/**
+	 * アイテムを取得する(チームが)
+	 */
 	function GetItem($itemdrop, $MyTeam)
 	{
 		if (!$itemdrop) return false;
-		if ($MyTeam === $this->teams[TEAM_0]['team'])
+
+		foreach ($itemdrop as $itemno => $amount)
 		{
-			foreach ($itemdrop as $itemno => $amount)
-			{
-				$this->teams[TEAM_0]['item']["$itemno"] += $amount;
-			}
-		}
-		else
-		{
-			foreach ($itemdrop as $itemno => $amount)
-			{
-				$this->teams[TEAM_1]['item']["$itemno"] += $amount;
-			}
+			$this->teams[$MyTeam]['item']["$itemno"] += $amount;
 		}
 	}
 
-
-	//	後衛を守りに入るキャラを選ぶ。
+	/**
+	 * 後衛を守りに入るキャラを選ぶ。
+	 */
 	function &Defending(&$target, &$candidate, $skill)
 	{
 		if ($target === false) return false;
@@ -766,17 +753,17 @@ HTML;
 
 		/**
 		 * "前衛で尚且つ生存者"を配列に詰める↓
-		前衛 + 生存者 + HP1以上 に変更 ( 多段系攻撃で死にながら守るので [2007/9/20] )
-		*/
-		foreach ($candidate as $key => $char)
+		 * 前衛 + 生存者 + HP1以上 に変更 ( 多段系攻撃で死にながら守るので [2007/9/20] )
+		 */
+		foreach ($candidate as $key => &$char)
 		{
-			if ($char->POSITION == POSITION_FRONT && $char->STATE !== STATE_DEAD && 1 < $char->HP) $fore[] = &$candidate["$key"];
+			if ($char->POSITION == POSITION_FRONT && $char->STATE !== STATE_DEAD && 1 < $char->HP) $fore[] = &$char;
 		}
 		if (count($fore) == 0) //前衛がいなけりゃ守れない。終わる
  				return false;
 		// 一人づつ守りに入るか入らないかを判定する。
 		shuffle($fore); //配列の並びを混ぜる
-		foreach ($fore as $key => $char)
+		foreach ($fore as $key => &$char)
 		{
 			// 判定に使う変数を計算したりする。
 			switch ($char->guard)
@@ -797,25 +784,25 @@ HTML;
 				case "never":
 					continue;
 				case "life25": // HP(%)が25%以上なら
-					if (25 < $HpRate) $defender = &$fore["$key"];
+					if (25 < $HpRate) $defender = &$char;
 					break;
 				case "life50": // 〃50%〃
-					if (50 < $HpRate) $defender = &$fore["$key"];
+					if (50 < $HpRate) $defender = &$char;
 					break;
 				case "life75": // 〃70%〃
-					if (75 < $HpRate) $defender = &$fore["$key"];
+					if (75 < $HpRate) $defender = &$char;
 					break;
 				case "prob25": // 25%の確率で
-					if ($prob < 25) $defender = &$fore["$key"];
+					if ($prob < 25) $defender = &$char;
 					break;
 				case "prob50": // 50% 〃
-					if ($prob < 50) $defender = &$fore["$key"];
+					if ($prob < 50) $defender = &$char;
 					break;
 				case "prob75": // 75% 〃
-					if ($prob < 75) $defender = &$fore["$key"];
+					if ($prob < 75) $defender = &$char;
 					break;
 				default:
-					$defender = &$fore["$key"];
+					$defender = &$char;
 			}
 			// 誰かが後衛を守りに入ったのでそれを表示する
 			if ($defender)
@@ -1078,12 +1065,24 @@ HTML;
 			}
 
 
-			//平均SPD
+			/**
+			 * 平均SPD
+			 */
 			$AverageSPD = $TotalSPD / (count($this->teams[TEAM_0]['team']) + count($this->teams[TEAM_1]['team']));
-			//基準delayとか
+			/**
+			 * 基準delayとか
+			 */
 			$AveDELAY = $AverageSPD * DELAY;
-			$this->delay = $MaxSPD + $AveDELAY; //その戦闘の基準ディレイ
-			$this->ChangeDelay = false; //falseにしないと毎回DELAYを計算し直してしまう。
+
+			/**
+			 * その戦闘の基準ディレイ
+			 */
+			$this->delay = $MaxSPD + $AveDELAY;
+
+			/**
+			 * falseにしないと毎回DELAYを計算し直してしまう。
+			 */
+			$this->ChangeDelay = false;
 		}
 		elseif (DELAY_TYPE === 1)
 		{
@@ -1121,16 +1120,9 @@ HTML;
 	{
 		if (!$money) return false;
 		$money = ceil($money * MONEY_RATE);
-		if ($team === $this->teams[TEAM_0]['team'])
-		{
-			echo ("{$this->teams[TEAM_0]['name']} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
-			$this->teams[TEAM_0]['money'] += $money;
-		}
-		elseif ($team === $this->teams[TEAM_1]['team'])
-		{
-			echo ("{$this->teams[TEAM_1]['name']} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
-			$this->teams[TEAM_1]['money'] += $money;
-		}
+
+		echo ("{$this->teams[$team]['name']} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
+		$this->teams[$team]['money'] += $money;
 	}
 
 	/**
