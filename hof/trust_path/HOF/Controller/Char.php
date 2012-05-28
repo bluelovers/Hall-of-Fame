@@ -1032,7 +1032,7 @@ HTML_BYEBYE;
 		$this->char->CalcEquips();
 
 ?>
-	<table>
+	<table class="margin15">
 		<tr>
 			<td class="dmg" style="text-align:right">Atk :</td>
 			<td class="dmg"><?=
