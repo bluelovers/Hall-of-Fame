@@ -150,7 +150,7 @@ class HOF_Class_Skill_Effect
 				break;
 
 			case 1200: //PoisonBlow
-				if ($target->STATE === 2)
+				if ($target->STATE === STATE_POISON)
 				{
 					$option["multiply"] = 6;
 					print ("Damage x6!<br />\n");
