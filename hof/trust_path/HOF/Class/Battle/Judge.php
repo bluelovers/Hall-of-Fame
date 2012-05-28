@@ -7,27 +7,24 @@
 
 class HOF_Class_Battle_Judge
 {
+	protected $battle = null;
 
-	//	function DecideJudge($JudgeKey,$My,$MyTeam,$EnemyTeam,$classBattle)
-	function DecideJudge($JudgeKey, $My, $classBattle)
+	/**
+	 * @param HOF_Class_Battle $battle
+	 */
+	function __construct(&$battle)
 	{
+		$this->battle = &$battle;
+	}
 
-		//判定に使用する　数字　変数　配列　とかを
-		//計算したりする。
-		if ($My->team == TEAM_0)
-		{
-			$MyTeam = $classBattle->teams[TEAM_0]['team'];
-			$EnemyTeam = $classBattle->teams[TEAM_1]['team'];
-			$MyTeamMC = $classBattle->teams[TEAM_0]['mc'];
-			$EnemyTeamMC = $classBattle->teams[TEAM_1]['mc'];
-		}
-		else
-		{
-			$MyTeam = $classBattle->teams[TEAM_1]['team'];
-			$EnemyTeam = $classBattle->teams[TEAM_0]['team'];
-			$MyTeamMC = $classBattle->teams[TEAM_1]['mc'];
-			$EnemyTeamMC = $classBattle->teams[TEAM_0]['mc'];
-		}
+	protected function DecideJudge($JudgeKey, $My)
+	{
+		list($_my, $_enemy) = $this->battle->teamToggle($My->team);
+
+		$MyTeam = $this->battle->teams[$_my]['team'];
+		$EnemyTeam = $this->battle->teams[$_enemy]['team'];
+		$MyTeamMC = $this->battle->teams[$_my]['mc'];
+		$EnemyTeamMC = $this->battle->teams[$_enemy]['mc'];
 
 		$pattern = $My->pattern_item($JudgeKey);
 
@@ -735,7 +732,7 @@ class HOF_Class_Battle_Judge
 	 *
 	 * @deprecated
 	 */
-	function &FuncTeamHpSpRate(&$TeamHpRate, $NO)
+	protected function &FuncTeamHpSpRate(&$TeamHpRate, $NO)
 	{
 		foreach ($TeamHpRate as $key => $Rate)
 		{
@@ -747,33 +744,18 @@ class HOF_Class_Battle_Judge
 	/**
 	 * 複数の判断要素での判定
 	 */
-	//function MultiFactJudge($Keys,$char,$MyTeam,$EnemyTeam) {
-	function MultiFactJudge($Keys, $char, $classBattle)
+	public function MultiFactJudge($Keys, $char)
 	{
 		foreach ($Keys as $no)
 		{
+			$return = $this->DecideJudge($no, $char);
 
-			//$return	= HOF_Class_Battle_Judge::DecideJudge($no,$char,$MyTeam,$EnemyTeam);
-			$return = HOF_Class_Battle_Judge::DecideJudge($no, $char, $classBattle);
-
-			// 判定が否であった場合終了。
+			/**
+			 * 判定が否であった場合終了。
+			 */
 			if (!$return) return false;
-
-			// 配列を比較して共通項目を残す(ほぼ廃止の方向へ)
-			/*
-			if(!$compare && is_array($return))
-			$compare	= $return;
-			else if(is_array($return))
-			$compare	= array_intersect($intersect,$return);
-			*/
-
 		}
 
-		/*
-		if($compare == array())
-		$compare	= true;
-		return $compare;
-		*/
 		return true;
 	}
 
