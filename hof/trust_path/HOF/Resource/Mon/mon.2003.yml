@@ -1,5 +1,5 @@
 no: 2003
-name: BanditsLeader
+name: PlundingBandits
 img: mon_216
 exphold: 2550
 moneyhold: 1700
@@ -44,7 +44,6 @@ servant:
         - 0
 land: sand
 servantAmount: '6'
-name: PlundingBandits
 lv_limit: '200'
 pattern:
     -
