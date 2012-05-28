@@ -139,9 +139,9 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char_Base
 	//	戦闘用の変数
 	function SetBattleVariable($team = false)
 	{
-		if ($this->_cache_char_['init'][__FUNCTION__]) return false;
+		if ($this->_cache_char_['init'][__FUNCTION__ ]) return false;
 
-		$this->_cache_char_['init'][__FUNCTION__] = true;
+		$this->_cache_char_['init'][__FUNCTION__ ] = true;
 
 		$this->team = $team; //これ必要か?
 
@@ -191,9 +191,9 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char_Base
 	{
 		$output = '';
 
-		if ($this->STATE === 1) $sub = " dmg";
+		if ($this->STATE === STATE_DEAD) $sub = " dmg";
 		else
-			if ($this->STATE === 2) $sub = " spdmg";
+			if ($this->STATE === STATE_POISON) $sub = " spdmg";
 		//名前
 		$output .= "<span class=\"bold{$sub}\">{$this->name}</span>\n";
 		// チャージor詠唱
@@ -202,10 +202,10 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char_Base
 			if ($this->expect_type === 1) $output .= '<span class="charge">(casting)</span>' . "\n";
 		// HP,SP
 		$output .= "<div class=\"hpsp\">\n";
-		$sub = $this->STATE === 1 ? "dmg" : "recover";
+		$sub = $this->STATE === STATE_DEAD ? "dmg" : "recover";
 		//print("<span class=\"{$sub}\">HP : ????/{$this->MAXHP}</span><br />\n");//HP
 		$output .= "<span class=\"{$sub}\">HP : ????/????</span><br />\n"; //HP
-		$sub = $this->STATE === 1 ? "dmg" : "support";
+		$sub = $this->STATE === STATE_DEAD ? "dmg" : "support";
 		$output .= "<span class=\"{$sub}\">SP : ????/????</span>\n";
 		$output .= "</div>\n"; //SP
 
@@ -241,7 +241,7 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char_Base
 		if ($this->STATE === STATE_POISON)
 		{ //毒状態
 			if ($mes) print ($this->Name('bold') . "'s <span class=\"spdmg\">poison</span> has cured.<br />\n");
-			$this->STATE = 0;
+			$this->STATE = STATE_ALIVE;
 			return true;
 		}
 	}
@@ -264,19 +264,19 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char_Base
 			}
 		}
 		elseif (DELAY_TYPE === 1)
+		{
+			if ($Show)
 			{
-				if ($Show)
-				{
-					print ("(" . sprintf("%0.0f", $this->delay));
-					print ('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
-				}
-				$Delay = round($No / 3); //遅らせる間隔
-				$this->delay -= $Delay;
-				if ($Show)
-				{
-					print (sprintf("%0.0f", $this->delay) . "/" . sprintf("%d", 100) . ")");
-				}
+				print ("(" . sprintf("%0.0f", $this->delay));
+				print ('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
 			}
+			$Delay = round($No / 3); //遅らせる間隔
+			$this->delay -= $Delay;
+			if ($Show)
+			{
+				print (sprintf("%0.0f", $this->delay) . "/" . sprintf("%d", 100) . ")");
+			}
+		}
 	}
 
 	//	値の変化を表示する(ダメージ受けた時とか)
@@ -320,6 +320,7 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char_Base
 	function ShowCharLink()
 	{
 
+
 ?>
 	<div class="carpet_frame">
 	<div class="land" style="background-image : url(<?=
@@ -328,14 +329,29 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char_Base
 
 
 ?>);">
-	<a href="<?php e(HOF::url('battle', 'union', array('union' => $this->id))) ?>"><?php
+	<a href="<?php
+
+		e(HOF::url('battle', 'union', array('union' => $this->id)))
+
+
+?>"><?php
 
 		$this->ShowImage();
 
 
 ?></a></div>
-	<div class="bold dmg"><?php e($this->union_data()->data['team']['name']) ?></div>
-	LvLimit:<?php e($this->union_data()->data['conditions']['lv_limit']) ?>
+	<div class="bold dmg"><?php
+
+		e($this->union_data()->data['team']['name'])
+
+
+?></div>
+	LvLimit:<?php
+
+		e($this->union_data()->data['conditions']['lv_limit'])
+
+
+?>
 	</div><?php
 
 	}
@@ -402,9 +418,10 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char_Base
 	//	しぼーしてるかどうか確認する。
 	function CharJudgeDead()
 	{
-		if ($this->HP < 1 && $this->STATE !== 1)
-		{ //しぼー
-			$this->STATE = 1;
+		if ($this->HP < 1 && $this->STATE !== STATE_DEAD)
+		{
+			//しぼー
+			$this->STATE = STATE_DEAD;
 			$this->HP = 0;
 			$this->ResetExpect();
 
@@ -414,3 +431,5 @@ class HOF_Class_Char_Mon_Union extends HOF_Class_Char_Base
 	}
 
 }
+
+
