@@ -65,7 +65,7 @@ class HOF_Class_Char_Battle
 	//	経験値を出す(モンスターだけ?)
 	function DropExp()
 	{
-		if ($this->char->summon)
+		if ($this->char->isSummon())
 		{
 			return false;
 		}
@@ -89,7 +89,7 @@ class HOF_Class_Char_Battle
 	//	お金を出す(モンスターだけ?)
 	function DropMoney()
 	{
-		if ($this->char->summon)
+		if ($this->char->isSummon())
 		{
 			return false;
 		}
@@ -109,7 +109,7 @@ class HOF_Class_Char_Battle
 	//	アイテムを落とす(モンスターだけ?)
 	function DropItem()
 	{
-		if ($this->char->summon)
+		if ($this->char->isSummon())
 		{
 			return false;
 		}
