@@ -109,7 +109,7 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 		$this->guard = $data_attr["guard"];
 
 		//モンスター専用
-		$this->monster = true;
+		//$this->monster = true;
 		$this->exphold = $data_attr["exphold"];
 		$this->moneyhold = $data_attr["moneyhold"];
 		$this->itemdrop = $data_attr["itemdrop"];
