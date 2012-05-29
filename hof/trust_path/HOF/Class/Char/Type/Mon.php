@@ -29,7 +29,7 @@ class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 	 * 落とすアイテム
 	 */
 	var $itemdrop;
-	var $summon;
+	//var $summon;
 
 	function __construct($data)
 	{
@@ -56,7 +56,7 @@ class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 		if ($this->STATE === STATE_DEAD)
 		{
 			// 死亡状態
-			if ($this->summon) return true;
+			if ($this->isSummon()) return true;
 			if ($mes) print ($this->Name('bold') . ' <span class="recover">revived</span>!<br />' . "\n");
 			$this->STATE = STATE_ALIVE;
 			return true;
@@ -116,7 +116,9 @@ class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 		// モンスター専用
 		//$this->monster		= $data_attr["monster"];
 		$this->monster = true;
-		$this->summon = $data_attr["summon"];
+
+		$data_attr["summon"] && $this->setCharType(HOF_Class_Char::TYPE_SUMMON);
+
 		$this->exphold = $data_attr["exphold"];
 		$this->moneyhold = $data_attr["moneyhold"];
 		$this->itemdrop = $data_attr["itemdrop"];
