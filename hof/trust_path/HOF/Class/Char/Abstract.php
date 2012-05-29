@@ -201,7 +201,9 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 	{
 		$sub_type = strtolower($sub_type);
 
-		return (bool)(isset($this->CHAR_TYPES[$sub_type]) && $this->CHAR_TYPES[$sub_type] == true);
+		$this->CHAR_TYPES[$sub_type] = true;
+
+		return $this;
 	}
 
 	public function getCharType($types = null)
@@ -209,6 +211,9 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		return $types ? $this->CHAR_TYPES : $this->CHAR_TYPE;
 	}
 
+	/**
+	 * @return bool
+	 */
 	public function hasCharType($type)
 	{
 		$types = is_array($type) ? $type : func_get_args();
