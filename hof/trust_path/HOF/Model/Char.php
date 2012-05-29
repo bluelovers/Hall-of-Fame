@@ -440,6 +440,7 @@ class HOF_Model_Char extends HOF_Class_Data
 		$monster = new monster($monster);
 		*/
 		$monster = HOF_Model_Char::newMon($monster);
+		$monster->setCharType(HOF_Class_Char::TYPE_SUMMON);
 		$monster->SetBattleVariable();
 		return $monster;
 	}
