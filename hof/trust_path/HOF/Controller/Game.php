@@ -556,7 +556,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 			$char = null;
 
-			if ($this->input->recruit_no && $chars[$this->input->recruit_no] instanceof HOF_Class_Char_Base)
+			if ($this->input->recruit_no && $chars[$this->input->recruit_no] instanceof HOF_Class_Char_Abstract)
 			{
 				$job = $chars[$this->input->recruit_no]->job;
 
