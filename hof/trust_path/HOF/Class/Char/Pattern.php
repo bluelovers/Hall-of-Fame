@@ -54,7 +54,7 @@ class HOF_Class_Char_Pattern
 	 */
 	public function pattern_max()
 	{
-		if ($this->char->monster || $this->options['nolimit'])
+		if ($this->char->isMon() || $this->options['nolimit'])
 		{
 			return self::PATTERN_NOLIMIT;
 		}
@@ -96,7 +96,7 @@ class HOF_Class_Char_Pattern
 
 	function _pattern_plus(&$pattern_new)
 	{
-		if (!$this->cache['init'] && $this->char->monster)
+		if (!$this->cache['init'] && $this->char->isMon())
 		{
 			$judge_1000 = array();
 
