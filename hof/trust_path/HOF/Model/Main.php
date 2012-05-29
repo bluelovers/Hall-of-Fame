@@ -219,6 +219,9 @@ class HOF_Model_Main
 				'login' => $now[1],
 				),
 
+			'time' => START_TIME,
+			'money' => START_MONEY,
+
 			'options' => array('record_btl_log' => 1, ),
 			);
 
