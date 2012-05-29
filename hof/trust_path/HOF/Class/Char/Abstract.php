@@ -136,12 +136,15 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		);
 
 	public $owner = HOF_Class_Char::OWNER_SYSTEM;
+	protected $CHAR_TYPE;
+	protected $CHAR_TYPES;
 
 	public function __construct($id, $owner)
 	{
-		$this->_extend_init();
-
+		$this->initCharType();
 		$this->owner($owner);
+
+		$this->_extend_init();
 	}
 
 	protected function _extend_init()
@@ -179,6 +182,78 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 	public function __destruct()
 	{
 		$this->fpclose();
+	}
+
+	protected function initCharType()
+	{
+		sscanf(get_class($this), 'HOF_Class_Char_Type_%s', $type);
+
+		$this->CHAR_TYPE = $type;
+
+		$types = explode('_', HOF::putintoPathParts($type));
+
+		$this->CHAR_TYPES = array_fill_keys((array)$types, true);
+
+		return $this;
+	}
+
+	public function setCharType($sub_type)
+	{
+		$sub_type = strtolower($sub_type);
+
+		return (bool)(isset($this->CHAR_TYPES[$sub_type]) && $this->CHAR_TYPES[$sub_type] == true);
+	}
+
+	public function getCharType($types = null)
+	{
+		return $types ? $this->CHAR_TYPES : $this->CHAR_TYPE;
+	}
+
+	public function hasCharType($type)
+	{
+		$types = is_array($type) ? $type : func_get_args();
+		$char_type = $this->getCharType(true);
+
+		if (!empty($type) && !empty($char_type))
+		{
+			$ret = false;
+
+			foreach ($types as $sub_type)
+			{
+				if (!isset($char_type[$sub_type]) || !$char_type[$sub_type])
+				{
+					return false;
+				}
+
+				$ret = true;
+			}
+
+			return (bool)$ret;
+		}
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isUnion()
+	{
+		return $this->hasCharType(HOF_Class_Char::TYPE_UNION);
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isSummon()
+	{
+		return $this->hasCharType(HOF_Class_Char::TYPE_SUMMON);
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isMon()
+	{
+		return $this->hasCharType(HOF_Class_Char::TYPE_MON);
 	}
 
 }
