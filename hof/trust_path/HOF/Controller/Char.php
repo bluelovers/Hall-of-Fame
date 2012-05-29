@@ -14,7 +14,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	var $user;
 
 	/**
-	 * @var HOF_Class_Char
+	 * @var HOF_Class_Char_Type_Char
 	 */
 	var $char;
 
