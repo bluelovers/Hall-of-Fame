@@ -193,7 +193,7 @@ $_class_exists = array(
 	'Symfony_Component_Yaml_Yaml',
 	'HOF_Class_Yaml',
 	'HOF_Class_Battle_Style',
-	'HOF_Class_Char_Mon_Union',
+	'HOF_Class_Char_Type_UnionMon',
 );
 
 foreach($_class_exists as $_class)
@@ -375,7 +375,7 @@ $_class_exists = array(
 	'HOF_Class_Data',
 	'HOF_Class_Yaml',
 	'HOF_Class_Battle_Style',
-	'HOF_Class_Char_Mon_Union',
+	'HOF_Class_Char_Type_UnionMon',
 );
 
 foreach($_class_exists as $_class)
