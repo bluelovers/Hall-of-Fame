@@ -8,8 +8,8 @@
 //include_once (DATA_BASE_CHAR);
 //require_once (CLASS_CHAR);
 
-//class HOF_Class_Char extends char
-class HOF_Class_Char extends HOF_Class_Char_Base
+//class HOF_Class_Char_Type_Char extends char
+class HOF_Class_Char_Type_Char extends HOF_Class_Char_Base
 {
 
 	/**

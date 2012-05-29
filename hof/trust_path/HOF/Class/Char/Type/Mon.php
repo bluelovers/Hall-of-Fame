@@ -7,7 +7,7 @@
 
 //include_once (CLASS_MONSTER);
 
-class HOF_Class_Char_Mon extends HOF_Class_Char_Base
+class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Base
 {
 
 	/**
