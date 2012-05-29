@@ -148,7 +148,7 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 			foreach ($team['team'] as &$char)
 			{
 				// 召喚キャラが死亡している場合は飛ばす
-				if ($char->STATE === STATE_DEAD && $char->summon == true)
+				if ($char->STATE === STATE_DEAD && $char->isSummon())
 				{
 					continue;
 				}
