@@ -29,7 +29,7 @@ class HOF_Class_Char_Attr
 	 */
 	function CalcExpNeed()
 	{
-		if ($this->char->Union)
+		if ($this->char->isUnion())
 		{
 			$exp = 50;
 
@@ -110,7 +110,7 @@ class HOF_Class_Char_Attr
 			//return false;
 
 			$exp = 1;
-			$max_level *= $this->char->Union ? 5 : 1.2;
+			$max_level *= $this->char->isUnion() ? 5 : 1.2;
 		}
 
 		// 最大レベルの場合経験値を得ない
