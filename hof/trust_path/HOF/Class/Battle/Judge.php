@@ -615,7 +615,7 @@ class HOF_Class_Battle_Judge
 				foreach ($MyTeam as $char)
 				{
 					//if($char->STATE === STATE_DEAD) continue;
-					if ($char->summon) $summon++;
+					if ($char->isSummon()) $summon++;
 				}
 				if ($Quantity <= $summon) return true;
 				break;
@@ -625,7 +625,7 @@ class HOF_Class_Battle_Judge
 				foreach ($MyTeam as $char)
 				{
 					//if($char->STATE === STATE_DEAD) continue;
-					if ($char->summon) $summon++;
+					if ($char->isSummon()) $summon++;
 				}
 				if ($summon <= $Quantity) return true;
 				break;
@@ -635,7 +635,7 @@ class HOF_Class_Battle_Judge
 				foreach ($MyTeam as $char)
 				{
 					//if($char->STATE === STATE_DEAD) continue;
-					if ($char->summon) $summon++;
+					if ($char->isSummon()) $summon++;
 				}
 				if ($summon == $Quantity) return true;
 				break;
@@ -646,7 +646,7 @@ class HOF_Class_Battle_Judge
 				foreach ($EnemyTeam as $char)
 				{
 					//if($char->STATE === STATE_DEAD) continue;
-					if ($char->summon) $summon++;
+					if ($char->isSummon()) $summon++;
 				}
 				if ($Quantity <= $summon) return true;
 				break;
@@ -656,7 +656,7 @@ class HOF_Class_Battle_Judge
 				foreach ($EnemyTeam as $char)
 				{
 					//if($char->STATE === STATE_DEAD) continue;
-					if ($char->summon) $summon++;
+					if ($char->isSummon()) $summon++;
 				}
 				if ($summon <= $Quantity) return true;
 				break;
@@ -666,7 +666,7 @@ class HOF_Class_Battle_Judge
 				foreach ($EnemyTeam as $char)
 				{
 					//if($char->STATE === STATE_DEAD) continue;
-					if ($char->summon) $summon++;
+					if ($char->isSummon()) $summon++;
 				}
 				if ($summon == $Quantity) return true;
 				break;
