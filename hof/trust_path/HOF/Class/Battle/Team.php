@@ -143,7 +143,7 @@ class HOF_Class_Battle_Team extends HOF_Class_Array
 		foreach ((array)$team as $char)
 		{
 			if ($char->STATE === STATE_DEAD) continue;
-			if ($char->monster) continue;
+			if ($char->isMon()) continue;
 			$no++;
 		}
 		return $no;
