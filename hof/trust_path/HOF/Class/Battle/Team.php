@@ -74,7 +74,7 @@ class HOF_Class_Battle_Team extends HOF_Class_Array
 		{
 			$team = $who->toArray(true);
 		}
-		elseif ($who instanceof HOF_Class_Char)
+		elseif ($who instanceof HOF_Class_Char_Base)
 		{
 			$team = $who->getTeamObj()->toArray(true);
 		}
