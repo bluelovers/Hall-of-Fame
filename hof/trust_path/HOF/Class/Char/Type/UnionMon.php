@@ -8,7 +8,7 @@
 //require_once (CLASS_UNION);
 
 //class HOF_Class_Char_Type_UnionMon extends union
-class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Base
+class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 {
 
 	var $file;
