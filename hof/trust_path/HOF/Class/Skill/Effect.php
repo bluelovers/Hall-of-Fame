@@ -395,7 +395,7 @@ class HOF_Class_Skill_Effect
 			case 3307:
 			case 3308:
 			case 3310: //SuppressBeast
-				if (!$target->summon) break;
+				if (!$target->isSummon()) break;
 				$this->StatusChanges($skill, $target);
 				break;
 
