@@ -133,7 +133,7 @@ EOM
 		foreach ($this->battle->teams[TEAM_1]['team'] as $char)
 		{
 			// 召喚キャラが死亡している場合は飛ばす
-			if ($char->STATE === STATE_DEAD && $char->summon == true) continue;
+			if ($char->STATE === STATE_DEAD && $char->isSummon()) continue;
 
 			if ($char->POSITION != POSITION_FRONT) echo $char->ShowHpSp();
 		}
@@ -143,7 +143,7 @@ EOM
 		foreach ($this->battle->teams[TEAM_1]['team'] as $char)
 		{
 			// 召喚キャラが死亡している場合は飛ばす
-			if ($char->STATE === STATE_DEAD && $char->summon == true) continue;
+			if ($char->STATE === STATE_DEAD && $char->isSummon()) continue;
 
 			if ($char->POSITION == POSITION_FRONT) echo $char->ShowHpSp();
 		}
@@ -157,7 +157,7 @@ EOM
 		foreach ($this->battle->teams[TEAM_0]['team'] as $char)
 		{
 			// 召喚キャラが死亡している場合は飛ばす
-			if ($char->STATE === STATE_DEAD && $char->summon == true) continue;
+			if ($char->STATE === STATE_DEAD && $char->isSummon()) continue;
 			if ($char->POSITION == POSITION_FRONT) echo $char->ShowHpSp();
 		}
 
@@ -166,7 +166,7 @@ EOM
 		foreach ($this->battle->teams[TEAM_0]['team'] as $char)
 		{
 			// 召喚キャラが死亡している場合は飛ばす
-			if ($char->STATE === STATE_DEAD && $char->summon == true) continue;
+			if ($char->STATE === STATE_DEAD && $char->isSummon()) continue;
 			if ($char->POSITION != POSITION_FRONT) echo $char->ShowHpSp();
 		}
 		echo("</td></tr></tbody></table>\n");
