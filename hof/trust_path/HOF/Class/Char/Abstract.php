@@ -5,7 +5,7 @@
  * @copyright 2012
  */
 
-class HOF_Class_Char_Base extends HOF_Class_Base_Extend_Root
+abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 {
 	// ファイルポインタ
 	public $fp;
