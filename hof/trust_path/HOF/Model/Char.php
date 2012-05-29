@@ -104,7 +104,7 @@ class HOF_Model_Char extends HOF_Class_Data
 	}
 
 	/**
-	 * @return HOF_Class_Char
+	 * @return HOF_Class_Char_Type_Char
 	 */
 	function newBaseChar($jobNo, $append = array())
 	{
@@ -115,7 +115,7 @@ class HOF_Model_Char extends HOF_Class_Data
 
 	function newChar($append = array())
 	{
-		$char = new HOF_Class_Char();
+		$char = new HOF_Class_Char_Type_Char();
 
 		if (!empty($append))
 		{
@@ -129,7 +129,7 @@ class HOF_Model_Char extends HOF_Class_Data
 
 	function newCharFromFile($file = null)
 	{
-		$char = new HOF_Class_Char($file);
+		$char = new HOF_Class_Char_Type_Char($file);
 
 		return $char;
 	}
@@ -267,7 +267,7 @@ class HOF_Model_Char extends HOF_Class_Data
 
 	function newUnionFromFile($file = null)
 	{
-		$char = new HOF_Class_Char_Mon_Union($file);
+		$char = new HOF_Class_Char_Type_UnionMon($file);
 
 		return $char;
 	}
@@ -276,7 +276,7 @@ class HOF_Model_Char extends HOF_Class_Data
 	{
 		$file = self::getUnionFile($no);
 
-		$char = new HOF_Class_Char_Mon_Union($file);
+		$char = new HOF_Class_Char_Type_UnionMon($file);
 
 		return $char;
 	}
@@ -403,7 +403,7 @@ class HOF_Model_Char extends HOF_Class_Data
 
 		$append = HOF_Class_Array::_fixArray($append);
 
-		$char = new HOF_Class_Char_Mon($append);
+		$char = new HOF_Class_Char_Type_Mon($append);
 
 		return $char;
 	}
