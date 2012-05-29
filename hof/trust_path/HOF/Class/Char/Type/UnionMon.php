@@ -19,7 +19,7 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 	var $last_death;
 
 	var $servant;
-	var $Union = true;
+	//var $Union = true;
 	var $id;
 	var $land;
 	var $lv_limit;
