@@ -156,7 +156,7 @@ class HOF_Class_Battle_Team extends HOF_Class_Array
 		$no = 0; //初期化
 		foreach ((array)$team as $char)
 		{
-			if ($char->summon) continue;
+			if ($char->isSummon()) continue;
 			$no++;
 		}
 
