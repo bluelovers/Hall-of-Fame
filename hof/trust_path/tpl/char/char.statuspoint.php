@@ -1,18 +1,18 @@
 
+	<h4>Status <a href="<?php e(HOF::url('manual', 'manual', '#statup')) ?>" target="_blank" class="a0">?</a></h4>
+
+	Point : <?php e($this->output->char->statuspoint) ?><br />
+
 	<?php if (0 < $this->output->char->statuspoint): ?>
 
 	<!-- ステータス上昇 -->
 	<form action="<?php e(HOF::url('char', 'stup', array('char' => $this->output->char_id))) ?>" method="post">
-		<h4>Status <a href="<?php e(HOF::url('manual', 'manual', '#statup')) ?>" target="_blank" class="a0">?</a></h4>
 		<?php $Stat = array(
 				"Str",
 				"Int",
 				"Dex",
 				"Spd",
 				"Luk"); ?>
-		Point :
-		<?php e($this->output->char->statuspoint) ?>
-		<br />
 		<?php foreach ($Stat as $val): ?>
 			<?php e($val) ?>:
 			<select name="up<?php e($val) ?>" class="vcent">
