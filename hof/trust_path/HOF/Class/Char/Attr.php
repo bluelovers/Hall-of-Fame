@@ -35,7 +35,7 @@ class HOF_Class_Char_Attr
 
 			return $exp;
 		}
-		elseif ($this->char->monster)
+		elseif ($this->char->isMon())
 		{
 			$exp = 3;
 
@@ -104,7 +104,7 @@ class HOF_Class_Char_Attr
 
 		$max_level = MAX_LEVEL;
 
-		if ($this->char->monster)
+		if ($this->char->isMon())
 		{
 			// モンスターは経験値を得ない
 			//return false;
