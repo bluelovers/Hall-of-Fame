@@ -23,7 +23,7 @@ class HOF_Helper_Battle
 		foreach ($party as $key => $char)
 		{
 			/*
-			$enemy[$key] = new HOF_Class_Char();
+			$enemy[$key] = new HOF_Class_Char_Type_Char();
 			$enemy[$key]->SetCharData(get_object_vars($char));
 			*/
 
