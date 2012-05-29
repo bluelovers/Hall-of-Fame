@@ -116,7 +116,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 
 			$char = null;
 
-			if ($this->input->recruit_no && $this->_cache['chars'][$this->input->recruit_no] instanceof HOF_Class_Char_Base)
+			if ($this->input->recruit_no && $this->_cache['chars'][$this->input->recruit_no] instanceof HOF_Class_Char_Abstract)
 			{
 
 				$job = $this->_cache['chars'][$this->input->recruit_no]->job;
