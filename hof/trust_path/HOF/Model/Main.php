@@ -412,12 +412,6 @@ class HOF_Model_Main
 
 
 ?>">UpDate</a> -
-			<?php
-
-		if (BBS_BOTTOM_TOGGLE) print ('<a href="' . HOF::url('bbs') . '">BBS</a> - ' . "\n");
-
-
-?>
 			<a href="<?php
 
 		e(HOF::url('manual'))
