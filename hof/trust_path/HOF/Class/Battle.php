@@ -183,8 +183,8 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 	/**
 	 * 戦闘にキャラクターを途中参加させる。
 	 *
-	 * @param HOF_Class_Char|$char
-	 * @param HOF_Class_Char|$add
+	 * @param HOF_Class_Char_Type_Char|$char
+	 * @param HOF_Class_Char_Type_Char|$add
 	 */
 	function JoinCharacter($char, $add)
 	{
