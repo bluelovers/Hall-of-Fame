@@ -442,7 +442,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 	//	キャラの攻撃力と防御力,装備性能を計算する
 	function CalcEquips()
 	{
-		if ($this->monster) return false; //mobは設定せんでいい
+		if ($this->isMon()) return false; //mobは設定せんでいい
 
 		$this->atk = array(0, 0);
 		$this->def = array(
