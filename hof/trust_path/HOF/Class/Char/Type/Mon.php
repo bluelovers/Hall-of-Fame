@@ -115,7 +115,7 @@ class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 
 		// モンスター専用
 		//$this->monster		= $data_attr["monster"];
-		$this->monster = true;
+		//$this->monster = true;
 
 		$data_attr["summon"] && $this->setCharType(HOF_Class_Char::TYPE_SUMMON);
 
