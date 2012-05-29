@@ -97,7 +97,7 @@ class HOF_Class_Char_Attr
 	 */
 	function GetExp($exp)
 	{
-		if ($this->char->summon)
+		if ($this->char->isSummon())
 		{
 			return false;
 		}
