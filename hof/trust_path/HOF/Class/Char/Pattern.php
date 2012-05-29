@@ -112,7 +112,7 @@ class HOF_Class_Char_Pattern
 			/**
 			 * skill:3040 蘇生
 			 */
-			if (!$this->char->summon && !$this->char->Union)
+			if (!$this->char->isSummon() && !$this->char->Union)
 			{
 				array_splice($pattern_new, 0, 0, array($this->_fix_pattern_item(array(
 						1405,
