@@ -242,7 +242,14 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 	 */
 	public function isUnion()
 	{
-		return $this->hasCharType(HOF_Class_Char::TYPE_UNION);
+		$k = __FUNCTION__;
+
+		if (!isset($this->{$k}))
+		{
+			$this->{$k} = $this->hasCharType(HOF_Class_Char::TYPE_UNION);
+		}
+
+		return $this->{$k};
 	}
 
 	/**
@@ -250,7 +257,14 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 	 */
 	public function isSummon()
 	{
-		return $this->hasCharType(HOF_Class_Char::TYPE_SUMMON);
+		$k = __FUNCTION__;
+
+		if (!isset($this->{$k}))
+		{
+			$this->{$k} = $this->hasCharType(HOF_Class_Char::TYPE_SUMMON);
+		}
+
+		return $this->{$k};
 	}
 
 	/**
@@ -258,7 +272,14 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 	 */
 	public function isMon()
 	{
-		return $this->hasCharType(HOF_Class_Char::TYPE_MON);
+		$k = __FUNCTION__;
+
+		if (!isset($this->{$k}))
+		{
+			$this->{$k} = $this->hasCharType(HOF_Class_Char::TYPE_MON);
+		}
+
+		return $this->{$k};
 	}
 
 }
