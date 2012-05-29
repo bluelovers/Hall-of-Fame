@@ -626,7 +626,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 
 		if ($data_attr["pattern_memo"]) $this->pattern_memo = $data_attr["pattern_memo"];
 
-		if ($data_attr["summon"]) $this->summon = $data_attr["summon"];
+		$data_attr["summon"] && $this->setCharType(HOF_Class_Char::TYPE_SUMMON);
 
 		$this->pattern(HOF_Class_Char_Pattern::CHECK_PATTERN);
 	}
