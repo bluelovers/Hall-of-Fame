@@ -883,7 +883,7 @@ HTML;
 				/**
 				 * 召喚キャラなら消す。
 				 */
-				if ($target[$key]->summon === true)
+				if ($target[$key]->isSummon())
 				{
 					unset($target[$key]);
 				}
@@ -967,7 +967,7 @@ HTML;
 			// 召喚キャラを優先する。
 			foreach ($target_list as $key => &$char)
 			{
-				if ($char->summon) //召喚キャラなら
+				if ($char->isSummon()) //召喚キャラなら
  						$target[] = &$char; //召喚キャラリスト
 			}
 			if ($target) return $target[array_rand($target)]; //召喚キャラの中からランダムで
