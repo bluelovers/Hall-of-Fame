@@ -135,7 +135,16 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		EQUIP_SLOT_ITEM => true,
 		);
 
-	function _extend_init()
+	public $owner = HOF_Class_Char::OWNER_SYSTEM;
+
+	public function __construct($id, $owner)
+	{
+		$this->_extend_init();
+
+		$this->owner($owner);
+	}
+
+	protected function _extend_init()
 	{
 		$this->extend('HOF_Class_Char_Attr');
 		$this->extend('HOF_Class_Char_Pattern');
@@ -144,17 +153,30 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		$this->extend('HOF_Class_Char_Battle');
 	}
 
+	public function owner($owner = null)
+	{
+		if ($owner !== null)
+		{
+			$this->owner = $owner;
+		}
+
+		return $this->owner;
+	}
+
 	/**
 	 * ファイルポインタが開かれていれば閉じる
 	 */
-	function fpclose()
+	public function fpclose()
 	{
-		HOF_Class_File::fpclose($this->fp);
+		if ($this->fp)
+		{
+			HOF_Class_File::fpclose($this->fp);
 
-		unset($this->fp);
+			unset($this->fp);
+		}
 	}
 
-	function __destruct()
+	public function __destruct()
 	{
 		$this->fpclose();
 	}
