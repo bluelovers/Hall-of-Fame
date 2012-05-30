@@ -24,16 +24,22 @@ class HOF_Helper_Battle
 		{
 			/*
 			$enemy[$key] = new HOF_Class_Char_Type_Char();
-			$enemy[$key]->SetCharData(get_object_vars($char));
+			$enemy[$key]->setCharData(get_object_vars($char));
 			*/
 
-			$enemy[$key] = HOF_Model_Char::newChar(get_object_vars($char));
+			//$enemy[$key] = HOF_Model_Char::newChar(get_object_vars($char));
+			$enemy[$key] = $char->getClone();
+			$enemy[$key]->ChangeName("偽の" . $char->name);
 		}
+
+		/*
 		foreach ($enemy as $key => $doppel)
 		{
 			//$doppel->judge	= array();//コメントを取るとドッペルが行動しない。
 			$enemy[$key]->ChangeName("ニセ" . $doppel->name);
 		}
+		*/
+
 		//dump($enemy[0]->judge);
 		//dump($party[0]->judge);
 
