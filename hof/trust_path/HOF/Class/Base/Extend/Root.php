@@ -38,12 +38,39 @@ class HOF_Class_Base_Extend_Root implements HOF_Class_Base_Extend_RootInterface
 
 		foreach ((array )$this->_extends_[$idx]['method'] as $method)
 		{
+			$null = null;
+			$this->_extends_method_[$method] = $null;
+
 			unset($this->_extends_method_[$method]);
 		}
+
+		$null = null;
+		$this->_extends_[$idx] = $null;
 
 		unset($this->_extends_[$idx]);
 
 		return array($idx, $class);
+	}
+
+	function hasExtend($extend, $idx = null)
+	{
+		if (is_object($extend))
+		{
+			$class = get_class($extend);
+		}
+		else
+		{
+			$class = $extend;
+		}
+
+		if (!$idx) $idx = $class;
+
+		return isset($this->_extends_[$idx]);
+	}
+
+	function hasExtendMethod($method)
+	{
+		return isset($this->_extends_method_[$method]);
 	}
 
 	public function extend($extend, $idx = null)
