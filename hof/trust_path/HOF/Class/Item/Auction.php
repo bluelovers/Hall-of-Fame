@@ -620,7 +620,7 @@ class HOF_Class_Item_Auction
 				{
 					foreach ($user["char"] as $char)
 					{
-						$char->SaveCharData($user);
+						$char->saveCharData($user);
 					}
 				}
 			}
