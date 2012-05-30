@@ -15,12 +15,10 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 	var $fp;
 
 	var $name;
-	var $no;
 	var $last_death;
 
 	var $servant;
-	//var $Union = true;
-	var $id;
+
 	var $land;
 	var $lv_limit;
 	/*
@@ -30,66 +28,37 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 	var $LastHP;
 
 	// モンスター専用の変数
-	var $monster = true;
+	//var $monster = true;
 	var $exphold; //経験値
 	var $moneyhold; //お金
 	var $itemdrop; //落とすアイテム
 
-	/**
-	 * コンストラクタ
-	 */
-	function __construct($file = false)
+	public function file($over = null)
 	{
-		$this->_extend_init();
-
-		$file && $this->LoadData($file);
-	}
-
-	function union_data($over = false)
-	{
-		if ($over)
+		if (!isset($this->file) || $over)
 		{
-			$data = HOF_Class_Yaml::load($this->fp);
+			$this->file = HOF_Model_Char::getUnionFile($this->no);
 
-			$this->_source_union_data_ = new HOF_Class_Array($data);
+			if (!file_exists($this->file))
+			{
+				throw new Exception(sprintf('%s:%s not Exists', $this->getCharType(), $this->no));
+			}
 		}
 
-		return $this->_source_union_data_;
-	}
-
-	function LoadData($file)
-	{
-		if (!file_exists($file))
-		{
-			$this->file = null;
-			return false;
-		}
-
-		$this->file = $file;
-		$this->fp = HOF_Class_File::fplock_file($this->file);
-
-		$this->union_data(true);
-
-		$this->id = $this->_source_union_data_['no'];
-
-		$this->_init = true;
-
-		$this->SetCharData($this->_source_union_data_);
-
-		return true;
+		return $this->file;
 	}
 
 	//	キャラの変数をセットする。
-	function SetCharData(&$data)
+	function setCharData($data)
 	{
-		$this->no = $data["no"];
+		isset($data["no"]) && $this->no = $data["no"];
 		$this->last_death = $data["last_death"];
 
 		$data_attr = HOF_Model_Char::getUnionDataMon($this->no);
+		parent::setCharData($data_attr);
 
 		$this->team_name = $data['data']['team']['name'];
 
-		$this->name = $data_attr["name"];
 		$this->level = $data_attr["level"];
 
 		$this->img = $data["img"];
@@ -109,7 +78,7 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 		$this->guard = $data_attr["guard"];
 
 		//モンスター専用
-		//$this->monster = true;
+
 		$this->exphold = $data_attr["exphold"];
 		$this->moneyhold = $data_attr["moneyhold"];
 		$this->itemdrop = $data_attr["itemdrop"];
@@ -137,7 +106,7 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 	}
 
 	//	戦闘用の変数
-	function SetBattleVariable($team = false)
+	function setBattleVariable($team = false)
 	{
 		if ($this->_cache_char_['init'][__FUNCTION__ ]) return false;
 
@@ -167,11 +136,11 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 	/**
 	 * キャラデータの保存
 	 */
-	function SaveCharData()
+	function saveCharData()
 	{
-		if (!file_exists($this->file)) return false;
+		if (!file_exists($this->file())) return false;
 
-		$data = $this->union_data();
+		$data = $this->source();
 
 		$data['last_death'] = $this->last_death;
 		$data['hp'] = isset($this->HP) ? $this->HP : $this->hp;
@@ -195,7 +164,7 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 		else
 			if ($this->STATE === STATE_POISON) $sub = " spdmg";
 		//名前
-		$output .= "<span class=\"bold{$sub}\">{$this->name}</span>\n";
+		$output .= "<span class=\"bold{$sub}\">".$this->Name()."</span>\n";
 		// チャージor詠唱
 		if ($this->expect_type === 0) $output .= '<span class="charge">(charging)</span>' . "\n";
 		else
@@ -285,31 +254,6 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 		print ("(??? &gt; ???)");
 	}
 
-	//	番号で呼び出す
-	function id($no = null)
-	{
-		if ($no !== null)
-		{
-			$this->id = $no;
-
-			$this->_init = false;
-		}
-
-		if (!$this->_init && $this->id !== null)
-		{
-			$file = HOF_Model_Char::getUnionFile($this->id);
-
-			if (!$ret = $this->LoadData($file))
-			{
-				return false;
-			}
-		}
-
-		if (!$this->id) return false;
-
-		return $this->id;
-	}
-
 	//	ユニオン自体が生きてるかどうか確認する(戦闘外で)
 	function is_Alive()
 	{
@@ -325,7 +269,7 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 	<div class="carpet_frame">
 	<div class="land" style="background-image : url(<?=
 
-		HOF_Class_Icon::getImageUrl("land_" . $this->union_data()->land, HOF_Class_Icon::IMG_LAND)
+		HOF_Class_Icon::getImageUrl("land_" . $this->source()->land, HOF_Class_Icon::IMG_LAND)
 
 
 ?>);">
@@ -342,13 +286,13 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 ?></a></div>
 	<div class="bold dmg"><?php
 
-		e($this->union_data()->data['team']['name'])
+		e($this->source()->data['team']['name'])
 
 
 ?></div>
 	LvLimit:<?php
 
-		e($this->union_data()->data['conditions']['lv_limit'])
+		e($this->source()->data['conditions']['lv_limit'])
 
 
 ?>
