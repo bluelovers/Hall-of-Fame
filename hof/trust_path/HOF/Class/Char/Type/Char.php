@@ -33,6 +33,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 	 */
 	//var $weapon, $shield, $armor, $item;
 
+	/*
 	function __construct($file = false)
 	{
 		$this->_extend_init();
@@ -47,7 +48,108 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 
 		$data = HOF_Class_Yaml::load($this->fp);
 
-		$this->SetCharData($data);
+		$this->setCharData($data);
+	}
+	*/
+
+	function no($val = null)
+	{
+		if ($val !== null)
+		{
+			list($type, $no) = explode(':', $val);
+
+			if (!$no)
+			{
+				list($type, $no) = array($no, $type);
+			}
+
+			$this->no = $no;
+			$this->option('type', $type);
+		}
+
+		return $this->no;
+	}
+
+	public function file($over = null)
+	{
+		if (!isset($this->file) || $over)
+		{
+			$this->file = HOF_Helper_Char::char_file($this->no(), $this->owner());
+
+			if (!file_exists($this->file))
+			{
+				throw new Exception(sprintf('%s:%s not Exists', $this->getCharType(), $this->no));
+			}
+		}
+
+		return $this->file;
+	}
+
+	function source($over = false)
+	{
+		static $data;
+
+		$type = $this->option('type');
+
+		if (!isset($data[$type]) || $over)
+		{
+			switch($type)
+			{
+				case 'char':
+					$list = HOF_Model_Char::getBaseCharList();
+					$no = $this->no();
+					//$append = $this->option('append');
+
+					if (!in_array($no, $list))
+					{
+						$no = floor($no / 100) * 100;
+
+						if (in_array($no, $list))
+						{
+							if (!$append['job'])
+							{
+								$append['job'] = $this->no();
+							}
+						}
+						else
+						{
+							throw new Exception(sprintf('%s:%s not Exists', $this->getCharType(), $this->no));
+						}
+					}
+
+					$data[$type] = HOF_Model_Char::getBaseCharStatus($no);
+
+					break;
+				case 'mon':
+					$data[$type] = HOF_Model_Char::getBaseMonster($this->no);
+
+					$data[$type]['data']['base']['type'] = $type;
+					$data[$type]['data']['base']['no'] = $this->no;
+
+					//$data[$type]['icon'] = $data[$type]['img'];
+
+					break;
+				default:
+					$this->fp = HOF_Class_File::fplock_file($this->file());
+
+					$data[$type] = HOF_Class_Yaml::load($this->fp);
+
+					break;
+			}
+
+			if (!$data[$type]['birth']) $data[$type]['birth'] = HOF_Helper_Char::uniqid_birth();
+
+			$data[$type] = new HOF_Class_Array($data[$type]);
+		}
+
+		$this->source = $data[$type];
+
+		/*
+		debug($this->source, $this->no(), $this->options());
+		exit();
+		*/
+
+		return $this->source;
 	}
 
 	function _extend_init()
@@ -61,15 +163,15 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 	/**
 	 * キャラデータの保存
 	 */
-	function SaveCharData()
+	function saveCharData()
 	{
-		if (!$this->user || (string )$this->user != $this->user()->id)
+		if (!$this->owner() || (string )$this->owner() != (string)$this->user()->id)
 		{
 			throw new RuntimeException('Char User Null!');
 
 			exit('Char User Null!');
 		}
-		$id = $this->user;
+		$id = $this->owner();
 
 		$dir = HOF_Helper_Char::user_path($id);
 
@@ -98,10 +200,12 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 	/**
 	 * 誰のキャラか設定する
 	 */
+	/*
 	function SetUser($user)
 	{
 		$this->user = $user;
 	}
+	*/
 
 	function DataSavingFormat()
 	{
@@ -144,7 +248,17 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 		{
 			if (!isset($this->{$k})) continue;
 
-			$data[$k] = $this->{$k};
+			switch ($k)
+			{
+				case 'user':
+				case 'owner':
+				case 'player':
+					$data[$k] = (string)$this->{$k};
+					break;
+				default:
+					$data[$k] = $this->{$k};
+					break;
+			}
 		}
 
 		return $data;
@@ -158,7 +272,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 
 	function &user()
 	{
-		$user = HOF_Class_User::getInstance($this->user);
+		$user = HOF_Class_User::getInstance((string)$this->owner());
 
 		return $user;
 	}
@@ -406,7 +520,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 		}
 	}
 
-	function SetBattleVariable($team = false)
+	function setBattleVariable($team = false)
 	{
 		if ($this->_cache_char_['init'][__FUNCTION__ ]) return false;
 
@@ -525,7 +639,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 		{
 			$this->GetNewSkill($skill["no"]);
 
-			//$this->SaveCharData();
+			//$this->saveCharData();
 			return array(true, $this->Name() . " は {$skill[name]} を修得した。");
 		}
 		else
@@ -556,21 +670,17 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 			}
 			else
 			{
-				$this->id = HOF_Helper_Char::uniqid(get_class($this) . $this->name);
+				$this->id = $this->uniqid(true);
 			}
 		}
 
-		if ($id !== null)
-		{
-			$this->id = $id;
-		}
-
-		return $this->ID = $this->id;
+		return parent::id($id);
 	}
 
 	//	キャラの変数をセットする。
-	function SetCharData(&$data_attr)
+	function setCharData($data_attr)
 	{
+		parent::setCharData($data_attr);
 
 		if ($this->file)
 		{
@@ -581,52 +691,46 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 			$this->id($data_attr["id"] ? $data_attr["id"] : $data_attr["birth"]);
 		}
 
-		$this->name = $data_attr["name"];
-		$this->gender = $data_attr["gender"];
-		$this->birth = $data_attr["birth"];
-		$this->level = $data_attr["level"];
-		$this->exp = $data_attr["exp"];
-		$this->statuspoint = $data_attr["statuspoint"];
-		$this->skillpoint = $data_attr["skillpoint"];
+		$this->birth = (string)$data_attr["birth"];
+		$this->level = (int)$data_attr["level"];
+		$this->exp = (int)$data_attr["exp"];
+		$this->statuspoint = (int)$data_attr["statuspoint"];
+		$this->skillpoint = (int)$data_attr["skillpoint"];
 
-		$this->job = $data_attr["job"];
+		$this->job = (string)$data_attr["job"];
 		$this->jobdata();
 
-		if ($data_attr["img"]) $this->img = $data_attr["img"];
-
-		$this->str = $data_attr["str"];
-		$this->int = $data_attr["int"];
-		$this->dex = $data_attr["dex"];
-		$this->spd = $data_attr["spd"];
-		$this->luk = $data_attr["luk"];
+		$this->str = (int)$data_attr["str"];
+		$this->int = (int)$data_attr["int"];
+		$this->dex = (int)$data_attr["dex"];
+		$this->spd = (int)$data_attr["spd"];
+		$this->luk = (int)$data_attr["luk"];
 
 		if (isset($data_attr["maxhp"]) && isset($data_attr["hp"]) && isset($data_attr["maxsp"]) && isset($data_attr["sp"]))
 		{
-			$this->maxhp = $data_attr["maxhp"];
-			$this->hp = $data_attr["hp"];
-			$this->maxsp = $data_attr["maxsp"];
-			$this->sp = $data_attr["sp"];
+			$this->maxhp = (int)$data_attr["maxhp"];
+			$this->hp = (int)$data_attr["hp"];
+			$this->maxsp = (int)$data_attr["maxsp"];
+			$this->sp = (int)$data_attr["sp"];
 		}
 		else
 		{
 			// HPSPを設定。HPSPを回復。そういうゲームだから…
 			$this->hpsp();
-			$this->hp = $this->maxhp;
-			$this->sp = $this->maxsp;
+			$this->hp = (int)$this->maxhp;
+			$this->sp = (int)$this->maxsp;
 		}
 
 		$this->equip = HOF_Helper_Object::ArrayObject((array )$data_attr["equip"]);
 
-		$this->position = $data_attr["position"];
-		$this->guard = $data_attr["guard"];
+		$this->position = (string)$data_attr["position"];
+		$this->guard = (string)$data_attr["guard"];
 
-		$this->skill = (is_array($data_attr["skill"]) ? $data_attr["skill"] : explode("<>", $data_attr["skill"]));
+		$this->skill = (array)$data_attr["skill"];
 
-		$this->pattern = $data_attr["pattern"];
+		$this->pattern = (array)$data_attr["pattern"];
 
-		if ($data_attr["pattern_memo"]) $this->pattern_memo = $data_attr["pattern_memo"];
-
-		$data_attr["summon"] && $this->setCharType(HOF_Class_Char::TYPE_SUMMON);
+		if ($data_attr["pattern_memo"]) $this->pattern_memo = (array)$data_attr["pattern_memo"];
 
 		$this->pattern(HOF_Class_Char_Pattern::CHECK_PATTERN);
 	}
