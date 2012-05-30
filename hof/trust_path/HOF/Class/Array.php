@@ -274,6 +274,14 @@ class HOF_Class_Array extends ArrayObject
 		$this->exchangeArray($new);
 	}
 
+	function merge($arr)
+	{
+		foreach ($arr as $k => &$v)
+		{
+			$this->$k = $v;
+		}
+	}
+
 	/*
 	public function offsetSet($name, $value)
 	{
