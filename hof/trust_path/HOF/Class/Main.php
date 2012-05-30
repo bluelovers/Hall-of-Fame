@@ -56,7 +56,7 @@ class HOF_Class_Main extends HOF_Class_User
 		{
 			$this->id = $id; //$_POST["id"];
 			// ↓ログイン処理した時だけ
-			if (HOF_Controller_Game::is_registered($_POST["id"]))
+			if (HOF_Controller_Game::is_registered($this->id))
 			{
 				$this->session()->id($this->id);
 			}
