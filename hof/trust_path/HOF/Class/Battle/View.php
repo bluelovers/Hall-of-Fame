@@ -228,7 +228,7 @@ EOM
 		echo('<tr><td colspan="2" style="text-align:center;padding:10px 0px" class="break' . $BreakTop . '">' . "\n");
 		//echo($this->battle->actions."%".BATTLE_STAT_TURNS."<br>");
 		echo("<a name=\"s{$this->battle->Scroll}\"></a>\n"); // スクロールの最後
-		if ($result == BATTLE_DRAW)
+		if ($result === BATTLE_DRAW)
 		{
 			echo("<span style=\"font-size:150%\">Draw Game</span><br />\n");
 		}
