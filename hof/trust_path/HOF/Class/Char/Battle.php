@@ -76,7 +76,7 @@ class HOF_Class_Char_Battle
 			$this->char->exphold = round($exp / 2);
 			return $exp;
 		}
-		elseif ($this->char->user)
+		elseif ($this->char->isChar())
 		{
 			return 1;
 		}
