@@ -84,29 +84,30 @@ class HOF_Class_User
 	 */
 	function __construct($id, $noExit = false)
 	{
-		if ($id)
+		if ((string)$id)
 		{
-			$this->id = $id;
+			$this->id = (string)$id;
+
 			if ($data = $this->LoadData($noExit))
 			{
 				$this->DataUpDate($data); //timeとか増やす
 				$this->SetData($data);
 			}
 
-			self::$instance_user[$id] = $this;
+			self::$instance_user[$this->id] = &$this;
 		}
 	}
 
 	static function &getInstance($id, $noExit = false)
 	{
-		if ($id === HOF::user()->id)
+		if ((string)$id === HOF::user()->id)
 		{
 			return HOF::user();
 		}
 
-		if (isset(self::$instance_user[$id]))
+		if (isset(self::$instance_user[(string)$id]))
 		{
-			return self::$instance_user[$id];
+			return self::$instance_user[(string)$id];
 		}
 		else
 		{
@@ -211,7 +212,10 @@ class HOF_Class_User
 		{
 			foreach ($list_char as $no => $file)
 			{
+				/*
 				$char = HOF_Model_Char::newCharFromFile($file);
+				*/
+				$char = HOF_Class_Char::factory(HOF_Class_Char::TYPE_CHAR, $no, null, $this, $this);
 
 				$list[$no] = $char->name;
 			}
@@ -240,8 +244,17 @@ class HOF_Class_User
 
 				if (!file_exists($file)) continue;
 
+				/*
 				$this->char[$no] = HOF_Model_Char::newCharFromFile($file);
+
 				$this->char[$no]->SetUser($this->id);
+				*/
+
+				$char = HOF_Class_Char::factory(HOF_Class_Char::TYPE_CHAR, $no, null, $this, $this);
+
+				if (!$char || is_string($char)) continue;
+
+				$this->char[$no] = $char;
 			}
 		}
 
@@ -259,9 +272,16 @@ class HOF_Class_User
 
 		if (!file_exists($file)) return false;
 
+		/*
 		$this->char[$CharNo] = HOF_Model_Char::newCharFromFile($file);
 
 		$this->char[$CharNo]->SetUser($this->id);
+		*/
+		$char = HOF_Class_Char::factory(HOF_Class_Char::TYPE_CHAR, $CharNo, null, $this, $this);
+
+		if (!$char || is_string($char)) return false;
+
+		$this->char[$CharNo] = $char;
 
 		$list = $this->cache()->data('char_list');
 
