@@ -286,7 +286,7 @@ class HOF_Class_Skill_Effect
 			case 3013: // EnergyExchange
 				$HpRate = floor($target->HP / $target->MAXHP * 100);
 				$SpRate = floor($target->SP / $target->MAXSP * 100);
-				print ("{$target->name} exchanged rate of HP and SP.<br />");
+				print ($target->Name()." exchanged rate of HP and SP.<br />");
 				print ("HP: {$target->HP}(" . $HpRate . "%) to ");
 				$target->HP = round($SpRate / 100 * $target->MAXHP);
 				print ("{$target->HP}(" . $SpRate . "%)<br />");
