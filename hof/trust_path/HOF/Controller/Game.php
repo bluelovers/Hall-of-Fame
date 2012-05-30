@@ -587,9 +587,10 @@ class HOF_Controller_Game extends HOF_Class_Controller
 
 			$this->user->SaveData();
 
-			$char->SetUser($this->user->id);
+			//$char->SetUser($this->user->id);
+			$char->owner($this->user);
 
-			$char->SaveCharData();
+			$char->saveCharData();
 
 			return false;
 		} while (0);
