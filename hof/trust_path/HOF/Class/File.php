@@ -230,11 +230,11 @@ class HOF_Class_File
 	 */
 	function &fplock_file($file, $noExit = false, $autocreate = false)
 	{
-		if (!$autocreate && !file_exists($file))
+		if (!$autocreate && (!$file || !file_exists($file)))
 		{
 			if (!$noExit)
 			{
-				throw new RuntimeException('File Not Exists');
+				throw new RuntimeException(sprintf('File %s Not Exists', str_replace(BASE_PATH, '', $file)));
 			}
 
 			return false;
