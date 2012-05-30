@@ -285,7 +285,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		// ポイントを減らす。
 		$this->char->statuspoint -= $Sum;
 
-		$this->char->SaveCharData();
+		$this->char->saveCharData();
 
 		return true;
 	}
@@ -319,7 +319,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		$this->char->guard = $this->input->guard;
 
-		$this->char->SaveCharData();
+		$this->char->saveCharData();
 
 		$this->_msg_result($this->char->Name() . " の配置を {$pos} に。<br />前衛の時 {$guard} ように設定。\n", "margin15");
 
@@ -380,7 +380,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		if ($this->char->pattern($pattern))
 		{
-			$this->char->SaveCharData();
+			$this->char->saveCharData();
 			$this->_msg_result("パターン設定保存 完了", "margin15");
 
 			return true;
@@ -424,7 +424,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		if ($this->char->pattern($pattern))
 		{
-			$this->char->SaveCharData();
+			$this->char->saveCharData();
 
 			if ($this->input->TestBattle)
 			{
@@ -440,7 +440,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	{
 		if ($this->char->pattern_switch())
 		{
-			$this->char->SaveCharData();
+			$this->char->saveCharData();
 			$this->_msg_result("パターン交換 完了", "margin15");
 			return true;
 		}
@@ -457,7 +457,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		if ($this->char->pattern_insert($this->input->pattern_no, null, true))
 		{
-			$this->char->SaveCharData();
+			$this->char->saveCharData();
 			$this->_msg_result("パターン追加 完了", "margin15");
 
 			return true;
@@ -475,7 +475,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		if ($this->char->pattern_remove($this->input->pattern_no))
 		{
-			$this->char->SaveCharData();
+			$this->char->saveCharData();
 			$this->_msg_result("パターン削除 完了", "margin15");
 			return true;
 		}
@@ -510,7 +510,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			$this->user->item_save();
 		}
 
-		$this->char->SaveCharData();
+		$this->char->saveCharData();
 
 		$this->_msg_result($this->char->Name() . " の {$item[name]} を はずした。", "margin15");
 
@@ -538,7 +538,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 			$this->_msg_result($this->char->Name() . " の装備を 全部解除した", "margin15");
 
 			$this->user->item_save();
-			$this->char->SaveCharData();
+			$this->char->saveCharData();
 
 			return true;
 		}
@@ -600,7 +600,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		}
 
 		$this->user->item_save();
-		$this->char->SaveCharData();
+		$this->char->saveCharData();
 
 		return $fail ? false : true;
 	}
@@ -641,13 +641,13 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				break;
 			}
 
-			$this->char->SetUser($this->user->id);
+			//$this->char->SetUser($this->user->id);
 
 			list($result, $message) = $this->char->LearnNewSkill($this->input->newskill);
 
 			if ($result)
 			{
-				$this->char->SaveCharData();
+				$this->char->saveCharData();
 				$this->_msg_result($message, "margin15");
 
 				$skill_learn_old = $skill_learn;
@@ -716,7 +716,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 				}
 
 				// 保存
-				$this->char->SaveCharData();
+				$this->char->saveCharData();
 
 				$this->_msg_result("転職 完了", "margin15");
 
@@ -780,7 +780,7 @@ EOD;
 					$this->_msg_result($this->char->Name() . " から " . $return . " へ改名しました。", "margin15");
 
 					$this->char->ChangeName($return, true);
-					$this->char->SaveCharData();
+					$this->char->saveCharData();
 
 					$this->user->item_save();
 
@@ -873,7 +873,7 @@ EOD;
 
 				$this->char->spd -= $dif;
 				$this->char->statuspoint += $dif;
-				$this->char->SaveCharData();
+				$this->char->saveCharData();
 
 				$this->user->item_save();
 
@@ -948,7 +948,7 @@ EOD;
 					$this->user->item_save();
 				}
 
-				$this->char->SaveCharData();
+				$this->char->saveCharData();
 
 				$this->user->item_save();
 
@@ -1004,7 +1004,7 @@ HTML_BYEBYE;
 		}
 
 		// 戦闘用変数の設定。
-		$this->char->SetBattleVariable();
+		$this->char->setBattleVariable();
 
 		$this->output->char_id = $this->input->char;
 		$this->output->char = $this->char;
