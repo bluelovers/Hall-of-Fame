@@ -13,7 +13,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 	 */
 	var $user;
 
-	function _init()
+	function _main_init()
 	{
 		$this->user = &HOF::user();
 
@@ -32,7 +32,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 
 	function _main_before()
 	{
-		$this->_input();
+		$this->_main_input();
 
 		if (!$this->user->allowPlay())
 		{
@@ -44,7 +44,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 		}
 	}
 
-	function _input()
+	function _main_input()
 	{
 		$this->input->recruit = $_POST['recruit'];
 		$this->input->recruit_name = $_POST['recruit_name'];
@@ -144,10 +144,11 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 				return false;
 			}
 
-			$char->SetUser($this->user->id);
+			//$char->SetUser($this->user->id);
+			$char->owner($this->user);
 
 			// キャラを保存する
-			$char->SaveCharData();
+			$char->saveCharData();
 
 			$_exists_chars_[$char->id] = $char->name;
 
