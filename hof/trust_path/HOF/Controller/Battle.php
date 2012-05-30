@@ -76,17 +76,6 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	{
 		$Union = array();
 
-		/*
-		if ($files = HOF_Class_File::glob(BASE_PATH_UNION))
-		{
-		foreach ($files as $file)
-		{
-		$UnionMons = HOF_Model_Char::newUnionFromFile($file);
-		if ($UnionMons->is_Alive()) $Union[] = $UnionMons;
-		}
-		}
-		*/
-
 		foreach (HOF_Model_Char::getUnionList() as $no)
 		{
 			$UnionMons = HOF_Model_Char::newUnion($no);
@@ -257,43 +246,32 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	{
 		if (!$this->input->monster_battle) return false;
 
+		if (!$this->user->WasteTime(UNION_BATTLE_TIME))
+		{
+			$this->_error('Time Shortage.', "margin15");
+			return false;
+		}
+
+		if (!$MyParty = $this->MyParty())
+		{
+			return false;
+		}
+
+		foreach ($MyParty as $char)
+		{
+			// 自分PTの合計レベル
+			$TotalLevel += $char->level;
+		}
+
 		$Union = $this->_cache['union'];
 
 		// ユニオンモンスターのデータ
-		$UnionMob = $Union->union_data();
+		$UnionMob = $Union->source();
 
-		$this->MemorizeParty(); //パーティー記憶
-
-		// 自分パーティー
-		foreach ($this->user->char as $key => $val)
-		{
-			//チェックされたやつリスト
-			if (in_array($key, $this->input->input_char_id))
-			{
-				$MyParty[] = $this->user->char[$key];
-				$TotalLevel += $this->user->char[$key]->level; //自分PTの合計レベル
-			}
-		}
 		// 合計レベル制限
 		if ($Union->lv_limit < $TotalLevel)
 		{
 			$this->_error('合計レベルオーバー(' . $TotalLevel . '/' . $Union->lv_limit . ')', "margin15");
-			return false;
-		}
-		if (count($MyParty) === 0)
-		{
-			$this->_error('戦闘するには最低1人必要', "margin15");
-			return false;
-		}
-		elseif (5 < count($MyParty))
-		{
-			$this->_error('戦闘に出せるキャラは5人まで', "margin15");
-			return false;
-		}
-
-		if (!$this->user->WasteTime(UNION_BATTLE_TIME))
-		{
-			$this->_error('Time Shortage.', "margin15");
 			return false;
 		}
 
@@ -365,26 +343,11 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	{
 		if ($this->input->monster_battle)
 		{
-			$this->MemorizeParty(); //パーティー記憶
-			// 自分パーティー
-			foreach ($this->user->char as $key => $val)
+			if (!$MyParty = $this->MyParty())
 			{
-				//チェックされたやつリスト
-				if (in_array($key, $this->input->input_char_id)) $MyParty[] = $this->user->char[$key];
-			}
-			if (count($MyParty) === 0)
-			{
-				$this->_error('戦闘するには最低1人必要', "margin15");
 				return false;
 			}
-			else
-			{
-				if (5 < count($MyParty))
-				{
-					$this->_error('戦闘に出せるキャラは5人まで', "margin15");
-					return false;
-				}
-			}
+
 			HOF_Helper_Battle::DoppelBattle($MyParty, 50);
 			return true;
 		}
@@ -426,6 +389,34 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		}
 	}
 
+	function MyParty()
+	{
+		$this->MemorizeParty();
+
+		$MyParty = array();
+
+		foreach ((array)$this->input->input_char_id as $k)
+		{
+			if ($this->user->char[$k])
+			{
+				$MyParty[] = $this->user->char[$k];
+			}
+		}
+
+		if (count($MyParty) === 0)
+		{
+			$this->_error('戦闘するには最低1人必要', "margin15");
+			return false;
+		}
+		elseif (5 < count($MyParty))
+		{
+			$this->_error('戦闘に出せるキャラは5人まで', "margin15");
+			return false;
+		}
+
+		return $MyParty;
+	}
+
 	/**
 	 * モンスターとの戦闘
 	 */
@@ -434,7 +425,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		if ($this->input->monster_battle)
 		{
-			$this->MemorizeParty(); //パーティー記憶
+			//$this->MemorizeParty(); //パーティー記憶
 
 			// Timeが足りてるかどうか確認する
 			if ($this->user->time < NORMAL_BATTLE_TIME)
@@ -443,40 +434,14 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 				return false;
 			}
 
-			// bluelovers
-			$MyParty = array();
-			// bluelovers
-
-			// 自分パーティー
-			foreach ($this->user->char as $key => $val)
-			{ //チェックされたやつリスト
-				if (in_array($key, $this->input->input_char_id)) $MyParty[] = $this->user->char[$key];
-			}
-
-			if (count($MyParty) === 0)
+			if (!$MyParty = $this->MyParty())
 			{
-				$this->_error('戦闘するには最低1人必要', "margin15");
 				return false;
 			}
-			else
-			{
-				if (5 < count($MyParty))
-				{
-					$this->_error('戦闘に出せるキャラは5人まで', "margin15");
-					return false;
-				}
-			}
 
-			// bluelovers
 			$MyParty = HOF_Class_Battle_Team::newInstance($MyParty);
-			// bluelovers
 
 			// 敵パーティー(または一匹)
-
-			//	include (DATA_MONSTER);
-			/*
-			list($Land, $MonsterList) = HOF_Model_Data::getLandData($this->input->common);
-			*/
 
 			$land_data = HOF_Model_Data::getLandData($this->input->common);
 
