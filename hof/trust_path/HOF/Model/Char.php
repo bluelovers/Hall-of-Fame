@@ -90,7 +90,9 @@ class HOF_Model_Char extends HOF_Class_Data
 
 		unset($data['name']);
 
+		/*
 		$data['id'] = HOF_Helper_Char::uniqid('char');
+		*/
 		$data['birth'] = HOF_Helper_Char::uniqid_birth();
 
 		if (!empty($append))
@@ -108,11 +110,15 @@ class HOF_Model_Char extends HOF_Class_Data
 	 */
 	function newBaseChar($jobNo, $append = array())
 	{
+		/*
 		$char = self::newChar(self::getBaseCharStatus($jobNo, $append));
+		*/
+		$char = HOF_Class_Char::factory(HOF_Class_Char::TYPE_CHAR, 'char:'.$jobNo, array('append' => $append));
 
 		return $char;
 	}
 
+	/*
 	function newChar($append = array())
 	{
 		$char = new HOF_Class_Char_Type_Char();
@@ -121,18 +127,21 @@ class HOF_Model_Char extends HOF_Class_Data
 		{
 			$append = HOF_Class_Array::_fixArray($append);
 
-			$char->SetCharData($append);
+			$char->setCharData($append);
 		}
 
 		return $char;
 	}
+	*/
 
+	/*
 	function newCharFromFile($file = null)
 	{
 		$char = new HOF_Class_Char_Type_Char($file);
 
 		return $char;
 	}
+	*/
 
 	function getUnionDataBase($no)
 	{
@@ -265,18 +274,14 @@ class HOF_Model_Char extends HOF_Class_Data
 		}
 	}
 
-	function newUnionFromFile($file = null)
-	{
-		$char = new HOF_Class_Char_Type_UnionMon($file);
-
-		return $char;
-	}
-
 	function newUnion($no)
 	{
+		/*
 		$file = self::getUnionFile($no);
 
 		$char = new HOF_Class_Char_Type_UnionMon($file);
+		*/
+		$char = HOF_Class_Char::factory(array(HOF_Class_Char::TYPE_UNION, HOF_Class_Char::TYPE_MON), $no);
 
 		return $char;
 	}
@@ -392,6 +397,7 @@ class HOF_Model_Char extends HOF_Class_Data
 
 	function newMon($no, $over = false)
 	{
+		/*
 		if (is_string($no) || is_numeric($no))
 		{
 			$append = self::getBaseMonster($no, $over);
@@ -404,6 +410,8 @@ class HOF_Model_Char extends HOF_Class_Data
 		$append = HOF_Class_Array::_fixArray($append);
 
 		$char = new HOF_Class_Char_Type_Mon($append);
+		*/
+		$char = HOF_Class_Char::factory(HOF_Class_Char::TYPE_MON, $no);
 
 		return $char;
 	}
@@ -413,6 +421,12 @@ class HOF_Model_Char extends HOF_Class_Data
 	 */
 	function newMonSummon($no, $strength = false)
 	{
+		$char = HOF_Model_Char::newMon(array(HOF_Class_Char::TYPE_MON, HOF_Class_Char::TYPE_SUMMON), array('strength' => $strength));
+
+		$char->setBattleVariable();
+
+		return $char;
+
 		/*
 		include_once (DATA_MONSTER);
 		*/
@@ -441,7 +455,7 @@ class HOF_Model_Char extends HOF_Class_Data
 		*/
 		$monster = HOF_Model_Char::newMon($monster);
 		$monster->setCharType(HOF_Class_Char::TYPE_SUMMON);
-		$monster->SetBattleVariable();
+		$monster->setBattleVariable();
 		return $monster;
 	}
 
