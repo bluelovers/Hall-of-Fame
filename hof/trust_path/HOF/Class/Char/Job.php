@@ -76,7 +76,12 @@ class HOF_Class_Char_Job
 
 			$this->char->job_name = ($this->jobdata['gender'][$this->char->gender]['job_name'] ? $this->jobdata['gender'][$this->char->gender]['job_name'] : $this->jobdata['job_name']);
 
-			$this->char->img = ($this->jobdata['gender'][$this->char->gender]['img'] ? $this->jobdata['gender'][$this->char->gender]['img'] : $this->jobdata['img']);
+			//debug($this->char->isMon(), $this->char->data);
+
+			if (!($this->char->isMon() || $this->char->isChar() && $this->char->data['base']['type'] == 'mon'))
+			{
+				$this->char->img = ($this->jobdata['gender'][$this->char->gender]['img'] ? $this->jobdata['gender'][$this->char->gender]['img'] : $this->jobdata['img']);
+			}
 		}
 
 		return $this->jobdata;
@@ -155,11 +160,14 @@ class HOF_Class_Char_Job
 		$this->_cache['hpsp']['maxhp'] = $this->char->maxhp;
 		$this->_cache['hpsp']['maxsp'] = $this->char->maxsp;
 
-		$this->char->maxhp = 100 * $coe['maxhp'] * (1 + ($this->char->level - 1) / 49) * (1 + ($div - $RevStr * $RevStr) / $div);
-		$this->char->maxsp = 100 * $coe['maxsp'] * (1 + ($this->char->level - 1) / 49) * (1 + ($div - $RevInt * $RevInt) / $div);
+		$new_maxhp = 100 * $coe['maxhp'] * (1 + ($this->char->level - 1) / 49) * (1 + ($div - $RevStr * $RevStr) / $div);
+		$new_maxsp = 100 * $coe['maxsp'] * (1 + ($this->char->level - 1) / 49) * (1 + ($div - $RevInt * $RevInt) / $div);
 
-		$this->char->maxhp = round($this->char->maxhp);
-		$this->char->maxsp = round($this->char->maxsp);
+		$new_maxhp = round($new_maxhp);
+		$new_maxsp = round($new_maxsp);
+
+		$this->char->maxhp = max($this->char->maxhp, $this->_cache['hpsp']['maxhp'], $new_maxhp);
+		$this->char->maxsp = max($this->char->maxsp, $this->_cache['hpsp']['maxsp'], $new_maxsp);
 
 		$ret = array(
 			$this->_cache['hpsp'],
@@ -167,7 +175,7 @@ class HOF_Class_Char_Job
 				'maxhp' => $this->char->maxhp,
 				'maxsp' => $this->char->maxsp,
 				),
-			$this->char,
+			//$this->char,
 			);
 
 		return $ret;
