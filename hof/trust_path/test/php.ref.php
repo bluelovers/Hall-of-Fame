@@ -21,11 +21,25 @@ class B
 
 		$this->a->b = __METHOD__;
 	}
+
+	function __clone()
+	{
+		/*
+		$null = null;
+
+		$a = clone $this->a;
+		$this->a = &$null;
+		$this->a = $a;
+		*/
+		$this->a = clone $this->a;
+	}
 }
 
 $a = new A;
-$b = new B($a);
+$b = new B(&$a);
+
+$c = clone $b;
 
 $a->c = __LINE__;
 
-debug($a, $b);
+debug($a, $b, $c);
