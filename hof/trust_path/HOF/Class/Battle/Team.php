@@ -38,7 +38,9 @@ class HOF_Class_Battle_Team extends HOF_Class_Array
 
 	function update($no = null)
 	{
-		foreach($this as $char)
+		$team = self::_getTeamArray($this);
+
+		foreach($team as $char)
 		{
 			$char->setTeamObj(&$this);
 
@@ -78,6 +80,10 @@ class HOF_Class_Battle_Team extends HOF_Class_Array
 		{
 			$team = $who->getTeamObj()->toArray(true);
 		}
+		elseif ($who instanceof HOF_Class_Array)
+		{
+			$team = $who->toArray(true);
+		}
 		elseif (@isset($this))
 		{
 			$team = $this->toArray(true);
@@ -105,12 +111,9 @@ class HOF_Class_Battle_Team extends HOF_Class_Array
 			{
 				$count++;
 			}
-			else
+			elseif ($char->SPECIAL["Undead"] == true)
 			{
-				if ($char->SPECIAL["Undead"] == true)
-				{
-					$count++;
-				}
+				$count++;
 			}
 		}
 
