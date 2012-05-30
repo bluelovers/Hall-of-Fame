@@ -17,7 +17,7 @@ class HOF_Helper_Char
 	static function uniqid($seed = null)
 	{
 		static $uuid;
-		if (!isset($uuid)) $uid = md5(HOF::user()->id.HOF::ip());
+		if (!isset($uuid)) $uuid = md5(HOF::user()->id.HOF::ip());
 
 		return md5(uniqid($uuid . $seed, true));
 	}
@@ -90,9 +90,9 @@ class HOF_Helper_Char
 		{
 			$id = $char->id;
 		}
-		elseif ($char->birth)
+		elseif ($char->uniqid())
 		{
-			$id = $char->birth;
+			$id = $char->uniqid();
 		}
 		else
 		{
