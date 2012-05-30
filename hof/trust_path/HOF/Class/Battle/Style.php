@@ -145,6 +145,8 @@ class HOF_Class_Battle_Style extends HOF_Class_Array
 			unset($team['front']);
 			unset($team['back']);
 
+			//debug($team);
+
 			foreach ($team['team'] as &$char)
 			{
 				// 召喚キャラが死亡している場合は飛ばす
