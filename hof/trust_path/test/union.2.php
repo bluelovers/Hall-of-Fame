@@ -19,6 +19,6 @@ $u = HOF_Model_Char::newUnion($no);
 
 $u->HP = 500;
 
-$u->SaveCharData();
+$u->saveCharData();
 
 debug($u);
