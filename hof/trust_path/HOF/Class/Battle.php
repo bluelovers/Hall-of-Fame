@@ -92,21 +92,23 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		 */
 		foreach ($this->teams as $idx => &$data)
 		{
+			$data['no'] = $idx;
+			$data['dmg'] = 0;
+			$data['team']->update();
+
 			foreach ($data['team'] as &$char)
 			{
-				$char->SetBattleVariable($idx);
+				$char->setBattleVariable($idx);
 			}
 		}
 
 		// delay関連
-		$this->SetDelay(); //ディレイ計算
-		$this->DelayResetAll(); //初期化
 
-		$this->teams[TEAM_0]['no'] = TEAM_0;
-		$this->teams[TEAM_1]['no'] = TEAM_1;
+		// ディレイ計算
+		$this->SetDelay();
 
-		$this->teams[TEAM_0]['team']->update();
-		$this->teams[TEAM_1]['team']->update();
+		// 初期化
+		$this->DelayResetAll();
 	}
 
 	protected function _extend_init()
@@ -264,7 +266,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		{
 			$char->delay = $char->SPD;
 
-			throw new RuntimeException("{$char->name} doesn't have any pattern.");
+			throw new RuntimeException($char->Name()." doesn't have any pattern.");
 
 			return false;
 		}
@@ -469,20 +471,43 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 
 	function initEnterBattlefield()
 	{
-		$list = array();
+		$list_name = $list = array();
 
 		foreach ($this->teams as $idx => $data)
 		{
 			foreach ($data['team'] as $char)
 			{
 				$list[] = array('dis' => $char->DelayValue(), 'char' => $char);
+
+				$list_name[$char->Name()]++;
 			}
 		}
 
 		usort($list, HOF_Class_Array_Comparer_MuliteSubKey::newInstance('dis')->comp_func('bccomp')->sort_desc(true)->callback());
 
+		$ord = ord('A');
+		$overlap = array();
+
 		foreach ($list as $data)
 		{
+			$name = $data['char']->Name();
+
+			if ($list_name[$name] > 1)
+			{
+				// 文字(数字でもおｋ)
+
+				$letter = chr($ord + $overlap[$name]);
+
+				// 繰上げ
+				$overlap[$name]++;
+
+				// どんな感じで加えるか これだと"(B)"みたいになる
+				$style = "({$letter})";
+
+				// 実際に名前の後ろに付け加える
+				$data['char']->NAME = $name . $style;
+			}
+
 			$this->showEnterBattlefield($data['char']);
 		}
 	}
@@ -692,7 +717,7 @@ HTML;
 		{
 			foreach ($data['team'] as &$char)
 			{
-				$char->SaveCharData();
+				$char->saveCharData();
 			}
 		}
 	}
@@ -830,7 +855,7 @@ HTML;
 			// 誰かが後衛を守りに入ったのでそれを表示する
 			if ($defender)
 			{
-				echo ('<span class="bold">' . $defender->name . '</span> protected <span class="bold">' . $target->name . '</span>!<br />' . "\n");
+				echo ('<span class="bold">' . $defender->Name() . '</span> protected <span class="bold">' . $target->Name() . '</span>!<br />' . "\n");
 				return $defender;
 			}
 		}
