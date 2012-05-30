@@ -18,24 +18,64 @@ class HOF_Class_Char
 	/**
 	 * @return HOF_Class_Char_Abstract
 	 */
-	function factory($type, $id, $owner = self::OWNER_SYSTEM)
+	static function factory($type, $no = null, $options = array(), $owner = null, $player = null)
 	{
-		$class = HOF::putintoClassParts($type);
+		$pre = '';
+
+		$_class = is_array($type) ? $type : explode('_', HOF::putintoPathParts(HOF::putintoClassParts($type)));
+		$_class = array_map('HOF::putintoClassParts', $_class);
+
+		$idx = array_search(self::TYPE_UNION, $_class);
+		if ($idx !== false)
+		{
+			$pre = self::TYPE_UNION;
+			unset($_class[$idx]);
+		}
+
+		if (false !== $isSummon = array_search(self::TYPE_SUMMON, $_class))
+		{
+			$options['summon'] = true;
+		}
+
+		$class = $pre.implode('', $_class);
+
 		$classname = 'HOF_Class_Char_Type_'.$class;
 
-		if (!class_exists($classname))
+		if (!$found = class_exists($classname))
 		{
-			throw new Exception("Char:$class is not supported");
+			if ($isSummon !== false)
+			{
+				unset($_class[$isSummon]);
+
+				$class = $pre.implode('', $_class);
+				$classname = 'HOF_Class_Char_Type_'.$class;
+
+				$found = class_exists($classname);
+			}
+
+			if (!$found)
+			{
+				throw new Exception("Char:$class is not supported");
+			}
 		}
 
-		$char = new $classname($id, $owner);
-
-		if(!($char instanceof HOF_Class_Char_Abstract))
+		try
 		{
-			throw new Exception("\"$className\" is not an instance of HOF_Class_Char_Abstract");
+			$char = new $classname($no, $options, $owner, $player);
+
+			if(!($char instanceof HOF_Class_Char_Abstract))
+			{
+				throw new Exception("\"$className\" is not an instance of HOF_Class_Char_Abstract");
+			}
+
+			return $char;
+		}
+		catch(Exception $e)
+		{
+			return $e;
 		}
 
-		return $char;
+		return null;
 	}
 
 }
