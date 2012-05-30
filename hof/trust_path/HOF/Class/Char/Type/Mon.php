@@ -13,7 +13,7 @@ class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 	/**
 	 * モンスター専用の変数
 	 */
-	var $monster = true;
+	//var $monster = true;
 
 	/**
 	 * 経験値
@@ -31,20 +31,16 @@ class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 	var $itemdrop;
 	//var $summon;
 
-	function __construct($data)
+	public function source($over = false)
 	{
-		$this->_extend_init();
+		if (!isset($this->source))
+		{
+			$data = HOF_Model_Char::getBaseMonster($this->no);
 
-		$this->SetCharData($data);
-	}
+			$this->source = new HOF_Class_Array($data);
+		}
 
-	/**
-	 * キャラデータの保存
-	 */
-	function SaveCharData()
-	{
-		// モンスターは保存しない。
-		return false;
+		return $this->source;
 	}
 
 	/**
@@ -89,15 +85,15 @@ class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 	/**
 	 * キャラの変数をセットする。
 	 */
-	function SetCharData($data_attr)
+	function setCharData($data_attr)
 	{
+		parent::setCharData($data_attr);
 
 		$this->no = $data_attr["no"];
 
-		$this->name = $data_attr["name"];
 		$this->level = $data_attr["level"];
 
-		if ($data_attr["img"]) $this->img = $data_attr["img"];
+		//$this->img = $data_attr["img"];
 
 		$this->str = $data_attr["str"];
 		$this->int = $data_attr["int"];
@@ -117,7 +113,7 @@ class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 		//$this->monster		= $data_attr["monster"];
 		//$this->monster = true;
 
-		$data_attr["summon"] && $this->setCharType(HOF_Class_Char::TYPE_SUMMON);
+
 
 		$this->exphold = $data_attr["exphold"];
 		$this->moneyhold = $data_attr["moneyhold"];
@@ -132,7 +128,7 @@ class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 	/**
 	 * 戦闘用の変数
 	 */
-	function SetBattleVariable($team = false)
+	function setBattleVariable($team = false)
 	{
 		if ($this->_cache_char_['init'][__FUNCTION__ ]) return false;
 
