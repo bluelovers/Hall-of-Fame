@@ -405,7 +405,7 @@ HTML;
 		$add = '';
 		if ($class) $add .= ' class="' . $class . '"';
 
-		$add .= ' title="' . HOF_Class_Icon::getImage($this->char->img, $dir, true) . '"';
+		$add .= ' title="' . HOF_Class_Icon::getImage($this->char->icon(), $dir, true) . '"';
 
 		$html = '<img src="' . $url . '" ' . $add . '>';
 
@@ -417,7 +417,7 @@ HTML;
 	 */
 	function getImageUrl($dir = HOF_Class_Icon::IMG_CHAR)
 	{
-		$ret = HOF_Class_Icon::getImageUrl($this->char->img, $dir);
+		$ret = HOF_Class_Icon::getImageUrl($this->char->icon(), $dir);
 
 		return $ret;
 	}
@@ -425,8 +425,21 @@ HTML;
 	//	名前を返す
 	function Name($string = false)
 	{
-		if ($string) return "<span class=\"{$string}\">{$this->char->name}</span>";
-		else  return $this->char->name;
+		$name = $this->char->NAME ? $this->char->NAME : $this->char->name;
+
+		if ($string)
+		{
+			return "<span class=\"{$string}\">{$name}</span>";
+		}
+		else
+		{
+			return $name;
+		}
+	}
+
+	function icon()
+	{
+		return (isset($this->char->icon)) ? $this->char->icon : $this->char->img;
 	}
 
 }
