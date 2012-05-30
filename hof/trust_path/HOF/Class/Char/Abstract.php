@@ -8,10 +8,11 @@
 abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 {
 	// ファイルポインタ
-	public $fp;
-	public $file;
+	protected $fp;
+	protected $file;
 
 	public $id;
+	public $no;
 
 	public $name;
 	public $gender = GENDER_UNKNOW;
@@ -136,15 +137,202 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		);
 
 	public $owner = HOF_Class_Char::OWNER_SYSTEM;
+	public $player = HOF_Class_Char::OWNER_SYSTEM;
+
 	protected $CHAR_TYPE;
 	protected $CHAR_TYPES;
 
-	public function __construct($id, $owner)
+	public $uniqid;
+
+	public static $default_options = array();
+
+	public function __construct($no, $options = array(), $owner = null, $player = null)
 	{
 		$this->initCharType();
-		$this->owner($owner);
+		$owner !== null && $this->owner($owner);
+		$player !== null && $this->player($player);
 
+		$this->uniqid(true);
 		$this->_extend_init();
+
+		$this->init($no, $options);
+	}
+
+	protected function init($no, $options = array())
+	{
+		$this->no($no);
+
+		$this->options($options);
+
+		$this->initCharData($this->options());
+	}
+
+	public function uniqid($over = null)
+	{
+		if (!isset($this->uniqid) || $over)
+		{
+			static $uuid;
+			if (!isset($uuid)) $uuid = md5($this->getCharType().$this->no().$this->birth.__METHOD__.HOF::ip());
+
+			$this->uniqid = md5(uniqid($uuid.$this->uniqid.$this->birth, true));
+		}
+
+		return $this->uniqid;
+	}
+
+	public function __clone()
+	{
+		$this->isClone = true;
+
+		$this->source()->birth = $this->birth = HOF_Helper_Char::uniqid_birth();
+		$this->uniqid(true);
+
+		$this->fp = false;
+		$this->file = false;
+	}
+
+	public function getClone($owner = null, $player = null)
+	{
+		$char = clone $this;
+
+		$char->owner($owner);
+		$player !== null && $char->player($player);
+
+		return $char;
+	}
+
+	public function isClone()
+	{
+		return (bool)$this->isClone;
+	}
+
+	public function file()
+	{
+		throw new Exception(sprintf('%s not Exists', __METHOD__));
+	}
+
+	protected function initCharData()
+	{
+		$this->source(true);
+
+		$this->id(isset($this->source()->id) ? $this->source()->id : $this->source()->no);
+
+		$this->setCharData(clone $this->source());
+	}
+
+	public function setCharData($data_attr)
+	{
+		if ($append = $this->option('append'))
+		{
+			$data_attr->merge((array)$append);
+		}
+
+		if ($strength = $this->option('strength'))
+		{
+			foreach (array('maxhp', 'hp', 'maxsp', 'sp', 'str', 'int', 'dex', 'spd', 'luk') as $k)
+			{
+				$data_attr->{$k} = round($data_attr->{$k} * $strength);
+			}
+
+			$data_attr->atk[0] = round($data_attr->atk[0] * $strength);
+			$data_attr->atk[1] = round($data_attr->atk[1] * $strength);
+		}
+
+		if ($this->option('job'))
+		{
+			$data_attr->job = $this->option('job');
+		}
+
+		if ($this->option('gender'))
+		{
+			$data_attr->gender = $this->option('gender');
+		}
+
+		if ($this->option('icon'))
+		{
+			$data_attr->icon = $this->option('icon');
+		}
+
+		//-----------------------------------------
+
+		if ($data_attr->summon || $this->option('summon'))
+		{
+			$this->setCharType(HOF_Class_Char::TYPE_SUMMON);
+		}
+
+		if (isset($data_attr->icon))
+		{
+			$this->icon = (string)$data_attr->icon;
+		}
+
+		if (isset($data_attr->data))
+		{
+			$this->data = $data_attr->data;
+		}
+
+		if ($data_attr->job)
+		{
+			$this->job = (string)$data_attr->job;
+
+			if (!$this->hasExtend('HOF_Class_Char_Job'))
+			{
+				$this->extend('HOF_Class_Char_Job');
+			}
+		}
+
+		$data_attr->img && $this->img = (string)$data_attr->img;
+
+		$this->name = (string)$data_attr->name;
+		$this->gender = (int)$data_attr->gender;
+	}
+
+	public function saveCharData()
+	{
+		return false;
+	}
+
+	public function options($options = array())
+	{
+		if (!isset($this->options))
+		{
+			$this->options = new HOF_Class_Array((array)self::$default_options);
+		}
+
+		if (!empty($options))
+		{
+			$this->options->merge((array)$options);
+		}
+
+		return $this->options;
+	}
+
+	public function option($k)
+	{
+		if (func_num_args() > 1)
+		{
+			$this->options()->$k = func_get_arg(1);
+		}
+
+		return $this->options()->$k;
+	}
+
+	public function source($over = false)
+	{
+		if (!isset($this->source) || $over)
+		{
+			if (!file_exists($this->file()))
+			{
+				throw new Exception(sprintf('%s:%s not Exists', $this->getCharType(), $this->no()));
+			}
+
+			$this->fp = HOF_Class_File::fplock_file($this->file());
+
+			$data = HOF_Class_Yaml::load($this->fp);
+
+			$this->source = new HOF_Class_Array($data);
+		}
+
+		return $this->source;
 	}
 
 	protected function _extend_init()
@@ -156,14 +344,45 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		$this->extend('HOF_Class_Char_Battle');
 	}
 
-	public function owner($owner = null)
+	public function owner($val = null)
 	{
-		if ($owner !== null)
+		if ($val !== null)
 		{
-			$this->owner = $owner;
+			$this->{__FUNCTION__} = $val ? $val : HOF_Class_Char::OWNER_SYSTEM;
+			$this->user = $this->{__FUNCTION__};
 		}
 
-		return $this->owner;
+		return $this->{__FUNCTION__};
+	}
+
+	public function player($val = null)
+	{
+		if ($val !== null)
+		{
+			$this->{__FUNCTION__} = $val ? $val : HOF_Class_Char::OWNER_SYSTEM;
+		}
+
+		return $this->{__FUNCTION__};
+	}
+
+	public function id($val = null)
+	{
+		if ($val !== null)
+		{
+			$this->{__FUNCTION__} = $val;
+		}
+
+		return $this->{__FUNCTION__};
+	}
+
+	public function no($val = null)
+	{
+		if ($val !== null)
+		{
+			$this->{__FUNCTION__} = $val;
+		}
+
+		return $this->{__FUNCTION__};
 	}
 
 	/**
@@ -225,6 +444,8 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 
 			foreach ($types as $sub_type)
 			{
+				$sub_type = strtolower($sub_type);
+
 				if (!isset($char_type[$sub_type]) || !$char_type[$sub_type])
 				{
 					return false;
@@ -277,6 +498,21 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		if (!isset($this->{$k}))
 		{
 			$this->{$k} = $this->hasCharType(HOF_Class_Char::TYPE_MON);
+		}
+
+		return $this->{$k};
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isChar()
+	{
+		$k = __FUNCTION__;
+
+		if (!isset($this->{$k}))
+		{
+			$this->{$k} = $this->hasCharType(HOF_Class_Char::TYPE_CHAR);
 		}
 
 		return $this->{$k};
