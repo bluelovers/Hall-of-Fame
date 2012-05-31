@@ -56,19 +56,22 @@ class HOF_Class_Battle_View
 			$team1_total_maxhp = '????';
 		}
 
+		$this->battle->teams[TEAM_0]['team']->data('isUnion') && $css_union[TEAM_0] = 'g_union';
+		$this->battle->teams[TEAM_1]['team']->data('isUnion') && $css_union[TEAM_1] = 'g_union';
+
 		echo <<< EOM
 <table style="width:100%;" cellspacing="0" class="battle_frame">
 	<tbody>
 		<tr>
 			<td class="teams">
-				<div class="bold">
+				<div class="bold {$css_union[TEAM_1]}">
 					{$this->battle->teams[TEAM_1]['name']}
 				</div>
 				Total Lv : {$team1_total_lv} <br>
 				Average Lv : {$team1_avelv} <br>
 				Total HP : {$team1_total_hp} / {$team1_total_maxhp} </td>
 			<td class="teams ttd1">
-				<div class="bold">
+				<div class="bold {$css_union[TEAM_0]}">
 					{$this->battle->teams[TEAM_0]['name']}
 				</div>
 				Total Lv : {$team0_total_lv} <br>
