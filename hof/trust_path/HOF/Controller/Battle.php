@@ -297,7 +297,9 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		}
 
 		// unionMobを配列のおよそ中央に入れる
-		$EnemyParty->insert(floor(count($EnemyParty) / 2), array($Union));
+		$EnemyParty->insert(floor(count($EnemyParty) / 2), $Union);
+
+		$EnemyParty->data('isUnion', true);
 
 		$this->user->UnionSetTime();
 
@@ -439,7 +441,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 				return false;
 			}
 
-			$MyParty = HOF_Class_Battle_Team::newInstance($MyParty);
+			$MyParty = HOF_Class_Battle_Team2::newInstance($MyParty);
 
 			// 敵パーティー(または一匹)
 
@@ -514,56 +516,31 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	 */
 	function EnemyParty($Amount, $MonsterList, $Specify = false)
 	{
+		$MonsterNumbers = array();
 
 		// 指定モンスター
 		if ($Specify)
 		{
-			$MonsterNumbers = $Specify;
+			$MonsterNumbers = (array)$Specify;
 		}
 
-		// モンスターをとりあえず配列に全部入れる
-		$enemy = array();
+		$team = array();
 
-		if (!$Amount) return $enemy;
-		mt_srand();
-		for ($i = 0; $i < $Amount; $i++) $MonsterNumbers[] = $this->SelectMonster($MonsterList);
+		if (!$Amount) return $team;
 
-		// 重複しているモンスターを調べる
-		$overlap = array_count_values($MonsterNumbers);
+		$team = new HOF_Class_Battle_Team2();
+		$team->data('pick_list', $MonsterList);
+		$team->data('plus_list', (array)$MonsterNumbers);
+		$team->data('amount', $Amount);
 
-		// 敵情報を読んで配列に入れる。
+		$MonsterNumbers = array_merge($MonsterNumbers, $team->pickList($Amount, $MonsterList));
+
 		foreach ($MonsterNumbers as $Number)
 		{
-			/*
-			if (1 < $overlap[$Number]) //1匹以上出現するなら名前に記号をつける。
-			$enemy[] = new monster(HOF_Model_Char::getBaseMonster($Number, true));
-			else  $enemy[] = new monster(HOF_Model_Char::getBaseMonster($Number));
-			*/
-
-			$enemy[] = HOF_Model_Char::newMon($Number, (1 < $overlap[$Number]));
+			$team[] = HOF_Model_Char::newMon($Number);
 		}
 
-		$enemy = HOF_Class_Battle_Team::newInstance($enemy);
-
-		//debug($enemy);
-		//exit();
-
-		return $enemy;
-	}
-
-	/**
-	 * 出現する確率から敵を選んで返す
-	 */
-	function SelectMonster($monster)
-	{
-		foreach ($monster as $val) $max += $val[0]; //確率の合計
-		$pos = mt_rand(0, $max); //0～合計 の中で乱数を取る
-		foreach ($monster as $monster_no => $val)
-		{
-			$upp += $val[0]; //その時点での確率の合計
-			if ($pos <= $upp) //合計より低ければ　敵が決定される
- 					return $monster_no;
-		}
+		return $team;
 	}
 
 }
