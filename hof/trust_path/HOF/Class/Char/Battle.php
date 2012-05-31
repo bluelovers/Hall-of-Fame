@@ -15,14 +15,17 @@ class HOF_Class_Char_Battle
 		$this->char = $char;
 	}
 
-	function setTeamObj(&$team)
+	/**
+	 * 戦闘時のチームを設定(あんまり使ってない)
+	 */
+	function team($team = null)
 	{
-		$this->char->team_obj = &$team;
-	}
+		if ($team !== null)
+		{
+			$this->char->team = $team;
+		}
 
-	function &getTeamObj()
-	{
-		return $this->char->team_obj;
+		return $this->char->team;
 	}
 
 	/**
@@ -54,12 +57,6 @@ class HOF_Class_Char_Battle
 		{
 			$this->char->SPECIAL["$name"] += $value;
 		}
-	}
-
-	// 戦闘時のチームを設定(あんまり使ってない)
-	function SetTeam($no)
-	{
-		$this->char->team = $no;
 	}
 
 	//	経験値を出す(モンスターだけ?)
