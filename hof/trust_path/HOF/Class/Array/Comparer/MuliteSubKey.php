@@ -11,6 +11,7 @@ class HOF_Class_Array_Comparer_MuliteSubKey
 	var $keys;
 	var $sort_desc = false;
 	var $comp_func = 'strcmp';
+	protected $cache;
 
 	function __construct($keys)
 	{
@@ -81,11 +82,31 @@ class HOF_Class_Array_Comparer_MuliteSubKey
 		$i = 0;
 		$c = count((array)$this->keys);
 
+		if (!isset($this->cache['offsetType']))
+		{
+			if (is_array($a) || is_object($a) && method_exists($a, 'offsetGet'))
+			{
+				$this->cache['offsetType'] = 0;
+			}
+			else
+			{
+				$this->cache['offsetType'] = 1;
+			}
+		}
+
 		$cmp = 0;
 		while ($cmp == 0 && $i < $c)
 		{
 			//$cmp = strcmp($a[$this->keys[$i]], $b[$this->keys[$i]]);
-			$cmp = call_user_func($this->comp_func, $a[$this->keys[$i]], $b[$this->keys[$i]]);
+
+			if ($this->cache['offsetType'])
+			{
+				$cmp = call_user_func($this->comp_func, $a->{$this->keys[$i]}, $b->{$this->keys[$i]});
+			}
+			else
+			{
+				$cmp = call_user_func($this->comp_func, $a[$this->keys[$i]], $b[$this->keys[$i]]);
+			}
 
 			if ($this->sort_desc)
 			{
