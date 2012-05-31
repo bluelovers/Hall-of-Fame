@@ -5,210 +5,342 @@
  * @copyright 2012
  */
 
-class HOF_Class_Battle_Team extends HOF_Class_Array
+class HOF_Class_Battle_Team extends HOF_Class_Array_Prop
 {
 
-	function __construct($team = array())
+	public $team_name;
+	public $team_idx;
+
+	protected static $cache;
+
+	protected static $team_count = 0;
+	protected static $char_list = array();
+
+	protected $temp;
+	protected $data;
+
+	public function __construct($chars = array(), $team_idx = null, $team_name = null)
 	{
-		if ($team instanceof self)
-		{
-			$team = $team->toArray(true);
-		}
+		//$this->team_idx(self::$team_count++);
 
-		parent::__construct($team);
+		$this->option('prop', false);
+		//$this->setIteratorClass('HOF_Class_Battle_TeamIterator');
 
-		if (!empty($team))
-		{
-			$this->update();
-		}
+		$this->team_idx($team_idx);
+		$this->team_name($team_name);
+
+		//$this->data = new HOF_Class_Array_Prop();
+
+		parent::__construct($chars);
+
+		$this->update();
 	}
 
 	/**
 	 * @return self
 	 */
-	public static function &newInstance($team = array())
+	public static function &newInstance($team = array(), $team_idx = null, $team_name = null)
 	{
 		if ($team instanceof self)
 		{
+
+			$team->team_idx($team_idx);
+			$team->team_name($team_name);
+
 			return $team;
 		}
 
 		return new self($team);
 	}
 
-	function update($no = null)
+	public function __toString()
 	{
-		$team = self::_getTeamArray($this);
+		return (string )$this->team_idx;
+	}
 
-		foreach($team as $char)
+	public function __clone()
+	{
+		//$this->team_idx(self::$team_count++);
+		unset($this->team_idx);
+
+		foreach ($this as $k => $v)
 		{
-			$char->setTeamObj(&$this);
-
-			if (isset($no) && !is_null($no))
-			{
-				$char->SetTeam($no);
-			}
+			$char = $v->getClone();
+			$this[$k] = $char;
 		}
 	}
 
-	function addChar($char, $no = null)
+	public function getClone($team_idx = null, $team_name = null)
 	{
-		$char->setTeamObj(&$this);
-		if (isset($no) && !is_null($no))
-		{
-			$char->SetTeam($no);
-		}
+		$team = clone $this;
 
-		$this[] = $char;
-	}
+		$team->team_idx($team_idx);
+		$team->team_name($team_name);
 
-	function addChars($list, $no = null)
-	{
-		foreach($list as $char)
-		{
-			$this->addChar($char, $no);
-		}
-	}
-
-	protected function _getTeamArray($who)
-	{
-		if ($who instanceof self)
-		{
-			$team = $who->toArray(true);
-		}
-		elseif ($who instanceof HOF_Class_Char_Abstract)
-		{
-			$team = $who->getTeamObj()->toArray(true);
-		}
-		elseif ($who instanceof HOF_Class_Array)
-		{
-			$team = $who->toArray(true);
-		}
-		elseif (@isset($this))
-		{
-			$team = $this->toArray(true);
-		}
-		else
-		{
-			$team = (array)$who;
-		}
+		$team->update();
 
 		return $team;
 	}
 
-	/**
-	 * 指定キャラのチームの死者数を数える(指定のチーム)ネクロマンサしか使ってない?
-	 */
-	function CountDead($who = null)
+	/*
+	function exchangeArray($input)
 	{
-		$team = self::_getTeamArray($who);
+		$array = parent::exchangeArray($input);
 
-		$count = 0;
+		$this->update();
 
-		foreach ((array)$team as $char)
+		return $array;
+	}
+	*/
+
+	public function update()
+	{
+		foreach ($this as $k => &$v)
 		{
-			if ($char->STATE === STATE_DEAD)
-			{
-				$count++;
-			}
-			elseif ($char->SPECIAL["Undead"] == true)
-			{
-				$count++;
-			}
+			$this[$k] = $v;
+		}
+	}
+
+	public function team_name($val = null)
+	{
+		if ($val !== null)
+		{
+			$this->{__FUNCTION__ } = (string )$val;
 		}
 
-		return $count;
+		return $this->{__FUNCTION__ };
+	}
+
+	public function team_idx($val = null)
+	{
+		if ($val !== null)
+		{
+			$this->{__FUNCTION__ } = (string )$val;
+		}
+
+		return $this->{__FUNCTION__ };
+	}
+
+	public function data($key, $val = null)
+	{
+		if ($val !== null)
+		{
+			$this->{__FUNCTION__ }[$key] = $val;
+		}
+
+		return $this->{__FUNCTION__ }[$key];
+	}
+
+	public function offsetSet($k, $char)
+	{
+		if (!$char instanceof HOF_Class_Char_Abstract)
+		{
+			throw new Exception(sprintf('%s not a vaild Char', (string )$char));
+		}
+
+		$char->team($this);
+
+		self::$char_list['all'][$char->uniqid()] = $char;
+
+		if (self::$cache['fixCharName'])
+		{
+			self::$cache['name_list'][$char->Name()]++;
+
+			$this->_callback_fixCharName(&$char);
+		}
+
+		parent::offsetSet($k, $char);
+	}
+
+	public static function clsNameList()
+	{
+		self::$cache['name_list'] = array();
+		self::$cache['overlap'] = array();
+		self::$cache['ord'] = ord('A');
+
+		self::$char_list = array();
+
+		self::$cache['fixCharName'] = false;
+	}
+
+	public function pushNameList($nochk = false, $cls = false)
+	{
+		if ($cls || !self::$cache['ord'])
+		{
+			self::clsNameList();
+
+			$nochk = true;
+		}
+
+		if (!$nochk && $this->temp['pushNameList']) return true;
+
+		foreach ($this as $char)
+		{
+			self::$char_list['all'][$char->uniqid()] = $char;
+			(int)self::$cache['name_list'][$char->Name()]++;
+		}
+
+		$this->temp['pushNameList'] = true;
+	}
+
+	public function fixCharName($over = false, $pre = '', $append = '')
+	{
+		if (!$this->temp['pushNameList'])
+		{
+			$this->pushNameList();
+		}
+
+		$this->array_walk(array($this, '_callback_' . __FUNCTION__ ), array(
+			(bool)$over,
+			(string )$pre,
+			(string )$append));
+
+		self::$cache['fixCharName'] = true;
+	}
+
+	function _callback_fixCharName(&$entry, $key = null, $over = false, $pre = '', $append = '')
+	{
+		if (is_array($over))
+		{
+			list($over, $pre, $append) = $over;
+		}
+
+		$name = $entry->Name();
+
+		if ((!$entry->isUnion() || (int)self::$cache['overlap'][$name]) && ((bool)$over || (int)self::$cache['name_list'][$name] > 1 || (int)self::$cache['overlap'][$name]))
+		{
+			$letter = chr(self::$cache['ord'] + (int)self::$cache['overlap'][$name]);
+
+			$append .= "({$letter})";
+		}
+
+		if ($name == $entry->name)
+		{
+			(int)self::$cache['overlap'][$name]++;
+		}
+
+		$entry->NAME = (string )$pre . $name . (string )$append;
+	}
+
+	function filterState($STATE)
+	{
+		$list = $this->array_filter(HOF_Class_Array_Comparer_Callback::newInstance($STATE)->comp_func(array($this, '_callback_' . __FUNCTION__ ))->callback());
+
+		return $list;
+	}
+
+	function _callback_filterState($char, $STATE)
+	{
+		$ret = ($char->STATE === $STATE);
+
+		return (bool)$ret;
 	}
 
 	/**
 	 * 生存者数を数えて返す
 	 */
-	function CountAlive($who = null)
+	function CountAlive()
 	{
-		$team = self::_getTeamArray($who);
+		$dead = $this->filterState(STATE_DEAD);
 
-		$no = 0; //初期化
-		foreach ((array)$team as $char)
-		{
-			if ($char->STATE !== STATE_DEAD) $no++;
-		}
-		return $no;
+		return (int)(count($this) - count($dead));
 	}
 
 	/**
-	 * 初期キャラ生存数を数えて返す
+	 * 指定キャラのチームの死者数を数える(指定のチーム)ネクロマンサしか使ってない?
 	 */
-	function CountAliveChars($who = null)
+	function CountDead()
 	{
-		$team = self::_getTeamArray($who);
+		$list = $this->array_filter(HOF_Class_Array_Comparer_Callback::newInstance()->comp_func(array($this, '_callback_' . __FUNCTION__ ))->callback());
 
-		$no = 0; //初期化
-		foreach ((array)$team as $char)
-		{
-			if ($char->STATE === STATE_DEAD) continue;
-			if ($char->isMon()) continue;
-			$no++;
-		}
-		return $no;
+		return count($list);
 	}
 
-	function CountTrueChars($who = null)
+	function _callback_CountDead($char)
 	{
-		$team = self::_getTeamArray($who);
-
-		$no = 0; //初期化
-		foreach ((array)$team as $char)
-		{
-			if ($char->isSummon()) continue;
-			$no++;
-		}
-
-		return $no;
+		return (bool)($char->STATE === STATE_DEAD || $char->SPECIAL["Undead"] == true);
 	}
 
-	function insert($offset, $insert)
+	function CountAliveChars()
 	{
-		parent::insert($offset, $insert);
+		$list = $this->array_filter(HOF_Class_Array_Comparer_Callback::newInstance()->comp_func(array($this, '_callback_' . __FUNCTION__ ))->callback());
 
-		$this->update();
+		return count($list);
 	}
 
-	function exchangeArray($input)
+	function _callback_CountAliveChars($char)
 	{
-		$array = parent::exchangeArray($input);
+		return (bool)!($char->STATE === STATE_DEAD || $char->isMon());
+	}
 
-		/*
-		if (empty($input))
+	function CountTrueChars()
+	{
+		$list = $this->array_filter(HOF_Class_Array_Comparer_Callback::newInstance()->comp_func(array($this, '_callback_' . __FUNCTION__ ))->callback());
+
+		return count($list);
+	}
+
+	function _callback_CountTrueChars($char)
+	{
+		return (bool)!($char->isSummon());
+	}
+
+	public function pickList($amount = null, $pick_list = null)
+	{
+		if ($amount === null) $amount = (int)$this->data('amount');
+		if ($pick_list === null) $pick_list = $this->data('pick_list');
+
+		$list = array();
+
+		if ($amount > 0 && !empty($pick_list))
 		{
-			$keep = true;
+			for ($i = 0; $i < $amount; $i++)
+			{
+				$list[] = $this->pick((array )$pick_list);
+			}
 		}
-		*/
+
+		return $list;
+	}
+
+	/**
+	 * 出現する確率から敵を選んで返す
+	 */
+	public function pick($pick_list = null)
+	{
+		if ($pick_list === null) $pick_list = $this->data('pick_list');
 
 		/**
-		 * fix bug when exists class prop
+		 * 確率の合計
 		 */
-		$reflect = new ReflectionClass($this);
-		$props = $reflect->getProperties();
-		foreach ($props as $prop)
+		foreach ($pick_list as $val) $max += $val[0];
+
+		HOF_Helper_Math::rand_seed();
+
+		/**
+		 * 0～合計 の中で乱数を取る
+		 */
+		$pos = mt_rand(0, $max);
+
+		$list = HOF_Helper_Array::array_shuffle($pick_list);
+
+		foreach ($list as $no => $val)
 		{
-			$k = $prop->getName();
+			/**
+			 * その時点での確率の合計
+			 */
+			$upp += $val[0];
 
-			if ($prop->isStatic() || $prop->isPrivate() || $prop->isProtected())
+			/**
+			 * 合計より低ければ　敵が決定される
+			 */
+			if ($pos <= $upp)
 			{
-				continue;
-			}
-
-			if ($this->offsetExists($k))
-			{
-				$this->$k = &$this[$k];
-			}
-			elseif (strpos($k, 'ARRAYOBJECT') === false)
-			{
-				$this->offsetSet($k, &$this->$k);
+				return $no;
 			}
 		}
 
-		return $array;
+		return array_rand($list);
 	}
 
 }
