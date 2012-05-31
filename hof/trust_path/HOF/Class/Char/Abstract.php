@@ -284,7 +284,7 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 
 		$data_attr->img && $this->img = (string)$data_attr->img;
 
-		$this->name = (string)$data_attr->name;
+		$data_attr->name && $this->name = (string)$data_attr->name;
 		$this->gender = (int)$data_attr->gender;
 	}
 
