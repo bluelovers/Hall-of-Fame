@@ -189,7 +189,7 @@ class HOF_Class_Skill_Effect
 				return true;
 
 			case 2055: // SoulRevenge
-				$option["multiply"] = $this->battle->CountDead($user) + 1;
+				$option["multiply"] = $this->battle->CountDead($user->team()) + 1;
 				print ("Damage x" . $option["multiply"] . "!<br />\n");
 				$dmg = self::CalcBasicDamage($skill, $user, $target, $option);
 				self::DamageHP($target, $dmg);
@@ -471,14 +471,14 @@ class HOF_Class_Skill_Effect
 				// 魔方陣描く
 				if ($skill["MagicCircleAdd"])
 				{
-					$this->battle->changeMagicCircle($user->team, $skill["MagicCircleAdd"]);
+					$this->battle->changeMagicCircle($user->team(), $skill["MagicCircleAdd"]);
 					print ($user->Name('bold') . '<span class="support"> draw MagicCircle x' . $skill["MagicCircleAdd"] . '</span><br />' . "\n");
 				}
 				// 魔方陣消す(敵)
 				if ($skill["MagicCircleDeleteEnemy"])
 				{
 					// 相手チームを指定
-					$EnemyTeam = ($user->team == TEAM_0) ? TEAM_1 : TEAM_0;
+					$EnemyTeam = ($user->team()->team_idx() == TEAM_0) ? TEAM_1 : TEAM_0;
 					$this->battle->changeMagicCircle($EnemyTeam, $skill["MagicCircleDeleteEnemy"], -1);
 					print ($user->Name('bold') . '<span class="dmg"> erased enemy MagicCircle x' . $skill["MagicCircleDeleteEnemy"] . '</span><br />' . "\n");
 				}
