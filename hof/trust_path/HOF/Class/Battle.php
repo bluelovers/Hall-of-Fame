@@ -79,8 +79,8 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 
 		$this->_extend_init();
 
-		$this->teams[TEAM_0]['team'] = HOF_Class_Battle_Team2::newInstance($MyTeam, TEAM_0);
-		$this->teams[TEAM_1]['team'] = HOF_Class_Battle_Team2::newInstance($EnemyTeam, TEAM_1);
+		$this->teams[TEAM_0]['team'] = HOF_Class_Battle_Team::newInstance($MyTeam, TEAM_0);
+		$this->teams[TEAM_1]['team'] = HOF_Class_Battle_Team::newInstance($EnemyTeam, TEAM_1);
 
 		/**
 		 * 各チームに戦闘専用の変数を設定する(class.char.php)
@@ -130,7 +130,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 	{
 		$list = array(TEAM_0, TEAM_1);
 
-		if ($myteam instanceof HOF_Class_Battle_Team2)
+		if ($myteam instanceof HOF_Class_Battle_Team)
 		{
 			$myteam = $myteam->team_idx();
 		}
@@ -504,7 +504,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 
 		foreach ($list as $char)
 		{
-			HOF_Class_Battle_Team2::_callback_fixCharName($char);
+			HOF_Class_Battle_Team::_callback_fixCharName($char);
 
 			$this->showEnterBattlefield($char);
 		}
