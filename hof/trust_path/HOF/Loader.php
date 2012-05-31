@@ -197,4 +197,18 @@ class HOF_Loader extends Zend_Loader
 		}
 	}
 
+	public function suppressNotFoundWarnings($flag = null)
+	{
+		if (null === $flag)
+		{
+			return self::$_suppressNotFoundWarnings;
+		}
+
+		$old = self::$_suppressNotFoundWarnings;
+
+		self::$_suppressNotFoundWarnings = (bool)$flag;
+
+		return $old;
+	}
+
 }
