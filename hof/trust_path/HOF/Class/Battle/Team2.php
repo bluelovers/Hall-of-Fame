@@ -11,21 +11,29 @@ class HOF_Class_Battle_Team2 extends HOF_Class_Array_Prop
 	public $team_name;
 	public $team_idx;
 
-	protected $team_self;
 	static $cache;
 
 	static $team_count = 0;
 	static $char_list = array();
 
+	protected $temp;
+
 	public function __construct($chars = array())
 	{
 		$this->team_idx(self::$team_count++);
-		$this->team_self = $this;
 
 		$this->option('prop', false);
 		//$this->setIteratorClass('HOF_Class_Battle_TeamIterator');
 
 		parent::__construct($chars);
+	}
+
+	/**
+	 * @return self
+	 */
+	public static function &newInstance($team = array())
+	{
+		return new self($team);
 	}
 
 	public function __toString()
@@ -36,7 +44,6 @@ class HOF_Class_Battle_Team2 extends HOF_Class_Array_Prop
 	public function __clone()
 	{
 		$this->team_idx(self::$team_count++);
-		$this->team_self = $this;
 
 		foreach ($this as $k => $v)
 		{
@@ -45,12 +52,12 @@ class HOF_Class_Battle_Team2 extends HOF_Class_Array_Prop
 		}
 	}
 
-	public function getClone($team_idx, $team_name = null)
+	public function getClone($team_idx = null, $team_name = null)
 	{
 		$team = clone $this;
 
-		$team->team_idx = (int)$team_idx;
-		$team_name && $team->team_name = (string )$team_name;
+		$team->team_idx($team_idx);
+		$team->team_name($team_name);
 
 		$team->update();
 
@@ -130,7 +137,7 @@ class HOF_Class_Battle_Team2 extends HOF_Class_Array_Prop
 
 	public function pushNameList($cls = false)
 	{
-		if ($cls || !isset(self::$cache['ord']))
+		if ($cls || !self::$cache['ord'])
 		{
 			self::clsNameList();
 		}
@@ -140,10 +147,17 @@ class HOF_Class_Battle_Team2 extends HOF_Class_Array_Prop
 			self::$char_list['all'][$char->uniqid()] = $char;
 			(int)self::$cache['name_list'][$char->Name()]++;
 		}
+
+		$this->temp['pushNameList'] = true;
 	}
 
 	public function fixCharName($over = false, $pre = '', $append = '')
 	{
+		if (!$this->temp['pushNameList'])
+		{
+			$this->pushNameList();
+		}
+
 		$this->array_walk(array($this, '_callback_' . __FUNCTION__ ), array(
 			(bool)$over,
 			(string )$pre,
