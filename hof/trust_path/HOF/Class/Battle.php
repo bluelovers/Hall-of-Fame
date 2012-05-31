@@ -79,13 +79,8 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 
 		$this->_extend_init();
 
-		/*
-		$MyTeam = HOF_Class_Battle_Team::newInstance($MyTeam);
-		$EnemyTeam = HOF_Class_Battle_Team::newInstance($EnemyTeam);
-		*/
-
-		$this->teams[TEAM_0]['team'] = $MyTeam;
-		$this->teams[TEAM_1]['team'] = $EnemyTeam;
+		$this->teams[TEAM_0]['team'] = HOF_Class_Battle_Team2::newInstance($MyTeam, TEAM_0);
+		$this->teams[TEAM_1]['team'] = HOF_Class_Battle_Team2::newInstance($EnemyTeam, TEAM_1);
 
 		/**
 		 * 各チームに戦闘専用の変数を設定する(class.char.php)
@@ -99,14 +94,20 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 			$data['team']->update();
 
 			$data['team']->team_idx($idx);
-
-			$data['team']->fixCharName();
+			$data['team']->pushNameList();
 
 			foreach ($data['team'] as $char)
 			{
 				$char->setBattleVariable();
 			}
 		}
+
+		/*
+		foreach ($this->teams as $idx => $data)
+		{
+			$data['team']->fixCharName();
+		}
+		*/
 
 		// delay関連
 
@@ -209,7 +210,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 
 		if ($my !== null)
 		{
-			$this->teams[$my]['team']->addChar($add, $my);
+			$this->teams[$my]['team']->append($add);
 			$this->ChangeDelay();
 
 			return true;
@@ -492,15 +493,20 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		{
 			foreach ($data['team'] as $char)
 			{
-				$list[] = array('dis' => $char->DelayValue(), 'char' => $char);
+				//$list[] = array('dis' => $char->DelayValue(), 'char' => $char);
+				$list[] = $char;
+
+				$char->isUnion();
 			}
 		}
 
-		usort($list, HOF_Class_Array_Comparer_MuliteSubKey::newInstance('dis')->comp_func('bccomp')->sort_desc(true)->callback());
+		usort($list, HOF_Class_Array_Comparer_MuliteSubKey::newInstance('isUnion', 'SPD')->comp_func('bccomp')->sort_desc(true)->callback());
 
-		foreach ($list as $data)
+		foreach ($list as $char)
 		{
-			$this->showEnterBattlefield($data['char']);
+			HOF_Class_Battle_Team2::_callback_fixCharName($char);
+
+			$this->showEnterBattlefield($char);
 		}
 	}
 
@@ -513,6 +519,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 			echo ("</td><td class=\"ttd1\">\n");
 		}
 
+		//debug(__LINE__, __METHOD__, $char->name, $char->name, $char->Name());
 		$char->enterBattlefield();
 
 		if ($char->team()->team_idx() === TEAM_1)
@@ -619,8 +626,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 
 		if (count($NextChar) > 1)
 		{
-			srand((microtime(true) - time()) * 10000000);
-			mt_srand((microtime(true) - time()) * 10000000);
+			HOF_Helper_Math::rand_seed();
 
 			$next = $NextChar[array_rand($NextChar)];
 		}
