@@ -34,8 +34,8 @@ define('EXPECT_CAST', 1);
 define('INPUT_CHECKBOX', 'checkbox');
 define('INPUT_RADIO', 'radio');
 
-define('TEAM_0', 0);
-define('TEAM_1', 1);
+define('TEAM_0', '0');
+define('TEAM_1', '1');
 
 define('BATTLE_WIN', 0);
 define('BATTLE_LOSE', 1);
