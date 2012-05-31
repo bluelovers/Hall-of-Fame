@@ -441,7 +441,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 				return false;
 			}
 
-			$MyParty = HOF_Class_Battle_Team2::newInstance($MyParty);
+			$MyParty = HOF_Class_Battle_Team::newInstance($MyParty);
 
 			// 敵パーティー(または一匹)
 
@@ -528,7 +528,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		if (!$Amount) return $team;
 
-		$team = new HOF_Class_Battle_Team2();
+		$team = new HOF_Class_Battle_Team();
 		$team->data('pick_list', $MonsterList);
 		$team->data('plus_list', (array)$MonsterNumbers);
 		$team->data('amount', $Amount);
