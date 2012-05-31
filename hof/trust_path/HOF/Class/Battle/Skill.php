@@ -20,7 +20,7 @@ class HOF_Class_Battle_Skill
 	//function UseSkill($skill_no, &$JudgedTarget, &$My, &$MyTeam, &$Enemy)
 	function UseSkill($skill_no, &$JudgedTarget, &$My)
 	{
-		list($_MyTeam, $_EnemyTeam) = $this->battle->teamToggle($My->team);
+		list($_MyTeam, $_EnemyTeam) = $this->battle->teamToggle($My->team());
 
 		$MyTeam = &$this->battle->teams[$_MyTeam]['team'];
 		$Enemy = &$this->battle->teams[$_EnemyTeam]['team'];
@@ -136,7 +136,6 @@ class HOF_Class_Battle_Skill
 
 			// HP犠牲技の場合(Sacrifice)
 			if ($skill["sacrifice"]) $My->SacrificeHp($skill["sacrifice"]);
-
 		}
 
 		// ターゲットを選ぶ(候補)
