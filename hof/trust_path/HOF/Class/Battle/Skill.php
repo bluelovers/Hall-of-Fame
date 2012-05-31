@@ -30,7 +30,7 @@ class HOF_Class_Battle_Skill
 		 */
 		$skill = HOF_Model_Data::getSkill($skill_no);
 
-		if ($My->monster)
+		if ($My->isMon())
 		{
 			$skill["sp"] *= 0.7;
 
@@ -46,7 +46,7 @@ class HOF_Class_Battle_Skill
 		}
 
 		// 武器タイプ不一致
-		if ($skill["limit"] && !$My->monster)
+		if ($skill["limit"] && !$My->isMon())
 		{
 			if (!$skill["limit"][$My->WEAPON])
 			{
@@ -210,9 +210,9 @@ class HOF_Class_Battle_Skill
 
 		list($exp, $money, $itemdrop) = $this->battle->JudgeTargetsDead($candidate); //又、取得する経験値を得る
 
-		$this->battle->GetExp($exp, $My->team);
-		$this->battle->GetItem($itemdrop, $My->team);
-		$this->battle->GetMoney($money, $My->team);
+		$this->battle->GetExp($exp, (string)$My->team());
+		$this->battle->GetItem($itemdrop, (string)$My->team());
+		$this->battle->GetMoney($money, (string)$My->team());
 
 		// 技の使用等でSPDが変化した場合DELAYを再計算する。
 		if ($this->battle->ChangeDelay) $this->battle->SetDelay();
