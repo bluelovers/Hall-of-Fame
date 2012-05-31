@@ -189,6 +189,8 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 
 		$this->fp = false;
 		$this->file = false;
+
+		$this->_extend_init();
 	}
 
 	public function getClone($owner = null, $player = null)
