@@ -429,6 +429,11 @@ HTML;
 
 		if ($string)
 		{
+			if ($this->char->isUnion())
+			{
+				$string .= ' g_union';
+			}
+
 			return "<span class=\"{$string}\">{$name}</span>";
 		}
 		else
