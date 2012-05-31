@@ -74,31 +74,37 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 	 * @param $team0 $MyParty
 	 * @param $team1 $EnemyParty
 	 */
-	function __construct($team0, $team1)
+	function __construct($MyTeam, $EnemyTeam)
 	{
 
 		$this->_extend_init();
 
-		$team0 = HOF_Class_Battle_Team::newInstance($team0);
-		$team1 = HOF_Class_Battle_Team::newInstance($team1);
+		/*
+		$MyTeam = HOF_Class_Battle_Team::newInstance($MyTeam);
+		$EnemyTeam = HOF_Class_Battle_Team::newInstance($EnemyTeam);
+		*/
 
-		$this->teams[TEAM_0]['team'] = $team0;
-		$this->teams[TEAM_1]['team'] = $team1;
+		$this->teams[TEAM_0]['team'] = $MyTeam;
+		$this->teams[TEAM_1]['team'] = $EnemyTeam;
 
 		/**
 		 * 各チームに戦闘専用の変数を設定する(class.char.php)
 		 * 装備の特殊機能等を計算して設定する。
 		 * 戦闘専用の変数は大文字英語だったりする。class.char.phpを参照。
 		 */
-		foreach ($this->teams as $idx => &$data)
+		foreach ($this->teams as $idx => $data)
 		{
 			$data['no'] = $idx;
 			$data['dmg'] = 0;
 			$data['team']->update();
 
-			foreach ($data['team'] as &$char)
+			$data['team']->team_idx($idx);
+
+			$data['team']->fixCharName();
+
+			foreach ($data['team'] as $char)
 			{
-				$char->setBattleVariable($idx);
+				$char->setBattleVariable();
 			}
 		}
 
@@ -122,6 +128,11 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 	function teamToggle($myteam)
 	{
 		$list = array(TEAM_0, TEAM_1);
+
+		if ($myteam instanceof HOF_Class_Battle_Team2)
+		{
+			$myteam = $myteam->team_idx();
+		}
 
 		if (in_array($myteam, $list, true))
 		{
@@ -164,9 +175,11 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 	/**
 	 * 指定キャラのチームの死者数を数える(指定のチーム)ネクロマンサしか使ってない?
 	 */
-	function CountDead($who)
+	function CountDead($team)
 	{
-		return HOF_Class_Battle_Team::CountDead($who);
+		return $team->CountDead();
+
+		//return HOF_Class_Battle_Team::CountDead($who);
 	}
 
 	/**
@@ -176,8 +189,10 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 	{
 		$count = 0;
 
-		$count += HOF_Class_Battle_Team::CountDead($this->teams[TEAM_0]['team']);
-		$count += HOF_Class_Battle_Team::CountDead($this->teams[TEAM_1]['team']);
+		foreach ($this->teams as &$data)
+		{
+			$count += $data['team']->CountDead();
+		}
 
 		return $count;
 	}
@@ -190,7 +205,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 	 */
 	function JoinCharacter($char, $add)
 	{
-		list($my) = $this->teamToggle($char->team);
+		list($my) = $this->teamToggle($char->team());
 
 		if ($my !== null)
 		{
@@ -275,12 +290,12 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		// チーム1の人は左側に 行動内容と結果 を表示する
 		echo ("<tr><td class=\"ttd2\">\n");
 
-		if ($char->team === TEAM_0)
+		if ($char->team()->team_idx() === TEAM_0)
 		{
 			echo ("</td><td class=\"ttd1\">\n");
 		}
 
-		list($_my, $_enemy) = $this->teamToggle($char->team);
+		list($_my, $_enemy) = $this->teamToggle($char->team());
 
 		$MyTeam = &$this->teams[$_my]['team'];
 		$EnemyTeam = &$this->teams[$_enemy]['team'];
@@ -359,7 +374,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 
 		//echo $char->name." ".$skill."<br>";//確認用
 		//セルの終わり
-		if ($char->team === TEAM_1)
+		if ($char->team()->team_idx() === TEAM_1)
 		{
 			echo ("</td><td class=\"ttd1\">&nbsp;\n");
 		}
@@ -373,13 +388,13 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 	 */
 	function BattleResult()
 	{
-		if (HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_0]['team']) == 0)
+		if ($this->teams[TEAM_0]['team']->CountAlive() == 0)
 		{
 			//全員しぼーなら負けにする。
 			$team0Lose = true;
 		}
 
-		if (HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_1]['team']) == 0)
+		if ($this->teams[TEAM_1]['team']->CountAlive() == 0)
 		{
 			//全員しぼーなら負けにする。
 			$team1Lose = true;
@@ -408,12 +423,12 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 			// 生存者数の差。
 			/*
 			// 生存者数の差が1人以上なら延長
-			$AliveNumDiff	= abs(HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_0]['team']) - HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_1]['team']));
+			$AliveNumDiff	= abs($this->teams[TEAM_0]['team']->CountAlive() - $this->teams[TEAM_1]['team']->CountAlive());
 			if(0 < $AliveNumDiff && $this->BattleMaxTurn < BATTLE_MAX_EXTENDS) {
 			*/
-			$AliveNumDiff = abs(HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_0]['team']) - HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_1]['team']));
-			$Not5 = (HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_0]['team']) != 5 && HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_1]['team']) != 5);
-			//$lessThan4	= ( HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_0]['team']) < 5 || HOF_Class_Battle_Team::CountAlive($this->teams[TEAM_1]['team']) < 5 );
+			$AliveNumDiff = abs($this->teams[TEAM_0]['team']->CountAlive() - $this->teams[TEAM_1]['team']->CountAlive());
+			$Not5 = ($this->teams[TEAM_0]['team']->CountAlive() != 5 && $this->teams[TEAM_1]['team']->CountAlive() != 5);
+			//$lessThan4	= ( $this->teams[TEAM_0]['team']->CountAlive() < 5 || $this->teams[TEAM_1]['team']->CountAlive() < 5 );
 			//if( ( $lessThan4 || 0 < $AliveNumDiff ) && $this->BattleMaxTurn < BATTLE_MAX_EXTENDS ) {
 			if (($Not5 || 0 < $AliveNumDiff) && $this->BattleMaxTurn < BATTLE_MAX_EXTENDS)
 			{
@@ -434,8 +449,8 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 				// (2) (1) が同じなら総ダメージが多いほうが勝ち
 				// (3) (2) でも同じなら引き分け…???(or防衛側の勝ち)
 
-				$team0Alive = HOF_Class_Battle_Team::CountAliveChars($this->teams[TEAM_0]['team']);
-				$team1Alive = HOF_Class_Battle_Team::CountAliveChars($this->teams[TEAM_1]['team']);
+				$team0Alive = $this->teams[TEAM_0]['team']->CountAliveChars();
+				$team1Alive = $this->teams[TEAM_1]['team']->CountAliveChars();
 				if ($team1Alive < $team0Alive)
 				{
 					// team0 won
@@ -478,36 +493,13 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 			foreach ($data['team'] as $char)
 			{
 				$list[] = array('dis' => $char->DelayValue(), 'char' => $char);
-
-				$list_name[$char->Name()]++;
 			}
 		}
 
 		usort($list, HOF_Class_Array_Comparer_MuliteSubKey::newInstance('dis')->comp_func('bccomp')->sort_desc(true)->callback());
 
-		$ord = ord('A');
-		$overlap = array();
-
 		foreach ($list as $data)
 		{
-			$name = $data['char']->Name();
-
-			if ($list_name[$name] > 1)
-			{
-				// 文字(数字でもおｋ)
-
-				$letter = chr($ord + $overlap[$name]);
-
-				// 繰上げ
-				$overlap[$name]++;
-
-				// どんな感じで加えるか これだと"(B)"みたいになる
-				$style = "({$letter})";
-
-				// 実際に名前の後ろに付け加える
-				$data['char']->NAME = $name . $style;
-			}
-
 			$this->showEnterBattlefield($data['char']);
 		}
 	}
@@ -516,14 +508,14 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 	{
 		echo ("<tr><td class=\"ttd2\">\n");
 
-		if ($char->team === TEAM_0)
+		if ($char->team()->team_idx() === TEAM_0)
 		{
 			echo ("</td><td class=\"ttd1\">\n");
 		}
 
 		$char->enterBattlefield();
 
-		if ($char->team === TEAM_1)
+		if ($char->team()->team_idx() === TEAM_1)
 		{
 			echo ("</td><td class=\"ttd1\">&nbsp;\n");
 		}
@@ -586,22 +578,24 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		 */
 		$nextDis = 1000;
 
-		foreach ($this->teams as $idx => &$data)
+		foreach ($this->teams as $idx => $data)
 		{
-			foreach ($data['team'] as &$char)
+			foreach ($data['team'] as $char)
 			{
 				if ($char->STATE === STATE_DEAD) continue;
 
 				$charDis = $char->nextDis();
 
-				if ($charDis == $nextDis)
+				$cmp = bccomp($charDis, $nextDis);
+
+				if ($cmp == 0)
 				{
-					$NextChar[] = &$char;
+					$NextChar[] = $char;
 				}
-				elseif ($charDis <= $nextDis)
+				elseif ($cmp < 0)
 				{
 					$nextDis = $charDis;
-					$NextChar = array(&$char);
+					$NextChar = array($char);
 				}
 			}
 		}
@@ -623,14 +617,21 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 			}
 		}
 
-		if (!empty($NextChar))
+		if (count($NextChar) > 1)
 		{
-			return $NextChar[array_rand($NextChar)];
+			srand((microtime(true) - time()) * 10000000);
+			mt_srand((microtime(true) - time()) * 10000000);
+
+			$next = $NextChar[array_rand($NextChar)];
 		}
 		else
 		{
-			return $NextChar;
+			$next = reset($NextChar);
 		}
+
+		$next->DelayByRate(1, $this->delay);
+
+		return $next;
 	}
 
 	function SetResultType($var)
@@ -745,7 +746,7 @@ HTML;
 
 		$this->teams[$team]['exp'] += $exp;
 
-		$Alive = HOF_Class_Battle_Team::CountTrueChars($this->teams[$team]['team']);
+		$Alive = $this->teams[$team]['team']->CountTrueChars();
 
 		if ($Alive == 0) return false;
 
@@ -1134,6 +1135,7 @@ HTML;
 		}
 		elseif (DELAY_TYPE === 1)
 		{
+
 		}
 	}
 
@@ -1157,6 +1159,9 @@ HTML;
 	{
 		$this->teams[TEAM_0]['name'] = $name1;
 		$this->teams[TEAM_1]['name'] = $name2;
+
+		$this->teams[TEAM_0]['team']->team_name($name1);
+		$this->teams[TEAM_1]['team']->team_name($name2);
 	}
 
 
