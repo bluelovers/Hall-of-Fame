@@ -72,6 +72,8 @@ final class HOF
 			mb_internal_encoding(self::CHARSET);
 			header('content-type: text/html; charset: '.self::CHARSET);
 
+			bcscale(8);
+
 			self::$input = new HOF_Class_Request;
 
 			self::$input->server->REQUEST_URI = substr(self::$input->server->REQUEST_URI, strlen(BASE_URL_ROOT) - 1);
