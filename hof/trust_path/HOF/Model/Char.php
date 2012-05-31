@@ -421,7 +421,7 @@ class HOF_Model_Char extends HOF_Class_Data
 	 */
 	function newMonSummon($no, $strength = false)
 	{
-		$char = HOF_Model_Char::newMon(array(HOF_Class_Char::TYPE_MON, HOF_Class_Char::TYPE_SUMMON), array('strength' => $strength));
+		$char = HOF_Class_Char::factory(array(HOF_Class_Char::TYPE_MON, HOF_Class_Char::TYPE_SUMMON), $no, array('strength' => $strength));
 
 		$char->setBattleVariable();
 
