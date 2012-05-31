@@ -43,6 +43,7 @@ class HOF_Class_Array extends ArrayObject
 	static $ARRAYOBJECT = 'HOF_Class_Array';
 
 	protected $ARRAYOBJECT_AUTO = 0;
+	protected $ARRAYOBJECT_OPTIONS = array();
 
 	function __construct($input = null, $deep = 0, $loop = 0)
 	{
@@ -75,7 +76,7 @@ class HOF_Class_Array extends ArrayObject
 		/**
 		 * fix bug when exists class prop
 		 */
-		$reflect = new ReflectionClass($this);
+		$reflect = new HOF_Class_Reflection_Class($this);
 		$props = $reflect->getProperties();
 		foreach ($props as $prop)
 		{
