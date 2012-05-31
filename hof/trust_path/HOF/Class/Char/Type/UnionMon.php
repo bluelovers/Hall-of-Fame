@@ -54,7 +54,7 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 		isset($data["no"]) && $this->no = $data["no"];
 		$this->last_death = $data["last_death"];
 
-		$data_attr = HOF_Model_Char::getUnionDataMon($this->no);
+		$data_attr = new HOF_Class_Array(HOF_Model_Char::getUnionDataMon($this->no));
 		parent::setCharData($data_attr);
 
 		$this->team_name = $data['data']['team']['name'];
