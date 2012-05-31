@@ -106,13 +106,11 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 	}
 
 	//	戦闘用の変数
-	function setBattleVariable($team = false)
+	function setBattleVariable()
 	{
 		if ($this->_cache_char_['init'][__FUNCTION__ ]) return false;
 
 		$this->_cache_char_['init'][__FUNCTION__ ] = true;
-
-		$this->team = $team; //これ必要か?
 
 		$this->MAXHP = $this->maxhp;
 		$this->HP = $this->hp;
