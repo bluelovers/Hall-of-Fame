@@ -520,7 +520,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 		}
 	}
 
-	function setBattleVariable($team = false)
+	function setBattleVariable()
 	{
 		if ($this->_cache_char_['init'][__FUNCTION__ ]) return false;
 
@@ -529,8 +529,6 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 		// パッシブスキルを読む
 		$this->LoadPassiveSkills();
 		$this->CalcEquips();
-
-		$this->team = $team;
 
 		$maxhp += $this->maxhp * (1 + ($this->M_MAXHP / 100)) + $this->P_MAXHP;
 		$this->MAXHP = round($maxhp);
