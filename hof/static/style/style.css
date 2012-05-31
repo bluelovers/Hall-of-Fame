@@ -322,3 +322,26 @@ select {
 {
 	margin-left: 0px;
 }
+
+.battle_frame .g_union
+{
+	font-weight:bold;
+	color:#ffff33;
+	text-shadow: 0 0 0.2em #D34F16;
+}
+
+.battle_frame .u
+{
+	text-decoration-color: rgba(189, 200, 215, 0.38);
+	-moz-text-decoration-color: rgba(189, 200, 215, 0.38);
+}
+
+/*
+.battle_frame .u .g_union
+{
+	text-decoration-color: #62296D;
+	-moz-text-decoration-color: #62296D;
+	-moz-text-decoration-line: underline;
+	-moz-text-decoration-style: solid;
+}
+*/
