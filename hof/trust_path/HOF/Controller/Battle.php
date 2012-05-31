@@ -545,6 +545,9 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		$enemy = HOF_Class_Battle_Team::newInstance($enemy);
 
+		//debug($enemy);
+		//exit();
+
 		return $enemy;
 	}
 
