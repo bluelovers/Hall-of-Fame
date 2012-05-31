@@ -420,7 +420,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 	 */
 	function _judge_TestBattle()
 	{
-		$pattern = $this->_pattern_input();
+		$pattern = $this->_judge_pattern_input();
 
 		if ($this->char->pattern($pattern))
 		{
