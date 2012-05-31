@@ -37,40 +37,68 @@ class HOF_Class_Char
 			$options['summon'] = true;
 		}
 
-		$class = $pre.implode('', $_class);
+		$class = $pre . implode('', $_class);
 
-		$classname = 'HOF_Class_Char_Type_'.$class;
+		static $cache;
 
-		if (!$found = class_exists($classname))
+		if ($cache[$class])
 		{
-			if ($isSummon !== false)
+			$classname = $cache[$class];
+		}
+		else
+		{
+
+			$classname = 'HOF_Class_Char_Type_' . $class;
+
+			$found = false;
+
+			$old = HOF_Loader::suppressNotFoundWarnings(true);
+
+			try
 			{
-				unset($_class[$isSummon]);
+				$found = @class_exists($classname);
+			}
+			catch (Exception $e)
+			{
 
-				$class = $pre.implode('', $_class);
-				$classname = 'HOF_Class_Char_Type_'.$class;
-
-				$found = class_exists($classname);
 			}
 
 			if (!$found)
 			{
-				throw new Exception("Char:$class is not supported");
+				if ($isSummon !== false)
+				{
+					unset($_class[$isSummon]);
+
+					$class = $pre . implode('', $_class);
+					$classname = 'HOF_Class_Char_Type_' . $class;
+
+					$found = class_exists($classname);
+				}
+
+				if (!$found)
+				{
+					throw new Exception("Char:$class is not supported");
+				}
 			}
+
+			HOF_Loader::suppressNotFoundWarnings($old);
+
+			$cache[$class] = $classname;
+
 		}
 
 		try
 		{
 			$char = new $classname($no, $options, $owner, $player);
 
-			if(!($char instanceof HOF_Class_Char_Abstract))
+			if (!($char instanceof HOF_Class_Char_Abstract))
 			{
 				throw new Exception("\"$className\" is not an instance of HOF_Class_Char_Abstract");
 			}
 
 			return $char;
 		}
-		catch(Exception $e)
+		catch (Exception $e)
 		{
 			return $e;
 		}
