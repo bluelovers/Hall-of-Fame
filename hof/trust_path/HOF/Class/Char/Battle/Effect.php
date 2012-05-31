@@ -29,7 +29,7 @@ class HOF_Class_Char_Battle_Effect
 		/**
 		 * 名前
 		 */
-		$output .= "<span class=\"bold{$sub}\">".$this->char->Name()."</span>\n";
+		$output .= "<span class=\"bold{$sub}\">" . $this->char->Name() . "</span>\n";
 
 		/**
 		 * チャージor詠唱
@@ -112,7 +112,9 @@ class HOF_Class_Char_Battle_Effect
 	function nextDis()
 	{
 		if ($this->char->STATE === STATE_DEAD) return 100;
-		$distance = (100 - $this->char->delay) / $this->char->DelayValue();
+
+		$distance = bcdiv(bcsub(100, $this->char->delay), $this->char->DelayValue());
+
 		return $distance;
 	}
 
@@ -137,50 +139,46 @@ class HOF_Class_Char_Battle_Effect
 
 		if (DELAY_TYPE === 0)
 		{
-			$this->char->delay += $no;
+			$this->char->delay = bcadd($this->char->delay, $no);
 		}
 		elseif (DELAY_TYPE === 1)
 		{
-			$this->char->delay += $no * $this->char->DelayValue();
+			$this->char->delay = bcadd($this->char->delay, bcmul($no, $this->char->DelayValue()));
 			//print("DELAY".$this->char->delay."<br />\n");
 		}
 	}
 
 	function DelayValue()
 	{
-		return sqrt($this->char->SPD) + DELAY_BASE;
+		return bcadd(sqrt($this->char->SPD), DELAY_BASE);
 	}
 
 	//	行動を遅らせる(Rate)
 	function DelayByRate($No, $BaseDelay, $Show = false)
 	{
+
+		if ($Show)
+		{
+			print (sprintf("(%0.0f", $this->char->delay));
+			print ('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
+		}
+
 		if (DELAY_TYPE === 0)
 		{
-			if ($Show)
-			{
-				print ("(" . sprintf("%0.1f", $this->char->delay));
-				print ('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
-			}
 			$Delay = ($BaseDelay - $this->char->SPD) * ($No / 100); //遅らせる間隔
-			$this->char->delay -= $Delay;
-			if ($Show)
-			{
-				print (sprintf("%0.1f", $this->char->delay) . "/" . sprintf("%0.1f", $BaseDelay) . ")");
-			}
+			//$this->char->delay -= $Delay;
 		}
 		elseif (DELAY_TYPE === 1)
 		{
-			if ($Show)
-			{
-				print ("(" . sprintf("%0.0f", $this->char->delay));
-				print ('<span style="font-size:80%"> &gt;&gt;&gt; </span>');
-			}
 			$Delay = $No; //遅らせる間隔
-			$this->char->delay -= $Delay;
-			if ($Show)
-			{
-				print (sprintf("%0.0f", floor($this->char->delay)) . "/" . sprintf("%d", 100) . ")");
-			}
+			//$this->char->delay -= $Delay;
+		}
+
+		$this->char->delay = bcsub($this->char->delay, $Delay);
+
+		if ($Show)
+		{
+			print (sprintf("%0.0f/%0.0f)", $this->char->delay,  isset($BaseDelay) ? $BaseDelay : 100));
 		}
 	}
 
@@ -203,7 +201,7 @@ class HOF_Class_Char_Battle_Effect
 		}
 		elseif (DELAY_TYPE === 1)
 		{
-			$Delay = (100 - $this->char->delay) * ($No / 100); //早まらせる間隔
+			$Delay = bcmul(bcsub(100, $this->char->delay), bcdiv($No, 100)); //早まらせる間隔
 			if ($Show)
 			{
 				print ("(" . sprintf("%0.1f", $this->char->delay));
