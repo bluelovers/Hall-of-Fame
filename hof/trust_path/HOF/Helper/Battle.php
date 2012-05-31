@@ -11,8 +11,29 @@ class HOF_Helper_Battle
 	/**
 	 * ドッペルゲンガーと戦う。
 	 */
-	function DoppelBattle($party, $turns = 10)
+	function DoppelBattle($MyTeam, $turns = 10)
 	{
+
+		$MyTeam = new HOF_Class_Battle_Team2($MyTeam);
+		$EnemyTeam = $MyTeam->getClone();
+
+		HOF_Class_Battle_Team2::clsNameList();
+
+		$MyTeam->pushNameList();
+		$EnemyTeam->pushNameList();
+
+		$MyTeam->fixCharName();
+		$EnemyTeam->fixCharName(null, '幻影の');
+
+		$battle = new HOF_Class_Battle($MyTeam, $EnemyTeam);
+
+		$battle->SetTeamName(HOF::user()->name, "ドッペル");
+		$battle->LimitTurns($turns);
+		$battle->NoResult();
+		$battle->Process();
+
+		return true;
+
 		//$enemy	= $party;
 		//これが無いとPHP4or5 で違う結果になるんです
 		//$enemy	= unserialize(serialize($enemy));
