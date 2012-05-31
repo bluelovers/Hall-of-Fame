@@ -7,7 +7,7 @@
 
 require_once ("./bootstrap.php");
 
-$team = new HOF_Class_Battle_Team2();
+$team = new HOF_Class_Battle_Team();
 $ta = $team->getIterator();
 $team->team_name('A');
 
@@ -59,4 +59,4 @@ $char->STATE = STATE_DEAD;
 
 debug(count($t2->filterState(STATE_DEAD)), $t2->CountAlive());
 
-debug(HOF_Class_Battle_Team2::$cache);
+debug(HOF_Class_Battle_Team::$cache);
