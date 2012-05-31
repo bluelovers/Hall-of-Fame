@@ -173,4 +173,42 @@ class HOF_Class_Battle_Team extends HOF_Class_Array
 		$this->update();
 	}
 
+	function exchangeArray($input)
+	{
+		$array = parent::exchangeArray($input);
+
+		/*
+		if (empty($input))
+		{
+			$keep = true;
+		}
+		*/
+
+		/**
+		 * fix bug when exists class prop
+		 */
+		$reflect = new ReflectionClass($this);
+		$props = $reflect->getProperties();
+		foreach ($props as $prop)
+		{
+			$k = $prop->getName();
+
+			if ($prop->isStatic() || $prop->isPrivate() || $prop->isProtected())
+			{
+				continue;
+			}
+
+			if ($this->offsetExists($k))
+			{
+				$this->$k = &$this[$k];
+			}
+			elseif (strpos($k, 'ARRAYOBJECT') === false)
+			{
+				$this->offsetSet($k, &$this->$k);
+			}
+		}
+
+		return $array;
+	}
+
 }
