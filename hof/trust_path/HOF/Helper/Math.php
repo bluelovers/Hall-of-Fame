@@ -13,5 +13,11 @@ class HOF_Helper_Math
 		return max($min, min($max, $num));
 	}
 
+	static function rand_seed()
+	{
+		srand((microtime(true) - time()) * 10000000);
+		mt_srand((microtime(true) - time()) * 10000000);
+	}
+
 }
 
