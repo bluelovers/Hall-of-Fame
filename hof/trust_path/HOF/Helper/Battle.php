@@ -14,10 +14,10 @@ class HOF_Helper_Battle
 	function DoppelBattle($MyTeam, $turns = 10)
 	{
 
-		$MyTeam = new HOF_Class_Battle_Team2($MyTeam);
+		$MyTeam = new HOF_Class_Battle_Team($MyTeam);
 		$EnemyTeam = $MyTeam->getClone();
 
-		HOF_Class_Battle_Team2::clsNameList();
+		HOF_Class_Battle_Team::clsNameList();
 
 		$MyTeam->pushNameList();
 		$EnemyTeam->pushNameList();
