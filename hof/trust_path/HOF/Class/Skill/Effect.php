@@ -65,7 +65,7 @@ class HOF_Class_Skill_Effect
 	/**
 	 * 使用者が対象者にスキルを使う
 	 */
-	function SkillEffect($skill, $skill_no, &$user, &$target)
+	function SkillEffect($skill, $skill_no, &$char, &$target)
 	{
 		if ($target === false)
 		{
@@ -77,33 +77,33 @@ class HOF_Class_Skill_Effect
 		switch ($skill_no):
 
 			case 1020: // ManaBreak
-				$dmg = self::CalcBasicDamage($skill, $user, $target);
+				$dmg = self::CalcBasicDamage($skill, $char, $target);
 				self::DamageSP($target, $dmg);
 				break;
 
 			case 1021: // SoulBreak
-				$dmg = self::CalcBasicDamage($skill, $user, $target);
+				$dmg = self::CalcBasicDamage($skill, $char, $target);
 				self::DamageHP($target, $dmg);
 				self::DamageSP($target, $dmg);
 				break;
 
 			case 1022: //ChargeAttack
-				if ($user->POSITION != POSITION_FRONT) $option["multiply"] = 4;
-				$dmg = self::CalcBasicDamage($skill, $user, $target, $option);
+				if ($char->POSITION != POSITION_FRONT) $option["multiply"] = 4;
+				$dmg = self::CalcBasicDamage($skill, $char, $target, $option);
 				self::DamageHP($target, $dmg);
-				$user->Move("front");
+				$char->Move("front");
 				break;
 
 			case 1023: //Hit&Away
-				if ($user->POSITION == POSITION_FRONT) $option["multiply"] = 3;
-				$dmg = self::CalcBasicDamage($skill, $user, $target, $option);
+				if ($char->POSITION == POSITION_FRONT) $option["multiply"] = 3;
+				$dmg = self::CalcBasicDamage($skill, $char, $target, $option);
 				self::DamageHP($target, $dmg);
-				$user->Move("back");
+				$char->Move("back");
 				break;
 
 			case 1024: //LifeDivision
-				$value = round(abs($target->HP - $user->HP) * 0.5); // 差分
-				if ($user->HP <= $target->HP)
+				$value = round(abs($target->HP - $char->HP) * 0.5); // 差分
+				if ($char->HP <= $target->HP)
 				{
 					if (1000 <= $value)
 					{
@@ -111,18 +111,18 @@ class HOF_Class_Skill_Effect
 						$value = 500;
 					}
 					self::DamageHP($target, $value);
-					self::RecoverHP($user, $value);
+					self::RecoverHP($char, $value);
 				}
 				else
 				{
-					self::DamageHP($user, $value);
+					self::DamageHP($char, $value);
 					self::RecoverHP($target, $value);
 				}
 				break;
 
 			case 1025: //ManaDivision
-				$value = round(abs($target->SP - $user->SP) * 0.5); // 差分
-				if ($user->SP <= $target->SP)
+				$value = round(abs($target->SP - $char->SP) * 0.5); // 差分
+				if ($char->SP <= $target->SP)
 				{
 					if (1000 <= $value)
 					{
@@ -130,22 +130,22 @@ class HOF_Class_Skill_Effect
 						$value = 500;
 					}
 					self::DamageSP($target, $value);
-					self::RecoverSP($user, $value);
+					self::RecoverSP($char, $value);
 				}
 				else
 				{
-					self::DamageSP($user, $value);
+					self::DamageSP($char, $value);
 					self::RecoverSP($target, $value);
 				}
 				break;
 
 			case 1116: //Punish
-				$dmg = $user->MAXHP - $user->HP;
+				$dmg = $char->MAXHP - $char->HP;
 				self::DamageHP($target, $dmg);
 				break;
 
 			case 1119: //Possession
-				if ($user === $target) break;
+				if ($char === $target) break;
 				$this->StatusChanges($skill, $target);
 				break;
 
@@ -155,13 +155,13 @@ class HOF_Class_Skill_Effect
 					$option["multiply"] = 6;
 					print ("Damage x6!<br />\n");
 				}
-				$dmg = self::CalcBasicDamage($skill, $user, $target, $option);
+				$dmg = self::CalcBasicDamage($skill, $char, $target, $option);
 				self::DamageHP($target, $dmg);
 				break;
 
 			case 1208: //PoisonInvasion
-				$Rate = (log(($user->INT + 22) / 10) - 0.8) / 0.85;
-				//$Rate	= 0.81 + (pow(pow($user->INT*0.1,2.05),21/40))/10;
+				$Rate = (log(($char->INT + 22) / 10) - 0.8) / 0.85;
+				//$Rate	= 0.81 + (pow(pow($char->INT*0.1,2.05),21/40))/10;
 				$target->PoisonDamage($Rate);
 				break;
 
@@ -177,9 +177,9 @@ class HOF_Class_Skill_Effect
 
 			case 2030: // LifeDrain
 			case 2031: // LifeSqueeze
-				if ($user == $target) return false; //自分から自分は吸収しない。
-				$dmg = self::CalcBasicDamage($skill, $user, $target);
-				self::AbsorbHP($target, $dmg, $user, $dmg);
+				if ($char == $target) return false; //自分から自分は吸収しない。
+				$dmg = self::CalcBasicDamage($skill, $char, $target);
+				self::AbsorbHP($target, $dmg, $char, $dmg);
 				break;
 
 			case 2032: // DeathKnell
@@ -189,9 +189,9 @@ class HOF_Class_Skill_Effect
 				return true;
 
 			case 2055: // SoulRevenge
-				$option["multiply"] = $this->battle->CountDead($user->team()) + 1;
+				$option["multiply"] = $this->battle->CountDead($char->team()) + 1;
 				print ("Damage x" . $option["multiply"] . "!<br />\n");
-				$dmg = self::CalcBasicDamage($skill, $user, $target, $option);
+				$dmg = self::CalcBasicDamage($skill, $char, $target, $option);
 				self::DamageHP($target, $dmg);
 				break;
 
@@ -227,9 +227,9 @@ class HOF_Class_Skill_Effect
 				// SP吸収系
 			case 2090: //EneryRob
 			case 2091: //EneryCollect
-				if ($user == $target) return false; //自分から自分は吸収しない。
-				$dmg = self::CalcBasicDamage($skill, $user, $target, array("pierce" => 1));
-				self::AbsorbSP($target, $dmg, $user, $dmg);
+				if ($char == $target) return false; //自分から自分は吸収しない。
+				$dmg = self::CalcBasicDamage($skill, $char, $target, array("pierce" => 1));
+				self::AbsorbSP($target, $dmg, $char, $dmg);
 				break;
 
 				// チャージ(詠唱)中のキャラのみを対象にする
@@ -249,14 +249,14 @@ class HOF_Class_Skill_Effect
 				case 3103://
 				case 5007:// Heal(Mons)
 				case 5055:// RadiateHeating
-				$heal	= self::CalcRecoveryValue($skill,$user,$target);
+				$heal	= self::CalcRecoveryValue($skill,$char,$target);
 				self::RecoverHP($target,$heal);
 				$this->StatusChanges($skill,$target);
 				break;
 				*/
 
 			case 3005: // ProgressiveHeal
-				$heal = self::CalcRecoveryValue($skill, $user, $target);
+				$heal = self::CalcRecoveryValue($skill, $char, $target);
 				$Rate = ($target->HP / $target->MAXHP) * 100;
 				if ($Rate <= 30)
 				{
@@ -286,7 +286,7 @@ class HOF_Class_Skill_Effect
 			case 3013: // EnergyExchange
 				$HpRate = floor($target->HP / $target->MAXHP * 100);
 				$SpRate = floor($target->SP / $target->MAXSP * 100);
-				print ($target->Name()." exchanged rate of HP and SP.<br />");
+				print ($target->Name(true)." exchanged rate of HP and SP.<br />");
 				print ("HP: {$target->HP}(" . $HpRate . "%) to ");
 				$target->HP = round($SpRate / 100 * $target->MAXHP);
 				print ("{$target->HP}(" . $SpRate . "%)<br />");
@@ -304,7 +304,7 @@ class HOF_Class_Skill_Effect
 				if($target->STATE == STATE_DEAD) break;
 				if($target->STATE == STATE_POISON)
 				$target->GetNormal(true);
-				$heal	= self::CalcRecoveryValue($skill,$user,$target);
+				$heal	= self::CalcRecoveryValue($skill,$char,$target);
 				self::RecoverHP($target,$heal);
 				break;
 				*/
@@ -313,13 +313,13 @@ class HOF_Class_Skill_Effect
 			case 5030: // SoulRestor
 			case 5063: // WakeUp
 				if ($target->STATE !== 1) break;
-				$heal = self::CalcRecoveryValue($skill, $user, $target);
+				$heal = self::CalcRecoveryValue($skill, $char, $target);
 				$target->GetNormal(true);
 				self::RecoverHP($target, $heal);
 				break;
 
 			case 3050: //Quick
-				if ($target == $user) return false;
+				if ($target == $char) return false;
 				if ($target->expect) return false;
 				//$target->Quick($this->battle->delay + 1);
 				print ("<span class=\"support\">" . $target->Name("bold") . " got quicked!</span>");
@@ -379,7 +379,7 @@ class HOF_Class_Skill_Effect
 				break;
 
 			case 3122: // HyperRecovery
-				$dif = $user->MAXHP - $user->HP;
+				$dif = $char->MAXHP - $char->HP;
 				$heal = ceil($dif * 0.6);
 				self::RecoverHP($target, $heal);
 				break;
@@ -401,10 +401,10 @@ class HOF_Class_Skill_Effect
 
 			case 3900: // GetPoison
 				print ("Got poisoned<br />\n");
-				$user->GetPoison(100);
+				$char->GetPoison(100);
 				break;
 			case 3901: // GetDead
-				self::DamageHP($user, 9999);
+				self::DamageHP($char, 9999);
 				break;
 
 			case 4000: // StanceRestore(臨戦態勢)
@@ -416,14 +416,14 @@ class HOF_Class_Skill_Effect
 
 				// 敵スキル
 			case 5002: // BloodSuck
-				$dmg = self::CalcBasicDamage($skill, $user, $target, array("pierce" => 1));
-				self::AbsorbHP($target, $dmg, $user, $dmg);
+				$dmg = self::CalcBasicDamage($skill, $char, $target, array("pierce" => 1));
+				self::AbsorbHP($target, $dmg, $char, $dmg);
 				return $dmg;
 
 			case 5006: // Charge!!!
-				if ($user == $target)
+				if ($char == $target)
 				{
-					$user->POSITION = POSITION_BACK;
+					$char->POSITION = POSITION_BACK;
 					return false; //自分は対象外
 				}
 				if ($target->POSITION == POSITION_BACK)
@@ -437,14 +437,14 @@ class HOF_Class_Skill_Effect
 			case 5060: //ArmorSnatch
 				$target->DownDEF(30);
 				$target->DownMDEF(30);
-				$user->UpDEF(30);
-				$user->UpMDEF(30);
+				$char->UpDEF(30);
+				$char->UpMDEF(30);
 				break;
 
 				// ステータス変化形の技
 			case 5022: //Fortune
-				if ($user == $target) break; //自分には使わない。
-				$heal = self::CalcRecoveryValue($skill, $user, $target);
+				if ($char == $target) break; //自分には使わない。
+				$heal = self::CalcRecoveryValue($skill, $char, $target);
 				self::RecoverHP($target, $heal);
 				$this->StatusChanges($skill, $target);
 				break;
@@ -458,7 +458,7 @@ class HOF_Class_Skill_Effect
 					5002);
 				$mob = $spawn[array_rand($spawn)];
 				$add = HOF_Model_Char::newMonSummon($mob);
-				$this->battle->JoinCharacter($user, $add);
+				$this->battle->JoinCharacter($char, $add);
 				$add->ShowImage(vcent);
 				print ($add->Name('bold') . " joined to the team.<br />\n");
 				break;
@@ -471,16 +471,16 @@ class HOF_Class_Skill_Effect
 				// 魔方陣描く
 				if ($skill["MagicCircleAdd"])
 				{
-					$this->battle->changeMagicCircle($user->team(), $skill["MagicCircleAdd"]);
-					print ($user->Name('bold') . '<span class="support"> draw MagicCircle x' . $skill["MagicCircleAdd"] . '</span><br />' . "\n");
+					$this->battle->changeMagicCircle($char->team(), $skill["MagicCircleAdd"]);
+					print ($char->Name('bold') . '<span class="support"> draw MagicCircle x' . $skill["MagicCircleAdd"] . '</span><br />' . "\n");
 				}
 				// 魔方陣消す(敵)
 				if ($skill["MagicCircleDeleteEnemy"])
 				{
 					// 相手チームを指定
-					$EnemyTeam = ($user->team()->team_idx() == TEAM_0) ? TEAM_1 : TEAM_0;
+					$EnemyTeam = ($char->team()->team_idx() == TEAM_0) ? TEAM_1 : TEAM_0;
 					$this->battle->changeMagicCircle($EnemyTeam, $skill["MagicCircleDeleteEnemy"], -1);
-					print ($user->Name('bold') . '<span class="dmg"> erased enemy MagicCircle x' . $skill["MagicCircleDeleteEnemy"] . '</span><br />' . "\n");
+					print ($char->Name('bold') . '<span class="dmg"> erased enemy MagicCircle x' . $skill["MagicCircleDeleteEnemy"] . '</span><br />' . "\n");
 				}
 				// HP持続回復
 				if ($skill["HpRegen"])
@@ -508,7 +508,7 @@ class HOF_Class_Skill_Effect
 					foreach ($skill["summon"] as $SummonNo)
 					{
 						// 召喚力?
-						$Strength = $user->SummonPower();
+						$Strength = $char->SummonPower();
 						$add = HOF_Model_Char::newMonSummon($SummonNo, $Strength);
 
 						// 速攻
@@ -518,7 +518,7 @@ class HOF_Class_Skill_Effect
 						}
 
 						//break;//ここ取るとエラー無くなる(?)。
-						$this->battle->JoinCharacter($user, $add);
+						$this->battle->JoinCharacter($char, $add);
 						$add->ShowImage(vcent);
 
 						print ($add->Name('bold') . " joined to the team.<br />\n");
@@ -540,7 +540,7 @@ class HOF_Class_Skill_Effect
 				{
 					if ($skill["support"])
 					{
-						$heal = self::CalcRecoveryValue($skill, $user, $target);
+						$heal = self::CalcRecoveryValue($skill, $char, $target);
 						self::RecoverHP($target, $heal);
 						$this->StatusChanges($skill, $target);
 					}
@@ -548,7 +548,7 @@ class HOF_Class_Skill_Effect
 					{
 						if ($skill["pierce"]) //?? ここで設定する必要ある？
  								$option["pierce"] = true;
-						$dmg = self::CalcBasicDamage($skill, $user, $target, $option);
+						$dmg = self::CalcBasicDamage($skill, $char, $target, $option);
 						self::DamageHP($target, $dmg);
 					}
 				}
@@ -661,33 +661,33 @@ class HOF_Class_Skill_Effect
 	/**
 	 * 基本的なダメージ計算式でダメージだけ返す。
 	 */
-	static function CalcBasicDamage($skill, $user, &$target, $option = null)
+	static function CalcBasicDamage($skill, $char, &$target, $option = null)
 	{
 		//基本的なダメージ計算(物理or魔法)
 		if ($skill["type"] == 0)
 		{ //物理
 			if ($skill["inf"] == "dex") //威力をDEX依存にする
- 					$str = $user->DEX;
-			else  $str = $user->STR;
+ 					$str = $char->DEX;
+			else  $str = $char->STR;
 			$dmg = sqrt($str) * 10;
-			$dmg += $user->atk[0]; //装備の物攻
+			$dmg += $char->atk[0]; //装備の物攻
 			$dmg *= $skill["pow"] / 100;
 			// 追加防御無視ダメージ
-			if ($user->SPECIAL["Pierce"]["0"])
+			if ($char->SPECIAL["Pierce"]["0"])
 			{
-				$Pierce = $user->SPECIAL["Pierce"]["0"] * $skill["pow"] / 100;
+				$Pierce = $char->SPECIAL["Pierce"]["0"] * $skill["pow"] / 100;
 			}
 		}
 		else
 		{ //魔法
-			$int = $user->INT;
+			$int = $char->INT;
 			$dmg = sqrt($int) * 10;
-			$dmg += $user->atk[1]; //装備の魔攻
+			$dmg += $char->atk[1]; //装備の魔攻
 			$dmg *= $skill["pow"] / 100;
 			// 追加防御無視ダメージ
-			if ($user->SPECIAL["Pierce"]["1"])
+			if ($char->SPECIAL["Pierce"]["1"])
 			{
-				$Pierce = $user->SPECIAL["Pierce"]["1"] * $skill["pow"] / 100;
+				$Pierce = $char->SPECIAL["Pierce"]["1"] * $skill["pow"] / 100;
 			}
 		}
 
@@ -780,10 +780,10 @@ class HOF_Class_Skill_Effect
 	/**
 	 * HPの吸収
 	 */
-	static function AbsorbHP(&$target, $value, &$user, $value2)
+	static function AbsorbHP(&$target, $value, &$char, $value2)
 	{
 		print ('Drained <span class="recover"><span class="bold">' . $value . '</span> HP</span>');
-		$user->HpRecover($value);
+		$char->HpRecover($value);
 		print (' from ' . $target->Name('bold'));
 		$target->HpDamage($value);
 		print ("<br />\n");
@@ -792,10 +792,10 @@ class HOF_Class_Skill_Effect
 	/**
 	 * SPの回復
 	 */
-	static function AbsorbSP(&$target, $value, &$user, $value2)
+	static function AbsorbSP(&$target, $value, &$char, $value2)
 	{
 		print ('Drained <span class="support"><span class="bold">' . $value . '</span> SP</span>');
-		$user->SpRecover($value);
+		$char->SpRecover($value);
 		print (' from ' . $target->Name('bold'));
 		$target->SpDamage($value);
 		print ("<br />\n");
@@ -804,18 +804,18 @@ class HOF_Class_Skill_Effect
 	/**
 	 * 回復量の計算
 	 */
-	static function CalcRecoveryValue($skill, $user, $target)
+	static function CalcRecoveryValue($skill, $char, $target)
 	{
-		$int = $user->INT;
+		$int = $char->INT;
 		$heal = sqrt($int) * 10;
-		$heal += $user->atk["1"]; //装備の魔攻
+		$heal += $char->atk["1"]; //装備の魔攻
 		$heal *= $skill["pow"] / 100;
 		$heal = ceil($heal);
 
 		// 回復量増加系パッシブ
 
 		// 受ける側が回復量増加系のパッシブスキルを持っていたら増す
-		//if($user->special["?"])
+		//if($char->special["?"])
 		//
 
 		return $heal;
