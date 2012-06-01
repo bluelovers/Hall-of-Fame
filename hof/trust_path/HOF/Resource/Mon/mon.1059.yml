@@ -1,8 +1,6 @@
 no: 1059
 name: FloraElement
 img: mon_028
-exphold: '1000'
-moneyhold: '1000'
 level: '40'
 maxhp: '1000'
 hp: '1000'
@@ -22,9 +20,12 @@ def:
     - 20
     - 50
     - 50
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '1000'
+    itemtable: {  }
+    exphold: '1000'
