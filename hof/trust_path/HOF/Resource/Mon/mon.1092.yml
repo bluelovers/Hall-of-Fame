@@ -1,8 +1,6 @@
 no: 1092
 name: Bandits
 img: mon_216r
-exphold: '500'
-moneyhold: '60'
 level: '32'
 maxhp: '600'
 hp: '600'
@@ -22,7 +20,6 @@ def:
     - 0
     - 20
     - 0
-itemtable: {  }
 pattern:
     -
         judge: 1902
@@ -48,3 +45,7 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1000
+reward:
+    moneyhold: '60'
+    itemtable: {  }
+    exphold: '500'
