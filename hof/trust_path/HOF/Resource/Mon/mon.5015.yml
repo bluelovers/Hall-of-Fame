@@ -1,8 +1,6 @@
 no: 5015
 name: Sprite
 img: mon_124
-exphold: '0'
-moneyhold: '0'
 level: '10'
 maxhp: '200'
 hp: '200'
@@ -36,3 +34,6 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5016
+reward:
+    moneyhold: '0'
+    exphold: '0'
