@@ -28,30 +28,6 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 	var $statuspoint;
 	var $skillpoint;
 
-	/**
-	 * 装備
-	 */
-	//var $weapon, $shield, $armor, $item;
-
-	/*
-	function __construct($file = false)
-	{
-		$this->_extend_init();
-
-		if (!$file) return 0;
-
-		$this->file = $file;
-
-		$this->id = HOF_Helper_Char::char_id_by_file($this->file);
-
-		$this->fp = HOF_Class_File::fplock_file($this->file);
-
-		$data = HOF_Class_Yaml::load($this->fp);
-
-		$this->setCharData($data);
-	}
-	*/
-
 	function no($val = null)
 	{
 		if ($val !== null)
@@ -524,6 +500,8 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 	{
 		if ($this->_cache_char_['init'][__FUNCTION__ ]) return false;
 
+		parent::setBattleVariable();
+
 		$this->_cache_char_['init'][__FUNCTION__ ] = true;
 
 		// パッシブスキルを読む
@@ -543,12 +521,6 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 		$this->DEX = $this->dex + $this->P_DEX;
 		$this->SPD = $this->spd + $this->P_SPD;
 		$this->LUK = $this->luk + $this->P_LUK;
-		$this->POSITION = $this->position;
-		$this->STATE = 0; //生存状態にする
-
-		$this->expect = false; //(数値=詠唱中 false=待機中)
-		$this->ActCount = 0; //行動回数
-		$this->JdgCount = array(); //決定した判断の回数
 	}
 
 	//	キャラの攻撃力と防御力,装備性能を計算する
