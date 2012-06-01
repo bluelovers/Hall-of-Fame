@@ -478,7 +478,10 @@ class HOF_Class_Skill_Effect
 				if ($skill["MagicCircleDeleteEnemy"])
 				{
 					// 相手チームを指定
-					$EnemyTeam = ($char->team()->team_idx() == TEAM_0) ? TEAM_1 : TEAM_0;
+					//$EnemyTeam = ($char->team()->team_idx() == TEAM_0) ? TEAM_1 : TEAM_0;
+
+					list(, $EnemyTeam) = $this->battle->teamToggle($char->team());
+
 					$this->battle->changeMagicCircle($EnemyTeam, $skill["MagicCircleDeleteEnemy"], -1);
 					print ($char->Name('bold') . '<span class="dmg"> erased enemy MagicCircle x' . $skill["MagicCircleDeleteEnemy"] . '</span><br />' . "\n");
 				}
