@@ -52,7 +52,7 @@ class HOF_Class_Base_Extend_Root implements HOF_Class_Base_Extend_RootInterface
 		return array($idx, $class);
 	}
 
-	function hasExtend($extend, $idx = null)
+	public function hasExtend($extend, $idx = null)
 	{
 		if (is_object($extend))
 		{
@@ -68,9 +68,19 @@ class HOF_Class_Base_Extend_Root implements HOF_Class_Base_Extend_RootInterface
 		return isset($this->_extends_[$idx]);
 	}
 
-	function hasExtendMethod($method)
+	public function hasExtendMethod($method)
 	{
 		return isset($this->_extends_method_[$method]);
+	}
+
+	protected function refreshExtend()
+	{
+		foreach ($this->_extends_ as $idx => $data)
+		{
+			$class = $data['class'];
+
+			$this->extend($class, $idx);
+		}
 	}
 
 	public function extend($extend, $idx = null)
