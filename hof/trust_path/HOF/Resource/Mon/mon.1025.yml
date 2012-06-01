@@ -2,8 +2,6 @@ no: 1025
 name: MimicMonster
 img: mon_066
 level: '22'
-exphold: '100'
-moneyhold: '300'
 maxhp: '200'
 hp: '200'
 maxsp: '10'
@@ -22,11 +20,14 @@ def:
     - 40
     - 65
     - 40
-itemtable:
-    8003: '3000'
-    6002: '2000'
 pattern:
     -
         judge: 1000
         quantity: 0
         action: 1000
+reward:
+    moneyhold: '300'
+    itemtable:
+        8003: '3000'
+        6002: '2000'
+    exphold: '100'
