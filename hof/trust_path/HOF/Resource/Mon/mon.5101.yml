@@ -1,8 +1,6 @@
 no: 5101
 name: FallenAngel
 img: mon_239r
-exphold: '0'
-moneyhold: '0'
 level: '80'
 maxhp: '1100'
 hp: '1100'
@@ -40,3 +38,6 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5028
+reward:
+    moneyhold: '0'
+    exphold: '0'
