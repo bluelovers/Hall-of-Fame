@@ -1,8 +1,6 @@
 no: 2002
 name: FakeHeroes
 img: hero
-exphold: 5075
-moneyhold: 3383
 level: '90'
 maxhp: 10150
 hp: 10150
@@ -23,9 +21,6 @@ def:
     - 50
     - 40
     - 40
-itemtable:
-    1021: '9000'
-    6802: '1000'
 SPECIAL:
     PoisonResist: 50
 cycle: 43200
@@ -85,3 +80,9 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5019
+reward:
+    moneyhold: 3383
+    itemtable:
+        1021: '9000'
+        6802: '1000'
+    exphold: 5075
