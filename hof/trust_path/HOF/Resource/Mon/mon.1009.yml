@@ -2,8 +2,6 @@ no: 1009
 name: GoblinTank
 img: mon_078
 level: '15'
-exphold: '100'
-moneyhold: '100'
 maxhp: '700'
 hp: '700'
 maxsp: '150'
@@ -23,10 +21,6 @@ def:
     - 10
     - 20
     - 10
-itemtable:
-    6040: '1000'
-    6020: '1000'
-    7100: '100'
 pattern:
     -
         judge: 1902
@@ -50,3 +44,10 @@ pattern:
         action: 1000
 info:
     desc: HPが高い。
+reward:
+    moneyhold: '100'
+    itemtable:
+        6040: '1000'
+        6020: '1000'
+        7100: '100'
+    exphold: '100'
