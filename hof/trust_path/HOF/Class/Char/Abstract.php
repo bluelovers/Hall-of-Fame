@@ -373,6 +373,10 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		{
 			$this->POSITION = (mt_rand(0, 1) ? POSITION_FRONT : POSITION_BACK);
 		}
+		else
+		{
+			$this->POSITION = $this->position;
+		}
 
 		$this->expect = false;
 		$this->ActCount = 0;
