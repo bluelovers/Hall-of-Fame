@@ -86,19 +86,53 @@ class HOF_Class_Array_Prop extends ArrayObject
 		return $return;
 	}
 
+	public function array_walk_recursive()
+	{
+		$args = func_get_args();
+
+		$arr = $this->getArrayCopy();
+
+		array_unshift($args, &$arr);
+
+		$return = call_user_func_array(__FUNCTION__, $args);
+
+		$this->exchangeArray($arr);
+
+		return $return;
+	}
+
 	public function array_map()
 	{
 		return call_user_func(array($this, '_array_func'), __FUNCTION__, func_get_args());
 	}
 
-	public function array_merge($arr)
+	public function array_merge()
 	{
-		foreach ($arr as $k => &$v)
-		{
-			$this->$k = $v;
-		}
+		return call_user_func(array($this, '_array_func'), __FUNCTION__, func_get_args());
+	}
+
+	public function merge()
+	{
+		$arr = call_user_func(array($this, 'array_merge'), func_get_args());
+
+		$this->exchangeArray($arr);
 
 		return $this;
+	}
+
+	public function array_intersect()
+	{
+		return call_user_func(array($this, '_array_func'), __FUNCTION__, func_get_args());
+	}
+
+	public function array_intersect_assoc()
+	{
+		return call_user_func(array($this, '_array_func'), __FUNCTION__, func_get_args());
+	}
+
+	public function array_intersect_key()
+	{
+		return call_user_func(array($this, '_array_func'), __FUNCTION__, func_get_args());
 	}
 
 	protected function _array_func($func, $argv)
@@ -115,6 +149,11 @@ class HOF_Class_Array_Prop extends ArrayObject
 		return call_user_func(array($this, '_array_func'), __FUNCTION__, func_get_args());
 	}
 
+	public function array_reduce()
+	{
+		return call_user_func(array($this, '_array_func'), __FUNCTION__, func_get_args());
+	}
+
 	public function array_keys()
 	{
 		return call_user_func(array($this, '_array_func'), __FUNCTION__, func_get_args());
@@ -126,6 +165,36 @@ class HOF_Class_Array_Prop extends ArrayObject
 	}
 
 	public function array_rand()
+	{
+		return call_user_func(array($this, '_array_func'), __FUNCTION__, func_get_args());
+	}
+
+	public function array_replace_recursive()
+	{
+		return call_user_func(array($this, '_array_func'), __FUNCTION__, func_get_args());
+	}
+
+	public function array_replace()
+	{
+		return call_user_func(array($this, '_array_func'), __FUNCTION__, func_get_args());
+	}
+
+	public function array_reverse()
+	{
+		return call_user_func(array($this, '_array_func'), __FUNCTION__, func_get_args());
+	}
+
+	public function array_search()
+	{
+		return call_user_func(array($this, '_array_func'), __FUNCTION__, func_get_args());
+	}
+
+	public function array_unique()
+	{
+		return call_user_func(array($this, '_array_func'), __FUNCTION__, func_get_args());
+	}
+
+	public function array_values()
 	{
 		return call_user_func(array($this, '_array_func'), __FUNCTION__, func_get_args());
 	}
@@ -154,7 +223,7 @@ class HOF_Class_Array_Prop extends ArrayObject
 
 	public function prepend($entry)
 	{
-		$this->insert(0, $entry);
+		$this->array_splice(0, 0, array($entry));
 
 		return $this;
 	}
