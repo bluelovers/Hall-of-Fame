@@ -1,8 +1,6 @@
 no: 5012
 name: TrainedBear
 img: mon_085r
-exphold: '0'
-moneyhold: '0'
 level: '10'
 maxhp: '500'
 hp: '500'
@@ -32,3 +30,6 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5012
+reward:
+    moneyhold: '0'
+    exphold: '0'
