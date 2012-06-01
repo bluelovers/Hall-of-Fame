@@ -1,8 +1,6 @@
 no: 2010
 name: BlueSentinel
 img: mon_195r
-exphold: 5035
-moneyhold: 3357
 level: '67'
 maxhp: 10070
 hp: 10070
@@ -23,7 +21,6 @@ def:
     - 50
     - 50
     - 50
-itemtable: {  }
 SPECIAL:
     PoisonResist: 60
 cycle: 61200
@@ -40,3 +37,7 @@ servant:
 land: ocean1
 lv_limit: '150'
 pattern: {  }
+reward:
+    moneyhold: 3357
+    itemtable: {  }
+    exphold: 5035
