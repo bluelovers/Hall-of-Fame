@@ -2,8 +2,6 @@ no: 1103
 name: ThunderBirdy
 img: mon_208rz
 level: '35'
-exphold: '500'
-moneyhold: '100'
 maxhp: '1000'
 hp: '1000'
 maxsp: '500'
@@ -23,3 +21,6 @@ def:
     - 50
     - 40
 pattern: {  }
+reward:
+    moneyhold: '100'
+    exphold: '500'
