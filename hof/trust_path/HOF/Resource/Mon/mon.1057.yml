@@ -1,8 +1,6 @@
 no: 1057
 name: SmogGorrem
 img: mon_130
-exphold: '470'
-moneyhold: '10'
 level: '34'
 maxhp: '500'
 hp: '500'
@@ -22,9 +20,12 @@ def:
     - 0
     - 0
     - 30
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '10'
+    itemtable: {  }
+    exphold: '470'
