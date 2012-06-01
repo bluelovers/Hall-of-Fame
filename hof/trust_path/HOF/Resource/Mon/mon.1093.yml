@@ -1,8 +1,6 @@
 no: 1093
 name: BanditsGirl
 img: mon_217
-exphold: '400'
-moneyhold: '70'
 level: '28'
 maxhp: '520'
 hp: '520'
@@ -22,7 +20,6 @@ def:
     - 0
     - 30
     - 0
-itemtable: {  }
 pattern:
     -
         judge: 1902
@@ -52,3 +49,7 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1000
+reward:
+    moneyhold: '70'
+    itemtable: {  }
+    exphold: '400'
