@@ -2,8 +2,6 @@ no: 1000
 name: GoblinAxe
 img: mon_053
 level: '1'
-exphold: '20'
-moneyhold: '40'
 maxhp: '140'
 hp: '140'
 maxsp: '80'
@@ -23,12 +21,6 @@ def:
     - 3
     - 5
     - 0
-itemtable:
-    6000: '1000'
-    6001: '1000'
-    6002: '600'
-    6003: '200'
-    7100: '100'
 pattern:
     -
         judge: 1940
@@ -44,3 +36,12 @@ pattern:
         action: 1000
 info:
     desc: SPがあるときは、強い攻撃をたまにしてくる程度。
+reward:
+    moneyhold: '40'
+    itemtable:
+        6000: '1000'
+        6001: '1000'
+        6002: '600'
+        6003: '200'
+        7100: '100'
+    exphold: '20'
