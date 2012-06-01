@@ -1,8 +1,6 @@
 no: 5103
 name: Ifrit
 img: mon_170rz
-exphold: '0'
-moneyhold: '0'
 level: '70'
 maxhp: '1300'
 hp: '1300'
@@ -36,3 +34,6 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1115
+reward:
+    moneyhold: '0'
+    exphold: '0'
