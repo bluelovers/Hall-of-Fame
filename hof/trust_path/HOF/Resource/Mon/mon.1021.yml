@@ -2,8 +2,6 @@ no: 1021
 name: SkullShaman
 img: mon_108
 level: '15'
-exphold: '150'
-moneyhold: '80'
 maxhp: '270'
 hp: '270'
 maxsp: '210'
@@ -23,8 +21,6 @@ def:
     - 10
     - 60
     - 20
-itemtable:
-    6182: '1200'
 pattern:
     -
         judge: 1201
@@ -42,3 +38,8 @@ pattern:
         judge: 1000
         quantity: 0
         action: 2011
+reward:
+    moneyhold: '80'
+    itemtable:
+        6182: '1200'
+    exphold: '150'
