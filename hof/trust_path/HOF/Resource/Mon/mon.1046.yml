@@ -1,8 +1,6 @@
 no: 1046
 name: FatherChristmas
 img: mon_188
-exphold: '3000'
-moneyhold: '3000'
 level: '32'
 maxhp: '1000'
 hp: '1000'
@@ -22,8 +20,6 @@ def:
     - 20
     - 35
     - 50
-itemtable:
-    6160: '3000'
 pattern:
     -
         judge: 1920
@@ -37,3 +33,8 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5052
+reward:
+    moneyhold: '3000'
+    itemtable:
+        6160: '3000'
+    exphold: '3000'
