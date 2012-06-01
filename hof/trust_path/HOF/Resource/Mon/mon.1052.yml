@@ -1,8 +1,6 @@
 no: 1052
 name: DarkElfShaman
 img: mon_220r
-exphold: '600'
-moneyhold: '300'
 level: '41'
 maxhp: '420'
 hp: '420'
@@ -23,9 +21,12 @@ def:
     - 10
     - 60
     - 60
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '300'
+    itemtable: {  }
+    exphold: '600'
