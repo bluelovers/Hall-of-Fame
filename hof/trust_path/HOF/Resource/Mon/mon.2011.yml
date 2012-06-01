@@ -1,8 +1,6 @@
 no: 2011
 name: OgreSquad
 img: mon_168
-exphold: 5040
-moneyhold: 3360
 level: '99'
 maxhp: 10080
 hp: 10080
@@ -23,7 +21,6 @@ def:
     - 40
     - 50
     - 50
-itemtable: {  }
 SPECIAL:
     PoisonResist: 50
 cycle: 68400
@@ -52,3 +49,7 @@ servant:
 land: mount
 lv_limit: '150'
 pattern: {  }
+reward:
+    moneyhold: 3360
+    itemtable: {  }
+    exphold: 5040
