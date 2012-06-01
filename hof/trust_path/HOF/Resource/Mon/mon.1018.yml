@@ -2,8 +2,6 @@ no: 1018
 name: SkeltonWarrior
 img: mon_032
 level: '16'
-exphold: '160'
-moneyhold: '130'
 maxhp: '480'
 hp: '480'
 maxsp: '80'
@@ -23,10 +21,6 @@ def:
     - 25
     - 0
     - 0
-itemtable:
-    6001: '1000'
-    6002: '1000'
-    6003: '500'
 pattern:
     -
         judge: 1200
@@ -36,3 +30,10 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1000
+reward:
+    moneyhold: '130'
+    itemtable:
+        6001: '1000'
+        6002: '1000'
+        6003: '500'
+    exphold: '160'
