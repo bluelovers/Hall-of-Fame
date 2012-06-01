@@ -1,8 +1,6 @@
 no: 2005
 name: LunchTime
 img: mon_054ry
-exphold: 510
-moneyhold: 340
 level: '30'
 maxhp: 1020
 hp: 1020
@@ -23,7 +21,6 @@ def:
     - 20
     - 30
     - 20
-itemtable: {  }
 SPECIAL:
     PoisonResist: 50
 servantSpecify:
@@ -123,3 +120,7 @@ pattern:
         judge: 1000
         quantity: 0
         action: 2000
+reward:
+    moneyhold: 340
+    itemtable: {  }
+    exphold: 510
