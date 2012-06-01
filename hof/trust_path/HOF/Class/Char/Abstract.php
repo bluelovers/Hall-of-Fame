@@ -119,6 +119,13 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 	protected $_cache_char_;
 
 	/**
+	 * @var $reward[exphold] 経験値
+	 * @var $reward[moneyhold] お金
+	 * @var $reward[itemdrop] 落とすアイテム
+	 */
+	public $reward;
+
+	/**
 	 * 武器タイプ
 	 */
 
@@ -190,7 +197,7 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		$this->fp = false;
 		$this->file = false;
 
-		$this->_extend_init();
+		$this->refreshExtend();
 	}
 
 	public function getClone($owner = null, $player = null)
@@ -286,6 +293,76 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 
 		$data_attr->name && $this->name = (string)$data_attr->name;
 		$this->gender = (int)$data_attr->gender;
+
+		if ($this->isSummon())
+		{
+			$this->reward = array();
+		}
+		else
+		{
+			$this->reward = $data_attr->reward;
+		}
+	}
+
+	public function setBattleVariable()
+	{
+		$this->_cache_char_['init'][__FUNCTION__ ] = true;
+
+		HOF_Helper_Math::rand_seed();
+
+		if ($this->isSummon())
+		{
+			$this->reward = array();
+		}
+		else
+		{
+			$this->reward['exphold'] = isset($this->reward['exphold']) ? (int)$this->reward['exphold'] : 1;
+			$this->reward['moneyhold'] = isset($this->reward['moneyhold']) ? (int)$this->reward['moneyhold'] : 1;
+
+			if (!$this->isChar())
+			{
+				$this->reward['exphold'] = round((int)$this->reward['exphold'] * EXP_RATE);
+				$this->reward['moneyhold'] = round((int)$this->reward['moneyhold'] * MONEY_RATE);
+
+				/**
+				 * 落とすアイテムをもたせる
+				 */
+				if (is_array($this->reward["itemtable"]))
+				{
+					$prob = mt_rand(1, 10000);
+					$sum = 0;
+
+					foreach ($this->reward["itemtable"] as $itemno => $upp)
+					{
+						$sum += $upp;
+						if ($prob <= $sum)
+						{
+							$this->reward["itemdrop"] = $itemno;
+							break;
+						}
+					}
+				}
+			}
+		}
+
+		/**
+		 * 生存状態にする
+		 */
+		$this->STATE = STATE_ALIVE;
+
+		/**
+		 * 前列後列の設定
+		 */
+		if (!$this->position)
+		{
+			$this->POSITION = (mt_rand(0, 1) ? POSITION_FRONT : POSITION_BACK);
+		}
+
+		$this->expect = false;
+		$this->ActCount = 0;
+		$this->JdgCount = array();
+
+		$this->pattern(HOF_Class_Char_Pattern::CHECK_PATTERN);
 	}
 
 	public function saveCharData()
@@ -463,11 +540,11 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 	/**
 	 * @return bool
 	 */
-	public function isUnion()
+	public function isUnion($over = null)
 	{
 		$k = __FUNCTION__;
 
-		if (!isset($this->{$k}))
+		if (!isset($this->{$k}) || $over)
 		{
 			$this->{$k} = $this->hasCharType(HOF_Class_Char::TYPE_UNION);
 		}
@@ -478,11 +555,11 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 	/**
 	 * @return bool
 	 */
-	public function isSummon()
+	public function isSummon($over = null)
 	{
 		$k = __FUNCTION__;
 
-		if (!isset($this->{$k}))
+		if (!isset($this->{$k}) || $over)
 		{
 			$this->{$k} = $this->hasCharType(HOF_Class_Char::TYPE_SUMMON);
 		}
@@ -493,11 +570,11 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 	/**
 	 * @return bool
 	 */
-	public function isMon()
+	public function isMon($over = null)
 	{
 		$k = __FUNCTION__;
 
-		if (!isset($this->{$k}))
+		if (!isset($this->{$k}) || $over)
 		{
 			$this->{$k} = $this->hasCharType(HOF_Class_Char::TYPE_MON);
 		}
@@ -508,11 +585,11 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 	/**
 	 * @return bool
 	 */
-	public function isChar()
+	public function isChar($over = null)
 	{
 		$k = __FUNCTION__;
 
-		if (!isset($this->{$k}))
+		if (!isset($this->{$k}) || $over)
 		{
 			$this->{$k} = $this->hasCharType(HOF_Class_Char::TYPE_CHAR);
 		}
