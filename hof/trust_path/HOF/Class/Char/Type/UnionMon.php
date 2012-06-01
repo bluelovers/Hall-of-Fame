@@ -27,12 +27,6 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 	*/
 	var $LastHP;
 
-	// モンスター専用の変数
-	//var $monster = true;
-	var $exphold; //経験値
-	var $moneyhold; //お金
-	var $itemdrop; //落とすアイテム
-
 	public function file($over = null)
 	{
 		if (!isset($this->file) || $over)
@@ -79,9 +73,6 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 
 		//モンスター専用
 
-		$this->exphold = $data_attr["exphold"];
-		$this->moneyhold = $data_attr["moneyhold"];
-		$this->itemdrop = $data_attr["itemdrop"];
 		$this->atk = $data_attr["atk"];
 		$this->def = $data_attr["def"];
 		$this->SPECIAL = $data_attr["SPECIAL"];
@@ -110,6 +101,8 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 	{
 		if ($this->_cache_char_['init'][__FUNCTION__ ]) return false;
 
+		parent::setBattleVariable();
+
 		$this->_cache_char_['init'][__FUNCTION__ ] = true;
 
 		$this->MAXHP = $this->maxhp;
@@ -121,14 +114,6 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 		$this->DEX = $this->dex + $this->P_DEX;
 		$this->SPD = $this->spd + $this->P_SPD;
 		$this->LUK = $this->luk + $this->P_LUK;
-		$this->POSITION = $this->position;
-		$this->STATE = STATE_ALIVE; //生存状態にする
-
-		$this->expect = false; //(数値=詠唱中 false=待機中)
-		$this->ActCount = 0; //行動回数
-		$this->JdgCount = array(); //決定した判断の回数
-
-		$this->pattern(HOF_Class_Char_Pattern::CHECK_PATTERN);
 	}
 
 	/**
@@ -353,7 +338,7 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 		$dif = $this->LastHP - $this->HP;
 		$this->LastHP = $this->HP;
 		if ($dif < 0) return 0;
-		$exp = ceil($this->exphold * ($dif / $this->maxhp));
+		$exp = ceil($this->reward['exphold'] * ($dif / $this->maxhp));
 		return $exp;
 	}
 
