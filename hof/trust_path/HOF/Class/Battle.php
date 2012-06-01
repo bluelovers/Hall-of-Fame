@@ -90,7 +90,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		foreach ($this->teams as $idx => $data)
 		{
 			$data['no'] = $idx;
-			$data['dmg'] = 0;
+			//$data['dmg'] = 0;
 			$data['team']->update();
 
 			$data['team']->team_idx($idx);
