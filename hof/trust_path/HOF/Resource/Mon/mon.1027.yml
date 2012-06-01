@@ -2,8 +2,6 @@ no: 1027
 name: SkeleCaptain
 img: mon_144r
 level: '27'
-exphold: '460'
-moneyhold: '150'
 maxhp: '1300'
 hp: '1300'
 maxsp: '110'
@@ -23,9 +21,6 @@ def:
     - 80
     - 20
     - 10
-itemtable:
-    8004: '700'
-    6003: '2000'
 pattern:
     -
         judge: 1701
@@ -55,3 +50,9 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1000
+reward:
+    moneyhold: '150'
+    itemtable:
+        8004: '700'
+        6003: '2000'
+    exphold: '460'
