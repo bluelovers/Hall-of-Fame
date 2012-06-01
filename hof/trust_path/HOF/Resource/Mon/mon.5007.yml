@@ -1,8 +1,6 @@
 no: 5007
 name: MummyPrisoner
 img: mon_146r
-exphold: '0'
-moneyhold: '0'
 level: '10'
 maxhp: '650'
 hp: '650'
@@ -30,3 +28,6 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1000
+reward:
+    moneyhold: '0'
+    exphold: '0'
