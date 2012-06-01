@@ -49,27 +49,16 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 		$this->last_death = $data["last_death"];
 
 		$data_attr = new HOF_Class_Array(HOF_Model_Char::getUnionDataMon($this->no));
-		parent::setCharData($data_attr);
+		parent::setCharData($data_attr, $data);
 
 		$this->team_name = $data['data']['team']['name'];
 
-		$this->level = $data_attr["level"];
-
-		$this->img = $data["img"];
-
-		$this->str = $data_attr["str"];
-		$this->int = $data_attr["int"];
-		$this->dex = $data_attr["dex"];
-		$this->spd = $data_attr["spd"];
-		$this->luk = $data_attr["luk"];
+		$this->icon = $this->img = $data["img"];
 
 		$this->maxhp = $data_attr["maxhp"];
 		$this->hp = $data["hp"];
 		$this->maxsp = $data_attr["maxsp"];
 		$this->sp = $data["sp"];
-
-		$this->position = $data_attr["position"];
-		$this->guard = $data_attr["guard"];
 
 		//モンスター専用
 
@@ -90,30 +79,6 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 			$this->sp = $this->maxsp;
 		}
 		$this->LastHP = $data["hp"]; //差分を取るためのHP。
-
-		$this->pattern = $data_attr["pattern"];
-
-
-	}
-
-	//	戦闘用の変数
-	function setBattleVariable()
-	{
-		if ($this->_cache_char_['init'][__FUNCTION__ ]) return false;
-
-		parent::setBattleVariable();
-
-		$this->_cache_char_['init'][__FUNCTION__ ] = true;
-
-		$this->MAXHP = $this->maxhp;
-		$this->HP = $this->hp;
-		$this->MAXSP = $this->maxsp;
-		$this->SP = $this->sp;
-		$this->STR = $this->str + $this->P_STR;
-		$this->INT = $this->int + $this->P_INT;
-		$this->DEX = $this->dex + $this->P_DEX;
-		$this->SPD = $this->spd + $this->P_SPD;
-		$this->LUK = $this->luk + $this->P_LUK;
 	}
 
 	/**
@@ -128,6 +93,9 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 		$data['last_death'] = $this->last_death;
 		$data['hp'] = isset($this->HP) ? $this->HP : $this->hp;
 		$data['sp'] = isset($this->SP) ? $this->SP : $this->sp;
+
+		$data['level'] = $this->level;
+		$data['exp'] = $this->exp;
 
 		HOF_Class_Yaml::save($this->fp, $data);
 
