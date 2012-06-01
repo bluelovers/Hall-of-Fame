@@ -1,8 +1,6 @@
 no: 1081
 name: FlameQueen
 img: mon_190r
-exphold: '2600'
-moneyhold: '900'
 level: '45'
 maxhp: '2300'
 hp: '2300'
@@ -23,9 +21,12 @@ def:
     - 20
     - 30
     - 90
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '900'
+    itemtable: {  }
+    exphold: '2600'
