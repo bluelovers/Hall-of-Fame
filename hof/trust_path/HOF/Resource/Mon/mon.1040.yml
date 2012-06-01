@@ -1,8 +1,6 @@
 no: 1040
 name: SnowManJr
 img: mon_163
-exphold: '250'
-moneyhold: '140'
 level: '20'
 maxhp: '400'
 hp: '400'
@@ -23,10 +21,6 @@ def:
     - 10
     - 35
     - 20
-itemtable:
-    6181: '800'
-    6021: '200'
-    6184: '100'
 pattern:
     -
         judge: 1940
@@ -52,3 +46,10 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5043
+reward:
+    moneyhold: '140'
+    itemtable:
+        6181: '800'
+        6021: '200'
+        6184: '100'
+    exphold: '250'
