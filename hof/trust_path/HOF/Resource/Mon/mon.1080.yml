@@ -1,8 +1,6 @@
 no: 1080
 name: FoolHardy
 img: mon_139r
-exphold: '600'
-moneyhold: '200'
 level: '41'
 maxhp: '1000'
 hp: '1000'
@@ -23,9 +21,12 @@ def:
     - 20
     - 20
     - 10
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '200'
+    itemtable: {  }
+    exphold: '600'
