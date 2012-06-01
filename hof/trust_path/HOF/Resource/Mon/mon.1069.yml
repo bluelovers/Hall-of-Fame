@@ -1,8 +1,6 @@
 no: 1069
 name: MermaidSorcerer
 img: mon_117
-exphold: '420'
-moneyhold: '230'
 level: '35'
 maxhp: '420'
 hp: '420'
@@ -23,9 +21,12 @@ def:
     - 10
     - 40
     - 30
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '230'
+    itemtable: {  }
+    exphold: '420'
