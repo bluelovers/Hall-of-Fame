@@ -118,7 +118,7 @@ class HOF_Class_Char_Job
 	{
 		$this->jobdata($job, $gender);
 
-		return (!$true && isset($this->char->icon)) ? $this->char->icon : $this->char->img;
+		return (!$true && !empty($this->char->icon)) ? $this->char->icon : $this->char->img;
 	}
 
 	public function icon_url($dir = HOF_Class_Icon::IMG_CHAR)
