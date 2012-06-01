@@ -106,17 +106,13 @@ class HOF_Class_Char_Attr
 
 		if ($this->char->isMon())
 		{
-			// モンスターは経験値を得ない
-			//return false;
-
-			$exp = 1;
-			$max_level *= $this->char->isUnion() ? 5 : 1.2;
+			$max_level = floor($max_level * $this->char->isUnion() ? 5 : 1.2);
 		}
 
 		// 最大レベルの場合経験値を得ない
-		if (floor($max_level) <= $this->char->level) return false;
+		if ($max_level <= $this->char->level) return false;
 
-		$this->char->exp += $exp;
+		$this->char->exp += (int)$exp;
 
 		// 必要な経験値
 		$need = $this->CalcExpNeed($this->char->level);
