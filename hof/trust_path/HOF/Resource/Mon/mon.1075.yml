@@ -1,8 +1,6 @@
 no: 1075
 name: LavaGorrem
 img: mon_138
-exphold: '670'
-moneyhold: '370'
 level: '42'
 maxhp: '1300'
 hp: '1300'
@@ -23,9 +21,12 @@ def:
     - 50
     - 20
     - 20
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '370'
+    itemtable: {  }
+    exphold: '670'
