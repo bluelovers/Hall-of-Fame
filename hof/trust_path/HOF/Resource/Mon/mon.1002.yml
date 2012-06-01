@@ -2,8 +2,6 @@ no: 1002
 name: GoblinBoarRider
 img: mon_095
 level: '3'
-exphold: '30'
-moneyhold: '40'
 maxhp: '270'
 hp: '270'
 maxsp: '70'
@@ -22,10 +20,6 @@ def:
     - 1
     - 20
     - 1
-itemtable:
-    6001: '1000'
-    6040: '1500'
-    7100: '100'
 pattern:
     -
         judge: 1902
@@ -49,3 +43,10 @@ pattern:
         action: 1000
 info:
     desc: 後列に押し出す攻撃をする。
+reward:
+    moneyhold: '40'
+    itemtable:
+        6001: '1000'
+        6040: '1500'
+        7100: '100'
+    exphold: '30'
