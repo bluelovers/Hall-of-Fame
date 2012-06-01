@@ -2,8 +2,6 @@ no: 1017
 name: BatChief
 img: mon_147z
 level: '20'
-exphold: '1500'
-moneyhold: '500'
 maxhp: '500'
 hp: '500'
 maxsp: '300'
@@ -22,8 +20,6 @@ def:
     - 20
     - 30
     - 50
-itemtable:
-    8001: '10000'
 pattern:
     -
         judge: 1902
@@ -43,3 +39,8 @@ pattern:
         action: 2031
 info:
     desc: 洞窟のボス。倒すと奥に行けるようになる。
+reward:
+    moneyhold: '500'
+    itemtable:
+        8001: '10000'
+    exphold: '1500'
