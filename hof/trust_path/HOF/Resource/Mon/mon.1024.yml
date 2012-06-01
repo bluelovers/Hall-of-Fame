@@ -2,8 +2,6 @@ no: 1024
 name: GoblinSmith
 img: mon_053r
 level: '18'
-exphold: '200'
-moneyhold: '80'
 maxhp: '570'
 hp: '570'
 maxsp: '100'
@@ -23,10 +21,6 @@ def:
     - 30
     - 30
     - 0
-itemtable:
-    6001: '500'
-    6002: '1000'
-    6003: '800'
 pattern:
     -
         judge: 1201
@@ -40,3 +34,10 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5034
+reward:
+    moneyhold: '80'
+    itemtable:
+        6001: '500'
+        6002: '1000'
+        6003: '800'
+    exphold: '200'
