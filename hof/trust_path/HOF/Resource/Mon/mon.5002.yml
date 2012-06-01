@@ -20,10 +20,11 @@ def:
     - 30
     - 70
     - 10
-itemtable:
-    8002: '3000'
 pattern:
     -
         judge: 1000
         quantity: 0
         action: 1000
+reward:
+    itemtable:
+        8002: '3000'
