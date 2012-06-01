@@ -1,8 +1,6 @@
 no: 1091
 name: HunterWolf
 img: mon_184rz
-exphold: '400'
-moneyhold: '100'
 level: '29'
 maxhp: '320'
 hp: '320'
@@ -22,7 +20,6 @@ def:
     - 0
     - 15
     - 0
-itemtable: {  }
 pattern:
     -
         judge: 1902
@@ -40,3 +37,7 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5057
+reward:
+    moneyhold: '100'
+    itemtable: {  }
+    exphold: '400'
