@@ -1,8 +1,6 @@
 no: 1900
 name: '***********'
 img: mon_190
-exphold: '0'
-moneyhold: '0'
 level: ''
 maxhp: ''
 hp: ''
@@ -23,9 +21,12 @@ def:
     - 0
     - 0
     - 0
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '0'
+    itemtable: {  }
+    exphold: '0'
