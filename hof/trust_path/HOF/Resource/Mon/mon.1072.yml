@@ -1,8 +1,6 @@
 no: 1072
 name: Harpe
 img: mon_125
-exphold: '420'
-moneyhold: '240'
 level: '29'
 maxhp: '510'
 hp: '510'
@@ -22,9 +20,12 @@ def:
     - 20
     - 30
     - 30
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '240'
+    itemtable: {  }
+    exphold: '420'
