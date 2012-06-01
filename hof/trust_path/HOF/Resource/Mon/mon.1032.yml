@@ -2,8 +2,6 @@ no: 1032
 name: CentaurHunter
 img: mon_129
 level: '39'
-exphold: '520'
-moneyhold: '300'
 maxhp: '670'
 hp: '670'
 maxsp: '150'
@@ -23,9 +21,6 @@ def:
     - 30
     - 30
     - 30
-itemtable:
-    6021: '1500'
-    6022: '700'
 pattern:
     -
         judge: 1201
@@ -39,3 +34,9 @@ pattern:
         judge: 1000
         quantity: 0
         action: 2305
+reward:
+    moneyhold: '300'
+    itemtable:
+        6021: '1500'
+        6022: '700'
+    exphold: '520'
