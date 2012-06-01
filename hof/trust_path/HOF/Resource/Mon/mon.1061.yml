@@ -1,8 +1,6 @@
 no: 1061
 name: NubPirate
 img: mon_063
-exphold: '170'
-moneyhold: '30'
 level: '16'
 maxhp: '410'
 hp: '410'
@@ -23,9 +21,12 @@ def:
     - 10
     - 10
     - 10
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '30'
+    itemtable: {  }
+    exphold: '170'
