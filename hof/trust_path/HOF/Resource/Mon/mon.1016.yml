@@ -2,8 +2,6 @@ no: 1016
 name: Hermit
 img: mon_034z
 level: '14'
-exphold: '120'
-moneyhold: '100'
 maxhp: '320'
 hp: '320'
 maxsp: '180'
@@ -23,10 +21,6 @@ def:
     - 10
     - 20
     - 10
-itemtable:
-    6020: '1500'
-    6021: '900'
-    6022: '300'
 pattern:
     -
         judge: 1201
@@ -40,3 +34,10 @@ pattern:
         judge: 1000
         quantity: 0
         action: 3222
+reward:
+    moneyhold: '100'
+    itemtable:
+        6020: '1500'
+        6021: '900'
+        6022: '300'
+    exphold: '120'
