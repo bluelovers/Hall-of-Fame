@@ -2,8 +2,6 @@ no: 1102
 name: Egg
 img: mon_207
 level: '30'
-exphold: '300'
-moneyhold: '100'
 maxhp: '300'
 hp: '300'
 maxsp: '10'
@@ -24,3 +22,6 @@ def:
     - 70
     - 10
 pattern: {  }
+reward:
+    moneyhold: '100'
+    exphold: '300'
