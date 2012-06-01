@@ -1,8 +1,6 @@
 no: 5017
 name: Dragon
 img: mon_013
-exphold: '0'
-moneyhold: '0'
 level: '10'
 maxhp: '700'
 hp: '700'
@@ -36,3 +34,6 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5014
+reward:
+    moneyhold: '0'
+    exphold: '0'
