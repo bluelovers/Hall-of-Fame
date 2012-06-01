@@ -1,8 +1,6 @@
 no: 5100
 name: ArchAngel
 img: mon_239
-exphold: '0'
-moneyhold: '0'
 level: '80'
 maxhp: '1000'
 hp: '1000'
@@ -48,3 +46,6 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5025
+reward:
+    moneyhold: '0'
+    exphold: '0'
