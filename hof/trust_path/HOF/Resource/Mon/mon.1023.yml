@@ -2,8 +2,6 @@ no: 1023
 name: Cyclops
 img: mon_139
 level: '20'
-exphold: '250'
-moneyhold: '30'
 maxhp: '680'
 hp: '680'
 maxsp: '100'
@@ -23,10 +21,6 @@ def:
     - 30
     - 10
     - 0
-itemtable:
-    6001: '500'
-    6002: '800'
-    6003: '500'
 pattern:
     -
         judge: 1200
@@ -40,3 +34,10 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5031
+reward:
+    moneyhold: '30'
+    itemtable:
+        6001: '500'
+        6002: '800'
+        6003: '500'
+    exphold: '250'
