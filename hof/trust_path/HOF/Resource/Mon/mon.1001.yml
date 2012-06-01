@@ -2,8 +2,6 @@ no: 1001
 name: GoblinWarrior
 img: mon_052
 level: '1'
-exphold: '20'
-moneyhold: '40'
 maxhp: '180'
 hp: '180'
 maxsp: '50'
@@ -23,12 +21,6 @@ def:
     - 5
     - 10
     - 0
-itemtable:
-    6000: '1000'
-    6001: '1000'
-    6002: '600'
-    6003: '200'
-    7100: '100'
 pattern:
     -
         judge: 1940
@@ -44,3 +36,12 @@ pattern:
         action: 1000
 info:
     desc: SPがあるときは、強い攻撃をたまにしてくる程度。
+reward:
+    moneyhold: '40'
+    itemtable:
+        6000: '1000'
+        6001: '1000'
+        6002: '600'
+        6003: '200'
+        7100: '100'
+    exphold: '20'
