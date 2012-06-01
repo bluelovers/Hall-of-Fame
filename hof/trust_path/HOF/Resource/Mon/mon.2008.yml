@@ -1,8 +1,6 @@
 no: 2008
 name: 'Bird''sNest'
 img: mon_208r
-exphold: 5050
-moneyhold: 3367
 level: '70'
 maxhp: 10100
 hp: 10100
@@ -23,7 +21,6 @@ def:
     - 30
     - 30
     - 200
-itemtable: {  }
 SPECIAL:
     PoisonResist: 50
 cycle: 97200
@@ -52,3 +49,7 @@ servant:
 land: nest
 lv_limit: '150'
 pattern: {  }
+reward:
+    moneyhold: 3367
+    itemtable: {  }
+    exphold: 5050
