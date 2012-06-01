@@ -68,25 +68,14 @@ class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 	{
 		parent::setCharData($data_attr);
 
+		$this->icon = $this->img;
+
 		$this->no = $data_attr["no"];
-
-		$this->level = $data_attr["level"];
-
-		//$this->img = $data_attr["img"];
-
-		$this->str = $data_attr["str"];
-		$this->int = $data_attr["int"];
-		$this->dex = $data_attr["dex"];
-		$this->spd = $data_attr["spd"];
-		$this->luk = $data_attr["luk"];
 
 		$this->maxhp = $data_attr["maxhp"];
 		$this->hp = $data_attr["hp"];
 		$this->maxsp = $data_attr["maxsp"];
 		$this->sp = $data_attr["sp"];
-
-		$this->position = $data_attr["position"];
-		$this->guard = $data_attr["guard"];
 
 		// モンスター専用
 		//$this->monster		= $data_attr["monster"];
@@ -95,30 +84,6 @@ class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 		$this->atk = $data_attr["atk"];
 		$this->def = $data_attr["def"];
 		$this->SPECIAL = $data_attr["SPECIAL"];
-
-		$this->pattern = $data_attr["pattern"];
-	}
-
-	/**
-	 * 戦闘用の変数
-	 */
-	function setBattleVariable()
-	{
-		if ($this->_cache_char_['init'][__FUNCTION__ ]) return false;
-
-		parent::setBattleVariable();
-
-		$this->_cache_char_['init'][__FUNCTION__ ] = true;
-
-		$this->MAXHP = $this->maxhp;
-		$this->HP = $this->hp;
-		$this->MAXSP = $this->maxsp;
-		$this->SP = $this->sp;
-		$this->STR = $this->str + $this->P_STR;
-		$this->INT = $this->int + $this->P_INT;
-		$this->DEX = $this->dex + $this->P_DEX;
-		$this->SPD = $this->spd + $this->P_SPD;
-		$this->LUK = $this->luk + $this->P_LUK;
 	}
 
 }
