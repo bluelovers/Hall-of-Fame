@@ -1,8 +1,6 @@
 no: 1049
 name: FrostQueen
 img: mon_190
-exphold: '2200'
-moneyhold: '800'
 level: '43'
 maxhp: '900'
 hp: '900'
@@ -23,8 +21,6 @@ def:
     - 10
     - 40
     - 100
-itemtable:
-    6160: '2000'
 pattern:
     -
         judge: 1201
@@ -46,3 +42,8 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5054
+reward:
+    moneyhold: '800'
+    itemtable:
+        6160: '2000'
+    exphold: '2200'
