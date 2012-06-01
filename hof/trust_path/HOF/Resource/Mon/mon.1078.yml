@@ -1,8 +1,6 @@
 no: 1078
 name: HungryJackal
 img: mon_249
-exphold: '320'
-moneyhold: '300'
 level: '32'
 maxhp: '700'
 hp: '700'
@@ -22,9 +20,12 @@ def:
     - 10
     - 20
     - 20
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '300'
+    itemtable: {  }
+    exphold: '320'
