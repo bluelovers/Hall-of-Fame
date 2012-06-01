@@ -412,7 +412,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 
 		if (!$fail)
 		{
-			if ($this->GetHandle() < $this->GetHandle(true))
+			if ($this->getHandle() < $this->getHandle(true))
 			{
 				$fail = true;
 
@@ -439,7 +439,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 	/**
 	 * 新ワザを追加する。
 	 */
-	function GetNewSkill($no)
+	function skill_add($no)
 	{
 		$this->skill[] = $no;
 		sort($this->skill);
@@ -474,7 +474,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 	}
 
 	//	パッシブスキルを読み込む
-	function LoadPassiveSkills()
+	function skill_passive()
 	{
 		$passive_list = HOF_Model_Data::getSkillPassiveList();
 
@@ -503,7 +503,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 	{
 		if ($this->_cache_char_['init'][__FUNCTION__ ]) return false;
 
-		$this->LoadPassiveSkills();
+		$this->skill_passive();
 		$this->CalcEquips();
 
 		parent::setBattleVariable();
@@ -555,7 +555,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 	}
 
 	//	handle計算
-	function GetHandle($equip = false)
+	function getHandle($equip = false)
 	{
 		if ($equip)
 		{
@@ -578,7 +578,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 	}
 
 	//	ポイントを消費して技を覚える。
-	function LearnNewSkill($no)
+	function skill_learn($no)
 	{
 		//もし習得済みなら?
 		if (in_array($no, $this->skill)) return array(false, "{$skill[name]} は修得済み.");
@@ -591,9 +591,9 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 
 		$skill = HOF_Model_Data::getSkill($no);
 
-		if ($this->UseSkillPoint($skill["learn"]))
+		if ($this->skill_point_use($skill["learn"]))
 		{
-			$this->GetNewSkill($skill["no"]);
+			$this->skill_add($skill["no"]);
 
 			//$this->saveCharData();
 			return array(true, $this->Name() . " は {$skill[name]} を修得した。");
@@ -606,7 +606,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 
 
 	//	スキルポイントを消費する
-	function UseSKillPoint($no)
+	function skill_point_use($no)
 	{
 		if ($no <= $this->skillpoint)
 		{
