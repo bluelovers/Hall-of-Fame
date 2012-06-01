@@ -195,11 +195,6 @@ class HOF_Model_Char extends HOF_Class_Data
 			}
 		}
 
-		if ($data)
-		{
-			$data = self::_fixMonData($data);
-		}
-
 		return $data;
 	}
 
@@ -338,57 +333,6 @@ class HOF_Model_Char extends HOF_Class_Data
 		$data = self::getInstance()->_load('mon', $no);
 
 		if (!$data) return false;
-
-		$data = self::_fixMonData($data, $over);
-
-		return $data;
-	}
-
-	function _fixMonData($data, $over = null)
-	{
-		static $overlap;
-
-		///// 色々変数追加・編集 /////////////////////
-
-		if ($no < 2000)
-		{
-			$data["moneyhold"] = 100;
-		}
-
-		// 名前が重複しないように Slime(A),Slime(B)みたいにする
-		if ($over)
-		{
-			$letter = "A"; //文字(数字でもおｋ)
-			$letter = chr(ord($letter) + $overlap[$no]);
-			$overlap[$no]++; //繰上げ
-			$style = "({$letter})"; //どんな感じで加えるか これだと"(B)"みたいになる
-			$data["name"] .= $style; //実際に名前の後ろに付け加える
-		}
-
-		// 前衛後衛が設定されていなければ設定する
-		mt_srand(); //乱数初期化
-
-		if (!$data["position"])
-		{ //前列後列の設定
-			$data["position"] = (mt_rand(0, 1) ? "front" : "back");
-			$data["posed"] = true;
-		}
-
-		// 落とすアイテムをもたせる
-		if (is_array($data["itemtable"]))
-		{
-			$prob = mt_rand(1, 10000);
-			$sum = 0;
-			foreach ($data["itemtable"] as $itemno => $upp)
-			{
-				$sum += $upp;
-				if ($prob <= $sum)
-				{
-					$data["itemdrop"] = $itemno;
-					break;
-				}
-			}
-		}
 
 		$data["monster"] = "1";
 
