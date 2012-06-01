@@ -2,8 +2,6 @@ no: 1008
 name: GoblinBlitz
 img: mon_183r
 level: '10'
-exphold: '60'
-moneyhold: '80'
 maxhp: '300'
 hp: '300'
 maxsp: '60'
@@ -23,11 +21,6 @@ def:
     - 5
     - 5
     - 5
-itemtable:
-    6001: '1000'
-    6002: '1000'
-    6003: '500'
-    7100: '100'
 pattern:
     -
         judge: 1902
@@ -45,3 +38,11 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1000
+reward:
+    moneyhold: '80'
+    itemtable:
+        6001: '1000'
+        6002: '1000'
+        6003: '500'
+        7100: '100'
+    exphold: '60'
