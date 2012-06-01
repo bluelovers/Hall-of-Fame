@@ -2,8 +2,6 @@ no: 1004
 name: GoblinKids
 img: mon_054
 level: '4'
-exphold: '40'
-moneyhold: '60'
 maxhp: '250'
 hp: '250'
 maxsp: '120'
@@ -23,10 +21,6 @@ def:
     - 1
     - 15
     - 1
-itemtable:
-    6020: '1000'
-    6021: '1000'
-    7100: '100'
 pattern:
     -
         judge: 1201
@@ -44,3 +38,10 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1002
+reward:
+    moneyhold: '60'
+    itemtable:
+        6020: '1000'
+        6021: '1000'
+        7100: '100'
+    exphold: '40'
