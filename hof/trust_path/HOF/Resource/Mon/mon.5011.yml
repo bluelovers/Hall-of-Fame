@@ -1,8 +1,6 @@
 no: 5011
 name: TrainedLion
 img: mon_114r
-exphold: '0'
-moneyhold: '0'
 level: '10'
 maxhp: '350'
 hp: '350'
@@ -32,3 +30,6 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5010
+reward:
+    moneyhold: '0'
+    exphold: '0'
