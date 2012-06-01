@@ -1,8 +1,6 @@
 no: 1068
 name: Mermaid
 img: mon_116
-exphold: '450'
-moneyhold: '210'
 level: '33'
 maxhp: '450'
 hp: '450'
@@ -22,9 +20,12 @@ def:
     - 10
     - 30
     - 30
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '210'
+    itemtable: {  }
+    exphold: '450'
