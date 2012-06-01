@@ -1,8 +1,6 @@
 no: 1087
 name: SandGorrem
 img: mon_043z
-exphold: '400'
-moneyhold: '300'
 level: '25'
 maxhp: '1300'
 hp: '1300'
@@ -23,9 +21,12 @@ def:
     - 10
     - 20
     - 0
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '300'
+    itemtable: {  }
+    exphold: '400'
