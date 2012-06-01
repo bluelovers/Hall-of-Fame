@@ -2,8 +2,6 @@ no: 1006
 name: GoblinMonk
 img: mon_205
 level: '7'
-exphold: '60'
-moneyhold: '60'
 maxhp: '320'
 hp: '320'
 maxsp: '100'
@@ -22,10 +20,6 @@ def:
     - 30
     - 10
     - 20
-itemtable:
-    6180: '1000'
-    6181: '1000'
-    7100: '100'
 pattern:
     -
         judge: 1201
@@ -39,3 +33,10 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1017
+reward:
+    moneyhold: '60'
+    itemtable:
+        6180: '1000'
+        6181: '1000'
+        7100: '100'
+    exphold: '60'
