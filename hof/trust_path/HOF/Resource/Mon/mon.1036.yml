@@ -1,8 +1,6 @@
 no: 1036
 name: SnowRabbit
 img: mon_111
-exphold: '20'
-moneyhold: '20'
 level: '1'
 maxhp: '80'
 hp: '80'
@@ -22,8 +20,6 @@ def:
     - 0
     - 15
     - 0
-itemtable:
-    6040: '1000'
 pattern:
     -
         judge: 1201
@@ -33,3 +29,8 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5007
+reward:
+    moneyhold: '20'
+    itemtable:
+        6040: '1000'
+    exphold: '20'
