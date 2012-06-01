@@ -55,13 +55,13 @@ class HOF_Class_Battle_Team extends HOF_Class_Array_Prop
 
 	public function __toString()
 	{
-		return (string )$this->team_idx;
+		return (string )$this->team_idx();
 	}
 
 	public function __clone()
 	{
 		//$this->team_idx(self::$team_count++);
-		unset($this->team_idx);
+		$this->team_idx = null;
 
 		foreach ($this as $k => $v)
 		{
