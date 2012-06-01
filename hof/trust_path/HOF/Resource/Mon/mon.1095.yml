@@ -1,8 +1,6 @@
 no: 1095
 name: StrongBob
 img: mon_194
-exphold: '800'
-moneyhold: '300'
 level: '46'
 maxhp: '1360'
 hp: '1360'
@@ -23,7 +21,6 @@ def:
     - 30
     - 40
     - 10
-itemtable: {  }
 pattern:
     -
         judge: 1902
@@ -61,3 +58,7 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1000
+reward:
+    moneyhold: '300'
+    itemtable: {  }
+    exphold: '800'
