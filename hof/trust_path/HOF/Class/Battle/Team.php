@@ -130,7 +130,7 @@ class HOF_Class_Battle_Team extends HOF_Class_Array_Prop
 		return $this->{__FUNCTION__ };
 	}
 
-	public function &data($key, $val = null)
+	public function data($key, $val = null)
 	{
 		if ($key === null) return $this->{__FUNCTION__ };
 
