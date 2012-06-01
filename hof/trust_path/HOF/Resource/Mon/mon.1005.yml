@@ -2,8 +2,6 @@ no: 1005
 name: GoblinMage
 img: mon_051
 level: '6'
-exphold: '50'
-moneyhold: '60'
 maxhp: '240'
 hp: '240'
 maxsp: '210'
@@ -23,10 +21,6 @@ def:
     - 10
     - 40
     - 10
-itemtable:
-    6020: '1000'
-    6021: '500'
-    7100: '100'
 pattern:
     -
         judge: 1201
@@ -42,3 +36,10 @@ pattern:
         action: 2000
 info:
     desc: レベルが低いと強く感じる。
+reward:
+    moneyhold: '60'
+    itemtable:
+        6020: '1000'
+        6021: '500'
+        7100: '100'
+    exphold: '50'
