@@ -105,7 +105,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		/*
 		foreach ($this->teams as $idx => $data)
 		{
-			$data['team']->fixCharName();
+		$data['team']->fixCharName();
 		}
 		*/
 
@@ -260,7 +260,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		$file .= $time . ".dat";
 
 		$head = $time . "\n"; //開始時間(1行目)
-		$head .= $this->teams[TEAM_0]['name'] . "<>" . $this->teams[TEAM_1]['name'] . "\n"; //参加チーム(2行目)
+		$head .= $this->teams[TEAM_0]['team']->team_name() . "<>" . $this->teams[TEAM_1]['team']->team_name() . "\n"; //参加チーム(2行目)
 		$head .= count($this->teams[TEAM_0]['team']) . "<>" . count($this->teams[TEAM_1]['team']) . "\n"; //参加人数(3行目)
 		$head .= $this->teams[TEAM_0]['ave_lv'] . "<>" . $this->teams[TEAM_1]['ave_lv'] . "\n"; //平均レベル(4行目)
 		$head .= $this->result . "\n"; //勝利チーム(5行目)
@@ -282,7 +282,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		{
 			$char->delay = $char->SPD;
 
-			throw new RuntimeException($char->Name()." doesn't have any pattern.");
+			throw new RuntimeException($char->Name() . " doesn't have any pattern.");
 
 			return false;
 		}
@@ -291,7 +291,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		// チーム1の人は左側に 行動内容と結果 を表示する
 		echo ("<tr><td class=\"ttd2\">\n");
 
-		if ($char->team()->team_idx() === TEAM_0)
+		if ($char->team()->team_idx(TEAM_0, true))
 		{
 			echo ("</td><td class=\"ttd1\">\n");
 		}
@@ -375,7 +375,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 
 		//echo $char->name." ".$skill."<br>";//確認用
 		//セルの終わり
-		if ($char->team()->team_idx() === TEAM_1)
+		if ($char->team()->team_idx(TEAM_1, true))
 		{
 			echo ("</td><td class=\"ttd1\">&nbsp;\n");
 		}
@@ -514,7 +514,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 	{
 		echo ("<tr><td class=\"ttd2\">\n");
 
-		if ($char->team()->team_idx() === TEAM_0)
+		if ($char->team()->team_idx(TEAM_0, true))
 		{
 			echo ("</td><td class=\"ttd1\">\n");
 		}
@@ -522,7 +522,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		//debug(__LINE__, __METHOD__, $char->name, $char->name, $char->Name());
 		$char->enterBattlefield();
 
-		if ($char->team()->team_idx() === TEAM_1)
+		if ($char->team()->team_idx(TEAM_1, true))
 		{
 			echo ("</td><td class=\"ttd1\">&nbsp;\n");
 		}
@@ -734,11 +734,15 @@ HTML;
 	 */
 	function AddTotalDamage($team, $dmg)
 	{
+		/*
 		if (!is_numeric($dmg)) return false;
 
 		list($_my) = $this->teamToggle($team);
 
 		$this->teams[$_my]['dmg'] += $dmg;
+		*/
+
+		$team->data->log['dmg'] += (int)$dmg;
 	}
 
 	/**
@@ -750,9 +754,11 @@ HTML;
 
 		$exp = round(EXP_RATE * $exp);
 
-		$this->teams[$team]['exp'] += $exp;
+		//$this->teams[$team]['exp'] += $exp;
+		//$Alive = $this->teams[$team]['team']->CountTrueChars();
 
-		$Alive = $this->teams[$team]['team']->CountTrueChars();
+		$team->data->reward['exp'] += $exp;
+		$Alive = $team->CountTrueChars();
 
 		if ($Alive == 0) return false;
 
@@ -762,7 +768,8 @@ HTML;
 		$ExpGet = ceil($exp / $Alive);
 		echo ("Alives get {$ExpGet}exps.<br />\n");
 
-		foreach ($this->teams[$team]['team'] as $key => &$char)
+		//foreach ($this->teams[$team]['team'] as $key => &$char)
+		foreach ($team as $char)
 		{
 			/**
 			 * 死亡者にはEXPあげない
@@ -782,13 +789,13 @@ HTML;
 	/**
 	 * アイテムを取得する(チームが)
 	 */
-	function GetItem($itemdrop, $MyTeam)
+	function GetItem($itemdrop, $team)
 	{
 		if (!$itemdrop) return false;
 
 		foreach ($itemdrop as $itemno => $amount)
 		{
-			$this->teams[$MyTeam]['item']["$itemno"] += $amount;
+			$team->data->reward['item']["$itemno"] += $amount;
 		}
 	}
 
@@ -810,7 +817,7 @@ HTML;
 		 * "前衛で尚且つ生存者"を配列に詰める↓
 		 * 前衛 + 生存者 + HP1以上 に変更 ( 多段系攻撃で死にながら守るので [2007/9/20] )
 		 */
-		foreach ($candidate as $key => &$char)
+		foreach ($candidate as &$char)
 		{
 			if ($char->POSITION == POSITION_FRONT && $char->STATE !== STATE_DEAD && 1 < $char->HP) $fore[] = &$char;
 		}
@@ -818,7 +825,7 @@ HTML;
  				return false;
 		// 一人づつ守りに入るか入らないかを判定する。
 		shuffle($fore); //配列の並びを混ぜる
-		foreach ($fore as $key => &$char)
+		foreach ($fore as &$char)
 		{
 			// 判定に使う変数を計算したりする。
 			switch ($char->guard)
@@ -1163,9 +1170,6 @@ HTML;
 	 */
 	function SetTeamName($name1, $name2)
 	{
-		$this->teams[TEAM_0]['name'] = $name1;
-		$this->teams[TEAM_1]['name'] = $name2;
-
 		$this->teams[TEAM_0]['team']->team_name($name1);
 		$this->teams[TEAM_1]['team']->team_name($name2);
 	}
@@ -1177,11 +1181,12 @@ HTML;
 	 */
 	function GetMoney($money, $team)
 	{
-		if (!$money) return false;
+		if (!(int)$money) return false;
 		$money = ceil($money * MONEY_RATE);
 
-		echo ("{$this->teams[$team]['name']} Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
-		$this->teams[$team]['money'] += $money;
+		echo ($team->team_name() . " Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
+		//$this->teams[$team]['money'] += $money;
+		$team->data->reward['money'] += $money;
 	}
 
 	/**
@@ -1189,7 +1194,7 @@ HTML;
 	 */
 	function ReturnMoney()
 	{
-		return array($this->teams[TEAM_0]['money'], $this->teams[TEAM_1]['money']);
+		return array($this->teams[TEAM_0]['team']->data->reward['money'], $this->teams[TEAM_1]['team']->data->reward['money']);
 	}
 
 	/**
