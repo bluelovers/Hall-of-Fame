@@ -1,8 +1,6 @@
 no: 1048
 name: ReindeerLeader
 img: mon_189r
-exphold: '480'
-moneyhold: '300'
 level: '35'
 maxhp: '1050'
 hp: '1050'
@@ -23,10 +21,6 @@ def:
     - 40
     - 30
     - 30
-itemtable:
-    6160: '100'
-    6022: '300'
-    6003: '400'
 pattern:
     -
         judge: 1701
@@ -60,3 +54,10 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5042
+reward:
+    moneyhold: '300'
+    itemtable:
+        6160: '100'
+        6022: '300'
+        6003: '400'
+    exphold: '480'
