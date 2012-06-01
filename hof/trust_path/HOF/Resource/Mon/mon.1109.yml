@@ -2,8 +2,6 @@ no: 1109
 name: ElizaOgre
 img: mon_169
 level: '59'
-exphold: '800'
-moneyhold: '100'
 maxhp: '700'
 hp: '700'
 maxsp: '900'
@@ -24,3 +22,6 @@ def:
     - 70
     - 60
 pattern: {  }
+reward:
+    moneyhold: '100'
+    exphold: '800'
