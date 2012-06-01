@@ -19,8 +19,8 @@
 			</td>
 
 				<td class="td7"><?php $data['char']->ShowCharWithLand($data['char']->land); ?></td>
-				<td class="td7"><?php e($data['monster']['exphold']) ?></td>
-				<td class="td7"><?php e($data['monster']['moneyhold']) ?></td>
+				<td class="td7"><?php e($data['monster']['reward']['exphold']) ?></td>
+				<td class="td7"><?php e($data['monster']['reward']['moneyhold']) ?></td>
 				<td class="td7"><?php e($data['monster']['maxhp']) ?></td>
 				<td class="td7"><?php e($data['monster']['maxsp']) ?></td>
 				<td class="td7"><?php e($data['monster']['str']) ?></td>
