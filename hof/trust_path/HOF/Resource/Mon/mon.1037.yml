@@ -1,8 +1,6 @@
 no: 1037
 name: SnowMan
 img: mon_181
-exphold: '30'
-moneyhold: '30'
 level: '2'
 maxhp: '130'
 hp: '130'
@@ -23,10 +21,13 @@ def:
     - 10
     - 5
     - 0
-itemtable:
-    6020: '1000'
 pattern:
     -
         judge: 1000
         quantity: 0
         action: 5042
+reward:
+    moneyhold: '30'
+    itemtable:
+        6020: '1000'
+    exphold: '30'
