@@ -1,8 +1,6 @@
 no: 1055
 name: EvilPlant
 img: mon_127
-exphold: '390'
-moneyhold: '90'
 level: '29'
 maxhp: '450'
 hp: '450'
@@ -22,9 +20,12 @@ def:
     - 20
     - 30
     - 20
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '90'
+    itemtable: {  }
+    exphold: '390'
