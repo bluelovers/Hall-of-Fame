@@ -2,8 +2,6 @@ no: 1026
 name: Gargoyle
 img: mon_104
 level: '22'
-exphold: '220'
-moneyhold: '50'
 maxhp: '300'
 hp: '300'
 maxsp: '10'
@@ -23,10 +21,13 @@ def:
     - 100
     - 0
     - 0
-itemtable:
-    6002: '2000'
 pattern:
     -
         judge: 1000
         quantity: 0
         action: 5035
+reward:
+    moneyhold: '50'
+    itemtable:
+        6002: '2000'
+    exphold: '220'
