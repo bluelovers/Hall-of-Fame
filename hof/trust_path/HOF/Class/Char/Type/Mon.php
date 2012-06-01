@@ -10,27 +10,6 @@
 class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 {
 
-	/**
-	 * モンスター専用の変数
-	 */
-	//var $monster = true;
-
-	/**
-	 * 経験値
-	 */
-	var $exphold;
-
-	/**
-	 * お金
-	 */
-	var $moneyhold;
-
-	/**
-	 * 落とすアイテム
-	 */
-	var $itemdrop;
-	//var $summon;
-
 	public function source($over = false)
 	{
 		if (!isset($this->source))
@@ -113,11 +92,6 @@ class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 		//$this->monster		= $data_attr["monster"];
 		//$this->monster = true;
 
-
-
-		$this->exphold = $data_attr["exphold"];
-		$this->moneyhold = $data_attr["moneyhold"];
-		$this->itemdrop = $data_attr["itemdrop"];
 		$this->atk = $data_attr["atk"];
 		$this->def = $data_attr["def"];
 		$this->SPECIAL = $data_attr["SPECIAL"];
@@ -132,6 +106,8 @@ class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 	{
 		if ($this->_cache_char_['init'][__FUNCTION__ ]) return false;
 
+		parent::setBattleVariable();
+
 		$this->_cache_char_['init'][__FUNCTION__ ] = true;
 
 		$this->MAXHP = $this->maxhp;
@@ -143,9 +119,6 @@ class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 		$this->DEX = $this->dex + $this->P_DEX;
 		$this->SPD = $this->spd + $this->P_SPD;
 		$this->LUK = $this->luk + $this->P_LUK;
-		$this->POSITION = $this->position;
-
-		$this->pattern(HOF_Class_Char_Pattern::CHECK_PATTERN);
 	}
 
 }
