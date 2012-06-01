@@ -734,14 +734,6 @@ HTML;
 	 */
 	function AddTotalDamage($team, $dmg)
 	{
-		/*
-		if (!is_numeric($dmg)) return false;
-
-		list($_my) = $this->teamToggle($team);
-
-		$this->teams[$_my]['dmg'] += $dmg;
-		*/
-
 		$team->data->log['dmg'] += (int)$dmg;
 	}
 
@@ -750,17 +742,9 @@ HTML;
 	 */
 	function getExp($exp, $team)
 	{
-		if (!$exp) return false;
-
-		$exp = round(EXP_RATE * $exp);
-
-		//$this->teams[$team]['exp'] += $exp;
-		//$Alive = $this->teams[$team]['team']->CountTrueChars();
+		if (empty($exp) || !$Alive = $team->CountTrueChars()) return false;
 
 		$team->data->reward['exp'] += $exp;
-		$Alive = $team->CountTrueChars();
-
-		if ($Alive == 0) return false;
 
 		/**
 		 * 生存者にだけ経験値を分ける
@@ -768,7 +752,6 @@ HTML;
 		$ExpGet = ceil($exp / $Alive);
 		echo ("Alives get {$ExpGet}exps.<br />\n");
 
-		//foreach ($this->teams[$team]['team'] as $key => &$char)
 		foreach ($team as $char)
 		{
 			/**
@@ -791,7 +774,7 @@ HTML;
 	 */
 	function getItem($itemdrop, $team)
 	{
-		if (!$itemdrop) return false;
+		if (empty($itemdrop)) return false;
 
 		foreach ($itemdrop as $itemno => $amount)
 		{
@@ -1181,12 +1164,11 @@ HTML;
 	 */
 	function getMoney($money, $team)
 	{
-		if (!(int)$money) return false;
-		$money = ceil($money * MONEY_RATE);
+		if (empty($money)) return false;
 
 		echo ($team->team_name() . " Get " . HOF_Helper_Global::MoneyFormat($money) . ".<br />\n");
-		//$this->teams[$team]['money'] += $money;
-		$team->data->reward['money'] += $money;
+
+		$team->data->reward['money'] += (int)$money;
 	}
 
 	/**
