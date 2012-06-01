@@ -312,7 +312,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		$battle->SaveCharacters(); //キャラデータ保存
 		list($UserMoney) = $battle->ReturnMoney(); //戦闘で得た合計金額
-		$this->user->GetMoney($UserMoney); //お金を増やす
+		$this->user->getMoney($UserMoney); //お金を増やす
 		$battle->RecordLog("BASE_PATH_UNION");
 		// アイテムを受け取る
 		if ($itemdrop = $battle->ReturnItemGet(TEAM_0))
@@ -463,7 +463,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			$battle->SaveCharacters(); //キャラデータ保存
 			list($UserMoney) = $battle->ReturnMoney(); //戦闘で得た合計金額
 			//お金を増やす
-			$this->user->GetMoney($UserMoney);
+			$this->user->getMoney($UserMoney);
 			//戦闘ログの保存
 			if ($this->user->options['record_btl_log']) $battle->RecordLog();
 
