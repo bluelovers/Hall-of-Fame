@@ -2,8 +2,6 @@ no: 1013
 name: CaveFrog
 img: mon_126z
 level: '12'
-exphold: '80'
-moneyhold: '80'
 maxhp: '450'
 hp: '450'
 maxsp: '100'
@@ -22,9 +20,6 @@ def:
     - 20
     - 20
     - 20
-itemtable:
-    6162: '1000'
-    6181: '1000'
 pattern:
     -
         judge: 1940
@@ -34,3 +29,9 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1000
+reward:
+    moneyhold: '80'
+    itemtable:
+        6162: '1000'
+        6181: '1000'
+    exphold: '80'
