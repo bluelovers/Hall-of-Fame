@@ -1,8 +1,6 @@
 no: 5102
 name: Thor
 img: mon_240r
-exphold: '0'
-moneyhold: '0'
 level: '90'
 maxhp: '1500'
 hp: '1500'
@@ -36,3 +34,6 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1000
+reward:
+    moneyhold: '0'
+    exphold: '0'
