@@ -1,8 +1,6 @@
 no: 1073
 name: ChargingRhino
 img: mon_134
-exphold: '470'
-moneyhold: '200'
 level: '34'
 maxhp: '830'
 hp: '830'
@@ -23,9 +21,12 @@ def:
     - 0
     - 10
     - 20
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '200'
+    itemtable: {  }
+    exphold: '470'
