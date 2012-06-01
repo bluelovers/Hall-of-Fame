@@ -2,8 +2,6 @@ no: 1015
 name: Lantern
 img: mon_034
 level: '14'
-exphold: '120'
-moneyhold: '100'
 maxhp: '360'
 hp: '360'
 maxsp: '200'
@@ -23,10 +21,6 @@ def:
     - 10
     - 40
     - 30
-itemtable:
-    6020: '1000'
-    6021: '600'
-    6022: '200'
 pattern:
     -
         judge: 1201
@@ -44,3 +38,10 @@ pattern:
         judge: 1200
         quantity: 30
         action: 2000
+reward:
+    moneyhold: '100'
+    itemtable:
+        6020: '1000'
+        6021: '600'
+        6022: '200'
+    exphold: '120'
