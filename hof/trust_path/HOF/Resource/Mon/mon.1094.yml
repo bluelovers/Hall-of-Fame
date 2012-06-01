@@ -1,8 +1,6 @@
 no: 1094
 name: WolfTamer
 img: mon_217r
-exphold: '420'
-moneyhold: '80'
 level: '30'
 maxhp: '480'
 hp: '480'
@@ -22,7 +20,6 @@ def:
     - 0
     - 30
     - 20
-itemtable: {  }
 pattern:
     -
         judge: 1902
@@ -44,3 +41,7 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1243
+reward:
+    moneyhold: '80'
+    itemtable: {  }
+    exphold: '420'
