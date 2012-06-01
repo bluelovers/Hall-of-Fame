@@ -1,8 +1,6 @@
 no: 1062
 name: GiantKraken
 img: mon_070
-exphold: '420'
-moneyhold: '230'
 level: '27'
 maxhp: '1220'
 hp: '1220'
@@ -22,9 +20,12 @@ def:
     - 10
     - 0
     - 10
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '230'
+    itemtable: {  }
+    exphold: '420'
