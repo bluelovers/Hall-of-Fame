@@ -106,7 +106,7 @@ class HOF_Class_Char_Attr
 
 		if ($this->char->isMon())
 		{
-			$max_level = floor($max_level * $this->char->isUnion() ? 5 : 1.2);
+			$max_level = floor($max_level * ($this->char->isUnion() ? 5 : 1.2));
 		}
 
 		// 最大レベルの場合経験値を得ない
