@@ -748,7 +748,7 @@ HTML;
 	/**
 	 * 経験値を得る
 	 */
-	function GetExp($exp, $team)
+	function getExp($exp, $team)
 	{
 		if (!$exp) return false;
 
@@ -779,7 +779,7 @@ HTML;
 			/**
 			 * LvUpしたならtrueが返る
 			 */
-			if ($char->GetExp($ExpGet))
+			if ($char->getExp($ExpGet))
 			{
 				echo ("<span class=\"levelup\">" . $char->Name() . " LevelUp!</span><br />\n");
 			}
@@ -789,7 +789,7 @@ HTML;
 	/**
 	 * アイテムを取得する(チームが)
 	 */
-	function GetItem($itemdrop, $team)
+	function getItem($itemdrop, $team)
 	{
 		if (!$itemdrop) return false;
 
@@ -1179,7 +1179,7 @@ HTML;
 	 * お金を得る、一時的に変数に保存するだけ。
 	 * class内にメソッド作れー
 	 */
-	function GetMoney($money, $team)
+	function getMoney($money, $team)
 	{
 		if (!(int)$money) return false;
 		$money = ceil($money * MONEY_RATE);
