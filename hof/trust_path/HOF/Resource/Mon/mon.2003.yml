@@ -1,8 +1,6 @@
 no: 2003
 name: PlundingBandits
 img: mon_216
-exphold: 2550
-moneyhold: 1700
 level: '76'
 maxhp: 5100
 hp: 5100
@@ -23,12 +21,6 @@ def:
     - 40
     - 40
     - 40
-itemtable:
-    5510: '2000'
-    5515: '2000'
-    5520: '2000'
-    5525: '2000'
-    5530: '2000'
 SPECIAL:
     PoisonResist: 50
 cycle: 36000
@@ -66,3 +58,12 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5062
+reward:
+    moneyhold: 1700
+    itemtable:
+        5510: '2000'
+        5515: '2000'
+        5520: '2000'
+        5525: '2000'
+        5530: '2000'
+    exphold: 2550
