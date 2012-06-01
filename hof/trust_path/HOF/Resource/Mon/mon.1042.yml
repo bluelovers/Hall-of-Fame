@@ -1,8 +1,6 @@
 no: 1042
 name: DarkSnowManJr
 img: mon_163r
-exphold: '250'
-moneyhold: '140'
 level: '20'
 maxhp: '350'
 hp: '350'
@@ -23,10 +21,6 @@ def:
     - 0
     - 45
     - 0
-itemtable:
-    6040: '300'
-    6184: '100'
-    6160: '40'
 pattern:
     -
         judge: 1200
@@ -52,3 +46,10 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5043
+reward:
+    moneyhold: '140'
+    itemtable:
+        6040: '300'
+        6184: '100'
+        6160: '40'
+    exphold: '250'
