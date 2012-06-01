@@ -1,8 +1,6 @@
 no: 1077
 name: FlareHead
 img: mon_193
-exphold: '600'
-moneyhold: '200'
 level: '38'
 maxhp: '520'
 hp: '520'
@@ -23,9 +21,12 @@ def:
     - 30
     - 60
     - 0
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '200'
+    itemtable: {  }
+    exphold: '600'
