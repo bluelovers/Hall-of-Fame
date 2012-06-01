@@ -215,12 +215,12 @@ EOM
 			// 左側チーム
 			echo ("HP remain : {$TotalHp2}/{$TotalMaxHp2}<br />\n");
 			echo ("Alive : {$TotalAlive2}/" . count($this->battle->teams[TEAM_1]['team']) . "<br />\n");
-			echo ("TotalDamage : {$this->battle->teams[TEAM_1]['dmg']}<br />\n");
+			echo ("TotalDamage : ".$this->battle->teams[TEAM_1]['team']->data->log['dmg']."<br />\n");
 			// 右側チーム
 			echo ('</td><td class="teams break">' . "\n");
 			echo ("HP remain : {$TotalHp1}/{$TotalMaxHp1}<br />\n");
 			echo ("Alive : {$TotalAlive1}/" . count($this->battle->teams[TEAM_0]['team']) . "<br />\n");
-			echo ("TotalDamage : {$this->battle->teams[TEAM_0]['dmg']}<br />\n");
+			echo ("TotalDamage : ".$this->battle->teams[TEAM_0]['team']->data->log['dmg']."<br />\n");
 			echo ("</td></tr>\n");
 			return false;
 		}
