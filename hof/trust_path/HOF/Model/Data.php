@@ -135,6 +135,30 @@ class HOF_Model_Data extends HOF_Class_Data
 		return self::_load_list_cache($_key);
 	}
 
+	function getSkillPassiveList()
+	{
+		$_cache_key_ = 'skill_passive_list';
+
+		if (!$list = HOF::cache()->data($_cache_key_))
+		{
+			$skill_list = self::getSkillList();
+
+			foreach($skill_list as $skill)
+			{
+				$data = self::getSkill($skill);
+
+				if ($data['passive'])
+				{
+					$list[] = $skill;
+				}
+			}
+
+			HOF::cache()->data($_cache_key_, $list);
+		}
+
+		return (array)$list;
+	}
+
 	function getSkillTreeData($no)
 	{
 		$_key = 'skilltree';
