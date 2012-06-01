@@ -2,8 +2,6 @@ no: 1034
 name: Bafomet
 img: mon_210r
 level: '46'
-exphold: '830'
-moneyhold: '400'
 maxhp: '900'
 hp: '900'
 maxsp: '780'
@@ -22,10 +20,6 @@ def:
     - 20
     - 50
     - 50
-itemtable:
-    6003: '700'
-    6022: '700'
-    6184: '700'
 pattern:
     -
         judge: 1201
@@ -51,3 +45,10 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5038
+reward:
+    moneyhold: '400'
+    itemtable:
+        6003: '700'
+        6022: '700'
+        6184: '700'
+    exphold: '830'
