@@ -1,8 +1,6 @@
 no: 5013
 name: Chimera
 img: mon_208
-exphold: '0'
-moneyhold: '0'
 level: '10'
 maxhp: '600'
 hp: '600'
@@ -36,3 +34,6 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5014
+reward:
+    moneyhold: '0'
+    exphold: '0'
