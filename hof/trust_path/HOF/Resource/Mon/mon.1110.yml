@@ -2,8 +2,6 @@ no: 1110
 name: EthanOgre
 img: mon_170
 level: '55'
-exphold: '800'
-moneyhold: '100'
 maxhp: '2300'
 hp: '2300'
 maxsp: '200'
@@ -24,3 +22,6 @@ def:
     - 30
     - 30
 pattern: {  }
+reward:
+    moneyhold: '100'
+    exphold: '800'
