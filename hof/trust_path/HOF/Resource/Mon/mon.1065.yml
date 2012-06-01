@@ -1,8 +1,6 @@
 no: 1065
 name: Nippers
 img: mon_225
-exphold: '200'
-moneyhold: '30'
 level: '21'
 maxhp: '450'
 hp: '450'
@@ -23,9 +21,12 @@ def:
     - 10
     - 0
     - 30
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '30'
+    itemtable: {  }
+    exphold: '200'
