@@ -2,8 +2,6 @@ no: 1030
 name: Gaze
 img: mon_105
 level: '35'
-exphold: '420'
-moneyhold: '280'
 maxhp: '520'
 hp: '520'
 maxsp: '240'
@@ -23,9 +21,6 @@ def:
     - 30
     - 40
     - 50
-itemtable:
-    6180: '1000'
-    6184: '1000'
 pattern:
     -
         judge: 1940
@@ -35,3 +30,9 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5037
+reward:
+    moneyhold: '280'
+    itemtable:
+        6180: '1000'
+        6184: '1000'
+    exphold: '420'
