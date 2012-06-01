@@ -2,8 +2,6 @@ no: 1105
 name: phantom
 img: mon_047
 level: '30'
-exphold: '100'
-moneyhold: '100'
 maxhp: '900'
 hp: '900'
 maxsp: '200'
@@ -24,3 +22,6 @@ def:
     - 30
     - 30
 pattern: {  }
+reward:
+    moneyhold: '100'
+    exphold: '100'
