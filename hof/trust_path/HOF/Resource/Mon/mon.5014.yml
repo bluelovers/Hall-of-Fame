@@ -1,8 +1,6 @@
 no: 5014
 name: SnowMan
 img: mon_164
-exphold: '0'
-moneyhold: '0'
 level: '10'
 maxhp: '350'
 hp: '350'
@@ -32,3 +30,6 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5015
+reward:
+    moneyhold: '0'
+    exphold: '0'
