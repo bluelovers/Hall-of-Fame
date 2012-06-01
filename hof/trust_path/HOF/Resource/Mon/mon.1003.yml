@@ -2,8 +2,6 @@ no: 1003
 name: GoblinKnight
 img: mon_206
 level: '5'
-exphold: '40'
-moneyhold: '60'
 maxhp: '320'
 hp: '320'
 maxsp: '90'
@@ -23,12 +21,6 @@ def:
     - 8
     - 30
     - 10
-itemtable:
-    6001: '1000'
-    6040: '1000'
-    6002: '600'
-    6003: '300'
-    7100: '100'
 pattern:
     -
         judge: 1902
@@ -52,3 +44,12 @@ pattern:
         action: 1000
 info:
     desc: そこそこな強さ。
+reward:
+    moneyhold: '60'
+    itemtable:
+        6001: '1000'
+        6040: '1000'
+        6002: '600'
+        6003: '300'
+        7100: '100'
+    exphold: '40'
