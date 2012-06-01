@@ -1,8 +1,6 @@
 no: 1047
 name: ReindeerSoldier
 img: mon_189
-exphold: '420'
-moneyhold: '210'
 level: '30'
 maxhp: '800'
 hp: '800'
@@ -23,10 +21,6 @@ def:
     - 30
     - 25
     - 20
-itemtable:
-    6021: '300'
-    6002: '300'
-    6161: '100'
 pattern:
     -
         judge: 1200
@@ -48,3 +42,10 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5043
+reward:
+    moneyhold: '210'
+    itemtable:
+        6021: '300'
+        6002: '300'
+        6161: '100'
+    exphold: '420'
