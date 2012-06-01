@@ -2,8 +2,6 @@ no: 1022
 name: SpawnPot
 img: mon_019
 level: '20'
-exphold: '300'
-moneyhold: '200'
 maxhp: '600'
 hp: '600'
 maxsp: '100'
@@ -22,10 +20,13 @@ def:
     - 0
     - 20
     - 0
-itemtable:
-    6003: '1000'
 pattern:
     -
         judge: 1000
         quantity: 0
         action: 5803
+reward:
+    moneyhold: '200'
+    itemtable:
+        6003: '1000'
+    exphold: '300'
