@@ -476,12 +476,15 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 	//	パッシブスキルを読み込む
 	function LoadPassiveSkills()
 	{
+		$passive_list = HOF_Model_Data::getSkillPassiveList();
+
 		// PassiveSkill
 		foreach ($this->skill as $no)
 		{
-			if ($no < 7000 || 8000 <= $no) continue;
+			if (!in_array($no, $passive_list)) continue;
 
 			$skill = HOF_Model_Data::getSkill($no);
+
 			//	能力値上昇系
 			if ($skill["P_MAXHP"]) $this->P_MAXHP += $skill["P_MAXHP"];
 			if ($skill["P_MAXSP"]) $this->P_MAXSP += $skill["P_MAXSP"];
@@ -500,27 +503,10 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 	{
 		if ($this->_cache_char_['init'][__FUNCTION__ ]) return false;
 
-		parent::setBattleVariable();
-
-		$this->_cache_char_['init'][__FUNCTION__ ] = true;
-
-		// パッシブスキルを読む
 		$this->LoadPassiveSkills();
 		$this->CalcEquips();
 
-		$maxhp += $this->maxhp * (1 + ($this->M_MAXHP / 100)) + $this->P_MAXHP;
-		$this->MAXHP = round($maxhp);
-		$hp += $this->hp * (1 + ($this->M_MAXHP / 100)) + $this->P_MAXHP;
-		$this->HP = round($hp);
-		$maxsp += $this->maxsp * (1 + ($this->M_MAXSP / 100)) + $this->P_MAXSP;
-		$this->MAXSP = round($maxsp);
-		$sp += $this->sp * (1 + ($this->M_MAXSP / 100)) + $this->P_MAXSP;
-		$this->SP = round($sp);
-		$this->STR = $this->str + $this->P_STR;
-		$this->INT = $this->int + $this->P_INT;
-		$this->DEX = $this->dex + $this->P_DEX;
-		$this->SPD = $this->spd + $this->P_SPD;
-		$this->LUK = $this->luk + $this->P_LUK;
+		parent::setBattleVariable();
 	}
 
 	//	キャラの攻撃力と防御力,装備性能を計算する
@@ -662,19 +648,11 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 		}
 
 		$this->birth = (string)$data_attr["birth"];
-		$this->level = (int)$data_attr["level"];
-		$this->exp = (int)$data_attr["exp"];
+
 		$this->statuspoint = (int)$data_attr["statuspoint"];
 		$this->skillpoint = (int)$data_attr["skillpoint"];
 
-		$this->job = (string)$data_attr["job"];
 		$this->jobdata();
-
-		$this->str = (int)$data_attr["str"];
-		$this->int = (int)$data_attr["int"];
-		$this->dex = (int)$data_attr["dex"];
-		$this->spd = (int)$data_attr["spd"];
-		$this->luk = (int)$data_attr["luk"];
 
 		if (isset($data_attr["maxhp"]) && isset($data_attr["hp"]) && isset($data_attr["maxsp"]) && isset($data_attr["sp"]))
 		{
@@ -692,13 +670,6 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 		}
 
 		$this->equip = HOF_Helper_Object::ArrayObject((array )$data_attr["equip"]);
-
-		$this->position = (string)$data_attr["position"];
-		$this->guard = (string)$data_attr["guard"];
-
-		$this->skill = (array)$data_attr["skill"];
-
-		$this->pattern = (array)$data_attr["pattern"];
 
 		if ($data_attr["pattern_memo"]) $this->pattern_memo = (array)$data_attr["pattern_memo"];
 
