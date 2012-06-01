@@ -2,8 +2,6 @@ no: 1035
 name: LordBafomet
 img: mon_210
 level: '57'
-exphold: '3480'
-moneyhold: '3000'
 maxhp: '1500'
 hp: '1500'
 maxsp: '900'
@@ -23,10 +21,6 @@ def:
     - 70
     - 45
     - 80
-itemtable:
-    6003: '700'
-    6022: '700'
-    6184: '700'
 pattern:
     -
         judge: 1201
@@ -48,3 +42,10 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5040
+reward:
+    moneyhold: '3000'
+    itemtable:
+        6003: '700'
+        6022: '700'
+        6184: '700'
+    exphold: '3480'
