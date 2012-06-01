@@ -1,8 +1,6 @@
 no: 2007
 name: 'Ape''sRevenge'
 img: mon_008r
-exphold: 1530
-moneyhold: 1020
 level: '54'
 maxhp: 3060
 hp: 3060
@@ -23,9 +21,6 @@ def:
     - 10
     - 40
     - 20
-itemtable:
-    6601: '7000'
-    6602: '3000'
 SPECIAL:
     PoisonResist: 50
 cycle: 259200
@@ -67,3 +62,9 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5065
+reward:
+    moneyhold: 1020
+    itemtable:
+        6601: '7000'
+        6602: '3000'
+    exphold: 1530
