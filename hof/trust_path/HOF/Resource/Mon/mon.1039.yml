@@ -1,8 +1,6 @@
 no: 1039
 name: GoblinSkier
 img: mon_182
-exphold: '30'
-moneyhold: '30'
 level: '3'
 maxhp: '130'
 hp: '130'
@@ -22,8 +20,6 @@ def:
     - 10
     - 15
     - 10
-itemtable:
-    8010: '1000'
 pattern:
     -
         judge: 1940
@@ -33,3 +29,8 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5008
+reward:
+    moneyhold: '30'
+    itemtable:
+        8010: '1000'
+    exphold: '30'
