@@ -1,8 +1,6 @@
 no: 1045
 name: SnowFairy
 img: mon_186
-exphold: '600'
-moneyhold: '400'
 level: '29'
 maxhp: '800'
 hp: '800'
@@ -23,9 +21,6 @@ def:
     - 20
     - 40
     - 40
-itemtable:
-    6184: '1000'
-    8011: '4000'
 pattern:
     -
         judge: 1201
@@ -43,3 +38,9 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5050
+reward:
+    moneyhold: '400'
+    itemtable:
+        6184: '1000'
+        8011: '4000'
+    exphold: '600'
