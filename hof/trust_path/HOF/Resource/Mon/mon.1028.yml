@@ -2,8 +2,6 @@ no: 1028
 name: EvilSorcerer
 img: mon_108z
 level: '26'
-exphold: '300'
-moneyhold: '80'
 maxhp: '450'
 hp: '450'
 maxsp: '600'
@@ -23,9 +21,6 @@ def:
     - 10
     - 55
     - 30
-itemtable:
-    6181: '1000'
-    6182: '1000'
 pattern:
     -
         judge: 1201
@@ -63,3 +58,9 @@ pattern:
         judge: 1000
         quantity: 0
         action: 2021
+reward:
+    moneyhold: '80'
+    itemtable:
+        6181: '1000'
+        6182: '1000'
+    exphold: '300'
