@@ -303,7 +303,7 @@ class HOF_Class_Battle_Team extends HOF_Class_Array_Prop
 
 	function _callback_CountTrueChars($char)
 	{
-		return (bool)!($char->isSummon());
+		return (bool)(!$char->isSummon());
 	}
 
 	public function pickList($amount = null, $pick_list = null)
