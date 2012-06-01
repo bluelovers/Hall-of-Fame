@@ -2,8 +2,6 @@ no: 1106
 name: Avenger
 img: mon_116r
 level: '33'
-exphold: '400'
-moneyhold: '100'
 maxhp: '880'
 hp: '880'
 maxsp: '150'
@@ -24,3 +22,6 @@ def:
     - 30
     - 30
 pattern: {  }
+reward:
+    moneyhold: '100'
+    exphold: '400'
