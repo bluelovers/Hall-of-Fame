@@ -2,8 +2,6 @@ no: 1108
 name: MermaidSorcerer
 img: mon_117
 level: '30'
-exphold: '400'
-moneyhold: '100'
 maxhp: '500'
 hp: '500'
 maxsp: '600'
@@ -24,3 +22,6 @@ def:
     - 60
     - 40
 pattern: {  }
+reward:
+    moneyhold: '100'
+    exphold: '400'
