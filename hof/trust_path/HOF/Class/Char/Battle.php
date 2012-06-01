@@ -62,20 +62,11 @@ class HOF_Class_Char_Battle
 	//	経験値を出す(モンスターだけ?)
 	function DropExp()
 	{
-		if ($this->char->isSummon())
+		if (isset($this->char->reward['exphold']))
 		{
-			return false;
-		}
-
-		if (isset($this->char->exphold))
-		{
-			$exp = $this->char->exphold;
-			$this->char->exphold = round($exp / 2);
-			return $exp;
-		}
-		elseif ($this->char->isChar())
-		{
-			return 1;
+			$exp = $this->char->reward['exphold'];
+			$this->char->reward['exphold'] = round($exp / 2);
+			return (int)$exp;
 		}
 		else
 		{
@@ -86,16 +77,11 @@ class HOF_Class_Char_Battle
 	//	お金を出す(モンスターだけ?)
 	function DropMoney()
 	{
-		if ($this->char->isSummon())
+		if ($this->char->reward['moneyhold'])
 		{
-			return false;
-		}
-
-		if (isset($this->char->moneyhold))
-		{
-			$money = $this->char->moneyhold;
-			$this->char->moneyhold = 0;
-			return $money;
+			$money = $this->char->reward['moneyhold'];
+			$this->char->reward['moneyhold'] = 0;
+			return (int)$money;
 		}
 		else
 		{
@@ -106,16 +92,11 @@ class HOF_Class_Char_Battle
 	//	アイテムを落とす(モンスターだけ?)
 	function DropItem()
 	{
-		if ($this->char->isSummon())
+		if (!empty($this->char->reward['itemdrop']))
 		{
-			return false;
-		}
-
-		if ($this->char->itemdrop)
-		{
-			$item = $this->char->itemdrop;
+			$item = $this->char->reward['itemdrop'];
 			// 一度落としたアイテムは消す
-			$this->char->itemdrop = false;
+			$this->char->reward['itemdrop'] = false;
 			return $item;
 		}
 		else
