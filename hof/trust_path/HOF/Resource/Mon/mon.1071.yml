@@ -1,8 +1,6 @@
 no: 1071
 name: Clerk
 img: mon_117r
-exphold: '560'
-moneyhold: '300'
 level: '39'
 maxhp: '1100'
 hp: '1100'
@@ -23,9 +21,12 @@ def:
     - 0
     - 30
     - 0
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '300'
+    itemtable: {  }
+    exphold: '560'
