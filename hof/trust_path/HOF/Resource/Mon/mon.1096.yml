@@ -1,8 +1,6 @@
 no: 1096
 name: MightyJohn
 img: mon_194r
-exphold: '1000'
-moneyhold: '400'
 level: '48'
 maxhp: '1580'
 hp: '1580'
@@ -23,7 +21,6 @@ def:
     - 100
     - 40
     - 20
-itemtable: {  }
 pattern:
     -
         judge: 1902
@@ -81,3 +78,7 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1000
+reward:
+    moneyhold: '400'
+    itemtable: {  }
+    exphold: '1000'
