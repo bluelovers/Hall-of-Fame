@@ -2,8 +2,6 @@ no: 1031
 name: EvilServant
 img: mon_107
 level: '37'
-exphold: '460'
-moneyhold: '260'
 maxhp: '420'
 hp: '420'
 maxsp: '630'
@@ -23,9 +21,6 @@ def:
     - 20
     - 60
     - 40
-itemtable:
-    6183: '2000'
-    6184: '1000'
 pattern:
     -
         judge: 1201
@@ -59,3 +54,9 @@ pattern:
         judge: 1000
         quantity: 0
         action: 2001
+reward:
+    moneyhold: '260'
+    itemtable:
+        6183: '2000'
+        6184: '1000'
+    exphold: '460'
