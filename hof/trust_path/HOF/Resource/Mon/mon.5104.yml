@@ -1,8 +1,6 @@
 no: 5104
 name: Leviathan
 img: mon_120
-exphold: '0'
-moneyhold: '0'
 level: '70'
 maxhp: '1200'
 hp: '1200'
@@ -36,3 +34,6 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5027
+reward:
+    moneyhold: '0'
+    exphold: '0'
