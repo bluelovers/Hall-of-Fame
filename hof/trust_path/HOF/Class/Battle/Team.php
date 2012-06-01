@@ -13,21 +13,25 @@ class HOF_Class_Battle_Team extends HOF_Class_Array_Prop
 
 	protected static $cache;
 
-	protected static $team_count = 0;
+	//protected static $team_count = 0;
 	protected static $char_list = array();
 
 	protected $temp;
-	protected $data;
+	public $data;
 
 	public function __construct($chars = array(), $team_idx = null, $team_name = null)
 	{
 		//$this->team_idx(self::$team_count++);
 
 		$this->option('prop', false);
+		$this->setFlags(HOF_Class_Array::STD_PROP_LIST);
+
 		//$this->setIteratorClass('HOF_Class_Battle_TeamIterator');
 
 		$this->team_idx($team_idx);
 		$this->team_name($team_name);
+
+		$this->data = new HOF_Class_Array_Prop();
 
 		//$this->data = new HOF_Class_Array_Prop();
 
@@ -50,7 +54,7 @@ class HOF_Class_Battle_Team extends HOF_Class_Array_Prop
 			return $team;
 		}
 
-		return new self($team);
+		return new self($team, $team_idx, $team_name);
 	}
 
 	public function __toString()
@@ -111,8 +115,13 @@ class HOF_Class_Battle_Team extends HOF_Class_Array_Prop
 		return $this->{__FUNCTION__ };
 	}
 
-	public function team_idx($val = null)
+	public function team_idx($val = null, $chk = false)
 	{
+		if ($chk)
+		{
+			return (bool)($this->{__FUNCTION__ } === $val);
+		}
+
 		if ($val !== null)
 		{
 			$this->{__FUNCTION__ } = (string )$val;
@@ -121,8 +130,10 @@ class HOF_Class_Battle_Team extends HOF_Class_Array_Prop
 		return $this->{__FUNCTION__ };
 	}
 
-	public function data($key, $val = null)
+	public function &data($key, $val = null)
 	{
+		if ($key === null) return $this->{__FUNCTION__ };
+
 		if ($val !== null)
 		{
 			$this->{__FUNCTION__ }[$key] = $val;
@@ -140,7 +151,7 @@ class HOF_Class_Battle_Team extends HOF_Class_Array_Prop
 
 		$char->team($this);
 
-		self::$char_list['all'][$char->uniqid()] = $char;
+		self::$char_list['all'][$char->uniqid()] = &$char;
 
 		if (self::$cache['fixCharName'])
 		{
@@ -176,7 +187,7 @@ class HOF_Class_Battle_Team extends HOF_Class_Array_Prop
 
 		foreach ($this as $char)
 		{
-			self::$char_list['all'][$char->uniqid()] = $char;
+			self::$char_list['all'][$char->uniqid()] = &$char;
 			(int)self::$cache['name_list'][$char->Name()]++;
 		}
 
@@ -241,9 +252,19 @@ class HOF_Class_Battle_Team extends HOF_Class_Array_Prop
 	 */
 	function CountAlive()
 	{
+		/*
 		$dead = $this->filterState(STATE_DEAD);
 
 		return (int)(count($this) - count($dead));
+		*/
+		$i = 0;
+
+		foreach ($this as $char)
+		{
+			($char->STATE !== STATE_DEAD) && $i++;
+		}
+
+		return $i;
 	}
 
 	/**
