@@ -1,8 +1,6 @@
 no: 5003
 name: Skeleton
 img: mon_143
-exphold: '60'
-moneyhold: '0'
 level: '10'
 maxhp: '200'
 hp: '200'
@@ -32,3 +30,6 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1000
+reward:
+    moneyhold: '0'
+    exphold: '60'
