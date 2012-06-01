@@ -1,8 +1,6 @@
 no: 1051
 name: DarkElfValkyrie
 img: mon_215r
-exphold: '630'
-moneyhold: '230'
 level: '42'
 maxhp: '980'
 hp: '980'
@@ -23,9 +21,12 @@ def:
     - 20
     - 30
     - 20
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '230'
+    itemtable: {  }
+    exphold: '630'
