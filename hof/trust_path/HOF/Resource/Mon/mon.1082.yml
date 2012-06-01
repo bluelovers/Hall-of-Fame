@@ -1,8 +1,6 @@
 no: 1082
 name: ThunderBird
 img: mon_208r
-exphold: '1050'
-moneyhold: '300'
 level: '44'
 maxhp: '1500'
 hp: '1500'
@@ -23,9 +21,12 @@ def:
     - 30
     - 30
     - 70
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '300'
+    itemtable: {  }
+    exphold: '1050'
