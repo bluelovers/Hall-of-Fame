@@ -2,8 +2,6 @@ no: 1007
 name: GoblinMaster
 img: mon_205r
 level: '10'
-exphold: '80'
-moneyhold: '80'
 maxhp: '460'
 hp: '460'
 maxsp: '140'
@@ -23,11 +21,6 @@ def:
     - 10
     - 20
     - 10
-itemtable:
-    6180: '1000'
-    6181: '1000'
-    6182: '1000'
-    7100: '100'
 pattern:
     -
         judge: 1201
@@ -49,3 +42,11 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1016
+reward:
+    moneyhold: '80'
+    itemtable:
+        6180: '1000'
+        6181: '1000'
+        6182: '1000'
+        7100: '100'
+    exphold: '80'
