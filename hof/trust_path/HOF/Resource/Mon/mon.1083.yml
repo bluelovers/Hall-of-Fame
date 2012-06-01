@@ -1,8 +1,6 @@
 no: 1083
 name: SandLizard
 img: mon_036
-exphold: '300'
-moneyhold: '100'
 level: '23'
 maxhp: '640'
 hp: '640'
@@ -23,9 +21,12 @@ def:
     - 60
     - 10
     - 20
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '100'
+    itemtable: {  }
+    exphold: '300'
