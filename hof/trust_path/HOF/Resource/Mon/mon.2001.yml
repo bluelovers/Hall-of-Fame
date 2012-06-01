@@ -1,8 +1,6 @@
 no: 2001
 name: TaurusRush
 img: mon_014
-exphold: 7600
-moneyhold: 5067
 level: '82'
 maxhp: 15200
 hp: 15200
@@ -23,10 +21,6 @@ def:
     - 50
     - 50
     - 70
-itemtable:
-    5500: '3000'
-    5501: '3000'
-    5600: '4000'
 SPECIAL:
     PoisonResist: 50
 cycle: 28800
@@ -76,3 +70,10 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1017
+reward:
+    moneyhold: 5067
+    itemtable:
+        5500: '3000'
+        5501: '3000'
+        5600: '4000'
+    exphold: 7600
