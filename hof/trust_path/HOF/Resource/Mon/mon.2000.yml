@@ -1,8 +1,6 @@
 no: 2000
 name: DragonFleets
 img: mon_013r
-exphold: 15200
-moneyhold: 10133
 level: '250'
 maxhp: 30400
 hp: 30400
@@ -23,9 +21,6 @@ def:
     - 30
     - 50
     - 30
-itemtable:
-    6800: '5000'
-    6801: '5000'
 SPECIAL:
     PoisonResist: 50
 cycle: 259200
@@ -88,3 +83,9 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5038
+reward:
+    moneyhold: 10133
+    itemtable:
+        6800: '5000'
+        6801: '5000'
+    exphold: 15200
