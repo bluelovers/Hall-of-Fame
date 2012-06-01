@@ -778,7 +778,7 @@ class HOF_Class_User
 	/**
 	 * お金を増やす
 	 */
-	function GetMoney($no)
+	function getMoney($no)
 	{
 		$this->money += $no;
 	}
