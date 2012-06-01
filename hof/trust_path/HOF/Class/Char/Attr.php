@@ -95,7 +95,7 @@ class HOF_Class_Char_Attr
 	/**
 	 * 経験値を得る
 	 */
-	function GetExp($exp)
+	function getExp($exp)
 	{
 		if ($this->char->isSummon())
 		{
