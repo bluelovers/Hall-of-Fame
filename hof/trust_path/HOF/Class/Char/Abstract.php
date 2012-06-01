@@ -229,7 +229,7 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		$this->setCharData(clone $this->source());
 	}
 
-	public function setCharData($data_attr)
+	public function setCharData($data_attr, $data = array())
 	{
 		if ($append = $this->option('append'))
 		{
@@ -276,8 +276,15 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 
 		if (isset($data_attr->data))
 		{
-			$this->data = $data_attr->data;
+			$this->data = (array)$data_attr->data;
 		}
+
+		$this->level = max(1, (int)$data['level'], (int)$data_attr->level);
+		$this->exp = isset($data['exp']) ? (int)$data['exp'] : (int)$data_attr->exp;
+
+		$this->gender = (int)$data_attr->gender;
+
+		$data_attr->img && $this->img = (string)$data_attr->img;
 
 		if ($data_attr->job)
 		{
@@ -289,10 +296,7 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 			}
 		}
 
-		$data_attr->img && $this->img = (string)$data_attr->img;
-
 		$data_attr->name && $this->name = (string)$data_attr->name;
-		$this->gender = (int)$data_attr->gender;
 
 		if ($this->isSummon())
 		{
@@ -300,8 +304,20 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		}
 		else
 		{
-			$this->reward = $data_attr->reward;
+			$this->reward = (array)$data_attr->reward;
 		}
+
+		$this->skill = (array)$data_attr->skill;
+
+		$this->position = (string)$data_attr->position;
+		$this->guard = (string)$data_attr->guard;
+		$this->pattern = (array)$data_attr->pattern;
+
+		$this->str = (int)$data_attr->str;
+		$this->int = (int)$data_attr->int;
+		$this->dex = (int)$data_attr->dex;
+		$this->spd = (int)$data_attr->spd;
+		$this->luk = (int)$data_attr->luk;
 	}
 
 	public function setBattleVariable()
@@ -361,6 +377,24 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		$this->expect = false;
 		$this->ActCount = 0;
 		$this->JdgCount = array();
+
+		$maxhp = $this->maxhp * (1 + ($this->M_MAXHP / 100)) + $this->P_MAXHP;
+		$this->MAXHP = round($maxhp);
+
+		$hp = $this->hp * (1 + ($this->M_MAXHP / 100)) + $this->P_MAXHP;
+		$this->HP = round($hp);
+
+		$maxsp = $this->maxsp * (1 + ($this->M_MAXSP / 100)) + $this->P_MAXSP;
+		$this->MAXSP = round($maxsp);
+
+		$sp = $this->sp * (1 + ($this->M_MAXSP / 100)) + $this->P_MAXSP;
+		$this->SP = round($sp);
+
+		$this->STR = $this->str + $this->P_STR;
+		$this->INT = $this->int + $this->P_INT;
+		$this->DEX = $this->dex + $this->P_DEX;
+		$this->SPD = $this->spd + $this->P_SPD;
+		$this->LUK = $this->luk + $this->P_LUK;
 
 		$this->pattern(HOF_Class_Char_Pattern::CHECK_PATTERN);
 	}
