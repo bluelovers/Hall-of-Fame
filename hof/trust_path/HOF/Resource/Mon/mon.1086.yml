@@ -1,8 +1,6 @@
 no: 1086
 name: Sidewinder
 img: mon_068
-exphold: '320'
-moneyhold: '200'
 level: '23'
 maxhp: '480'
 hp: '480'
@@ -22,9 +20,12 @@ def:
     - 20
     - 20
     - 20
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '200'
+    itemtable: {  }
+    exphold: '320'
