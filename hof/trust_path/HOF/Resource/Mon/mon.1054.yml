@@ -1,8 +1,6 @@
 no: 1054
 name: CursedGargoyle
 img: mon_104r
-exphold: '400'
-moneyhold: '100'
 level: '31'
 maxhp: '500'
 hp: '500'
@@ -22,9 +20,12 @@ def:
     - 40
     - 40
     - 40
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '100'
+    itemtable: {  }
+    exphold: '400'
