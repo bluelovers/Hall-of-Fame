@@ -1,8 +1,6 @@
 no: 1044
 name: Coroboccl
 img: mon_187
-exphold: '360'
-moneyhold: '230'
 level: '26'
 maxhp: '340'
 hp: '340'
@@ -22,9 +20,6 @@ def:
     - 10
     - 35
     - 100
-itemtable:
-    6021: '500'
-    6160: '30'
 pattern:
     -
         judge: 1940
@@ -54,3 +49,9 @@ pattern:
         judge: 1000
         quantity: 0
         action: 2480
+reward:
+    moneyhold: '230'
+    itemtable:
+        6021: '500'
+        6160: '30'
+    exphold: '360'
