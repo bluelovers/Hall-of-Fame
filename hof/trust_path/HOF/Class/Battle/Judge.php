@@ -243,7 +243,7 @@ class HOF_Class_Battle_Judge
 				$front_alive = 0;
 				foreach ($MyTeam as $char)
 				{
-					if ($char->STATE !== STATE_DEAD && $char->position == POSITION_FRONT) $front_alive++;
+					if ($char->STATE !== STATE_DEAD && $char->POSITION == POSITION_FRONT) $front_alive++;
 				}
 				if ($Quantity <= $front_alive) return true;
 				break;
