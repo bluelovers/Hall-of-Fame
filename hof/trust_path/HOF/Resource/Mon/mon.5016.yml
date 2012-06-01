@@ -1,8 +1,6 @@
 no: 5016
 name: FlyHippo
 img: mon_172r
-exphold: '0'
-moneyhold: '0'
 level: '10'
 maxhp: '300'
 hp: '300'
@@ -40,3 +38,6 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5008
+reward:
+    moneyhold: '0'
+    exphold: '0'
