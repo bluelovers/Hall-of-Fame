@@ -1,8 +1,6 @@
 no: 1070
 name: MermaidSoldier
 img: mon_116r
-exphold: '480'
-moneyhold: '280'
 level: '37'
 maxhp: '910'
 hp: '910'
@@ -23,9 +21,12 @@ def:
     - 80
     - 20
     - 20
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '280'
+    itemtable: {  }
+    exphold: '480'
