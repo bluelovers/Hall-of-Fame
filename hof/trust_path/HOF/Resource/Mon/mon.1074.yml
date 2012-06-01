@@ -1,8 +1,6 @@
 no: 1074
 name: FireLizzard
 img: mon_136
-exphold: '430'
-moneyhold: '20'
 level: '35'
 maxhp: '620'
 hp: '620'
@@ -22,9 +20,12 @@ def:
     - 0
     - 30
     - 40
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '20'
+    itemtable: {  }
+    exphold: '430'
