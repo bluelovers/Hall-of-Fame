@@ -594,7 +594,7 @@ class HOF_Class_Item_Auction
 			 */
 			if ($user["Money"])
 			{
-				$user["user"]->GetMoney($user["UserGetTotalMoney"]);
+				$user["user"]->getMoney($user["UserGetTotalMoney"]);
 				$user["user"]->SaveData();
 			}
 
