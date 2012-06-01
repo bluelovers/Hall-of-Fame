@@ -643,7 +643,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 			//$this->char->SetUser($this->user->id);
 
-			list($result, $message) = $this->char->LearnNewSkill($this->input->newskill);
+			list($result, $message) = $this->char->skill_learn($this->input->newskill);
 
 			if ($result)
 			{
@@ -1025,7 +1025,7 @@ HTML_BYEBYE;
 
 		$JobData = $this->char->jobdata();
 
-		$handle = $this->char->GetHandle(true);
+		$handle = $this->char->getHandle(true);
 
 		/**
 		 * 装備中の物表示
@@ -1093,7 +1093,7 @@ HTML_BYEBYE;
 				/
 				<?=
 
-		$this->char->GetHandle()
+		$this->char->getHandle()
 
 
 ?></td>
