@@ -1,8 +1,6 @@
 no: 1066
 name: Megarodon
 img: mon_227
-exphold: '3100'
-moneyhold: '1200'
 level: '53'
 maxhp: '3200'
 hp: '3200'
@@ -23,9 +21,12 @@ def:
     - 30
     - 20
     - 30
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '1200'
+    itemtable: {  }
+    exphold: '3100'
