@@ -1,8 +1,6 @@
 no: 2006
 name: DinnerTime
 img: mon_054r
-exphold: 515
-moneyhold: 343
 level: '30'
 maxhp: 1030
 hp: 1030
@@ -23,7 +21,6 @@ def:
     - 20
     - 30
     - 20
-itemtable: {  }
 SPECIAL:
     PoisonResist: 50
 servantSpecify:
@@ -123,3 +120,7 @@ pattern:
         judge: 1000
         quantity: 0
         action: 2000
+reward:
+    moneyhold: 343
+    itemtable: {  }
+    exphold: 515
