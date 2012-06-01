@@ -1,8 +1,6 @@
 no: 2009
 name: Specters
 img: mon_238
-exphold: 2515
-moneyhold: 1677
 level: '120'
 maxhp: 5030
 hp: 5030
@@ -23,7 +21,6 @@ def:
     - 150
     - 40
     - 70
-itemtable: {  }
 SPECIAL:
     PoisonResist: 80
 cycle: 75600
@@ -58,3 +55,7 @@ servant:
 land: build01
 lv_limit: '150'
 pattern: {  }
+reward:
+    moneyhold: 1677
+    itemtable: {  }
+    exphold: 2515
