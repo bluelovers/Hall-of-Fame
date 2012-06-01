@@ -2,8 +2,6 @@ no: 1100
 name: MonkeyWarrior
 img: mon_008
 level: '20'
-exphold: '200'
-moneyhold: '100'
 maxhp: '650'
 hp: '650'
 maxsp: '150'
@@ -23,8 +21,6 @@ def:
     - 20
     - 20
     - 5
-itemtable:
-    6600: '3000'
 pattern:
     -
         judge: 1101
@@ -42,3 +38,8 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5065
+reward:
+    moneyhold: '100'
+    itemtable:
+        6600: '3000'
+    exphold: '200'
