@@ -2,8 +2,6 @@ no: 1099
 name: GoblinTank
 img: mon_078
 level: '15'
-exphold: '100'
-moneyhold: '100'
 maxhp: '800'
 hp: '800'
 maxsp: '150'
@@ -32,3 +30,6 @@ pattern:
         judge: 1000
         quantity: 0
         action: 2300
+reward:
+    moneyhold: '100'
+    exphold: '100'
