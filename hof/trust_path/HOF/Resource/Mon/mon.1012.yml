@@ -1,8 +1,6 @@
 no: 1012
 name: Bat
 level: '10'
-exphold: '40'
-moneyhold: '40'
 maxhp: '150'
 hp: '150'
 maxsp: '10'
@@ -21,8 +19,6 @@ def:
     - 0
     - 5
     - 0
-itemtable:
-    6180: '600'
 img: mon_121r
 pattern:
     -
@@ -43,3 +39,8 @@ pattern:
         action: 5002
 info:
     desc: 仲間を呼んで吸血攻撃をしてくる。
+reward:
+    moneyhold: '40'
+    itemtable:
+        6180: '600'
+    exphold: '40'
