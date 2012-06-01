@@ -175,7 +175,7 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 		//dump($_POST);
 		if (!$_POST["ItemSell"]) return false;
 
-		$GetMoney = 0;
+		$getMoney = 0;
 		print ("<div style=\"margin:15px\">");
 		print ("<table cellspacing=\"0\">\n");
 		print ('<tr><td class="td6" style="text-align:center">売値</td>' . '<td class="td6" style="text-align:center">数</td>' . '<td class="td6" style="text-align:center">計</td>' . '<td class="td6" style="text-align:center">アイテム</td></tr>' . "\n");
@@ -205,7 +205,7 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 		print ("</table>\n");
 		print ("</div>");
 		$this->user->item_save();
-		$this->user->GetMoney($getMoney);
+		$this->user->getMoney($getMoney);
 		return true;
 	}
 
@@ -225,7 +225,7 @@ class HOF_Controller_Shop extends HOF_Class_Controller
 			if ($this->user->WasteTime($time))
 			{
 				HOF_Helper_Global::ShowResult(HOF_Helper_Global::MoneyFormat($money) . " げっとした！", "margin15");
-				$this->user->GetMoney($money);
+				$this->user->getMoney($money);
 				return true;
 			}
 			else
