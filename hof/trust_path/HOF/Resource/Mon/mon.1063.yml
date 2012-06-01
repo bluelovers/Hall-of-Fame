@@ -1,8 +1,6 @@
 no: 1063
 name: MadOctopus
 img: mon_118
-exphold: '300'
-moneyhold: '120'
 level: '24'
 maxhp: '430'
 hp: '430'
@@ -22,9 +20,12 @@ def:
     - 20
     - 20
     - 40
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '120'
+    itemtable: {  }
+    exphold: '300'
