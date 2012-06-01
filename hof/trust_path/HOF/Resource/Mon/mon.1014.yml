@@ -2,8 +2,6 @@ no: 1014
 name: CaveLizzard
 img: mon_036z
 level: '12'
-exphold: '100'
-moneyhold: '100'
 maxhp: '580'
 hp: '580'
 maxsp: '60'
@@ -23,8 +21,6 @@ def:
     - 30
     - 10
     - 30
-itemtable:
-    6040: '1500'
 pattern:
     -
         judge: 1940
@@ -40,3 +36,8 @@ pattern:
         action: 1000
 info:
     desc: 魔法で攻撃しないと倒しにくい。
+reward:
+    moneyhold: '100'
+    itemtable:
+        6040: '1500'
+    exphold: '100'
