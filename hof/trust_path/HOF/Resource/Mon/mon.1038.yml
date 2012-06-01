@@ -1,8 +1,6 @@
 no: 1038
 name: SnowWolf
 img: mon_184
-exphold: '35'
-moneyhold: '35'
 level: '3'
 maxhp: '150'
 hp: '150'
@@ -23,8 +21,6 @@ def:
     - 20
     - 5
     - 10
-itemtable:
-    6040: '1000'
 pattern:
     -
         judge: 1940
@@ -42,3 +38,8 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5009
+reward:
+    moneyhold: '35'
+    itemtable:
+        6040: '1000'
+    exphold: '35'
