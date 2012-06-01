@@ -1,8 +1,6 @@
 no: 5010
 name: GrandDino
 img: mon_228
-exphold: '0'
-moneyhold: '0'
 level: '10'
 maxhp: '900'
 hp: '900'
@@ -56,3 +54,6 @@ pattern:
         judge: 1000
         quantity: 0
         action: 5008
+reward:
+    moneyhold: '0'
+    exphold: '0'
