@@ -1,8 +1,6 @@
 no: 1050
 name: DarkElfHunter
 img: mon_042r
-exphold: '500'
-moneyhold: '200'
 level: '39'
 maxhp: '580'
 hp: '580'
@@ -23,9 +21,12 @@ def:
     - 20
     - 30
     - 40
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '200'
+    itemtable: {  }
+    exphold: '500'
