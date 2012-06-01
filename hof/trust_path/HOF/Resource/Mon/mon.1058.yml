@@ -1,8 +1,6 @@
 no: 1058
 name: Sentry
 img: mon_174
-exphold: '1000'
-moneyhold: '500'
 level: '37'
 maxhp: '1000'
 hp: '1000'
@@ -22,9 +20,12 @@ def:
     - 30
     - 30
     - 30
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '500'
+    itemtable: {  }
+    exphold: '1000'
