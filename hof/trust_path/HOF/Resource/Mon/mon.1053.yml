@@ -1,8 +1,6 @@
 no: 1053
 name: SwampBerserker
 img: mon_102
-exphold: '440'
-moneyhold: '40'
 level: '36'
 maxhp: '790'
 hp: '790'
@@ -23,9 +21,12 @@ def:
     - 30
     - 10
     - 10
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '40'
+    itemtable: {  }
+    exphold: '440'
