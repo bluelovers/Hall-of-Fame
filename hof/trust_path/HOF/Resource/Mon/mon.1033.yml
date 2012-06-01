@@ -2,8 +2,6 @@ no: 1033
 name: CentaurKnight
 img: mon_129r
 level: '40'
-exphold: '580'
-moneyhold: '320'
 maxhp: '1340'
 hp: '1340'
 maxsp: '120'
@@ -23,9 +21,6 @@ def:
     - 30
     - 20
     - 20
-itemtable:
-    6002: '1500'
-    6003: '500'
 pattern:
     -
         judge: 1701
@@ -55,3 +50,9 @@ pattern:
         judge: 1000
         quantity: 0
         action: 1000
+reward:
+    moneyhold: '320'
+    itemtable:
+        6002: '1500'
+        6003: '500'
+    exphold: '580'
