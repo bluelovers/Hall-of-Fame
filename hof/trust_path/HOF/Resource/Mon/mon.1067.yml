@@ -1,8 +1,6 @@
 no: 1067
 name: Neptune
 img: mon_162
-exphold: '2400'
-moneyhold: '3000'
 level: '45'
 maxhp: '1200'
 hp: '1200'
@@ -23,9 +21,12 @@ def:
     - 20
     - 50
     - 50
-itemtable: {  }
 pattern:
     -
         judge: 1000
         quantity: null
         action: 1000
+reward:
+    moneyhold: '3000'
+    itemtable: {  }
+    exphold: '2400'
