@@ -11,8 +11,6 @@ int: '10'
 dex: '10'
 spd: '30'
 luk: '30'
-guard: life50
-position: front
 atk:
     - 100
     - 10
@@ -21,12 +19,15 @@ def:
     - 20
     - 20
     - 10
-pattern:
-    -
-        judge: 1000
-        quantity: null
-        action: 1000
 reward:
     moneyhold: '200'
     itemtable: {  }
     exphold: '600'
+behavior:
+    position: front
+    guard: life50
+    pattern:
+        -
+            judge: 1000
+            quantity: null
+            action: 1000
