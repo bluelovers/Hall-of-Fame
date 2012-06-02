@@ -37,7 +37,7 @@ class HOF_Class_Char_Attr
 		}
 		elseif ($this->char->isMon())
 		{
-			$exp = 3;
+			$exp = 10;
 
 			return $exp;
 		}
