@@ -11,8 +11,6 @@ int: '300'
 dex: '200'
 spd: '200'
 luk: '100'
-guard: prob50
-position: front
 atk:
     - 100
     - 50
@@ -21,23 +19,26 @@ def:
     - 40
     - 10
     - 30
-pattern:
-    -
-        judge: 1201
-        quantity: 30
-        action: 2091
-    -
-        judge: 1902
-        quantity: 1
-        action: 5023
-    -
-        judge: 1940
-        quantity: 50
-        action: 5026
-    -
-        judge: 1000
-        quantity: 0
-        action: 5028
 reward:
     moneyhold: '0'
     exphold: '0'
+behavior:
+    position: front
+    guard: prob50
+    pattern:
+        -
+            judge: 1201
+            quantity: 30
+            action: 2091
+        -
+            judge: 1902
+            quantity: 1
+            action: 5023
+        -
+            judge: 1940
+            quantity: 50
+            action: 5026
+        -
+            judge: 1000
+            quantity: 0
+            action: 5028
