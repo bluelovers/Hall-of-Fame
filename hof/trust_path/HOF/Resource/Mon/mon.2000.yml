@@ -11,8 +11,6 @@ int: '180'
 dex: '100'
 spd: '150'
 luk: '50'
-guard: never
-position: back
 atk:
     - 100
     - 70
@@ -42,50 +40,53 @@ servant:
         - 0
 land: swamp2
 lv_limit: '250'
-pattern:
-    -
-        judge: 1201
-        quantity: 30
-        action: 9000
-    -
-        judge: 1940
-        quantity: 50
-        action: 3011
-    -
-        judge: 1201
-        quantity: 30
-        action: 2091
-    -
-        judge: 1101
-        quantity: 30
-        action: 9000
-    -
-        judge: 1920
-        quantity: 1
-        action: 1116
-    -
-        judge: 1405
-        quantity: 2
-        action: 9000
-    -
-        judge: 1920
-        quantity: 2
-        action: 5030
-    -
-        judge: 1940
-        quantity: 30
-        action: 2024
-    -
-        judge: 1940
-        quantity: 50
-        action: 5014
-    -
-        judge: 1000
-        quantity: 0
-        action: 5038
 reward:
     moneyhold: 10133
     itemtable:
         6800: '5000'
         6801: '5000'
     exphold: 15200
+behavior:
+    position: back
+    guard: never
+    pattern:
+        -
+            judge: 1201
+            quantity: 30
+            action: 9000
+        -
+            judge: 1940
+            quantity: 50
+            action: 3011
+        -
+            judge: 1201
+            quantity: 30
+            action: 2091
+        -
+            judge: 1101
+            quantity: 30
+            action: 9000
+        -
+            judge: 1920
+            quantity: 1
+            action: 1116
+        -
+            judge: 1405
+            quantity: 2
+            action: 9000
+        -
+            judge: 1920
+            quantity: 2
+            action: 5030
+        -
+            judge: 1940
+            quantity: 30
+            action: 2024
+        -
+            judge: 1940
+            quantity: 50
+            action: 5014
+        -
+            judge: 1000
+            quantity: 0
+            action: 5038
