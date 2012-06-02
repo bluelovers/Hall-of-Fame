@@ -11,8 +11,6 @@ int: '20'
 dex: '10'
 spd: '10'
 luk: '30'
-guard: always
-position: front
 atk:
     - 100
     - 10
@@ -21,39 +19,42 @@ def:
     - 60
     - 35
     - 30
-pattern:
-    -
-        judge: 1940
-        quantity: 50
-        action: 9000
-    -
-        judge: 1902
-        quantity: 1
-        action: 5005
-    -
-        judge: 1101
-        quantity: 50
-        action: 9000
-    -
-        judge: 1200
-        quantity: 20
-        action: 3121
-    -
-        judge: 1940
-        quantity: 50
-        action: 9000
-    -
-        judge: 1200
-        quantity: 20
-        action: 5000
-    -
-        judge: 1940
-        quantity: 50
-        action: 5019
-    -
-        judge: 1000
-        quantity: 0
-        action: 5008
 reward:
     moneyhold: '0'
     exphold: '0'
+behavior:
+    position: front
+    guard: always
+    pattern:
+        -
+            judge: 1940
+            quantity: 50
+            action: 9000
+        -
+            judge: 1902
+            quantity: 1
+            action: 5005
+        -
+            judge: 1101
+            quantity: 50
+            action: 9000
+        -
+            judge: 1200
+            quantity: 20
+            action: 3121
+        -
+            judge: 1940
+            quantity: 50
+            action: 9000
+        -
+            judge: 1200
+            quantity: 20
+            action: 5000
+        -
+            judge: 1940
+            quantity: 50
+            action: 5019
+        -
+            judge: 1000
+            quantity: 0
+            action: 5008
