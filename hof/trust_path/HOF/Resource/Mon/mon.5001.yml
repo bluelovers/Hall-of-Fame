@@ -11,8 +11,6 @@ int: '36'
 dex: '15'
 spd: '20'
 luk: '1'
-guard: never
-position: back
 atk:
     - 10
     - 20
@@ -21,20 +19,23 @@ def:
     - 10
     - 30
     - 20
-pattern:
-    -
-        judge: 1201
-        quantity: 30
-        action: 3011
-    -
-        judge: 1126
-        quantity: 70
-        action: 3003
-    -
-        judge: 1226
-        quantity: 70
-        action: 3102
-    -
-        judge: 1000
-        quantity: 0
-        action: 2101
+behavior:
+    position: back
+    guard: never
+    pattern:
+        -
+            judge: 1201
+            quantity: 30
+            action: 3011
+        -
+            judge: 1126
+            quantity: 70
+            action: 3003
+        -
+            judge: 1226
+            quantity: 70
+            action: 3102
+        -
+            judge: 1000
+            quantity: 0
+            action: 2101
