@@ -11,7 +11,6 @@ int: '12'
 dex: '15'
 spd: '14'
 luk: '1'
-guard: prob50
 atk:
     - 40
     - 10
@@ -20,19 +19,6 @@ def:
     - 30
     - 10
     - 20
-pattern:
-    -
-        judge: 1201
-        quantity: 40
-        action: 3010
-    -
-        judge: 1226
-        quantity: 50
-        action: 3101
-    -
-        judge: 1000
-        quantity: 0
-        action: 1017
 reward:
     moneyhold: '60'
     itemtable:
@@ -40,3 +26,18 @@ reward:
         6181: '1000'
         7100: '100'
     exphold: '60'
+behavior:
+    guard: prob50
+    pattern:
+        -
+            judge: 1201
+            quantity: 40
+            action: 3010
+        -
+            judge: 1226
+            quantity: 50
+            action: 3101
+        -
+            judge: 1000
+            quantity: 0
+            action: 1017
