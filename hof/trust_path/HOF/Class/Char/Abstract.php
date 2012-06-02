@@ -249,6 +249,8 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 				'spd',
 				'luk') as $k)
 			{
+				if (!isset($data_attr->{$k})) continue;
+
 				$data_attr->{$k} = round($data_attr->{$k} * $strength);
 			}
 
@@ -325,11 +327,29 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 
 		$this->behavior = (array )$data_attr->behavior;
 
+		/*
 		$this->str = (int)$data_attr->str;
 		$this->int = (int)$data_attr->int;
 		$this->dex = (int)$data_attr->dex;
 		$this->spd = (int)$data_attr->spd;
 		$this->luk = (int)$data_attr->luk;
+		*/
+
+		foreach (array(
+			'maxhp',
+			'hp',
+			'maxsp',
+			'sp',
+			'str',
+			'int',
+			'dex',
+			'spd',
+			'luk') as $k)
+		{
+			if (!isset($data_attr->{$k})) continue;
+
+			$this->{$k} = $data_attr->{$k};
+		}
 	}
 
 	public function setBattleVariable()
@@ -405,6 +425,9 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 
 		$sp = $this->sp * (1 + ($this->M_MAXSP / 100)) + $this->P_MAXSP;
 		$this->SP = round($sp);
+
+		$this->HP = min($this->HP, $this->MAXHP);
+		$this->SP = min($this->HP, $this->MAXHP);
 
 		$this->STR = $this->str + $this->P_STR;
 		$this->INT = $this->int + $this->P_INT;
