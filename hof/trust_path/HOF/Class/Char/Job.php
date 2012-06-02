@@ -149,7 +149,7 @@ class HOF_Class_Char_Job
 	/**
 	 * HPとSPを計算して設定する
 	 */
-	public function hpsp() //
+	public function hpsp($hpsp = false, $full = false) //
 	{
 		$MaxStatus = MAX_STATUS; //最高ステータス(じゃなくてもいいです)
 
@@ -179,6 +179,20 @@ class HOF_Class_Char_Job
 
 		$this->char->maxhp = max($this->char->maxhp, $this->_cache['hpsp']['maxhp'], $new_maxhp);
 		$this->char->maxsp = max($this->char->maxsp, $this->_cache['hpsp']['maxsp'], $new_maxsp);
+
+		if ($full)
+		{
+			$this->char->hp = (int)$this->char->maxhp;
+			$this->char->sp = (int)$this->char->maxsp;
+		}
+		elseif ($hpsp)
+		{
+			$this->char->hp = isset($this->char->hp) ? ($this->char->hp > 0 ? (int)$this->char->hp : 0) : (int)$this->char->maxhp;
+			$this->char->sp = isset($this->char->sp) ? ($this->char->sp > 0 ? (int)$this->char->sp : 0) : (int)$this->char->maxsp;
+
+			$this->char->hp = min($this->char->hp, $this->char->maxhp);
+			$this->char->sp = min($this->char->sp, $this->char->maxsp);
+		}
 
 		$ret = array(
 			$this->_cache['hpsp'],
