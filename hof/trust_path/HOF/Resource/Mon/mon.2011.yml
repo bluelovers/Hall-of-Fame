@@ -11,8 +11,6 @@ int: '80'
 dex: '80'
 spd: '140'
 luk: '50'
-guard: never
-position: back
 atk:
     - 150
     - 20
@@ -48,8 +46,11 @@ servant:
         - 0
 land: mount
 lv_limit: '150'
-pattern: {  }
 reward:
     moneyhold: 3360
     itemtable: {  }
     exphold: 5040
+behavior:
+    position: back
+    guard: never
+    pattern: {  }
