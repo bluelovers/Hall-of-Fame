@@ -1,0 +1,8 @@
+no: '900'
+coe:
+    maxhp: 0.3
+    maxsp: 0.3
+job: '900'
+job_name: GeneralChar
+info:
+    desc: "General Char Job."
