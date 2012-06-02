@@ -19,10 +19,10 @@
 			</td>
 
 				<td class="td7"><?php $data['char']->ShowCharWithLand($data['char']->land); ?></td>
-				<td class="td7"><?php e($data['monster']['reward']['exphold']) ?></td>
-				<td class="td7"><?php e($data['monster']['reward']['moneyhold']) ?></td>
-				<td class="td7"><?php e($data['monster']['maxhp']) ?></td>
-				<td class="td7"><?php e($data['monster']['maxsp']) ?></td>
+				<td class="td7"><?php e($data['char']->reward['exphold']) ?></td>
+				<td class="td7"><?php e($data['char']->reward['moneyhold']) ?></td>
+				<td class="td7"><?php e($data['char']->maxhp) ?></td>
+				<td class="td7"><?php e($data['char']->maxsp) ?></td>
 				<td class="td7"><?php e($data['monster']['str']) ?></td>
 				<td class="td7"><?php e($data['monster']['int']) ?></td>
 				<td class="td7"><?php e($data['monster']['dex']) ?></td>
