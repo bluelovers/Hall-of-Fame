@@ -272,7 +272,10 @@ class HOF_Class_Battle_Team extends HOF_Class_Array_Prop
 	 */
 	function CountDead()
 	{
-		$list = $this->array_filter(HOF_Class_Array_Comparer_Callback::newInstance()->comp_func(array($this, '_callback_' . __FUNCTION__ ))->callback());
+		static $callback;
+		!isset($callback) && $callback = HOF_Class_Array_Comparer_Callback::newInstance()->comp_func(array(get_class($this), '_callback_' . __FUNCTION__ ))->callback();
+
+		$list = $this->array_filter($callback);
 
 		return count($list);
 	}
@@ -284,7 +287,10 @@ class HOF_Class_Battle_Team extends HOF_Class_Array_Prop
 
 	function CountAliveChars()
 	{
-		$list = $this->array_filter(HOF_Class_Array_Comparer_Callback::newInstance()->comp_func(array($this, '_callback_' . __FUNCTION__ ))->callback());
+		static $callback;
+		!isset($callback) && $callback = HOF_Class_Array_Comparer_Callback::newInstance()->comp_func(array(get_class($this), '_callback_' . __FUNCTION__ ))->callback();
+
+		$list = $this->array_filter($callback);
 
 		return count($list);
 	}
@@ -296,7 +302,10 @@ class HOF_Class_Battle_Team extends HOF_Class_Array_Prop
 
 	function CountTrueChars()
 	{
-		$list = $this->array_filter(HOF_Class_Array_Comparer_Callback::newInstance()->comp_func(array($this, '_callback_' . __FUNCTION__ ))->callback());
+		static $callback;
+		!isset($callback) && $callback = HOF_Class_Array_Comparer_Callback::newInstance()->comp_func(array(get_class($this), '_callback_' . __FUNCTION__ ))->callback();
+
+		$list = $this->array_filter($callback);
 
 		return count($list);
 	}
