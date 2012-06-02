@@ -87,11 +87,11 @@ class HOF_Class_Skill extends HOF_Class_Base_ObjectAttr
 
 		if ($url)
 		{
-			return HOF_Class_Icon::getImageUrl($icon, HOF_Class_Icon::IMG_SKILL);
+			return HOF_Class_Icon::getImageUrl($icon, HOF_Class_Icon::IMG_SKILL, $true);
 		}
 		else
 		{
-			return HOF_Class_Icon::getImage($icon, HOF_Class_Icon::IMG_SKILL);
+			return HOF_Class_Icon::getImage($icon, HOF_Class_Icon::IMG_SKILL, $true);
 		}
 	}
 
