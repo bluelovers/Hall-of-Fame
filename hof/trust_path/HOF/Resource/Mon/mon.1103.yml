@@ -11,7 +11,6 @@ int: '130'
 dex: '15'
 spd: '100'
 luk: '10'
-guard: prob50
 atk:
     - 100
     - 100
@@ -20,7 +19,9 @@ def:
     - 40
     - 50
     - 40
-pattern: {  }
 reward:
     moneyhold: '100'
     exphold: '500'
+behavior:
+    guard: prob50
+    pattern: {  }
