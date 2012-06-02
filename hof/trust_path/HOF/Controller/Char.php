@@ -298,14 +298,14 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		$this->input->position = HOF::$input->post->position;
 		$this->input->guard = HOF::$input->post->guard;
 
-		if ($this->input->position == POSITION_FRONT)
+		if ($this->input->behavior['position'] == POSITION_FRONT)
 		{
-			$this->char->position = POSITION_FRONT;
+			$this->char->behavior['position'] = POSITION_FRONT;
 			$pos = "前衛(Front)";
 		}
 		else
 		{
-			$this->char->position = POSITION_BACK;
+			$this->char->behavior['position'] = POSITION_BACK;
 			$pos = "後衛(Back)";
 		}
 
@@ -317,7 +317,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		$this->input->guard = $v['no'];
 		$guard = $v['info']['desc'];
 
-		$this->char->guard = $this->input->guard;
+		$this->char->behavior['guard'] = $this->input->guard;
 
 		$this->char->saveCharData();
 
@@ -1007,7 +1007,7 @@ HTML_BYEBYE;
 		$this->char->setBattleVariable();
 
 		$this->output->char_id = $this->input->char;
-		$this->output->char = $this->char;
+		$this->output->char = &$this->char;
 	}
 
 	/**
