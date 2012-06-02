@@ -323,11 +323,6 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 
 		$this->skill = (array )$data_attr->skill;
 
-		/*
-		$this->position = (string)$data_attr->behavior['position'];
-		$this->guard = (string)$data_attr->behavior['guard'];
-		$this->pattern = (array)$data_attr->behavior['pattern'];
-		*/
 		$this->behavior = (array )$data_attr->behavior;
 
 		$this->str = (int)$data_attr->str;
