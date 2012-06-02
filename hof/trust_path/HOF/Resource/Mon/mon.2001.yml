@@ -11,8 +11,6 @@ int: '30'
 dex: '50'
 spd: '80'
 luk: '50'
-guard: prob50
-position: front
 atk:
     - 150
     - 20
@@ -33,43 +31,6 @@ servant:
         - 0
 land: mount
 lv_limit: '200'
-pattern:
-    -
-        judge: 1201
-        quantity: 30
-        action: 3011
-    -
-        judge: 1100
-        quantity: 20
-        action: 9000
-    -
-        judge: 1401
-        quantity: 1
-        action: 1018
-    -
-        judge: 1101
-        quantity: 30
-        action: 9000
-    -
-        judge: 1700
-        quantity: 0
-        action: 9000
-    -
-        judge: 1710
-        quantity: 3
-        action: 1023
-    -
-        judge: 1101
-        quantity: 80
-        action: 9000
-    -
-        judge: 1902
-        quantity: 1
-        action: 3111
-    -
-        judge: 1000
-        quantity: 0
-        action: 1017
 reward:
     moneyhold: 5067
     itemtable:
@@ -77,3 +38,43 @@ reward:
         5501: '3000'
         5600: '4000'
     exphold: 7600
+behavior:
+    position: front
+    guard: prob50
+    pattern:
+        -
+            judge: 1201
+            quantity: 30
+            action: 3011
+        -
+            judge: 1100
+            quantity: 20
+            action: 9000
+        -
+            judge: 1401
+            quantity: 1
+            action: 1018
+        -
+            judge: 1101
+            quantity: 30
+            action: 9000
+        -
+            judge: 1700
+            quantity: 0
+            action: 9000
+        -
+            judge: 1710
+            quantity: 3
+            action: 1023
+        -
+            judge: 1101
+            quantity: 80
+            action: 9000
+        -
+            judge: 1902
+            quantity: 1
+            action: 3111
+        -
+            judge: 1000
+            quantity: 0
+            action: 1017
