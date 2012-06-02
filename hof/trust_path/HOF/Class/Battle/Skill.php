@@ -20,7 +20,7 @@ class HOF_Class_Battle_Skill
 	//function UseSkill($skill_no, &$JudgedTarget, &$My, &$MyTeam, &$Enemy)
 	function UseSkill($skill_no, &$JudgedTarget, &$My)
 	{
-		list($_MyTeam, $_EnemyTeam) = $this->battle->teamToggle($My->team());
+		list($_MyTeam, $_EnemyTeam) = $this->battle->teamToggle($My->team);
 
 		$MyTeam = &$this->battle->teams[$_MyTeam]['team'];
 		$Enemy = &$this->battle->teams[$_EnemyTeam]['team'];
@@ -210,9 +210,9 @@ class HOF_Class_Battle_Skill
 
 		list($exp, $money, $itemdrop) = $this->battle->JudgeTargetsDead($candidate); //又、取得する経験値を得る
 
-		$this->battle->getExp($exp, $My->team());
-		$this->battle->getItem($itemdrop, $My->team());
-		$this->battle->getMoney($money, $My->team());
+		$this->battle->getExp($exp, $My->team);
+		$this->battle->getItem($itemdrop, $My->team);
+		$this->battle->getMoney($money, $My->team);
 
 		// 技の使用等でSPDが変化した場合DELAYを再計算する。
 		if ($this->battle->ChangeDelay) $this->battle->SetDelay();
