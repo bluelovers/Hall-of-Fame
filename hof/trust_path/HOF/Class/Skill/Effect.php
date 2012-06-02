@@ -408,9 +408,9 @@ class HOF_Class_Skill_Effect
 				break;
 
 			case 4000: // StanceRestore(臨戦態勢)
-				if ($target->position != $target->POSITION)
+				if ($target->behavior['position'] != $target->POSITION)
 				{
-					$target->Move($target->position);
+					$target->Move($target->behavior['position']);
 				}
 				break;
 
