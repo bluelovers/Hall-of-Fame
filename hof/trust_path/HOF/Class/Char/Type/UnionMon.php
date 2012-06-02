@@ -63,6 +63,8 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 		$this->hp = $data["hp"];
 		$this->sp = $data["sp"];
 
+		$this->hpsp(true);
+
 		//モンスター専用
 
 		$this->atk = $data_attr["atk"];
