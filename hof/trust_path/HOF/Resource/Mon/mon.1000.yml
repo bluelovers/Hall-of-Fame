@@ -11,7 +11,6 @@ int: '3'
 dex: '5'
 spd: '5'
 luk: '1'
-guard: life75
 special: {  }
 atk:
     - 20
@@ -21,19 +20,6 @@ def:
     - 3
     - 5
     - 0
-pattern:
-    -
-        judge: 1940
-        quantity: 50
-        action: 9000
-    -
-        judge: 1205
-        quantity: 40
-        action: 1017
-    -
-        judge: 1000
-        quantity: 0
-        action: 1000
 info:
     desc: SPがあるときは、強い攻撃をたまにしてくる程度。
 reward:
@@ -45,3 +31,18 @@ reward:
         6003: '200'
         7100: '100'
     exphold: '20'
+behavior:
+    guard: life75
+    pattern:
+        -
+            judge: 1940
+            quantity: 50
+            action: 9000
+        -
+            judge: 1205
+            quantity: 40
+            action: 1017
+        -
+            judge: 1000
+            quantity: 0
+            action: 1000
