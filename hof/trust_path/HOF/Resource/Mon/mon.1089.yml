@@ -11,8 +11,6 @@ int: '80'
 dex: '10'
 spd: '40'
 luk: '100'
-guard: life25
-position: back
 atk:
     - 50
     - 30
@@ -21,40 +19,43 @@ def:
     - 30
     - 35
     - 30
-pattern:
-    -
-        judge: 1101
-        quantity: 50
-        action: 9000
-    -
-        judge: 1200
-        quantity: 10
-        action: 3121
-    -
-        judge: 1940
-        quantity: 30
-        action: 9000
-    -
-        judge: 1902
-        quantity: 1
-        action: 9000
-    -
-        judge: 1200
-        quantity: 50
-        action: 5046
-    -
-        judge: 1200
-        quantity: 40
-        action: 9000
-    -
-        judge: 1940
-        quantity: 50
-        action: 5044
-    -
-        judge: 1000
-        quantity: 0
-        action: 5043
 reward:
     moneyhold: '180'
     itemtable: {  }
     exphold: '330'
+behavior:
+    position: back
+    guard: life25
+    pattern:
+        -
+            judge: 1101
+            quantity: 50
+            action: 9000
+        -
+            judge: 1200
+            quantity: 10
+            action: 3121
+        -
+            judge: 1940
+            quantity: 30
+            action: 9000
+        -
+            judge: 1902
+            quantity: 1
+            action: 9000
+        -
+            judge: 1200
+            quantity: 50
+            action: 5046
+        -
+            judge: 1200
+            quantity: 40
+            action: 9000
+        -
+            judge: 1940
+            quantity: 50
+            action: 5044
+        -
+            judge: 1000
+            quantity: 0
+            action: 5043
