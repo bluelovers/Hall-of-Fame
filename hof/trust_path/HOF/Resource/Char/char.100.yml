@@ -15,20 +15,21 @@ job: '100'
 skill:
     - 1000
     - 1001
-position: front
-guard: always
-pattern:
-    -
-        judge: '1205'
-        quantity: '8'
-        action: '1001'
-    -
-        judge: '1000'
-        quantity: '0'
-        action: '1000'
 data_ex:
     recruit_money: 2000
 equip:
     main_hand: '1000'
     off_hand: '3000'
     armor: '5000'
+behavior:
+    position: front
+    guard: always
+    pattern:
+        -
+            judge: '1205'
+            quantity: '8'
+            action: '1001'
+        -
+            judge: '1000'
+            quantity: '0'
+            action: '1000'
