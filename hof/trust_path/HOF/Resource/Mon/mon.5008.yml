@@ -11,8 +11,6 @@ int: '20'
 dex: '10'
 spd: '20'
 luk: '10'
-guard: always
-position: front
 atk:
     - 50
     - 10
@@ -21,11 +19,14 @@ def:
     - 20
     - 30
     - 10
-pattern:
-    -
-        judge: 1000
-        quantity: 0
-        action: 5008
 reward:
     moneyhold: '0'
     exphold: '0'
+behavior:
+    position: front
+    guard: always
+    pattern:
+        -
+            judge: 1000
+            quantity: 0
+            action: 5008
