@@ -72,10 +72,12 @@ class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 
 		$this->no = $data_attr["no"];
 
+		/*
 		$this->maxhp = $data_attr["maxhp"];
 		$this->hp = $data_attr["hp"];
 		$this->maxsp = $data_attr["maxsp"];
 		$this->sp = $data_attr["sp"];
+		*/
 
 		// モンスター専用
 		//$this->monster		= $data_attr["monster"];
