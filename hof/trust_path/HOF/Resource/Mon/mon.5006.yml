@@ -11,8 +11,6 @@ int: '1'
 dex: '1'
 spd: '10'
 luk: '1'
-guard: prob50
-position: front
 SPECIAL:
     Undead: true
 atk:
@@ -23,11 +21,14 @@ def:
     - 10
     - 0
     - 0
-pattern:
-    -
-        judge: 1000
-        quantity: 0
-        action: 1000
 reward:
     moneyhold: '0'
     exphold: '0'
+behavior:
+    position: front
+    guard: prob50
+    pattern:
+        -
+            judge: 1000
+            quantity: 0
+            action: 1000
