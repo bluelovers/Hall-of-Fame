@@ -355,8 +355,8 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		}
 
 		foreach(array(
-			'pattern_change',
 			'TestBattle',
+			'pattern_change',
 			'pattern_memo',
 			'pattern_insert',
 			'pattern_remove',
@@ -400,7 +400,7 @@ class HOF_Controller_Char extends HOF_Class_Controller
 		// 記憶するパターンと技の配列。
 		for ($i = 0; $i < $max; $i++)
 		{
-			$quantity_post = (int)HOF::$input->post["quantity" . $i];
+			$quantity_post = (string)HOF::$input->post["quantity" . $i];
 
 			if (4 < strlen($quantity_post))
 			{
