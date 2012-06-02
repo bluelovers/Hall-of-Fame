@@ -368,6 +368,11 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 
 		HOF_Helper_Math::rand_seed();
 
+		$this->isChar(true);
+		$this->isMon(true);
+		$this->isSummon(true);
+		$this->isUnion(true);
+
 		if ($this->isSummon())
 		{
 			$this->reward = array();
