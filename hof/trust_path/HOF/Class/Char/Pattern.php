@@ -205,7 +205,7 @@ class HOF_Class_Char_Pattern
 			$this->cache['init'] = true;
 		}
 
-		return $this->char->pattern;
+		return $this->char->behavior['pattern'];
 	}
 
 	public function _fix_pattern_item($v = array(), $check = false)
