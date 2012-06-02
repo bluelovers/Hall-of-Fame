@@ -11,8 +11,6 @@ int: '6'
 dex: '16'
 spd: '25'
 luk: '1'
-guard: prob50
-position: front
 atk:
     - 30
     - 20
@@ -21,19 +19,6 @@ def:
     - 30
     - 10
     - 30
-pattern:
-    -
-        judge: 1940
-        quantity: 50
-        action: 5003
-    -
-        judge: 1940
-        quantity: 50
-        action: 5005
-    -
-        judge: 1000
-        quantity: 0
-        action: 1000
 info:
     desc: 魔法で攻撃しないと倒しにくい。
 reward:
@@ -41,3 +26,19 @@ reward:
     itemtable:
         6040: '1500'
     exphold: '100'
+behavior:
+    position: front
+    guard: prob50
+    pattern:
+        -
+            judge: 1940
+            quantity: 50
+            action: 5003
+        -
+            judge: 1940
+            quantity: 50
+            action: 5005
+        -
+            judge: 1000
+            quantity: 0
+            action: 1000
