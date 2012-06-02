@@ -6,14 +6,14 @@
 				<tr>
 					<td>位置(Position) :</td>
 					<td>
-						<input type="radio" class="vcent" name="position" value="front" <?php e($this->output->char->position == POSITION_FRONT ? ' checked' : '') ?> />
+						<input type="radio" class="vcent" name="position" value="front" <?php e($this->output->char->behavior['position'] == POSITION_FRONT ? ' checked' : '') ?> />
 						前衛(Front)
 					</td>
 				</tr>
 				<tr>
 					<td></td>
 					<td>
-						<input type="radio" class="vcent" name="position" value="back" <?php e($this->output->char->position == POSITION_BACK ? ' checked' : '') ?> />
+						<input type="radio" class="vcent" name="position" value="back" <?php e($this->output->char->behavior['position'] == POSITION_BACK ? ' checked' : '') ?> />
 						後衛(Backs)
 					</td>
 				</tr>
@@ -22,7 +22,7 @@
 					<td>
 						<select name="guard">
 							<?php foreach ($this->output->guard_list as $k => $v): ?>
-								<option value="<?php e($k) ?>" <?php e($this->output->char->guard == $k ? ' selected' : '')?> ><?php e($v['info']['desc'])?></option>
+								<option value="<?php e($k) ?>" <?php e($this->output->char->behavior['guard'] == $k ? ' selected' : '')?> ><?php e($v['info']['desc'])?></option>
 							<?php endforeach; ?>
 						</select>
 					</td>
