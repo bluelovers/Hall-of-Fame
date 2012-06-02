@@ -36,7 +36,10 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			return;
 		}
 
-		if (in_array($this->action, array('simulate', 'union', 'common')))
+		if (in_array($this->action, array(
+			'simulate',
+			'union',
+			'common')))
 		{
 			//$this->user->item();
 			$this->user->char_all();
@@ -134,7 +137,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			{
 				if ($data = HOF_Model_Data::getLandData($k))
 				{
-					$mapList[$k] = array_merge($data, (array)$v);
+					$mapList[$k] = array_merge($data, (array )$v);
 				}
 			}
 		}
@@ -198,7 +201,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 	{
 		if ($this->user->CanUnionBattle() !== true)
 		{
-			header("Location: ".HOF::url($this->controller));
+			header("Location: " . HOF::url($this->controller));
 			HOF::end();
 		}
 
@@ -397,13 +400,19 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		$MyParty = array();
 
-		foreach ((array)$this->input->input_char_id as $k)
+		$this->_cache['top_level'] = 0;
+
+		foreach ((array )$this->input->input_char_id as $k)
 		{
 			if ($this->user->char[$k])
 			{
 				$MyParty[] = $this->user->char[$k];
+
+				$i = max($i, $this->user->char[$k]->level);
 			}
 		}
+
+		$this->_cache['top_level'] = $i;
 
 		if (count($MyParty) === 0)
 		{
@@ -415,6 +424,8 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 			$this->_error('戦闘に出せるキャラは5人まで', "margin15");
 			return false;
 		}
+
+		$this->_cache['MyParty'] = $MyParty;
 
 		return $MyParty;
 	}
@@ -521,7 +532,7 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 		// 指定モンスター
 		if ($Specify)
 		{
-			$MonsterNumbers = (array)$Specify;
+			$MonsterNumbers = (array )$Specify;
 		}
 
 		$team = array();
@@ -530,14 +541,38 @@ class HOF_Controller_Battle extends HOF_Class_Controller
 
 		$team = new HOF_Class_Battle_Team();
 		$team->data('pick_list', $MonsterList);
-		$team->data('plus_list', (array)$MonsterNumbers);
+		$team->data('plus_list', (array )$MonsterNumbers);
 		$team->data('amount', $Amount);
 
 		$MonsterNumbers = array_merge($MonsterNumbers, $team->pickList($Amount, $MonsterList));
 
+		$this->_cache['top_level'];
+
+		HOF_Helper_Math::rand_seed();
+
+		$lv_arr = range(-3, 5);
+		$lv_arr = array_pad($lv_arr, count($lv_arr) + 5, 0);
+		shuffle($lv_arr);
+
 		foreach ($MonsterNumbers as $Number)
 		{
-			$team[] = HOF_Model_Char::newMon($Number);
+			$char = HOF_Model_Char::newMon($Number);
+
+			if ($this->_cache['top_level'] > ($char->level + 10))
+			{
+				$lv = mt_rand(
+					floor(($this->_cache['top_level'] - $char->level) / 3),
+					round($this->_cache['top_level'] - $char->level + 5)
+				);
+			}
+			else
+			{
+				$lv = $lv_arr[array_rand($lv_arr)];
+			}
+
+			$char->level_fix($lv);
+
+			$team[] = $char;
 		}
 
 		return $team;
