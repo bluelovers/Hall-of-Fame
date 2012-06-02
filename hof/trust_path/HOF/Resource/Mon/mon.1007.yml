@@ -11,8 +11,6 @@ int: '16'
 dex: '20'
 spd: '18'
 luk: '1'
-guard: prob50
-position: front
 atk:
     - 10
     - 10
@@ -21,27 +19,6 @@ def:
     - 10
     - 20
     - 10
-pattern:
-    -
-        judge: 1201
-        quantity: 30
-        action: 3011
-    -
-        judge: 1940
-        quantity: 50
-        action: 9000
-    -
-        judge: 1101
-        quantity: 60
-        action: 3121
-    -
-        judge: 1226
-        quantity: 50
-        action: 3101
-    -
-        judge: 1000
-        quantity: 0
-        action: 1016
 reward:
     moneyhold: '80'
     itemtable:
@@ -50,3 +27,27 @@ reward:
         6182: '1000'
         7100: '100'
     exphold: '80'
+behavior:
+    position: front
+    guard: prob50
+    pattern:
+        -
+            judge: 1201
+            quantity: 30
+            action: 3011
+        -
+            judge: 1940
+            quantity: 50
+            action: 9000
+        -
+            judge: 1101
+            quantity: 60
+            action: 3121
+        -
+            judge: 1226
+            quantity: 50
+            action: 3101
+        -
+            judge: 1000
+            quantity: 0
+            action: 1016
