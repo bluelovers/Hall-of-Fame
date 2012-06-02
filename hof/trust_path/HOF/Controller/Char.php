@@ -731,7 +731,8 @@ class HOF_Controller_Char extends HOF_Class_Controller
 
 		foreach ((array)$this->char->job_change_list() as $job)
 		{
-			$newjob = new HOF_Class_Char_Job(array('job' => $job, 'gender' => $this->char->gender));
+			//$newjob = new HOF_Class_Char_Job(array('job' => $job, 'gender' => $this->char->gender));
+			$newjob = HOF_Model_Char::newBaseChar($job, array('gender' => $this->char->gender));
 
 			$this->output->job_change_list[] = $newjob;
 		}
