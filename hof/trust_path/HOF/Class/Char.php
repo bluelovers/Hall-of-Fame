@@ -15,6 +15,8 @@ class HOF_Class_Char
 	const TYPE_UNION = 'Union';
 	const TYPE_SUMMON = 'Summon';
 
+	protected static $_suppressNotFoundWarnings = true;
+
 	/**
 	 * @return HOF_Class_Char_Abstract
 	 */
@@ -87,7 +89,7 @@ class HOF_Class_Char
 
 		}
 
-		try
+		if (!self::$_suppressNotFoundWarnings)
 		{
 			$char = new $classname($no, $options, $owner, $player);
 
@@ -98,12 +100,40 @@ class HOF_Class_Char
 
 			return $char;
 		}
-		catch (Exception $e)
+		else
 		{
-			return $e;
+			try
+			{
+				$char = new $classname($no, $options, $owner, $player);
+
+				if (!($char instanceof HOF_Class_Char_Abstract))
+				{
+					throw new Exception("\"$className\" is not an instance of HOF_Class_Char_Abstract");
+				}
+
+				return $char;
+			}
+			catch (Exception $e)
+			{
+				return $e;
+			}
 		}
 
 		return null;
+	}
+
+	public function suppressNotFoundWarnings($flag = null)
+	{
+		if (null === $flag)
+		{
+			return self::$_suppressNotFoundWarnings;
+		}
+
+		$old = self::$_suppressNotFoundWarnings;
+
+		self::$_suppressNotFoundWarnings = (bool)$flag;
+
+		return $old;
 	}
 
 }
