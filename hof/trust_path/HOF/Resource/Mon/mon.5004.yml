@@ -11,8 +11,6 @@ int: '1'
 dex: '1'
 spd: '1'
 luk: '1'
-guard: never
-position: front
 SPECIAL:
     Undead: true
 atk:
@@ -23,8 +21,11 @@ def:
     - 0
     - 0
     - 0
-pattern:
-    -
-        judge: 1000
-        quantity: 0
-        action: 1000
+behavior:
+    position: front
+    guard: never
+    pattern:
+        -
+            judge: 1000
+            quantity: 0
+            action: 1000
