@@ -11,8 +11,6 @@ int: '10'
 dex: '10'
 spd: '12'
 luk: '1'
-guard: always
-position: front
 atk:
     - 30
     - 10
@@ -21,27 +19,6 @@ def:
     - 8
     - 30
     - 10
-pattern:
-    -
-        judge: 1902
-        quantity: 1
-        action: 9000
-    -
-        judge: 1940
-        quantity: 50
-        action: 3112
-    -
-        judge: 1940
-        quantity: 50
-        action: 9000
-    -
-        judge: 1205
-        quantity: 30
-        action: 1012
-    -
-        judge: 1000
-        quantity: 0
-        action: 1000
 info:
     desc: そこそこな強さ。
 reward:
@@ -53,3 +30,27 @@ reward:
         6003: '300'
         7100: '100'
     exphold: '40'
+behavior:
+    position: front
+    guard: always
+    pattern:
+        -
+            judge: 1902
+            quantity: 1
+            action: 9000
+        -
+            judge: 1940
+            quantity: 50
+            action: 3112
+        -
+            judge: 1940
+            quantity: 50
+            action: 9000
+        -
+            judge: 1205
+            quantity: 30
+            action: 1012
+        -
+            judge: 1000
+            quantity: 0
+            action: 1000
