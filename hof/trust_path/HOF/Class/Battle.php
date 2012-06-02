@@ -206,7 +206,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 	 */
 	function JoinCharacter($char, $add)
 	{
-		list($my) = $this->teamToggle($char->team());
+		list($my) = $this->teamToggle($char->team);
 
 		if ($my !== null)
 		{
@@ -296,7 +296,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 			echo ("</td><td class=\"ttd1\">\n");
 		}
 
-		list($_my, $_enemy) = $this->teamToggle($char->team());
+		list($_my, $_enemy) = $this->teamToggle($char->team);
 
 		$MyTeam = &$this->teams[$_my]['team'];
 		$EnemyTeam = &$this->teams[$_enemy]['team'];
