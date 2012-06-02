@@ -278,7 +278,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 	function Action(&$char)
 	{
 		// $char->judge が設定されてなければ飛ばす
-		if (empty($char->pattern))
+		if (empty($char->behavior['pattern']))
 		{
 			$char->delay = $char->SPD;
 
@@ -326,17 +326,17 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 					$JudgeKey++;
 					$Keys[] = $JudgeKey;
 					// 重複判定なら次も加える
-				} while ($char->pattern[$JudgeKey]['action'] == 9000 && $char->pattern[$JudgeKey]['judge']);
+				} while ($char->behavior['pattern'][$JudgeKey]['action'] == 9000 && $char->behavior['pattern'][$JudgeKey]['judge']);
 
 				$return = $this->MultiFactJudge($Keys, $char);
 
 				if ($return)
 				{
-					$skill = $char->pattern[$JudgeKey]['action'];
+					$skill = $char->behavior['pattern'][$JudgeKey]['action'];
 					foreach ($Keys as $no) $char->JdgCount[$no]++; //決定した判断のカウントうｐ
 					break;
 				}
-			} while ($char->pattern[$JudgeKey]['judge']);
+			} while ($char->behavior['pattern'][$JudgeKey]['judge']);
 
 			/* // (2007/10/15)
 			foreach($char->judge as $key => $judge){
@@ -533,6 +533,8 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 	//	戦闘処理(これを実行して戦闘が処理される)
 	function Process()
 	{
+		HOF_Helper_Math::rand_seed();
+
 		$this->BattleHeader();
 
 		$this->initEnterBattlefield();
@@ -544,6 +546,8 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 			{
 				//一定間隔で状況を表示
 				$this->BattleState(); //状況の表示
+
+				HOF_Helper_Math::rand_seed();
 			}
 
 			// 行動キャラ
@@ -626,8 +630,6 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 
 		if (count($NextChar) > 1)
 		{
-			HOF_Helper_Math::rand_seed();
-
 			$next = $NextChar[array_rand($NextChar)];
 		}
 		else
@@ -789,12 +791,14 @@ HTML;
 	{
 		if ($target === false) return false;
 
-		if ($skill["invalid"]) //防御無視できる技。
- 				return false;
-		if ($skill["support"]) //支援なのでガードしない。
- 				return false;
-		if ($target->POSITION == POSITION_FRONT) //前衛なら守る必要無し。終わる
- 				return false;
+		// 防御無視できる技。
+		if ($skill["invalid"]) return false;
+
+		// 支援なのでガードしない。
+		if ($skill["support"]) return false;
+
+		// 前衛なら守る必要無し。終わる
+		if ($target->POSITION == POSITION_FRONT) return false;
 
 		/**
 		 * "前衛で尚且つ生存者"を配列に詰める↓
@@ -804,55 +808,52 @@ HTML;
 		{
 			if ($char->POSITION == POSITION_FRONT && $char->STATE !== STATE_DEAD && 1 < $char->HP) $fore[] = &$char;
 		}
-		if (count($fore) == 0) //前衛がいなけりゃ守れない。終わる
- 				return false;
+
+		// 前衛がいなけりゃ守れない。終わる
+		if (count($fore) == 0) return false;
+
 		// 一人づつ守りに入るか入らないかを判定する。
-		shuffle($fore); //配列の並びを混ぜる
+
+		// 配列の並びを混ぜる
+		shuffle($fore);
 		foreach ($fore as &$char)
 		{
 			// 判定に使う変数を計算したりする。
-			switch ($char->guard)
+			switch ($char->behavior['guard'])
 			{
-				case "life25":
-				case "life50":
-				case "life75":
-					$HpRate = ($char->HP / $char->MAXHP) * 100;
-				case "prob25":
-				case "prob50":
-				case "prob75":
-					mt_srand();
-					$prob = mt_rand(1, 100);
-			}
-			// 実際に判定してみる。
-			switch ($char->guard)
-			{
-				case "never":
-					continue;
-				case "life25": // HP(%)が25%以上なら
-					if (25 < $HpRate) $defender = &$char;
-					break;
-				case "life50": // 〃50%〃
-					if (50 < $HpRate) $defender = &$char;
-					break;
-				case "life75": // 〃70%〃
-					if (75 < $HpRate) $defender = &$char;
-					break;
-				case "prob25": // 25%の確率で
-					if ($prob < 25) $defender = &$char;
-					break;
-				case "prob50": // 50% 〃
-					if ($prob < 50) $defender = &$char;
-					break;
-				case "prob75": // 75% 〃
-					if ($prob < 75) $defender = &$char;
-					break;
-				default:
+				case 'always':
 					$defender = &$char;
+					break;
+				case 'life25':
+				case 'life50':
+				case 'life75':
+					$HpRate = ($char->HP / $char->MAXHP) * 100;
+
+					sscanf($char->behavior['guard'], 'life%2d', $n);
+					if ($n < $HpRate) $defender = &$char;
+
+					break;
+				case 'prob25':
+				case 'prob50':
+				case 'prob75':
+					$prob = mt_rand(1, 100);
+
+					sscanf($char->behavior['guard'], 'prob%2d', $n);
+					if ($prob < $n) $defender = &$char;
+
+					break;
+				case 'never':
+				default:
+					continue;
+					break;
+
 			}
+
 			// 誰かが後衛を守りに入ったのでそれを表示する
 			if ($defender)
 			{
-				echo ('<span class="bold">' . $defender->Name() . '</span> protected <span class="bold">' . $target->Name() . '</span>!<br />' . "\n");
+				printf('%s protected %s!<br />', $defender->Name('bold'), $target->Name('bold'));
+
 				return $defender;
 			}
 		}
