@@ -113,7 +113,7 @@ class HOF_Class_Array_Prop extends ArrayObject
 
 	public function merge()
 	{
-		$arr = call_user_func(array($this, 'array_merge'), func_get_args());
+		$arr = call_user_func_array(array($this, 'array_merge'), func_get_args());
 
 		$this->exchangeArray($arr);
 
