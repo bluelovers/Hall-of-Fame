@@ -32,29 +32,45 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 	{
 		if ($val !== null)
 		{
-			list($type, $no) = explode(':', $val);
-
-			if (!$no)
+			if (strpos($val, ':'))
 			{
-				list($type, $no) = array($no, $type);
+				list($type, $no) = explode(':', $val);
+
+				if (!$no)
+				{
+					list($type, $no) = array($no, $type);
+				}
+
+				$this->option('type', $type);
+				$this->option('type_no', $no);
+
+				$no = $this->uniqid(true);
+			}
+			else
+			{
+				$no = $val;
 			}
 
 			$this->no = $no;
-			$this->option('type', $type);
 		}
 
 		return $this->no;
 	}
 
-	public function file($over = null)
+	public function file($over = null, $nochk = false)
 	{
 		if (!isset($this->file) || $over)
 		{
-			$this->file = HOF_Helper_Char::char_file($this->no(), $this->owner());
-
-			if (!file_exists($this->file))
+			if (!isset($this->id))
 			{
-				throw new Exception(sprintf('%s:%s not Exists', $this->getCharType(), $this->no));
+				$this->id($this->no());
+			}
+
+			$this->file = HOF_Helper_Char::char_file($this, $this->owner());
+
+			if (!$nochk && !file_exists($this->file))
+			{
+				throw new ErrorException(sprintf('%s:%s not Exists', $this->getCharType(), $this->id));
 			}
 		}
 
@@ -63,17 +79,17 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 
 	function source($over = false)
 	{
-		static $data;
+		$data = &$this->_cache_char_[__FUNCTION__ ];
 
 		$type = $this->option('type');
 
 		if (!isset($data[$type]) || $over)
 		{
-			switch($type)
+			switch ($type)
 			{
 				case 'char':
 					$list = HOF_Model_Char::getBaseCharList();
-					$no = $this->no();
+					$no = $this->option('type_no');
 					//$append = $this->option('append');
 
 					if (!in_array($no, $list))
@@ -89,18 +105,26 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 						}
 						else
 						{
-							throw new Exception(sprintf('%s:%s not Exists', $this->getCharType(), $this->no));
+							throw new Exception(sprintf('%s:%s not Exists', $this->getCharType(), $this->option('type_no')));
 						}
 					}
 
 					$data[$type] = HOF_Model_Char::getBaseCharStatus($no);
 
+					$data[$type]['data']['base']['type'] = $type;
+					$data[$type]['data']['base']['no'] = $no;
+
+					$data[$type]['id'] = $this->no();
+
 					break;
 				case 'mon':
-					$data[$type] = HOF_Model_Char::getBaseMonster($this->no);
+					$no = $this->option('type_no');
+					$data[$type] = HOF_Model_Char::getBaseMonster($no);
 
 					$data[$type]['data']['base']['type'] = $type;
-					$data[$type]['data']['base']['no'] = $this->no;
+					$data[$type]['data']['base']['no'] = $no;
+
+					$data[$type]['id'] = $this->no();
 
 					//$data[$type]['icon'] = $data[$type]['img'];
 
@@ -109,6 +133,11 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 					$this->fp = HOF_Class_File::fplock_file($this->file());
 
 					$data[$type] = HOF_Class_Yaml::load($this->fp);
+
+					if ($data[$type]['id'] != HOF_Helper_Char::char_id_by_file($this->file))
+					{
+						throw new ErrorException(sprintf('%s:%s Data fail', $this->getCharType(), $this->id));
+					}
 
 					break;
 			}
@@ -141,22 +170,17 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 	 */
 	function saveCharData()
 	{
-		if (!$this->owner() || (string )$this->owner() != (string)$this->user()->id)
+		if (!$this->owner() || (string )$this->owner() != (string )$this->user()->id)
 		{
 			throw new RuntimeException('Char User Null!');
 
 			exit('Char User Null!');
 		}
-		$id = $this->owner();
-
-		$dir = HOF_Helper_Char::user_path($id);
 
 		// ユーザーが存在しない場合保存しない
-		if (!is_dir($dir)) return false;
+		if (!is_dir(HOF_Helper_Char::user_path($this->owner()))) return false;
 
-		$file = HOF_Helper_Char::char_file($this, $id);
-
-		HOF_Class_Yaml::save($this->fp ? $this->fp : $file, $this->DataSavingFormat());
+		HOF_Class_Yaml::save($this->fp ? $this->fp : $this->file(false, true), $this->DataSavingFormat());
 		$this->fpclose();
 
 		/*
@@ -179,7 +203,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 	/*
 	function SetUser($user)
 	{
-		$this->user = $user;
+	$this->user = $user;
 	}
 	*/
 
@@ -204,11 +228,16 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 
 			'equip',
 
+			/*
 			"position",
 			"guard",
+			"pattern",
+			*/
+			'behavior',
+
 			"skill",
 			//"judge","action",
-			"pattern",
+
 			"pattern_memo",
 			//モンスター専用
 			//"monster","land","family","monster_message"//保存する必要無くなった
@@ -229,7 +258,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 				case 'user':
 				case 'owner':
 				case 'player':
-					$data[$k] = (string)$this->{$k};
+					$data[$k] = (string )$this->{$k};
 					break;
 				default:
 					$data[$k] = $this->{$k};
@@ -248,7 +277,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 
 	function &user()
 	{
-		$user = HOF_Class_User::getInstance((string)$this->owner());
+		$user = HOF_Class_User::getInstance((string )$this->owner());
 
 		return $user;
 	}
@@ -630,7 +659,12 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 			}
 		}
 
-		return parent::id($id);
+		if ($id !== null)
+		{
+			$this->id = $id ? $id : null;
+		}
+
+		return $this->id;
 	}
 
 	//	キャラの変数をセットする。
@@ -644,10 +678,10 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 		}
 		else
 		{
-			$this->id($data_attr["id"] ? $data_attr["id"] : $data_attr["birth"]);
+			$this->id($data_attr["id"] ? $data_attr["id"] : false);
 		}
 
-		$this->birth = (string)$data_attr["birth"];
+		$this->birth = (string )$data_attr["birth"];
 
 		$this->statuspoint = (int)$data_attr["statuspoint"];
 		$this->skillpoint = (int)$data_attr["skillpoint"];
@@ -671,7 +705,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 
 		$this->equip = HOF_Helper_Object::ArrayObject((array )$data_attr["equip"]);
 
-		if ($data_attr["pattern_memo"]) $this->pattern_memo = (array)$data_attr["pattern_memo"];
+		if ($data_attr["pattern_memo"]) $this->pattern_memo = (array )$data_attr["pattern_memo"];
 
 		$this->pattern(HOF_Class_Char_Pattern::CHECK_PATTERN);
 	}
