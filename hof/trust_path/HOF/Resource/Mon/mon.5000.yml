@@ -11,7 +11,6 @@ int: '5'
 dex: '5'
 spd: '1'
 luk: '1'
-guard: never
 atk:
     - 20
     - 20
@@ -20,12 +19,14 @@ def:
     - 0
     - 15
     - 0
-pattern:
-    -
-        judge: 1201
-        quantity: 10
-        action: 3010
-    -
-        judge: 1000
-        quantity: 0
-        action: 5007
+behavior:
+    guard: never
+    pattern:
+        -
+            judge: 1201
+            quantity: 10
+            action: 3010
+        -
+            judge: 1000
+            quantity: 0
+            action: 5007
