@@ -88,6 +88,7 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 			switch ($type)
 			{
 				case 'char':
+				case 'job':
 					$list = HOF_Model_Char::getBaseCharList();
 					$no = $this->option('type_no');
 					//$append = $this->option('append');
@@ -98,9 +99,9 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 
 						if (in_array($no, $list))
 						{
-							if (!$append['job'])
+							if (!$this->options()->append['job'])
 							{
-								$append['job'] = $this->no();
+								$this->options()->append['job'] = $this->option('type_no');
 							}
 						}
 						else
@@ -690,17 +691,25 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 
 		if (isset($data_attr["maxhp"]) && isset($data_attr["hp"]) && isset($data_attr["maxsp"]) && isset($data_attr["sp"]))
 		{
+			/*
 			$this->maxhp = (int)$data_attr["maxhp"];
 			$this->hp = (int)$data_attr["hp"];
 			$this->maxsp = (int)$data_attr["maxsp"];
 			$this->sp = (int)$data_attr["sp"];
+			*/
 		}
 		else
 		{
 			// HPSPを設定。HPSPを回復。そういうゲームだから…
-			$this->hpsp();
+			$this->hpsp(true);
+
+			/*
 			$this->hp = (int)$this->maxhp;
 			$this->sp = (int)$this->maxsp;
+			*/
+
+			//$this->hp = isset($this->hp) ? ($this->hp > 0 ? (int)$this->hp : 0) : (int)$this->maxhp;
+			//$this->sp = isset($this->sp) ? ($this->sp > 0 ? (int)$this->sp : 0) : (int)$this->maxsp;
 		}
 
 		$this->equip = HOF_Helper_Object::ArrayObject((array )$data_attr["equip"]);
