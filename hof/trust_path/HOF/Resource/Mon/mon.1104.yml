@@ -11,8 +11,6 @@ int: '120'
 dex: '100'
 spd: '50'
 luk: '1'
-guard: always
-position: front
 atk:
     - 30
     - 70
@@ -21,7 +19,10 @@ def:
     - 0
     - 50
     - 30
-pattern: {  }
 reward:
     moneyhold: '100'
     exphold: '100'
+behavior:
+    position: front
+    guard: always
+    pattern: {  }
