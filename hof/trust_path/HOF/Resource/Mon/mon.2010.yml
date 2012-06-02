@@ -11,8 +11,6 @@ int: '150'
 dex: '150'
 spd: '160'
 luk: '80'
-guard: never
-position: back
 atk:
     - 90
     - 40
@@ -36,8 +34,11 @@ servant:
         - 0
 land: ocean1
 lv_limit: '150'
-pattern: {  }
 reward:
     moneyhold: 3357
     itemtable: {  }
     exphold: 5035
+behavior:
+    position: back
+    guard: never
+    pattern: {  }
