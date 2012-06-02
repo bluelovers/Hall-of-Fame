@@ -11,7 +11,6 @@ int: '10'
 dex: '10'
 spd: '200'
 luk: '300'
-guard: prob50
 atk:
     - 70
     - 50
@@ -20,21 +19,23 @@ def:
     - 20
     - 35
     - 50
-pattern:
-    -
-        judge: 1920
-        quantity: 2
-        action: 9000
-    -
-        judge: 1940
-        quantity: 30
-        action: 5806
-    -
-        judge: 1000
-        quantity: 0
-        action: 5052
 reward:
     moneyhold: '3000'
     itemtable:
         6160: '3000'
     exphold: '3000'
+behavior:
+    guard: prob50
+    pattern:
+        -
+            judge: 1920
+            quantity: 2
+            action: 9000
+        -
+            judge: 1940
+            quantity: 30
+            action: 5806
+        -
+            judge: 1000
+            quantity: 0
+            action: 5052
