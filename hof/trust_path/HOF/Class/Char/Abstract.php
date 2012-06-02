@@ -179,9 +179,9 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		if (!isset($this->uniqid) || $over)
 		{
 			static $uuid;
-			if (!isset($uuid)) $uuid = md5($this->getCharType().$this->no().$this->birth.__METHOD__.HOF::ip());
+			if (!isset($uuid)) $uuid = md5($this->getCharType() . $this->no() . $this->birth . __METHOD__ . HOF::ip());
 
-			$this->uniqid = md5(uniqid($uuid.$this->uniqid.$this->birth, true));
+			$this->uniqid = md5(uniqid($uuid . $this->uniqid . $this->birth, true));
 		}
 
 		return $this->uniqid;
@@ -233,12 +233,21 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 	{
 		if ($append = $this->option('append'))
 		{
-			$data_attr->merge((array)$append);
+			$data_attr->merge((array )$append);
 		}
 
 		if ($strength = $this->option('strength'))
 		{
-			foreach (array('maxhp', 'hp', 'maxsp', 'sp', 'str', 'int', 'dex', 'spd', 'luk') as $k)
+			foreach (array(
+				'maxhp',
+				'hp',
+				'maxsp',
+				'sp',
+				'str',
+				'int',
+				'dex',
+				'spd',
+				'luk') as $k)
 			{
 				$data_attr->{$k} = round($data_attr->{$k} * $strength);
 			}
@@ -262,6 +271,11 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 			$data_attr->icon = $this->option('icon');
 		}
 
+		if ($this->option('name'))
+		{
+			$data_attr->name = $this->option('name');
+		}
+
 		//-----------------------------------------
 
 		if ($data_attr->summon || $this->option('summon'))
@@ -271,12 +285,12 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 
 		if (isset($data_attr->icon))
 		{
-			$this->icon = (string)$data_attr->icon;
+			$this->icon = (string )$data_attr->icon;
 		}
 
 		if (isset($data_attr->data))
 		{
-			$this->data = (array)$data_attr->data;
+			$this->data = (array )$data_attr->data;
 		}
 
 		$this->level = max(1, (int)$data['level'], (int)$data_attr->level);
@@ -284,11 +298,11 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 
 		$this->gender = (int)$data_attr->gender;
 
-		$data_attr->img && $this->img = (string)$data_attr->img;
+		$data_attr->img && $this->img = (string )$data_attr->img;
 
 		if ($data_attr->job)
 		{
-			$this->job = (string)$data_attr->job;
+			$this->job = (string )$data_attr->job;
 
 			if (!$this->hasExtend('HOF_Class_Char_Job'))
 			{
@@ -296,7 +310,7 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 			}
 		}
 
-		$data_attr->name && $this->name = (string)$data_attr->name;
+		$data_attr->name && $this->name = (string )$data_attr->name;
 
 		if ($this->isSummon())
 		{
@@ -304,14 +318,17 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		}
 		else
 		{
-			$this->reward = (array)$data_attr->reward;
+			$this->reward = (array )$data_attr->reward;
 		}
 
-		$this->skill = (array)$data_attr->skill;
+		$this->skill = (array )$data_attr->skill;
 
-		$this->position = (string)$data_attr->position;
-		$this->guard = (string)$data_attr->guard;
-		$this->pattern = (array)$data_attr->pattern;
+		/*
+		$this->position = (string)$data_attr->behavior['position'];
+		$this->guard = (string)$data_attr->behavior['guard'];
+		$this->pattern = (array)$data_attr->behavior['pattern'];
+		*/
+		$this->behavior = (array )$data_attr->behavior;
 
 		$this->str = (int)$data_attr->str;
 		$this->int = (int)$data_attr->int;
@@ -369,13 +386,13 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		/**
 		 * 前列後列の設定
 		 */
-		if (!$this->position)
+		if (!$this->behavior['position'])
 		{
 			$this->POSITION = (mt_rand(0, 1) ? POSITION_FRONT : POSITION_BACK);
 		}
 		else
 		{
-			$this->POSITION = $this->position;
+			$this->POSITION = $this->behavior['position'];
 		}
 
 		$this->expect = false;
@@ -412,12 +429,12 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 	{
 		if (!isset($this->options))
 		{
-			$this->options = new HOF_Class_Array((array)self::$default_options);
+			$this->options = new HOF_Class_Array_Prop((array )self::$default_options);
 		}
 
 		if (!empty($options))
 		{
-			$this->options->merge((array)$options);
+			$this->options->merge((array )$options);
 		}
 
 		return $this->options;
@@ -425,12 +442,17 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 
 	public function option($k)
 	{
-		if (func_num_args() > 1)
+		if (!isset($this->options))
 		{
-			$this->options()->$k = func_get_arg(1);
+			$this->options();
 		}
 
-		return $this->options()->$k;
+		if (func_num_args() > 1)
+		{
+			$this->options->$k = func_get_arg(1);
+		}
+
+		return $this->options->$k;
 	}
 
 	public function source($over = false)
@@ -442,7 +464,7 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 				throw new Exception(sprintf('%s:%s not Exists', $this->getCharType(), $this->no()));
 			}
 
-			$this->fp = HOF_Class_File::fplock_file($this->file());
+			$this->fp = HOF_Class_File::fplock_file($this->file);
 
 			$data = HOF_Class_Yaml::load($this->fp);
 
@@ -465,41 +487,41 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 	{
 		if ($val !== null)
 		{
-			$this->{__FUNCTION__} = $val ? $val : HOF_Class_Char::OWNER_SYSTEM;
-			$this->user = $this->{__FUNCTION__};
+			$this->{__FUNCTION__ } = $val ? $val : HOF_Class_Char::OWNER_SYSTEM;
+			$this->user = $this->{__FUNCTION__ };
 		}
 
-		return $this->{__FUNCTION__};
+		return $this->{__FUNCTION__ };
 	}
 
 	public function player($val = null)
 	{
 		if ($val !== null)
 		{
-			$this->{__FUNCTION__} = $val ? $val : HOF_Class_Char::OWNER_SYSTEM;
+			$this->{__FUNCTION__ } = $val ? $val : HOF_Class_Char::OWNER_SYSTEM;
 		}
 
-		return $this->{__FUNCTION__};
+		return $this->{__FUNCTION__ };
 	}
 
 	public function id($val = null)
 	{
 		if ($val !== null)
 		{
-			$this->{__FUNCTION__} = $val;
+			$this->{__FUNCTION__ } = $val;
 		}
 
-		return $this->{__FUNCTION__};
+		return $this->{__FUNCTION__ };
 	}
 
 	public function no($val = null)
 	{
 		if ($val !== null)
 		{
-			$this->{__FUNCTION__} = $val;
+			$this->{__FUNCTION__ } = $val;
 		}
 
-		return $this->{__FUNCTION__};
+		return $this->{__FUNCTION__ };
 	}
 
 	/**
@@ -528,7 +550,7 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 
 		$types = explode('_', HOF::putintoPathParts($type));
 
-		$this->CHAR_TYPES = array_fill_keys((array)$types, true);
+		$this->CHAR_TYPES = array_fill_keys((array )$types, true);
 
 		return $this;
 	}
