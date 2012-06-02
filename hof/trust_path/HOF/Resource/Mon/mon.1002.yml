@@ -11,7 +11,6 @@ int: '3'
 dex: '6'
 spd: '9'
 luk: '1'
-guard: life50
 atk:
     - 30
     - 10
@@ -20,27 +19,6 @@ def:
     - 1
     - 20
     - 1
-pattern:
-    -
-        judge: 1902
-        quantity: 1
-        action: 9000
-    -
-        judge: 1940
-        quantity: 50
-        action: 3110
-    -
-        judge: 1940
-        quantity: 50
-        action: 9000
-    -
-        judge: 1205
-        quantity: 60
-        action: 1015
-    -
-        judge: 1000
-        quantity: 0
-        action: 1000
 info:
     desc: 後列に押し出す攻撃をする。
 reward:
@@ -50,3 +28,26 @@ reward:
         6040: '1500'
         7100: '100'
     exphold: '30'
+behavior:
+    guard: life50
+    pattern:
+        -
+            judge: 1902
+            quantity: 1
+            action: 9000
+        -
+            judge: 1940
+            quantity: 50
+            action: 3110
+        -
+            judge: 1940
+            quantity: 50
+            action: 9000
+        -
+            judge: 1205
+            quantity: 60
+            action: 1015
+        -
+            judge: 1000
+            quantity: 0
+            action: 1000
