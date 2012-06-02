@@ -161,24 +161,29 @@ class HOF_Class_Char_Job
 		 * @var array
 		 */
 		$coe = $this->jobdata['coe'];
+		!isset($coe['maxhp']) && $coe['maxhp'] = 1;
+		!isset($coe['maxsp']) && $coe['maxsp'] = 1;
 
-		$div = $MaxStatus * $MaxStatus;
+		$div = pow($MaxStatus, 2);
 		$RevStr = $MaxStatus - $this->char->str;
 		$RevInt = $MaxStatus - $this->char->int;
 
 		$this->_cache['hpsp'] = array();
 
-		$this->_cache['hpsp']['maxhp'] = $this->char->maxhp;
-		$this->_cache['hpsp']['maxsp'] = $this->char->maxsp;
+		$this->_cache['hpsp']['maxhp'] = (int)$this->char->maxhp;
+		$this->_cache['hpsp']['maxsp'] = (int)$this->char->maxsp;
 
-		$new_maxhp = 100 * $coe['maxhp'] * (1 + ($this->char->level - 1) / 49) * (1 + ($div - $RevStr * $RevStr) / $div);
-		$new_maxsp = 100 * $coe['maxsp'] * (1 + ($this->char->level - 1) / 49) * (1 + ($div - $RevInt * $RevInt) / $div);
+		$new_maxhp = 100 * $coe['maxhp'] * (1 + ($this->char->level - 1) / 49) * (1 + ($MaxStatus > $RevStr ? $div - pow($RevStr, 2) : pow($RevStr, 2)) / $div);
+		$new_maxsp = 100 * $coe['maxsp'] * (1 + ($this->char->level - 1) / 49) * (1 + ($MaxStatus > $RevInt ? $div - pow($RevInt, 2) : pow($RevInt, 2)) / $div);
 
 		$new_maxhp = round($new_maxhp);
 		$new_maxsp = round($new_maxsp);
 
-		$this->char->maxhp = max($this->char->maxhp, $this->_cache['hpsp']['maxhp'], $new_maxhp);
-		$this->char->maxsp = max($this->char->maxsp, $this->_cache['hpsp']['maxsp'], $new_maxsp);
+		$this->char->maxhp = (int)max($this->char->maxhp, $this->_cache['hpsp']['maxhp'], $new_maxhp);
+		$this->char->maxsp = (int)max($this->char->maxsp, $this->_cache['hpsp']['maxsp'], $new_maxsp);
+
+		$this->_cache['hpsp_diff']['maxhp'] = $this->char->maxhp - $this->_cache['hpsp']['maxhp'];
+		$this->_cache['hpsp_diff']['maxsp'] = $this->char->maxsp - $this->_cache['hpsp']['maxsp'];
 
 		if ($full)
 		{
@@ -190,6 +195,12 @@ class HOF_Class_Char_Job
 			$this->char->hp = isset($this->char->hp) ? ($this->char->hp > 0 ? (int)$this->char->hp : 0) : (int)$this->char->maxhp;
 			$this->char->sp = isset($this->char->sp) ? ($this->char->sp > 0 ? (int)$this->char->sp : 0) : (int)$this->char->maxsp;
 
+			if ($hpsp < 0)
+			{
+				if ($this->_cache['hpsp_diff']['maxhp'] > 0) $this->char->hp += $this->_cache['hpsp_diff']['maxhp'];
+				if ($this->_cache['hpsp_diff']['maxsp'] > 0) $this->char->sp += $this->_cache['hpsp_diff']['maxsp'];
+			}
+
 			$this->char->hp = min($this->char->hp, $this->char->maxhp);
 			$this->char->sp = min($this->char->sp, $this->char->maxsp);
 		}
@@ -200,8 +211,11 @@ class HOF_Class_Char_Job
 				'maxhp' => $this->char->maxhp,
 				'maxsp' => $this->char->maxsp,
 				),
+			$this->_cache['hpsp_diff'],
 			//$this->char,
 			);
+
+		//debug($ret);
 
 		return $ret;
 	}
