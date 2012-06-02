@@ -1,0 +1,8 @@
+no: '901'
+coe:
+    maxhp: 2
+    maxsp: 1.5
+job: '901'
+job_name: GeneralMonster
+info:
+    desc: "General Monster Job."
