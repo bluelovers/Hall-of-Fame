@@ -11,8 +11,6 @@ int: '50'
 dex: '70'
 spd: '130'
 luk: '100'
-guard: never
-position: back
 atk:
     - 40
     - 40
@@ -33,38 +31,41 @@ servant:
         - 0
 land: jungle
 lv_limit: '100'
-pattern:
-    -
-        judge: 1206
-        quantity: 49
-        action: 5066
-    -
-        judge: 1920
-        quantity: 1
-        action: 5067
-    -
-        judge: 1401
-        quantity: 2
-        action: 9000
-    -
-        judge: 1940
-        quantity: 50
-        action: 5068
-    -
-        judge: 1401
-        quantity: 2
-        action: 5069
-    -
-        judge: 1940
-        quantity: 50
-        action: 5064
-    -
-        judge: 1000
-        quantity: 0
-        action: 5065
 reward:
     moneyhold: 1020
     itemtable:
         6601: '7000'
         6602: '3000'
     exphold: 1530
+behavior:
+    position: back
+    guard: never
+    pattern:
+        -
+            judge: 1206
+            quantity: 49
+            action: 5066
+        -
+            judge: 1920
+            quantity: 1
+            action: 5067
+        -
+            judge: 1401
+            quantity: 2
+            action: 9000
+        -
+            judge: 1940
+            quantity: 50
+            action: 5068
+        -
+            judge: 1401
+            quantity: 2
+            action: 5069
+        -
+            judge: 1940
+            quantity: 50
+            action: 5064
+        -
+            judge: 1000
+            quantity: 0
+            action: 5065
