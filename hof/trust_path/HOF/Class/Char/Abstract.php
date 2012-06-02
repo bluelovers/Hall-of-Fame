@@ -224,7 +224,7 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 	{
 		$this->source(true);
 
-		$this->id(isset($this->source()->id) ? $this->source()->id : $this->source()->no);
+		$this->id(isset($this->source->id) ? $this->source->id : $this->source->no);
 
 		$this->setCharData(clone $this->source());
 	}
