@@ -80,7 +80,18 @@ class HOF_Class_Char_Job
 
 			if (!($this->char->isMon() || $this->char->isChar() && $this->char->data['base']['type'] == 'mon'))
 			{
-				$this->char->img = ($this->jobdata['gender'][$this->char->gender]['img'] ? $this->jobdata['gender'][$this->char->gender]['img'] : $this->jobdata['img']);
+				if ($this->jobdata['gender'][$this->char->gender]['img'])
+				{
+					$this->char->img = $this->jobdata['gender'][$this->char->gender]['img'];
+				}
+				elseif ($this->jobdata['img'])
+				{
+					$this->char->img = $this->jobdata['img'];
+				}
+				else
+				{
+					$this->char->img = $this->source()->img;
+				}
 			}
 		}
 
