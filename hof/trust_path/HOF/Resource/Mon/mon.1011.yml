@@ -2,4 +2,5 @@ no: 1011
 name: Bat
 level: '10'
 img: mon_121r
-pattern: {  }
+behavior:
+    pattern: {  }
