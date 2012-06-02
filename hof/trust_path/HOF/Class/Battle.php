@@ -291,7 +291,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		// チーム1の人は左側に 行動内容と結果 を表示する
 		echo ("<tr><td class=\"ttd2\">\n");
 
-		if ($char->team()->team_idx(TEAM_0, true))
+		if ($char->team->team_idx(TEAM_0, true))
 		{
 			echo ("</td><td class=\"ttd1\">\n");
 		}
@@ -375,7 +375,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 
 		//echo $char->name." ".$skill."<br>";//確認用
 		//セルの終わり
-		if ($char->team()->team_idx(TEAM_1, true))
+		if ($char->team->team_idx(TEAM_1, true))
 		{
 			echo ("</td><td class=\"ttd1\">&nbsp;\n");
 		}
@@ -514,7 +514,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 	{
 		echo ("<tr><td class=\"ttd2\">\n");
 
-		if ($char->team()->team_idx(TEAM_0, true))
+		if ($char->team->team_idx(TEAM_0, true))
 		{
 			echo ("</td><td class=\"ttd1\">\n");
 		}
@@ -522,7 +522,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		//debug(__LINE__, __METHOD__, $char->name, $char->name, $char->Name());
 		$char->enterBattlefield();
 
-		if ($char->team()->team_idx(TEAM_1, true))
+		if ($char->team->team_idx(TEAM_1, true))
 		{
 			echo ("</td><td class=\"ttd1\">&nbsp;\n");
 		}
