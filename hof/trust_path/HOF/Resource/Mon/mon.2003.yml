@@ -11,8 +11,6 @@ int: '100'
 dex: '50'
 spd: '150'
 luk: '50'
-guard: never
-position: back
 atk:
     - 60
     - 20
@@ -37,27 +35,6 @@ servant:
 land: sand
 servantAmount: '6'
 lv_limit: '200'
-pattern:
-    -
-        judge: 1201
-        quantity: 30
-        action: 3011
-    -
-        judge: 1405
-        quantity: 3
-        action: 9000
-    -
-        judge: 1920
-        quantity: 1
-        action: 5061
-    -
-        judge: 1940
-        quantity: 50
-        action: 1204
-    -
-        judge: 1000
-        quantity: 0
-        action: 5062
 reward:
     moneyhold: 1700
     itemtable:
@@ -67,3 +44,27 @@ reward:
         5525: '2000'
         5530: '2000'
     exphold: 2550
+behavior:
+    position: back
+    guard: never
+    pattern:
+        -
+            judge: 1201
+            quantity: 30
+            action: 3011
+        -
+            judge: 1405
+            quantity: 3
+            action: 9000
+        -
+            judge: 1920
+            quantity: 1
+            action: 5061
+        -
+            judge: 1940
+            quantity: 50
+            action: 1204
+        -
+            judge: 1000
+            quantity: 0
+            action: 5062
