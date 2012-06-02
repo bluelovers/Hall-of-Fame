@@ -11,8 +11,6 @@ int: '28'
 dex: '10'
 spd: '6'
 luk: '1'
-position: back
-guard: never
 atk:
     - 10
     - 40
@@ -21,19 +19,6 @@ def:
     - 10
     - 40
     - 10
-pattern:
-    -
-        judge: 1201
-        quantity: 40
-        action: 3011
-    -
-        judge: 1940
-        quantity: 30
-        action: 2002
-    -
-        judge: 1000
-        quantity: 0
-        action: 2000
 info:
     desc: レベルが低いと強く感じる。
 reward:
@@ -43,3 +28,19 @@ reward:
         6021: '500'
         7100: '100'
     exphold: '50'
+behavior:
+    position: back
+    guard: never
+    pattern:
+        -
+            judge: 1201
+            quantity: 40
+            action: 3011
+        -
+            judge: 1940
+            quantity: 30
+            action: 2002
+        -
+            judge: 1000
+            quantity: 0
+            action: 2000
