@@ -11,8 +11,6 @@ int: '85'
 dex: '10'
 spd: '40'
 luk: '10'
-guard: never
-position: back
 atk:
     - 40
     - 40
@@ -21,31 +19,6 @@ def:
     - 0
     - 45
     - 0
-pattern:
-    -
-        judge: 1200
-        quantity: 20
-        action: 9000
-    -
-        judge: 1121
-        quantity: 90
-        action: 3003
-    -
-        judge: 1200
-        quantity: 20
-        action: 9000
-    -
-        judge: 1610
-        quantity: 1
-        action: 3030
-    -
-        judge: 1200
-        quantity: 50
-        action: 5047
-    -
-        judge: 1000
-        quantity: 0
-        action: 5043
 reward:
     moneyhold: '140'
     itemtable:
@@ -53,3 +26,31 @@ reward:
         6184: '100'
         6160: '40'
     exphold: '250'
+behavior:
+    position: back
+    guard: never
+    pattern:
+        -
+            judge: 1200
+            quantity: 20
+            action: 9000
+        -
+            judge: 1121
+            quantity: 90
+            action: 3003
+        -
+            judge: 1200
+            quantity: 20
+            action: 9000
+        -
+            judge: 1610
+            quantity: 1
+            action: 3030
+        -
+            judge: 1200
+            quantity: 50
+            action: 5047
+        -
+            judge: 1000
+            quantity: 0
+            action: 5043
