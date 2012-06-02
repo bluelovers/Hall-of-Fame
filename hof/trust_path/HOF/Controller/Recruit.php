@@ -147,6 +147,9 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 			//$char->SetUser($this->user->id);
 			$char->owner($this->user);
 
+			//debug($this->input, $name, $char->DataSavingFormat(), $char->options(), $char->id, $char->no, $char->file(null, true));
+			//exit();
+
 			// キャラを保存する
 			$char->saveCharData();
 
