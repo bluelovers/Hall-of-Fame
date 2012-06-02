@@ -10,7 +10,6 @@ int: '16'
 dex: '16'
 spd: '30'
 luk: '1'
-guard: prob25
 atk:
     - 20
     - 20
@@ -20,23 +19,6 @@ def:
     - 5
     - 0
 img: mon_121r
-pattern:
-    -
-        judge: 1902
-        quantity: 1
-        action: 9000
-    -
-        judge: 1940
-        quantity: 50
-        action: 5800
-    -
-        judge: 1940
-        quantity: 10
-        action: 5001
-    -
-        judge: 1000
-        quantity: 0
-        action: 5002
 info:
     desc: 仲間を呼んで吸血攻撃をしてくる。
 reward:
@@ -44,3 +26,22 @@ reward:
     itemtable:
         6180: '600'
     exphold: '40'
+behavior:
+    guard: prob25
+    pattern:
+        -
+            judge: 1902
+            quantity: 1
+            action: 9000
+        -
+            judge: 1940
+            quantity: 50
+            action: 5800
+        -
+            judge: 1940
+            quantity: 10
+            action: 5001
+        -
+            judge: 1000
+            quantity: 0
+            action: 5002
