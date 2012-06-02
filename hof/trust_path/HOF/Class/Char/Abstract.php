@@ -278,6 +278,11 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 			$data_attr->name = $this->option('name');
 		}
 
+		if ($this->option('level'))
+		{
+			$data_attr->level = $this->option('level');
+		}
+
 		//-----------------------------------------
 
 		if ($data_attr->summon || $this->option('summon'))
@@ -301,6 +306,11 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		$this->gender = (int)$data_attr->gender;
 
 		$data_attr->img && $this->img = (string )$data_attr->img;
+
+		if (!isset($data_attr->job))
+		{
+			$data_attr->job = $this->isMon(true) ? 901 : 900;
+		}
 
 		if ($data_attr->job)
 		{
@@ -413,6 +423,8 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		$this->expect = false;
 		$this->ActCount = 0;
 		$this->JdgCount = array();
+
+		$this->level_fix();
 
 		$maxhp = $this->maxhp * (1 + ($this->M_MAXHP / 100)) + $this->P_MAXHP;
 		$this->MAXHP = round($maxhp);
@@ -673,6 +685,61 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		}
 
 		return $this->{$k};
+	}
+
+	function level_fix($lv_add = 0)
+	{
+		if ($this->isChar(true)) return false;
+
+		$old['lv'] = $this->level;
+
+		$this->level = max(1, $this->level + $lv_add);
+
+		$div = bcdiv($this->level, $old['lv'], 3);
+
+		if (0 !== $cmp = bccomp($div, 1))
+		{
+			if ($cmp > 0 && $div > 10)
+			{
+				$div = bcsub($div, rand(0, 5), 3);
+			}
+
+			foreach (array(
+				'str',
+				'int',
+				'dex',
+				'spd',
+				'luk',
+
+				//'atk',
+				//'def',
+				) as $k)
+			{
+				if (!isset($this->{$k})) continue;
+
+				$div2 = ($cmp > 0 && $div > 10) ? bcmul($div, bcdiv(mt_rand(50, 175), 100, 3), 3) : $div;
+
+				//$old[$k] = $this->{$k};
+
+				if (is_array($this->{$k}))
+				{
+					foreach ($this->{$k} as &$v)
+					{
+						$v = ceil(bcmul($v, $div2));
+					}
+				}
+				else
+				{
+					$this->{$k} = ceil(bcmul($this->{$k}, $div2));
+				}
+
+				//$new[$k] = $this->{$k};
+			}
+		}
+
+		//debug($div, $div2, $this->level, $old, $new);
+
+		$this->hpsp(-1);
 	}
 
 }
