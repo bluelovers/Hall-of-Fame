@@ -55,9 +55,12 @@ class HOF_Class_Char_Type_UnionMon extends HOF_Class_Char_Abstract
 
 		$this->icon = $this->img = $data["img"];
 
+		/*
 		$this->maxhp = $data_attr["maxhp"];
-		$this->hp = $data["hp"];
 		$this->maxsp = $data_attr["maxsp"];
+		*/
+
+		$this->hp = $data["hp"];
 		$this->sp = $data["sp"];
 
 		//モンスター専用
