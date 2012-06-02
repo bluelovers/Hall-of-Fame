@@ -11,8 +11,6 @@ int: '130'
 dex: '50'
 spd: '90'
 luk: '50'
-guard: never
-position: back
 atk:
     - 180
     - 80
@@ -39,50 +37,53 @@ servant:
         - 0
 land: pavement01
 lv_limit: '250'
-pattern:
-    -
-        judge: 1201
-        quantity: 60
-        action: 2091
-    -
-        judge: 1200
-        quantity: 60
-        action: 9000
-    -
-        judge: 1401
-        quantity: 1
-        action: 2056
-    -
-        judge: 1200
-        quantity: 50
-        action: 9000
-    -
-        judge: 1940
-        quantity: 50
-        action: 2040
-    -
-        judge: 1560
-        quantity: 1
-        action: 9000
-    -
-        judge: 1940
-        quantity: 50
-        action: 2111
-    -
-        judge: 1401
-        quantity: 1
-        action: 9000
-    -
-        judge: 1101
-        quantity: 10
-        action: 1024
-    -
-        judge: 1000
-        quantity: 0
-        action: 5019
 reward:
     moneyhold: 3383
     itemtable:
         1021: '9000'
         6802: '1000'
     exphold: 5075
+behavior:
+    position: back
+    guard: never
+    pattern:
+        -
+            judge: 1201
+            quantity: 60
+            action: 2091
+        -
+            judge: 1200
+            quantity: 60
+            action: 9000
+        -
+            judge: 1401
+            quantity: 1
+            action: 2056
+        -
+            judge: 1200
+            quantity: 50
+            action: 9000
+        -
+            judge: 1940
+            quantity: 50
+            action: 2040
+        -
+            judge: 1560
+            quantity: 1
+            action: 9000
+        -
+            judge: 1940
+            quantity: 50
+            action: 2111
+        -
+            judge: 1401
+            quantity: 1
+            action: 9000
+        -
+            judge: 1101
+            quantity: 10
+            action: 1024
+        -
+            judge: 1000
+            quantity: 0
+            action: 5019
