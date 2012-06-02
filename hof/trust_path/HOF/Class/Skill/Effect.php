@@ -727,7 +727,21 @@ class HOF_Class_Skill_Effect
 		//最低ダメージかどうか
 		if ($dmg < $min) $dmg = $min;
 
-		return ceil($dmg); //最終ダメージ
+		$dmg = ceil($dmg);
+
+		if ($target->isChar && $dmg > 20)
+		{
+			if ($target->HP > 10 && $dmg >= $target->HP)
+			{
+				$dmg = $target->HP - 1;
+			}
+			elseif ($target->level < 10 && $target->MAXHP < 200)
+			{
+				$dmg -= max(10, 25 - $target->level);
+			}
+		}
+
+		return $dmg; //最終ダメージ
 	}
 
 	/**
