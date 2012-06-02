@@ -11,8 +11,6 @@ int: '30'
 dex: '30'
 spd: '20'
 luk: '10'
-guard: prob50
-position: back
 atk:
     - 10
     - 10
@@ -21,23 +19,26 @@ def:
     - 40
     - 40
     - 40
-pattern:
-    -
-        judge: 1201
-        quantity: 40
-        action: 3011
-    -
-        judge: 1405
-        quantity: 1
-        action: 5063
-    -
-        judge: 1126
-        quantity: 70
-        action: 3002
-    -
-        judge: 1000
-        quantity: 0
-        action: 5008
 reward:
     moneyhold: '0'
     exphold: '0'
+behavior:
+    position: back
+    guard: prob50
+    pattern:
+        -
+            judge: 1201
+            quantity: 40
+            action: 3011
+        -
+            judge: 1405
+            quantity: 1
+            action: 5063
+        -
+            judge: 1126
+            quantity: 70
+            action: 3002
+        -
+            judge: 1000
+            quantity: 0
+            action: 5008
