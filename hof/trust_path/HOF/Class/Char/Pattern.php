@@ -143,7 +143,7 @@ class HOF_Class_Char_Pattern
 		{
 			if ($pattern === self::CHECK_PATTERN)
 			{
-				$pattern = $this->char->pattern;
+				$pattern = $this->char->behavior['pattern'];
 			}
 
 			$pattern_new = array();
@@ -200,7 +200,7 @@ class HOF_Class_Char_Pattern
 
 			//exit();
 
-			$this->char->pattern = $pattern_new;
+			$this->char->behavior['pattern'] = $pattern_new;
 
 			$this->cache['init'] = true;
 		}
@@ -246,7 +246,7 @@ class HOF_Class_Char_Pattern
 
 	public function pattern_item($idx)
 	{
-		return (array )$this->char->pattern[$idx];
+		return (array )$this->char->behavior['pattern'][$idx];
 	}
 
 	/**
