@@ -16,23 +16,24 @@ skill:
     - 1000
     - 1002
     - 3010
-position: back
-guard: never
-pattern:
-    -
-        judge: '1206'
-        quantity: '20'
-        action: '3010'
-    -
-        judge: '1000'
-        quantity: '0'
-        action: '1002'
-    -
-        judge: '1000'
-        quantity: '0'
-        action: '1000'
 data_ex:
     recruit_money: 2000
 equip:
     main_hand: '1700'
     armor: '5200'
+behavior:
+    position: back
+    guard: never
+    pattern:
+        -
+            judge: '1206'
+            quantity: '20'
+            action: '3010'
+        -
+            judge: '1000'
+            quantity: '0'
+            action: '1002'
+        -
+            judge: '1000'
+            quantity: '0'
+            action: '1000'
