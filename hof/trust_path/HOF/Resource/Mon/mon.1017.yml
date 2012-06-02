@@ -11,7 +11,6 @@ int: '30'
 dex: '20'
 spd: '60'
 luk: '1'
-guard: prob25
 atk:
     - 30
     - 30
@@ -20,23 +19,6 @@ def:
     - 20
     - 30
     - 50
-pattern:
-    -
-        judge: 1902
-        quantity: 1
-        action: 5801
-    -
-        judge: 1902
-        quantity: 2
-        action: 5006
-    -
-        judge: 1940
-        quantity: 50
-        action: 2091
-    -
-        judge: 1000
-        quantity: 0
-        action: 2031
 info:
     desc: 洞窟のボス。倒すと奥に行けるようになる。
 reward:
@@ -44,3 +26,22 @@ reward:
     itemtable:
         8001: '10000'
     exphold: '1500'
+behavior:
+    guard: prob25
+    pattern:
+        -
+            judge: 1902
+            quantity: 1
+            action: 5801
+        -
+            judge: 1902
+            quantity: 2
+            action: 5006
+        -
+            judge: 1940
+            quantity: 50
+            action: 2091
+        -
+            judge: 1000
+            quantity: 0
+            action: 2031
