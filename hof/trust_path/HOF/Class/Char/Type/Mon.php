@@ -86,6 +86,8 @@ class HOF_Class_Char_Type_Mon extends HOF_Class_Char_Abstract
 		$this->atk = $data_attr["atk"];
 		$this->def = $data_attr["def"];
 		$this->SPECIAL = $data_attr["SPECIAL"];
+
+		$this->hpsp(true, true);
 	}
 
 }
