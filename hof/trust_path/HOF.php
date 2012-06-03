@@ -54,7 +54,8 @@ final class HOF
 	protected static $_wordDelimiter = array(
 		'-',
 		'.',
-		'_');
+		'_',
+		);
 
 	public static $local = 'ja';
 
@@ -70,7 +71,7 @@ final class HOF
 			self::$instance = $this;
 
 			mb_internal_encoding(self::CHARSET);
-			header('content-type: text/html; charset: '.self::CHARSET);
+			header('content-type: text/html; charset: ' . self::CHARSET);
 
 			bcscale(8);
 
