@@ -78,7 +78,7 @@ final class HOF
 
 			self::$input->server->REQUEST_URI = substr(self::$input->server->REQUEST_URI, strlen(BASE_URL_ROOT) - 1);
 
-			self::$_cache_ = new HOF_Class_File_Cache();
+			self::$_cache_ = new HOF_Class_File_Cache(array('timeout' => 86400 * 7));
 			self::$_log_ = new HOF_Class_File_Log();
 
 			self::$_session_ = new HOF_Class_Session();
