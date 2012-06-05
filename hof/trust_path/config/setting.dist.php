@@ -6,7 +6,8 @@ define('BASE_URL', 'http' . ($_SERVER['HTTPS'] ? 's' : '') . '://' . $_SERVER['S
 
 define('BASE_URL_REWRITE', true);
 
-define('BASE_PATH', str_replace('\\', '/', dirname(__FILE__)) . '/../../');
+//define('BASE_PATH', str_replace('\\', '/', dirname(__FILE__)) . '/../../');
+define('BASE_PATH', Sco_File_Format::dirname(__FILE__, '../../', 1));
 
 define('BASE_TRUST_PATH', BASE_PATH . 'trust_path/');
 
