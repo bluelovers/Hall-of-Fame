@@ -829,7 +829,7 @@ EOD;
 		print ('<input type="submit" class="btn" value="Cancel">' . "\n");
 		print ('</form>' . "\n");
 		print ('</div>' . "\n");
-		break;
+		//break;
 	}
 
 	/**
@@ -963,7 +963,7 @@ EOD;
 				return false;
 			}
 		}
-		break;
+		//break;
 	}
 
 	/**

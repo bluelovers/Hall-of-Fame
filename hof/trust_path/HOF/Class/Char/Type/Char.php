@@ -181,7 +181,8 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 		// ユーザーが存在しない場合保存しない
 		if (!is_dir(HOF_Helper_Char::user_path($this->owner()))) return false;
 
-		HOF_Class_Yaml::save($this->fp ? $this->fp : $this->file(false, true), $this->DataSavingFormat());
+		$file = $this->fp ? $this->fp : $this->file(false, true);
+		HOF_Class_Yaml::save($file, $this->DataSavingFormat());
 		$this->fpclose();
 
 		/*
@@ -560,12 +561,12 @@ class HOF_Class_Char_Type_Char extends HOF_Class_Char_Abstract
 
 			$item = HOF_Model_Data::getItemData($this->equip->{$place});
 			if ($place == EQUIP_SLOT_MAIN_HAND) $this->WEAPON = $item["type"];
-			$this->atk[0] += $item[atk][0]; //物理攻撃力
-			$this->atk[1] += $item[atk][1]; //魔法〃
-			$this->def[0] += $item[def][0]; //物理防御(÷)
-			$this->def[1] += $item[def][1]; //〃(－)
-			$this->def[2] += $item[def][2]; //魔法防御(÷)
-			$this->def[3] += $item[def][3]; //〃(－)
+			$this->atk[0] += $item["atk"][0]; //物理攻撃力
+			$this->atk[1] += $item["atk"][1]; //魔法〃
+			$this->def[0] += $item["def"][0]; //物理防御(÷)
+			$this->def[1] += $item["def"][1]; //〃(－)
+			$this->def[2] += $item["def"][2]; //魔法防御(÷)
+			$this->def[3] += $item["def"][3]; //〃(－)
 
 			$this->P_MAXHP += $item["P_MAXHP"];
 			$this->M_MAXHP += $item["M_MAXHP"];

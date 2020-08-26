@@ -11,50 +11,50 @@
 
 		<?php endif ;?>
 
-			<span class="g_name" title="<?php e($skill['name']) ?>">
+			<span class="g_name" title="<?php e($skill["name"]) ?>">
 				<img src="<?php e(HOF_Class_Icon::getImageUrl($skill["img"], HOF_Class_Icon::IMG_SKILL)) ?>" class="vcent" alt="<?php e($skill['name']) ?>">
-				<?php e($skill['name']) ?>
+				<?php e($skill["name"]) ?>
 			</span>
 
 		<?php if ($radio): ?>
 
 		</label>
 
-			/ <span class="bold"><?php e($skill['learn']) ?></span>pt
+			/ <span class="bold"><?php e($skill["learn"]) ?></span>pt
 
 		<?php endif ;?>
 
 		<!-- 対象 -->
-		<?php if ($skill['target'][0] == "all"): ?>
-			/ <span class="charge"><?php e($skill['target'][0]) ?></span>
-		<?php elseif ($skill['target'][0] == "enemy"): ?>
-			/ <span class="dmg"><?php e($skill['target'][0]) ?></span>
+		<?php if ($skill["target"][0] == "all"): ?>
+			/ <span class="charge"><?php e($skill["target"][0]) ?></span>
+		<?php elseif ($skill["target"][0] == "enemy"): ?>
+			/ <span class="dmg"><?php e($skill["target"][0]) ?></span>
 		<?php elseif ($skill['target'][0] == "friend"): ?>
-			/ <span class="recover"><?php e($skill['target'][0]) ?></span>
+			/ <span class="recover"><?php e($skill["target"][0]) ?></span>
 		<?php elseif ($skill['target'][0] == "self"): ?>
-			/ <span class="support"><?php e($skill['target'][0]) ?></span>
+			/ <span class="support"><?php e($skill["target"][0]) ?></span>
 		<?php elseif (isset($skill['target'][0])): ?>
 			/ <?php e($skill['target'][0]) ?>
 		<?php endif ;?>
 
 		<!-- 単体or複数or全体 -->
-		<?php if ($skill['target'][1] == "all"): ?>
-			- <span class="charge"><?php e($skill['target'][1]) ?></span>
-		<?php elseif ($skill[target][1] == "individual"): ?>
-			- <span class="recover"><?php e($skill['target'][1]) ?></span>
-		<?php elseif ($skill[target][1] == "multi"): ?>
-			- <span class="spdmg"><?php e($skill['target'][1]) ?></span>
-		<?php elseif (isset($skill[target][1])): ?>
-			- <?php e($skill[target][1]) ?>
+		<?php if ($skill["target"][1] == "all"): ?>
+			- <span class="charge"><?php e($skill["target"][1]) ?></span>
+		<?php elseif ($skill['target'][1] == "individual"): ?>
+			- <span class="recover"><?php e($skill["target"][1]) ?></span>
+		<?php elseif ($skill['target'][1] == "multi"): ?>
+			- <span class="spdmg"><?php e($skill["target"][1]) ?></span>
+		<?php elseif (isset($skill["target"][1])): ?>
+			- <?php e($skill["target"][1]) ?>
 		<?php endif ;?>
 
 		<?php if (isset($skill["sacrifice"])): ?>
-			/ <span class="dmg">Sacrifice:<?php e($skill['sacrifice']) ?>%</span>
+			/ <span class="dmg">Sacrifice:<?php e($skill["sacrifice"]) ?>%</span>
 		<?php endif; ?>
 
 		<!-- 消費SP -->
 		<?php if (isset($skill["sp"])): ?>
-		/ <span class="support"><?php e($skill['sp']) ?>sp</span>
+		/ <span class="support"><?php e($skill["sp"]) ?>sp</span>
 		<?php endif ;?>
 
 		<!-- 消費魔方陣 -->
@@ -208,6 +208,6 @@
 		<?php endif ;?>
 
 		<?php if ($skill["exp"]): ?>
-			/ <?php e($skill[exp]) ?>
+			/ <?php e($skill["exp"]) ?>
 		<?php endif ;?>
 	</div>

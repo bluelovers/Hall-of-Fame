@@ -1,6 +1,14 @@
 <?php
 
-define('BASE_URL_ROOT', '/'.trim(dirname($_SERVER['PHP_SELF']), '/').'/');
+//define('BASE_URL_ROOT', '/'.trim(dirname($_SERVER['PHP_SELF']), '/').'/');
+//$rootPath = trim(dirname($_SERVER['PHP_SELF']), '/');
+$rootPath = trim(dirname($_SERVER['PATH_INFO']), '/');
+if (($rootPath == '\\') || ($rootPath == '')) {
+    define('BASE_URL_ROOT', '/');
+} else {
+    define('BASE_URL_ROOT', '/'.$rootPath.'/');
+}
+//echo $rootPath;die();
 
 define('BASE_URL', 'http' . ($_SERVER['HTTPS'] ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . (((!$_SERVER['HTTPS'] && $_SERVER['SERVER_PORT'] == 80) || ($_SERVER['HTTPS'] && $_SERVER['SERVER_PORT'] == 8080)) ? '' : ':' . $_SERVER['SERVER_PORT']) . BASE_URL_ROOT);
 

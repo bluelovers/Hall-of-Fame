@@ -8,7 +8,6 @@
 /**
  *
  * @method void setFlags
- * @method void exchangeArray
  *
  * @example
  * $a = new Dura_Class_Array();
@@ -59,7 +58,7 @@ class HOF_Class_Array extends ArrayObject
 			$this->ARRAYOBJECT_AUTO = $loop;
 		}
 
-		$this->_toArrayObjectRecursive(&$this, $loop);
+		$this->_toArrayObjectRecursive($this, $loop);
 	}
 
 	function exchangeArray($input)
@@ -93,7 +92,7 @@ class HOF_Class_Array extends ArrayObject
 			}
 			elseif (strpos($k, 'ARRAYOBJECT') === false)
 			{
-				$this->offsetSet($k, &$this->$k);
+				$this->offsetSet($k, $this->$k);
 			}
 		}
 
@@ -118,7 +117,7 @@ class HOF_Class_Array extends ArrayObject
 		return $array;
 	}
 
-	function _toArrayObjectRecursive($append, $loop = 1, $ARRAYOBJECT = null)
+	function _toArrayObjectRecursive(&$append, $loop = 1, $ARRAYOBJECT = null)
 	{
 		if (!$ARRAYOBJECT) $ARRAYOBJECT = self::$ARRAYOBJECT;
 
@@ -193,12 +192,12 @@ class HOF_Class_Array extends ArrayObject
 			$ret = $this->getArrayCopy();
 		}
 
-		if ($fix) self::_fixArrayRecursive(&$ret, self::ARRAY_RECURSIVE_ALL);
+		if ($fix) self::_fixArrayRecursive($ret, self::ARRAY_RECURSIVE_ALL);
 
 		return $ret;
 	}
 
-	function _fixArrayRecursive($append, $loop = 1)
+	function _fixArrayRecursive(&$append, $loop = 1)
 	{
 		$append = self::_fixArray($append);
 

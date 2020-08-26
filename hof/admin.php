@@ -10,6 +10,8 @@
  *
  */
 
+set_include_path(get_include_path() . PATH_SEPARATOR . realpath( './trust_path/includes/' ));
+
 include ("trust_path/bootstrap.php");
 define("ADMIN_DIR", './'.str_replace(BASE_PATH, '', BASE_TRUST_PATH)."/./admin/"); //管理用のファイル場所
 define("ADMIN_PASSWORD", "password"); //パスワード

@@ -65,7 +65,8 @@ class HOF_Model_Main
 		$this->Order();
 		$content = ob_get_clean();
 
-		HOF_Class_View::render(null, array(), 'layout/layout.body', $content)->output();
+		$output = array();
+		HOF_Class_View::render(null, $output, 'layout/layout.body', $content)->output();
 	}
 
 	function _router()

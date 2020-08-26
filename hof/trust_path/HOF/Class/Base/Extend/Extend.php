@@ -19,4 +19,7 @@ class HOF_Class_Base_Extend_Extend implements HOF_Class_Base_Extend_RootInterfac
 		$this->_root_ = &$root_obj;
 	}
 
+	public function extend($extend) {}
+	
+	public function __call($func, $argv) {}
 }

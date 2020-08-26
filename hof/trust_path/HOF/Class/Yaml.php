@@ -5,7 +5,20 @@
  * @copyright 2012
  */
 
-class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
+
+$arrayComponentYaml = array(
+'Yaml.php','Parser.php', 'Dumper.php', 'Inline.php', 'Escaper.php', 'Unescaper.php', 
+'Exception\ExceptionInterface.php', 'Exception\DumpException.php', 'Exception\ParseException.php');
+
+$pathComponentYaml = dirname(dirname(__file__) .'\..\..\includes\Symfony\Component\Yaml\Yaml.php');
+foreach ($arrayComponentYaml as &$value) {
+    include_once $pathComponentYaml . "\\". $value;
+}
+
+
+use Symfony\Component\Yaml\Yaml;
+
+class HOF_Class_Yaml extends Yaml
 {
 
 	const INLINE = 6;
@@ -47,7 +60,7 @@ class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 		return $yaml;
 	}
 
-	public static function save($file, $data, $inline = HOF_Class_Yaml::INLINE)
+	public static function save(&$file, $data, $inline = HOF_Class_Yaml::INLINE)
 	{
 		if (self::$auto_addslashes)
 		{
@@ -77,9 +90,9 @@ class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 		return $ret;
 	}
 
-	public static function dump($array, $inline = HOF_Class_Yaml::INLINE)
+	public static function dump($array, $inline = HOF_Class_Yaml::INLINE, $indent = 2, $exceptionOnInvalidType = false, $objectSupport = false)
 	{
-		return parent::dump($array, $inline);
+	    return parent::dump($array, $inline, $indent, $exceptionOnInvalidType, $objectSupport);
 	}
 
 }

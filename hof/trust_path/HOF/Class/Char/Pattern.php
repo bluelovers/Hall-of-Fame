@@ -160,7 +160,7 @@ class HOF_Class_Char_Pattern
 
 			//debug($pattern_new);
 
-			$this->_pattern_plus(&$pattern_new);
+			$this->_pattern_plus($pattern_new);
 
 			if (!$skip_chk)
 			{

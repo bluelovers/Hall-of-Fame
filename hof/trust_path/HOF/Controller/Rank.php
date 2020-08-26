@@ -126,7 +126,7 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 			/*
 			$Result = $this->Ranking->Challenge(&$this->user);
 			*/
-			list($Result, $message) = $this->Ranking->Challenge(&$this->user);
+			list($Result, $message) = $this->Ranking->Challenge($this->user);
 
 			if (!$Result)
 			{

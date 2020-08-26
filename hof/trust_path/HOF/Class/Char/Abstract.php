@@ -579,10 +579,10 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 
 	protected function initCharType()
 	{
+	    $type ="";
 		sscanf(get_class($this), 'HOF_Class_Char_Type_%s', $type);
 
 		$this->CHAR_TYPE = $type;
-
 		$types = explode('_', HOF::putintoPathParts($type));
 
 		$this->CHAR_TYPES = array_fill_keys((array )$types, true);
@@ -714,7 +714,7 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 				'int',
 				'dex',
 				'spd',
-				'luk',
+				'luk'//,
 
 				//'atk',
 				//'def',

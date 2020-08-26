@@ -70,7 +70,7 @@ class HOF_Autoloader extends Zend_Loader_Autoloader
 	/**
 	 * Retrieve singleton instance
 	 *
-	 * @return Dura_Autoloader
+	 * @return HOF_Autoloader
 	 */
 	public static function getInstance()
 	{

@@ -125,7 +125,7 @@ class HOF_Class_Base_Extend_Root implements HOF_Class_Base_Extend_RootInterface
 			{
 				if (!is_object($this->_extends_[$idx]['obj']))
 				{
-					$this->_extends_[$idx]['obj'] = new $class(&$this);
+					$this->_extends_[$idx]['obj'] = new $class($this);
 				}
 
 				$this->_extends_[$idx]['callback'][$func] = array(&$this->_extends_[$idx]['obj'], $func);

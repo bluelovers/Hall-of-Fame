@@ -66,14 +66,14 @@ for ($no = 1000; $no < 9999; $no++)
 	print ("<td>{$skill[sp]}" . ($skill["sacrifice"] ? "<span style=\"color:red\">s:{$skill[sacrifice]}</span>" : "") . "</td>"); //sp
 	print ("<td>{$skill[type]}</td>"); //type
 	print ("<td>{$skill[learn]}</td>"); //learn
-	print ("<td>{$skill[target][0]},{$skill[target][1]},{$skill[target][2]}</td>"); //target
+	print ("<td>{$skill["target"][0]},{$skill["target"][1]},{$skill["target"][2]}</td>"); //target
 	if ($skill[summon])
 	{
 		print ("<td>召喚:{$skill[summon]}" . ($skill[quick] ? "(Q)" : "") . "</td>");
 	}
 	else
 	{
-		print ("<td>{$skill[pow]}% x {$skill[target][2]} = " . ($skill[pow] * $skill[target][2]) . "%</td>"); //pow
+		print ("<td>{$skill[pow]}% x {$skill["target"][2]} = " . ($skill[pow] * $skill["target"][2]) . "%</td>"); //pow
 	}
 	print ("<td>{$skill[hit]}</td>"); //hit
 	print ("<td>{$skill[invalid]}</td>"); //invalid

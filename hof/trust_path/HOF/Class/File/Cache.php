@@ -120,7 +120,7 @@ class HOF_Class_File_Cache
 			$this->data[$id]->cache_timestamp_last = (int)$this->data[$id]->cache_timestamp;
 			$this->data[$id]->cache_timestamp = time();
 
-			HOF_Class_Yaml::save(&$this->fp[$id], $this->data[$id]);
+			HOF_Class_Yaml::save($this->fp[$id], $this->data[$id]);
 		}
 	}
 

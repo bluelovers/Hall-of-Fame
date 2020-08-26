@@ -146,15 +146,15 @@ function ShowItemDetail2($item, $amount = false)
 		print (" x{$amount}");
 	}
 	if ($item["atk"]["0"]) //物理攻撃
- 			print (' / <span class="dmg">Atk:' . $item[atk][0] . '</span>');
+ 			print (' / <span class="dmg">Atk:' . $item["atk"][0] . '</span>');
 	if ($item["atk"]["1"]) //魔法攻撃
- 			print (' / <span class="spdmg">Matk:' . $item[atk][1] . '</span>');
+ 			print (' / <span class="spdmg">Matk:' . $item["atk"][1] . '</span>');
 	if ($item["def"])
 	{
-		print (" / <span class=\"recover\">Def:{$item[def][0]}+{$item[def][1]}</span>");
-		print (" / <span class=\"support\">Mdef:{$item[def][2]}+{$item[def][3]}</span>");
+		print (" / <span class=\"recover\">Def:{$item["def"][0]}+{$item["def"][1]}</span>");
+		print (" / <span class=\"support\">Mdef:{$item["def"][2]}+{$item["def"][3]}</span>");
 	}
-	if ($item["handle"]) print (' / <span class="charge">h:' . $item[handle] . '</span>');
+	if ($item["handle"]) print (' / <span class="charge">h:' . $item["handle"] . '</span>');
 	//print("\n");//なんでバグるん？(IE6)
 }
 //	技の詳細を表示
@@ -170,25 +170,25 @@ function ShowSkillDetail2($skill, $radio = false)
 
 	if ($radio) print (" / <span class=\"bold\">{$skill[learn]}</span>pt");
 
-	if ($skill[target][0] == "all") //対象
- 			print (" / <span class=\"charge\">{$skill[target][0]}</span>");
+	if ($skill["target"][0] == "all") //対象
+ 			print (" / <span class=\"charge\">{$skill["target"][0]}</span>");
 	else
-		if ($skill[target][0] == "enemy") print (" / <span class=\"dmg\">{$skill[target][0]}</span>");
+		if ($skill["target"][0] == "enemy") print (" / <span class=\"dmg\">{$skill["target"][0]}</span>");
 		else
-			if ($skill[target][0] == "friend") print (" / <span class=\"recover\">{$skill[target][0]}</span>");
+			if ($skill["target"][0] == "friend") print (" / <span class=\"recover\">{$skill["target"][0]}</span>");
 			else
-				if ($skill[target][0] == "self") print (" / <span class=\"support\">{$skill[target][0]}</span>");
+				if ($skill["target"][0] == "self") print (" / <span class=\"support\">{$skill["target"][0]}</span>");
 				else
-					if (isset($skill[target][0])) print (" / {$skill[target][0]}");
+					if (isset($skill["target"][0])) print (" / {$skill["target"][0]}");
 
-	if ($skill[target][1] == "all") //単体or複数or全体
- 			print (" - <span class=\"charge\">{$skill[target][1]}</span>");
+	if ($skill["target"][1] == "all") //単体or複数or全体
+ 			print (" - <span class=\"charge\">{$skill["target"][1]}</span>");
 	else
-		if ($skill[target][1] == "individual") print (" - <span class=\"recover\">{$skill[target][1]}</span>");
+		if ($skill["target"][1] == "individual") print (" - <span class=\"recover\">{$skill["target"][1]}</span>");
 		else
-			if ($skill[target][1] == "multi") print (" - <span class=\"spdmg\">{$skill[target][1]}</span>");
+			if ($skill["target"][1] == "multi") print (" - <span class=\"spdmg\">{$skill["target"][1]}</span>");
 			else
-				if (isset($skill[target][1])) print (" - {$skill[target][1]}");
+				if (isset($skill["target"][1])) print (" - {$skill["target"][1]}");
 
 	if (isset($skill["sp"])) print (" / <span class=\"support\">{$skill[sp]}sp</span>");
 	if ($skill["pow"])

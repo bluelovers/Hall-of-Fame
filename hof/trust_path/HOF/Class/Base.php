@@ -4,111 +4,99 @@
  * @author bluelovers
  * @copyright 2012
  */
-
 class HOF_Class_Base extends HOF_Class_Array
 {
+    public $file;
+    public $fp;
 
-	public $file;
-	public $fp;
+    public $data = [];
 
-	public $data = array();
+    public function __construct()
+    {
+        $data = get_object_vars($this);
 
-	function __construct()
-	{
-		$data = get_object_vars($this);
+        parent::__construct((array) $data);
 
-		parent::__construct((array)$data);
+        if (!$this->_fpinit()) {
+            return false;
+        }
+    }
 
-		if (!$this->_fpinit())
-		{
-			return false;
-		}
-	}
+    public function __destruct()
+    {
+        $this->fpclose();
+    }
 
-	function _fpname()
-	{
-		return $this->file;
-	}
+    public function _fpname()
+    {
+        return $this->file;
+    }
 
-	function __destruct()
-	{
-		$this->fpclose();
-	}
+    public function fpopen($over = null, $autocreate = false)
+    {
+        if (!$this->fp || $over) {
+            $args = func_get_args();
+            $ret = call_user_func_array([$this, '_' . __FUNCTION__], $args);
 
-	function fpopen($over = null, $autocreate = false)
-	{
-		if (!$this->fp || $over)
-		{
-			$args = func_get_args();
-			$ret = call_user_func_array(array($this, '_'.__FUNCTION__), $args);
+            $this->fp = HOF_Class_File::fplock_file($this->_fpname(), false, $autocreate);
+        }
 
-			$this->fp = HOF_Class_File::fplock_file($this->_fpname(), false, $autocreate);
-		}
+        return null !== $ret ? $ret : $this->fp;
+    }
 
-		return $ret !== null ? $ret : $this->fp;
-	}
+    public function _fpopen($over, $file)
+    {
+    }
 
-	function _fpopen($DataType = null)
-	{
+    public function fpread()
+    {
+        $args = func_get_args();
 
-	}
+        $ret = call_user_func_array([$this, '_' . __FUNCTION__], $args);
 
-	function fpread()
-	{
-		$args = func_get_args();
+        return null !== $ret ? $ret : $this;
+    }
 
-		$ret = call_user_func_array(array($this, '_'.__FUNCTION__), $args);
+    public function _fpread()
+    {
+    }
 
-		return $ret !== null ? $ret : $this;
-	}
+    public function fpsave($not_close = null)
+    {
+        $args = func_get_args();
+        $ret = call_user_func_array([$this, '_' . __FUNCTION__], $args);
 
-	function _fpread()
-	{
+        return ($not_close || null !== $ret) ? $ret : $this->fpclose();
+    }
 
-	}
+    public function _fpsave()
+    {
+    }
 
-	function fpsave($not_close = null)
-	{
-		$args = func_get_args();
-		$ret = call_user_func_array(array($this, '_'.__FUNCTION__), $args);
+    public function fpclose()
+    {
+        $ret = true;
 
-		return ($not_close || $ret !== null) ? $ret : $this->fpclose();
-	}
+        if ($this->fp) {
+            $args = func_get_args();
+            $ret = call_user_func_array([$this, '_' . __FUNCTION__], $args);
 
-	function _fpsave()
-	{
+            if (!@fclose($this->fp)) {
+                $ret = false;
+            }
 
-	}
+            unset($this->fp);
+        }
 
-	function fpclose()
-	{
-		$ret = true;
+        return $ret;
+    }
 
-		if ($this->fp)
-		{
+    public function _fpclose()
+    {
+    }
 
-			$args = func_get_args();
-			$ret = call_user_func_array(array($this, '_'.__FUNCTION__), $args);
-
-			if (!@fclose($this->fp))
-			{
-				$ret = false;
-			}
-
-			unset($this->fp);
-		}
-
-		return $ret;
-	}
-
-	function _fpclose()
-	{
-
-	}
-
-	function dump()
-	{
-		return print_r($this->toArray(), 1);
-	}
-
+    public function dump()
+    {
+        return print_r($this->toArray(), 1);
+    }
 }

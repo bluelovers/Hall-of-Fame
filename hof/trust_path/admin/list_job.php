@@ -96,12 +96,12 @@ print ("</tbody></table>");
 </html>
 <?php
 
+define("IMG_ICON", "../static/image/icon/");
 
+override_function('HOF_Class_Skill::ShowSkillDetail', '$skill, $radio = false', 'HOF_Class_Skill_ShowSkillDetail($skill, $radio);');
 //	技の詳細を表示
-function HOF_Class_Skill::ShowSkillDetail($skill, $radio = false)
+function HOF_Class_Skill_ShowSkillDetail($skill, $radio = false)
 {
-
-	define("IMG_ICON", "../static/image/icon/");
 
 	if (!$skill) return false;
 
@@ -112,25 +112,25 @@ function HOF_Class_Skill::ShowSkillDetail($skill, $radio = false)
 
 	if ($radio) print (" / <span class=\"bold\">{$skill[learn]}</span>pt");
 
-	if ($skill[target][0] == "all") //対象
- 			print (" / <span class=\"charge\">{$skill[target][0]}</span>");
+	if ($skill["target"][0] == "all") //対象
+ 			print (" / <span class=\"charge\">{$skill["target"][0]}</span>");
 	else
-		if ($skill[target][0] == "enemy") print (" / <span class=\"dmg\">{$skill[target][0]}</span>");
+		if ($skill["target"][0] == "enemy") print (" / <span class=\"dmg\">{$skill["target"][0]}</span>");
 		else
-			if ($skill[target][0] == "friend") print (" / <span class=\"recover\">{$skill[target][0]}</span>");
+			if ($skill["target"][0] == "friend") print (" / <span class=\"recover\">{$skill["target"][0]}</span>");
 			else
-				if ($skill[target][0] == "self") print (" / <span class=\"support\">{$skill[target][0]}</span>");
+				if ($skill["target"][0] == "self") print (" / <span class=\"support\">{$skill["target"][0]}</span>");
 				else
-					if (isset($skill[target][0])) print (" / {$skill[target][0]}");
+					if (isset($skill["target"][0])) print (" / {$skill["target"][0]}");
 
-	if ($skill[target][1] == "all") //単体or複数or全体
- 			print (" - <span class=\"charge\">{$skill[target][1]}</span>");
+	if ($skill["target"][1] == "all") //単体or複数or全体
+ 			print (" - <span class=\"charge\">{$skill["target"][1]}</span>");
 	else
-		if ($skill[target][1] == "individual") print (" - <span class=\"recover\">{$skill[target][1]}</span>");
+		if ($skill["target"][1] == "individual") print (" - <span class=\"recover\">{$skill["target"][1]}</span>");
 		else
-			if ($skill[target][1] == "multi") print (" - <span class=\"spdmg\">{$skill[target][1]}</span>");
+			if ($skill["target"][1] == "multi") print (" - <span class=\"spdmg\">{$skill["target"][1]}</span>");
 			else
-				if (isset($skill[target][1])) print (" - {$skill[target][1]}");
+				if (isset($skill["target"][1])) print (" - {$skill["target"][1]}");
 
 	if (isset($skill["sp"])) print (" / <span class=\"support\">{$skill[sp]}sp</span>");
 	if ($skill["pow"])

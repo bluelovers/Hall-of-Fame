@@ -5,14 +5,8 @@
  * @copyright 2012
  */
 
-error_reporting(0);
-
-$t = microtime(true);
-
-define('REQUEST_TIME', (!$_SERVER['REQUEST_TIME'] || $_SERVER['REQUEST_TIME'] > $t) ? $t : $_SERVER['REQUEST_TIME'] );
-$_SERVER['REQUEST_TIME'] = REQUEST_TIME;
-
-unset($t);
+//error_reporting(0);
+error_reporting(E_ALL ^ E_NOTICE ^ E_DEPRECATED);
 
 unset($_ENV['autoloaders']);
 
@@ -23,6 +17,8 @@ if (file_exists(dirname(__file__) . '/bootstrap.options.php'))
 	@include (dirname(__file__) . '/bootstrap.options.php');
 }
 
+require_once ('Scorpio/bootstrap.php');
+
 if (file_exists(dirname(__file__) . '/config/setting.php'))
 {
 	@require dirname(__file__) . '/config/setting.php';
@@ -30,6 +26,7 @@ if (file_exists(dirname(__file__) . '/config/setting.php'))
 
 @require dirname(__file__) . '/config/setting.dist.php';
 
+/*
 require_once ('Zend/Loader/Autoloader.php');
 
 Zend_Loader_Autoloader::getInstance()
@@ -50,13 +47,25 @@ foreach($_ENV['autoloaders'] as $autoloader)
 		->pushAutoloader($autoloader[0], $autoloader[1])
 	;
 }
+*/
+
+Sco_Loader_Autoloader::getInstance()
+	->pushAutoloader(BASE_TRUST_PATH, 'HOF_', true)
+;
+
+foreach($_ENV['autoloaders'] as $autoloader)
+{
+	Sco_Loader_Autoloader::getInstance()
+		->pushAutoloader($autoloader[0], $autoloader[1])
+	;
+}
 
 unset($_ENV['autoloaders']);
 
-HOF_Loader::loadFile('syntax.func.php', BASE_TRUST_PATH.'HOF/Syntax', true);
-HOF_Loader::loadFile('syntax.json.php', BASE_TRUST_PATH.'HOF/Syntax', true);
+Sco_Loader::loadFile('syntax.func.php', BASE_TRUST_PATH.'HOF/Syntax', true);
+Sco_Loader::loadFile('syntax.json.php', BASE_TRUST_PATH.'HOF/Syntax', true);
 
-HOF_Loader::loadFile('const.game.php', BASE_TRUST_PATH.'HOF/Const', true);
+Sco_Loader::loadFile('const.game.php', BASE_TRUST_PATH.'HOF/Const', true);
 
 HOF::getInstance();
 

@@ -1,0 +1,7 @@
+trust_path/cache/
+trust_path/dat/
+/.buildpath
+/.project
+/composer.json
+/composer.phar
+/debug.log

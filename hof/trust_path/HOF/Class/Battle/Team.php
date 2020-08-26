@@ -157,7 +157,7 @@ class HOF_Class_Battle_Team extends HOF_Class_Array_Prop
 		{
 			self::$cache['name_list'][$char->Name()]++;
 
-			$this->_callback_fixCharName(&$char);
+			$this->_callback_fixCharName($char);
 		}
 
 		parent::offsetSet($k, $char);

@@ -60,15 +60,15 @@ for ($i = 1000; $i < 10000; $i++)
 	print ("</td><td>\n");
 	print ($item[type]);
 	print ("</td><td>\n");
-	print ($item[atk][0] . "<br />" . $item[atk][1]);
+	print ($item["atk"][0] . "<br />" . $item["atk"][1]);
 	print ("</td><td>\n");
-	print ($item[def][0] . "+" . $item[def][1] . "<br />" . $item[def][2] . "+" . $item[def][3]);
+	print ($item["def"][0] . "+" . $item["def"][1] . "<br />" . $item["def"][2] . "+" . $item["def"][3]);
 	print ("</td><td>\n");
-	print ($item[handle]);
+	print ($item["handle"]);
 	print ("</td><td>\n");
-	print ($item[buy]);
+	print ($item["buy"]);
 	print ("</td><td>\n");
-	print ($item[sell]);
+	print ($item["sell"]);
 	print ("</td></tr>\n");
 	if ($item["need"])
 	{

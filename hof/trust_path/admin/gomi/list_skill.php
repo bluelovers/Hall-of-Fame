@@ -10,7 +10,7 @@ for ($no = 1000; $no < 10000; $no++)
 
 	//	print("<tr><td>");
 	print ("case $no: // " . $skill[name] . "<br>");
-	//	print("// target=({$skill[target][0]},{$skill[target][1]},{$skill[target][2]})<br>");
+	//	print("// target=({$skill["target"][0]},{$skill["target"][1]},{$skill["target"][2]})<br>");
 	//	print("// pow={$skill[pow]}<br>");
 	//	print("break;<br>");
 	//	print("</td><td>");

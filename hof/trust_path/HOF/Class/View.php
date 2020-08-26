@@ -68,9 +68,9 @@ class HOF_Class_View
 	/**
 	 * @return HOF_Class_View
 	 */
-	static function render($controller, $output, $template = null, $content = null)
+	static function render($controller, &$output, $template = null, $content = null)
 	{
-		$_this = new self($controller, &$output, $template);
+		$_this = new self($controller, $output, $template);
 
 		if ($_this->controller) $_this->controller->view['render'][$_this->template][] = $_this;
 
@@ -80,7 +80,7 @@ class HOF_Class_View
 
 		if ($_this->extend)
 		{
-			$content = self::render($_this->controller, &$_this->output, $_this->extend, $content);
+			$content = self::render($_this->controller, $_this->output, $_this->extend, $content);
 		}
 
 		$_this->body = $content;
@@ -132,7 +132,7 @@ class HOF_Class_View
 	 */
 	function slot($name, $content = null)
 	{
-		$view = self::render($this->controller, &$this->output, $name, $content);
+		$view = self::render($this->controller, $this->output, $name, $content);
 
 		if ($this->controller) $this->controller->view['slot'][$name][] = $view;
 

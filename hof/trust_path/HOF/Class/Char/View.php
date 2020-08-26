@@ -379,7 +379,7 @@ HTML;
 		{
 			switch (1)
 			{
-				case ($type === MONSTER):
+				case ($type === "MONSTER"):
 					$char->ShowCharWithLand($checked);
 					break;
 				case ($type === INPUT_CHECKBOX):

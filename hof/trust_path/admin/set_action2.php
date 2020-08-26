@@ -25,11 +25,11 @@ input{background-color:#dddddd;
 </head>
 <body>
 <?php
-
-function HOF_Helper_Global::UserAmount()
+override_function('HOF_Helper_Global::UserAmount', '', 'return 1;');
+/*function HOF_Helper_Global::UserAmount()
 {
 	return 1;
-}
+}*/
 
 // 行数
 define("ROWS", $_POST["patternNum"] ? $_POST["patternNum"] : 5);

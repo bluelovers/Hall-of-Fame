@@ -70,7 +70,7 @@ final class HOF
 		{
 			self::$instance = $this;
 
-			mb_internal_encoding(self::CHARSET);
+			//mb_internal_encoding(self::CHARSET);
 			header('content-type: text/html; charset: ' . self::CHARSET);
 
 			bcscale(8);
@@ -370,7 +370,7 @@ final class HOF
 		die;
 		*/
 		// bluelovers
-		Dura::_exit();
+		//Dura::_exit();
 		// bluelovers
 	}
 
@@ -412,26 +412,26 @@ final class HOF
 
 		if ($controller)
 		{
-			if (DURA_USE_REWRITE)
-			{
-				$urls[] = $controller;
-			}
-			else
-			{
+			//if (DURA_USE_REWRITE)
+			//{
+			//	$urls[] = $controller;
+			//}
+			//else
+			//{
 				$params['controller'] = $controller;
-			}
+			//}
 		}
 
 		if ($action)
 		{
-			if (BASE_URL_REWRITE)
-			{
-				$urls[] = $action;
-			}
-			else
-			{
+			//if (BASE_URL_REWRITE)
+			//{
+			//	$urls[] = $action;
+			//}
+			//else
+			//{
 				$params['action'] = $action;
-			}
+			//}
 		}
 
 		if (!empty($extra) && is_array($extra))
