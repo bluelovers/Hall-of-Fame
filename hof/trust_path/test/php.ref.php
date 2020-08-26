@@ -36,7 +36,7 @@ class B
 }
 
 $a = new A;
-$b = new B(&$a);
+$b = new B($a);
 
 $c = clone $b;
 

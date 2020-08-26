@@ -102,7 +102,7 @@ try
 {
 	$c = '123';
 
-	$a->public_call_ref2(&$c);
+	$a->public_call_ref2($c);
 
 	_e($c);
 }

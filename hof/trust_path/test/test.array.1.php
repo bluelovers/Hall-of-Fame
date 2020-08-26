@@ -18,7 +18,7 @@ $arr = array(
 	'c' => array('c2' => array('c3' => array('c4' => array(), ), ), ),
 	);
 
-$arr = new HOF_Class_Array($arr, 0, 4);
+$arr = new HOF_Class_Array_Prop($arr, 0, 4);
 
 debug(is_array($arr), count($arr));
 
@@ -33,3 +33,5 @@ foreach($arr as $k => $v)
 {
 	debug($k);
 }
+
+var_dump($arr->getIterator());
