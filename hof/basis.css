@@ -1,0 +1,175 @@
+﻿*{
+  padding	: 0;
+  margin	: 0;
+  line-height	: 140%;
+  font-family	: 微软雅黑;
+  font-size:14px;
+  overflow:inherit;
+}
+img{
+  border:0px;
+}
+html{
+  height:100%;
+}
+body{
+  height	:100%;
+  text-align	: center;
+}
+* html div#main_frame{
+  height	: 100%;
+}
+body > #main_frame{
+  height	: auto;
+}
+p{
+  margin-bottom	: 1em;
+}
+.align-right{
+  text-align	:right;
+}
+.align-center{
+  text-align	:center;
+}
+.bold{
+  font-weight	: bold;
+}
+.u{
+  text-decoration	: underline;
+}
+ul{
+  /*list-style-type:disc;*/
+}
+li{
+  margin-left:40px;
+}
+.vcent{
+  vertical-align	: middle;
+  margin	: 0 5px;
+}
+.c-both{
+  clear:both;
+}
+.clear{
+  clear:both;
+  line-height:0;
+  height:0;
+}
+.land{
+  padding-bottom	: 20px;
+  margin	: 20px 0 3px 0;
+  background-position	: bottom center;
+  background-repeat	: no-repeat;
+}
+.land_grass{
+  padding-bottom	: 20px;
+  margin	: 20px 0 3px 0;
+  background-image : url(image/other/land_grass.gif);
+  background-position	: bottom center;
+  background-repeat	: no-repeat;
+}
+.land_grass01{
+  padding-bottom	: 20px;
+  margin	: 20px 0 3px 0;
+  background-image : url(image/other/land_grass01.gif);
+  background-position	: bottom center;
+  background-repeat	: no-repeat;
+}
+.land_sea{
+  padding-bottom	: 20px;
+  margin	: 20px 0 3px 0;
+  background-image : url(image/other/land_sea.gif);
+  background-position	: bottom center;
+  background-repeat	: no-repeat;
+}
+.land_cave{
+  padding-bottom	: 20px;
+  margin	: 20px 0 3px 0;
+  background-image : url(image/other/land_cave.gif);
+  background-position	: bottom center;
+  background-repeat	: no-repeat;
+}
+.land_snow{
+  padding-bottom	: 20px;
+  margin	: 20px 0 3px 0;
+  background-image : url(image/other/land_snow.gif);
+  background-position	: bottom center;
+  background-repeat	: no-repeat;
+}
+.land_swamp{
+  padding-bottom	: 20px;
+  margin	: 20px 0 3px 0;
+  background-image : url(image/other/land_swamp.gif);
+  background-position	: bottom center;
+  background-repeat	: no-repeat;
+}
+.land_ocean{
+  padding-bottom	: 20px;
+  margin	: 20px 0 3px 0;
+  background-image : url(image/other/land_ocean.gif);
+  background-position	: bottom center;
+  background-repeat	: no-repeat;
+}
+.land_sand{
+  padding-bottom	: 20px;
+  margin	: 20px 0 3px 0;
+  background-image : url(image/other/land_sand.gif);
+  background-position	: bottom center;
+  background-repeat	: no-repeat;
+}
+.land_mount{
+  padding-bottom	: 20px;
+  margin	: 20px 0 3px 0;
+  background-image : url(image/other/land_mount.gif);
+  background-position	: bottom center;
+  background-repeat	: no-repeat;
+}
+.land_lava{
+  padding-bottom	: 20px;
+  margin	: 20px 0 3px 0;
+  background-image : url(image/other/land_lava.gif);
+  background-position	: bottom center;
+  background-repeat	: no-repeat;
+}
+.land_pavement01{
+  padding-bottom	: 20px;
+  margin	: 20px 0 3px 0;
+  background-image : url(image/other/land_pavement01.gif);
+  background-position	: bottom center;
+  background-repeat	: no-repeat;
+}
+.land_build01{
+  padding-bottom	: 20px;
+  margin	: 20px 0 3px 0;
+  background-image : url(image/other/land_build01.gif);
+  background-position	: bottom center;
+  background-repeat	: no-repeat;
+}
+.land_jungle{
+  padding-bottom	: 20px;
+  margin	: 20px 0 3px 0;
+  background-image : url(image/other/land_jungle.gif);
+  background-position	: bottom center;
+  background-repeat	: no-repeat;
+}
+/* for battle */
+.dmg{
+  color:#cc3300;
+}
+.recover{
+  color:#3366ff;
+}
+.support{
+  color:#66cc66;
+}
+.spdmg{
+  color:#993399;
+}
+.levelup{
+  font-weight:bold;
+  color:#ffff33;
+}
+/* 庇晶や鸣めの咖 */
+.charge{
+  color:#ffcc33;
+}

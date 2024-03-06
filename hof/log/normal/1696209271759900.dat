@@ -1,0 +1,212 @@
+1696209271759900
+万万没想到<>哥布林战士
+5<>5
+4.6<>8.8
+1
+10
+
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<table style="width:100%;" cellspacing="0"><tbody>
+<tr><td class="teams"><div class="bold">哥布林战士</div>
+总级别 : 44<br>
+平均级别 : 8.8<br>
+总HP : 1800/1800</td><td class="teams ttd1"><div class="bold">万万没想到</div>
+总级别 : 23<br>
+平均级别 : 4.6<br>
+总HP : 1153/1153</td></tr><tr><td colspan="2" class="btl_img">
+<a name="s0"></a>
+<div style="width:100%;hight:100%;position:relative;">
+<div style="position:absolute;bottom:0px;right:0px;">
+<<<a href="#s1">>></a>
+</div>﻿<div style="position:relative;left:50%;margin-left:-240px;width:480;height:200;height:200px;background-image:url(./image/other/bg_grass.gif);background-repeat:no-repeat;background-position:0px 0px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_183r.gif);background-repeat:no-repeat;background-position:64px 22px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_051.gif);background-repeat:no-repeat;background-position:56px 64px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_051.gif);background-repeat:no-repeat;background-position:36px 114px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_078.gif);background-repeat:no-repeat;background-position:117px 18px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_205.gif);background-repeat:no-repeat;background-position:118px 97px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_106.gif);background-repeat:no-repeat;background-position:344px 16px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_214.gif);background-repeat:no-repeat;background-position:380px 44px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_219r.gif);background-repeat:no-repeat;background-position:380px 76px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_106.gif);background-repeat:no-repeat;background-position:392px 136px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_079.gif);background-repeat:no-repeat;background-position:288px 68px;">
+</div></div></div></div></div></div></div></div></div></div></div></div></td></tr><tr><td class="ttd2 break">
+<table style="width:100%"><tbody><tr><td style="width:50%">
+<span class="bold">哥布林突击者</span>
+<div class="hpsp">
+<span class="recover">HP : 300/300</span><br />
+<span class="support">SP : 60/60</span>
+</div>
+<span class="bold">哥布林魔术师(A)</span>
+<div class="hpsp">
+<span class="recover">HP : 240/240</span><br />
+<span class="support">SP : 210/210</span>
+</div>
+<span class="bold">哥布林魔术师(B)</span>
+<div class="hpsp">
+<span class="recover">HP : 240/240</span><br />
+<span class="support">SP : 210/210</span>
+</div>
+</td><td style="width:50%">
+<span class="bold">哥布林坦克</span>
+<div class="hpsp">
+<span class="recover">HP : 700/700</span><br />
+<span class="support">SP : 150/150</span>
+</div>
+<span class="bold">哥布林僧侣</span>
+<div class="hpsp">
+<span class="recover">HP : 320/320</span><br />
+<span class="support">SP : 100/100</span>
+</div>
+</td></tr></tbody></table>
+</td><td class="ttd1 break">
+<table style="width:100%"><tbody><tr><td style="width:50%">
+<span class="bold">肉墩墩</span>
+<div class="hpsp">
+<span class="recover">HP : 364/364</span><br />
+<span class="support">SP : 54/54</span>
+</div>
+</td><td style="width:50%">
+<span class="bold">奥德赛</span>
+<div class="hpsp">
+<span class="recover">HP : 165/165</span><br />
+<span class="support">SP : 128/128</span>
+</div>
+<span class="bold">血融融</span>
+<div class="hpsp">
+<span class="recover">HP : 217/217</span><br />
+<span class="support">SP : 90/90</span>
+</div>
+<span class="bold">射的准</span>
+<div class="hpsp">
+<span class="recover">HP : 242/242</span><br />
+<span class="support">SP : 77/77</span>
+</div>
+<span class="bold">打得狠</span>
+<div class="hpsp">
+<span class="recover">HP : 165/165</span><br />
+<span class="support">SP : 116/116</span>
+</div>
+</td></tr></tbody></table>
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林突击者</span><img src="./image/icon/skill_059z.png" class="vcent"/>超限</div>
+<span class="bold">哥布林突击者</span> STR 提升 80%<br />
+<span class="bold">哥布林突击者</span> MAXHP(300) 下降到 240<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林坦克</span><img src="./image/icon/skill_066.png" class="vcent"/>地颤</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">奥德赛</span></span> 受到<span class='dmg bold'>  61</span> 伤害 (165 > 104)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">肉墩墩</span></span> 受到<span class='dmg bold'>  31</span> 伤害 (364 > 333)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">血融融</span></span> 受到<span class='dmg bold'>  61</span> 伤害 (217 > 156)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">射的准</span></span> 受到<span class='dmg bold'>  58</span> 伤害 (242 > 184)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">打得狠</span></span> 受到<span class='dmg bold'>  61</span> 伤害 (165 > 104)<br />
+<span class="bold">哥布林坦克</span> 行动推迟了(0<span style="font-size:80%"> >>> </span>-20/100)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+<span class="charge"><span class="bold">哥布林僧侣</span> 开始蓄力.</span>(100<span style="font-size:80%"> >>> </span>60/100)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+<span class="charge"><span class="bold">哥布林魔术师(B)</span> 开始咏唱.</span>(100<span style="font-size:80%"> >>> </span>30/100)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+<span class="charge"><span class="bold">哥布林魔术师(A)</span> 开始咏唱.</span>(100<span style="font-size:80%"> >>> </span>30/100)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<div class="u"><span class="bold">射的准</span><img src="./image/icon/item_042.png" class="vcent"/>双重射击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林魔术师(B)</span></span> 受到<span class='dmg bold'>  28</span> 伤害 (240 > 212)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林突击者</span></span> 受到<span class='dmg bold'>  35</span> 伤害 (240 > 205)<br />
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<span class="charge"><span class="bold">肉墩墩</span> 开始蓄力.</span>(100<span style="font-size:80%"> >>> </span>80/100)<br />
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<span class="bold">血融融</span> 陷入沉思结果忘了行动.<br />(无更多行动模式)<br />
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<span class="charge"><span class="bold">奥德赛</span> 开始咏唱.</span>(100<span style="font-size:80%"> >>> </span>30/100)<br />
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<span class="charge"><span class="bold">打得狠</span> 开始咏唱.</span>(100<span style="font-size:80%"> >>> </span>50/100)<br />
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林僧侣</span><img src="./image/icon/skill_031.png" class="vcent"/>愤怒一击</div>
+<span class="bold">肉墩墩</span> 保护<span class="bold">打得狠</span>!<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">肉墩墩</span></span> 受到<span class='dmg bold'>  50</span> 伤害 (333 > 283)<br />
+<span class="bold">肉墩墩</span> 保护<span class="bold">射的准</span>!<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">肉墩墩</span></span> 受到<span class='dmg bold'>  50</span> 伤害 (283 > 233)<br />
+<span class="bold">肉墩墩</span> 保护<span class="bold">射的准</span>!<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">肉墩墩</span></span> 受到<span class='dmg bold'>  50</span> 伤害 (233 > 183)<br />
+<span class="bold">肉墩墩</span> 保护<span class="bold">奥德赛</span>!<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">肉墩墩</span></span> 受到<span class='dmg bold'>  50</span> 伤害 (183 > 133)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">肉墩墩</span></span> 受到<span class='dmg bold'>  50</span> 伤害 (133 > 83)<br />
+<span class="bold">哥布林僧侣</span> 行动推迟了(0<span style="font-size:80%"> >>> </span>-60/100)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<div class="u"><span class="bold">肉墩墩</span><img src="./image/icon/skill_032.png" class="vcent"/>痛击</div>
+<span class="bold">哥布林坦克</span> 保护<span class="bold">哥布林魔术师(B)</span>!<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林坦克</span></span> 受到<span class='dmg bold'>  59</span> 伤害 (700 > 641)<br />
+<span class="bold">肉墩墩</span> 行动推迟了(0<span style="font-size:80%"> >>> </span>-20/100)<br />
+</td></tr>
+<tr><td class="ttd2">
+<span class="charge"><span class="bold">哥布林突击者</span> 开始蓄力.</span>(100<span style="font-size:80%"> >>> </span>60/100)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<div class="u"><span class="bold">打得狠</span><img src="./image/icon/skill_030z.png" class="vcent"/>雷击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林突击者</span></span> 受到<span class='dmg bold'>  135</span> 伤害 (205 > 70)<br />
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林魔术师(A)</span><img src="./image/icon/skill_004a.png" class="vcent"/>火焰风暴</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">血融融</span></span> 受到<span class='dmg bold'>  56</span> 伤害 (156 > 100)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">肉墩墩</span></span> 受到<span class='dmg bold'>  87</span> 伤害 (83 > -4)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">打得狠</span></span> 受到<span class='dmg bold'>  56</span> 伤害 (104 > 48)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">奥德赛</span></span> 受到<span class='dmg bold'>  56</span> 伤害 (104 > 48)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">肉墩墩</span></span> 受到<span class='dmg bold'>  87</span> 伤害 (-4 > -91)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">奥德赛</span></span> 受到<span class='dmg bold'>  56</span> 伤害 (48 > -8)<br />
+<span class="dmg"><span class="bold">奥德赛</span> 被打倒.</span><br />
+<span class="dmg"><span class="bold">肉墩墩</span> 被打倒.</span><br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林魔术师(B)</span><img src="./image/icon/skill_004a.png" class="vcent"/>火焰风暴</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">血融融</span></span> 受到<span class='dmg bold'>  56</span> 伤害 (100 > 44)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">射的准</span></span> 受到<span class='dmg bold'>  84</span> 伤害 (184 > 100)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">打得狠</span></span> 受到<span class='dmg bold'>  56</span> 伤害 (48 > -8)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">射的准</span></span> 受到<span class='dmg bold'>  84</span> 伤害 (100 > 16)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">血融融</span></span> 受到<span class='dmg bold'>  56</span> 伤害 (44 > -12)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">打得狠</span></span> 受到<span class='dmg bold'>  56</span> 伤害 (-8 > -64)<br />
+<span class="dmg"><span class="bold">血融融</span> 被打倒.</span><br />
+<span class="dmg"><span class="bold">打得狠</span> 被打倒.</span><br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林坦克</span><img src="./image/icon/skill_066.png" class="vcent"/>地颤</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">射的准</span></span> 受到<span class='dmg bold'>  58</span> 伤害 (16 > -42)<br />
+<span class="dmg"><span class="bold">射的准</span> 被打倒.</span><br />
+<span class="bold">哥布林坦克</span> 行动推迟了(0<span style="font-size:80%"> >>> </span>-20/100)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td colspan="2" style="text-align:center;padding:10px 0px" class="break break-top">
+<a name="s1"></a>
+<span style="font-size:200%">哥布林战士 胜利!</span><br />
+<tr><td class="teams">
+残留HP : 1483/1740<br />
+存活 : 5/5<br />
+总伤害 : 1370<br />
+</td><td class="teams">残留HP : 0/1153<br />
+存活 : 0/5<br />
+总伤害 : 257<br />
+</td></tr>
+</tbody></table>

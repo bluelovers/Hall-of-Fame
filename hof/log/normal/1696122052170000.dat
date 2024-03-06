@@ -1,0 +1,76 @@
+1696122052170000
+万万没想到<>哥布林(最弱)
+1<>1
+1<>1
+0
+2
+
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<table style="width:100%;" cellspacing="0"><tbody>
+<tr><td class="teams"><div class="bold">哥布林(最弱)</div>
+总级别 : 1<br>
+平均级别 : 1<br>
+总HP : 140/140</td><td class="teams ttd1"><div class="bold">万万没想到</div>
+总级别 : 1<br>
+平均级别 : 1<br>
+总HP : 152/152</td></tr><tr><td colspan="2" class="btl_img">
+<a name="s0"></a>
+<div style="width:100%;hight:100%;position:relative;">
+<div style="position:absolute;bottom:0px;right:0px;">
+<<<a href="#s1">>></a>
+</div>﻿<div style="position:relative;left:50%;margin-left:-240px;width:480;height:200;height:200px;background-image:url(./image/other/bg_grass.gif);background-repeat:no-repeat;background-position:0px 0px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_053.gif);background-repeat:no-repeat;background-position:132px 76px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_106.gif);background-repeat:no-repeat;background-position:368px 76px;">
+</div></div></div></div></td></tr><tr><td class="ttd2 break">
+<table style="width:100%"><tbody><tr><td style="width:50%">
+</td><td style="width:50%">
+<span class="bold">持斧哥布林</span>
+<div class="hpsp">
+<span class="recover">HP : 140/140</span><br />
+<span class="support">SP : 80/80</span>
+</div>
+</td></tr></tbody></table>
+</td><td class="ttd1 break">
+<table style="width:100%"><tbody><tr><td style="width:50%">
+</td><td style="width:50%">
+<span class="bold">奥德赛</span>
+<div class="hpsp">
+<span class="recover">HP : 152/152</span><br />
+<span class="support">SP : 108/108</span>
+</div>
+</td></tr></tbody></table>
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">持斧哥布林</span><img src="./image/icon/skill_042.png" class="vcent"/>攻击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">奥德赛</span></span> 受到<span class='dmg bold'>  44</span> 伤害 (152 > 108)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<span class="charge"><span class="bold">奥德赛</span> 开始咏唱.</span>(100<span style="font-size:80%"> >>> </span>40/100)<br />
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<div class="u"><span class="bold">奥德赛</span><img src="./image/icon/skill_018.png" class="vcent"/>火球术</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">持斧哥布林</span></span> 受到<span class='dmg bold'>  35</span> 伤害 (140 > 105)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">持斧哥布林</span></span> 受到<span class='dmg bold'>  35</span> 伤害 (105 > 70)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">持斧哥布林</span></span> 受到<span class='dmg bold'>  35</span> 伤害 (70 > 35)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">持斧哥布林</span></span> 受到<span class='dmg bold'>  35</span> 伤害 (35 > 0)<br />
+<span class="dmg"><span class="bold">持斧哥布林</span> 被打倒.</span><br />
+存活者获得 20 经验.<br />
+<span class="levelup">奥德赛 升级!</span><br />
+万万没想到 获得 $&nbsp;100.<br />
+</td></tr>
+<tr><td colspan="2" style="text-align:center;padding:10px 0px" class="break break-top">
+<a name="s1"></a>
+<span style="font-size:200%">万万没想到 胜利!</span><br />
+<tr><td class="teams">
+残留HP : 0/140<br />
+存活 : 0/1<br />
+总伤害 : 44<br />
+</td><td class="teams">残留HP : 108/152<br />
+存活 : 1/1<br />
+总伤害 : 140<br />
+总经验值 : 20<br />
+金钱 : $&nbsp;100<br />
+</td></tr>
+</tbody></table>

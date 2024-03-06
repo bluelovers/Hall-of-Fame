@@ -1,0 +1,242 @@
+﻿body{
+  background  : #98a0a5/*#bfbfbf*/;
+  color : #bdc8d7;
+}
+h4{
+  padding-left	: 5px;
+  margin	: 10px 0px;
+  border-left	: 15px solid #cad3df;
+  border-bottom	: 1px solid #cad3df;
+  width	: 740px;
+  /*word-break	: break-all;*/
+  /*border-top	: 1px solid #cad3df;
+  border-right	: 1px solid #cad3df;
+*/
+}
+.bgcolor{background-color	: #10151b;}
+.light{
+  /* 绅达硷梧 */
+  color	: #40526a;
+  font-size	: 80%;
+}
+.unselect{color	: #506685;}
+.divide{
+  border-left	: 1px solid #070b0e;
+  width	: 1px;
+  background	: #070b0e;
+  margin	: 0px 15px;
+}
+.carpet_frame{
+  text-align:center;
+  word-break:break-all;
+}
+.carpet0{
+  padding-bottom	: 20px;
+  margin	: 20px 0 3px 0;
+  background-image : url(image/carpet011.gif);
+  background-position	: bottom center;
+  background-repeat	: no-repeat;
+}
+.carpet1{
+  padding-bottom	: 20px;
+  margin	: 20px 0 3px 0;
+  background-image : url(image/carpet010.gif);
+  background-position	: bottom center;
+  background-repeat	: no-repeat;
+}
+div#main_frame{
+  width	: 780px;
+  min-width	: 780px;
+  position: relative;
+  min-height	: 100%;
+  /*margin	: 0 20px 0 40px;
+  */
+  border-left	: 1px solid #070b0e;
+  border-right	: 1px solid #070b0e;
+  border-bottom	: 1px solid #070b0e;
+  background	: #10151b;
+  text-align	: left;
+  margin:0 auto;
+}
+#menu{
+  padding	: 8px 10px 5px 10px;
+  border-top	: 1px solid #070b0e;
+  background	: #304052;
+}
+#menu2{
+  border-top		: 1px dotted #070b0e;
+  border-bottom	: 1px solid #070b0e;
+  padding	: 5px 10px 2px 10px;
+  background	: #202935;
+}
+#contents{
+  padding-bottom:6em;
+}
+#title{
+  padding	: 15px;
+  width	: auto;
+}
+#foot{
+  width	: 100%;
+  padding	: 8px 0 4px 0;
+  background	: #1b222c;
+  border-top	: 1px solid #070b0e;
+  text-align	: center;
+  color	: #5a708f;
+  position: absolute;
+  bottom: 0;
+}
+.error{
+  color	: red;
+  font-weight : bold;
+  font-size	: 100%;
+}
+.result{
+  color	: #66cc66;
+  font-weight : bold;
+  font-size	: 100%;
+}
+.margin15{
+  margin:15px;
+}
+a{
+  text-decoration	: none;
+  color	: #8a9cb7;
+  font-weight	: bold;
+}
+a:hover{
+  text-decoration	: underline;
+  color	: #cbd3de;
+  font-weight	: bold;
+}
+.a0{
+  /* ヘルプ≈?∽の咖(だけ) */
+  text-decoration	: none;
+  color	: #c69500;
+  font-weight	: bold;
+}
+.a0:hover{
+  /*  */
+  text-decoration	: underline;
+  color	: #ffcc33;
+  font-weight	: bold;
+}
+.td1{
+  background	: #242f3c;
+  border-bottom	: 1px solid #afbdcf;
+  padding	: 10px 20px;
+}
+.td2{
+  background	: #384b5f;
+  border-bottom	: 1px solid #afbdcf;
+  padding	: 3px;
+}
+.td3{
+  background	: #567294;
+  border-bottom	: 1px solid #afbdcf;
+  padding	: 3px;
+}
+.td4{
+  background	: #4a6380;
+  padding	: 3px;
+}
+.td5{
+  background	: #6f8baa;
+  padding	: 3px;
+}
+.td6{
+  background-color	: #304052;
+  padding	: 3px;
+}
+.td7{
+  border-left	: 1px solid #304052;
+  border-bottom	: 1px solid #304052;
+  padding	: 3px;
+}
+.td8{
+  border-left	: 1px solid #304052;
+  border-right	: 1px solid #304052;
+  border-bottom	: 1px solid #304052;
+  padding	: 3px;
+}
+.td9{
+  background-color	: 283544;
+  padding	: 3px;
+}
+.tdToggleBg{
+  background-color	: #202935;
+}
+select{
+  background	: #91a2bb;
+  color	: #10151b;
+}
+.select0{
+  background	: #768bab;
+  color	: #10151b;
+}
+.text{
+  padding:1px 5px 0px 5px;
+  color	: #10151b;
+  border	: 1px solid #1a232d;
+  background	: #91a2bb/*#cad3df*/;
+}
+.btn{
+  font-size : 12px;
+  padding	: 5px 8px 2px 8px;
+  margin-top	: 5px;
+  margin-right	: 5px;
+  font-weight:bold; 
+  text-align:center;
+  color	: #181818;
+  border:1px solid #334357;
+  background : url(image/btn_bk01.gif) repeat-x left top;
+}
+/*** 里飘茶烫脱 ***/
+.btl_img{
+  background	: #070b0e;
+  padding	: 3px;
+}
+.teams{
+  width		: 50%;
+  text-align	: center;
+  padding	: 10px;
+}
+.break{
+  border-bottom:1px solid #070b0e;
+}
+.break-top{
+  border-top:1px solid #070b0e;
+}
+.hpsp{
+  padding-left:20px;
+}
+/* 焊娄 */
+.bl{
+  /* 踏蝗脱 */
+	width:49%;
+  float:left;
+  border-right:1px solid #070b0e;
+}
+/* 宝娄 */
+.br{
+  /* 踏蝗脱 */
+	width:50%;
+  float:right;
+}
+/* 宝娄 */
+.ttd1{
+  border-left	: 1px solid #070b0e;
+  padding-left	: 10px;
+}
+.ttd2{
+  /* 焊娄 */
+  padding-left	: 10px;
+}
+.town{
+  padding-left	: 0px;
+  height:220px;
+  background-image : url(image/other/town02.gif);
+  /*background-position	: top left;*/
+  background-position	: top right;
+  background-repeat	: no-repeat;
+}

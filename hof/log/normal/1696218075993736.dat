@@ -1,0 +1,513 @@
+1696218075993736
+万万没想到<>强一点的哥布林
+5<>5
+6.6<>2.8
+1
+29
+
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<table style="width:100%;" cellspacing="0"><tbody>
+<tr><td class="teams"><div class="bold">强一点的哥布林</div>
+总级别 : 14<br>
+平均级别 : 2.8<br>
+总HP : 1020/1020</td><td class="teams ttd1"><div class="bold">万万没想到</div>
+总级别 : 33<br>
+平均级别 : 6.6<br>
+总HP : 1207/1207</td></tr><tr><td colspan="2" class="btl_img">
+<a name="s0"></a>
+<div style="width:100%;hight:100%;position:relative;">
+<div style="position:absolute;bottom:0px;right:0px;">
+<<<a href="#s1">>></a>
+</div>﻿<div style="position:relative;left:50%;margin-left:-240px;width:480;height:200;height:200px;background-image:url(./image/other/bg_grass.gif);background-repeat:no-repeat;background-position:0px 0px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_051.gif);background-repeat:no-repeat;background-position:69px 30px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_053.gif);background-repeat:no-repeat;background-position:38px 109px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_052.gif);background-repeat:no-repeat;background-position:160px 26px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_053.gif);background-repeat:no-repeat;background-position:132px 76px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_206.gif);background-repeat:no-repeat;background-position:108px 126px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_106.gif);background-repeat:no-repeat;background-position:344px 16px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_214.gif);background-repeat:no-repeat;background-position:380px 44px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_219r.gif);background-repeat:no-repeat;background-position:380px 76px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_106.gif);background-repeat:no-repeat;background-position:392px 136px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_079.gif);background-repeat:no-repeat;background-position:288px 68px;">
+</div></div></div></div></div></div></div></div></div></div></div></div></td></tr><tr><td class="ttd2 break">
+<table style="width:100%"><tbody><tr><td style="width:50%">
+<span class="bold">哥布林魔术师</span>
+<div class="hpsp">
+<span class="recover">生命：240/240</span><br />
+<span class="support">魔力：210/210</span>
+</div>
+<span class="bold">持斧哥布林(B)</span>
+<div class="hpsp">
+<span class="recover">生命：140/140</span><br />
+<span class="support">魔力：80/80</span>
+</div>
+</td><td style="width:50%">
+<span class="bold">哥布林勇士</span>
+<div class="hpsp">
+<span class="recover">生命：180/180</span><br />
+<span class="support">魔力：50/50</span>
+</div>
+<span class="bold">持斧哥布林(A)</span>
+<div class="hpsp">
+<span class="recover">生命：140/140</span><br />
+<span class="support">魔力：80/80</span>
+</div>
+<span class="bold">哥布林骑士</span>
+<div class="hpsp">
+<span class="recover">生命：320/320</span><br />
+<span class="support">魔力：90/90</span>
+</div>
+</td></tr></tbody></table>
+</td><td class="ttd1 break">
+<table style="width:100%"><tbody><tr><td style="width:50%">
+<span class="bold">肉墩墩</span>
+<div class="hpsp">
+<span class="recover">生命：388/388</span><br />
+<span class="support">魔力：56/56</span>
+</div>
+</td><td style="width:50%">
+<span class="bold">奥德赛</span>
+<div class="hpsp">
+<span class="recover">生命：171/171</span><br />
+<span class="support">魔力：132/132</span>
+</div>
+<span class="bold">血融融</span>
+<div class="hpsp">
+<span class="recover">生命：226/226</span><br />
+<span class="support">魔力：103/103</span>
+</div>
+<span class="bold">射的准</span>
+<div class="hpsp">
+<span class="recover">生命：251/251</span><br />
+<span class="support">魔力：80/80</span>
+</div>
+<span class="bold">打得狠</span>
+<div class="hpsp">
+<span class="recover">生命：171/171</span><br />
+<span class="support">魔力：121/121</span>
+</div>
+</td></tr></tbody></table>
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林骑士</span><img src="./image/icon/skill_059y.png" class="vcent"/>防御</div>
+<span class="bold">哥布林骑士</span> DEF 提升 20%<br />
+<span class="bold">哥布林骑士</span> STR 下降 20%<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<div class="u"><span class="bold">射的准</span><img src="./image/icon/item_042.png" class="vcent"/>双重射击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林魔术师</span></span> 受到<span class='dmg bold'>  28</span> 伤害 (240 > 212)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">持斧哥布林(B)</span></span> 受到<span class='dmg bold'>  35</span> 伤害 (140 > 105)<br />
+</td></tr>
+<tr><td class="ttd2">
+<span class="charge"><span class="bold">哥布林魔术师</span> 开始咏唱.</span>(100<span style="font-size:80%"> >>> </span>50/100)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">持斧哥布林(A)</span><img src="./image/icon/skill_042.png" class="vcent"/>攻击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">肉墩墩</span></span> 受到<span class='dmg bold'>  49</span> 伤害 (388 > 339)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+<span class="charge"><span class="bold">持斧哥布林(B)</span> 开始蓄力.</span>(100<span style="font-size:80%"> >>> </span>60/100)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林勇士</span><img src="./image/icon/skill_074z.png" class="vcent"/>致命突刺</div>
+<span class="bold">肉墩墩</span> 保护<span class="bold">射的准</span>!<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">肉墩墩</span></span> 受到<span class='dmg bold'>  138</span> 伤害 (339 > 201)<br />
+<span class="bold">哥布林勇士</span> 行动推迟了(0<span style="font-size:80%"> >>> </span>-50/100)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<span class="charge"><span class="bold">肉墩墩</span> 开始蓄力.</span>(100<span style="font-size:80%"> >>> </span>80/100)<br />
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<span class="charge"><span class="bold">血融融</span> 开始咏唱.</span>(100<span style="font-size:80%"> >>> </span>60/100)<br />
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<span class="charge"><span class="bold">打得狠</span> 开始咏唱.</span>(100<span style="font-size:80%"> >>> </span>50/100)<br />
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<span class="charge"><span class="bold">奥德赛</span> 开始咏唱.</span>(100<span style="font-size:80%"> >>> </span>30/100)<br />
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<div class="u"><span class="bold">肉墩墩</span><img src="./image/icon/skill_032.png" class="vcent"/>痛击</div>
+<span class="bold">持斧哥布林(A)</span> 保护<span class="bold">持斧哥布林(B)</span>!<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">持斧哥布林(A)</span></span> 受到<span class='dmg bold'>  157</span> 伤害 (140 > -17)<br />
+<span class="dmg"><span class="bold">持斧哥布林(A)</span> 被打倒.</span><br />
+存活者获得 4 经验.<br />
+万万没想到 获得 $&nbsp;100.<br />
+<span class="bold">肉墩墩</span> 行动推迟了(0<span style="font-size:80%"> >>> </span>-20/100)<br />
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">持斧哥布林(B)</span><img src="./image/icon/skill_031.png" class="vcent"/>愤怒一击</div>
+<span class="bold">肉墩墩</span> 保护<span class="bold">血融融</span>!<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">肉墩墩</span></span> 受到<span class='dmg bold'>  49</span> 伤害 (201 > 152)<br />
+<span class="bold">肉墩墩</span> 保护<span class="bold">奥德赛</span>!<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">肉墩墩</span></span> 受到<span class='dmg bold'>  49</span> 伤害 (152 > 103)<br />
+<span class="bold">肉墩墩</span> 保护<span class="bold">打得狠</span>!<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">肉墩墩</span></span> 受到<span class='dmg bold'>  49</span> 伤害 (103 > 54)<br />
+<span class="bold">肉墩墩</span> 保护<span class="bold">打得狠</span>!<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">肉墩墩</span></span> 受到<span class='dmg bold'>  49</span> 伤害 (54 > 5)<br />
+<span class="bold">肉墩墩</span> 保护<span class="bold">奥德赛</span>!<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">肉墩墩</span></span> 受到<span class='dmg bold'>  49</span> 伤害 (5 > -44)<br />
+<span class="dmg"><span class="bold">肉墩墩</span> 被打倒.</span><br />
+<span class="bold">持斧哥布林(B)</span> 行动推迟了(0<span style="font-size:80%"> >>> </span>-60/100)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<div class="u"><span class="bold">血融融</span><img src="./image/icon/skill_009.png" class="vcent"/>大祝福</div>
+<span class="bold">奥德赛</span> <span class="support">回复了 <span class="bold">58 SP</span></span>(132 > 132)<br />
+<span class="bold">血融融</span> <span class="support">回复了 <span class="bold">51 SP</span></span>(83 > 103)<br />
+<span class="bold">射的准</span> <span class="support">回复了 <span class="bold">45 SP</span></span>(52 > 80)<br />
+<span class="bold">打得狠</span> <span class="support">回复了 <span class="bold">55 SP</span></span>(121 > 121)<br />
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林魔术师</span><img src="./image/icon/skill_007a.png" class="vcent"/>火柱</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">血融融</span></span> 受到<span class='dmg bold'>  82</span> 伤害 (226 > 144)<br />
+<span class="bold">血融融</span> STR 下降 40%<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">射的准</span></span> 受到<span class='dmg bold'>  119</span> 伤害 (251 > 132)<br />
+<span class="bold">射的准</span> STR 下降 40%<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<div class="u"><span class="bold">打得狠</span><img src="./image/icon/skill_030z.png" class="vcent"/>雷击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">持斧哥布林(B)</span></span> 受到<span class='dmg bold'>  140</span> 伤害 (105 > -35)<br />
+<span class="dmg"><span class="bold">持斧哥布林(B)</span> 被打倒.</span><br />
+存活者获得 5 经验.<br />
+万万没想到 获得 $&nbsp;100.<br />
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林骑士</span><img src="./image/icon/skill_042.png" class="vcent"/>攻击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">射的准</span></span> 受到<span class='dmg bold'>  64</span> 伤害 (132 > 68)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td colspan="2" class="btl_img">
+<a name="s1"></a>
+<div style="width:100%;hight:100%;position:relative;">
+<div style="position:absolute;bottom:0px;right:0px;">
+<a href="#s0"><<</a>
+<a href="#s2">>></a>
+</div><div style="position:relative;left:50%;margin-left:-240px;width:480;height:200;height:200px;background-image:url(./image/other/bg_grass.gif);background-repeat:no-repeat;background-position:0px 0px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_051.gif);background-repeat:no-repeat;background-position:69px 30px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_145.gif);background-repeat:no-repeat;background-position:42px 109px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_052.gif);background-repeat:no-repeat;background-position:160px 26px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_145.gif);background-repeat:no-repeat;background-position:136px 76px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_206.gif);background-repeat:no-repeat;background-position:108px 126px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_106.gif);background-repeat:no-repeat;background-position:344px 16px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_214.gif);background-repeat:no-repeat;background-position:380px 44px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_219r.gif);background-repeat:no-repeat;background-position:380px 76px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_106.gif);background-repeat:no-repeat;background-position:392px 136px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_145.gif);background-repeat:no-repeat;background-position:296px 76px;">
+</div></div></div></div></div></div></div></div></div></div></div></div></td></tr><tr><td class="ttd2 break">
+<table style="width:100%"><tbody><tr><td style="width:50%">
+<span class="bold">哥布林魔术师</span>
+<div class="hpsp">
+<span class="recover">生命：212/240</span><br />
+<span class="support">魔力：170/210</span>
+</div>
+<span class="bold dmg">持斧哥布林(B)</span>
+<div class="hpsp">
+<span class="dmg">生命：0/140</span><br />
+<span class="dmg">魔力：40/80</span>
+</div>
+</td><td style="width:50%">
+<span class="bold">哥布林勇士</span>
+<div class="hpsp">
+<span class="recover">生命：180/180</span><br />
+<span class="support">魔力：0/50</span>
+</div>
+<span class="bold dmg">持斧哥布林(A)</span>
+<div class="hpsp">
+<span class="dmg">生命：0/140</span><br />
+<span class="dmg">魔力：80/80</span>
+</div>
+<span class="bold">哥布林骑士</span>
+<div class="hpsp">
+<span class="recover">生命：320/320</span><br />
+<span class="support">魔力：80/90</span>
+</div>
+</td></tr></tbody></table>
+</td><td class="ttd1 break">
+<table style="width:100%"><tbody><tr><td style="width:50%">
+<span class="bold dmg">肉墩墩</span>
+<div class="hpsp">
+<span class="dmg">生命：0/388</span><br />
+<span class="dmg">魔力：48/56</span>
+</div>
+</td><td style="width:50%">
+<span class="bold">奥德赛</span>
+<span class="charge">(咏唱)</span>
+<div class="hpsp">
+<span class="recover">生命：171/171</span><br />
+<span class="support">魔力：132/132</span>
+</div>
+<span class="bold">血融融</span>
+<div class="hpsp">
+<span class="recover">生命：144/226</span><br />
+<span class="support">魔力：103/103</span>
+</div>
+<span class="bold">射的准</span>
+<div class="hpsp">
+<span class="recover">生命：68/251</span><br />
+<span class="support">魔力：80/80</span>
+</div>
+<span class="bold">打得狠</span>
+<div class="hpsp">
+<span class="recover">生命：171/171</span><br />
+<span class="support">魔力：91/121</span>
+</div>
+</td></tr></tbody></table>
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<div class="u"><span class="bold">奥德赛</span><img src="./image/icon/skill_004a.png" class="vcent"/>火焰风暴</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林勇士</span></span> 受到<span class='dmg bold'>  49</span> 伤害 (180 > 131)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林魔术师</span></span> 受到<span class='dmg bold'>  23</span> 伤害 (212 > 189)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林勇士</span></span> 受到<span class='dmg bold'>  49</span> 伤害 (131 > 82)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林魔术师</span></span> 受到<span class='dmg bold'>  23</span> 伤害 (189 > 166)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林勇士</span></span> 受到<span class='dmg bold'>  49</span> 伤害 (82 > 33)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林魔术师</span></span> 受到<span class='dmg bold'>  23</span> 伤害 (166 > 143)<br />
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<div class="u"><span class="bold">射的准</span><img src="./image/icon/item_042.png" class="vcent"/>双重射击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林魔术师</span></span> 受到<span class='dmg bold'>  28</span> 伤害 (143 > 115)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林魔术师</span></span> 受到<span class='dmg bold'>  28</span> 伤害 (115 > 87)<br />
+</td></tr>
+<tr><td class="ttd2">
+<span class="charge"><span class="bold">哥布林魔术师</span> 开始咏唱.</span>(100<span style="font-size:80%"> >>> </span>50/100)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<span class="charge"><span class="bold">血融融</span> 开始咏唱.</span>(100<span style="font-size:80%"> >>> </span>60/100)<br />
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林勇士</span><img src="./image/icon/skill_042.png" class="vcent"/>攻击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">血融融</span></span> 受到<span class='dmg bold'>  34</span> 伤害 (144 > 110)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林骑士</span><img src="./image/icon/skill_072.png" class="vcent"/>破坏装备</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">奥德赛</span></span> 受到<span class='dmg bold'>  68</span> 伤害 (171 > 103)<br />
+<span class="bold">奥德赛</span> DEF 下降 30%<br />
+<span class="bold">奥德赛</span> MDEF 下降 30%<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<span class="charge"><span class="bold">打得狠</span> 开始咏唱.</span>(100<span style="font-size:80%"> >>> </span>50/100)<br />
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<div class="u"><span class="bold">血融融</span><img src="./image/icon/skill_009.png" class="vcent"/>大祝福</div>
+<span class="bold">奥德赛</span> <span class="support">回复了 <span class="bold">58 SP</span></span>(62 > 120)<br />
+<span class="bold">血融融</span> <span class="support">回复了 <span class="bold">51 SP</span></span>(83 > 103)<br />
+<span class="bold">射的准</span> <span class="support">回复了 <span class="bold">45 SP</span></span>(52 > 80)<br />
+<span class="bold">打得狠</span> <span class="support">回复了 <span class="bold">55 SP</span></span>(91 > 121)<br />
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<span class="charge"><span class="bold">奥德赛</span> 开始咏唱.</span>(100<span style="font-size:80%"> >>> </span>30/100)<br />
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<div class="u"><span class="bold">射的准</span><img src="./image/icon/item_042.png" class="vcent"/>双重射击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林魔术师</span></span> 受到<span class='dmg bold'>  28</span> 伤害 (87 > 59)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林魔术师</span></span> 受到<span class='dmg bold'>  28</span> 伤害 (59 > 31)<br />
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林魔术师</span><img src="./image/icon/skill_007a.png" class="vcent"/>火柱</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">奥德赛</span></span> 受到<span class='dmg bold'>  93</span> 伤害 (103 > 10)<br />
+<span class="bold">奥德赛</span> STR 下降 40%<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">血融融</span></span> 受到<span class='dmg bold'>  82</span> 伤害 (110 > 28)<br />
+<span class="bold">血融融</span> STR 下降 40%<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<div class="u"><span class="bold">打得狠</span><img src="./image/icon/skill_030z.png" class="vcent"/>雷击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林魔术师</span></span> 受到<span class='dmg bold'>  78</span> 伤害 (31 > -47)<br />
+<span class="dmg"><span class="bold">哥布林魔术师</span> 被打倒.</span><br />
+<span class="bold">哥布林魔术师</span> 掉落了<img src="./image/icon/mat_025.png" class="vcent"/>
+<span class="bold u">木料</span>.<br />
+存活者获得 13 经验.<br />
+万万没想到 获得 $&nbsp;100.<br />
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林骑士</span><img src="./image/icon/skill_042.png" class="vcent"/>攻击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">奥德赛</span></span> 受到<span class='dmg bold'>  68</span> 伤害 (10 > -58)<br />
+<span class="dmg"><span class="bold">奥德赛</span> 被打倒.</span><br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林勇士</span><img src="./image/icon/skill_042.png" class="vcent"/>攻击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">血融融</span></span> 受到<span class='dmg bold'>  34</span> 伤害 (28 > -6)<br />
+<span class="dmg"><span class="bold">血融融</span> 被打倒.</span><br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td colspan="2" class="btl_img">
+<a name="s2"></a>
+<div style="width:100%;hight:100%;position:relative;">
+<div style="position:absolute;bottom:0px;right:0px;">
+<a href="#s1"><<</a>
+<a href="#s3">>></a>
+</div><div style="position:relative;left:50%;margin-left:-240px;width:480;height:200;height:200px;background-image:url(./image/other/bg_grass.gif);background-repeat:no-repeat;background-position:0px 0px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_145.gif);background-repeat:no-repeat;background-position:69px 42px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_145.gif);background-repeat:no-repeat;background-position:42px 109px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_052.gif);background-repeat:no-repeat;background-position:160px 26px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_145.gif);background-repeat:no-repeat;background-position:136px 76px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char/mon_206.gif);background-repeat:no-repeat;background-position:108px 126px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_145.gif);background-repeat:no-repeat;background-position:352px 16px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_145.gif);background-repeat:no-repeat;background-position:368px 56px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_219r.gif);background-repeat:no-repeat;background-position:380px 76px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_106.gif);background-repeat:no-repeat;background-position:392px 136px;">
+<div style="width:480;height:200;height:200px;background-image:url(./image/char_rev/mon_145.gif);background-repeat:no-repeat;background-position:296px 76px;">
+</div></div></div></div></div></div></div></div></div></div></div></div></td></tr><tr><td class="ttd2 break">
+<table style="width:100%"><tbody><tr><td style="width:50%">
+<span class="bold dmg">哥布林魔术师</span>
+<div class="hpsp">
+<span class="dmg">生命：0/240</span><br />
+<span class="dmg">魔力：130/210</span>
+</div>
+<span class="bold dmg">持斧哥布林(B)</span>
+<div class="hpsp">
+<span class="dmg">生命：0/140</span><br />
+<span class="dmg">魔力：40/80</span>
+</div>
+</td><td style="width:50%">
+<span class="bold">哥布林勇士</span>
+<div class="hpsp">
+<span class="recover">生命：33/180</span><br />
+<span class="support">魔力：0/50</span>
+</div>
+<span class="bold dmg">持斧哥布林(A)</span>
+<div class="hpsp">
+<span class="dmg">生命：0/140</span><br />
+<span class="dmg">魔力：80/80</span>
+</div>
+<span class="bold">哥布林骑士</span>
+<div class="hpsp">
+<span class="recover">生命：320/320</span><br />
+<span class="support">魔力：50/90</span>
+</div>
+</td></tr></tbody></table>
+</td><td class="ttd1 break">
+<table style="width:100%"><tbody><tr><td style="width:50%">
+<span class="bold dmg">肉墩墩</span>
+<div class="hpsp">
+<span class="dmg">生命：0/388</span><br />
+<span class="dmg">魔力：48/56</span>
+</div>
+</td><td style="width:50%">
+<span class="bold dmg">奥德赛</span>
+<div class="hpsp">
+<span class="dmg">生命：0/171</span><br />
+<span class="dmg">魔力：120/132</span>
+</div>
+<span class="bold dmg">血融融</span>
+<div class="hpsp">
+<span class="dmg">生命：0/226</span><br />
+<span class="dmg">魔力：103/103</span>
+</div>
+<span class="bold">射的准</span>
+<div class="hpsp">
+<span class="recover">生命：68/251</span><br />
+<span class="support">魔力：52/80</span>
+</div>
+<span class="bold">打得狠</span>
+<div class="hpsp">
+<span class="recover">生命：171/171</span><br />
+<span class="support">魔力：91/121</span>
+</div>
+</td></tr></tbody></table>
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<div class="u"><span class="bold">射的准</span><img src="./image/icon/item_042.png" class="vcent"/>双重射击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林骑士</span></span> 受到<span class='dmg bold'>  14</span> 伤害 (320 > 306)<br />
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林勇士</span></span> 受到<span class='dmg bold'>  31</span> 伤害 (33 > 2)<br />
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林骑士</span><img src="./image/icon/skill_042.png" class="vcent"/>攻击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">射的准</span></span> 受到<span class='dmg bold'>  64</span> 伤害 (68 > 4)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<span class="charge"><span class="bold">打得狠</span> 开始咏唱.</span>(100<span style="font-size:80%"> >>> </span>50/100)<br />
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林勇士</span><img src="./image/icon/skill_042.png" class="vcent"/>攻击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">射的准</span></span> 受到<span class='dmg bold'>  32</span> 伤害 (4 > -28)<br />
+<span class="dmg"><span class="bold">射的准</span> 被打倒.</span><br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<div class="u"><span class="bold">打得狠</span><img src="./image/icon/skill_030z.png" class="vcent"/>雷击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林骑士</span></span> 受到<span class='dmg bold'>  93</span> 伤害 (306 > 213)<br />
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林骑士</span><img src="./image/icon/skill_042.png" class="vcent"/>攻击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">打得狠</span></span> 受到<span class='dmg bold'>  68</span> 伤害 (171 > 103)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林勇士</span><img src="./image/icon/skill_042.png" class="vcent"/>攻击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">打得狠</span></span> 受到<span class='dmg bold'>  34</span> 伤害 (103 > 69)<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<span class="charge"><span class="bold">打得狠</span> 开始咏唱.</span>(100<span style="font-size:80%"> >>> </span>50/100)<br />
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林骑士</span><img src="./image/icon/skill_072.png" class="vcent"/>破坏装备</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">打得狠</span></span> 受到<span class='dmg bold'>  68</span> 伤害 (69 > 1)<br />
+<span class="bold">打得狠</span> DEF 下降 30%<br />
+<span class="bold">打得狠</span> MDEF 下降 30%<br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td class="ttd2">
+</td><td class="ttd1">
+<div class="u"><span class="bold">打得狠</span><img src="./image/icon/skill_030z.png" class="vcent"/>雷击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">哥布林勇士</span></span> 受到<span class='dmg bold'>  132</span> 伤害 (2 > -130)<br />
+<span class="dmg"><span class="bold">哥布林勇士</span> 被打倒.</span><br />
+<span class="bold">哥布林勇士</span> 掉落了<img src="./image/icon/mat_001.png" class="vcent"/>
+<span class="bold u">钢</span>.<br />
+存活者获得 20 经验.<br />
+万万没想到 获得 $&nbsp;100.<br />
+</td></tr>
+<tr><td class="ttd2">
+<div class="u"><span class="bold">哥布林骑士</span><img src="./image/icon/skill_042.png" class="vcent"/>攻击</div>
+<span class="dmg" style="font-color:#f53;"><span class="bold">打得狠</span></span> 受到<span class='dmg bold'>  68</span> 伤害 (1 > -67)<br />
+<span class="dmg"><span class="bold">打得狠</span> 被打倒.</span><br />
+</td><td class="ttd1"> 
+</td></tr>
+<tr><td colspan="2" style="text-align:center;padding:10px 0px" class="break break-top">
+<a name="s3"></a>
+<span style="font-size:200%">强一点的哥布林 胜利!</span><br />
+<tr><td class="teams">
+残留HP : 213/1020<br />
+存活 : 1/5<br />
+总伤害 : 1410<br />
+</td><td class="teams">残留HP : 0/1207<br />
+存活 : 0/5<br />
+总伤害 : 1036<br />
+总经验值 : 110<br />
+金钱 : $&nbsp;400<br />
+<div class="bold">Items</div>
+<img src="./image/icon/mat_025.png" class="vcent">木料 x 1<br />
+<img src="./image/icon/mat_001.png" class="vcent">钢 x 1<br />
+</td></tr>
+</tbody></table>
