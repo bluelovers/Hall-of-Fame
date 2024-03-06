@@ -844,7 +844,6 @@ HTML;
 					break;
 				case 'never':
 				default:
-					continue;
 					break;
 
 			}
