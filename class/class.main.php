@@ -27,6 +27,8 @@ class main extends user {
 //////////////////////////////////////////////////
 //	
 	function Order() {
+		include_once(CLASS_DIR . 'login.php');
+
 		// ログイン處理する前に處理するもの
 		// まだユ一ザデ一タ讀んでません
 		switch(true) {
@@ -43,12 +45,14 @@ class main extends user {
 				$Ranking	= new Ranking();
 				break;
 		}
-		if( true === $message = $this->CheckLogin() ):
+		
+		if( true === $message = CheckLogin($this) ):
 		//if( false ):
 		// ログイン
 			include_once(DATA_ITEM);
 			include(CLASS_CHAR);
-			if($this->FirstLogin())
+			
+			if(FirstLogin($this))
 				return 0;
 
 			switch(true) {
@@ -56,7 +60,7 @@ class main extends user {
 				case($this->OptionOrder()):	return false;
 
 				case($_POST["delete"]):
-					if($this->DeleteMyData())
+					if(DeleteMyData($this))
 						return 0;
 
 				// 設定
@@ -284,16 +288,17 @@ class main extends user {
 		else:
 		// ログアウト
 			$this->fpCloseAll();
+			include_once(CLASS_DIR . 'login.php');
 			switch(true) {
 				case($this->OptionOrder()):	return false;
 				case($_POST["Make"]):
-					list($bool,$message) = $this->MakeNewData();
+					list($bool,$message) = MakeNewData($this);
 					if( true === $bool ) {
 						$this->LoginForm($message);
 						return false;
 					}
 				case($_SERVER["QUERY_STRING"] === "newgame"):
-					$this->NewForm($message);	return false;
+					NewForm($message);	return false;
 				default:	$this->LoginForm($message);
 			}
 		endif;
@@ -1761,22 +1766,7 @@ HTML;
 		print("</tr></tbody></table>");
 	}
 
-//////////////////////////////////////////////////
-//	自分のデ一タとクッキ一を消す
-	function DeleteMyData() {
-		if($this->pass == $this->CryptPassword($_POST["deletepass"]) ) {
-			$this->DeleteUser();
-			$this->name	= NULL;
-			$this->pass	= NULL;
-			$this->id	= NULL;
-			$this->islogin= false;
-			unset($_SESSION["id"]);
-			unset($_SESSION["pass"]);
-			setcookie("NO","");
-			$this->LoginForm();
-			return true;
-		}
-	}
+
 
 //////////////////////////////////////////////////
 //	變數の表示
@@ -1803,58 +1793,6 @@ HTML;
 //	ログインした時間を設定する
 	function RenewLoginTime() {
 		$this->login	= time();
-	}
-
-//////////////////////////////////////////////////
-//	ログインしたのか、しているのか、ログアウトしたのか。
-	function CheckLogin() {
-		//logout
-		if(isset($_POST["logout"])) {
-		//	$_SESSION["pass"]	= NULL;
-		//	echo $_SESSION["pass"];
-			unset($_SESSION["pass"]);
-		//	session_destroy();
-			return false;
-		}
-
-		//session
-		$file=USER.$this->id."/".DATA;//data.dat
-		if ($data = $this->LoadData()) {
-			//echo "<div>$data[pass] == $this->pass</div>";
-			if($this->pass == NULL)
-				return false;
-			if ($data["pass"] === $this->pass) {
-				//ログイン狀態
-				$this->DataUpDate($data);
-				$this->SetData($data);
-				if(RECORD_IP)
-					$this->SetIp($_SERVER['REMOTE_ADDR']);
-				$this->RenewLoginTime();
-
-				$pass	= ($_POST["pass"])?$_POST["pass"]:$_GET["pass"];
-				if ($pass) {//ちょうど今ログインするなら
-					$_SESSION["id"]	= $this->id;
-					$_SESSION["pass"]	= $pass;
-					setcookie("NO",session_id(),time()+COOKIE_EXPIRE);
-				}
-
-				$this->islogin	= true;//ログイン狀態
-				return true;
-			} else
-				return "Wrong password!";
-		} else {
-			if($_POST["id"])
-				return "ID \"{$this->id}\" doesnt exists.";
-		}
-	}
-
-//////////////////////////////////////////////////
-//	$id を登錄濟みidとして記錄する
-	function RecordRegister($id) {
-		$fp=fopen(REGISTER,"a");
-		flock($fp,2);
-		fputs($fp,"$id\n");
-		fclose($fp);
 	}
 
 //////////////////////////////////////////////////
@@ -1920,112 +1858,7 @@ HTML;
 		$_SESSION	= unserialize($temp);
 	}
 
-//////////////////////////////////////////////////
-//	入力された情報が型にはまるか判定
-//	→ 新規デ一タを作成。
 
-	function MakeNewData() {
-		// 登錄者數が限界の場合
-		if(MAX_USERS <= count(GlobUserList()))
-			return array(false,"Maximum users.<br />已達到最大用戶數量。");
-		if(isset($_POST["Newid"]))
-			trim($_POST["Newid"]);
-		if(empty($_POST["Newid"]))
-			return array(false,"Enter ID.");
-
-		if(!ereg("[0-9a-zA-Z]{4,16}",$_POST["Newid"])||
-			ereg("[^0-9a-zA-Z]+",$_POST["Newid"]))//正規表現
-			return array(false,"Bad ID");
-
-		if(strlen($_POST["Newid"]) < 4 || 16 < strlen($_POST["Newid"]))//文字制限
-			return array(false,"Bad ID");
-
-		if(is_registered($_POST["Newid"]))
-			return array(false,"This ID has been already used.");
-
-		$file = USER.$_POST["Newid"]."/".DATA;
-		// PASS
-		//if(isset($_POST["pass1"]))
-		//	trim($_POST["pass1"]);
-		if(empty($_POST["pass1"]) || empty($_POST["pass2"]))
-			return array(false,"Enter both Password.");
-
-		if(!ereg("[0-9a-zA-Z]{4,16}",$_POST["pass1"]) || ereg("[^0-9a-zA-Z]+",$_POST["pass1"]))
-			return array(false,"Bad Password 1");
-		if(strlen($_POST["pass1"]) < 4 || 16 < strlen($_POST["pass1"]))//文字制限
-			return array(false,"Bad Password 1");
-		if(!ereg("[0-9a-zA-Z]{4,16}",$_POST["pass2"]) || ereg("[^0-9a-zA-Z]+",$_POST["pass2"]))
-			return array(false,"Bad Password 2");
-		if(strlen($_POST["pass2"]) < 4 || 16 < strlen($_POST["pass2"]))//文字制限
-			return array(false,"Bad Password 2");
-
-		if($_POST["pass1"] !== $_POST["pass2"])
-			return array(false,"Password dismatch.");
-
-		$pass = $this->CryptPassword($_POST["pass1"]);
-		// MAKE
-		if(!file_exists($file)){
-			mkdir(USER.$_POST["Newid"], 0705);
-			$this->RecordRegister($_POST["Newid"]);//ID記錄
-			$fp=fopen("$file","w");
-			flock($fp,LOCK_EX);
-				$now	= time();
-				fputs($fp,"id=$_POST[Newid]\n");
-				fputs($fp,"pass=$pass\n");
-				fputs($fp,"last=".$now."\n");
-				fputs($fp,"login=".$now."\n");
-				fputs($fp,"start=".$now.substr(microtime(),2,6)."\n");
-				fputs($fp,"money=".START_MONEY."\n");
-				fputs($fp,"time=".START_TIME."\n");
-				fputs($fp,"record_btl_log=1\n");
-			fclose($fp);
-			//print("ID:$_POST[Newid] success.<BR>");
-			$_SESSION["id"]=$_POST["Newid"];
-			setcookie("NO",session_id(),time()+COOKIE_EXPIRE);
-			$success	= "<div class=\"recover\">ID : $_POST[Newid] 註冊成功. 請登錄吧</div>";
-			return array(true,$success);//強引...
-		}
-	}
-
-//////////////////////////////////////////////////
-//	新規ID作成用のフォ一ム
-	function NewForm($error=NULL) {
-		if(MAX_USERS <= count(GlobUserList())) {
-			?>
-
-	<div style="margin:15px">
-	Maximum users.<br />
-	用戶數已達到最大。
-	</div>
-<?php 
-			return false;
-		}
-		$idset=($_POST["Newid"]?" value=$_POST[Newid]":NULL);
-		?>
-	<div style="margin:15px">
-	<?php print ShowError($error);?>
-	<h4>註冊!</h4>
-	<form action="<?php print INDEX?>" method="post">
-
-	<table><tbody>
-	<tr><td colspan="2">ID & PASS must be 4 to 16 letters.<br />letters allowed a-z,A-Z,0-9<br />
-	ID 和 PASS在 4-16 個字以內。半角英數字。</td></tr>
-	<tr><td><div style="text-align:right">ID:</div></td>
-	<td><input type="text" maxlength="16" class="text" name="Newid" style="width:240px"<?php print $idset?>></td></tr>
-	<tr><td colspan="2"><br />Password,Re-enter.<br />PASS 以及再輸入 確認用。</td></tr>
-	<tr><td><div style="text-align:right">PASS:</div></td>
-	<td><input type="password" maxlength="16" class="text" name="pass1" style="width:240px"></td></tr>
-
-	<tr><td></td>
-	<td><input type="password" maxlength="16" class="text" name="pass2" style="width:240px">(verify)</td></tr>
-
-	<tr><td></td><td><input type="submit" class="btn" name="Make" value="確定" style="width:160px"></td></tr>
-
-	</tbody></table>
-	</form>
-	</div>
-<?php 
-	}
 	function LoginForm($message = NULL) {
 		?>
 <div style="width:730px;">
@@ -2188,131 +2021,7 @@ Copy Right <a href="http://tekito.kanichat.com/">Tekito</a> 2007-2008.<br>
 <?php 
 	}
 
-//////////////////////////////////////////////////
-//	初回ログイン用のフォ一ム
-	function FirstLogin() {
-		// 返值:設定濟み=false / 非設定=true
-		if ($this->name)
-			return false;
 
-		do {
-			if (!$_POST["Done"])
-				break;
-			if(is_numeric(strpos($_POST["name"],"\t"))) {
-				$error	= 'error1';
-				break;
-			}
-			if(is_numeric(strpos($_POST["name"],"\n"))) {
-				$error	= 'error';
-				break;
-			}
-			$_POST["name"]	= trim($_POST["name"]);
-			$_POST["name"]	= stripslashes($_POST["name"]);
-			if (!$_POST["name"]) {
-				$error	= 'Name is blank.';
-				break;
-			}
-			$length	= strlen($_POST["name"]);
-			if ( 0 == $length || 16 < $length) {
-				$error	= '1 to 16 letters?';
-				break;
-			}
-			$userName	= userNameLoad();
-			if(in_array($_POST["name"],$userName)) {
-				$error	= '該名字已被使用。';
-				break;
-			}
-			// 最初のキャラの名前
-			$_POST["first_name"]	= trim($_POST["first_name"]);
-			$_POST["first_name"]	= stripslashes($_POST["first_name"]);
-			if(is_numeric(strpos($_POST["first_name"],"\t"))) {
-				$error	= 'error';
-				break;
-			}
-			if(is_numeric(strpos($_POST["first_name"],"\n"))) {
-				$error	= 'error';
-				break;
-			}
-			if (!$_POST["first_name"]) {
-				$error	= 'Character name is blank.';
-				break;
-			}
-			$length	= strlen($_POST["first_name"]);
-			if ( 0 == $length || 16 < $length) {
-				$error	= '1 to 16 letters?';
-				break;
-			}
-			if(!$_POST["fjob"]) {
-				$error	= 'Select characters job.';
-				break;
-			}
-			$_POST["name"]	= htmlspecialchars($_POST["name"],ENT_QUOTES);
-			$_POST["first_name"]	= htmlspecialchars($_POST["first_name"],ENT_QUOTES);
-
-			$this->name	= $_POST["name"];
-			userNameAdd($this->name);
-			$this->SaveData();
-			switch($_POST["fjob"]){
-				case "1":
-					$job = 1; $gend = 0; break;
-				case "2":
-					$job = 1; $gend = 1; break;
-				case "3":
-					$job = 2; $gend = 0; break;
-				default:
-					$job = 2; $gend = 1;
-			}
-			include(DATA_BASE_CHAR);
-			$char	= new char();
-			$char->SetCharData(array_merge(BaseCharStatus($job),array("name"=>$_POST[first_name],"gender"=>"$gend")));
-			$char->SaveCharData($this->id);
-			return false;
-		}while(0);
-
-		include(DATA_BASE_CHAR);
-		$war_male	= new char();
-		$war_male->SetCharData(array_merge(BaseCharStatus("1"),array("gender"=>"0")));
-		$war_female	= new char();
-		$war_female->SetCharData(array_merge(BaseCharStatus("1"),array("gender"=>"1")));
-		$sor_male	= new char();
-		$sor_male->SetCharData(array_merge(BaseCharStatus("2"),array("gender"=>"0")));
-		$sor_female	= new char();
-		$sor_female->SetCharData(array_merge(BaseCharStatus("2"),array("gender"=>"1")));
-
-		?>
-	<form action="<?php print INDEX?>" method="post" style="margin:15px">
-<?php ShowError($error);?>
-	<h4>Name of Team</h4>
-	<p>Decide the Name of the team.<br />
-	It should be more than 1 and less than 16 letters.<br />
-	Japanese characters count as 2 letters.</p>
-	<p>1-16字符的隊伍名。<br /></p>
-	<div class="bold u">TeamName</div>
-	<input class="text" style="width:160px" maxlength="16" name="name"
-<?php print($_POST["name"]?"value=\"$_POST[name]\"":"")?>>
-	<h4>First Character</h4>
-	<p>Decide the name of Your First Charactor.<br>
-	more than 1 and less than 16 letters.</p>
-	<p>第一個人物的名稱。</p>
-	<div class="bold u">CharacterName</div>
-	<input class="text" type="text" name="first_name" maxlength="16" style="width:160px;margin-bottom:10px">
-	<table cellspacing="0" style="width:400px"><tbody>
-	<tr><td class="td1" valign="bottom"><div style="text-align:center"><?php print $war_male->ShowImage()?><br><input type="radio" name="fjob" value="1" style="margin:3px"></div></td>
-	<td class="td1" valign="bottom"><div style="text-align:center"><?php print $war_female->ShowImage()?><br><input type="radio" name="fjob" value="2" style="margin:3px"></div></td>
-	<td class="td1" valign="bottom"><div style="text-align:center"><?php print $sor_male->ShowImage()?><br><input type="radio" name="fjob" value="3" style="margin:3px"></div></td>
-	<td class="td1" valign="bottom"><div style="text-align:center"><?php print $sor_female->ShowImage()?><br><input type="radio" name="fjob" value="4" style="margin:3px"></div></td></tr>
-	<tr><td class="td2"><div style="text-align:center">male</div></td><td class="td3"><div style="text-align:center">female</div></td>
-	<td class="td2"><div style="text-align:center">male</div></td><td class="td3"><div style="text-align:center">female</div></td></tr>
-	<tr><td colspan="2" class="td4"><div style="text-align:center">Warrior</div></td><td colspan="2" class="td4"><div style="text-align:center">Socerer</div></td></tr>
-	</tbody></table>
-	<p>Choose your first character's job & Gender.</p>
-	<p>最初的人物性別與職業</p>
-	<input class="btn" style="width:160px" type="submit" value="Done" name="Done">
-	<input type="hidden" value="1" name="Done">
-	<input class="btn" style="width:160px" type="submit" value="logout" name="logout"></form>
-<?php 
-			return true;
-	}
 //////////////////////////////////////////////////
 //	普通の1行揭示板
 	function bbs01() {
