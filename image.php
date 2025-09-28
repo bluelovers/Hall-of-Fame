@@ -1,16 +1,17 @@
-<?
-/*
-	画像合成を非常にナンセンスな方法で行う。
-	GDライブラリ→画像の水平反転が不可能。
-	PECL ImageMagic→可能。しかしPEARの知識が無く断念。
-	
-	従って画像合成する場合,反転済みの画像を別で用意する。
-	
-	sampleURL
-http://localhost/proj/hof/image.php?f11=mon_018&f12=mon_018&f13=mon_018&f14=mon_018&b11=mon_018&b12=mon_018&f21=mon_018&f22=mon_018&b21=mon_018&b22=mon_018&b23=mon_018&f23=mon_018&f24=mon_018&info=0
-	最後の[&info=0] は無くてもok
-	
-	※※※ 魔法陣の表示に未対応！！！！！！！！！
+<?php
+
+/**
+* 画像合成を非常にナンセンスな方法で行う。
+* GDライブラリ→画像の水平反転が不可能。
+* PECL ImageMagic→可能。しかしPEARの知識が無く断念。
+*
+* 従って画像合成する場合,反転済みの画像を別で用意する。
+*
+* sampleURL
+* http://localhost/proj/hof/image.php?f11=mon_018&f12=mon_018&f13=mon_018&f14=mon_018&b11=mon_018&b12=mon_018&f21=mon_018&f22=mon_018&b21=mon_018&b22=mon_018&b23=mon_018&f23=mon_018&f24=mon_018&info=0
+* 最後の[&info=0] は無くてもok
+*
+* ※※※ 魔法陣の表示に未対応！！！！！！！！！
 */
 include("setting.php");
 
@@ -45,6 +46,12 @@ class image{
 
 	var $img_x, $img_y;//イメージ幅
 
+/**
+* キャラクターの画像ファイルを設定
+* Sets the character image file type and parses the GET parameters to populate team arrays.
+*
+* @param string $type Image file type (gif, png, jpeg)
+*/
 	function SetCharFile($type) {
 		$this->char_img_type	= $type;
 		/*
@@ -87,6 +94,10 @@ class image{
 		}
 	}
 
+/**
+* キャラクターをコピーする
+* Copies characters to the main image.
+*/
 	function CopyChar() {
 		$cell_width		= ($this->img_x)/6;
 		$y	= $this->img_y/2;
@@ -97,6 +108,17 @@ class image{
 		$this->CopyRow($this->team2_back, 1, $cell_width*5, $cell_width, $y, $this->img_y);
 	}
 
+/**
+* 行のキャラクターをコピーする
+* Copies characters in a row.
+*
+* @param array $teams Array of character files
+* @param int $direction Direction of copying (0 for normal, 1 for flipped)
+* @param int $axis_x X axis position
+* @param int $cell_width Width of each cell
+* @param int $axis_y Y axis position
+* @param int $cell_height Height of each cell
+*/
 	function CopyRow($teams,$direction,$axis_x,$cell_width,$axis_y,$cell_height) {
 		$number	= count($teams);
 		if($number == 0) return false;
@@ -115,6 +137,14 @@ class image{
 		}
 	}
 
+/**
+* キャラクター画像をコピーする
+* Copies a character image to the main image.
+*
+* @param string $file File path of the character image
+* @param int $x X coordinate on the main image
+* @param int $y Y coordinate on the main image
+*/
 	function CopyImage($file,$x,$y) {
 		$imgcreatefrom	= "imagecreatefrom{$this->char_img_type}";
 
@@ -125,6 +155,12 @@ class image{
 		imagecopy($this->image,$copy,round($x),round($y),0,0,$width,$height);
 	}
 
+/**
+* 背景画像を設定する
+* Sets the background image.
+*
+* @param string $type Image file type (gif, png, jpeg)
+*/
 	function SetBackGround($type) {
 		if($_GET["bg"])//背景
 			$file	= IMG_OTHER."bg_".$_GET["bg"].".".$type;
@@ -139,6 +175,10 @@ class image{
 		list($this->img_x, $this->img_y)	= getimagesize($this->background);
 	}
 
+/**
+* 画像のフィルタリングを行う
+* Applies filters to the image.
+*/
 	function Filter() {//途中
 		//imagegammacorrect($this->image,200,255);
 		if($_GET["gray"]) {//グレイスケール処理
@@ -152,6 +192,12 @@ class image{
 		//$this->image	= $image_p;
 	}
 
+/**
+* 画像を出力する
+* Outputs the final image.
+*
+* @param string $type Image file type (gif, png, jpeg)
+*/
 	function OutPutImage($type) {
 		$func	= "image".$type;
 		$func($this->image);
@@ -159,6 +205,10 @@ class image{
 		imagedestroy($this->image);
 	}
 
+/**
+* 画像の情報を表示する
+* Displays information about the image.
+*/
 	function ShowInfo() {
 		if(!$_GET["info"]) return true;
 
@@ -175,10 +225,10 @@ class image{
 
 		$row	= 2;
 		$teams	= array(
-		"team1_front"	=> "TEAM1_F",
-		"team1_back"	=> "TEAM1_B",
-		"team2_front"	=> "TEAM2_F",
-		"team2_back"	=> "TEAM2_B");
+			"team1_front"	=> "TEAM1_F",
+			"team1_back"	=> "TEAM1_B",
+			"team2_front"	=> "TEAM2_F",
+			"team2_back"	=> "TEAM2_B");
 		foreach($teams as $team_var => $team_pos) {
 			foreach($this->{$team_var} as $val) {
 				imagestring($image, $size, $mar_l, $mar_t + $height * $row, "$team_pos : ".$val, $textcolor);
