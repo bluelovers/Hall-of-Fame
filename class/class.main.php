@@ -293,29 +293,58 @@ class main extends user {
 	function OptionOrder() {
 		$this->fpCloseAll();
 		switch(true) {
-			case($_SERVER["QUERY_STRING"] === "rank"):	RankAllShow();	return true;
-			case($_SERVER["QUERY_STRING"] === "update"):	ShowUpDate();	return true;
-			case($_SERVER["QUERY_STRING"] === "bbs"):	$this->bbs01();	return true;
-			case($_SERVER["QUERY_STRING"] === "manual"):	ShowManual();	return true;
-			case($_SERVER["QUERY_STRING"] === "manual2"):	ShowManual2();	return true;
-			case($_SERVER["QUERY_STRING"] === "tutorial"):	ShowTutorial();	return true;
-			case($_SERVER["QUERY_STRING"] === "log"):
-				ShowLogList();
+			case($_SERVER["QUERY_STRING"] === "rank"):
+				include_once(CLASS_DIR . 'class.content_viewer.php');
+				RankAllShow();
 				return true;
-			case($_SERVER["QUERY_STRING"] === "clog"): LogShowCommon(); return true;
-			case($_SERVER["QUERY_STRING"] === "ulog"): LogShowUnion(); return true;
-			case($_SERVER["QUERY_STRING"] === "rlog"): LogShowRanking(); return true;
+			case($_SERVER["QUERY_STRING"] === "update"):
+				include_once(CLASS_DIR . 'class.content_viewer.php');
+				showUpDate();
+				return true;
+			case($_SERVER["QUERY_STRING"] === "bbs"):	$this->bbs01();	return true;
+			case($_SERVER["QUERY_STRING"] === "manual"):
+				include_once(CLASS_DIR . 'class.content_viewer.php');
+				showManual();
+				return true;
+			case($_SERVER["QUERY_STRING"] === "manual2"):
+				include_once(CLASS_DIR . 'class.content_viewer.php');
+				showManual2();
+				return true;
+			case($_SERVER["QUERY_STRING"] === "tutorial"):
+				include_once(CLASS_DIR . 'class.content_viewer.php');
+				showTutorial();
+				return true;
+			case($_SERVER["QUERY_STRING"] === "log"):
+				include_once(CLASS_DIR . 'class.log_viewer.php');
+				showLogList();
+				return true;
+			case($_SERVER["QUERY_STRING"] === "clog"):
+				include_once(CLASS_DIR . 'class.log_viewer.php');
+				showCommonLog();
+				return true;
+			case($_SERVER["QUERY_STRING"] === "ulog"):
+				include_once(CLASS_DIR . 'class.log_viewer.php');
+				showUnionLog();
+				return true;
+			case($_SERVER["QUERY_STRING"] === "rlog"):
+				include_once(CLASS_DIR . 'class.log_viewer.php');
+				showRankingLog();
+				return true;
 			case($_GET["gamedata"]):
-				ShowGameData();
+				include_once(CLASS_DIR . 'class.content_viewer.php');
+				showGameData();
 				return true;
 			case($_GET["log"]):
-				ShowBattleLog($_GET["log"]);
+				include_once(CLASS_DIR . 'class.log_viewer.php');
+				showBattleLog($_GET["log"]);
 				return true;
 			case($_GET["ulog"]):
-				ShowBattleLog($_GET["ulog"],"UNION");
+				include_once(CLASS_DIR . 'class.log_viewer.php');
+				showBattleLog($_GET["ulog"],"UNION");
 				return true;
 			case($_GET["rlog"]):
-				ShowBattleLog($_GET["rlog"],"RANK");
+				include_once(CLASS_DIR . 'class.log_viewer.php');
+				showBattleLog($_GET["rlog"],"RANK");
 				return true;
 		}
 	}
