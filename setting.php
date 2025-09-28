@@ -1,4 +1,6 @@
 <?php
+date_default_timezone_set("Asia/Taipei");
+
 // game setting
 define("TITLE","Hall of Fame");//タイトル
 define("MAX_TIME",1000);//最大Time
