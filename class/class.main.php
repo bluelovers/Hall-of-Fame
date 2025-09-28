@@ -121,9 +121,10 @@ class main extends user {
 
 				// 街
 				case($_SERVER["QUERY_STRING"] === "town"):
+					include_once(CLASS_DIR . 'view/view.town.php');
 					$this->LoadUserItem();//道具デ一タ讀む
 					$this->fpCloseAll();
-					$this->TownShow();
+					TownShow($this);
 					return 0;
 
 				// シミュれ
@@ -677,85 +678,6 @@ class main extends user {
 			ShowResult("隊伍設定完成","margin15");
 			return true;
 		}
-	}
-
-//////////////////////////////////////////////////
-//	町の表示
-	function TownShow() {
-		include(DATA_TOWN);
-		print('<div style="margin:15px">'."\n");
-		print("<h4>街</h4>");
-		print('<div class="town">'."\n");
-		print("<ul>\n");
-		$PlaceList	= TownAppear($this);
-		// 店
-		if($PlaceList["Shop"]) {
-			?>
-<li>店(Shop)
-<ul>
-<li><a href="?menu=buy">買(Buy)</a></li>
-<li><a href="?menu=sell">賣(Sell)</a></li>
-<li><a href="?menu=work">打工</a></li>
-</ul>
-</li>
-<?php 
-		}
-		// 斡旋所
-		if($PlaceList["Recruit"])
-			print("<li><p><a href=\"?recruit\">人材斡旋所(Recruit)</a></p></li>");
-		// 鍛冶屋
-		if($PlaceList["Smithy"]) {
-			?>
-<li>鍛冶屋(Smithy)
-<ul>
-<li><a href="?menu=refine">精煉工房(Refine)</a></li>
-<li><a href="?menu=create">製作工房(Create)</a></li>
-</ul>
-</li>
-<?php 
-		}
-		// オ一クション會場
-		if($PlaceList["Auction"] && AUCTION_TOGGLE)
-			print("<li><a href=\"?menu=auction\">拍賣會場(Auction)</li>");
-		// コロシアム
-		if($PlaceList["Colosseum"])
-			print("<li><a href=\"?menu=rank\">競技場(Colosseum)</a></li>");
-		print("</ul>\n");
-		print("</div>\n");
-		print("<h4>廣場</h4>");
-		$this->TownBBS();
-		print("</div>\n");
-	}
-
-//////////////////////////////////////////////////
-//	普通の1行揭示板
-	function TownBBS() {
-		$file	= BBS_TOWN;
-	?>
-<form action="?town" method="post">
-<input type="text" maxlength="60" name="message" class="text" style="width:300px"/>
-<input type="submit" value="post" class="btn" style="width:100px" />
-</form>
-<?php 
-		if(!file_exists($file))
-			return false;
-		$log	= file($file);
-		if($_POST["message"] && strlen($_POST["message"]) < 121) {
-			$_POST["message"]	= htmlspecialchars($_POST["message"],ENT_QUOTES);
-			$_POST["message"]	= stripslashes($_POST["message"]);
-
-			$name	= "<span class=\"bold\">{$this->name}</span>";
-			$message	= $name." > ".$_POST["message"];
-			if($this->UserColor)
-				$message	= "<span style=\"color:{$this->UserColor}\">".$message."</span>";
-			$message	.= " <span class=\"light\">(".date("c").")</span>\n";
-			array_unshift($log,$message);
-			while(50 < count($log))
-				array_pop($log);
-			WriteFile($file,implode(null,$log));
-		}
-		foreach($log as $mes)
-			print(nl2br($mes));
 	}
 
 ////////// Show //////////////////////////////////////////////////////
