@@ -3549,7 +3549,7 @@ HTML;
 		$_COOKIE["NO"]=$NewID;
 
 		session_id($OldID);
-		session_start();
+		// session_start();
 
 		if($_SESSION):
 		//	session_destroy();//Sleipnirだとおかしい...?(最初期)
@@ -3560,7 +3560,7 @@ HTML;
 		endif;
 
 		session_id($NewID);
-		session_start();
+		// session_start();
 		$_SESSION	= unserialize($temp);
 	}
 
