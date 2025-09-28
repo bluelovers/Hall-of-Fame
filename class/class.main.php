@@ -1,6 +1,8 @@
 <?php
 include(CLASS_USER);
 include(GLOBAL_PHP);
+include_once(CLASS_DIR."utils/glob.php");
+
 class main extends user {
 
 	var $islogin	= false;
@@ -1195,7 +1197,7 @@ HTML;
 
 		// Union
 		print("</div>\n");
-		$files	= glob(UNION."*");
+		$files	= GlobOnlyFileDat(UNION);
 		if($files) {
 			include(CLASS_UNION);
 			include(DATA_MONSTER);
@@ -1225,7 +1227,7 @@ HTML;
 		print("<div style=\"margin:0 15px\">\n");
 		print("<h4>BOSS戰記錄 <a href=\"?ulog\">全表示</a></h4>\n");
 		print("<div style=\"margin:0 20px\">\n");
-		$log	= @glob(LOG_BATTLE_UNION."*");
+		$log	= @GlobOnlyFileDat(LOG_BATTLE_UNION);
 		foreach(array_reverse($log) as $file) {
 			$limit++;
 			BattleLogDetail($file,"UNION");
@@ -3351,7 +3353,7 @@ HTML;
 
 	function MakeNewData() {
 		// 登錄者數が限界の場合
-		if(MAX_USERS <= count(glob(USER."*")))
+		if(MAX_USERS <= count(GlobUserList()))
 			return array(false,"Maximum users.<br />已達到最大用戶數量。");
 		if(isset($_POST["Newid"]))
 			trim($_POST["Newid"]);
@@ -3415,7 +3417,7 @@ HTML;
 //////////////////////////////////////////////////
 //	新規ID作成用のフォ一ム
 	function NewForm($error=NULL) {
-		if(MAX_USERS <= count(glob(USER."*"))) {
+		if(MAX_USERS <= count(GlobUserList())) {
 			?>
 
 	<div style="margin:15px">

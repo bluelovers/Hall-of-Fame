@@ -1,4 +1,6 @@
 <?php 
+include_once(CLASS_DIR."utils/glob.php");
+
 //////////////////////////////////////////////////
 //	店に売ってるものデータ
 	function ShopList() {
@@ -50,7 +52,7 @@
 //	期限切れアカウントの一斉削除
 //	刪除過期用戶
 	function DeleteAbandonAccount() {
-		$list	= glob(USER."*");
+		$list	= GlobUserList();
 		$now	= time();
 		// 用戶列表
 		// ユーザー一覧を取得する
@@ -255,7 +257,7 @@
 		if($amount) {
 			return $amount;
 		} else {
-			$amount	= count(glob(USER."*"));
+			$amount	= count(GlobUserList());
 			return $amount;
 		}
 	}
@@ -343,7 +345,7 @@ function ShowLogList() {
 
 	// common
 	print("<h4>最近的戰鬥 - <a href=\"?clog\">全表示</a>(Recent Battles)</h4>\n");
-	$log	= @glob(LOG_BATTLE_NORMAL."*");
+	$log	= @GlobOnlyFileDat(LOG_BATTLE_NORMAL);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file);
 		$limit++;
@@ -354,7 +356,7 @@ function ShowLogList() {
 	// union
 	$limit	= 0;
 	print("<h4>BOSS戰 - <a href=\"?ulog\">全表示</a>(Union Battle Log)</h4>\n");
-	$log	= @glob(LOG_BATTLE_UNION."*");
+	$log	= @GlobOnlyFileDat(LOG_BATTLE_UNION);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"UNION");
 		$limit++;
@@ -365,7 +367,7 @@ function ShowLogList() {
 	// rank
 	$limit	= 0;
 	print("<h4>排名戰 - <a href=\"?rlog\">全表示</a>(Rank Battle Log)</h4>\n");
-	$log	= @glob(LOG_BATTLE_RANK."*");
+	$log	= @GlobOnlyFileDat(LOG_BATTLE_RANK);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"RANK");
 		$limit++;
@@ -387,7 +389,7 @@ function LogShowCommon() {
 	print("<a href=\"?rlog\">排行戰</a>");
 	// common
 	print("<h4>最近的戰鬥 - 全記錄(Recent Battles)</h4>\n");
-	$log	= @glob(LOG_BATTLE_NORMAL."*");
+	$log	= @GlobOnlyFileDat(LOG_BATTLE_NORMAL);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file);
 	}
@@ -404,7 +406,7 @@ function LogShowUnion() {
 	print("<a href=\"?rlog\">排行戰</a>");
 	// union
 	print("<h4>BOSS戰 - 全記錄(Union Battle Log)</h4>\n");
-	$log	= @glob(LOG_BATTLE_UNION."*");
+	$log	= @GlobOnlyFileDat(LOG_BATTLE_UNION);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"UNION");
 	}
@@ -421,7 +423,7 @@ function LogShowRanking() {
 	print("<a href=\"?rlog\" class=\"a0\">排行戰</a>");
 	// rank
 	print("<h4>排名賽-全記錄(Rank Battle Log)</h4>\n");
-	$log	= @glob(LOG_BATTLE_RANK."*");
+	$log	= @GlobOnlyFileDat(LOG_BATTLE_RANK);
 	foreach(array_reverse($log) as $file) {
 		BattleLogDetail($file,"RANK");
 	}

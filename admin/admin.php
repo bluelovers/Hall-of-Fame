@@ -75,7 +75,8 @@ MENU;
 	* 用戶列表
 	*/
 	if($_GET["menu"] === "user") {
-		$userList = glob(USER."*");
+		include_once(CLASS_DIR."utils/glob.php");
+		$userList = GlobUserList();
 		print("<p>全部用戶</p>\n");
 		foreach($userList as $user) {
 			print('<form action="?" method="post">');
@@ -188,7 +189,7 @@ DATA;
 	else if($_POST["UserDataDetail"]) {
 		include(GLOBAL_PHP);
 		include(CLASS_USER);
-		$userFileList = glob(USER."*");
+		$userFileList = GlobUserList();
 		foreach($userFileList as $user) {
 			$user = new user(basename($user,".dat"));
 			$totalMoney += $user->money;
@@ -203,7 +204,7 @@ DATA;
 	*/
 	else if($_POST["UserCharDetail"]) {
 		include(GLOBAL_PHP);
-		$userFileList = glob(USER."*");
+		$userFileList = GlobUserList();
 		foreach($userFileList as $user) {
 			$userDir = glob($user."/*");
 			foreach($userDir as $fileName) {
@@ -247,7 +248,7 @@ DATA;
 	*/
 	else if($_POST["ItemDataDetail"]) {
 		include(GLOBAL_PHP);
-		$userFileList = glob(USER."*");
+		$userFileList = GlobUserList();
 		$userAmount = count($userFileList);
 		$items = array();
 		foreach($userFileList as $user) {
@@ -266,7 +267,7 @@ DATA;
 	*/
 	else if($_POST["UserIpShow"]) {
 		include(GLOBAL_PHP);
-		$userFileList = glob(USER."*");
+		$userFileList = GlobUserList();
 		$ipList = array();
 		foreach($userFileList as $user) {
 			$file = $user."/data.dat";
@@ -290,10 +291,11 @@ DATA;
 	* 有可能是已損壞的數據
 	*/
 	else if($_POST["searchBroken"]) {
+		include_once(CLASS_DIR."utils/glob.php");
 		print("<p>可能會損壞文件<br>\n");
 		$baseSize = $_POST["brokenSize"]?(int)$_POST["brokenSize"]:100;
 		print("※{$baseSize}byte 以下的文件搜索(道具數據除外).</p>");
-		$userFileList = glob(USER."*");
+		$userFileList = GlobUserList();
 		foreach($userFileList as $user) {
 			$userDir = glob($user."/*");
 			if(filesize($user."/data.dat") < $baseSize)
@@ -319,14 +321,14 @@ DATA;
 			print("<p>通常戰鬥記錄刪除。</p>\n");
 		} else if($_POST["deleteLogUnion"]) {
 			$dir = LOG_BATTLE_UNION;
-			$logFile = glob($dir."*");
+			$logFile = GlobOnlyFileDat($dir);
 			foreach($logFile as $file) {
 				unlink($file);
 			}
 			print("<p>BOSS戰鬥記錄刪除。</p>\n");
 		} else if($_POST["deleteLogRanking"]) {
 			$dir = LOG_BATTLE_RANK;
-			$logFile = glob($dir."*");
+			$logFile = GlobOnlyFileDat($dir);
 			foreach($logFile as $file) {
 				unlink($file);
 			}

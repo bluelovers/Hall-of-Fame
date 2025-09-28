@@ -32,7 +32,7 @@ include("./class/global.php");
 $folder	= glob("./user/*");
 //print("<pre>".print_r($folder,1)."</pre>");
 foreach($folder as $val) {
-	$UserFile	= glob($val."/*.dat");
+	$UserFile	= GlobOnlyFileDat($val."/");
 	foreach($UserFile as $FileName) {
 		$file	= basename($FileName,".dat");
 		if(is_numeric($file)) {
