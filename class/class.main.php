@@ -180,10 +180,11 @@ class main extends user {
 
 				// 道具一覽
 				case($_SERVER["QUERY_STRING"] === "item"):
+					include_once(CLASS_DIR . 'view/view.item.php');
 					$this->LoadUserItem();//道具デ一タ讀む
-					//$this->ItemProcess();
+					//ItemProcess($this);
 					$this->fpCloseAll();
-					$this->ItemShow();
+					ItemShow($this);
 					return 0;
 
 				// 精鍊
@@ -600,43 +601,6 @@ class main extends user {
 			//dump($this->item);
 			return true;
 		}
-	}
-
-//////////////////////////////////////////////////
-	function ItemProcess() {
-	}
-
-//////////////////////////////////////////////////
-//	
-	function ItemShow() {
-		?>
-		<div style="margin:15px">
-		<h4>道具</h4>
-		<div style="margin:0 20px">
-<?php 
-		if($this->item) {
-			include(CLASS_JS_ITEMLIST);
-			$goods	= new JS_ItemList();
-			$goods->SetID("my");
-			$goods->SetName("type");
-			// JSを使用しない。
-			if($this->no_JS_itemlist)
-				$goods->NoJS();
-			//$goods->ListTable("<table>");
-			//$goods->ListTableInsert("<tr><td>No</td><td>Item</td></tr>");
-			foreach($this->item as $no => $val) {
-				$item	= LoadItemData($no);
-				$string	= ShowItemDetail($item,$val,1)."<br />";
-				//$string	= "<tr><td>".$no."</td><td>".ShowItemDetail($item,$val,1)."</td></tr>";
-				$goods->AddItem($item,$string);
-			}
-			print($goods->GetJavaScript("list"));
-			print($goods->ShowSelect());
-			print('<div id="list">'.$goods->ShowDefault().'</div>');
-		} else {
-			print("No items.");
-		}
-		print("</div></div>");
 	}
 
 //////////////////////////////////////////////////
