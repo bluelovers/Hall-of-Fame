@@ -1,5 +1,8 @@
 <?php 
-// キャラがそのクラスに転職できるか(クラスの転職条件)
+/**
+ * キャラがそのクラスに転職できるか(クラスの転職条件)
+ * Checks if a character can change to a specified class based on level and current job.
+ */
 function CanClassChange($char,$class) {
 	switch($class) {
 		case "101":// 皇家衛士

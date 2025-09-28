@@ -1,6 +1,9 @@
 <?php
-// まっぷの出現条件判定
-// 地圖出現條件
+/**
+ * まっぷの出現条件判定
+ * 地圖出現條件
+ * Determines which maps are available for a user based on their items and current time.
+ */
 function LoadMapAppear($user) {
 	$land	= array();
 	// 無條件的
