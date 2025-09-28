@@ -37,7 +37,7 @@ class cssimage {
 		$this->background	= IMG_OTHER."bg_".$bg.".gif";
 
 		list($this->img_x, $this->img_y)	= getimagesize($this->background);
-		$this->size	= "width:{$this->img_x};height:{$this->img_y};";
+		$this->size	= "width:{$this->img_x}px;height:{$this->img_y}px;";
 	}
 //////////////////////////////////////////////////
 //	チームの情報をセット

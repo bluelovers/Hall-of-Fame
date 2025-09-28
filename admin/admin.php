@@ -539,8 +539,8 @@ ADMIN;
 } else {
 print <<< LOGIN
 <form action="?" method="post">
-切口:<input type="text" name="pass" />
-<input type="submit" value="開路" />
+PASS:<input type="text" name="pass" />
+<input type="submit" value="submit" />
 </form>
 LOGIN;
 }
