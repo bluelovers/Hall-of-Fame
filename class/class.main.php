@@ -141,14 +141,15 @@ class main extends user {
 					$this->CharDataLoadAll();//キャラデ一タ讀む
 					include(CLASS_UNION);
 					include(DATA_MONSTER);
-					if($this->UnionProcess()) {
+					include_once(CLASS_DIR . 'view/' . 'view.union.php');
+					if(UnionProcess($this)) {
 						// 戰鬥する
 						$this->SaveData();
 						$this->fpCloseAll();
 					} else {
 						// 表示
 						$this->fpCloseAll();
-						$this->UnionShow();
+						UnionShow($this);
 					}
 					return 0;
 
@@ -714,130 +715,6 @@ class main extends user {
 		}
 	}
 
-
-
-//////////////////////////////////////////////////
-//	Unionモンスタ一の處理
-	function UnionProcess() {
-
-		if($this->CanUnionBattle() !== true) {
-			$host  = $_SERVER['HTTP_HOST'];
-			$uri   = rtrim(dirname($_SERVER['PHP_SELF']));
-			$extra = INDEX;
-			header("Location: http://$host$uri/$extra?hunt");
-			exit;
-		}
-
-		if(!$_POST["union_battle"])
-			return false;
-		$Union	= new union();
-		// 倒されているか、存在しない場合。
-		if(!$Union->UnionNumber($_GET["union"]) || !$Union->is_Alive()) {
-			return false;
-		}
-		// ユニオンモンスタ一のデ一タ
-		$UnionMob	= CreateMonster($Union->MonsterNumber);
-		$this->MemorizeParty();//パ一ティ一記憶
-		// 自分パ一ティ一
-		foreach($this->char as $key => $val) {//チェックされたやつリスト
-			if($_POST["char_".$key]) {
-				$MyParty[]	= $this->char[$key];
-				$TotalLevel	+= $this->char[$key]->level;//自分PTの合計レベル
-			}
-		}
-		// 合計レベル制限
-		if($UnionMob["LevelLimit"] < $TotalLevel) {
-			ShowError('合計級別水平('.$TotalLevel.'/'.$UnionMob["LevelLimit"].')',"margin15");
-			return false;
-		}
-		if( count($MyParty) === 0) {
-			ShowError('戰鬥至少要一個人參加',"margin15");
-			return false;
-		} else if(5 < count($MyParty)) {
-			ShowError('戰鬥最多只能上五個人',"margin15");
-			return false;
-		}
-		if(!$this->WasteTime(UNION_BATTLE_TIME)) {
-			ShowError('Time Shortage.',"margin15");
-			return false;
-		}
-
-		// 敵PT數
-
-		// ランダム敵パ一ティ一
-		if($UnionMob["SlaveAmount"])
-			$EneNum	= $UnionMob["SlaveAmount"] + 1;//PTメンバと同じ數だけ。
-		else
-			$EneNum	= 5;// Union含めて5に固定する。
-
-		if($UnionMob["SlaveSpecify"])
-			$EnemyParty	= $this->EnemyParty($EneNum-1, $Union->Slave, $UnionMob["SlaveSpecify"]);
-		else
-			$EnemyParty	= $this->EnemyParty($EneNum-1, $Union->Slave, $UnionMob["SlaveSpecify"]);
-
-		// unionMobを配列のおよそ中央に入れる
-		array_splice($EnemyParty,floor(count($EnemyParty)/2),0,array($Union));
-
-		$this->UnionSetTime();
-
-		include(CLASS_BATTLE);
-		$battle	= new battle($MyParty,$EnemyParty);
-		$battle->SetUnionBattle();
-		$battle->SetBackGround($Union->UnionLand);//背景
-		//$battle->SetTeamName($this->name,"Union:".$Union->Name());
-		$battle->SetTeamName($this->name,$UnionMob["UnionName"]);
-		$battle->Process();//戰鬥開始
-
-		$battle->SaveCharacters();//キャラデ一タ保存
-			list($UserMoney)	= $battle->ReturnMoney();//戰鬥で得た合計金額
-			$this->GetMoney($UserMoney);//お金を增やす
-			$battle->RecordLog("UNION");
-			// 道具を受け取る
-			if($itemdrop	= $battle->ReturnItemGet(0)) {
-				$this->LoadUserItem();
-				foreach($itemdrop as $itemno => $amount)
-					$this->AddItem($itemno,$amount);
-				$this->SaveUserItem();
-			}
-
-		return true;
-	}
-//////////////////////////////////////////////////
-//	Unionモンスタ一の表示
-	function UnionShow() {
-		if($this->CanUnionBattle() !== true) {
-			$host  = $_SERVER['HTTP_HOST'];
-			$uri   = rtrim(dirname($_SERVER['PHP_SELF']));
-			$extra = INDEX;
-			header("Location: http://$host$uri/$extra?hunt");
-			exit;
-		}
-		//if($Result	= $this->UnionProcess())
-		//	return true;
-		print('<div style="margin:15px">'."\n");
-		print("<h4>Union Monster</h4>\n");
-		$Union	= new union();
-		// 倒されているか、存在しない場合。
-		if(!$Union->UnionNumber($_GET["union"]) || !$Union->is_Alive()) {
-			ShowError("Defeated or not Exists.");
-			return false;
-		}
-		print('</div>');
-		$this->ShowCharacters(array($Union),false,"sea");
-		print('<div style="margin:15px">'."\n");
-		print("<h4>Teams</h4>\n");
-		print("</div>");
-		print('<form action="'.INDEX.'?union='.$_GET["union"].'" method="post">');
-		$this->ShowCharacters($this->char,CHECKBOX,explode("<>",$this->party_memo));
-			?>
-	<div style="margin:15px;text-align:center">
-	<input type="submit" class="btn" value="戰鬥!">
-	<input type="hidden" name="union_battle" value="1">
-	<input type="reset" class="btn" value="重置"><br>
-	保存此隊伍:<input type="checkbox" name="memory_party" value="1">
-	</div></form>
-<?php 
-	}
 //////////////////////////////////////////////////
 //	町の表示
 	function TownShow() {
