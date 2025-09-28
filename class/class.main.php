@@ -70,22 +70,23 @@ class main extends user {
 
 				// オ一クション
 				case($_GET["menu"] === "auction"):
+					include_once(CLASS_DIR . 'auction.php');
 					$this->LoadUserItem();//道具デ一タ讀む
-					$this->AuctionHeader();
+					AuctionHeader($this);
 
 					/*
 					* 出品用のフォ一ム
 					* 表示を要求した場合か、
 					* 出品に失敗した場合表示する。
 					*/
-					$ResultExhibit	= $this->AuctionItemExhibitProcess($ItemAuction);
-					$ResultBidding	= $this->AuctionItemBiddingProcess($ItemAuction);
+					$ResultExhibit	= AuctionItemExhibitProcess($this, $ItemAuction);
+					$ResultBidding	= AuctionItemBiddingProcess($this, $ItemAuction);
 					$ItemAuction->ItemSaveData();// 變更があった場合だけ保存する。
     
 					// 出品リストを表示する
 					if($_POST["ExhibitItemForm"]) {
 						$this->fpCloseAll();
-						$this->AuctionItemExhibitForm($ItemAuction);
+						AuctionItemExhibitForm($this, $ItemAuction);
 
 					// 出品か競標に成功した場合はデ一タを保存する
 					} else if($ResultExhibit !== false) {
@@ -94,22 +95,23 @@ class main extends user {
 							$this->SaveData();
 
 						$this->fpCloseAll();
-						$this->AuctionItemBiddingForm($ItemAuction);
+						AuctionItemBiddingForm($this, $ItemAuction);
 
 					// それ以外
 					} else {
 						$this->fpCloseAll();
-						$this->AuctionItemExhibitForm($ItemAuction);
+						AuctionItemExhibitForm($this, $ItemAuction);
 					}
 
-					$this->AuctionFoot($ItemAuction);
+					AuctionFoot($this, $ItemAuction);
 					return 0;
 
 				// 狩場
 				case($_SERVER["QUERY_STRING"] === "hunt"):
+					include_once(CLASS_DIR . 'class.log_viewer.php');
 					$this->LoadUserItem();//道具デ一タ讀む
 					$this->fpCloseAll();
-					$this->HuntShow();
+					HuntShow($this);
 					return 0;
 
 				// 街
@@ -179,61 +181,67 @@ class main extends user {
 
 				// 精鍊
 				case($_GET["menu"] === "refine"):
+					include_once(CLASS_DIR . 'smithy.php');
 					$this->LoadUserItem();
-					$this->SmithyRefineHeader();
-					if($this->SmithyRefineProcess())
+					SmithyRefineHeader($this);
+					if(SmithyRefineProcess($this))
 						$this->SaveData();
 
 					$this->fpCloseAll();
-					$result	= $this->SmithyRefineShow();
+					SmithyRefineShow($this);
 					return 0;
 
 				// 製作
 				case($_GET["menu"] === "create"):
+					include_once(CLASS_DIR . 'smithy.php');
 					$this->LoadUserItem();
-					$this->SmithyCreateHeader();
+					SmithyCreateHeader($this);
 					include(DATA_CREATE);//製作できるものデ一タ等
-					if($this->SmithyCreateProcess())
+					if(SmithyCreateProcess($this))
 						$this->SaveData();
 
 					$this->fpCloseAll();
-					$this->SmithyCreateShow();
+					SmithyCreateShow($this);
 					return 0;
 				// ショップ(舊式:買う,賣る,打工)
 				case($_SERVER["QUERY_STRING"] === "shop"):
+					include_once(CLASS_DIR . 'shop.php');
 					$this->LoadUserItem();//道具デ一タ讀む
-					if($this->ShopProcess())
+					if(ShopProcess($this))
 						$this->SaveData();
 					$this->fpCloseAll();
-					$this->ShopShow();
+					ShopShow($this);
 					return 0;
 				// ショップ(買う)
 				case($_GET["menu"] === "buy"):
+					include_once(CLASS_DIR . 'shop.php');
 					$this->LoadUserItem();//道具デ一タ讀む
-					$this->ShopHeader();
-					if($this->ShopBuyProcess())
+					ShopHeader($this);
+					if(ShopBuyProcess($this))
 						$this->SaveData();
 					$this->fpCloseAll();
-					$this->ShopBuyShow();
+					ShopBuyShow($this);
 					return 0;
 
 				// ショップ(賣る)
 				case($_GET["menu"] === "sell"):
+					include_once(CLASS_DIR . 'shop.php');
 					$this->LoadUserItem();//道具デ一タ讀む
-					$this->ShopHeader();
-					if($this->ShopSellProcess())
+					ShopHeader($this);
+					if(ShopSellProcess($this))
 						$this->SaveData();
 					$this->fpCloseAll();
-					$this->ShopSellShow();
+					ShopSellShow($this);
 					return 0;
 
 				// ショップ(動く)
 				case($_GET["menu"] === "work"):
-					$this->ShopHeader();
-					if($this->WorkProcess())
+					include_once(CLASS_DIR . 'shop.php');
+					ShopHeader($this);
+					if(WorkProcess($this))
 						$this->SaveData();
 					$this->fpCloseAll();
-					$this->WorkShow();
+					WorkShow($this);
 					return 0;
 
 				// ランキング
@@ -1207,64 +1215,7 @@ HTML;
 	</div></form>
 <?php 
 	}
-//////////////////////////////////////////////////
-//	
-	function HuntShow() {
-		include(DATA_LAND);
-		include(DATA_LAND_APPEAR);
-		print('<div style="margin:15px">');
-		print('<h4>普通怪物</h4>');
-		print('<div style="margin:0 20px">');
 
-		$mapList	= LoadMapAppear($this);
-		foreach($mapList as $map) {
-			list($land)	= LandInformation($map);
-			print("<p style='display:inline;margin-right:32px;'><a href=\"?common={$map}\">{$land[name]}</a>");
-			//print(" ({$land[proper]})");
-			print("</p>");
-		}
-
-		// Union
-		print("</div>\n");
-		$files	= GlobOnlyFileDat(UNION);
-		if($files) {
-			include(CLASS_UNION);
-			include(DATA_MONSTER);
-			foreach($files as $file) {
-				$UnionMons	= new union($file);
-				if($UnionMons->is_Alive())
-					$Union[]	= $UnionMons;
-			}
-		}
-		if($Union) {
-			print('<h4>BOSS</h4>');
-			$result = $this->CanUnionBattle();
-			if($result !== true) {
-				$left_minute	= floor($result/60);
-				$left_second	= $result%60;
-				print('<div style="margin:0 20px">');
-				print('離下次戰鬥還需要 : <span class="bold">'.$left_minute. ":".sprintf("%02d",$left_second)."</span>");
-				print("</div>");
-			}
-			print("</div>");
-			$this->ShowCharacters($Union);
-		} else {
-			print("</div>");
-		}
-
-		// union
-		print("<div style=\"margin:0 15px\">\n");
-		print("<h4>BOSS戰記錄 <a href=\"?ulog\">全表示</a></h4>\n");
-		print("<div style=\"margin:0 20px\">\n");
-		$log	= @GlobOnlyFileDat(LOG_BATTLE_UNION);
-		foreach(array_reverse($log) as $file) {
-			$limit++;
-			BattleLogDetail($file,"UNION");
-			if(15 <= $limit)
-				break;
-		}
-		print("</div></div>\n");
-	}
 //////////////////////////////////////////////////
 //	モンスタ一の表示
 	function MonsterShow() {
@@ -1406,437 +1357,7 @@ HTML;
 		}
 		print("</div></div>");
 	}
-//////////////////////////////////////////////////
-//	店ヘッダ
-	function ShopHeader() {
-		?>
-<div style="margin:15px">
-<h4>店</h4>
 
-<div style="width:600px">
-<div style="float:left;width:50px;">
-<img src="<?php print IMG_CHAR?>ori_002.gif" />
-</div>
-<div style="float:right;width:550px;">
-歡迎光臨一<br />
-<a href="?menu=buy">買</a> / <a href="?menu=sell">賣</a><br />
-<a href="?menu=work">打工</a>
-</div>
-<div style="clear:both"></div>
-</div>
-
-</div>
-<?php 
-	}
-//////////////////////////////////////////////////
-//
-	function ShopProcess() {
-		switch(true) {
-			case($_POST["partjob"]):
-				if($this->WasteTime(100)) {
-					$this->GetMoney(500);
-					ShowResult("工作".MoneyFormat(500)." げっとした!(?)","margin15");
-					return true;
-				} else {
-					ShowError("時間が無い。動くなんてもったいない。(?)","margin15");
-					return false;
-				}
-			case($_POST["shop_buy"]):
-				$ShopList	= ShopList();//賣ってるものデ一タ
-				if($_POST["item_no"] && in_array($_POST["item_no"],$ShopList)) {
-					if(preg_match("/^[0-9]/",$_POST["amount"])) {
-											$amount	= (int)$_POST["amount"];
-						if($amount == 0)
-							$amount	= 1;
-					} else {
-						$amount	= 1;
-					}
-					$item	= LoadItemData($_POST["item_no"]);
-					$need	= $amount * $item["buy"];//購入に必要なお金
-					if($this->TakeMoney($need)) {// お金を引けるかで判定。
-						$this->AddItem($_POST["item_no"],$amount);
-						$this->SaveUserItem();
-						if(1 < $amount) {
-							$img	= "<img src=\"".IMG_ICON.$item[img]."\" class=\"vcent\" />";
-							ShowResult("{$img}{$item[name]}  {$amount}個 買入 (".MoneyFormat($item["buy"])." x{$amount} = ".MoneyFormat($need).")","margin15");
-							return true;
-						} else {
-							$img	= "<img src=\"".IMG_ICON.$item[img]."\" class=\"vcent\" />";
-							ShowResult("{$img}{$item[name]}個 買入 (".MoneyFormat($need).")","margin15");
-							return true;
-						}
-					} else {//資金不足
-						ShowError("資金不足(需要".MoneyFormat($need).")","margin15");
-						return false;
-					}
-				}
-				break;
-			case($_POST["shop_sell"]):
-				if($_POST["item_no"] && $this->item[$_POST["item_no"]]) {
-					if(preg_match("/^[0-9]/",$_POST["amount"])) {
-						$amount	= (int)$_POST["amount"];
-						if($amount == 0)
-							$amount	= 1;
-					} else {
-						$amount	= 1;
-					}
-					// 消した個數(超過して賣られるのも防ぐ)
-					$DeletedAmount	= $this->DeleteItem($_POST["item_no"],$amount);
-					$item	= LoadItemData($_POST["item_no"]);
-					$price	= (isset($item["sell"]) ? $item["sell"] : round($item["buy"]*SELLING_PRICE));
-					$this->GetMoney($price*$DeletedAmount);
-					$this->SaveUserItem();
-					if($DeletedAmount != 1)
-						$add	= " x{$DeletedAmount}";
-					$img	= "<img src=\"".IMG_ICON.$item[img]."\" class=\"vcent\" />";
-					ShowResult("{$img}{$item[name]}{$add}".MoneyFormat($price*$DeletedAmount)." 出售","margin15");
-					return true;
-				}
-				break;
-		}
-	}
-//////////////////////////////////////////////////
-//	
-	function ShopShow($message=NULL) {
-		?>
-	<div style="margin:15px">
-	<?php print ShowError($message)?>
-	<h4>Goods List</h4>
-	<div style="margin:0 20px">
-<?php 
-		include(CLASS_JS_ITEMLIST);
-		$ShopList	= ShopList();//賣ってるものデ一タ
-
-		$goods	= new JS_ItemList();
-		$goods->SetID("JS_buy");
-		$goods->SetName("type_buy");
-		// JSを使用しない。
-		if($this->no_JS_itemlist)
-			$goods->NoJS();
-		foreach($ShopList as $no) {
-			$item	= LoadItemData($no);
-			$string	= '<input type="radio" name="item_no" value="'.$no.'" class="vcent">';
-			$string	.= "<span style=\"padding-right:10px;width:10ex\">".MoneyFormat($item["buy"])."</span>".ShowItemDetail($item,false,1)."<br />";
-			$goods->AddItem($item,$string);
-		}
-		print($goods->GetJavaScript("list_buy"));
-		print($goods->ShowSelect());
-
-		print('<form action="?shop" method="post">'."\n");
-		print('<div id="list_buy">'.$goods->ShowDefault().'</div>'."\n");
-		print('<input type="submit" class="btn" name="shop_buy" value="買">'."\n");
-		print('Amount <input type="text" name="amount" style="width:60px" class="text vcent">(input if 2 or more)<br />'."\n");
-		print('<input type="hidden" name="shop_buy" value="1">');
-		print('</form></div>'."\n");
-
-		print("<h4>My Items<a name=\"sell\"></a></h4>\n");//所持物賣る
-		print('<div style="margin:0 20px">'."\n");
-		if($this->item) {
-			$goods	= new JS_ItemList();
-			$goods->SetID("JS_sell");
-			$goods->SetName("type_sell");
-			// JSを使用しない。
-			if($this->no_JS_itemlist)
-				$goods->NoJS();
-			foreach($this->item as $no => $val) {
-				$item	= LoadItemData($no);
-				$price	= (isset($item["sell"]) ? $item["sell"] : round($item["buy"]*SELLING_PRICE));
-				$string	= '<input type="radio" class="vcent" name="item_no" value="'.$no.'">';
-				$string	.= "<span style=\"padding-right:10px;width:10ex\">".MoneyFormat($price)."</span>".ShowItemDetail($item,$val,1)."<br />";
-				$head	= '<input type="radio" name="item_no" value="'.$no.'" class="vcent">'.MoneyFormat($item["buy"]);
-				$goods->AddItem($item,$string);
-			}
-			print($goods->GetJavaScript("list_sell"));
-			print($goods->ShowSelect());
-	
-			print('<form action="?shop" method="post">'."\n");
-			print('<div id="list_sell">'.$goods->ShowDefault().'</div>'."\n");
-			print('<input type="submit" class="btn" name="shop_sell" value="Sell">');
-			print('Amount <input type="text" name="amount" style="width:60px" class="text vcent">(input if 2 or more)'."\n");
-			print('<input type="hidden" name="shop_sell" value="1">');
-			print('</form>'."\n");
-		} else {
-			print("No items");
-		}
-		print("</div>\n");
-/*
-		if($this->item) {
-			foreach($this->item as $no => $val) {
-				$item	= LoadItemData($no);
-				$price	= (isset($item["sell"]) ? $item["sell"] : round($item["buy"]*SELLING_PRICE));
-				print('<input type="radio" class="vcent" name="item_no" value="'.$no.'">');
-				print(MoneyFormat($price));
-				print("   {$val}x");
-				ShowItemDetail($item);
-				print("<br>");
-			}
-		} else
-			print("No items.<br>");
-		print('Amount <input type="text" name="amount" style="width:50px" class="text vcent">(input if 2 or more)<br />'."\n");
-		print('<input type="submit" class="btn vcent" name="shop_sell" value="Sell">');
-		print('<input type="hidden" name="shop_sell" value="1">');
-		print('</form>');*/
-		?>
-<form action="?shop" method="post">
-<h4>打工</h4>
-<div style="margin:0 20px">
-店で打工してお金を得ます...<br />
-<input type="submit" class="btn" name="partjob" value="打工">
-Get <?php print MoneyFormat("500")?> for 100Time.
-</form></div></div>
-<?php 
-	}
-
-//////////////////////////////////////////////////
-	function ShopBuyProcess() {
-		//dump($_POST);
-		if(!$_POST["ItemBuy"])
-			return false;
-
-		print("<div style=\"margin:15px\">");
-		print("<table cellspacing=\"0\">\n");
-		print('<tr><td class="td6" style="text-align:center">價格</td>'.
-		'<td class="td6" style="text-align:center">數</td>'.
-		'<td class="td6" style="text-align:center">共計</td>'.
-		'<td class="td6" style="text-align:center">道具</td></tr>'."\n");
-		$moneyNeed	= 0;
-		$ShopList	= ShopList();
-		foreach($ShopList as $itemNo) {
-			if(!$_POST["check_".$itemNo])
-				continue;
-			$item	= LoadItemData($itemNo);
-			if(!$item) continue;
-			$amount	= (int)$_POST["amount_".$itemNo];
-			if($amount < 0)
-				$amount	= 0;
-			
-			//print("$itemNo x $Deleted<br>");
-			$buyPrice	= $item["buy"];
-			$Total	= $amount * $buyPrice;
-			$moneyNeed	+= $Total;
-			print("<tr><td class=\"td7\">");
-			print(MoneyFormat($buyPrice)."\n");
-			print("</td><td class=\"td7\">");
-			print("x {$amount}\n");
-			print("</td><td class=\"td7\">");
-			print("= ".MoneyFormat($Total)."\n");
-			print("</td><td class=\"td8\">");
-			print(ShowItemDetail($item)."\n");
-			print("</td></tr>\n");
-			$this->AddItem($itemNo,$amount);
-		}
-		print("<tr><td colspan=\"4\" class=\"td8\">共計 : ".MoneyFormat($moneyNeed)."</td></tr>");
-		print("</table>\n");
-		print("</div>");
-		if($this->TakeMoney($moneyNeed)) {
-			$this->SaveUserItem();
-			return true;
-		} else {
-			ShowError("您沒有足夠的錢","margin15");
-			return false;
-		}
-	}
-//////////////////////////////////////////////////
-	function ShopBuyShow() {
-		print('<div style="margin:15px">'."\n");
-		print("<h4>購買</h4>\n");
-
-print <<< JS_HTML
-<script type="text/javascript">
-<!--
-function toggleCSS(id) {
-Element.toggleClassName('i'+id+'a', 'tdToggleBg');
-Element.toggleClassName('i'+id+'b', 'tdToggleBg');
-Element.toggleClassName('i'+id+'c', 'tdToggleBg');
-Element.toggleClassName('i'+id+'d', 'tdToggleBg');
-Field.focus('text_'+id);
-}
-function toggleCheckBox(id) {
-if($('check_'+id).checked) {
-  $('check_'+id).checked = false;
-} else {
-  $('check_'+id).checked = true;
-  Field.focus('text_'+id);
-}
-toggleCSS(id);
-}
-// -->
-</script>
-JS_HTML;
-
-		print('<form action="?menu=buy" method="post">'."\n");
-		print("<table cellspacing=\"0\">\n");
-		print('<tr><td class="td6"></td>'.
-		'<td style="text-align:center" class="td6">價格</td>'.
-		'<td style="text-align:center" class="td6">數</td>'.
-		'<td style="text-align:center" class="td6">道具</td></tr>'."\n");
-		$ShopList	= ShopList();
-		foreach($ShopList as $itemNo) {
-			$item	= LoadItemData($itemNo);
-			if(!$item) continue;
-			print("<tr><td class=\"td7\" id=\"i{$itemNo}a\">\n");
-			print('<input type="checkbox" name="check_'.$itemNo.'" value="1" onclick="toggleCSS(\''.$itemNo.'\')">'."\n");
-			print("</td><td class=\"td7\" id=\"i{$itemNo}b\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
-			// 買值
-			$price	= $item["buy"];
-			print(MoneyFormat($price));
-			print("</td><td class=\"td7\" id=\"i{$itemNo}c\">\n");
-			print('<input type="text" id="text_'.$itemNo.'" name="amount_'.$itemNo.'" value="1" style="width:60px" class="text">'."\n");
-			print("</td><td class=\"td8\" id=\"i{$itemNo}d\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
-			print(ShowItemDetail($item));
-			print("</td></tr>\n");
-		}
-		print("</table>\n");
-		print('<input type="submit" name="ItemBuy" value="買" class="btn">'."\n");
-		print("</form>\n");
-
-		print("</div>\n");
-	}
-//////////////////////////////////////////////////
-	function ShopSellProcess() {
-		//dump($_POST);
-		if(!$_POST["ItemSell"])
-			return false;
-
-		$GetMoney	= 0;
-		print("<div style=\"margin:15px\">");
-		print("<table cellspacing=\"0\">\n");
-		print('<tr><td class="td6" style="text-align:center">價格</td>'.
-		'<td class="td6" style="text-align:center">數</td>'.
-		'<td class="td6" style="text-align:center">共計</td>'.
-		'<td class="td6" style="text-align:center">道具</td></tr>'."\n");
-		foreach($this->item as $itemNo => $amountHave) {
-			if(!$_POST["check_".$itemNo])
-				continue;
-			$item	= LoadItemData($itemNo);
-			if(!$item) continue;
-			$amount	= (int)$_POST["amount_".$itemNo];
-			if($amount < 0)
-				$amount	= 0;
-			$Deleted	= $this->DeleteItem($itemNo,$amount);
-			//print("$itemNo x $Deleted<br>");
-			$sellPrice	= ItemSellPrice($item);
-			$Total	= $Deleted * $sellPrice;
-			$getMoney	+= $Total;
-			print("<tr><td class=\"td7\">");
-			print(MoneyFormat($sellPrice)."\n");
-			print("</td><td class=\"td7\">");
-			print("x {$Deleted}\n");
-			print("</td><td class=\"td7\">");
-			print("= ".MoneyFormat($Total)."\n");
-			print("</td><td class=\"td8\">");
-			print(ShowItemDetail($item)."\n");
-			print("</td></tr>\n");
-		}
-		print("<tr><td colspan=\"4\" class=\"td8\">共計 : ".MoneyFormat($getMoney)."</td></tr>");
-		print("</table>\n");
-		print("</div>");
-		$this->SaveUserItem();
-		$this->GetMoney($getMoney);
-		return true;
-	}
-//////////////////////////////////////////////////
-	function ShopSellShow() {
-		print('<div style="margin:15px">'."\n");
-		print("<h4>出售</h4>\n");
-
-print <<< JS_HTML
-<script type="text/javascript">
-<!--
-function toggleCSS(id) {
-Element.toggleClassName('i'+id+'a', 'tdToggleBg');
-Element.toggleClassName('i'+id+'b', 'tdToggleBg');
-Element.toggleClassName('i'+id+'c', 'tdToggleBg');
-Element.toggleClassName('i'+id+'d', 'tdToggleBg');
-Field.focus('text_'+id);
-}
-function toggleCheckBox(id) {
-if($('check_'+id).checked) {
-  $('check_'+id).checked = false;
-} else {
-  $('check_'+id).checked = true;
-  Field.focus('text_'+id);
-}
-toggleCSS(id);
-}
-// -->
-</script>
-JS_HTML;
-
-		print('<form action="?menu=sell" method="post">'."\n");
-		print("<table cellspacing=\"0\">\n");
-		print('<tr><td class="td6"></td>'.
-		'<td style="text-align:center" class="td6">價格</td>'.
-		'<td style="text-align:center" class="td6">數</td>'.
-		'<td style="text-align:center" class="td6">道具</td></tr>'."\n");
-		foreach($this->item as $itemNo => $amount) {
-			$item	= LoadItemData($itemNo);
-			if(!$item) continue;
-			print("<tr><td class=\"td7\" id=\"i{$itemNo}a\">\n");
-			print('<input type="checkbox" name="check_'.$itemNo.'" value="1" onclick="toggleCSS(\''.$itemNo.'\')">'."\n");
-			print("</td><td class=\"td7\" id=\"i{$itemNo}b\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
-			// 價格
-			$price	= ItemSellPrice($item);
-			print(MoneyFormat($price));
-			print("</td><td class=\"td7\" id=\"i{$itemNo}c\">\n");
-			print('<input type="text" id="text_'.$itemNo.'" name="amount_'.$itemNo.'" value="'.$amount.'" style="width:60px" class="text">'."\n");
-			print("</td><td class=\"td8\" id=\"i{$itemNo}d\" onclick=\"toggleCheckBox('{$itemNo}')\">\n");
-			print(ShowItemDetail($item,$amount));
-			print("</td></tr>\n");
-		}
-		print("</table>\n");
-		print('<input type="submit" name="ItemSell" value="Sell" class="btn" />'."\n");
-		print('<input type="hidden" name="ItemSell" value="1" />'."\n");
-		print("</form>\n");
-
-		print("</div>\n");
-	}
-//////////////////////////////////////////////////
-//	打工處理
-	function WorkProcess() {
-		/*if($_POST["amount"]) {
-			$amount	= (int)$_POST["amount"];
-			// 1以上10以下
-			if(0 < $amount && $amount < 11) {
-				$time	= $amount * 100;
-				$money	= $amount * 500;
-				if($this->WasteTime($time)) {
-					ShowResult(MoneyFormat($money)." げっとした！","margin15");
-					$this->GetMoney($money);
-					return true;
-				} else {
-					ShowError("您沒有足夠的時間。","margin15");
-					return false;
-				}
-			}
-		}*/
-	}
-//////////////////////////////////////////////////
-//	打工表示
-	function WorkShow() {
-		?>
-<div style="margin:15px">
-<h4>一份兼職工作！</h4>
-<form method="post" action="?menu=work">
-<p>1回 100Time<br />
-給與 : <?php print MoneyFormat(500)?>/回</p>
-<select name="amount">
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
-<option value="10">10</option>
-</select><br />
-<input type="submit" value="打工" class="btn"/>
-</form>
-</div>
-<?php 
-	}
 //////////////////////////////////////////////////
 	function RankProcess(&$Ranking) {
 
@@ -1912,83 +1433,7 @@ JS_HTML;
 			return true;
 		}
 	}
-//////////////////////////////////////////////////
-//	
-	function RankShow(&$Ranking) {
 
-		//$ProcessResult	= $this->RankProcess($Ranking);// array();
-
-		//戰鬥が行われたので表示しない。
-		//if($ProcessResult === "BATTLE")
-		//	return true;
-
-		// チ一ム再設定の殘り時間計算
-		$now	= time();
-		if( ($now - $this->rank_set_time) < RANK_TEAM_SET_TIME) {
-			$left	= RANK_TEAM_SET_TIME - ($now - $this->rank_set_time);
-			$hour	= floor($left / 3600);
-			$min	= floor(($left % 3600)/60);
-			$left_mes	= "<div class=\"bold\">{$hour}Hour {$min}minutes left to set again.</div>\n";
-			$disable	= " disabled";
-		}
-			?>
-
-	<div style="margin:15px">
-	<?php print ShowError($message)?>
-	<form action="?menu=rank" method="post">
-	<h4>排行榜(Ranking) - <a href="?rank">查看排名</a> <a href="?manual#ranking" target="_blank" class="a0">?</a></h4>
-	<?php
-		// 挑戰できるかどうか(時間の經過で)
-		$CanRankBattle	= $this->CanRankBattle();
-		if($CanRankBattle !== true) {
-			print('<p>Time left to Next : <span class="bold">');
-			print($CanRankBattle[0].":".sprintf("%02d",$CanRankBattle[1]).":".sprintf("%02d",$CanRankBattle[2]));
-			print("</span></p>\n");
-			$disableRB	= " disabled";
-		}
-
-		print("<div style=\"width:100%;padding-left:30px\">\n");
-		print("<div style=\"float:left;width:50%\">\n");
-		print("<div class=\"u\">TOP 5</div>\n");
-		$Ranking->ShowRanking(0,4);
-		print("</div>\n");
-		print("<div style=\"float:right;width:50%\">\n");
-		print("<div class=\"u\">NEAR 5</div>\n");
-		$Ranking->ShowRankingRange($this->id,5);
-		print("</div>\n");
-		print("<div style=\"clear:both\"></div>\n");
-		print("</div>\n");
-
-		// 舊ランク用
-		//$Rank->dump();
-		/*
-		print("<table><tbody><tr><td style=\"padding:0 50px 0 0\">\n");
-		print("<div class=\"bold u\">RANKING</div>");
-		$Rank->ShowRanking(0,10);
-		print("</td><td>");
-		print("<div class=\"bold u\">Nearly</div>");
-		$Rank->ShowNearlyRank($this->id);
-		print("</td></tr></tbody></table>\n");
-		*/
-	?>
-	<input type="submit" class="btn" value="挑戰！" name="ChallengeRank" style="width:160px"<?php print $disableRB?> />
-	</form>
-	<form action="?menu=rank" method="post">
-	<h4>隊伍設置(Team Setting)</h4>
-	<p>排名戰隊伍設定。<br />
-	這裡設置排名戰隊伍。</p>
-	</div>
-<?php $this->ShowCharacters($this->char,CHECKBOX,explode("<>",$this->party_rank));?>
-
-	<div style="margin:15px">
-	<?php print $left_mes?>
-	<input type="submit" class="btn" style="width:160px" value="設定隊伍"<?php print $disable?> />
-	<input type="hidden" name="SetRankTeam" value="1" />
-	<p>設定後<?php print $reset=floor(RANK_TEAM_SET_TIME/(60*60))?>小時後才能再設置。<br />Team setting disabled after <?php print $reset?>hours once set.</p>
-	</form>
-	</div>
-<?php 
-	}
 //////////////////////////////////////////////////
 	function RecruitProcess() {
 
@@ -2136,665 +1581,7 @@ JS_HTML;
 	</form>
 <?php 
 	}
-//////////////////////////////////////////////////
-//	鍛冶屋精鍊ヘッダ
-	function SmithyRefineHeader() {
-	?>
-<div style="margin:15px">
-<h4>精煉工房(Refine)</h4>
 
-<div style="width:600px">
-<div style="float:left;width:80px;">
-<img src="<?php print IMG_CHAR?>mon_053r.gif" />
-</div>
-<div style="float:right;width:520px;">
-在這裡 可以進行物品的精煉！<br />
-選擇需要精練的物品以及精練的次數。<br />
-不過加工壞了我們不負責。<br />
-弟弟在管理的 <span class="bold">製作工房</span> 在<a href="?menu=create">這邊</a>。
-</div>
-<div style="clear:both"></div>
-</div>
-<h4>精煉道具<a name="refine"></a></h4>
-<div style="margin:0 20px">
-<?php 
-	}
-//////////////////////////////////////////////////
-//	鍛冶屋處理(精鍊)
-	function SmithyRefineProcess() {
-		if(!$_POST["refine"])
-			return false;
-		if(!$_POST["item_no"]) {
-			ShowError("Select Item.");
-			return false;
-		}
-		// 道具が讀み迂めない場合
-		if(!$item	= LoadItemData($_POST["item_no"])) {
-			ShowError("Failed to load item data.");
-			return false;
-		}
-		// 道具を所持していない場合
-		if(!$this->item[$_POST["item_no"]]) {
-			ShowError("Item \"{$item[name]}\" doesn't exists.");
-			return false;
-		}
-		// 回數が指定されていない場合
-		if($_POST["timesA"] < $_POST["timesB"])
-			$times	= $_POST["timesB"];
-		else
-			$times	= $_POST["timesA"];
-		if(!$times || $times < 1 || (REFINE_LIMIT) < $times ) {
-			ShowError("times?");
-			return false;
-		}
-		include(CLASS_SMITHY);
-		$obj_item	= new Item($_POST["item_no"]);
-		// その道具が精鍊できない場合
-		if(!$obj_item->CanRefine()) {
-			ShowError("Cant refine \"{$item[name]}\"");
-			return false;
-		}
-		// ここから精鍊を始める處理
-		$this->DeleteItem($_POST["item_no"]);// 道具は消えるか變化するので消す
-		$Price	= round($item["buy"]/2);
-		// 最大精鍊數の調整。
-		if( REFINE_LIMIT < ($item["refine"] + $times) ) {
-			$times	= REFINE_LIMIT - $item["refine"];
-		}
-		$Trys	= 0;
-		for($i=0; $i<$times; $i++) {
-			// お金を引く
-			if($this->TakeMoney($Price)) {
-				$MoneySum	+= $Price;
-				$Trys++;
-				if(!$obj_item->ItemRefine()) {//精鍊する(false=失敗なので終了する)
-					break;
-				}
-			// お金が途中でなくなった場合。
-			} else {
-				ShowError("Not enough money.<br />\n");
-				$this->AddItem($obj_item->ReturnItem());
-				break;
-			}
-			// 指定回數精鍊を成功しきった場合。
-			if($i == ($times - 1)) {
-				$this->AddItem($obj_item->ReturnItem());
-			}
-		}
-		print("Money Used : ".MoneyFormat($Price)." x ".$Trys." = ".MoneyFormat($MoneySum)."<br />\n");
-		$this->SaveUserItem();
-		return true;
-		/*// お金が足りてるか計算
-		$Price	= round($item["buy"]/2);
-		$MoneyNeed	= $times * $Price;
-		if($this->money < $MoneyNeed) {
-			ShowError("Your request needs ".MoneyFormat($MoneyNeed));
-			return false;
-		}*/
-		
-	}
-//////////////////////////////////////////////////
-//	鍛冶屋表示
-	function SmithyRefineShow() {
-		// ■精鍊處理
-		//$Result	= $this->SmithyRefineProcess();
-
-		// 精鍊可能な物の表示
-		if($this->item) {
-			include(CLASS_JS_ITEMLIST);
-			$possible	= CanRefineType();
-			$possible	= array_flip($possible);
-			//配列の先頭の值が"0"なので1にする(isset使わずにtrueにするため)
-			$possible[key($possible)]++;
-
-			$goods	= new JS_ItemList();
-			$goods->SetID("my");
-			$goods->SetName("type");
-
-			$goods->ListTable("<table cellspacing=\"0\">");// テ一ブルタグのはじまり
-			$goods->ListTableInsert("<tr><td class=\"td9\"></td><td class=\"align-center td9\">精煉費</td><td class=\"align-center td9\">Item</td></tr>"); // テ一ブルの最初と最後の行に表示させるやつ。
-
-			// JSを使用しない。
-			if($this->no_JS_itemlist)
-				$goods->NoJS();
-			foreach($this->item as $no => $val) {
-				$item	= LoadItemData($no);
-				// 精鍊可能な物だけ表示させる。
-				if(!$possible[$item["type"]])
-					continue;
-				$price	= $item["buy"]/2;
-				// NoTable
-	//			$string	= '<input type="radio" class="vcent" name="item_no" value="'.$no.'">';
-	//			$string	.= "<span style=\"padding-right:10px;width:10ex\">".MoneyFormat($price)."</span>".ShowItemDetail($item,$val,1)."<br />";
-
-				$string	= '<tr>';
-				$string	.= '<td class="td7"><input type="radio" class="vcent" name="item_no" value="'.$no.'">';
-				$string	.= '</td><td class="td7">'.MoneyFormat($price).'</td><td class="td8">'.ShowItemDetail($item,$val,1)."<td>";
-				$string	.= "</tr>";
-
-				$goods->AddItem($item,$string);
-			}
-			// JavaScript部分の書き出し
-			print($goods->GetJavaScript("list"));
-			print('可以精煉的名單');
-			// 種類のセレクトボックス
-			print($goods->ShowSelect());
-			print('<form action="?menu=refine" method="post">'."\n");
-			// [Refine]button
-			print('<input type="submit" value="Refine" name="refine" class="btn">'."\n");
-			// 精鍊回數の指定
-			print('回數 : <select name="timesA">'."\n");
-			for($i=1; $i<11; $i++) {
-				print('<option value="'.$i.'">'.$i.'</option>');
-			}
-			print('</select>'."\n");
-			// リストの表示
-			print('<div id="list">'.$goods->ShowDefault().'</div>'."\n");
-			// [Refine]button
-			print('<input type="submit" value="Refine" name="refine" class="btn">'."\n");
-			print('<input type="hidden" value="1" name="refine">'."\n");
-			// 精鍊回數の指定
-			print('回數 : <select name="timesB">'."\n");
-			for($i=1; $i<(REFINE_LIMIT+1); $i++) {
-				print('<option value="'.$i.'">'.$i.'</option>');
-			}
-			print('</select>'."\n");
-			print('</form>'."\n");
-		} else {
-			print("No items<br />\n");
-		}
-		print("</div>\n");
-	?>
-	</div>
-<?php 
-	}
-//////////////////////////////////////////////////
-//	鍛冶屋 製作 ヘッダ
-	function SmithyCreateHeader() {
-		?>
-<div style="margin:15px">
-<h4>製作工房(Create)<a name="sm"></a></h4>
-<div style="width:600px">
-<div style="float:left;width:80px;">
-<img src="<?php print IMG_CHAR?>mon_053rz.gif" />
-</div>
-<div style="float:right;width:520px;">
-在這裡 可以進行物品的製作！<br />
-只要你有素材就可以製作裝備。<br />
-加入特殊素材的話可以製作特殊的武器。<br />
-哥哥在管理的 <span class="bold">精煉工房</span> 在<a href="?menu=refine">這邊</a>。<br />
-<a href="#mat">所持素材一覽</a>
-</div>
-<div style="clear:both"></div>
-</div>
-<h4>道具製作<a name="refine"></a></h4>
-<div style="margin:0 15px">
-<?php 
-	}
-//////////////////////////////////////////////////
-//	製作處理
-	function SmithyCreateProcess() {
-		if(!$_POST["Create"]) return false;
-
-		// 道具が選擇されていない
-		if(!$_POST["ItemNo"]) {
-			ShowError("請選擇一個道具製造");
-			return false;
-		}
-
-		// 道具を讀む
-		if(!$item	= LoadItemData($_POST["ItemNo"])) {
-			ShowError("error12291703");
-			return false;
-		}
-
-		// 作れる道具かどうかたしかめる
-		if(!HaveNeeds($item,$this->item)) {
-			ShowError($item["name"]." 您沒有足夠的原料生產。");
-			return false;
-		}
-
-		// 追加素材
-		if($_POST["AddMaterial"]) {
-			// 所持していない場合
-			if(!$this->item[$_POST["AddMaterial"]]) {
-				ShowError("該素材不能追加。");
-				return false;
-			}
-			// 追加素材の道具デ一タ
-			$ADD	= LoadItemData($_POST["AddMaterial"]);
-			$this->DeleteItem($_POST["AddMaterial"]);
-		}
-
-		// 道具の製作
-		// お金を減らす
-		//$Price	= $item["buy"];
-		$Price	= 0;
-		if(!$this->TakeMoney($Price)) {
-			ShowError("您沒有足夠的錢。需要".MoneyFormat($Price)."。");
-			return false;
-		}
-		// 素材を減らす
-		foreach($item["need"] as $M_item => $M_amount) {
-			$this->DeleteItem($M_item,$M_amount);
-		}
-		include(CLASS_SMITHY);
-		$item	= new item($_POST["ItemNo"]);
-		$item->CreateItem();
-		// 付加效果
-		if($ADD["Add"])
-			$item->AddSpecial($ADD["Add"]);
-		// できた道具を保存する
-		$done	= $item->ReturnItem();
-		$this->AddItem($done);
-		$this->SaveUserItem();
-
-		print("<p>");
-		print(ShowItemDetail(LoadItemData($done)));
-		
-		print("\n<br />好了！</p>\n");
-		return true;
-	}
-//////////////////////////////////////////////////
-//	製作表示
-	function SmithyCreateShow() {
-		//$result	= $this->SmithyCreateProcess();
-
-		$CanCreate	= CanCreate($this);
-		include(CLASS_JS_ITEMLIST);
-		$CreateList	= new JS_ItemList();
-		$CreateList->SetID("create");
-		$CreateList->SetName("type_create");
-
-		$CreateList->ListTable("<table cellspacing=\"0\">");// テ一ブルタグのはじまり
-		$CreateList->ListTableInsert("<tr><td class=\"td9\"></td><td class=\"align-center td9\">製作費用</td><td class=\"align-center td9\">Item</td></tr>"); // テ一ブルの最初と最後の行に表示させるやつ。
-
-		// JSを使用しない。
-		if($this->no_JS_itemlist)
-			$CreateList->NoJS();
-		foreach($CanCreate as $item_no) {
-			$item	= LoadItemData($item_no);
-			if(!HaveNeeds($item,$this->item))// 素材不足なら次
-				continue;
-			// NoTable
-			//$head	= '<input type="radio" name="ItemNo" value="'.$item_no.'">'.ShowItemDetail($item,false,1,$this->item)."<br />";
-			//$CreatePrice	= $item["buy"];
-			$CreatePrice	= 0;//
-			$head	= '<tr><td class="td7"><input type="radio" name="ItemNo" value="'.$item_no.'"></td>';
-			$head	.= '<td class="td7">'.MoneyFormat($CreatePrice).'</td><td class="td8">'.ShowItemDetail($item,false,1,$this->item)."</td>";
-			$CreateList->AddItem($item,$head);
-		}
-		if($head) {
-			print($CreateList->GetJavaScript("list"));
-			print($CreateList->ShowSelect());
-		?>
-<form action="?menu=create" method="post">
-<div id="list"><?php print $CreateList->ShowDefault()?></div>
-<input type="submit" class="btn" name="Create" value="創建">
-<input type="reset" class="btn" value="重置">
-<input type="hidden" name="Create" value="1"><br />
-<?php 
-		// 追加素材の表示
-		print('<div class="bold u" style="margin-top:15px">追加素材</div>'."\n");
-		for($item_no=7000; $item_no<7200; $item_no++) {
-			if(!$this->item["$item_no"])
-				continue;
-			if($item	= LoadItemData($item_no)) {
-				print('<input type="radio" name="AddMaterial" value="'.$item_no.'" class="vcent">');
-				print(ShowItemDetail($item,$this->item["$item_no"],1)."<br />\n");
-			}
-		}
-		?>
-<input type="submit" class="btn" name="Create" value="創建">
-<input type="reset" class="btn" value="重置">
-</form>
-<?php 
-		} else {
-			print("就目前手上所持有的素材的話什麼也不能作啊。");
-		}
-
-
-		// 所持素材一覽
-		print("</div>\n");
-		print("<h4>所持素材一覽<a name=\"mat\"></a> <a href=\"#sm\">↑</a></h4>");
-		print("<div style=\"margin:0 15px\">");
-		for($i=6000; $i<7000; $i++) {
-			if(!$this->item["$i"])
-				continue;
-			$item	= LoadItemData($i);
-			ShowItemDetail($item,$this->item["$i"]);
-			print("<br />\n");
-		}
-		?>
-</div>
-</div>
-<?php 
-		return $result;
-	}
-//////////////////////////////////////////////////
-//	メンバ一になる處理
-	function AuctionJoinMember() {
-		if(!$_POST["JoinMember"])
-			return false;
-		if($this->item["9000"]) {//既に會員
-			//ShowError("You are already a member.\n");
-			return false;
-		}
-		// お金が足りない
-		if(!$this->TakeMoney(round(START_MONEY * 1.10))) {
-			ShowError("您沒有足夠的錢<br />\n");
-			return false;
-		}
-		// 道具を足す
-		$this->AddItem(9000);
-		$this->SaveUserItem();
-		$this->SaveData();
-		ShowResult("拍賣會的成員。<br />\n");
-		return true;
-	}
-//////////////////////////////////////////////////
-//	
-	function AuctionEnter() {
-		if($this->item["9000"])//オ一クションメンバ一カ一ド
-			return true;
-		else
-			return false;
-	}
-//////////////////////////////////////////////////
-//	オ一クションの表示(header)
-	function AuctionHeader() {
-		?>
-<div style="margin:15px 0 0 15px">
-<h4>拍賣(Auction)</h4>
-<div style="margin-left:20px">
-
-<div style="width:500px">
-<div style="float:left;width:50px;">
-<img src="<?php print IMG_CHAR?>ori_003.gif" />
-</div>
-<div style="float:right;width:450px;">
-<?php 
-
-		$this->AuctionJoinMember();
-		if($this->AuctionEnter()) {
-			print("您有會員卡麼。<br />\n");
-			print("歡迎您到拍賣場。<br />\n");
-			print("<a href=\"#log\">回顧記錄</a>\n");
-		} else {
-			print("想在拍賣會拍賣那您要加入會員啊。<br />\n");
-			print("入會費用可要 ".MoneyFormat(round(START_MONEY * 1.10))." 呢。<br />\n");
-			print("入會麼?<br />\n");
-			print('<form action="" method="post">'."\n");
-			print('<input type="submit" value="入會" name="JoinMember" class="btn"/>'."\n");
-			print("</form>\n");
-		}
-		if(!AUCTION_TOGGLE)
-			ShowError("功能暫停");
-		if(!AUCTION_EXHIBIT_TOGGLE)
-			ShowError("暫停拍賣");
-		?>
-</div>
-<div style="clear:both"></div>
-</div>
-</div>
-<h4>道具拍賣(Item Auction)</h4>
-<div style="margin-left:20px">
-<?php 
-	}
-//////////////////////////////////////////////////
-//	オ一クションの表示
-	function AuctionFoot(&$ItemAuction) {
-		?>
-</div>
-<a name="log"></a>
-<h4>拍賣紀錄(AuctionLog)</h4>
-<div style="margin-left:20px">
-<?php $ItemAuction->ShowLog();?>
-</div>
-<?php 
-	}
-//////////////////////////////////////////////////
-//	競標處理
-	function AuctionItemBiddingProcess(&$ItemAuction) {
-		if(!$this->AuctionEnter())
-			return false;
-		if(!isset($_POST["ArticleNo"]))
-			return false;
-
-		$ArticleNo	= $_POST["ArticleNo"];
-		$BidPrice	= (int)$_POST["BidPrice"];
-		if($BidPrice < 1) {
-			ShowError("輸入的是個錯誤的價格。");
-			return false;
-		}
-		// まだ出品中かどうか確認する。
-		if(!$ItemAuction->ItemArticleExists($ArticleNo)) {
-			ShowError("這個拍賣品的賣方無法確認。");
-			return false;
-		}
-		// 自分が競標できる人かどうかの確認
-		if(!$ItemAuction->ItemBidRight($ArticleNo,$this->id)) {
-			ShowError("No.".$ArticleNo." 賣方是否已經招標");
-			return false;
-		}
-		// 最低競標價格を割っていないか確認する。
-		$Bottom	= $ItemAuction->ItemBottomPrice($ArticleNo);
-		if($BidPrice < $Bottom) {
-			ShowError("低於最低投標價");
-			ShowError("目前出價:".MoneyFormat($BidPrice)." 最低出價:".MoneyFormat($Bottom));
-			return false;
-		}
-		// 金持ってるか確認する
-		if(!$this->TakeMoney($BidPrice)) {
-			ShowError("您的資金不足。");
-			return false;
-		}
-
-		// 實際に競標する。
-		if($ItemAuction->ItemBid($ArticleNo,$BidPrice,$this->id,$this->name)) {
-			ShowResult("No:{$ArticleNo}  ".MoneyFormat($BidPrice)." 被收購。<br />\n");
-			return true;
-		}
-	}
-//////////////////////////////////////////////////
-//	道具オ一クション用のオブジェクトを讀んで返す
-/*
-	function AuctionItemLoadData() {
-		include(CLASS_AUCTION);
-		$ItemAuction	= new Auction(item);
-		$ItemAuction->ItemCheckSuccess();// 競賣が終了した品物を調べる
-		$ItemAuction->UserSaveData();// 競賣品と金額を各IDに配って保存する
-
-		return $ItemAuction;
-	}
-*/
-//////////////////////////////////////////////////
-//	競標用フォ一ム(畫面)
-	function AuctionItemBiddingForm(&$ItemAuction) {
-
-		if(!AUCTION_TOGGLE)
-			return false;
-
-		// 出品用フォ一ムにいくボタン
-		if($this->AuctionEnter()) {
-		if(AUCTION_EXHIBIT_TOGGLE) {
-				print("<form action=\"?menu=auction\" method=\"post\">\n");
-				print('<input type="submit" value="拍賣物品" name="ExhibitItemForm" class="btn" style="width:160px">'."\n");
-				print("</form>\n");
-			}
-			// 入會してた場合　競標できるように
-			$ItemAuction->ItemSortBy($_GET["sort"]);
-			$ItemAuction->ItemShowArticle2(true);
-
-			if(AUCTION_EXHIBIT_TOGGLE) {
-				print("<form action=\"?menu=auction\" method=\"post\">\n");
-				print('<input type="submit" value="拍賣物品" name="ExhibitItemForm" class="btn" style="width:160px">'."\n");
-				print("</form>\n");
-			}
-
-		} else {
-			// 競標できない
-			$ItemAuction->ItemShowArticle2(false);
-		}
-	}
-//////////////////////////////////////////////////
-//	道具出品處理
-	function AuctionItemExhibitProcess(&$ItemAuction) {
-
-		if(!AUCTION_EXHIBIT_TOGGLE)
-			return "BIDFORM";// 出品凍結
-
-		// 保存しないで出品リストを表示する
-		if(!$this->AuctionEnter())
-			return "BIDFORM";
-		if(!$_POST["PutAuction"])
-			return "BIDFORM";
-
-		if(!$_POST["item_no"]) {
-			ShowError("Select Item.");
-			return false;
-		}
-		// セッションによる30秒間の出品拒否
-		$SessionLeft	= 30 - (time() - $_SESSION["AuctionExhibit"]);
-		if($_SESSION["AuctionExhibit"] && 0 < $SessionLeft) {
-			ShowError("Wait {$SessionLeft}seconds to ReExhibit.");
-			return false;
-		}
-		// 同時出品數の制限
-		if(AUCTION_MAX <= $ItemAuction->ItemAmount()) {
-			ShowError("拍賣數量已達到極限。(".$ItemAuction->ItemAmount()."/".AUCTION_MAX.")");
-			return false;
-		}
-		// 出品費用
-		if(!$this->TakeMoney(500)) {
-			ShowError("Need ".MoneyFormat(500)." to exhibit auction.");
-			return false;
-		}
-		// 道具が讀み迂めない場合
-		if(!$item	= LoadItemData($_POST["item_no"])) {
-			ShowError("Failed to load item data.");
-			return false;
-		}
-		// 道具を所持していない場合
-		if(!$this->item[$_POST["item_no"]]) {
-			ShowError("Item \"{$item[name]}\" doesn't exists.");
-			return false;
-		}
-		// その道具が出品できない場合
-		$possible	= CanExhibitType();
-		if(!$possible[$item["type"]]) {
-			ShowError("Cant put \"{$item[name]}\" to the Auction");
-			return false;
-		}
-		// 出品時間の確認
-		if(	!(	$_POST["ExhibitTime"] === '1' ||
-				$_POST["ExhibitTime"] === '3' ||
-				$_POST["ExhibitTime"] === '6' ||
-				$_POST["ExhibitTime"] === '12' ||
-				$_POST["ExhibitTime"] === '18' ||
-				$_POST["ExhibitTime"] === '24') ) {
-			var_dump($_POST);
-			ShowError("time?");
-			return false;
-		}
-		// 數量の確認
-		if(ereg("^[0-9]",$_POST["Amount"])) {
-			$amount	= (int)$_POST["Amount"];
-			if($amount == 0)
-				$amount	= 1;
-		} else {
-			$amount	= 1;
-		}
-		// 減らす(所持數より多く指定された場合その數を調節する)
-		$_SESSION["AuctionExhibit"]	= time();//セッションで2重出品を防ぐ
-		$amount	= $this->DeleteItem($_POST["item_no"],$amount);
-		$this->SaveUserItem();
-
-		// 出品する
-		// $ItemAuction	= new Auction(item);// (2008/2/28:コメント化)
-		$ItemAuction->ItemAddArticle($_POST["item_no"],$amount,$this->id,$_POST["ExhibitTime"],$_POST["StartPrice"],$_POST["Comment"]);
-		print($item["name"]."{$amount}個 展覽品。");
-		return true;
-	}
-//////////////////////////////////////////////////
-//	出品用フォ一ム
-	function AuctionItemExhibitForm() {
-
-		if(!AUCTION_EXHIBIT_TOGGLE)
-			return false;
-
-		include(CLASS_JS_ITEMLIST);
-		$possible	= CanExhibitType();
-		?>
-<div class="u bold">如何參展</div>
-<ol>
-<li>選擇一種道具，拍賣。</li>
-<li>如果要拍賣超過兩個以上是要輸入數量。</li>
-<li>指定拍賣的時間。</li>
-<li>指定起拍價(不輸入的話為0)</li>
-<li>輸入您的描述。</li>
-<li>發送。</li>
-</ol>
-<div class="u bold">注意事項</div>
-<ul>
-<li>拍賣要交$500的手續費。</li>
-<li>負責拍賣工作的人似乎不會認真幫你辦事的樣子</li>
-</ul>
-<a href="?menu=auction">查看所有拍賣物</a>
-</div>
-<h4>出售</h4>
-<div style="margin-left:20px">
-<div class="u bold">可以拍賣的道具</div>
-<?php 
-		if(!$this->item) {
-			print("No items<br />\n");
-			return false;
-		}
-		$ExhibitList	= new JS_ItemList();
-		$ExhibitList->SetID("auc");
-		$ExhibitList->SetName("type_auc");
-		// JSを使用しない。
-		if($this->no_JS_itemlist)
-			$ExhibitList->NoJS();
-		foreach($this->item as $no => $amount) {
-			$item	= LoadItemData($no);
-			if(!$possible[$item["type"]])
-				continue;
-			$head	= '<input type="radio" name="item_no" value="'.$no.'" class="vcent">';
-			$head	.= ShowItemDetail($item,$amount,1)."<br />";
-			$ExhibitList->AddItem($item,$head);
-		}
-		print($ExhibitList->GetJavaScript("list"));
-		print($ExhibitList->ShowSelect());
-		?>
-<form action="?menu=auction" method="post">
-<div id="list"><?php print $ExhibitList->ShowDefault()?></div>
-<table><tr><td style="text-align:right">
-數量(Amount) :</td><td><input type="text" name="Amount" class="text" style="width:60px" value="1" /><br />
-</td></tr><tr><td style="text-align:right">
-時間(Time) :</td><td>
-<select name="ExhibitTime">
-<option value="24" selected>24 hour</option>
-<option value="18">18 hour</option>
-<option value="12">12 hour</option>
-<option value="6">6 hour</option>
-<option value="3">3 hour</option>
-<option value="1">1 hour</option>
-</select>
-</td></tr><tr><td>
-起拍價(Start Price) :</td><td><input type="text" name="StartPrice" class="text" style="width:240px" maxlength="10"><br />
-</td></tr><tr><td style="text-align:right">
-描述(Comment) :</td><td>
-<input type="text" name="Comment" class="text" style="width:240px" maxlength="40">
-</td></tr><tr><td></td><td>
-<input type="submit" class="btn" value="Put Auction" name="PutAuction" style="width:240px"/>
-<input type="hidden" name="PutAuction" value="1">
-</td></tr></table>
-</form>
-
-<?php 
-		
-	}
 //////////////////////////////////////////////////
 //	Unionモンスタ一の處理
 	function UnionProcess() {

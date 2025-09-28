@@ -2,24 +2,24 @@
 
 //	全ランキングの表示
 function RankAllShow() {
-    print('<div style="margin:15px">'."\n");
-    print('<h4>Ranking - '.date("Y年n月j日 G:i:s").'</h4>'."\n");
+    print('<div style="margin:15px">\n');
+    print('<h4>Ranking - '.date("Y年n月j日 G:i:s").'</h4>\n');
     include(CLASS_RANKING);
     $Rank	= new Ranking();
     $Rank->ShowRanking();
-    print('</div>'."\n");
+    print('</div>\n');
 }
 
 //	戦闘ログの表示
 function showLogList() {
     print("<div style=\"margin:15px\">");
-    print("<a href=\" ?log\" class=\"a0\">全部</a> ");
-    print("<a href=\" ?clog\">普通</a> ");
-    print("<a href=\" ?ulog\">BOSS戰</a> ");
-    print("<a href=\" ?rlog\">排行戰</a>");
+    print("<a href=\"?log\" class=\"a0\">全部</a> ");
+    print("<a href=\"?clog\">普通</a> ");
+    print("<a href=\"?ulog\">BOSS戰</a> ");
+    print("<a href=\"?rlog\">排行戰</a>");
 
     // common
-    print("<h4>最近的戰鬥 - <a href=\" ?clog\" class=\"a0\">全表示</a>(Recent Battles)</h4>\n");
+    print("<h4>最近的戰鬥 - <a href=\"?clog\">全表示</a>(Recent Battles)</h4>\n");
     $log    = @GlobOnlyFileDat(LOG_BATTLE_NORMAL);
     $limit = 0;
     foreach(array_reverse($log) as $file) {
@@ -31,7 +31,7 @@ function showLogList() {
     }
     // union
     $limit    = 0;
-    print("<h4>BOSS戰 - <a href=\" ?ulog\" class=\"a0\">全表示</a>(Union Battle Log)</h4>\n");
+    print("<h4>BOSS戰 - <a href=\"?ulog\">全表示</a>(Union Battle Log)</h4>\n");
     $log    = @GlobOnlyFileDat(LOG_BATTLE_UNION);
     foreach(array_reverse($log) as $file) {
         battleLogDetail($file,"UNION");
@@ -42,7 +42,7 @@ function showLogList() {
     }
     // rank
     $limit    = 0;
-    print("<h4>排名戰 - <a href=\" ?rlog\" class=\"a0\">全表示</a>(Rank Battle Log)</h4>\n");
+    print("<h4>排名戰 - <a href=\"?rlog\">全表示</a>(Rank Battle Log)</h4>\n");
     $log    = @GlobOnlyFileDat(LOG_BATTLE_RANK);
     foreach(array_reverse($log) as $file) {
         battleLogDetail($file,"RANK");
@@ -59,10 +59,10 @@ function showLogList() {
 function showCommonLog() {
     print("<div style=\"margin:15px\">");
     
-    print("<a href=\" ?log\">全部</a> ");
-    print("<a href=\" ?clog\" class=\"a0\">普通</a> ");
-    print("<a href=\" ?ulog\">BOSS戰</a> ");
-    print("<a href=\" ?rlog\">排行戰</a>");
+    print("<a href=\"?log\">全部</a> ");
+    print("<a href=\"?clog\" class=\"a0\">普通</a> ");
+    print("<a href=\"?ulog\">BOSS戰</a> ");
+    print("<a href=\"?rlog\">排行戰</a>");
     // common
     print("<h4>最近的戰鬥 - 全記錄(Recent Battles)</h4>\n");
     $log    = @GlobOnlyFileDat(LOG_BATTLE_NORMAL);
@@ -76,10 +76,10 @@ function showCommonLog() {
 function showUnionLog() {
     print("<div style=\"margin:15px\">");
 
-    print("<a href=\" ?log\">全部</a> ");
-    print("<a href=\" ?clog\">普通</a> ");
-    print("<a href=\" ?ulog\" class=\"a0\">BOSS戰</a> ");
-    print("<a href=\" ?rlog\">排行戰</a>");
+    print("<a href=\"?log\">全部</a> ");
+    print("<a href=\"?clog\">普通</a> ");
+    print("<a href=\"?ulog\" class=\"a0\">BOSS戰</a> ");
+    print("<a href=\"?rlog\">排行戰</a>");
     // union
     print("<h4>BOSS戰 - 全記錄(Union Battle Log)</h4>\n");
     $log    = @GlobOnlyFileDat(LOG_BATTLE_UNION);
@@ -93,10 +93,10 @@ function showUnionLog() {
 function showRankingLog() {
     print("<div style=\"margin:15px\">");
 
-    print("<a href=\" ?log\">全部</a> ");
-    print("<a href=\" ?clog\">普通</a> ");
-    print("<a href=\" ?ulog\">BOSS戰</a> ");
-    print("<a href=\" ?rlog\" class=\"a0\">排行戰</a>");
+    print("<a href=\"?log\">全部</a> ");
+    print("<a href=\"?clog\">普通</a> ");
+    print("<a href=\"?ulog\">BOSS戰</a> ");
+    print("<a href=\"?rlog\" class=\"a0\">排行戰</a>");
     // rank
     print("<h4>排名賽-全記錄(Rank Battle Log)</h4>\n");
     $log    = @GlobOnlyFileDat(LOG_BATTLE_RANK);
@@ -179,4 +179,128 @@ function showBattleLog($no,$type=false) {
         $row++;
     }
 }
+
+function HuntShow($main) {
+    include(DATA_LAND);
+    include(DATA_LAND_APPEAR);
+    print('<div style="margin:15px">');
+    print('<h4>普通怪物</h4>');
+    print('<div style="margin:0 20px">');
+
+    $mapList    = LoadMapAppear($main);
+    foreach($mapList as $map) {
+        list($land)    = LandInformation($map);
+        print("<p style='display:inline;margin-right:32px;'><a href=\" ?common={$map}\">{$land[name]}</a>");
+        //print(" ({$land[proper]})");
+        print("</p>");
+    }
+
+    // Union
+    print("</div>\n");
+    $files    = GlobOnlyFileDat(UNION);
+    if($files) {
+        include(CLASS_UNION);
+        include(DATA_MONSTER);
+        $Union = [];
+        foreach($files as $file) {
+            $UnionMons    = new union($file);
+            if($UnionMons->is_Alive())
+                $Union[]    = $UnionMons;
+        }
+    }
+    if(isset($Union)) {
+        print('<h4>BOSS</h4>');
+        $result = $main->CanUnionBattle();
+        if($result !== true) {
+            $left_minute    = floor($result/60);
+            $left_second    = $result%60;
+            print('<div style="margin:0 20px">');
+            print('離下次戰鬥還需要 : <span class="bold">'.$left_minute. ":".sprintf("%02d",$left_second)."</span>");
+            print("</div>");
+        }
+        print("</div>");
+        $main->ShowCharacters($Union);
+    } else {
+        print("</div>");
+    }
+
+    // union
+    print("<div style=\"margin:0 15px\">\n");
+    print("<h4>BOSS戰記錄 <a href=\"?ulog\">全表示</a></h4>\n");
+    print("<div style=\"margin:0 20px\">\n");
+    $log    = @GlobOnlyFileDat(LOG_BATTLE_UNION);
+    $limit = 0;
+    if ($log) {
+        foreach(array_reverse($log) as $file) {
+            $limit++;
+            battleLogDetail($file,"UNION");
+            if(15 <= $limit)
+                break;
+        }
+    }
+    print("</div></div>\n");
+}
+
+function RankShow($main, &$Ranking) {
+
+    // チ一ム再設定の殘り時間計算
+    $now    = time();
+    $left_mes = '';
+    $disable = '';
+    if( ($now - $main->rank_set_time) < RANK_TEAM_SET_TIME) {
+        $left    = RANK_TEAM_SET_TIME - ($now - $main->rank_set_time);
+        $hour    = floor($left / 3600);
+        $min    = floor(($left % 3600)/60);
+        $left_mes    = "<div class=\"bold\">{$hour}Hour {$min}minutes left to set again.</div>\n";
+        $disable    = " disabled";
+    }
+        ?>
+
+<div style="margin:15px">
+<?php print ShowError(isset($message) ? $message : '');?>
+<form action="?menu=rank" method="post">
+<h4>排行榜(Ranking) - <a href="?rank">查看排名</a> <a href="?manual#ranking" target="_blank" class="a0">?</a></h4>
+<?php
+    // 挑戰できるかどうか(時間の經過で)
+    $CanRankBattle    = $main->CanRankBattle();
+    $disableRB = '';
+    if($CanRankBattle !== true) {
+        print('<p>Time left to Next : <span class="bold">');
+        print($CanRankBattle[0].":".sprintf("%02d",$CanRankBattle[1]).":".sprintf("%02d",$CanRankBattle[2]));
+        print("</span></p>\n");
+        $disableRB    = " disabled";
+    }
+
+    print("<div style=\"width:100%;padding-left:30px\">\n");
+    print("<div style=\"float:left;width:50%\">\n");
+    print("<div class=\"u\">TOP 5</div>\n");
+    $Ranking->ShowRanking(0,4);
+    print("</div>\n");
+    print("<div style=\"float:right;width:50%\">\n");
+    print("<div class=\"u\">NEAR 5</div>\n");
+    $Ranking->ShowRankingRange($main->id,5);
+    print("</div>\n");
+    print("<div style=\"clear:both\"></div>\n");
+    print("</div>\n");
+
+?>
+<input type="submit" class="btn" value="挑戰！" name="ChallengeRank" style="width:160px"<?php print $disableRB?> />
+</form>
+<form action="?menu=rank" method="post">
+<h4>隊伍設置(Team Setting)</h4>
+<p>排名戰隊伍設定。<br />
+這裡設置排名戰隊伍。</p>
+</div>
+<?php $main->ShowCharacters($main->char,'CHECKBOX',explode("<>",$main->party_rank));?>
+
+<div style="margin:15px">
+<?php print $left_mes?>
+<input type="submit" class="btn" style="width:160px" value="設定隊伍"<?php print $disable?> />
+<input type="hidden" name="SetRankTeam" value="1" />
+<p>設定後<?php print $reset=floor(RANK_TEAM_SET_TIME/(60*60))?>小時後才能再設置。<br />Team setting disabled after <?php print $reset?>hours once set.</p>
+</form>
+</div>
+<?php 
+}
+
 ?>
