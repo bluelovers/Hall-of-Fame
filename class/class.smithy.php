@@ -1,28 +1,72 @@
 <?php
-// 鍛冶屋
+
+/**
+ * 鍛冶屋
+ */
 class Item {
+	/**
+		* アイテムの基本データを保持する変数
+		*/
 	var $item;
 
-	var $base,$refine;
-	var $option0,$option1,$option2;
+	/**
+		* アイテムの基本番号
+		*/
+	var $base;
 
+	/**
+		* 精錬値
+		*/
+	var $refine;
+
+	/**
+		* 付加能力1
+		*/
+	var $option0;
+
+	/**
+		* 付加能力2
+		*/
+	var $option1;
+
+	/**
+		* 付加能力3
+		*/
+	var $option2;
+
+	/**
+		* アイテムの種類
+		*/
 	var $type;
 
+	/**
+		* コンストラクタ：アイテム番号を受け取り、初期化する
+		* Constructor: Initializes the item with the given number
+		*
+		* @param int $no Item number
+		*/
 	function Item($no) {
 		mt_srand();
 		$this->SetItem($no);
 	}
-//////////////////////////////////////////////////
-//	アイテムが渡された場合データを解析する?
+
+	/**
+		* アイテムが渡された場合データを解析する
+		* Parses item data if an item number is provided
+		*
+		* @param int $no Item number
+		*/
 	function SetItem($no) {
 		if(!$no) return false;
 		$this->item	= $no;
 
 		$this->base	= substr($no,0,4);//アイテムの基本番号
+
 		// 精錬値
 		$this->refine	= (int)substr($no,4,2);
 		if(!$this->refine)
 			$this->refine	= 0;
+
 		// 付加能力
 		$this->option0	= substr($no,6,3);
 		$this->option1	= substr($no,9,3);
@@ -32,8 +76,11 @@ class Item {
 			$this->type	= $item["type"];
 		}
 	}
-//////////////////////////////////////////////////
-//	アイテムを製作する。
+
+	/**
+		* アイテムを製作する
+		* Creates a new item
+		*/
 	function CreateItem() {
 		$this->refine	= false;
 		$this->option0	= false;
@@ -74,13 +121,21 @@ class Item {
 			$this->option2	= $low["$prob"];
 		}
 	}
-//////////////////////////////////////////////////
-//	特殊なあれ？3番目の付加？
+
+	/**
+		* 特殊なあれ？3番目の付加？
+		* Adds a special option to the item
+		*
+		* @param string $opt Option code
+		*/
 	function AddSpecial($opt) {
 		$this->option0	= $opt;
 	}
-//////////////////////////////////////////////////
-//	精錬可能な物かどうか。
+
+	/**
+		* 精錬可能な物かどうか。
+		* Checks if the item can be refined
+		*/
 	function CanRefine() {
 		$possible	= CanRefineType();
 		if (REFINE_LIMIT <= $this->refine)
@@ -90,8 +145,11 @@ class Item {
 		else
 			return false;
 	}
-//////////////////////////////////////////////////
-//	精錬をする
+
+	/**
+		* 精錬をする
+		* Refines the item
+		*/
 	function ItemRefine() {
 		if($this->RefineProb($this->refine)) {
 			print("+".$this->refine." -> ");
@@ -104,8 +162,13 @@ class Item {
 			return false;
 		}
 	}
-//////////////////////////////////////////////////
-//	精錬度別に精錬成功か否かとその確率
+
+	/**
+		* 精錬度別に精錬成功か否かとその確率
+		* Determines the success rate of refining based on the current refinement level
+		*
+		* @param int $now Current refinement level
+		*/
 	function RefineProb($now) {
 		$prob	= mt_rand(0,99);
 		//return true;// コメント取ると成功率100%
@@ -136,13 +199,16 @@ class Item {
 		}
 		return false;
 	}
-//////////////////////////////////////////////////
-//	アイテムを返す。
+
+	/**
+		* アイテムを返す。
+		* Returns the item string
+		*/
 	function ReturnItem() {
 		// 精錬もオプションも無い場合は先頭4文字だけ返す。
 		if(!$this->refine && !$this->option0 && !$this->option1 && !$this->option2 )
 			return $this->base;
-		
+
 		// 少なくとも精錬されているか、オプションが有る場合
 		$item	= $this->base.
 				sprintf("%02d",$this->refine).
@@ -152,4 +218,5 @@ class Item {
 		return $item;
 	}
 }
+
 ?>
