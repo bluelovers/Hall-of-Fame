@@ -1,11 +1,12 @@
 <?php
-/*
-	スタイルシートで画像?領域?反転可能だったのを思い出したので
-	それを用いて戦闘画面を作る。
-	ただしブラウザによっては上手く表示されないと思う。
 
-	GDと違って反転済みの画像を用意する必要無し。
-	IEは表示できる。
+/**
+* スタイルシートで画像/領域/反転可能だったのを思い出したので
+* それを用いて戦闘画面を作る。
+* ただしブラウザによっては上手く表示されないと思う。
+*
+* GDと違って反転済みの画像を用意する必要無し。
+* IEは表示できる。
 */
 class cssimage {
 
@@ -25,23 +26,36 @@ class cssimage {
 
 	var $NoFlip	= false;
 
-//////////////////////////////////////////////////
-//	CSSで image.flip() を使うか使わないか。
+/**
+* CSSで image.flip() を使うか使わないか。
+* Determines whether to use CSS for flipping images or not.
+*/
 	function NoFlip() {
 		$this->NoFlip	= true;
 	}
-//////////////////////////////////////////////////
-//	背景画像をセット。
-//	ついでに大きさも取得する。
+
+/**
+* 背景画像をセット。
+* ついでに大きさも取得する。
+* Sets the background image and retrieves its size.
+*
+* @param string $bg Background image name
+*/
 	function SetBackGround($bg) {
 		$this->background	= IMG_OTHER."bg_".$bg.".gif";
 
 		list($this->img_x, $this->img_y)	= getimagesize($this->background);
 		$this->size	= "width:{$this->img_x}px;height:{$this->img_y}px;";
 	}
-//////////////////////////////////////////////////
-//	チームの情報をセット
-//	前衛後衛に分ける
+
+/**
+* チームの情報をセット
+* 前衛後衛に分ける
+* Sets the team information and separates them into front and back lines.
+*
+* @param array $team1 Team 1 characters
+* @param array $team2 Team 2 characters
+*/
 	function SetTeams($team1,$team2) {
 		foreach($team1 as $char) {
 			// 召喚キャラが死亡している場合は飛ばす
@@ -62,20 +76,36 @@ class cssimage {
 				$this->team2_back[]	= $char;
 		}
 	}
-//////////////////////////////////////////////////
-//	魔方陣の数
+
+/**
+* 魔方陣の数
+* Sets the number of magic circles for each team.
+*
+* @param int $team1_mc Team 1 magic circle count
+* @param int $team2_mc Team 2 magic circle count
+*/
 	function SetMagicCircle($team1_mc, $team2_mc) {
 		$this->team1_mc	= $team2_mc;
 		$this->team2_mc	= $team1_mc;
 	}
-//////////////////////////////////////////////////
-//	CSS( キャラ画像 ,x座標 ,y座標 )
+
+/**
+* CSS( キャラ画像 ,x座標 ,y座標 )
+* Generates CSS for an image at a given position.
+*
+* @param string $url Image URL
+* @param int $x X coordinate
+* @param int $y Y coordinate
+* @return string CSS style string
+*/
 	function det($url,$x,$y) {
 		return "background-image:url({$url});background-repeat:no-repeat;background-position:{$x}px {$y}px;";
 	}
 
-//////////////////////////////////////////////////
-//	戦闘画面を表示
+/**
+* 戦闘画面を表示
+* Displays the battle screen.
+*/
 	function Show() {
 
 		//print("<div style=\"postion:relative;height:{$this->img_x}px;\">\n");
@@ -118,13 +148,21 @@ class cssimage {
 		$this->CopyRow($this->team2_back, $dir, $cell_width*$backs, $cell_width, $y, $this->img_y);
 		$this->CopyRow($this->team2_front, $dir, $cell_width*$fore, $cell_width, $y, $this->img_y);
 
-
 		for($i=0; $i<$this->div; $i++)
 			print("</div>");
 	}
 
-//////////////////////////////////////////////////
-//	列のキャラを描き出す
+/**
+* 列のキャラを描き出す
+* Draws characters in a row.
+*
+* @param array $teams Characters to draw
+* @param int $direction Direction of drawing (0 for normal, 1 for flipped)
+* @param int $axis_x X axis position
+* @param int $cell_width Width of each cell
+* @param int $axis_y Y axis position
+* @param int $cell_height Height of each cell
+*/
 	function CopyRow($teams,$direction,$axis_x,$cell_width,$axis_y,$cell_height) {
 		$number	= count($teams);
 		if($number == 0) return false;
