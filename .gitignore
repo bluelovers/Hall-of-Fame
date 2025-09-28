@@ -3,3 +3,12 @@
 /image/char/Thumbs.db
 
 Thumbs.db
+.idea
+log/
+union/
+user/
+
+bbs_town.dat
+ctrltime.dat
+managed.dat
+username.dat

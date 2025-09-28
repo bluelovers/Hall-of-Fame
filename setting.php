@@ -35,8 +35,8 @@ define("MONEY_RATE",1);//お金もらえる倍率
 define("NEW_NAME_COST",300000);//新しい名前に変更するのに必要なお金
 define("BBS_OUT","");//外部BBSがあればそのアドレス、無ければ空欄→""
 define("BBS_BOTTOM_TOGGLE",0);// 下にあった一行掲示板(0=OFF)
-define("AUCTION_TOGGLE",0);// オークションを機能させるか(0=OFF 1=ON)
-define("AUCTION_EXHIBIT_TOGGLE",0);// オークションの出品を可能にするか(0=OFF 1=ON)
+define("AUCTION_TOGGLE",1);// オークションを機能させるか(0=OFF 1=ON)
+define("AUCTION_EXHIBIT_TOGGLE",1);// オークションの出品を可能にするか(0=OFF 1=ON)
 define("JUDGE_LIST_AUTO_LOAD",0);//パターン判断のリストを 1=自動 0=手動追加(若干軽い)
 define("AUCTION_MAX",100);//オークション同時に出品できる品数。
 
@@ -47,7 +47,7 @@ define("RANK_BATTLE_NEXT_WIN",60*1);//ランキング戦 勝ったとき次戦�
 
 // battle setting
 define("NORMAL_BATTLE_TIME",100);//通常のモンスターとの戦闘で消費する時間
-define("ENEMY_INCREASE",0);//敵の増員(ランダム)
+define("ENEMY_INCREASE",1);//敵の増員(ランダム)
 define("BATTLE_MAX_TURNS",100);//戦闘の最大行動回数(戦闘が数値以上長引くと終了させる)
 define("TURN_EXTENDS",20);// 決着がつきそうな場合延長するターン数。
 define("BATTLE_MAX_EXTENDS",100);//延長した場合の最大行動回数(延長の限界)
