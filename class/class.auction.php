@@ -391,7 +391,7 @@ class Auction {
 		$Now	= time();
 		$end	= $Now + round($now + (60 * 60 * $time));
 		// 開始価格のあれ
-		if(ereg("^[0-9]",$StartPrice)) {
+		if(preg_match("/^[0-9]/",$StartPrice)) {
 			$price	= (int)$StartPrice;
 		} else {
 			$price	= 0;

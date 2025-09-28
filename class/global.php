@@ -132,7 +132,7 @@ include_once(CLASS_DIR."utils/glob.php");
 //	$id が過去登錄されたかどうか
 	function is_registered($id) {
 		if($registered = @file(REGISTER)):
-			if(array_search($id."\n",$registered)!==false && !ereg("[\.\/]+",$id) )//改行記號必須
+			if(array_search($id."\n",$registered)!==false && !preg_match("/[\\.\\/]+/",$id) )//改行記號必須
 				return true;
 			else
 				return false;

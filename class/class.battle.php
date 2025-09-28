@@ -633,7 +633,7 @@ HTML;
 			$candidate[]	= &$My;
 		elseif($skill["target"]["0"] == "all"):
 			//$candidate	= $MyTeam + $Enemy;//???
-			$candidate	= array_merge_recursive(&$MyTeam,&$Enemy);//結合の後,並びをランダムにした方がいい??
+			$candidate	= array_merge_recursive($MyTeam,$Enemy);//結合の後,並びをランダムにした方がいい??
 		endif;
 
 		// 候補から使用する対象を選ぶ → (スキル使用)

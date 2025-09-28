@@ -111,7 +111,7 @@ class Ranking {
 			*/
 
 			$Result	= $this->RankBattle($user,$Rival,$MyPlace,$RivalPlace);
-			$Return	= $this->ProcessByResult($Result,&$user,&$Rival,$DefendMatch);
+			$Return	= $this->ProcessByResult($Result,$user,$Rival,$DefendMatch);
 			
 			return $Return;
 			// 勝利なら順位交代
@@ -141,7 +141,7 @@ class Ranking {
 			//$MyID		= $id;
 			//list($message,$result)	= $this->RankBattle($MyID,$RivalID);
 			$Result	= $this->RankBattle($user,$Rival,$MyRank["0"],$RivalPlace);
-			$Return	= $this->ProcessByResult($Result,&$user,&$Rival,$DefendMatch);
+			$Return	= $this->ProcessByResult($Result,$user,$Rival,$DefendMatch);
 			
 			return $Return;
 			//if($message != "Battle")

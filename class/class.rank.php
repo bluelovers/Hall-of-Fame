@@ -63,7 +63,7 @@ class Ranking {
 
 //////////////////////////////////////////////
 // ランキング戦する。戦う。
-	function Challenge($id) {
+	function Challenge(&$id) {
 		// ランキングが無いとき(1位になる)
 		if(!$this->Ranking) {
 			$this->JoinRanking($id);

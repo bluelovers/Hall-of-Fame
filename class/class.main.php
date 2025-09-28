@@ -1415,8 +1415,8 @@ HTML;
 			case($_POST["shop_buy"]):
 				$ShopList	= ShopList();//賣ってるものデ一タ
 				if($_POST["item_no"] && in_array($_POST["item_no"],$ShopList)) {
-					if(ereg("^[0-9]",$_POST["amount"])) {
-						$amount	= (int)$_POST["amount"];
+					if(preg_match("/^[0-9]/",$_POST["amount"])) {
+											$amount	= (int)$_POST["amount"];
 						if($amount == 0)
 							$amount	= 1;
 					} else {
@@ -1444,7 +1444,7 @@ HTML;
 				break;
 			case($_POST["shop_sell"]):
 				if($_POST["item_no"] && $this->item[$_POST["item_no"]]) {
-					if(ereg("^[0-9]",$_POST["amount"])) {
+					if(preg_match("/^[0-9]/",$_POST["amount"])) {
 						$amount	= (int)$_POST["amount"];
 						if($amount == 0)
 							$amount	= 1;
@@ -1829,7 +1829,7 @@ JS_HTML;
 				$BattleResult = "d";//引分
 			*/
 			//list($message,$BattleResult)	= $Rank->Challenge(&$this);
-			$Result	= $Ranking->Challenge(&$this);
+			$Result	= $Ranking->Challenge($this);
 
 			//if($Result === "Battle")
 			//	$this->RankRecord($BattleResult,"CHALLENGE",false);
