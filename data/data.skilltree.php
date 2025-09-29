@@ -333,7 +333,7 @@ function LoadSkillTree($char) {
 			$list[]	= "3306";//Nimble
 		if($lnd["3303"])//
 			$list[]	= "3307";//Fortify
-		// 糾Train 4庬棕
+		// ～Train 4種類
 		if($lnd["3300"] && $lnd["3301"] && $lnd["3302"] && $lnd["3303"]) {
 			$list[]	= "3308";//FullSupport
 			$list[]	= "3310";//SuppressBeast
