@@ -37,7 +37,7 @@ function bbs01(&$main) {
         $name    = ($main->name ? "<span class=\"bold\">{$main->name}</span>":"無名");
         $message    = $name." > ".$_POST["message"];
         if($main->UserColor)
-            $message    = "<span style=\"color:{$main->UserColor}\">".$message."</span>";
+            $message    = "<span style=\"color:#{$main->UserColor}\">".$message."</span>";
         $message    .= " <span class=\"light\">(".date("c").")</span>\n";
         array_unshift($log,$message);
         while(150 < count($log))// ログ保存行數あ

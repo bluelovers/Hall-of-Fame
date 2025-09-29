@@ -80,7 +80,7 @@ function TownBBS(&$self) {
         $name = "<span class=\"bold\">{$self->name}</span>";
         $message = $name . " > " . $_POST["message"];
         if ($self->UserColor)
-            $message = "<span style=\"color:{$self->UserColor}\">" . $message . "</span>";
+            $message = "<span style=\"color:#{$self->UserColor}\">" . $message . "</span>";
         $message .= " <span class=\"light\">(" . date("c") . ")</span>\n";
         array_unshift($log, $message);
         while (50 < count($log))
