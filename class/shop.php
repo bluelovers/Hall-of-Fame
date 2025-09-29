@@ -411,12 +411,12 @@ JS_HTML;
  * @param main $main 主物件
  */
 function WorkProcess($main) {
-	/*if($_POST["amount"]) {
-		$amount    = (int)$_POST["amount"];
+	if($_POST["amount"]) {
+		$amount	= (int)$_POST["amount"];
 		// 1以上10以下
 		if(0 < $amount && $amount < 11) {
-			$time    = $amount * 100;
-			$money    = $amount * 500;
+			$time	= $amount * 100;
+			$money	= $amount * 500;
 			if($main->WasteTime($time)) {
 				ShowResult(MoneyFormat($money)." げっとした！","margin15");
 				$main->GetMoney($money);
@@ -426,7 +426,7 @@ function WorkProcess($main) {
 				return false;
 			}
 		}
-	}*/
+	}
 }
 
 /**
