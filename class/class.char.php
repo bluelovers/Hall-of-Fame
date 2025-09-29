@@ -4,60 +4,212 @@ include(DATA_JOB);
 
 class char{
 
-	// ファイルポインタ
+	/**
+	 * ファイルポインタ
+	 * File pointer.
+	 * Used for file operations when reading/writing character data.
+	 */
 	var $fp;
+
+	/**
+	 * ファイルパス
+	 * File path.
+	 * Path to the character data file.
+	 */
 	var $file;
+
+	/**
+	 * キャラクター番号
+	 * Character number.
+	 * Unique identifier derived from the filename.
+	 */
 	var $Number;
 
-	// 誰のキャラか?
+	/**
+	 * 誰のキャラか?
+	 * Whose character is this?
+	 * Reference to the user who owns this character.
+	 */
 	var $user;
 
-	/*
-		基本的な情報
-		$gender	= (0=male 1=female)
-	*/
+	/**
+	 * 基本的な情報
+	 * Basic information.
+	 * Core character attributes including gender (0=male, 1=female).
+	 */
 	var $name, $gender, $job, $job_name, $img, $birth, $level, $exp;
-	// ステ一タス
+
+	/**
+	 * ステ一タス
+	 * Status.
+	 * Character's basic stats: HP, SP, STR, INT, DEX, SPD, LUK.
+	 */
 	var $maxhp, $hp, $maxsp, $sp, $str, $int, $dex, $spd, $luk;
-	// ステ一タスポイントとか
+
+	/**
+	 * ステ一タスポイントとか
+	 * Status points etc.
+	 * Points available for distributing to different status attributes.
+	 */
 	var $statuspoint;
+
+	/**
+	 * スキルポイント
+	 * Skill points.
+	 * Points available for learning new skills.
+	 */
 	var $skillpoint;
-	// 裝備
+
+	/**
+	 * 裝備
+	 * Equipment.
+	 * Character's equipped items: weapon, shield, armor, accessory.
+	 */
 	var $weapon, $shield, $armor, $item;
-	// 戰鬥その他
+
+	/**
+	 * 戰鬥その他
+	 * Battle and others.
+	 * Battle-related properties like position and guard status.
+	 */
 	var $position, $guard;
-	// スキル
+
+	/**
+	 * スキル
+	 * Skills.
+	 * Array of skill IDs that the character has learned.
+	 */
 	var $skill;
-	// 行動(判定、使うスキル)
+
+	/**
+	 * 行動(判定、使うスキル)
+	 * Actions (judgment, skills to use).
+	 * Behavior patterns defining how the character acts in battle.
+	 */
 	var $Pattern;
 	var $PatternMemo;
 	var $judge, $quantity, $action;
 
-	// 戰鬥用變數(BattleVariable) デ一タには保存されない。
+	/**
+	 * 戰鬥用變數(BattleVariable) デ一タには保存されない。
+	 * Battle variables - not saved to data.
+	 * Temporary variables used only during battle calculations.
+	 */
 	var $team;
-	var $IMG;
-	var $MAXHP, $HP, $MAXSP, $SP, $STR, $INT, $DEX, $SPD, $LUK;
-	var $STATE;//狀態(0=生存 1=しぼ一 2=毒狀態)
-	var $POSITION;
-	var $P_MAXHP, $P_MAXSP, $P_STR, $P_INT, $P_DEX, $P_SPD,$P_LUK;//單純なステ一タス補正(plus)
-	var $M_MAXHP, $M_MAXSP;//單純なステ一タス補正(multipication)
-	var $SPECIAL;// 特殊技能
-	/*
-		PoisonResist 毒抵抗
-		HealBonus .
-		Barrier
-		Undead
-	*/
-	var $WEAPON;//武器タイプ
-	var $atk, $def;// $atk=array(物理,魔法); $def=array(物理/,物理-,魔法/,魔法-);
-	var $delay;//行動までの時間
-	var $expect = false;//詠唱完了時に使うスキル
-	var $expect_type;//詠唱完了時に使うスキルのタイプ(物理/魔法)
-	var $expect_target;//↑のタ一ゲット
 
-	var $ActCount;//合計行動回數
-	var $JdgCount;//決定した判斷の回數=array()
-//////////////////////////////////////////////////
+	/**
+	 * 戰鬥中の畫像
+	 * Battle image.
+	 * Image filename used during battle display.
+	 */
+	var $IMG;
+
+	/**
+	 * 戰鬥用ステータス
+	 * Battle status values.
+	 * Current battle-modified status values (HP, SP, STR, etc.).
+	 */
+	var $MAXHP, $HP, $MAXSP, $SP, $STR, $INT, $DEX, $SPD, $LUK;
+
+	/**
+	 * 狀態(0=生存 1=しぼ一 2=毒狀態)
+	 * State (0=alive, 1=dead, 2=poisoned).
+	 * Current character condition/status in battle.
+	 */
+	var $STATE;
+
+	/**
+	 * 戰鬥位置
+	 * Battle position.
+	 * Current position in battle (front/back row).
+	 */
+	var $POSITION;
+
+	/**
+	 * 單純なステ一タス補正(plus)
+	 * Simple status corrections (plus).
+	 * Additional stat bonuses from equipment and skills.
+	 */
+	var $P_MAXHP, $P_MAXSP, $P_STR, $P_INT, $P_DEX, $P_SPD,$P_LUK;
+
+	/**
+	 * 單純なステ一タス補正(multipication)
+	 * Simple status corrections (multiplication).
+	 * Percentage-based stat multipliers from equipment and skills.
+	 */
+	var $M_MAXHP, $M_MAXSP;
+
+	/**
+	 * 特殊技能
+	 * Special abilities.
+	 * Special effects and abilities like poison resistance, healing bonus, etc.
+	 */
+	var $SPECIAL;
+
+	/**
+	 * 武器タイプ
+	 * Weapon type.
+	 * Type of weapon currently equipped.
+	 */
+	var $WEAPON;
+
+	/**
+	 * 攻擊力と防禦力
+	 * Attack and defense power.
+	 * $atk=array(physical, magic); $def=array(physical/, physical-, magic/, magic-).
+	 */
+	var $atk, $def;
+
+	/**
+	 * 行動までの時間
+	 * Time until action.
+	 * Delay counter before character can take next action.
+	 */
+	var $delay;
+
+	/**
+	 * 詠唱完了時に使うスキル
+	 * Skill to use when casting completes.
+	 * Skill ID that will be executed when charging/casting finishes.
+	 */
+	var $expect = false;
+
+	/**
+	 * 詠唱完了時に使うスキルのタイプ(物理/魔法)
+	 * Type of skill to use when casting completes (physical/magic).
+	 * Type of the skill being charged/cast.
+	 */
+	var $expect_type;
+
+	/**
+	 * ↑のタ一ゲット
+	 * Target of the above skill.
+	 * Target for the skill being charged/cast.
+	 */
+	var $expect_target;
+
+	/**
+	 * 合計行動回數
+	 * Total action count.
+	 * Number of actions taken by this character in battle.
+	 */
+	var $ActCount;
+
+	/**
+	 * 決定した判斷の回數=array()
+	 * Number of judgments made = array().
+	 * Count of different types of judgments made during battle.
+	 */
+	var $JdgCount;
+	/**
+	 * 構造函數 - 初始化角色
+	 * Constructor - Initialize character.
+	 * Loads character data from file and sets up all character properties.
+	 * If no file is provided, returns 0 (initialization failed).
+	 *
+	 * @param string|false $file Path to character data file
+	 * @return int 0 if initialization failed, undefined if successful
+	 */
 	function char($file=false) {
 
 		if(!$file)
@@ -70,8 +222,13 @@ class char{
 		$data	= ParseFileFP($this->fp);
 		$this->SetCharData($data);
 	}
-//////////////////////////////////////////////////
-//	ファイルポインタが開かれていれば閉じる
+
+	/**
+	 * ファイルポインタが開かれていれば閉じる
+	 * Close file pointer if it's open.
+	 * Safely closes the file pointer and cleans up resources.
+	 * Used to prevent file handle leaks.
+	 */
 	function fpclose() {
 		if(is_resource($this->fp)) {
 			//print("who?.".$this->Name()."<br />\n");
@@ -80,8 +237,15 @@ class char{
 			unset($this->fp);
 		}
 	}
-//////////////////////////////////////////////////
-//	召喚力?召喚した時の召喚モンスタ一の強さ
+
+	/**
+	 * 召喚力?召喚した時の召喚モンスタ一の強さ
+	 * Summoning power - Strength of summoned monsters.
+	 * Calculates the power level of monsters this character can summon.
+	 * Based on DEX and LUK stats with special summon bonuses.
+	 *
+	 * @return float Summoning strength multiplier
+	 */
 	function SummonPower() {
 		$DEX_PART	= sqrt($this->DEX) * 5;// DEX分の強化分
 		$Strength	= 1 + ($DEX_PART + $this->LUK)/250;
@@ -89,8 +253,15 @@ class char{
 			$Strength	*= (100+$this->SPECIAL["Summon"])/100;
 		return $Strength;
 	}
-//////////////////////////////////////////////////
-//	HPの犧牲
+	/**
+	 * HPの犧牲
+	 * HP sacrifice.
+	 * Causes the character to take damage as a cost for certain abilities.
+	 * Damage is doubled if character is in back row.
+	 *
+	 * @param int $rate Percentage of max HP to sacrifice
+	 * @return bool False if no rate provided, undefined otherwise
+	 */
 	function SacrificeHp($rate) {
 		if(!$rate) return false;
 
@@ -102,8 +273,16 @@ class char{
 		$this->HpDamage($SelfDamage);
 		print("</span><br />\n");
 	}
-//////////////////////////////////////////////////
-//	特殊技能?の追加
+
+	/**
+	 * 特殊技能?の追加
+	 * Add special ability.
+	 * Adds or modifies special abilities for the character.
+	 * Handles boolean, array, and numeric values appropriately.
+	 *
+	 * @param string $name Name of the special ability
+	 * @param mixed $value Value to add (bool, array, or number)
+	 */
 	function GetSpecial($name,$value) {
 		if(is_bool($value)) {
 			$this->SPECIAL["$name"]	= $value;
@@ -115,8 +294,13 @@ class char{
 			$this->SPECIAL["$name"]	+= $value;
 		}
 	}
-//////////////////////////////////////////////////
-//	HPSP持續回復
+
+	/**
+	 * HPSP持續回復
+	 * HP/SP continuous recovery.
+	 * Processes automatic HP and SP regeneration from special abilities.
+	 * Displays recovery messages and applies recovery effects.
+	 */
 	function AutoRegeneration() {
 		// HP回復
 		if($this->SPECIAL["HpRegen"]) {
@@ -133,8 +317,12 @@ class char{
 			print("<br />\n");
 		}
 	}
-//////////////////////////////////////////////////
-//	キャラステ一タスの一番上のやつ。
+	/**
+	 * キャラステ一タスの一番上のやつ。
+	 * Character status display - the top one.
+	 * Shows detailed character information including stats, experience,
+	 * and special abilities in a formatted table layout.
+	 */
 	function ShowCharDetail() {
 		$P_MAXHP	= round($this->maxhp * $this->M_MAXHP/100) + $this->P_MAXHP;
 		$P_MAXSP	= round($this->maxsp * $this->M_MAXSP/100) + $this->P_MAXSP;
@@ -153,7 +341,7 @@ class char{
 <tr><td style="text-align:right">LUK : </td><td><?php print $this->luk?><?php if($this->P_LUK) print(" + {$this->P_LUK}");?></td></tr>
 </table>
 </td><td valign="top">
-<?php 
+<?php
 	if($this->SPECIAL["PoisonResist"])
 		print("毒抵抗 +".$this->SPECIAL["PoisonResist"]."%<br />\n");
 	if($this->SPECIAL["Pierce"]["0"])
@@ -164,22 +352,39 @@ class char{
 		print("召喚力 +".$this->SPECIAL["Summon"]."%<br />\n");
 ?>
 </td></tr></table>
-<?php 
+<?php
 	}
-//////////////////////////////////////////////////
-//	誰のキャラか設定する
+
+	/**
+	 * 誰のキャラか設定する
+	 * Set whose character this is.
+	 * Associates the character with a specific user/owner.
+	 *
+	 * @param string $user User ID who owns this character
+	 */
 	function SetUser($user) {
 		$this->user	= $user;
 	}
-//////////////////////////////////////////////////
-//	チャ一ジ(詠唱)中の解除
+
+	/**
+	 * チャ一ジ(詠唱)中の解除
+	 * Cancel charging/casting.
+	 * Resets all charging/casting related variables to false.
+	 */
 	function ResetExpect() {
 		$this->expect	= false;
 		$this->expect_type	= false;
 		$this->expect_target	= false;
 	}
-//////////////////////////////////////////////////
-//	前列後列の移動
+	/**
+	 * 前列後列の移動
+	 * Move between front and back row.
+	 * Changes the character's battle position between front and back rows.
+	 * Only allows valid position changes (front to back, back to front).
+	 *
+	 * @param string $posi Target position ("front" or "back")
+	 * @return bool False if invalid move, undefined if successful
+	 */
 	function Move($posi) {
 		//print($this->POSITION."->".$posi."<br />\n");
 		if($posi == "front") {
@@ -195,16 +400,27 @@ class char{
 		}
 	}
 
-//////////////////////////////////////////////////
-//	行動までの距離測定
+	/**
+	 * 行動までの距離測定
+	 * Measure distance until action.
+	 * Calculates how close the character is to taking their next action.
+	 * Dead characters return 100, others return a calculated distance value.
+	 *
+	 * @return float Distance until next action (100 for dead characters)
+	 */
 	function nextDis() {
 		if($this->STATE === DEAD)
 			return 100;
 		$distance	= (100 - $this->delay)/$this->DelayValue();
 		return $distance;
 	}
-//////////////////////////////////////////////////
-//	行動順リセット
+
+	/**
+	 * 行動順リセット
+	 * Reset action order.
+	 * Resets the character's action delay based on the current delay type.
+	 * Type 0 uses SPD, Type 1 starts at 0.
+	 */
 	function DelayReset() {
 		if(DELAY_TYPE === 0) {
 			$this->delay	= $this->SPD;
@@ -212,8 +428,15 @@ class char{
 			$this->delay	= 0;
 		}
 	}
-//////////////////////////////////////////////////
-//	行動を近づかせる。
+	/**
+	 * 行動を近づかせる。
+	 * Advance action timing.
+	 * Increases the character's action delay counter based on the current delay type.
+	 * Dead characters do not advance their action timing.
+	 *
+	 * @param int $no Amount to advance the delay
+	 * @return bool False if character is dead, undefined otherwise
+	 */
 	function Delay($no) {
 		// 死亡中は增えないようにする
 		if($this->STATE === DEAD){
@@ -226,13 +449,29 @@ class char{
 			//print("DELAY".$this->delay."<br />\n");
 		}
 	}
-//////////////////////////////////////////////////
-//	
+
+	/**
+	 * 行動値計算
+	 * Calculate delay value.
+	 * Returns the delay value based on the character's speed.
+	 * Used in delay type 1 calculations.
+	 *
+	 * @return float Delay value based on SPD stat
+	 */
 	function DelayValue() {
 		return sqrt($this->SPD) + DELAY_BASE;
 	}
-//////////////////////////////////////////////////
-//	行動を遲らせる(Rate)
+
+	/**
+	 * 行動を遲らせる(Rate)
+	 * Delay action by rate.
+	 * Delays the character's action timing by a percentage-based amount.
+	 * Different calculation methods for different delay types.
+	 *
+	 * @param int $No Percentage to delay by
+	 * @param float $BaseDelay Base delay value for calculations
+	 * @param bool $Show Whether to display delay change information
+	 */
 	function DelayByRate($No,$BaseDelay,$Show=false) {
 		if(DELAY_TYPE === 0) {
 			if($Show) {
@@ -256,8 +495,16 @@ class char{
 			}
 		}
 	}
-//////////////////////////////////////////////////
-//	行動を早送りする(%)
+	/**
+	 * 行動を早送りする(%)
+	 * Speed up action timing (%).
+	 * Advances the character's action timing by a percentage-based amount.
+	 * Different calculation methods for different delay types.
+	 *
+	 * @param int $No Percentage to speed up by
+	 * @param float $BaseDelay Base delay value for calculations
+	 * @param bool $Show Whether to display delay change information
+	 */
 	function DelayCut($No,$BaseDelay,$Show=false) {
 		if(DELAY_TYPE === 0) {
 			$Delay	= ($BaseDelay - $this->delay) * ($No/100);//早まらせる間隔
@@ -281,21 +528,40 @@ class char{
 			}
 		}
 	}
-//////////////////////////////////////////////////
-//	即時行動させる。
+
+	/**
+	 * 即時行動させる。
+	 * Make character act immediately.
+	 * Sets the character's delay to a specific value or maximum to force immediate action.
+	 *
+	 * @param float $delay Delay value to set (only used in DELAY_TYPE 0)
+	 */
 	function Quick($delay) {
 		if(DELAY_TYPE === 0)
 			$this->delay	= $delay;
 		else if(DELAY_TYPE === 1)
 			$this->delay	= 100.1;
 	}
-//////////////////////////////////////////////////
-//	名前を變える。
+
+	/**
+	 * 名前を變える。
+	 * Change name.
+	 * Updates the character's name to a new value.
+	 *
+	 * @param string $new New name for the character
+	 */
 	function ChangeName($new) {
 		$this->name	= $new;
 	}
-//////////////////////////////////////////////////
-//	行動パタ一ンに追加する。
+	/**
+	 * 行動パタ一ンに追加する。
+	 * Add to action pattern.
+	 * Inserts a new pattern entry at the specified position in the character's behavior patterns.
+	 * Maintains pattern array size by removing the last element.
+	 *
+	 * @param int $no Position to insert the new pattern
+	 * @return bool True if successful, false if invalid position
+	 */
 	function AddPattern($no) {
 		if(!is_int($no) && $no < 0) return false;
 
@@ -310,8 +576,16 @@ class char{
 		$this->PatternSave($this->judge,$this->quantity,$this->action);
 		return true;
 	}
-//////////////////////////////////////////////////
-//	行動パタ一ンを削除。
+
+	/**
+	 * 行動パタ一ンを削除。
+	 * Delete from action pattern.
+	 * Removes a pattern entry at the specified position and adds default values at the end.
+	 * Maintains pattern array functionality.
+	 *
+	 * @param int $no Position to delete the pattern from
+	 * @return bool True if successful, false if invalid position
+	 */
 	function DeletePattern($no) {
 		if(!is_int($no) && $no < 0) return false;
 
@@ -326,8 +600,13 @@ class char{
 		$this->PatternSave($this->judge,$this->quantity,$this->action);
 		return true;
 	}
-//////////////////////////////////////////////////
-//	限界設定數を超えていないか心配なので作った。。
+
+	/**
+	 * 限界設定數を超えていないか心配なので作った。。
+	 * Made this because I'm worried about exceeding the limit setting count.
+	 * Ensures pattern arrays don't exceed the maximum allowed size based on character intelligence.
+	 * Removes excess elements from the end of arrays.
+	 */
 	function CutPatterns() {
 		$No	= $this->MaxPatterns();
 		while($No < count($this->judge)) {
@@ -340,8 +619,14 @@ class char{
 			array_pop($this->action);
 		}
 	}
-//////////////////////////////////////////////////
-//	メモってあるパタ一ンと交換
+	/**
+	 * メモってあるパタ一ンと交換
+	 * Exchange with memorized pattern.
+	 * Swaps the current behavior pattern with the memorized backup pattern.
+	 * Used to toggle between different AI behavior configurations.
+	 *
+	 * @return bool Always returns true
+	 */
 	function ChangePatternMemo() {
 		$temp	= $this->Pattern;
 		$this->Pattern	= $this->PatternMemo;
@@ -365,8 +650,15 @@ class char{
 	*/
 		return true;
 	}
-//////////////////////////////////////////////////
-//	キャラを後衛化させる。
+
+	/**
+	 * キャラを後衛化させる。
+	 * Knock character to back row.
+	 * Forces the character to the back row position in battle.
+	 * Only works if character is currently in front row.
+	 *
+	 * @param int $no Number of times to apply (default 1)
+	 */
 	function KnockBack($no=1) {
 		if($this->POSITION == "front") {
 			$this->POSITION = "back";

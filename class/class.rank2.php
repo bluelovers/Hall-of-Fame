@@ -8,27 +8,15 @@ class Ranking {
 	var $UserName;
 	var $UserRecord;
 
-//////////////////////////////////////////////
-// ファイルから読み込んでランキングを配列にする
-/*
-
-	$this->Ranking[0][0]= *********;// 首位
-
-	$this->Ranking[1][0]= *********;// 同一 2位
-	$this->Ranking[1][1]= *********;
-
-	$this->Ranking[2][0]= *********;// 同一 3位
-	$this->Ranking[2][1]= *********;
-	$this->Ranking[2][2]= *********;
-
-	$this->Ranking[3][0]= *********;// 同一 4位
-	$this->Ranking[3][1]= *********;
-	$this->Ranking[3][2]= *********;
-	$this->Ranking[3][3]= *********;
-
-	...........
-
-*/
+	/**
+	 * ファイルから読み込んでランキングを配列にする
+	 * Load ranking data from file and store in array.
+	 * Creates a multi-dimensional array structure where:
+	 * - $this->Ranking[0][0] = 1st place
+	 * - $this->Ranking[1][0-1] = tied 2nd place entries
+	 * - $this->Ranking[2][0-2] = tied 3rd place entries
+	 * - etc.
+	 */
 	function Ranking() {
 		$file	= RANKING;
 
@@ -61,8 +49,15 @@ class Ranking {
 		//$this->JoinRanking("yqyqqq","last");
 		//dump($this->Ranking);
 	}
-//////////////////////////////////////////////
-// ランキング戦する。戦う。
+	/**
+	 * ランキング戦する。戦う。
+	 * Challenge ranking battle. Fight in ranking system.
+	 * Handles all ranking challenge logic including determining opponents,
+	 * processing battles, and updating rankings based on results.
+	 *
+	 * @param user &$user The challenging user object
+	 * @return mixed Battle result or error status
+	 */
 	function Challenge(&$user) {
 		// ランキングが無いとき(1位になる)
 		if(!$this->Ranking) {
@@ -159,8 +154,18 @@ class Ranking {
 		}
 	}
 
-//////////////////////////////////////////////
-// 戦わせる
+	/**
+	 * 戦わせる
+	 * Make them fight each other.
+	 * Executes the actual ranking battle between challenger and defender,
+	 * including party validation, battle processing, and result determination.
+	 *
+	 * @param user &$user The challenging user
+	 * @param user &$Rival The defending user
+	 * @param int $UserPlace Challenger's current ranking position
+	 * @param int $RivalPlace Defender's current ranking position
+	 * @return string Battle result status
+	 */
 	function RankBattle(&$user,&$Rival,$UserPlace,$RivalPlace) {
 
 		$UserPlace	= "[".($UserPlace+1)."位]";
@@ -224,8 +229,18 @@ class Ranking {
 			return "DRAW_GAME";//(エラー)予定では出ないエラー(回避用)
 		}
 	}
-//////////////////////////////////////////////////
-//	結果によって処理を変える
+	/**
+	 * 結果によって処理を変える
+	 * Change processing based on results.
+	 * Processes different battle outcomes and updates user records,
+	 * rankings, and battle cooldowns accordingly.
+	 *
+	 * @param string $Result Battle result status
+	 * @param user &$user The challenging user
+	 * @param user &$Rival The defending user
+	 * @param bool $DefendMatch Whether this is a championship defense match
+	 * @return mixed Processing result
+	 */
 	function ProcessByResult($Result,&$user,&$Rival,$DefendMatch) {
 		switch($Result) {
 
@@ -288,8 +303,15 @@ class Ranking {
 				break;
 		}
 	}
-//////////////////////////////////////////////////
-//	引数の順位 と 同じ順位の人数
+	/**
+	 * 引数の順位 と 同じ順位の人数
+	 * Number of people at the same ranking position as the argument.
+	 * Determines how many users can occupy the same ranking tier.
+	 * 1st place: 1 person, 2nd place: 2 people, 3rd place: 3 people, 4th+: 3 people max.
+	 *
+	 * @param int $Place The ranking position
+	 * @return int Maximum number of users allowed at this rank
+	 */
 	function SamePlaceAmount($Place) {
 		switch(true) {
 			case ($Place == 0): return 1;//1位
@@ -299,8 +321,14 @@ class Ranking {
 				return 3;
 		}
 	}
-//////////////////////////////////////////////
-// ランキングの最下位に参加させる
+	/**
+	 * ランキングの最下位に参加させる
+	 * Join the ranking at the lowest position.
+	 * Adds a new user to the ranking system, placing them at the bottom
+	 * or creating a new lowest tier if the current lowest tier is full.
+	 *
+	 * @param string $id User ID to add to rankings
+	 */
 	function JoinRanking($id) {
 		$last	= count($this->Ranking) - 1;
 		// ランキングが存在しない場合
@@ -314,16 +342,26 @@ class Ranking {
 			$this->Ranking[$last][]["id"]	= $id;
 		}
 	}
-//////////////////////////////////////////////////
-// ランキングから消す
+	/**
+	 * ランキングから消す
+	 * Remove from ranking.
+	 * Removes a user from the ranking system entirely.
+	 *
+	 * @param string $id User ID to remove from rankings
+	 * @return bool True if successfully deleted, false if user not found
+	 */
 	function DeleteRank($id) {
 		$place	= $this->SearchID($id);
 		if($place === false) return false;//削除失敗
 		unset($this->Ranking[$place[0]][$place[1]]);
 		return true;//削除成功
 	}
-//////////////////////////////////////////////////
-// ランキングを保存する
+	/**
+	 * ランキングを保存する
+	 * Save the ranking.
+	 * Writes the current ranking data to file, preserving the ranking structure
+	 * by writing each user ID on a separate line.
+	 */
 	function SaveRanking() {
 		foreach($this->Ranking as $rank => $val) {
 			foreach($val as $key => $val2) {
@@ -334,16 +372,25 @@ class Ranking {
 		WriteFileFP($this->fp,$ranking);
 		$this->fpclose();
 	}
-//////////////////////////////////////////////////
-//	
+	/**
+	 * ファイルポインタを閉じる
+	 * Close file pointer.
+	 * Safely closes the file pointer and cleans up the resource.
+	 */
 	function fpclose() {
 		if($this->fp) {
 			fclose($this->fp);
 			unset($this->fp);
 		}
 	}
-//////////////////////////////////////////////////
-//	順位を入れ替える
+	/**
+	 * 順位を入れ替える
+	 * Exchange ranking positions.
+	 * Swaps the ranking positions of two users in the ranking system.
+	 *
+	 * @param string $id_0 First user ID
+	 * @param string $id_1 Second user ID
+	 */
 	function ChangePlace($id_0,$id_1) {
 		$Place_0	= $this->SearchID($id_0);
 		$Place_1	= $this->SearchID($id_1);
@@ -351,8 +398,14 @@ class Ranking {
 		$this->Ranking[$Place_0["0"]][$Place_0["1"]]	= $this->Ranking[$Place_1["0"]][$Place_1["1"]];
 		$this->Ranking[$Place_1["0"]][$Place_1["1"]]	= $temp;
 	}
-//////////////////////////////////////////////////
-// $id のランク位置を探す
+	/**
+	 * $id のランク位置を探す
+	 * Search for the rank position of $id.
+	 * Finds the exact ranking position of a user in the ranking array.
+	 *
+	 * @param string $id User ID to search for
+	 * @return array|false Array containing [rank, position] or false if not found
+	 */
 	function SearchID($id) {
 		foreach($this->Ranking as $rank => $val) {
 			foreach($val as $key => $val2) {
@@ -362,8 +415,16 @@ class Ranking {
 		}
 		return false;
 	}
-//////////////////////////////////////////////////
-// ランキングの表示
+	/**
+	 * ランキングの表示
+	 * Display the ranking.
+	 * Renders the ranking table with user names, positions, and battle records.
+	 * Includes special icons for top 3 positions and highlights specified user.
+	 *
+	 * @param int|false $from Starting rank to display (false for beginning)
+	 * @param int|false $to Ending rank to display (false for end)
+	 * @param string|false $bold_id User ID to highlight in bold
+	 */
 	function ShowRanking($from=false,$to=false,$bold_id=false) {
 		// 範囲が無い場合は全ランキングを表示
 		if($from === false or $to === false) {
@@ -419,8 +480,15 @@ class Ranking {
 		}
 		print("</table>\n");
 	}
-//////////////////////////////////////////////
-//	±ランク 対象ID
+	/**
+	 * ±ランク 対象ID
+	 * Show ranking range around target ID.
+	 * Displays a portion of the ranking centered around the specified user,
+	 * showing a defined number of ranks above and below their position.
+	 *
+	 * @param string $id Target user ID to center the display around
+	 * @param int $Amount Total number of ranks to display
+	 */
 	function ShowRankingRange($id,$Amount) {
 		$RankAmount	= count($this->Ranking);
 		$Last	= $RankAmount - 1;
@@ -455,8 +523,16 @@ class Ranking {
 
 		$this->ShowRanking($start,$end,$id);
 	}
-//////////////////////////////////////////////
-//	ユーザの名前を呼び出す
+	/**
+	 * ユーザの名前を呼び出す
+	 * Load user's name.
+	 * Retrieves and caches user name and ranking record data.
+	 * Automatically removes users from ranking if their account no longer exists.
+	 *
+	 * @param string $id User ID to load name for
+	 * @param bool $rank Whether to also return ranking record data
+	 * @return string|array User name or array with name and record data
+	 */
 	function LoadUserName($id,$rank=false) {
 
 		if(!$this->UserName["$id"]) {
@@ -486,8 +562,11 @@ class Ranking {
 		else
 			return $this->UserName["$id"];
 	}
-//////////////////////////////////////////////////
-//	
+	/**
+	 * デバッグ用ダンプ
+	 * Debug dump function.
+	 * Outputs the entire ranking object structure for debugging purposes.
+	 */
 	function dump() {
 		print("<pre>".print_r($this,1)."</pre>\n");
 	}
