@@ -124,17 +124,17 @@ function ShopShow($main, $message=NULL) {
 	print($goods->GetJavaScript("list_buy"));
 	print($goods->ShowSelect());
 
-	print('<form action="?shop" method="post">\n');
-	print('<div id="list_buy">'.$goods->ShowDefault().'</div>\n');
+	print('<form action="?shop" method="post">');
+	print('<div id="list_buy">'.$goods->ShowDefault().'</div>');
 	print('<input type="submit" class="btn" name="shop_buy" value="買">
 ');
-	print('Amount <input type="text" name="amount" style="width:60px" class="text vcent">(input if 2 or more)<br />\n');
+	print('Amount <input type="text" name="amount" style="width:60px" class="text vcent">(input if 2 or more)<br />');
 	print('<input type="hidden" name="shop_buy" value="1">
 ');
-	print('</form></div>\n');
+	print('</form></div>');
 
-	print("<h4>My Items<a name=\"sell\"></a></h4>\n");//所持物賣る
-	print('<div style="margin:0 20px">\n');
+	print("<h4>My Items<a name=\"sell\"></a></h4>");//所持物賣る
+	print('<div style="margin:0 20px">');
 	if($main->item) {
 		$goods    = new JS_ItemList();
 		$goods->SetID("JS_sell");
@@ -153,12 +153,12 @@ function ShopShow($main, $message=NULL) {
 		print($goods->GetJavaScript("list_sell"));
 		print($goods->ShowSelect());
 	
-		print('<form action="?shop" method="post">\n');
-		print('<div id="list_sell">'.$goods->ShowDefault().'</div>\n');
+		print('<form action="?shop" method="post">');
+		print('<div id="list_sell">'.$goods->ShowDefault().'</div>');
 		print('<input type="submit" class="btn" name="shop_sell" value="Sell">');
-		print('Amount <input type="text" name="amount" style="width:60px" class="text vcent">(input if 2 or more)\n');
+		print('Amount <input type="text" name="amount" style="width:60px" class="text vcent">(input if 2 or more)');
 		print('<input type="hidden" name="shop_sell" value="1">');
-		print('</form>\n');
+		print('</form>');
 	} else {
 		print("No items");
 	}
@@ -191,7 +191,7 @@ function ShopBuyProcess($main) {
 	print('<tr><td class="td6" style="text-align:center">價格</td>'.
 	'<td class="td6" style="text-align:center">數</td>'.
 	'<td class="td6" style="text-align:center">共計</td>'.
-	'<td class="td6" style="text-align:center">道具</td></tr>\n');
+	'<td class="td6" style="text-align:center">道具</td></tr>');
 	$moneyNeed    = 0;
 	$ShopList    = ShopList();
 	foreach($ShopList as $itemNo) {
@@ -234,7 +234,7 @@ function ShopBuyProcess($main) {
  * @param main $main 主物件
  */
 function ShopBuyShow($main) {
-	print('<div style="margin:15px">\n');
+	print('<div style="margin:15px">');
 	print("<h4>購買</h4>\n");
 
 print <<< JS_HTML
@@ -260,20 +260,20 @@ toggleCSS(id);
 </script>
 JS_HTML;
 
-	print('<form action="?menu=buy" method="post">\n');
+	print('<form action="?menu=buy" method="post">');
 	print("<table cellspacing=\"0\">
 ");
 	print('<tr><td class="td6"></td>'.
 	'<td style="text-align:center" class="td6">價格</td>'.
 	'<td style="text-align:center" class="td6">數</td>'.
-	'<td style="text-align:center" class="td6">道具</td></tr>\n');
+	'<td style="text-align:center" class="td6">道具</td></tr>');
 	$ShopList    = ShopList();
 	foreach($ShopList as $itemNo) {
 		$item    = LoadItemData($itemNo);
 		if(!$item) continue;
 		print("<tr><td class=\"td7\" id=\"i{$itemNo}a\">
 ");
-		print('<input type="checkbox" name="check_'.$itemNo.'" value="1" onclick="toggleCSS(\''.$itemNo.'\')">\n');
+		print('<input type="checkbox" name="check_'.$itemNo.'" value="1" onclick="toggleCSS(\''.$itemNo.'\')">');
 		print("</td><td class=\"td7\" id=\"i{$itemNo}b\" onclick=\"toggleCheckBox(\'{$itemNo}\')\">
 ");
 		// 買值
@@ -281,14 +281,14 @@ JS_HTML;
 		print(MoneyFormat($price));
 		print("</td><td class=\"td7\" id=\"i{$itemNo}c\">
 ");
-		print('<input type="text" id="text_'.$itemNo.'" name="amount_'.$itemNo.'" value="1" style="width:60px" class="text">\n');
+		print('<input type="text" id="text_'.$itemNo.'" name="amount_'.$itemNo.'" value="1" style="width:60px" class="text">');
 		print("</td><td class=\"td8\" id=\"i{$itemNo}d\" onclick=\"toggleCheckBox(\'{$itemNo}\')\">
 ");
 		print(ShowItemDetail($item));
 		print("</td></tr>\n");
 	}
 	print("</table>\n");
-	print('<input type="submit" name="ItemBuy" value="買" class="btn">\n');
+	print('<input type="submit" name="ItemBuy" value="買" class="btn">');
 	print("</form>\n");
 
 	print("</div>\n");
@@ -310,7 +310,7 @@ function ShopSellProcess($main) {
 	print('<tr><td class="td6" style="text-align:center">價格</td>'.
 	'<td class="td6" style="text-align:center">數</td>'.
 	'<td class="td6" style="text-align:center">共計</td>'.
-	'<td class="td6" style="text-align:center">道具</td></tr>\n');
+	'<td class="td6" style="text-align:center">道具</td></tr>');
 	foreach($main->item as $itemNo => $amountHave) {
 		if(!$_POST["check_".$itemNo])
 			continue;
@@ -346,7 +346,7 @@ function ShopSellProcess($main) {
  * @param main $main 主物件
  */
 function ShopSellShow($main) {
-	print('<div style="margin:15px">\n');
+	print('<div style="margin:15px">');
 	print("<h4>出售</h4>\n");
 
 print <<< JS_HTML
@@ -372,19 +372,19 @@ toggleCSS(id);
 </script>
 JS_HTML;
 
-	print('<form action="?menu=sell" method="post">\n');
+	print('<form action="?menu=sell" method="post">');
 	print("<table cellspacing=\"0\">
 ");
 	print('<tr><td class="td6"></td>'.
 	'<td style="text-align:center" class="td6">價格</td>'.
 	'<td style="text-align:center" class="td6">數</td>'.
-	'<td style="text-align:center" class="td6">道具</td></tr>\n');
+	'<td style="text-align:center" class="td6">道具</td></tr>');
 	foreach($main->item as $itemNo => $amount) {
 		$item    = LoadItemData($itemNo);
 		if(!$item) continue;
 		print("<tr><td class=\"td7\" id=\"i{$itemNo}a\">
 ");
-		print('<input type="checkbox" name="check_'.$itemNo.'" value="1" onclick="toggleCSS(\''.$itemNo.'\')">\n');
+		print('<input type="checkbox" name="check_'.$itemNo.'" value="1" onclick="toggleCSS(\''.$itemNo.'\')">');
 		print("</td><td class=\"td7\" id=\"i{$itemNo}b\" onclick=\"toggleCheckBox(\'{$itemNo}\')\">
 ");
 		// 價格
@@ -392,15 +392,15 @@ JS_HTML;
 		print(MoneyFormat($price));
 		print("</td><td class=\"td7\" id=\"i{$itemNo}c\">
 ");
-		print('<input type="text" id="text_'.$itemNo.'" name="amount_'.$itemNo.'" value="'.$amount.'" style="width:60px" class="text">\n');
+		print('<input type="text" id="text_'.$itemNo.'" name="amount_'.$itemNo.'" value="'.$amount.'" style="width:60px" class="text">');
 		print("</td><td class=\"td8\" id=\"i{$itemNo}d\" onclick=\"toggleCheckBox(\'{$itemNo}\')\">
 ");
 		print(ShowItemDetail($item,$amount));
 		print("</td></tr>\n");
 	}
 	print("</table>\n");
-	print('<input type="submit" name="ItemSell" value="Sell" class="btn" />\n');
-	print('<input type="hidden" name="ItemSell" value="1" />\n');
+	print('<input type="submit" name="ItemSell" value="Sell" class="btn" />');
+	print('<input type="hidden" name="ItemSell" value="1" />');
 	print("</form>\n");
 
 	print("</div>\n");

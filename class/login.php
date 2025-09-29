@@ -318,7 +318,7 @@ function CheckLogin($main) {
             $main->SetData($data);
             if(RECORD_IP)
                 $main->SetIp($_SERVER['REMOTE_ADDR']);
-            $main->RenewLoginTime();
+            RenewLoginTime($main);
 
             $pass	= isset($_POST["pass"]) ? $_POST["pass"] : (isset($_GET["pass"]) ? $_GET["pass"] : null);
             if ($pass) {//ちょうど今ログインするなら (Just logged in)

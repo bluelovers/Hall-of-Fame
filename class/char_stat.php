@@ -110,7 +110,7 @@
 					//if($char->ChangePattern($judge,$action)) {
 					if($char->PatternSave($judge,$quantity,$action)) {
 						$char->SaveCharData($main->id);
-						$main->CharTestDoppel();
+						CharTestDoppel($main);
 					}
 				break;
 			//	行動模式メモ(交換)

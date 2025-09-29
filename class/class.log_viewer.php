@@ -2,12 +2,12 @@
 
 //	全ランキングの表示
 function RankAllShow() {
-    print('<div style="margin:15px">\n');
-    print('<h4>Ranking - '.date("Y年n月j日 G:i:s").'</h4>\n');
+    print('<div style="margin:15px">');
+    print('<h4>Ranking - '.date("Y年n月j日 G:i:s").'</h4>');
     include(CLASS_RANKING);
     $Rank	= new Ranking();
     $Rank->ShowRanking();
-    print('</div>\n');
+    print('</div>');
 }
 
 //	戦闘ログの表示
@@ -166,7 +166,7 @@ function showBattleLog($no,$type=false) {
     $row    = 6;//ログの何行目から書き出すか?
     $time    = substr($log[0],0,10);
 
-    //print('<table style="width:100%;text-align:center" class="break"><tr><td>\n');
+    //print('<table style="width:100%;text-align:center" class="break"><tr><td>');
     print('<div style="padding:15px 0;width:100%;text-align:center" class="break">');
     print("<h2>battle log*</h2>");
     print("\nthis battle starts at<br />");
@@ -219,7 +219,7 @@ function HuntShow($main) {
             print("</div>");
         }
         print("</div>");
-        $main->ShowCharacters($Union);
+        ShowCharacters($Union);
     } else {
         print("</div>");
     }
@@ -291,7 +291,7 @@ function RankShow($main, &$Ranking) {
 <p>排名戰隊伍設定。<br />
 這裡設置排名戰隊伍。</p>
 </div>
-<?php $main->ShowCharacters($main->char,'CHECKBOX',explode("<>",$main->party_rank));?>
+<?php ShowCharacters($main->char,'CHECKBOX',explode("<>",$main->party_rank));?>
 
 <div style="margin:15px">
 <?php print $left_mes?>

@@ -30,7 +30,7 @@ function UnionProcess($main) {
 	// Union monster data
 	// ユニオンモンスタ一のデ一タ
 	$UnionMob	= CreateMonster($Union->MonsterNumber);
-	$main->MemorizeParty();// Remember the party // パ一ティ一記憶
+	MemorizeParty($main);// Remember the party // パ一ティ一記憶
 	// Your party
 	// 自分パ一ティ一
 	$MyParty = array();
@@ -70,9 +70,9 @@ function UnionProcess($main) {
 		$EneNum	= 5;// Fixed to 5 including Union // Union含めて5に固定する。
 
 	if($UnionMob["SlaveSpecify"])
-		$EnemyParty	= $main->EnemyParty($EneNum-1, $Union->Slave, $UnionMob["SlaveSpecify"]);
+		$EnemyParty	= EnemyParty($EneNum-1, $Union->Slave, $UnionMob["SlaveSpecify"], $main);
 	else
-		$EnemyParty	= $main->EnemyParty($EneNum-1, $Union->Slave, $UnionMob["SlaveSpecify"]);
+		$EnemyParty	= EnemyParty($EneNum-1, $Union->Slave, $UnionMob["SlaveSpecify"], $main);
 
 	// Insert unionMob approximately in the center of the array
 	// unionMobを配列のおよそ中央に入れる
@@ -130,12 +130,12 @@ function UnionShow($main) {
 		return false;
 	}
 	print('</div>');
-	$main->ShowCharacters(array($Union),false,"sea");
+	ShowCharacters(array($Union),false,"sea");
 	print('<div style="margin:15px">'."\n");
 	print("<h4>Teams</h4>\n");
 	print("</div>");
 	print('<form action="'.INDEX.'?union='.$_GET["union"].'" method="post">');
-	$main->ShowCharacters($main->char,CHECKBOX,explode("<>",$main->party_memo));
+	ShowCharacters($main->char,CHECKBOX,explode("<>",$main->party_memo));
 		?>
 <div style="margin:15px;text-align:center">
 <input type="submit" class="btn" value="戰鬥!">
