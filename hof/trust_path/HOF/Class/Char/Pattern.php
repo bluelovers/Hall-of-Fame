@@ -160,7 +160,7 @@ class HOF_Class_Char_Pattern
 
 			//debug($pattern_new);
 
-			$this->_pattern_plus(&$pattern_new);
+			$this->_pattern_plus($pattern_new);
 
 			if (!$skip_chk)
 			{
@@ -216,7 +216,7 @@ class HOF_Class_Char_Pattern
 		}
 		else
 		{
-			if ((!$v['judge'] || !$v['action']) && is_array($v) && count($v) == 3)
+			if (is_array($v) && count($v) == 3 && (!$v['judge'] || !$v['action']))
 			{
 				list($judge, $quantity, $action) = $v;
 
@@ -226,7 +226,7 @@ class HOF_Class_Char_Pattern
 				$v['action'] = $action;
 			}
 
-			if (!$v['judge'] || !$v['action'])
+			if (!is_array($v) || !$v['judge'] || !$v['action'])
 			{
 				return $check ? false : $this->_fix_pattern_item();
 			}

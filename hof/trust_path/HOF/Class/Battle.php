@@ -360,7 +360,7 @@ class HOF_Class_Battle extends HOF_Class_Base_Extend_Root
 		if ($skill)
 		{
 			//$this->UseSkill($skill, &$return, &$char, &$MyTeam, &$EnemyTeam);
-			$this->UseSkill($skill, &$return, &$char);
+			$this->UseSkill($skill, $return, $char);
 			// 行動できなかった場合の処理
 		}
 		else

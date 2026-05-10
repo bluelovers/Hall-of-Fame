@@ -138,7 +138,12 @@ class HOF_Class_Icon
 
 		$_icon_cache = HOF::cache()->data('icon_cache');
 
-		if ($_icon_cache[$dir][$pre . $no])
+		if (!is_array($_icon_cache))
+		{
+			$_icon_cache = array();
+		}
+
+		if (isset($_icon_cache[$dir]) && is_array($_icon_cache[$dir]) && $_icon_cache[$dir][$pre . $no])
 		{
 			return $_icon_cache[$dir][$pre . $no];
 		}
@@ -218,10 +223,15 @@ class HOF_Class_Icon
 				}
 			}
 
+			if (!isset($_icon_cache[$dir]) || !is_array($_icon_cache[$dir]))
+			{
+				$_icon_cache[$dir] = array();
+			}
+
 			$_icon_cache[$dir][$pre . $no] = $file;
 		}
 
-		if ($_icon_cache[$dir][$pre . $no])
+		if (isset($_icon_cache[$dir]) && is_array($_icon_cache[$dir]) && $_icon_cache[$dir][$pre . $no])
 		{
 			$ret = $_icon_cache[$dir][$pre . $no];
 		}

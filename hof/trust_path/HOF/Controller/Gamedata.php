@@ -48,7 +48,7 @@ class HOF_Controller_Gamedata extends HOF_Class_Controller
 
 				shuffle($skills);
 
-				$skills_key = array_rand((array)$skills, 3);
+				$skills_key = (array)array_rand((array)$skills, min(3, count((array)$skills)));
 
 				$data['skill'] = array();
 

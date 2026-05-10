@@ -8,7 +8,7 @@
 class HOF_Class_Yaml extends Symfony_Component_Yaml_Yaml
 {
 
-	const INLINE = 6;
+	const INLINE = 20;
 	static $auto_addslashes = false;
 	static $auto_fixarray = -1;
 

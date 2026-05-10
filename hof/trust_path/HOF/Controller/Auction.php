@@ -22,7 +22,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 
 		$this->user = &HOF::user();
 
-		$this->ItemAuction->user(&$this->user);
+		$this->ItemAuction->user($this->user);
 	}
 
 	function _main_before()
@@ -304,7 +304,7 @@ class HOF_Controller_Auction extends HOF_Class_Controller
 			return false;
 		}
 
-		if ($message = $this->ItemAuction->article_exhibit_price_check(&$this->input->StartPrice, $item))
+		if ($message = $this->ItemAuction->article_exhibit_price_check($this->input->StartPrice, $item))
 		{
 			$this->_msg_error($message);
 			return false;

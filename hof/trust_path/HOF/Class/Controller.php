@@ -414,10 +414,10 @@ abstract class HOF_Class_Controller
 
 		if ($this->options['escapeHtml'])
 		{
-			$this->_escapeHtml(&$this->output);
+			$this->_escapeHtml($this->output);
 		}
 
-		$content = HOF_Class_View::render($this, &$this->output, $this->template);
+		$content = HOF_Class_View::render($this, $this->output, $this->template);
 
 		if ($this->options['autoViewOutput'])
 		{
@@ -439,7 +439,7 @@ abstract class HOF_Class_Controller
 		}
 		else
 		{
-			$content = HOF_Class_View::render($this, &$this->output, $template, $content);
+			$content = HOF_Class_View::render($this, $this->output, $template, $content);
 		}
 
 		if ($this->options['autoViewOutputRender'])

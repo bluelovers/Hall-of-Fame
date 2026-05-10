@@ -405,7 +405,7 @@ class HOF_Class_Ranking extends HOF_Class_Base
 			$Rival = new HOF_Class_User($RivalID);
 			$Result = $this->RankBattle($user, $Rival, $MyRank[0], $RivalPlace);
 
-			$Return = $this->ProcessByResult($Result, &$user, &$Rival, $DefendMatch);
+			$Return = $this->ProcessByResult($Result, $user, $Rival, $DefendMatch);
 
 			$message = null;
 

@@ -124,9 +124,9 @@ class HOF_Controller_Rank extends HOF_Class_Controller
 			*/
 			//list($message,$BattleResult)	= $Rank->Challenge(&$this->user);
 			/*
-			$Result = $this->Ranking->Challenge(&$this->user);
+			$Result = $this->Ranking->Challenge($this->user);
 			*/
-			list($Result, $message) = $this->Ranking->Challenge(&$this->user);
+			list($Result, $message) = $this->Ranking->Challenge($this->user);
 
 			if (!$Result)
 			{

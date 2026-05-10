@@ -519,7 +519,7 @@ class HOF_Controller_Game extends HOF_Class_Controller
 				$this->_error('Character name is blank.');
 			}
 
-			if (!HOF_Helper_Char::char_is_allow_name(&$this->input->team_name) || !HOF_Helper_Char::char_is_allow_name(&$this->input->char_name, 1))
+			if (!HOF_Helper_Char::char_is_allow_name($this->input->team_name) || !HOF_Helper_Char::char_is_allow_name($this->input->char_name, 1))
 			{
 				$this->output->team_name = $this->input->team_name;
 				$this->output->char_name = $this->input->char_name;

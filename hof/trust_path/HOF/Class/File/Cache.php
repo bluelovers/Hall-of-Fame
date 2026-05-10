@@ -50,7 +50,11 @@ class HOF_Class_File_Cache
 		{
 			$this->data[$id] = HOF_Class_Yaml::load($this->fp[$id]);
 
-			if (empty($this->data[$id])) $this->data[$id] = array();
+			/**
+			 * 防衛：YAML 解析回傳非陣列型別（如字串）時，強制設為空陣列
+			 * Guard: when YAML parser returns non-array (e.g. string), force to empty array
+			 */
+			if (empty($this->data[$id]) || !is_array($this->data[$id])) $this->data[$id] = array();
 
 			$this->data[$id]['cache_id'] = $id;
 			$this->data[$id]['cache_file'] = $this->filname($id, false);
@@ -120,7 +124,7 @@ class HOF_Class_File_Cache
 			$this->data[$id]->cache_timestamp_last = (int)$this->data[$id]->cache_timestamp;
 			$this->data[$id]->cache_timestamp = time();
 
-			HOF_Class_Yaml::save(&$this->fp[$id], $this->data[$id]);
+			HOF_Class_Yaml::save($this->fp[$id], $this->data[$id]);
 		}
 	}
 

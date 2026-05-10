@@ -93,7 +93,7 @@ class HOF_Controller_Recruit extends HOF_Class_Controller
 
 				$name = $this->input->recruit_name;
 
-				if (!HOF_Helper_Char::char_is_allow_name(&$name, 1))
+				if (!HOF_Helper_Char::char_is_allow_name($name, 1))
 				{
 					$this->_error("名前が短すぎるか長すぎです", "margin15");
 					return false;

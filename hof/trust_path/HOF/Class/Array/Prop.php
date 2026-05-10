@@ -35,7 +35,7 @@ class HOF_Class_Array_Prop extends ArrayObject
 				}
 				else
 				{
-					$this->offsetSet($k, &$this->$k);
+					$this->offsetSet($k, $this->$k);
 				}
 			}
 		}
@@ -77,7 +77,7 @@ class HOF_Class_Array_Prop extends ArrayObject
 
 		$arr = $this->getArrayCopy();
 
-		array_unshift($args, &$arr);
+		array_unshift($args, $arr);
 
 		$return = call_user_func_array(__FUNCTION__, $args);
 
@@ -92,7 +92,7 @@ class HOF_Class_Array_Prop extends ArrayObject
 
 		$arr = $this->getArrayCopy();
 
-		array_unshift($args, &$arr);
+		array_unshift($args, $arr);
 
 		$return = call_user_func_array(__FUNCTION__, $args);
 
@@ -205,7 +205,7 @@ class HOF_Class_Array_Prop extends ArrayObject
 
 		$arr = (array )$this->getArrayCopy();
 
-		array_unshift($argv, &$arr);
+		array_unshift($argv, $arr);
 
 		$return = call_user_func_array(__FUNCTION__, $argv);
 
