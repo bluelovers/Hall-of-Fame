@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit bootstrap="phpunit/Bootstrap.php"
+         colors="true"
+         verbose="true"
+         convertErrorsToExceptions="false"
+         convertNoticesToExceptions="false"
+         convertWarningsToExceptions="false">
+    <testsuites>
+        <testsuite name="HOF Pattern Test Suite">
+            <directory>phpunit</directory>
+        </testsuite>
+    </testsuites>
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="false">
+            <!-- 指定原始碼目錄 -->
+            <directory suffix=".php">./</directory>
+            <!-- 排除測試資料夾和隱藏目錄，避免測試程式被當作受測代碼 -->
+            <exclude>
+                <directory suffix=".php">./test</directory>
+                <!-- 如果 bin 目錄也有 php 檔案也可以排除 -->
+                <directory suffix=".php">./bin</directory>
+                <directory>**/.codenomad</directory>
+                <directory>**/^.*</directory>
+                <file>**/^.*</file>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>

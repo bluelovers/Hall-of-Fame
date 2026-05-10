@@ -115,11 +115,12 @@ develop5/
 │   ├── test_bootstrap.php           # Bootstrap 測試
 │   ├── test_info.php                # PHP 資訊頁
 │   ├── favicon.ico
-│   ├── includes/                    # ★ 外部函式庫 / Stub
-│   │   ├── Zend/                    # Zend Framework 1 Stub
-│   │   └── Symfony/                 # Symfony YAML Stub
 │   ├── static/                      # 靜態資源
 │   └── trust_path/                  # ★ 專案核心目錄
+│       ├── bin/                     # ★ 開發工具（PHP CLI 包裝、PHPUnit）
+│       │   ├── php.bat              # PHP CLI 包裝腳本
+│       │   ├── phpunit-5.7.27.phar  # PHPUnit 5.7.27（對應 PHP 5.6.32）
+│       │   └── phpunit-11.5.55.phar # PHPUnit 11.x（其他分支或參考用）
 │       ├── bootstrap.php            # 啟動載入腳本
 │       ├── HOF.php                  # HOF 主類別（Singleton）
 │       ├── config/
@@ -147,7 +148,9 @@ develop5/
 │       │       ├── Union/           # 工會設定
 │       │       ├── Guard/           # 守衛設定
 │       │       └── Color.dat        # 顏色資料
-│       └── user/                    # 使用者資料（.gitignore）
+│       ├── user/                    # 使用者資料（.gitignore）
+│       ├── Zend/                    # Zend Framework 1 Stub
+│       └── Symfony/                 # Symfony YAML Stub
 ```
 
 ### 關鍵入口檔案
@@ -350,6 +353,134 @@ config/setting.dist.php (強制，版本控管，所有預設設定)
 | `hof/taskill-port.bat` | 終止 PHP 行程（批次檔，呼叫 .ps1） |
 | `hof/taskill-port.ps1` | 終止 PHP 行程（PowerShell，支援 `-Port` 參數，預設 8085） |
 | `debug-cls.bat` | 清除專案內所有 `~*` 暫存檔 |
+
+### 開發工具 (trust_path/bin)
+
+位於 `hof/trust_path/bin/`，提供與 PHP 執行環境相關的開發工具。
+
+| 檔案 | 用途 |
+|------|------|
+| `php.bat` | PHP CLI 包裝腳本，直接呼叫目前專案使用的 PHP 5.6.32 執行檔 |
+| `phpunit-5.7.27.phar` | PHPUnit **5.7.27**（對應 PHP 5.6.32 的最新相容版本） |
+| `php-test.bat` | PHPUnit 測試執行器，自動執行 `hof/trust_path/test/` 目錄下的所有測試 |
+
+#### php.bat — PHP CLI 包裝
+
+`php.bat` 是 PHP CLI 的專案本機包裝（wrapper），免除每次輸入完整 PHP 路徑的麻煩：
+
+```batch
+:: 等同於執行 PHP 5.6.32
+php.bat -v
+php.bat script.php
+php.bat -r "echo phpversion();"
+```
+
+此腳本會自動代理至 `D:\Users\WebstormProjects\php\bin\php-5.6.32-nts-Win32-VC11-x64\php.exe`，所有參數皆原樣傳遞。
+
+> **原則：** 優先使用 `php.bat` 而非直接指定 PHP 絕對路徑，以確保團隊成員都使用相同的 PHP 版本。
+
+#### PHPUnit
+
+專案目前使用 **PHPUnit 5.7.27**（與 PHP 5.6.32 相容的最終主要版本），以 `.phar` 形式存放於 `bin/` 目錄：
+
+```bash
+:: 確認 PHPUnit 版本
+php.bat hof/trust_path/bin/phpunit-5.7.27.phar --version
+
+:: 執行所有測試（測試位於 trust_path/test/）
+php.bat hof/trust_path/bin/phpunit-5.7.27.phar hof/trust_path/test/
+```
+
+所有測試皆建立於 `hof/trust_path/test/` 目錄下。
+
+> **注意：** 目錄中另含 `phpunit-11.5.55.phar`，此為較新版本（PHPUnit 11.x），**不適用於 PHP 5.6.32**，僅供其他分支或參考用途。
+
+#### php-test.bat — PHPUnit 測試執行器
+
+`php-test.bat` 是專案的 PHPUnit 測試自動執行腳本，簡化測試流程：
+
+```batch
+:: 執行所有測試（推薦方式）
+php-test
+
+:: 執行特定測試檔案
+php-test phpunit/PatternTest.php
+:: 執行特定測試目錄
+php-test phpunit/
+
+:: 執行特定測試類別
+php-test --filter PatternTest
+
+:: 顯示詳細輸出
+php-test --verbose
+
+:: 執行測試並產生覆蓋率報告
+php-test-coverage
+:: 執行特定測試類別並產生覆蓋率報告
+php-test-coverage --filter PatternTest
+:: 執行特定測試檔案並產生覆蓋率報告
+php-test-coverage phpunit/PatternTest.php
+:: 執行特定測試目錄並產生覆蓋率報告
+php-test-coverage phpunit/
+```
+
+**腳本特性：**
+
+| 特性 | 說明 |
+|------|------|
+| **自動目錄切換** | 自動切換到 `hof/trust_path/test/` 目錄執行 |
+| **設定檔載入** | 自動載入 `phpunit.xml` 設定檔 |
+| **環境資訊顯示** | 顯示當前時間、工作目錄、傳遞參數 |
+| **結果統計** | 自動統計並顯示測試通過/失敗狀態 |
+| **錯誤代碼回傳** | 回傳 PHPUnit 原始退出代碼，便於 CI/CD 整合 |
+
+**使用範例：**
+
+```batch
+:: 範例 1: 執行所有測試
+cd hof/trust_path/bin
+php-test
+
+:: 範例 2: 執行特定測試檔案
+php-test HOF/Controller/GameTest.php
+
+:: 範例 3: 執行特定測試方法
+php-test --filter testLogin
+
+:: 範例 4: 顯示所有測試的詳細資訊
+php-test --verbose --debug
+
+:: 範例 5: 執行測試並產生覆蓋率報告
+php-test --coverage-html coverage-report
+```
+
+**參數傳遞：**
+
+所有傳遞給 `php-test` 的參數都會原樣轉發給 PHPUnit，例如：
+
+```batch
+php-test --filter UserTest --verbose
+```
+
+相當於：
+
+```batch
+php.bat phpunit-5.7.27.phar -c test/phpunit.xml test --filter UserTest --verbose
+```
+
+**與手動執行的比較：**
+
+| 方式 | 指令 | 優點 | 缺點 |
+|------|------|------|------|
+| **php-test.bat** | `php-test` | 簡潔、自動目錄切換、資訊顯示 | 固定使用 phpunit.xml |
+| **手動執行** | `php.bat phpunit-5.7.27.phar test` | 完全控制參數 | 需手動指定路徑與設定檔 |
+
+**注意事項：**
+
+- 腳本預設使用 `hof/trust_path/test/phpunit.xml` 作為設定檔
+- 若需自訂設定檔或執行特定測試，可使用手動方式執行 PHPUnit
+- 測試結果的覆蓋率報告可透過 `--coverage-html` 參數產生
+- 腳本最後會暫停等待按鍵，便於查看測試結果
 
 ### PowerShell 腳本參數
 

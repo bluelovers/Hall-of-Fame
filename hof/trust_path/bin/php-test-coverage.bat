@@ -1,0 +1,1 @@
+"%~dp0php-test.bat" %* --coverage-html coverage-report
