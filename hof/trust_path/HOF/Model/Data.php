@@ -387,14 +387,21 @@ class HOF_Model_Data extends HOF_Class_Data
 							{
 								$ok = -1;
 
-								foreach ($_data as $_k => $_v)
+								/**
+								 * 確保 $_data 為陣列才進行迭代
+								 * Ensure $_data is an array before iterating
+								 */
+								if (is_array($_data))
 								{
-									$ok = 1;
-
-									if (!$user->item[$_k] || $user->item[$_k] < $_v)
+									foreach ($_data as $_k => $_v)
 									{
-										$ok = 0;
-										break;
+										$ok = 1;
+
+										if (!$user->item[$_k] || $user->item[$_k] < $_v)
+										{
+											$ok = 0;
+											break;
+										}
 									}
 								}
 
@@ -415,14 +422,21 @@ class HOF_Model_Data extends HOF_Class_Data
 							{
 								$ok = -1;
 
-								foreach ($_data as $_k => $_v)
+								/**
+								 * 確保 $_data 為陣列才進行迭代
+								 * Ensure $_data is an array before iterating
+								 */
+								if (is_array($_data))
 								{
-									$ok = 1;
-
-									if (HOF_Helper_Global::gc_date($_k) != $_v)
+									foreach ($_data as $_k => $_v)
 									{
-										$ok = 0;
-										break;
+										$ok = 1;
+
+										if (HOF_Helper_Global::gc_date($_k) != $_v)
+										{
+											$ok = 0;
+											break;
+										}
 									}
 								}
 

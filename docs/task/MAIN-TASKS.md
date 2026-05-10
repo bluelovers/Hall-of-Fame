@@ -9,16 +9,18 @@
 
 | 欄位 | 內容 |
 |------|------|
-| 狀態 | 🔴 **未修復** |
+| 狀態 | ✅ **已修復** |
 | 優先級 | **高** |
 | 檔案 | `HOF/Model/Data.php` |
 | 函式 | `getLandAppear()` |
 | 行號 | 390 與 418 |
 | 類型 | Warning / 潛在 Crashi |
 | 症狀 | `foreach() argument must be of type array|object, string given` in `getLandAppear()` |
-| 根因 | `$_data = $this->getAll()` 可能回傳 `false` 或非陣列值，但 `foreach($_data as $_k => $_v)` 未做 `is_array()` 檢查 |
+| 根因 | `(array)` 轉型 wrap 後的內層值可能是純量（如字串），導致內層 `foreach($_data as $_k => $_v)` 收到非陣列 |
 | 修復方案 | 在兩處 inner foreach 前加入 `if (is_array($_data))` 守衛條件 |
 | 相關函式 | `getAll()` (同檔案), HOF 的 Model/Data YAML 緩存層 |
+| 修復日期 | 2026-05-10 |
+| 紀錄檔案 | `docs/log/issues/2026-05-10-BUG-001.md` |
 
 ---
 
@@ -26,15 +28,16 @@
 
 | 欄位 | 內容 |
 |------|------|
-| 狀態 | 🔴 **未修復** |
+| 狀態 | 🟡 **調查中（正常流程無法重現）** |
 | 優先級 | **高** |
 | 症狀 | `include(...tpl//char.judge.php): failed to open stream` |
 | 錯誤路徑 | `tpl/char.judge.php`（缺少子目錄 `char/`）|
 | 實際路徑 | `tpl/char/char.judge.php` |
-| 根本原因 | View.php 計算 `template_file` 路徑時邏輯不正確 |
+| 根本原因 | View.php `_getTplFile()` 產生的路徑不含子目錄 |
 | 影響範圍 | 使用 `?char=hash` 參數進入 Judge 頁面時會報錯 |
-| 是否需要 View.php 原始碼調查 | 是 |
-| 備註 | 需要比較 `char.judge.php` vs `char\.*.php` 其他模板的載入方式差異 |
+| 分析結果 | `char.action.php` 透過 `$this->slot('char/char.judge')` 正確載入（含子目錄）。導覽列中無 direct judge 連結。`Gamedata` 控制器有獨立 `_main_action_judge()`，使用 `tpl/gamedata.judge.php`（正常）。正常流程下無法重現此錯誤。 |
+| 是否需要 View.php 原始碼調查 | 否（流程已釐清）|
+| 備註 | 可能為非預期操作路徑（如直接輸入 URL `?controller=char&action=judge&char=hash`）導致 action 設為 `judge` 但無對應處理方法，經由 `_main_view()` 自動產生了 `char.judge` 模板名稱 |
 
 ---
 
@@ -84,9 +87,10 @@
 
 | 欄位 | 內容 |
 |------|------|
-| 狀態 | ⏳ **待處理** |
+| 狀態 | ✅ **已完成** |
 | 優先級 | **高** |
 | 說明 | 在 `getLandAppear()` 函式的兩處 inner foreach 加入 `is_array()` 守衛 |
+| 完成日期 | 2026-05-10 |
 
 ---
 
@@ -141,4 +145,7 @@
 2026-05-10 Phase 2: 三場戰鬥測試 → Pattern 未觸發
 2026-05-10 Phase 3: 發現 Data.php Warning + View.php 模板路徑錯誤
 2026-05-10 Phase 4: 建立任務追蹤清單
+2026-05-10 Phase 5: BUG-001 修復完成 (Data.php foreach is_array guard)
+2026-05-10 Phase 5: BUG-002 分析完成 (正常流程無法重現, slot 路徑正確)
+2026-05-10 Phase 5: 開始 TASK-001 Pattern 持久化檢查 + BUG-003 Battle AI 調查
 ```
