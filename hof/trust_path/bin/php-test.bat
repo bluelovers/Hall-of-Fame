@@ -10,6 +10,8 @@ rem ========================================
 rem Change to test directory (relative to script location)
 cd /d "%~dp0..\test"
 
+rem https://xdebug.org/download/historical
+rem https://downloads.php.net/~windows/pecl/releases/xdebug/2.2.7/
 set XDEBUG_OPTS=
 for %%a in (%*) do (
     if "%%a"=="--coverage-html" (
