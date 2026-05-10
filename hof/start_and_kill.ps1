@@ -15,6 +15,11 @@
     # 支援 -Timeout, --timeout, -t, --t
     [Alias("t")]
     [int]$Timeout = 10
+
+    # 新增 Xdebug 開關偵測
+    # 支援 -Xdebug 或由使用者手動傳入包含 coverage 的參數
+    [Alias("x")]
+    [switch]$Xdebug
 )
 
 [Console]::OutputEncoding = [System.Text.Encoding]::UTF8
@@ -69,10 +74,14 @@ function Get-WebPageSnapshot {
 }
 
 # 1. 設定變數
-$PHP_PATH = "D:\Users\WebstormProjects\php\bin\php-5.6.32-nts-Win32-VC11-x64\php.exe"
-$PHP_EXT_DIR = "D:\Users\WebstormProjects\php\bin\php-5.6.32-nts-Win32-VC11-x64\ext"
 $SERVER_PORT = $Port
 $PROJECT_DIR = $PSScriptRoot
+
+$PHP_PATH_DIR = "D:\Users\WebstormProjects\php\bin\php-5.6.32-nts-Win32-VC11-x64"
+
+$PHP_PATH = Join-Path $PHP_PATH_DIR "php.exe"
+$PHP_EXT_DIR = Join-Path $PHP_PATH_DIR "ext"
+$XDEBUG_DLL = Join-Path $PSScriptRoot "trust_path/bin/php_xdebug-2.2.7-5.6-nts-vc11-x64.dll"
 
 $LOG_FILE = Join-Path $PROJECT_DIR "server_output.log"
 $ERR_FILE = Join-Path $PROJECT_DIR "server_error.log"
@@ -91,6 +100,18 @@ if (-not (Test-Path $PHP_PATH)) {
     exit
 }
 
+# --- Xdebug 動態配置 (參考 php-test 邏輯) ---
+$XDEBUG_OPTS = ""
+# 只要有下 -Xdebug 開關，或者使用者參數中有 coverage 關鍵字就啟動
+if ($Xdebug -or ($MyInvocation.BoundParameters.Values -match "coverage")) {
+    if (Test-Path $XDEBUG_DLL) {
+        $XDEBUG_OPTS = "-d zend_extension=`"$XDEBUG_DLL`" -d xdebug.coverage_enable=1"
+        Write-Host "[啟動] Xdebug 已掛載" -ForegroundColor Yellow
+    } else {
+        Write-Host "[警告] 找不到 Xdebug DLL: $XDEBUG_DLL" -ForegroundColor Red
+    }
+}
+
 # 清空日誌
 try { $null | Out-File -FilePath $LOG_FILE -Confirm:$false -ErrorAction SilentlyContinue } catch {}
 try { $null | Out-File -FilePath $ERR_FILE -Confirm:$false -ErrorAction SilentlyContinue } catch {}
@@ -98,7 +119,12 @@ try { $null | Out-File -FilePath $ERR_FILE -Confirm:$false -ErrorAction Silently
 # 2. 啟動 PHP 伺服器
 try {
     # 將 $Port 變數帶入啟動參數，使用 -c 參數指定 php.ini 目錄
-    $argString = "-c `"$PROJECT_DIR`" -S 0.0.0.0:$Port -t `"$PROJECT_DIR`" `"$PROJECT_DIR\server_router.php`""
+    # 將 $XDEBUG_OPTS 加入啟動參數
+    $argString = "$XDEBUG_OPTS -c `"$PROJECT_DIR`" -S 0.0.0.0:$Port -t `"$PROJECT_DIR`" `"$PROJECT_DIR\server_router.php`""
+
+    # 輸出完整的啟動指令方便除錯 (Debug 用)
+    Write-Host "執行參數: $argString" -ForegroundColor Gray
+
     $phpProc = Start-Process -FilePath $PHP_PATH `
         -ArgumentList $argString `
         -RedirectStandardOutput $LOG_FILE `
