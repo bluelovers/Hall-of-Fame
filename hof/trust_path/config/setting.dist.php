@@ -1,13 +1,13 @@
 <?php
 
-define('BASE_URL_ROOT', '/'.trim(dirname($_SERVER['PHP_SELF']), '/').'/');
+define('BASE_URL_ROOT', rtrim(str_replace('\\', '/', dirname($_SERVER['PHP_SELF'])), '/') . '/');
 
 define('BASE_URL', 'http' . ($_SERVER['HTTPS'] ? 's' : '') . '://' . $_SERVER['SERVER_NAME'] . (((!$_SERVER['HTTPS'] && $_SERVER['SERVER_PORT'] == 80) || ($_SERVER['HTTPS'] && $_SERVER['SERVER_PORT'] == 8080)) ? '' : ':' . $_SERVER['SERVER_PORT']) . BASE_URL_ROOT);
 
 define('BASE_URL_REWRITE', true);
 
-//define('BASE_PATH', str_replace('\\', '/', dirname(__FILE__)) . '/../../');
-define('BASE_PATH', Sco_File_Format::dirname(__FILE__, '../../', 1));
+define('BASE_PATH', str_replace('\\', '/', dirname(__FILE__)) . '/../../');
+//define('BASE_PATH', Sco_File_Format::dirname(__FILE__, '../../', 1));
 
 define('BASE_TRUST_PATH', BASE_PATH . 'trust_path/');
 
