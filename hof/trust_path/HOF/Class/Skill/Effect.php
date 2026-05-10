@@ -64,8 +64,11 @@ class HOF_Class_Skill_Effect
 
 	/**
 	 * 使用者が対象者にスキルを使う
+	 *
+	 * 注意：$char 與 $target 為物件，PHP 5 中物件自動以參考傳遞
+	 * Note: $char and $target are objects, in PHP 5 objects are automatically passed by reference
 	 */
-	function SkillEffect($skill, $skill_no, &$char, &$target)
+	function SkillEffect($skill, $skill_no, $char, $target)
 	{
 		if ($target === false)
 		{

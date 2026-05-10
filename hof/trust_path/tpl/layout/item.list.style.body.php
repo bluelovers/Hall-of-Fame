@@ -23,7 +23,7 @@
 			(function($){
 
 				$('select[data-item]')
-					.live('change', function(){
+					.on('change', function(){
 						var _this = $(this);
 
 						var div = $('#' + _this.attr('data-target') + ' > div[data-type]').show();
