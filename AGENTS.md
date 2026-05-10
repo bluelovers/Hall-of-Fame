@@ -376,9 +376,9 @@ config/setting.dist.php (強制，版本控管，所有預設設定)
 ./hof/start_and_kill.bat -NoKill         # 長期執行（需手動關閉）
 ```
 
-#### Agent 常見錯誤 — 禁止事項
+#### 常見錯誤 — 禁止事項
 
-以下為 Agent 反覆犯錯的行為，**嚴格禁止**：
+以下為常見錯誤反覆發生的行為，**嚴格禁止**：
 
 - ❌ **禁止直接呼叫 `powershell` 執行腳本**（如 `powershell -ExecutionPolicy Bypass -File start_and_kill.ps1`）
   - 一律使用 `taskill-port.bat && start_and_kill.bat` 間接呼叫
@@ -387,7 +387,6 @@ config/setting.dist.php (強制，版本控管，所有預設設定)
   - 應使用 `taskill-port.bat && start_and_kill.bat` 一次完成
 - ❌ **禁止在伺服器完成後刻意執行關閉指令**
   - 啟動時已用 `&&` 串聯關閉，結束後無需再次執行 taskill-port
-  - 除非要重新啟動，才需要再次使用組合命令
 
 ### 瀏覽器互動測試流程
 
