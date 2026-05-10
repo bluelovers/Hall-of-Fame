@@ -1,10 +1,10 @@
 @echo off
 
-echo ถ}ฉlฒMฐฃธ๊ฎฦ..
+echo ้–ๅงๆธ…้ค่ณๆ–..
 
 cd .\hof
 
 del /S /q ~*
 
-echo .งนฆจ.
+echo .ๅฎๆ.
 pause
