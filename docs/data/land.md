@@ -14,7 +14,7 @@ land:                    # 基礎資訊
     name: 古の洞窟       # 中文名稱
     name0: TheAncientCave # 英文名稱
     land: cave           # 地形類型
-    proper: 'Lv??'       # 適合等級
+    proper: 'Lv??'       # 適合等級（Lv?? 為故意設計，非缺漏，請參照 docs/log/battle/01-battle-system.md 說明）
 monster:                 # 怪物分布
     1010:
         - 0
