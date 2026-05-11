@@ -41,21 +41,20 @@
 
 ---
 
-## BUG-003: AI Pattern 設定後戰鬥未觸發技能
+## BUG-003: AI Pattern 無法持久化 — 設定後重新載入頁面恢復為預設值
 
 | 欄位 | 內容 |
 |------|------|
-| 狀態 | 🔴 **未修復** |
+| 狀態 | 🔴 **調查中（根因範圍已縮小至 LOAD 流程）** |
 | 優先級 | **高** |
-| 設定確認 | 已儲存（收到「パターン設定保存 完了」） |
-| 症狀 | 戰鬥中 Hero1 (Lv.2 Warrior) 只普通攻擊，從不使用任何技能 |
-| Pattern 設定 | Pattern 1: HP <= 25% → Skill "回復の祈り" |
-| | Pattern 2: HP <= 50% → Skill "回復の祈り" |
-| 測試戰鬥 | Lv.1 ゴブリン / Lv.3 シルバーウルフ / Lv.5 フレイムスピリット（均未觸發） |
-| 預調查事項 | 1️⃣ 先確認角色資料檔案中 pattern 設定是否真正被持久化儲存 |
-| | 2️⃣ 再深入 Battle.php 行動選擇引擎的 AI 決策邏輯 |
-| | 3️⃣ 檢查 skill ID 是否正確對應（"回復の祈り"） |
-| 相關檔案 | `HOF/Class/Battle.php`, `HOF/Controller/Char.php`, 角色資料檔案 |
+| 症狀 | Pattern 設定後顯示「パターン設定保存 完了」，但重新載入頁面後恢復為預設值（必ず→Attack） |
+| 調查發現 1 | ✅ YAML 儲存正常！`saveCharData()` → `HOF_Class_Yaml::save()` 正確寫入 |
+| 調查發現 2 | ✅ YAML 檔案未被覆寫！重新載入後再次讀取，資料仍然正確 |
+| 調查發現 3 | ❌ 問題在 LOAD 流程 — GET 請求時頁面顯示的 pattern 與 YAML 不一致 |
+| 根因方向 | `char_detail()` / `$this->output->char` 設定方式導致模板讀取到錯誤資料 |
+| YAML 路徑 | `dat/user/demo/char.b3e304903f09e14b8386a49a1e1e01e3.yml` |
+| 確認資料 | `pattern: [{judge: "1101", quantity: "25", action: "3120"}, ...]` |
+| 紀錄檔案 | `docs/log/issues/2026-05-10-BUG-003.md` |
 
 ---
 
@@ -63,10 +62,10 @@
 
 | 欄位 | 內容 |
 |------|------|
-| 狀態 | ⏳ **待處理** |
+| 狀態 | ✅ **已完成** |
 | 優先級 | **高** |
-| 說明 | 在修復模板路徑 BUG-002 前，需直接讀取角色儲存檔案確認 pattern 是否有被寫入 |
-| 預期資料位置 | `trust_path/user/` 或 `trust_path/dat/` 下的角色 hash 對應檔案 |
+| 說明 | ✅ YAML 檔案正確寫入 pattern。檔案路徑：`dat/user/demo/char.b3e304903f09e14b8386a49a1e1e01e3.yml` |
+| 結論 | SAVE 流程正常，問題在 LOAD/顯示流程 |
 
 ---
 
@@ -94,13 +93,16 @@
 
 ---
 
-## TASK-004: 深入調查 Battle.php AI 決策邏輯
+## TASK-004: 深入調查 Pattern LOAD/顯示流程（取代原 Battle AI 調查）
 
 | 欄位 | 內容 |
 |------|------|
-| 狀態 | ⏳ **待處理** |
-| 優先級 | **高**（僅在確認 Pattern 儲存成功後執行）|
-| 範圍 | 行動選擇引擎、Pattern 讀取、skill ID 對應、回合觸發條件 |
+| 狀態 | 🔴 **進行中** |
+| 優先級 | **高** |
+| 調查方向 | 1. `char_detail()` 如何設定 `$this->output->char` |
+| | 2. `$this->output->char` vs `$this->char` 是否為同一物件 |
+| | 3. `HOF_Class_Char_Type_Char::__get()` 魔術方法是否影響 pattern 讀取 |
+| | 4. 模板 `char.judge.php:13` 的 `$this->output->char->pattern_item($i)` 為何回傳錯誤資料 |
 
 ---
 
@@ -148,4 +150,7 @@
 2026-05-10 Phase 5: BUG-001 修復完成 (Data.php foreach is_array guard)
 2026-05-10 Phase 5: BUG-002 分析完成 (正常流程無法重現, slot 路徑正確)
 2026-05-10 Phase 5: 開始 TASK-001 Pattern 持久化檢查 + BUG-003 Battle AI 調查
+2026-05-10 Phase 6: TASK-001 完成 — YAML 儲存正常，問題轉向 LOAD/顯示流程
+2026-05-10 Phase 6: BUG-003 根因範圍縮小 — 問題在 char_detail() / $this->output->char 設定方式
+2026-05-10 Phase 6: 建立 BUG-003 完整紀錄 (docs/log/issues/)、Action 頁面說明 (docs/log/pages/15-char-action.md)、瀏覽器測試記錄 (docs/log/records/)
 ```
