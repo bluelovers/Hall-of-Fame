@@ -1,23 +1,40 @@
 <?php
 
 /**
+ * 角色顯示類別
+ * Character display class
+ *
  * @author bluelovers
  * @copyright 2012
  */
-
 class HOF_Class_Char_View
 {
-
+	/** 角色物件 / Character object */
 	protected $char;
 
+	/**
+	 * 建構函式
+	 * Constructor
+	 *
+	 * @param mixed $char - 角色物件 / Character object
+	 */
 	function __construct($char)
 	{
 		$this->char = $char;
 	}
 
-	//	キャラステータスの一番上のやつ。
+	/**
+	 * 顯示角色詳細資訊（狀態欄位）
+	 * Display character detailed information (status section)
+	 *
+	 * キャラステータスの一番上のやつ。
+	 */
 	function ShowCharDetail()
 	{
+		/**
+		 * 計算 HP 和 SP 的加成值
+		 * Calculate HP and SP bonus values
+		 */
 		$P_MAXHP = round($this->char->maxhp * $this->char->M_MAXHP / 100) + $this->char->P_MAXHP;
 		$P_MAXSP = round($this->char->maxsp * $this->char->M_MAXSP / 100) + $this->char->P_MAXSP;
 
@@ -26,6 +43,10 @@ class HOF_Class_Char_View
 <table>
 <tr><td valign="top" style="width:180px"><?php
 
+		/**
+		 * 顯示角色連結
+		 * Display character link
+		 */
 		$this->char->ShowCharLink();
 
 
@@ -34,88 +55,152 @@ class HOF_Class_Char_View
 <table border="0" cellpadding="0" cellspacing="0">
 <tr><td style="text-align:right">Exp :&nbsp;</td><td><?=
 
+		/**
+		 * 顯示當前經驗值
+		 * Display current experience
+		 */
 		$this->char->exp
 
 
 ?>/<?=
 
+		/**
+		 * 顯示升級所需經驗值
+		 * Display experience needed for level up
+		 */
 		$this->char->CalcExpNeed()
 
 
 ?></td></tr>
 <tr><td style="text-align:right">HP :&nbsp;</td><td><?=
 
+		/**
+		 * 顯示基礎 HP
+		 * Display base HP
+		 */
 		$this->char->maxhp
 
 
 ?><?php
 
+		/**
+		 * 如果有 HP 加成則顯示
+		 * Display HP bonus if exists
+		 */
 		if ($P_MAXHP) print (" + {$P_MAXHP}");
 
 
 ?></td></tr>
 <tr><td style="text-align:right">SP :&nbsp;</td><td><?=
 
+		/**
+		 * 顯示基礎 SP
+		 * Display base SP
+		 */
 		$this->char->maxsp
 
 
 ?><?php
 
+		/**
+		 * 如果有 SP 加成則顯示
+		 * Display SP bonus if exists
+		 */
 		if ($P_MAXSP) print (" + {$P_MAXSP}");
 
 
 ?></td></tr>
 <tr><td style="text-align:right">STR :&nbsp;</td><td><?=
 
+		/**
+		 * 顯示力量屬性
+		 * Display strength attribute
+		 */
 		$this->char->str
 
 
 ?><?php
 
+		/**
+		 * 如果有力量加成則顯示
+		 * Display strength bonus if exists
+		 */
 		if ($this->char->P_STR) print (" + {$this->char->P_STR}");
 
 
 ?></td></tr>
 <tr><td style="text-align:right">INT :&nbsp;</td><td><?=
 
+		/**
+		 * 顯示智力屬性
+		 * Display intelligence attribute
+		 */
 		$this->char->int
 
 
 ?><?php
 
+		/**
+		 * 如果有智力加成則顯示
+		 * Display intelligence bonus if exists
+		 */
 		if ($this->char->P_INT) print (" + {$this->char->P_INT}");
 
 
 ?></td></tr>
 <tr><td style="text-align:right">DEX :&nbsp;</td><td><?=
 
+		/**
+		 * 顯示敏捷屬性
+		 * Display dexterity attribute
+		 */
 		$this->char->dex
 
 
 ?><?php
 
+		/**
+		 * 如果有敏捷加成則顯示
+		 * Display dexterity bonus if exists
+		 */
 		if ($this->char->P_DEX) print (" + {$this->char->P_DEX}");
 
 
 ?></td></tr>
 <tr><td style="text-align:right">SPD :&nbsp;</td><td><?=
 
+		/**
+		 * 顯示速度屬性
+		 * Display speed attribute
+		 */
 		$this->char->spd
 
 
 ?><?php
 
+		/**
+		 * 如果有速度加成則顯示
+		 * Display speed bonus if exists
+		 */
 		if ($this->char->P_SPD) print (" + {$this->char->P_SPD}");
 
 
 ?></td></tr>
 <tr><td style="text-align:right">LUK :&nbsp;</td><td><?=
 
+		/**
+		 * 顯示幸運屬性
+		 * Display luck attribute
+		 */
 		$this->char->luk
 
 
 ?><?php
 
+		/**
+		 * 如果有幸運加成則顯示
+		 * Display luck bonus if exists
+		 */
 		if ($this->char->P_LUK) print (" + {$this->char->P_LUK}");
 
 
@@ -124,6 +209,10 @@ class HOF_Class_Char_View
 </td><td valign="top">
 <?php
 
+		/**
+		 * 顯示特殊能力
+		 * Display special abilities
+		 */
 		if ($this->char->SPECIAL["PoisonResist"]) print ("毒抵抗 +" . $this->char->SPECIAL["PoisonResist"] . "%<br />\n");
 		if ($this->char->SPECIAL["Pierce"]["0"]) print ("物理防御無視ダメージ +" . $this->char->SPECIAL["Pierce"]["0"] . "<br />\n");
 		if ($this->char->SPECIAL["Pierce"]["1"]) print ("魔法防御無視ダメージ +" . $this->char->SPECIAL["Pierce"]["1"] . "<br />\n");
