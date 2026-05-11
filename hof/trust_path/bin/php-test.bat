@@ -15,13 +15,11 @@ rem https://downloads.php.net/~windows/pecl/releases/xdebug/2.2.7/
 set XDEBUG_OPTS=
 set ENABLE_XDEBUG=0
 
-rem 循環檢查所有傳入參數
 for %%a in (%*) do (
     if "%%a"=="--coverage-html" set ENABLE_XDEBUG=1
     if "%%a"=="--coverage-clover" set ENABLE_XDEBUG=1
 )
 
-rem 如果符合任一條件，則設定 XDEBUG 參數 [cite: 1, 2]
 if %ENABLE_XDEBUG%==1 (
     set XDEBUG_OPTS=-d zend_extension="%~dp0php_xdebug-2.2.7-5.6-nts-vc11-x64.dll" -d xdebug.coverage_enable=1
 )

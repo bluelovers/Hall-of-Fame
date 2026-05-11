@@ -1,1 +1,1 @@
-"%~dp0php-test.bat" %* --coverage-html coverage-report
+"%~dp0php-test.bat" %* --coverage-html coverage-report --coverage-clover coverage-report/clover.xml

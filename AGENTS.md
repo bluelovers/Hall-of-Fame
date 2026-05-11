@@ -61,24 +61,26 @@
 | 項目 | 值 |
 |------|-----|
 | PHP 版本 | **5.6.32** (nts, Win32, VC11, x64) |
-| PHP 路徑 | `D:\Users\WebstormProjects\php\bin\php-5.6.32-nts-Win32-VC11-x64\php.exe` |
-| 擴充目錄 | `D:\Users\WebstormProjects\php\bin\php-5.6.32-nts-Win32-VC11-x64\ext` |
+| PHP 路徑 | `D:/Users/WebstormProjects/php/bin/php-5.6.32-nts-Win32-VC11-x64/php.exe`（僅供參考，執行請用 `php.bat`） |
+| 擴充目錄 | `D:/Users/WebstormProjects/php/bin/php-5.6.32-nts-Win32-VC11-x64/ext`（僅供參考） |
 | 啟用擴充 | `php_mbstring.dll` |
 | 時區 | `Asia/Taipei` |
 | 平台 | Windows (Win32) |
 
 ### PHP 設定 (php.ini)
 
-專案使用 `hof/php.ini` 自訂設定，透過 `-c <dir>` 參數載入：
+專案使用 `hof/php.ini` 自訂設定：
 
 ```ini
-extension_dir = "D:\Users\WebstormProjects\php\bin\php-5.6.32-nts-Win32-VC11-x64\ext"
+extension_dir = "D:/Users/WebstormProjects/php/bin/php-5.6.32-nts-Win32-VC11-x64/ext"
 extension = php_mbstring.dll
 date.timezone = "Asia/Taipei"
-include_path = "D:\Users\WebstormProjects\game\Hall-of-Fame\.codenomad\worktrees\develop5\hof\includes;."
+include_path = "."
 ```
 
-> **注意：** PHP CLI 不自動載入 CWD 下的 `php.ini`，必須使用 `-c <目錄>` 參數強制載入。
+> **注意：** `php.bat` 會**自動載入** `hof/php.ini`，無需手動指定 `-c` 參數。
+>
+> 只有直接呼叫 PHP 可執行檔時（不建議），才需要手動指定 `-c <目錄>` 參數。
 
 > **原則：** 外部 `php.ini` 僅作為伺服器端的統一化設定。若能直接在 PHP 程式碼中設定的項目（如 `date.timezone`），應優先於程式碼內設定，以降低對外部設定檔的依賴。
 
@@ -346,17 +348,143 @@ config/setting.dist.php (強制，版本控管，所有預設設定)
 | `hof/start_and_kill.bat -NoKill` | 啟動長期背景伺服器（需手動關閉） | `./hof/start_and_kill.bat -NoKill` |
 | `hof/start-server.bat` | 簡易啟動腳本（舊版） | `./hof/start-server.bat` |
 
-### 工具腳本
+#### 伺服器啟動腳本參數
+
+```powershell
+# start_and_kill.ps1 支援參數
+-NoKill              # 長期執行模式（不倒數自動關閉）
+-Port (或 -p)        # 埠號，預設 8085（此為 develop5 分支預設值）
+-Timeout (或 -t)     # 自動關閉秒數，預設 10
+```
+
+#### ⚠️ 伺服器啟動重要限制
+
+> **絕對禁止以任何其他方式啟動 PHP 伺服器**（包括但不限於手動下 `php -S` 指令、直接執行 PHP 內建伺服器、透過其他腳本或工具啟動）。
+
+**禁止自行構造 `php -S` 啟動指令。** 直接使用 `php -S` 會導致：
+- 無限等待/阻塞（無 timeout 機制）
+- 行程殘留，Port 被佔用且無錯誤訊息
+- 難以偵錯的各種隱形問題
+
+**一律強制使用專案提供的 `start_and_kill.bat` / `start_and_kill.ps1` 腳本**，預設 10 秒已足夠取得必要資訊。
+若時間不足，可透過參數調整：
+```bash
+./hof/start_and_kill.bat -Timeout 30    # 延長至 30 秒
+./hof/start_and_kill.bat -NoKill         # 長期執行（需手動關閉）
+```
+
+##### 常見錯誤 — 禁止事項
+
+以下為常見錯誤反覆發生的行為，**嚴格禁止**：
+
+- ❌ **禁止直接呼叫 `powershell` 執行腳本**（如 `powershell -ExecutionPolicy Bypass -File start_and_kill.ps1`）
+  - 一律使用 `taskill-port.bat && start_and_kill.bat` 間接呼叫
+- ❌ **禁止將關閉與啟動分開執行**
+  - 非必要不要先 `taskill-port.bat` 再另外 `start_and_kill.bat`
+  - 應使用 `taskill-port.bat && start_and_kill.bat` 一次完成
+- ❌ **禁止在伺服器完成後刻意執行關閉指令**
+  - 啟動時已用 `&&` 串聯關閉，結束後無需再次執行 taskill-port
+- ❌ **禁止使用任何工具檢查伺服器狀態**（包括但不限於 `list_background_processes`、`read_background_process_output`）
+  - 不需要確認舊行程是否存活 — `taskill-port.bat` 無論有無都會執行清理
+  - 不需要確認伺服器是否成功啟動 — 有問題時瀏覽器會顯示錯誤，屆時重新啟動即可
+  - 需要伺服器時，直接使用 `taskill-port.bat && start_and_kill.bat -NoKill` 重新啟動即可
+  - 檢查狀態浪費時間且無意義，直接重啟最可靠
+
+#### 瀏覽器互動測試流程
+
+當需要透過實際操作遊戲流程才能檢測錯誤或確認錯誤發生點時，可使用瀏覽器 DevTools 進行互動。
+
+> ⚠️ **伺服器啟動時機：僅在修正完成、準備驗證時才啟動。**
+>
+> PHP 為無狀態直譯語言，修改程式碼後必須重啟伺服器才能套用。
+> 若在修改程式碼前就先啟動伺服器，後續修正時需先關閉再重啟，浪費時間與步驟。
+>
+> **正確流程：** 先完成所有程式碼修改 → 再啟動伺服器 → 進行驗證測試
+
+##### 啟動與連線
+
+**啟動伺服器時，一律同時執行關閉舊行程指令**，確保每次啟動都是全新的伺服器狀態：
+
+```bash
+./hof/taskill-port.bat && ./hof/start_and_kill.bat -NoKill
+```
+
+- `taskill-port.bat` — 先關閉可能殘留的舊伺服器行程
+- `start_and_kill.bat -NoKill` — 再啟動新伺服器（長期模式）
+- 兩者用 `&&` 串聯，一次命令完成
+
+使用背景方式啟動長期伺服器避免阻塞：
+- 使用 `run_background_process` 工具執行上述命令
+- 或透過 `nohup` / 背景行程方式啟動
+
+啟動後即可透過 Chrome DevTools MCP 工具連線至 `http://localhost:8085`。
+
+> **原因：** `start_and_kill.bat` 預設為同步阻塞模式。若未使用背景方式啟動，伺服器會佔用終端導致無法操作瀏覽器，或伺服器提早關閉。
+>
+> **不需要先確認舊行程是否存活：** 無論有無殘留行程，`taskill-port.bat` 都會執行清理。每次都先關再開，可確保讀取到最新程式碼，省去手動判斷的步驟。
+
+##### 登入與帳號
+
+- **預設測試帳號：** `demo` / `demo`
+- 若使用者不存在，或必須建立新帳號才能複現問題時，可自行建立帳號密碼
+- **建立後務必記錄帳號密碼**保存於 `docs/log/` 以供後續參考
+
+##### 操作原則
+
+- 可自行判斷遊戲流程中的輸入欄位並進行操作
+- 可自由瀏覽各頁面、點擊按鈕、填寫表單以觸發錯誤
+- **必須記錄操作原因與步驟**，保存於 `docs/log/records/` 目錄下，以日期時間為 prefix
+- **必須記錄頁面的功能與詳細操作指南(包含網址)**，保存於 `docs/log/pages/` 目錄下，包含但不限於：注意事項、容易忽略沒注意到的部分，出現的NPC/怪物等（**需同時記錄圖片檔名與路徑**）
+- **必須記錄系統管理介面的功能與詳細操作指南(包含網址)**，保存於 `docs/log/admin/` 目錄下
+- **必須記錄戰鬥系統/技能系統/職業系統的功能與詳細操作指南(包含網址)**，保存於 `docs/log/battle/` 目錄下
+
+##### 任務管理原則
+
+> 不作紀錄就會忘記要做什麼、什麼事情沒做、或做到一半沒繼續。
+
+- **任何還沒有要開始做，或者以後才做的任務**，都必須紀錄於 `docs/task/`
+- **任何錯誤訊息或 BUG**，若沒有要馬上修正或無法快速修正，必須先紀錄於 `docs/task/`
+- 任務紀錄應包含：問題描述、發現時間、重現步驟（若有）、當前狀態（待辦/進行中/擱置）
+- 任務完成後標記為完成或移除，避免累積過期資訊
+
+#### 伺服器路由器功能
+
+`hof/server_router.php` 負責：
+
+1. 修正 `SERVER_NAME`（從 `HTTP_HOST` 取得）
+2. 提供靜態檔案服務（CSS、JS、圖片、字型等 MIME 類型）
+3. 處理 `/static/` 路徑（含遞迴修正損壞的 URL）
+4. 處理 `/index.php/xxx` 路徑
+5. 重設 `PHP_SELF` / `SCRIPT_NAME` 為 `/index.php`
+
+#### 伺服器工具腳本
 
 | 腳本 | 用途 |
 |------|------|
 | `hof/taskill-port.bat` | 終止 PHP 行程（批次檔，呼叫 .ps1） |
 | `hof/taskill-port.ps1` | 終止 PHP 行程（PowerShell，支援 `-Port` 參數，預設 8085） |
-| `debug-cls.bat` | 清除專案內所有 `~*` 暫存檔 |
+| `./debug-cls.bat` | 清除專案內所有 `~*` 暫存檔（專案根目錄） |
 
 ### 開發工具 (trust_path/bin)
 
 位於 `hof/trust_path/bin/`，提供與 PHP 執行環境相關的開發工具。
+
+> ⚠️ **重要：`bin/` 目錄內的指令不在系統 PATH 環境變數中**
+>
+> 使用時必須指定**完整路徑**，不能直接使用指令名稱（如 `php.bat` 或 `php-test`）。
+>
+> **正確用法：**
+> ```batch
+> hof/trust_path/bin/php.bat -v
+> hof/trust_path/bin/php-test.bat
+> ```
+>
+> **錯誤用法（指令找不到）：**
+> ```batch
+> php.bat -v          REM 錯誤：'php.bat' 不是內部或外部命令
+> php-test            REM 錯誤：'php-test' 不是內部或外部命令
+> cd trust_path/test && php.bat   REM 錯誤：切換目錄後依然不在 PATH 中，因為 php.bat 存在於 `trust_path/bin/` 目錄
+> ```
 
 | 檔案 | 用途 |
 |------|------|
@@ -383,13 +511,6 @@ php.bat -r "echo phpversion();"
 
 專案目前使用 **PHPUnit 5.7.27**（與 PHP 5.6.32 相容的最終主要版本），以 `.phar` 形式存放於 `bin/` 目錄：
 
-```bash
-:: 確認 PHPUnit 版本
-php.bat hof/trust_path/bin/phpunit-5.7.27.phar --version
-
-:: 執行所有測試（測試位於 trust_path/test/）
-php.bat hof/trust_path/bin/phpunit-5.7.27.phar hof/trust_path/test/
-```
 
 所有測試皆建立於 `hof/trust_path/test/` 目錄下。
 
@@ -433,163 +554,14 @@ php-test-coverage phpunit/
 | **環境資訊顯示** | 顯示當前時間、工作目錄、傳遞參數 |
 | **結果統計** | 自動統計並顯示測試通過/失敗狀態 |
 | **錯誤代碼回傳** | 回傳 PHPUnit 原始退出代碼，便於 CI/CD 整合 |
+| **參數傳遞** | 所有傳遞給 `php-test` 的參數都會原樣轉發給 PHPUnit |
 
-**使用範例：**
-
-```batch
-:: 範例 1: 執行所有測試
-cd hof/trust_path/bin
-php-test
-
-:: 範例 2: 執行特定測試檔案
-php-test HOF/Controller/GameTest.php
-
-:: 範例 3: 執行特定測試方法
-php-test --filter testLogin
-
-:: 範例 4: 顯示所有測試的詳細資訊
-php-test --verbose --debug
-
-:: 範例 5: 執行測試並產生覆蓋率報告
-php-test --coverage-html coverage-report
-```
-
-**參數傳遞：**
-
-所有傳遞給 `php-test` 的參數都會原樣轉發給 PHPUnit，例如：
-
-```batch
-php-test --filter UserTest --verbose
-```
-
-相當於：
-
-```batch
-php.bat phpunit-5.7.27.phar -c test/phpunit.xml test --filter UserTest --verbose
-```
-
-**與手動執行的比較：**
-
-| 方式 | 指令 | 優點 | 缺點 |
-|------|------|------|------|
-| **php-test.bat** | `php-test` | 簡潔、自動目錄切換、資訊顯示 | 固定使用 phpunit.xml |
-| **手動執行** | `php.bat phpunit-5.7.27.phar test` | 完全控制參數 | 需手動指定路徑與設定檔 |
 
 **注意事項：**
 
 - 腳本預設使用 `hof/trust_path/test/phpunit.xml` 作為設定檔
-- 若需自訂設定檔或執行特定測試，可使用手動方式執行 PHPUnit
-- 測試結果的覆蓋率報告可透過 `--coverage-html` 參數產生
-- 腳本最後會暫停等待按鍵，便於查看測試結果
+- 測試結果的覆蓋率報告可透過 `php-test-coverage.bat` 參數產生
 
-### PowerShell 腳本參數
-
-```powershell
-# start_and_kill.ps1 支援參數
--NoKill              # 長期執行模式（不倒數自動關閉）
--Port (或 -p)        # 埠號，預設 8085（此為 develop5 分支預設值）
--Timeout (或 -t)     # 自動關閉秒數，預設 10
-```
-
-### ⚠️ 伺服器啟動重要限制
-
-> **絕對禁止以任何其他方式啟動 PHP 伺服器**（包括但不限於手動下 `php -S` 指令、直接執行 PHP 內建伺服器、透過其他腳本或工具啟動）。
-
-**禁止自行構造 `php -S` 啟動指令。** 直接使用 `php -S` 會導致：
-- 無限等待/阻塞（無 timeout 機制）
-- 行程殘留，Port 被佔用且無錯誤訊息
-- 難以偵錯的各種隱形問題
-
-**一律強制使用專案提供的 `start_and_kill.bat` / `start_and_kill.ps1` 腳本**，預設 10 秒已足夠取得必要資訊。
-若時間不足，可透過參數調整：
-```bash
-./hof/start_and_kill.bat -Timeout 30    # 延長至 30 秒
-./hof/start_and_kill.bat -NoKill         # 長期執行（需手動關閉）
-```
-
-#### 常見錯誤 — 禁止事項
-
-以下為常見錯誤反覆發生的行為，**嚴格禁止**：
-
-- ❌ **禁止直接呼叫 `powershell` 執行腳本**（如 `powershell -ExecutionPolicy Bypass -File start_and_kill.ps1`）
-  - 一律使用 `taskill-port.bat && start_and_kill.bat` 間接呼叫
-- ❌ **禁止將關閉與啟動分開執行**
-  - 非必要不要先 `taskill-port.bat` 再另外 `start_and_kill.bat`
-  - 應使用 `taskill-port.bat && start_and_kill.bat` 一次完成
-- ❌ **禁止在伺服器完成後刻意執行關閉指令**
-  - 啟動時已用 `&&` 串聯關閉，結束後無需再次執行 taskill-port
-- ❌ **禁止使用任何工具檢查伺服器狀態**（包括但不限於 `list_background_processes`、`read_background_process_output`）
-  - 不需要確認舊行程是否存活 — `taskill-port.bat` 無論有無都會執行清理
-  - 不需要確認伺服器是否成功啟動 — 有問題時瀏覽器會顯示錯誤，屆時重新啟動即可
-  - 需要伺服器時，直接使用 `taskill-port.bat && start_and_kill.bat -NoKill` 重新啟動即可
-  - 檢查狀態浪費時間且無意義，直接重啟最可靠
-
-### 瀏覽器互動測試流程
-
-當需要透過實際操作遊戲流程才能檢測錯誤或確認錯誤發生點時，可使用瀏覽器 DevTools 進行互動。
-
-> ⚠️ **伺服器啟動時機：僅在修正完成、準備驗證時才啟動。**
->
-> PHP 為無狀態直譯語言，修改程式碼後必須重啟伺服器才能套用。
-> 若在修改程式碼前就先啟動伺服器，後續修正時需先關閉再重啟，浪費時間與步驟。
->
-> **正確流程：** 先完成所有程式碼修改 → 再啟動伺服器 → 進行驗證測試
-
-#### 啟動與連線
-
-**啟動伺服器時，一律同時執行關閉舊行程指令**，確保每次啟動都是全新的伺服器狀態：
-
-```bash
-./hof/taskill-port.bat && ./hof/start_and_kill.bat -NoKill
-```
-
-- `taskill-port.bat` — 先關閉可能殘留的舊伺服器行程
-- `start_and_kill.bat -NoKill` — 再啟動新伺服器（長期模式）
-- 兩者用 `&&` 串聯，一次命令完成
-
-使用背景方式啟動長期伺服器避免阻塞：
-- 使用 `run_background_process` 工具執行上述命令
-- 或透過 `nohup` / 背景行程方式啟動
-
-啟動後即可透過 Chrome DevTools MCP 工具連線至 `http://localhost:8085`。
-
-> **原因：** `start_and_kill.bat` 預設為同步阻塞模式。若未使用背景方式啟動，伺服器會佔用終端導致無法操作瀏覽器，或伺服器提早關閉。
->
-> **不需要先確認舊行程是否存活：** 無論有無殘留行程，`taskill-port.bat` 都會執行清理。每次都先關再開，可確保讀取到最新程式碼，省去手動判斷的步驟。
-
-#### 登入與帳號
-
-- **預設測試帳號：** `demo` / `demo`
-- 若使用者不存在，或必須建立新帳號才能複現問題時，可自行建立帳號密碼
-- **建立後務必記錄帳號密碼**保存於 `docs/log/` 以供後續參考
-
-#### 操作原則
-
-- 可自行判斷遊戲流程中的輸入欄位並進行操作
-- 可自由瀏覽各頁面、點擊按鈕、填寫表單以觸發錯誤
-- **必須記錄操作原因與步驟**，保存於 `docs/log/records/` 目錄下，以日期時間為 prefix
-- **必須記錄頁面的功能與詳細操作指南(包含網址)**，保存於 `docs/log/pages/` 目錄下，包含但不限於：注意事項、容易忽略沒注意到的部分，出現的NPC/怪物等（**需同時記錄圖片檔名與路徑**）
-- **必須記錄系統管理介面的功能與詳細操作指南(包含網址)**，保存於 `docs/log/admin/` 目錄下
-- **必須記錄戰鬥系統/技能系統/職業系統的功能與詳細操作指南(包含網址)**，保存於 `docs/log/battle/` 目錄下
-
-#### 任務管理原則
-
-> 不作紀錄就會忘記要做什麼、什麼事情沒做、或做到一半沒繼續。
-
-- **任何還沒有要開始做，或者以後才做的任務**，都必須紀錄於 `docs/task/`
-- **任何錯誤訊息或 BUG**，若沒有要馬上修正或無法快速修正，必須先紀錄於 `docs/task/`
-- 任務紀錄應包含：問題描述、發現時間、重現步驟（若有）、當前狀態（待辦/進行中/擱置）
-- 任務完成後標記為完成或移除，避免累積過期資訊
-
-### 伺服器路由器功能
-
-`hof/server_router.php` 負責：
-
-1. 修正 `SERVER_NAME`（從 `HTTP_HOST` 取得）
-2. 提供靜態檔案服務（CSS、JS、圖片、字型等 MIME 類型）
-3. 處理 `/static/` 路徑（含遞迴修正損壞的 URL）
-4. 處理 `/index.php/xxx` 路徑
-5. 重設 `PHP_SELF` / `SCRIPT_NAME` 為 `/index.php`
 
 ---
 
@@ -759,8 +731,8 @@ bootstrap.php 中 ob_start('ob_gzhandler') 預設為註解狀態
 
 當需要新增功能或模組時，可參考以下目錄以簡易實作方式建立（**不要複製複雜模組**）：
 
-- `D:\Users\WebstormProjects\php\hof-include` — HOF 相關包含檔案
-- `D:\Users\WebstormProjects\php\Scophp` — ScoPHP 函式庫
+- `D:/Users/WebstormProjects/php/hof-include` — HOF 相關包含檔案
+- `D:/Users/WebstormProjects/php/Scophp` — ScoPHP 函式庫
 
 ---
 
@@ -773,7 +745,7 @@ bootstrap.php 中 ob_start('ob_gzhandler') 預設為註解狀態
 **解決：** 使用 `-c <dir>` 參數強制載入
 
 ```bash
-php -c hof/ -S 0.0.0.0:8085 -t hof/
+./hof/trust_path/bin/php.bat -v
 ```
 
 ### 11.2 Gzip 輸出緩衝遮蔽錯誤
@@ -799,9 +771,22 @@ php -c hof/ -S 0.0.0.0:8085 -t hof/
 
 - ❌ **絕對禁止修改 `D:\Users\WebstormProjects\php\` 路徑下任何檔案**
   - 所有 PHP 設定應透過 `hof/php.ini` 或 PowerShell 參數達成
+- ❌ **禁止使用直接 PHP 可執行檔路徑 `D:/Users/WebstormProjects/php/bin/php-5.6.32-nts-Win32-VC11-x64/php.exe`**
+  - 一律使用專案提供的 `php.bat`：`D:/Users/WebstormProjects/game/Hall-of-Fame/.codenomad/worktrees/develop5/hof/trust_path/bin/php.bat`
+  - `php.bat` 會自動代理至正確的 PHP 版本，並處理相關環境設定
+  - 使用直接路徑會導致環境不一致，且無法享受 `php.bat` 的自動化處理
 - ❌ 除非必要，避免使用長期執行模式 (`start_and_kill.bat -NoKill`)
   - 10 秒自動關閉模式已足夠檢查錯誤與除錯
 - ❌ 不要複製外部參考目錄的複雜模組 — 應以簡易實作方式建立所需功能
+- ❌ **禁止自行構造指令或追加目錄切換語法（如 `cd /d && ...`）**
+  - 指令本身就能自行處理路徑問題，無需額外切換目錄
+  - `bin/` 內的指令（如 `php.bat`、`php-test.bat`）並不存在於 PATH 環境變數內
+  - 使用目錄切換語法後再執行 `php.bat` 或 `php-test.bat` 必定會發生「指令不存在」錯誤
+  - **錯誤範例（禁止）：**
+    - `cd /d && D:\Users\WebstormProjects\php\bin\php-5.6.32-nts-Win32-VC11-x64\php.exe -c hof/ ...`
+    - `cd /d "D:/Users/WebstormProjects/game/Hall-of-Fame/.codenomad/worktrees/develop5/hof/trust_path" && php.bat ...`
+  - **正確方式（使用）：**
+    - `D:/Users/WebstormProjects/game/Hall-of-Fame/.codenomad/worktrees/develop5/hof/trust_path/bin/php-test.bat phpunit/PatternTest.php 2>&1`
 
 ### 注意事項
 

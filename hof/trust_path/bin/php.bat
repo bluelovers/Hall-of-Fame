@@ -1,1 +1,2 @@
+chcp 65001 >nul
 "D:\Users\WebstormProjects\php\bin\php-5.6.32-nts-Win32-VC11-x64\php.exe" -c "%~dp0..\.." %*
