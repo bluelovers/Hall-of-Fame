@@ -32,6 +32,16 @@ class PatternTest extends PHPUnit_Framework_TestCase
         $this->assertInstanceOf('HOF_Class_Char_Type_Char', $this->char);
     }
 
+    protected function tearDown()
+    {
+        // 明確釋放 char 物件以觸發 __destruct() → fpclose()
+        // Explicitly release char object to trigger __destruct() → fpclose()
+        // Windows PHP 5.6 上 flock(LOCK_EX) 需要明確關閉句柄才能釋放鎖
+        $this->char = null;
+
+        parent::tearDown();
+    }
+
     /**
      * @test
      * 測試原始 YAML behavior 資料是否正確載入
@@ -45,8 +55,8 @@ class PatternTest extends PHPUnit_Framework_TestCase
         $this->assertArrayHasKey('guard', $behavior, 'behavior should have guard');
         $this->assertArrayHasKey('pattern', $behavior, 'behavior should have pattern');
 
-        echo "\n--- behavior from char->behavior ---\n";
-        var_dump($behavior);
+        // echo "\n--- behavior from char->behavior ---\n";
+        // var_dump($behavior);
     }
 
     /**
@@ -58,16 +68,16 @@ class PatternTest extends PHPUnit_Framework_TestCase
         $pattern0 = $this->char->pattern_item(0);
         $pattern1 = $this->char->pattern_item(1);
 
-        echo "\n--- pattern_item(0) ---\n";
-        var_dump($pattern0);
-        echo "\n--- pattern_item(1) ---\n";
-        var_dump($pattern1);
+        // echo "\n--- pattern_item(0) ---\n";
+        // var_dump($pattern0);
+        // echo "\n--- pattern_item(1) ---\n";
+        // var_dump($pattern1);
 
         // 比對 behavior 原始資料
         $rawPattern0 = $this->char->behavior['pattern'][0];
         
-        echo "\n--- raw behavior['pattern'][0] ---\n";
-        var_dump($rawPattern0);
+        // echo "\n--- raw behavior['pattern'][0] ---\n";
+        // var_dump($rawPattern0);
 
         $this->assertNotEmpty($pattern0, 'pattern_item(0) should not be empty');
         $this->assertArrayHasKey('judge', $pattern0);
@@ -100,7 +110,7 @@ class PatternTest extends PHPUnit_Framework_TestCase
     {
         $max = $this->char->pattern_max();
 
-        echo "\n--- pattern_max() = $max ---\n";
+        // echo "\n--- pattern_max() = $max ---\n";
 
         // Hero1: INT=2, Lv=2 → 預期 2
         $this->assertGreaterThanOrEqual(1, $max, 'pattern_max should be at least 1');
@@ -115,8 +125,8 @@ class PatternTest extends PHPUnit_Framework_TestCase
         // 先記錄原始 behavior pattern
         $originalPattern = $this->char->behavior['pattern'];
 
-        echo "\n--- Original pattern before CHECK_PATTERN ---\n";
-        var_dump($originalPattern);
+        // echo "\n--- Original pattern before CHECK_PATTERN ---\n";
+        // var_dump($originalPattern);
 
         // 執行 CHECK_PATTERN（在建構流程中已執行一次，這是再次執行）
         $this->char->pattern(HOF_Class_Char_Pattern::CHECK_PATTERN);
@@ -124,8 +134,8 @@ class PatternTest extends PHPUnit_Framework_TestCase
         // 再讀取一次
         $afterPattern = $this->char->behavior['pattern'];
 
-        echo "\n--- Pattern after CHECK_PATTERN ---\n";
-        var_dump($afterPattern);
+        // echo "\n--- Pattern after CHECK_PATTERN ---\n";
+        // var_dump($afterPattern);
 
         // 比較 JSON 來檢查深層結構是否一致
         $this->assertEquals(
@@ -150,9 +160,9 @@ class PatternTest extends PHPUnit_Framework_TestCase
 
         $modifiedJudge = $this->char->pattern_item(0)['judge'];
 
-        echo "\n--- Reference chain test ---\n";
-        echo "Original judge: " . var_export($originalJudge, true) . "\n";
-        echo "Modified judge: " . var_export($modifiedJudge, true) . "\n";
+        // echo "\n--- Reference chain test ---\n";
+        // echo "Original judge: " . var_export($originalJudge, true) . "\n";
+        // echo "Modified judge: " . var_export($modifiedJudge, true) . "\n";
 
         // 如果參考鏈完整，pattern_item 應讀到修改後的值
         $this->assertEquals(

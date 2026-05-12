@@ -2,9 +2,26 @@
 <phpunit bootstrap="phpunit/Bootstrap.php"
          colors="true"
          verbose="true"
-         convertErrorsToExceptions="false"
-         convertNoticesToExceptions="false"
-         convertWarningsToExceptions="false">
+         debug="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         stopOnError="false"
+         stopOnIncomplete="false"
+         stopOnSkipped="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         failOnWarning="true"
+         failOnRisky="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutTestsMetadata="true"
+         beStrictAboutResourceUsageDuringSmallTests="true"
+         beStrictAboutTodoAnnotatedTests="true"
+         beStrictAboutCoversMetadata="true"
+         enforceTimeLimit="true"
+         timeoutForSmallTests="1"
+         timeoutForMediumTests="10"
+         timeoutForLargeTests="60">
     <testsuites>
         <testsuite name="HOF Pattern Test Suite">
             <directory>phpunit</directory>
@@ -25,4 +42,12 @@
             </exclude>
         </whitelist>
     </filter>
+    <logging>
+        <!-- 詳細的測試日誌 -->
+        <log type="coverage-html" target="coverage-report"/>
+        <log type="coverage-clover" target="coverage-report/clover.xml"/>
+        <log type="coverage-text" target="coverage-report/coverage.txt"/>
+        <log type="junit" target="coverage-report/junit.xml"/>
+        <log type="teamcity" target="coverage-report/teamcity.txt"/>
+    </logging>
 </phpunit>
