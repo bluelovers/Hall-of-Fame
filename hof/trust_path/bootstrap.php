@@ -5,7 +5,23 @@
  * @copyright 2012
  */
 
-error_reporting(E_ALL & ~E_NOTICE & ~E_DEPRECATED & ~E_STRICT);
+/**
+ * 先載入 bootstrap-core.php 取得路徑常數（無依賴）
+ * Load bootstrap-core.php first for path constants (dependency-free)
+ *
+ * @note 使用 @require_once 以防 bootstrap-core.php 已預先載入（如透過 test/bootstrap.php）
+ *       Uses @require_once in case bootstrap-core.php has already been loaded
+ *       (e.g., via test/bootstrap.php)
+ */
+@require_once dirname(__file__) . '/bootstrap-core.php';
+
+/**
+ * bootstrap-core.php 已載入，以下開始使用 PROJECT_TRUST_PATH 等常數
+ * bootstrap-core.php is now loaded; use PROJECT_TRUST_PATH etc. from here on
+ */
+
+_set_production_error_reporting();
+
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 
@@ -26,17 +42,17 @@ unset($_ENV['autoloaders']);
  */
 //ob_start('ob_gzhandler');
 
-if (file_exists(dirname(__file__) . '/bootstrap.options.php'))
+if (file_exists(PROJECT_TRUST_PATH . '/bootstrap.options.php'))
 {
-	@include (dirname(__file__) . '/bootstrap.options.php');
+	@include (PROJECT_TRUST_PATH . '/bootstrap.options.php');
 }
 
-if (file_exists(dirname(__file__) . '/config/setting.php'))
+if (file_exists(PROJECT_TRUST_PATH . '/config/setting.php'))
 {
-	@require dirname(__file__) . '/config/setting.php';
+	@require PROJECT_TRUST_PATH . '/config/setting.php';
 }
 
-@require dirname(__file__) . '/config/setting.dist.php';
+@require PROJECT_TRUST_PATH . '/config/setting.dist.php';
 
 /**
  * 設定引用路徑，加入 trust_path 以支援 Zend 與 Symfony stub 類別載入
@@ -52,7 +68,7 @@ if (file_exists(dirname(__file__) . '/config/setting.php'))
  * without relying on external php.ini configuration.
  */
 set_include_path(
-    dirname(__file__) . PATH_SEPARATOR . get_include_path()
+    PROJECT_TRUST_PATH . PATH_SEPARATOR . get_include_path()
 );
 
 require_once ('Zend/Loader/Autoloader.php');

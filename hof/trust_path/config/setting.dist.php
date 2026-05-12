@@ -6,7 +6,16 @@ define('BASE_URL', 'http' . ($_SERVER['HTTPS'] ? 's' : '') . '://' . $_SERVER['S
 
 define('BASE_URL_REWRITE', true);
 
-define('BASE_PATH', str_replace('\\', '/', dirname(__FILE__)) . '/../../');
+/**
+ * 專案根目錄（Web 根目錄 hof/）
+ * Project root directory (Web root hof/)
+ *
+ * 使用 PROJECT_ROOT_PATH（定義於 bootstrap-core.php）作為單一事實來源
+ * Uses PROJECT_ROOT_PATH (defined in bootstrap-core.php) as single source of truth
+ *
+ * @see hof/trust_path/bootstrap-core.php
+ */
+define('BASE_PATH', str_replace('\\', '/', PROJECT_ROOT_PATH) . '/');
 //define('BASE_PATH', Sco_File_Format::dirname(__FILE__, '../../', 1));
 
 define('BASE_TRUST_PATH', BASE_PATH . 'trust_path/');

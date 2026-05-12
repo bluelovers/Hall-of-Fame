@@ -22,6 +22,7 @@ $DefaultFiles = @(
     (Join-Path $PSScriptRoot "../../server_output.log"),
     (Join-Path $PSScriptRoot "../test/coverage-report/log/xdebug.log"),
     (Join-Path $PSScriptRoot "../test/test/coverage-report/log/php_errors.log")
+    (Join-Path $PSScriptRoot "../test/coverage-report/log/php_errors.log")
 )
 
 # Show help message

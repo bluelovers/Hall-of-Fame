@@ -121,6 +121,7 @@ develop5/
 │   └── trust_path/                  # ★ 專案核心目錄
 │       ├── bin/                     # ★ 開發工具（PHP CLI 包裝、PHPUnit）
 │       │   ├── php.bat              # PHP CLI 包裝腳本
+│       │   ├── log-cleanup.bat      # 日誌清理工具（清空或瘦身）
 │       │   ├── phpunit-5.7.27.phar  # PHPUnit 5.7.27（對應 PHP 5.6.32）
 │       │   └── phpunit-11.5.55.phar # PHPUnit 11.x（其他分支或參考用）
 │       ├── bootstrap.php            # 啟動載入腳本
@@ -463,6 +464,7 @@ config/setting.dist.php (強制，版本控管，所有預設設定)
 |------|------|
 | `hof/taskill-port.bat` | 終止 PHP 行程（批次檔，呼叫 .ps1） |
 | `hof/taskill-port.ps1` | 終止 PHP 行程（PowerShell，支援 `-Port` 參數，預設 8085） |
+| `hof/trust_path/bin/log-cleanup.bat` | 日誌清理工具（清空或瘦身） |
 | `./debug-cls.bat` | 清除專案內所有 `~*` 暫存檔（專案根目錄） |
 
 ### 開發工具 (trust_path/bin)
@@ -561,6 +563,41 @@ php-test-coverage phpunit/
 
 - 腳本預設使用 `hof/trust_path/test/phpunit.xml` 作為設定檔
 - 測試結果的覆蓋率報告可透過 `php-test-coverage.bat` 參數產生
+
+> ⚠️ **`php-test.bat` 與 `php-test-coverage.bat` 的關係：**
+>
+> `php-test-coverage.bat` 與 `php-test.bat` **執行相同的測試**，僅差異在：
+> - `php-test-coverage` 會額外啟用 Xdebug，提供更詳細的錯誤訊息與堆疊追蹤
+> - `php-test-coverage` 會產生程式碼涵蓋率報告（HTML + Clover XML）
+>
+> **兩者是二選一關係，不是先後順序關係。** 不需要同時執行兩者。
+> 需要除錯時應優先選擇 `php-test-coverage`，以便獲得 Xdebug 的詳細錯誤資訊。
+
+#### log-cleanup.bat — 日誌清理工具
+
+`log-cleanup.bat` 是為了解決開發測試過程中，某些日誌檔案（如 `php_errors.log`）持續增長導致硬碟空間被佔用的問題。
+
+此工具為 `log-cleanup.ps1` 的包裝器，提供「清空」與「瘦身」兩種主要功能。
+
+```batch
+:: 瘦身：保留最後 500 行 (預設)
+log-cleanup
+
+:: 瘦身：指定保留最後 1000 行
+log-cleanup slim 1000
+
+:: 清空：清空所有預設日誌檔案
+log-cleanup clear
+
+:: 針對特定檔案進行清理
+log-cleanup clear 0 my_custom.log
+```
+
+**預設處理檔案：**
+- `hof/server_error.log`
+- `hof/server_output.log`
+- `hof/trust_path/test/coverage-report/log/xdebug.log`
+- `hof/trust_path/test/test/coverage-report/log/php_errors.log`
 
 
 ---

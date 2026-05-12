@@ -1,5 +1,8 @@
 <?php
 
+/** 載入測試共用工具 / Load test shared helpers (PROJECT_TEST_PATH 來自 bootstrap-core.php) */
+require_once PROJECT_TEST_PATH . '/lib/test_helper.php';
+
 //@noUnusedParameters:false
 /// <reference types="php" />
 /// <reference types="phpunit" />
@@ -23,7 +26,12 @@ class YamlSyntaxTest extends PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
-        $this->tempFile = sys_get_temp_dir() . '/yaml_syntax_test_' . uniqid() . '.yml';
+        parent::setUp();
+
+        /** 比照 production error_reporting / Match production error_reporting */
+        _set_production_error_reporting();
+
+        $this->tempFile = _temp_yaml_path('yaml_syntax_test');
     }
 
     /**

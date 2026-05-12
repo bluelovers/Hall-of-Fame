@@ -6,6 +6,17 @@
  * and serves static files / index.php URLs correctly.
  */
 
+/**
+ * 載入路徑常數（無依賴），提供 PROJECT_ROOT_PATH
+ * Load path constants (dependency-free), provides PROJECT_ROOT_PATH
+ *
+ * @note 這僅載入輕量的 bootstrap-core.php（define + function），
+ *       不觸發 Zend / Autoloader / HOF 等完整啟動流程。
+ *       This only loads the lightweight bootstrap-core.php (define + function),
+ *       without triggering Zend / Autoloader / HOF full startup.
+ */
+require dirname(__FILE__) . '/trust_path/bootstrap-core.php';
+
 if (isset($_SERVER['HTTP_HOST']))
 {
 	$host = parse_url('http://' . $_SERVER['HTTP_HOST'], PHP_URL_HOST);
@@ -18,7 +29,7 @@ if (isset($_SERVER['HTTP_HOST']))
 $uri = $_SERVER['REQUEST_URI'];
 $path = parse_url($uri, PHP_URL_PATH);
 
-// Map to real filesystem (document root is __DIR__)
+// Map to real filesystem (document root is PROJECT_ROOT_PATH)
 $mimeTypes = array(
 	'css' => 'text/css',
 	'js' => 'application/javascript',
@@ -59,7 +70,7 @@ function _tryServeStatic($realFile, $mimeTypes)
 }
 
 // 1. Direct file: serve from document root
-if (_tryServeStatic(__DIR__ . $path, $mimeTypes))
+if (_tryServeStatic(PROJECT_ROOT_PATH . $path, $mimeTypes))
 {
 	return true;
 }
@@ -71,7 +82,7 @@ if ($staticPos !== false)
 {
 	$staticPath = substr($path, $staticPos);
 	// Try the path as-is first
-	if (_tryServeStatic(__DIR__ . $staticPath, $mimeTypes))
+	if (_tryServeStatic(PROJECT_ROOT_PATH . $staticPath, $mimeTypes))
 	{
 		return true;
 	}
@@ -82,7 +93,7 @@ if ($staticPos !== false)
 	{
 		$prevPath = $staticPath;
 		$staticPath = preg_replace('#^/static/[^/]+/static/#', '/static/', $staticPath);
-		if (_tryServeStatic(__DIR__ . $staticPath, $mimeTypes))
+		if (_tryServeStatic(PROJECT_ROOT_PATH . $staticPath, $mimeTypes))
 		{
 			return true;
 		}
@@ -93,7 +104,7 @@ if ($staticPos !== false)
 if (strpos($path, '/index.php/') === 0)
 {
 	$subPath = substr($path, strlen('/index.php'));
-	if (_tryServeStatic(__DIR__ . $subPath, $mimeTypes))
+	if (_tryServeStatic(PROJECT_ROOT_PATH . $subPath, $mimeTypes))
 	{
 		return true;
 	}

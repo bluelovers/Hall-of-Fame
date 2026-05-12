@@ -7,7 +7,7 @@
 
 require_once ("./bootstrap.php");
 
-$dir = __DIR__.'/union/';
+$dir = PROJECT_TEST_PATH . '/union/';
 
 foreach (HOF_Class_File::glob(BASE_PATH_UNION) as $file)
 {
@@ -58,7 +58,7 @@ foreach (HOF_Class_File::glob(BASE_PATH_UNION) as $file)
 		exit();
 		*/
 
-		HOF_Class_File::mkdir(__DIR__.'/union/');
+		HOF_Class_File::mkdir(PROJECT_TEST_PATH . '/union/');
 
 		HOF_Class_Yaml::save($dir.'union.'.$data['no'].'.yml', $data);
 	}

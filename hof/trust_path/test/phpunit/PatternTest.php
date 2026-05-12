@@ -1,5 +1,8 @@
 <?php
 
+/** 載入測試共用工具 / Load test shared helpers (PROJECT_TEST_PATH 來自 bootstrap-core.php) */
+require_once PROJECT_TEST_PATH . '/lib/test_helper.php';
+
 /**
  * Pattern 載入/儲存 測試
  * Pattern load/save tests
@@ -21,6 +24,9 @@ class PatternTest extends PHPUnit_Framework_TestCase
     {
         parent::setUp();
 
+        /** 比照 production error_reporting + 設定 HOF::$_testIp 繞過 $_SERVER / Production error_reporting + set HOF::$_testIp to bypass $_SERVER */
+        _init_integration_test_env();
+
         // 載入 demo 使用者的 Hero1 角色
         $this->char = HOF_Class_Char::factory(
             HOF_Class_Char::TYPE_CHAR,
@@ -34,6 +40,9 @@ class PatternTest extends PHPUnit_Framework_TestCase
 
     protected function tearDown()
     {
+        /** 清除 HOF::$_testIp，避免跨測試污染 / Clear HOF::$_testIp to prevent cross-test contamination */
+        _clear_test_ip();
+
         // 明確釋放 char 物件以觸發 __destruct() → fpclose()
         // Explicitly release char object to trigger __destruct() → fpclose()
         // Windows PHP 5.6 上 flock(LOCK_EX) 需要明確關閉句柄才能釋放鎖

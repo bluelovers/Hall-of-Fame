@@ -155,4 +155,4 @@ debug(array(
 
 
 
-HOF_Class_Yaml::save(dirname(__FILE__).'/skill.tree.yml', $datas);
+HOF_Class_Yaml::save(PROJECT_TEST_PATH . '/skill.tree.yml', $datas);

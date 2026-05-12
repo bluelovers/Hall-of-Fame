@@ -48,6 +48,15 @@ final class HOF
 	public static $session;
 
 	/**
+	 * 測試用 IP 屬性（非 null 時繞過 $_SERVER 存取）
+	 * Test IP property (bypasses $_SERVER access when non-null)
+	 *
+	 * 設定此屬性後 HOF::ip() 直接回傳此值，適用於 CLI/測試環境。
+	 * 預設值 null 表示使用正常的 $_SERVER 檢查流程。
+	 */
+	public static $_testIp = null;
+
+	/**
 	 * Word delimiter characters
 	 * @var array
 	 */
@@ -322,6 +331,18 @@ final class HOF
 
 	public static function ip($ipv6 = false, $allow_private = true)
 	{
+		/**
+		 * 測試模式檢查：若 $_testIp 不為 null，直接回傳該值
+		 * Test mode check: return $_testIp directly if set
+		 *
+		 * 讓 CLI 測試可以繞過 $_SERVER 存取，避免 Undefined index E_NOTICE。
+		 * Allows CLI tests to bypass $_SERVER access, avoiding Undefined index E_NOTICE.
+		 */
+		if (self::$_testIp !== null)
+		{
+			return self::$_testIp;
+		}
+
 		$keys = array(
 			'HTTP_X_FORWARDED_FOR',
 			'HTTP_CLIENT_IP',

@@ -7,9 +7,9 @@
 
 require_once ("./bootstrap.php");
 
-$data = HOF_Class_Yaml::load(dirname(__FILE__) . '/skill.tree.yml', $datas);
+$data = HOF_Class_Yaml::load(PROJECT_TEST_PATH . '/skill.tree.yml', $datas);
 
-HOF_Class_File::mkdir(dirname(__FILE__) . '/skilltree/');
+HOF_Class_File::mkdir(PROJECT_TEST_PATH . '/skilltree/');
 
 $newdata = array();
 
@@ -161,7 +161,7 @@ foreach ($newdata['skill'] as $skill => $_data)
 {
 	$_data = array('no' => $skill, 'check' => $_data);
 
-	HOF_Class_Yaml::save(dirname(__FILE__) . '/skilltree/skilltree.'.$skill.'.yml', $_data);
+	HOF_Class_Yaml::save(PROJECT_TEST_PATH . '/skilltree/skilltree.'.$skill.'.yml', $_data);
 }
 
 function multiSort()

@@ -1,0 +1,25 @@
+id: test-char-fixture-001
+name: TestHero
+gender: 1
+job: "100"
+level: 1
+exp: 0
+statuspoint: 0
+skillpoint: 0
+str: 10
+int: 10
+dex: 5
+spd: 5
+luk: 1
+equip:
+  main_hand: null
+  off_hand: null
+  armor: null
+behavior:
+  position: front
+  guard: always
+  pattern:
+    - {judge: "1000", quantity: 0, action: "1001"}
+    - {judge: "2000", quantity: 5, action: "2002"}
+skill: [1000, 1001]
+user: test
