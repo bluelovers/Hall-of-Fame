@@ -40,7 +40,7 @@ class Symfony_Component_Yaml_Escaper
     {
         if (preg_match('/^[0-9]+$/', $value)) return true;
         if (in_array(strtolower($value), array('true', 'false', 'null', 'yes', 'no', 'on', 'off'))) return true;
-        if (preg_match('/[:\x00-\x08\x0B\x0C\x0E-\x1F\x7F\'"\[\]\{\},&*\#\?<>=!%@`|]/', $value)) return true;
+        if (preg_match('/[:\x00-\x0A\x0D-\x1F\x7F\'"\[\]\{\},&*\#\?<>=!%@`|]/', $value)) return true;
 
         return false;
     }

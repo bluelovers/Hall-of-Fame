@@ -264,6 +264,33 @@ class HOF_Class_Array extends ArrayObject
 	function toArray($public = false, $fix = false)
 	{
 		/**
+		 * 取得當前層級的陣列副本
+		 * Get array copy of current level
+		 */
+		$data = $this->getArrayCopy();
+
+		/**
+		 * 遞迴處理子元素
+		 * Recursively process child elements
+		 */
+		foreach ($data as $k => $v)
+		{
+			if ($v instanceof self)
+			{
+				$data[$k] = $v->toArray($public, $fix);
+			}
+			elseif (is_array($v) || $v instanceof ArrayObject)
+			{
+				/**
+				 * 確保一般的陣列或 ArrayObject 也能被處理
+				 * Ensure regular arrays or ArrayObjects are also processed
+				 */
+				$v = new self($v);
+				$data[$k] = $v->toArray($public, $fix);
+			}
+		}
+
+		/**
 		 * 如果需要只包含公開屬性
 		 * If need to include only public properties
 		 */
@@ -271,49 +298,26 @@ class HOF_Class_Array extends ArrayObject
 		{
 			$reflect = new ReflectionClass($this);
 			$props = $reflect->getProperties();
+			$list = array();
 
 			foreach ($props as $prop)
 			{
-				/**
-				 * 跳過靜態屬性、私有屬性和公開屬性
-				 * Skip static, private, and public properties
-				 */
 				if ($prop->isStatic() || $prop->isPrivate() || $prop->isPublic())
 				{
 					continue;
 				}
-
-				/**
-				 * 記錄要包含的屬性名稱
-				 * Record property names to include
-				 */
 				$list[$prop->getName()] = 1;
 			}
 
-			$data = $this->toArray();
-
-			foreach ($data as $k => $v)
-			{
-				/**
-				 * 如果元素是 ArrayObject 實例，則遞迴轉換
-				 * If element is ArrayObject instance, recursively convert
-				 */
-				if ($v instanceof self::$ARRAYOBJECT)
-				{
-					$data[$k] = $v->toArray($public, $fix);
-				}
-			}
-
-			$ret = array_diff_key($data, (array)$list);
+			$data = array_diff_key($data, $list);
 		}
-		else
+
+		if ($fix)
 		{
-			$ret = $this->getArrayCopy();
+			$data = self::_fixArrayRecursive($data, self::ARRAY_RECURSIVE_ALL);
 		}
 
-		if ($fix) self::_fixArrayRecursive($ret, self::ARRAY_RECURSIVE_ALL);
-
-		return $ret;
+		return $data;
 	}
 
 	/**

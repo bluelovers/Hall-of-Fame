@@ -74,9 +74,12 @@ class HOF_Class_Icon
 	{
 		$_list = HOF::cache()->data('icon_list');
 
-		if (isset($_list[$dir]))
+		/** 規範化路徑作為 Key / Normalize path as key */
+		$dir_key = self::_normalizeDirKey($dir);
+
+		if (isset($_list[$dir_key]))
 		{
-			return $_list[$dir];
+			return $_list[$dir_key];
 		}
 
 		$_dir = BASE_PATH . $dir;
@@ -99,14 +102,28 @@ class HOF_Class_Icon
 			}
 		}
 
-		$_list[$dir] = $list;
-
+		$_list[$dir_key] = $list;
 		HOF::cache()->data('icon_list', $_list);
 
-		return $_list[$dir];
+		return $_list[$dir_key];
 	}
 
 	/**
+	 * 規範化目錄路徑作為快取 Key
+	 * Normalize directory path as cache key
+	 *
+	 * @param string $dir - 原始目錄路徑 / Original directory path
+	 * @return string 規範化後的 Key / Normalized key
+	 */
+	static function _normalizeDirKey($dir)
+	{
+		return trim($dir, './');
+	}
+
+	/**
+	 * 取得圖片網址
+	 * Get image URL
+	 *
 	 * @example HOF_Class_Icon::getImageUrl('ori_003', IMG_CHAR)
 	 */
 	static function getImageUrl($no, $dir, $return_true = false)
@@ -121,6 +138,8 @@ class HOF_Class_Icon
 	 */
 	static function getImage($no, $dir, $return_true = false)
 	{
+		/** 規範化路徑作為 Key / Normalize path as key */
+		$dir_key = self::_normalizeDirKey($dir);
 		$dir = rtrim($dir, '/') . '/';
 
 		$pre = '';
@@ -143,11 +162,11 @@ class HOF_Class_Icon
 			$_icon_cache = array();
 		}
 
-		if (isset($_icon_cache[$dir]) && is_array($_icon_cache[$dir]) && $_icon_cache[$dir][$pre . $no])
+		if (isset($_icon_cache[$dir_key]) && is_array($_icon_cache[$dir_key]) && isset($_icon_cache[$dir_key][$pre . $no]) && $_icon_cache[$dir_key][$pre . $no])
 		{
-			return $_icon_cache[$dir][$pre . $no];
+			return $_icon_cache[$dir_key][$pre . $no];
 		}
-		elseif ($dir == self::IMG_LAND && ($_list = self::getImageList($dir)))
+		elseif ($dir_key == self::_normalizeDirKey(self::IMG_LAND) && ($_list = self::getImageList($dir)))
 		{
 			if (!$_list2 = HOF::cache()->data('icon_land_list'))
 			{
@@ -196,7 +215,12 @@ class HOF_Class_Icon
 
 				$ret = $dir . $file;
 
-				$_icon_cache[$dir][$pre . $no] = $ret;
+				if (!isset($_icon_cache[$dir_key]) || !is_array($_icon_cache[$dir_key]))
+				{
+					$_icon_cache[$dir_key] = array();
+				}
+
+				$_icon_cache[$dir_key][$pre . $no] = $ret;
 
 				HOF::cache()->data('icon_cache', $_icon_cache);
 
@@ -204,36 +228,40 @@ class HOF_Class_Icon
 			}
 		}
 
-		if (!isset($_icon_cache[$dir][$pre . $no]))
+		if (!isset($_icon_cache[$dir_key]) || !is_array($_icon_cache[$dir_key]) || !isset($_icon_cache[$dir_key][$pre . $no]))
 		{
 			$file = false;
 
 			$_dir = BASE_PATH . $dir;
 
-			foreach (self::$map_imgtype as $ext)
+			if (is_array(self::$map_imgtype))
 			{
-				$_file = $_dir . $pre . $no . '.' . $ext;
-
-				if (file_exists($_file))
+				foreach (self::$map_imgtype as $ext)
 				{
-					$_file = $dir . $pre . $no . '.' . $ext;
+					$_file = $_dir . $pre . $no . '.' . $ext;
 
-					$file = $_file;
-					break;
+					if (file_exists($_file))
+					{
+						$_file = $dir . $pre . $no . '.' . $ext;
+
+						$file = $_file;
+						break;
+					}
 				}
 			}
 
-			if (!isset($_icon_cache[$dir]) || !is_array($_icon_cache[$dir]))
+			/** 確保緩存結構為陣列 / Ensure cache structure is array */
+			if (!isset($_icon_cache[$dir_key]) || !is_array($_icon_cache[$dir_key]))
 			{
-				$_icon_cache[$dir] = array();
+				$_icon_cache[$dir_key] = array();
 			}
 
-			$_icon_cache[$dir][$pre . $no] = $file;
+			$_icon_cache[$dir_key][$pre . $no] = $file;
 		}
 
-		if (isset($_icon_cache[$dir]) && is_array($_icon_cache[$dir]) && $_icon_cache[$dir][$pre . $no])
+		if (isset($_icon_cache[$dir_key]) && is_array($_icon_cache[$dir_key]) && isset($_icon_cache[$dir_key][$pre . $no]) && $_icon_cache[$dir_key][$pre . $no])
 		{
-			$ret = $_icon_cache[$dir][$pre . $no];
+			$ret = $_icon_cache[$dir_key][$pre . $no];
 		}
 		else
 		{

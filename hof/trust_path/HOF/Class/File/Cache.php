@@ -119,12 +119,18 @@ class HOF_Class_File_Cache
 
 	function save($id)
 	{
-		if (HOF_Class_File::is_resource_file($this->fp[$id]) && $this->data[$id]->toArray() != $this->_source_data_[$id])
+		if (HOF_Class_File::is_resource_file($this->fp[$id]))
 		{
-			$this->data[$id]->cache_timestamp_last = (int)$this->data[$id]->cache_timestamp;
-			$this->data[$id]->cache_timestamp = time();
+			$current_data = ($this->data[$id] instanceof HOF_Class_Array) ? $this->data[$id]->toArray() : (array)$this->data[$id];
+			$source_data = (array)$this->_source_data_[$id];
 
-			HOF_Class_Yaml::save($this->fp[$id], $this->data[$id]);
+			if ($current_data != $source_data)
+			{
+				$this->data[$id]['cache_timestamp_last'] = (int)$this->data[$id]['cache_timestamp'];
+				$this->data[$id]['cache_timestamp'] = time();
+
+				HOF_Class_Yaml::save($this->fp[$id], $this->data[$id]);
+			}
 		}
 	}
 

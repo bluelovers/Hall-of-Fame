@@ -266,7 +266,7 @@ class Symfony_Component_Yaml_Inline
         $result = array();
         foreach ($parts as $part) {
             if (preg_match('/^([^:]+):\s*(.*)$/s', trim($part), $m)) {
-                $key = trim($m[1]);
+                $key = self::parse(trim($m[1]));
                 $result[$key] = self::parse(trim($m[2]));
             }
         }
@@ -276,7 +276,7 @@ class Symfony_Component_Yaml_Inline
 
     public static function dump($value, $inline = 0, $objectSupport = false)
     {
-        if ('' === $value || null === $value) {
+        if (null === $value) {
             return 'null';
         } elseif (is_bool($value)) {
             return $value ? 'true' : 'false';

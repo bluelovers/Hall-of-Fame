@@ -14,7 +14,7 @@
     # 可以設為 "t" 或是保留空白
     # 支援 -Timeout, --timeout, -t, --t
     [Alias("t")]
-    [int]$Timeout = 10
+    [int]$Timeout = 10,
 
     # 新增 Xdebug 開關偵測
     # 支援 -Xdebug 或由使用者手動傳入包含 coverage 的參數

@@ -125,8 +125,8 @@ class Symfony_Component_Yaml_Parser
             /**
              * 鍵值對: "key: value" / Key-value: "key: value"
              */
-            elseif (preg_match('/^([^#]+?):(?:\s+(.*))?$/', $line, $m)) {
-                $key = trim($m[1]);
+            elseif (preg_match('/^(\".+?\"|\'.+?\'|[^#]+?):(?:\s+(.*))?$/', $line, $m)) {
+                $key = Symfony_Component_Yaml_Inline::parse(trim($m[1]));
                 $val = null;
 
                 if (isset($m[2]) && '' !== trim($m[2])) {

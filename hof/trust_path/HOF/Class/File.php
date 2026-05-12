@@ -331,7 +331,7 @@ class HOF_Class_File
 				usleep(10000); //0.01秒
 				$i++;
 			}
-		} while ($i < 5);
+		} while ($i < 50);
 
 		if (!$data['lock'])
 		{

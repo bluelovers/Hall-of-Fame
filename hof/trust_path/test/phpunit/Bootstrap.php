@@ -34,7 +34,7 @@ require_once dirname(__FILE__) . '/../bootstrap.php';
 
 // Additional test setup - 顯示所有錯誤以獲得最完整的除錯資訊
 // Show all errors for complete debugging information
-error_reporting(E_ALL | E_STRICT);
+// error_reporting(E_ALL | E_STRICT);
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 
