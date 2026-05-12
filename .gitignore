@@ -19,3 +19,7 @@ hof/server_snapshot.txt
 hof/trust_path/test/coverage-report/
 hof/trust_path/test/coverage-report/log/
 docs/snapshots/
+/*.txt
+nul
+
+initialize.lock

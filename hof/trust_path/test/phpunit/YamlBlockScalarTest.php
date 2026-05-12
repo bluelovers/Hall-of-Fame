@@ -3,10 +3,6 @@
 /** 載入測試共用工具 / Load test shared helpers (PROJECT_TEST_PATH 來自 bootstrap-core.php) */
 require_once PROJECT_TEST_PATH . '/lib/test_helper.php';
 
-//@noUnusedParameters:false
-/// <reference types="php" />
-/// <reference types="phpunit" />
-
 /**
  * YAML 塊標量樣式測試 — 驗證 Literal (|) 與 Folded (>) 支援
  * YAML block scalar style test - Verify Literal (|) and Folded (>) support

@@ -3,10 +3,6 @@
 /** 載入測試共用工具 / Load test shared helpers (PROJECT_TEST_PATH 來自 bootstrap-core.php) */
 require_once PROJECT_TEST_PATH . '/lib/test_helper.php';
 
-//@noUnusedParameters:false
-/// <reference types="php" />
-/// <reference types="phpunit" />
-
 /**
  * YAML 行內語法測試 — 專注於 Symfony YAML Parser 支援的內聯格式
  * YAML inline syntax test - Focus on inline formats supported by Symfony YAML Parser
