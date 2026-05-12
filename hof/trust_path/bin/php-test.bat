@@ -7,6 +7,8 @@ rem
 rem This script runs the PHPUnit test suite for the project
 rem ========================================
 
+call "%~dp0log-cleanup.bat"
+
 rem Change to test directory (relative to script location)
 cd /d "%~dp0..\test"
 
