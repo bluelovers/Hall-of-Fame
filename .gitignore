@@ -23,3 +23,5 @@ docs/snapshots/
 nul
 
 initialize.lock
+**/dat/**/*.yml
+**/dat/**/*.dat
