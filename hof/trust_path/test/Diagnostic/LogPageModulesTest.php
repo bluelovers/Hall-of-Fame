@@ -4,10 +4,6 @@
  * 診斷測試：針對 Log 頁面加載的模組進行測試
  */
 
-//@noUnusedParameters:false
-/// <reference types="node" />
-/// <reference types="jest" />
-
 class Diagnostic_LogPageModulesTest extends PHPUnit_Framework_TestCase
 {
     protected function setUp()
