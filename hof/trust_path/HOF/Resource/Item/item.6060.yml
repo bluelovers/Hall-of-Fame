@@ -1,8 +1,8 @@
 no: 6060
-name: ''
+name: Bone
 type: Material
 buy: '1000'
 sell: '10'
 img: mat_016
-base_name: ''
+base_name: Bone
 type2: OTHER
