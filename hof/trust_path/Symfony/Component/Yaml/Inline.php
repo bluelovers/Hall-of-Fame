@@ -267,6 +267,11 @@ class Symfony_Component_Yaml_Inline
         foreach ($parts as $part) {
             if (preg_match('/^([^:]+):\s*(.*)$/s', trim($part), $m)) {
                 $key = self::parse(trim($m[1]));
+                /** 修正：YAML 布林關鍵字 (no, yes, true, false, on, off) 及 null 作為 key 時應保留為字串
+                 * Fix: YAML boolean keywords (no, yes, true, false, on, off) and null should remain as strings when used as keys */
+                if (is_bool($key) || is_null($key)) {
+                    $key = trim($m[1]);
+                }
                 $result[$key] = self::parse(trim($m[2]));
             }
         }
