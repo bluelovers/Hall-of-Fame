@@ -1,3 +1,10 @@
+---
+tags:
+  - docs/data
+  - hof/architecture
+  - hof/data/relationships
+---
+
 # 資料類型關係總表
 
 本文件描述 `hof/trust_path/HOF/Resource/` 下各 YAML 資料類型之間的關聯性，以及它們在原始碼中的交互關係。
@@ -10,12 +17,12 @@
 | Item (物品) | `Item/` | 181 | `HOF_Model_Data` | 武器、防具、消耗品、素材等 |
 | Skill (技能) | `Skill/` | 268 | `HOF_Model_Data` | 主動/被動技能 |
 | Job (職業) | `Job/` | 17 | `HOF_Model_Data` | 職業定義與屬性係數 |
-| Mon (怪物) | `Mon/` | 160+ | `HOF_Model_Char` | 野外怪物與聯盟怪物基底 |
-| Skilltree (技能樹) | `Skilltree/` | 100+ | `HOF_Model_Data` | 職業技能學習路徑 |
+| Mon (怪物) | `Mon/` | 147 | `HOF_Model_Char` | 野外怪物與聯盟怪物基底 |
+| Skilltree (技能樹) | `Skilltree/` | 163 | `HOF_Model_Data` | 職業技能學習路徑 |
 | Guard (守護) | `Guard/` | 8 | `HOF_Model_Data` | 前衛/後衛防禦策略 |
-| Judge (判定) | `Judge/` | 10+ | `HOF_Model_Data` | 行為模式判定條件 |
-| Land (地圖) | `Land/` | 20+ | `HOF_Model_Data` | 戰鬥場地與出現條件 |
-| Union (聯盟) | `Union/` | 10+ | `HOF_Model_Char` | 聯盟怪物 (基底+怪物合併) |
+| Judge (判定) | `Judge/` | 128 | `HOF_Model_Data` | 行為模式判定條件 |
+| Land (地圖) | `Land/` | 25 | `HOF_Model_Data` | 戰鬥場地與出現條件 |
+| Union (聯盟) | `Union/` | 12 | `HOF_Model_Char` | 聯盟怪物 (基底+怪物合併) |
 | Color (顏色) | (根目錄) | 1 (`Color.dat`) | `HOF_Model_Data` | 顏色代號定義 |
 | Test (測試) | `test/` (非YAML) | 2+ | - | PHP 測試腳本 |
 

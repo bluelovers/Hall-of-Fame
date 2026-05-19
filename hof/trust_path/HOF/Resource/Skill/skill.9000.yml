@@ -4,5 +4,5 @@ name2: '* 次も考慮する'
 exp: 複数判定
 img: skill_040
 learn: '4'
-type: false
-pow: false
+type: '0'
+pow: '0'

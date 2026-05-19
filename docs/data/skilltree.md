@@ -1,10 +1,17 @@
+---
+tags:
+  - docs/data
+  - hof/resource/skilltree
+  - hof/game-data
+---
+
 # 技能樹 (Skilltree) 資料結構分析
 
 ## 檔案資訊
 
 - **路徑**: `hof/trust_path/HOF/Resource/Skilltree/`
 - **檔案數**: 163
-- **檪案範例**: `skilltree.1000.yml`, `skilltree.1001.yml`, ... `skilltree.9000.yml`
+- **檔案範例**: `skilltree.1000.yml`, `skilltree.1001.yml`, ... `skilltree.9000.yml`
 
 ## 結構定義
 

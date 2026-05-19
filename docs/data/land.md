@@ -1,3 +1,10 @@
+---
+tags:
+  - docs/data
+  - hof/resource/land
+  - hof/game-data
+---
+
 # 地形 (Land) 資料結構分析
 
 ## 檔案資訊

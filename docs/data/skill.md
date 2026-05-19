@@ -1,3 +1,10 @@
+---
+tags:
+  - docs/data
+  - hof/resource/skill
+  - hof/game-data
+---
+
 # 技能 (Skill) 資料結構分析
 
 ## 檔案資訊

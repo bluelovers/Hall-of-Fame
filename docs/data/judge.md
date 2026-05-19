@@ -1,3 +1,10 @@
+---
+tags:
+  - docs/data
+  - hof/resource/judge
+  - hof/game-data
+---
+
 # 判定 (Judge) 資料結構分析
 
 ## 檔案資訊

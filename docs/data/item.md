@@ -1,3 +1,10 @@
+---
+tags:
+  - docs/data
+  - hof/resource/item
+  - hof/game-data
+---
+
 # 物品 (Item) 資料結構分析
 
 ## 檔案資訊

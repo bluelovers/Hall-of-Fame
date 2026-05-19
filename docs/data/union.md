@@ -1,3 +1,10 @@
+---
+tags:
+  - docs/data
+  - hof/resource/union
+  - hof/game-data
+---
+
 # 工會 (Union) 資料結構分析
 
 ## 檔案資訊

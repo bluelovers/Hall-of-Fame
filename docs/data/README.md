@@ -1,3 +1,11 @@
+---
+tags:
+  - docs/data
+  - hof/data
+  - hof/yaml
+  - hof/resource
+---
+
 # YAML 資料結構分析
 
 本目錄包含 Hall of Fame 專案中 YAML 格式資料的結構分析，按資料類型分類。

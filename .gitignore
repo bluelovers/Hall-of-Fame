@@ -25,3 +25,4 @@ nul
 initialize.lock
 **/dat/**/*.yml
 **/dat/**/*.dat
+/*.png

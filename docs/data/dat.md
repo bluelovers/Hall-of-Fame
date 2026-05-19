@@ -1,14 +1,28 @@
+---
+tags:
+  - docs/data
+  - hof/resource/dat
+  - hof/game-data
+---
+
 # 遊戲資料 (dat) 資料結構分析
 
 ## 檔案資訊
 
 - **路徑**: `hof/trust_path/dat/`
-- **檔案數**: 4
+- **檔案數**: 8 (不含子目錄)
 - **檔案列表**:
   - `auction.yml` — 拍賣系統資料 (空檔案)
   - `ranking.yml` — 排名系統資料 (空檔案)
   - `update.dat` — 更新日誌 (純文字)
   - `managed.dat` — 管理紀錄 (純文字)
+  - `bbs.dat` — BBS 資料
+  - `ctrltime.dat` — 控制時間記錄
+  - `index.htm` — 目錄索引
+  - `initialize.lock` — 初始化鎖定檔
+- **子目錄**:
+  - `union/` — 聯盟動態生成資料
+  - `user/` — 使用者資料目錄
 
 ## 檔案說明
 

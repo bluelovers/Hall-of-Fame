@@ -1,9 +1,16 @@
+---
+tags:
+  - docs/data
+  - hof/resource/mon
+  - hof/game-data
+---
+
 # 怪物 (Mon) 資料結構分析
 
 ## 檔案資訊
 
 - **路徑**: `hof/trust_path/HOF/Resource/Mon/`
-- **檔案數**: 160+
+- **檔案數**: 147
 - **檔案範例**: `mon.1000.yml`, `mon.1001.yml`, ... `mon.5104.yml`
 
 ## 結構定義

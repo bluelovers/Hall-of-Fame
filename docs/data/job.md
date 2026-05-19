@@ -1,3 +1,10 @@
+---
+tags:
+  - docs/data
+  - hof/resource/job
+  - hof/game-data
+---
+
 # 職業 (Job) 資料結構分析
 
 ## 檔案資訊

@@ -57,6 +57,16 @@ define('PROJECT_ROOT_PATH', realpath(PROJECT_TRUST_PATH . '/..'));
 define('PROJECT_STATIC_PATH', realpath(PROJECT_ROOT_PATH . '/static'));
 
 /**
+ * 靜態圖片資源目錄的絕對路徑
+ * Absolute path to the static image directory
+ *
+ * Resource YAML 中的 img 欄位值應對應於此目錄下的檔案。
+ *
+ * @example D:/Users/.../hof/static/image
+ */
+define('PROJECT_STATIC_IMAGE_PATH', PROJECT_STATIC_PATH . '/image');
+
+/**
  * 測試目錄的絕對路徑
  * Absolute path to the test directory
  *

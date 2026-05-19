@@ -1,3 +1,10 @@
+---
+tags:
+  - docs/data
+  - hof/resource/char
+  - hof/game-data
+---
+
 # 角色 (Char) 資料結構分析
 
 ## 檔案資訊
