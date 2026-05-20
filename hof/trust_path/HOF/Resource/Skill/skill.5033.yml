@@ -1,6 +1,7 @@
 no: 5033
 name: WeaponForging
 img: skill_066
+exp: 提升所有友军的攻击力
 sp: '50'
 type: '0'
 learn: '99'

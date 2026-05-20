@@ -1,6 +1,7 @@
 no: 1204
 name: ScatterKnife
 img: we_sword001z
+exp: 向多個敵人散射匕首進行攻擊
 sp: '30'
 type: '0'
 learn: '4'

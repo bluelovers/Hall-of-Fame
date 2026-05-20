@@ -1,6 +1,7 @@
 no: 3221
 name: Protection+
 img: skill_045
+exp: 提升友軍防禦力
 sp: '90'
 type: '1'
 learn: '6'

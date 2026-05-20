@@ -1,7 +1,7 @@
 no: 5066
 name: BananaRecovery
 img: banana
-exp: ''
+exp: 使用香蕉恢复自己的HP和SP，并解毒
 sp: '0'
 type: '1'
 learn: '10'

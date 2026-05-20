@@ -1,7 +1,7 @@
 no: 2000
 name: FireStorm
 img: skill_004a
-exp: ''
+exp: 施展火焰风暴，对多个敌人造成伤害
 sp: '70'
 type: '1'
 learn: '4'

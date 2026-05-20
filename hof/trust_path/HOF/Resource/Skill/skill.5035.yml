@@ -1,6 +1,7 @@
 no: 5035
 name: FireBreath
 img: skill_066
+exp: 呼吸火焰对所有敌人造成伤害
 sp: '0'
 type: '1'
 learn: '99'

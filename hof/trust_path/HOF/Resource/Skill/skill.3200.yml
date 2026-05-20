@@ -1,6 +1,7 @@
 no: 3200
 name: Encourage
 img: skill_044
+exp: 提升友軍力量
 sp: '60'
 type: '1'
 learn: '6'

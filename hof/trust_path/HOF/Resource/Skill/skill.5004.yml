@@ -1,7 +1,7 @@
 no: 5004
 name: Venom
 img: skill_066
-exp: ''
+exp: 注入毒素，造成傷害並使敵人中毒
 sp: '0'
 type: '1'
 learn: '99'

@@ -1,7 +1,7 @@
 no: 2010
 name: IceSpear
 img: skill_001b
-exp: ''
+exp: 造成冰冷刺骨的伤害
 sp: '20'
 type: '1'
 learn: '1'

@@ -1,7 +1,7 @@
 no: 5015
 name: SnowStorm
 img: skill_066
-exp: ''
+exp: 冰雪肆虐，造成大量傷害並減緩敵人的速度與行動能力
 sp: '30'
 type: '1'
 learn: '99'

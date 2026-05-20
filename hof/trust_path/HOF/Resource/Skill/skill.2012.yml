@@ -1,7 +1,7 @@
 no: 2012
 name: Blizzard
 img: skill_006b
-exp: ''
+exp: 对多个敌人造成冰霜伤害
 sp: '240'
 type: '1'
 learn: '12'

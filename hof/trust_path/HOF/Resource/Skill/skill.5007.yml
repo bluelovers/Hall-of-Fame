@@ -1,7 +1,7 @@
 no: 5007
 name: Heal
 img: skill_066
-exp: ''
+exp: 治療友軍，恢復大量生命值
 sp: '5'
 type: '1'
 learn: '99'

@@ -1,7 +1,7 @@
 no: 2500
 name: SummonIfrit
 img: skill_029
-exp: ''
+exp: 召唤火魔
 sp: '700'
 type: '1'
 learn: '20'

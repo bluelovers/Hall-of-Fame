@@ -1,7 +1,7 @@
 no: 3000
 name: Healing
 img: skill_013a
-exp: ''
+exp: 治疗
 sp: '5'
 type: '1'
 learn: '0'

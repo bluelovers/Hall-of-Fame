@@ -1,7 +1,7 @@
 no: 2309
 name: Disarm
 img: item_042
-exp: ''
+exp: 解除装备
 sp: '20'
 type: '0'
 learn: '2'

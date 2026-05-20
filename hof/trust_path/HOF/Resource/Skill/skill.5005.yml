@@ -1,7 +1,7 @@
 no: 5005
 name: Defence
 img: skill_066
-exp: ''
+exp: 提升自身的物理與魔法防禦值
 sp: '20'
 type: '0'
 learn: '99'

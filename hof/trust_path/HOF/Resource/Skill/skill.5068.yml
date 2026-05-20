@@ -1,7 +1,7 @@
 no: 5068
 name: CallSlave
 img: banana
-exp: ''
+exp: 召唤一个僕從为自己作战
 sp: '0'
 type: '0'
 learn: '99'

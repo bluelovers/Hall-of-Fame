@@ -1,7 +1,7 @@
 no: 5002
 name: BloodSuck
 img: skill_066
-exp: ''
+exp: 吸取敵人的血量，造成大量傷害並恢復自身生命值
 sp: '0'
 type: '0'
 learn: '99'

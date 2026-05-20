@@ -1,6 +1,7 @@
 no: 5043
 name: SnowBall
 img: skill_066
+exp: 雪球对多个敌人造成伤害
 sp: '0'
 type: '0'
 learn: '99'

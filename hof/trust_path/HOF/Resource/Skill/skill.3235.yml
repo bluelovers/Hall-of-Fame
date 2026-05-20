@@ -1,6 +1,7 @@
 no: 3235
 name: ResistDown
 img: skill_071
+exp: 降低敵人魔法防禦力
 sp: '60'
 type: '1'
 learn: '6'

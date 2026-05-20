@@ -1,6 +1,7 @@
 no: 3230
 name: ForceShield
 img: skill_070
+exp: 提升友軍魔法防禦力
 sp: '60'
 type: '1'
 learn: '6'

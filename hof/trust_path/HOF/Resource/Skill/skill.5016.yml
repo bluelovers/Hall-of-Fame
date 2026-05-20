@@ -1,7 +1,7 @@
 no: 5016
 name: Fly
 img: skill_066
-exp: ''
+exp: 飛躍加速，大幅提升友軍的移動速度並提供支援效果
 sp: '10'
 type: '1'
 learn: '99'

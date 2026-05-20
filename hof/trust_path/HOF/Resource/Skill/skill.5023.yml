@@ -1,7 +1,7 @@
 no: 5023
 name: UnFortune
 img: skill_066
-exp: ''
+exp: 降低敌人最大生命值，并使他们受到的伤害增加
 sp: '500'
 type: '1'
 learn: '99'

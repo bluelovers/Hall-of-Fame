@@ -1,7 +1,7 @@
 no: 1002
 name: FireBall
 img: skill_018
-exp: ''
+exp: 施放一個火球對多個敵人造成範圍傷害
 sp: '20'
 type: '1'
 learn: '0'

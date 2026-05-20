@@ -1,7 +1,7 @@
 no: 5067
 name: BananaProtection
 img: banana
-exp: ''
+exp: 为所有友军提供保护，提升他们的防御力和魔法防御力
 sp: '50'
 type: '1'
 learn: '10'

@@ -1,7 +1,7 @@
 no: 5027
 name: Swirling
 img: skill_066
-exp: ''
+exp: 对所有敌人造成伤害并降低其速度
 sp: '50'
 type: '0'
 learn: '99'

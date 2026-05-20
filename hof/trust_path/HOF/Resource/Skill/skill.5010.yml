@@ -1,7 +1,7 @@
 no: 5010
 name: Bite
 img: skill_066
-exp: ''
+exp: 猛烈咬擊，造成傷害並穿透防禦
 sp: '0'
 type: '0'
 learn: '99'

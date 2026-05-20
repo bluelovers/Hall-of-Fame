@@ -1,7 +1,7 @@
 no: 1003
 name: DoubleAttack
 img: skill_073
-exp: ''
+exp: 连续发动两次攻击
 sp: '15'
 type: '0'
 learn: '4'

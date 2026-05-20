@@ -1,6 +1,7 @@
 no: 5038
 name: DarkBreath
 img: skill_066
+exp: 黑暗吐息对所有敌人造成伤害并降低其智力
 sp: '200'
 type: '1'
 learn: '99'

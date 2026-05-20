@@ -1,6 +1,7 @@
 no: 3205
 name: Fear
 img: skill_048
+exp: 降低敵人力量
 sp: '60'
 type: '1'
 learn: '6'

@@ -1,6 +1,7 @@
 no: 5041
 name: DarkMist
 img: skill_066
+exp: 暗影迷雾对所有敌人造成伤害并降低其魔法防御力
 sp: '300'
 type: '1'
 learn: '99'

@@ -1,7 +1,7 @@
 no: 2001
 name: HellFire
 img: skill_006a
-exp: ''
+exp: 呼唤地狱之火，对大量敌人造成严重伤害
 sp: '320'
 type: '1'
 learn: '12'

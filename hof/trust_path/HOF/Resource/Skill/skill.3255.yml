@@ -1,6 +1,7 @@
 no: 3255
 name: MagicAsist
 img: skill_046
+exp: 提升友軍智力
 sp: '60'
 type: '1'
 learn: '6'

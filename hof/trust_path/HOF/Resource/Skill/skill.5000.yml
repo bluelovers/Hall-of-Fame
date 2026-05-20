@@ -1,7 +1,7 @@
 no: 5000
 name: EarthStump
 img: skill_066
-exp: ''
+exp: 地面障礙，阻擋敵方移動
 sp: '20'
 type: '0'
 learn: '99'

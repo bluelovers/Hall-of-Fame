@@ -1,7 +1,7 @@
 no: 3121
 name: SelfRecovery
 img: skill_062
-exp: ''
+exp: 自己HP回復
 sp: '15'
 type: '0'
 learn: '4'

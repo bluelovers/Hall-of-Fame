@@ -1,7 +1,7 @@
 no: 2501
 name: SummonLeviathan
 img: skill_029
-exp: ''
+exp: 召唤海兽
 sp: '700'
 type: '1'
 learn: '20'

@@ -1,7 +1,7 @@
 no: 2502
 name: SummonArchAngel
 img: skill_029
-exp: ''
+exp: 召唤天使
 sp: '900'
 type: '1'
 learn: '30'

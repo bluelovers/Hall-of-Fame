@@ -1,6 +1,7 @@
 no: 5040
 name: DarkHoly
 img: skill_066
+exp: 黑暗圣光对多个敌人造成伤害
 sp: '300'
 type: '1'
 learn: '99'

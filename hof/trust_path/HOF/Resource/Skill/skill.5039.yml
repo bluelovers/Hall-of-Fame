@@ -1,6 +1,7 @@
 no: 5039
 name: PoisonBreath
 img: skill_066
+exp: 毒气对所有敌人造成伤害
 sp: '100'
 type: '0'
 learn: '99'

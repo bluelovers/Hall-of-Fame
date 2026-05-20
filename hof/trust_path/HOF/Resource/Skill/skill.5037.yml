@@ -1,6 +1,7 @@
 no: 5037
 name: EyeBeam
 img: skill_066
+exp: 眼睛射线对单个敌人造成伤害并降低其攻击力与防御力
 sp: '0'
 type: '1'
 learn: '99'

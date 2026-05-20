@@ -1,6 +1,7 @@
 no: 5031
 name: HammerStrike
 img: skill_066
+exp: 用巨锤对单个敌人造成伤害
 sp: '0'
 type: '0'
 learn: '99'

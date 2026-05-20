@@ -1,7 +1,7 @@
 no: 2042
 name: Subsidence
 img: skill_056
-exp: ''
+exp: 地面下陷，对全体敌人造成伤害
 sp: '150'
 type: '1'
 learn: '8'
