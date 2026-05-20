@@ -167,10 +167,16 @@ class ResourceRoundtripTest extends PHPUnit_Framework_TestCase
                 $this->assertInternalType('string', $data[$field],
                     "Field '$field' should be string. File: $file, type: " . gettype($data[$field]));
                 if (!self::ALLOW_EMPTY_STRING) {
-                    $this->assertNotEmpty($data[$field],
-                        "Field '$field' should not be empty. File: $file. Path: $fullPath");
+                    $this->assertNotEmpty2($data[$field],
+                        "Field '$field' should not be empty ($data[$field]). File: $file. Path: $fullPath");
                 }
             }
+        }
+    }
+
+    public function assertNotEmpty2($value, $message) {
+        if ($value === '') {
+            $this->fail($message);
         }
     }
 
