@@ -1,6 +1,7 @@
 no: 5034
 name: CreateGargoyle
 img: skill_066
+exp: 召唤一只石像鬼为你作战
 sp: '50'
 type: '0'
 learn: '99'

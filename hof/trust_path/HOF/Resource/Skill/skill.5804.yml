@@ -1,7 +1,7 @@
 no: 5804
 name: CallSlave
 img: skill_066
-exp: ''
+exp: 召喚僕從
 sp: '200'
 type: '0'
 learn: '99'

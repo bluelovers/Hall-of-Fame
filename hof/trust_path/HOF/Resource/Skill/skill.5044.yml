@@ -1,6 +1,7 @@
 no: 5044
 name: SnowSlide
 img: skill_066
+exp: 雪崩，对所有敌人造成伤害并降低其速度
 sp: '70'
 type: '1'
 learn: '99'

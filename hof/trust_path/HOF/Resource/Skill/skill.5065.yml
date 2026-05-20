@@ -1,7 +1,7 @@
 no: 5065
 name: BananaShot
 img: banana
-exp: ''
+exp: 香蕉炮弹，对多个敌人造成伤害
 sp: '50'
 type: '0'
 learn: '99'

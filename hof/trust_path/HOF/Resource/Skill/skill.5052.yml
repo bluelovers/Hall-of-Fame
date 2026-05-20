@@ -1,6 +1,7 @@
 no: 5052
 name: PresentBomb
 img: skill_066
+exp: 圣诞炸弹，对单个敌人造成伤害并降低其最大生命值
 sp: '0'
 type: '0'
 learn: '99'

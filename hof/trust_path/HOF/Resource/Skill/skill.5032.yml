@@ -1,6 +1,7 @@
 no: 5032
 name: GroundStrike
 img: skill_066
+exp: 地面冲击，对所有敌人造成伤害
 sp: '50'
 type: '0'
 learn: '99'

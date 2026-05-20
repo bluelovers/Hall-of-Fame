@@ -63,6 +63,82 @@ pow: '100'            # 威力百分比
 | `umove` | number | 使用者移動 |
 | `passive` | boolean | 被動技能標記 |
 
+### 🔹 Target 欄位詳細規格
+
+#### 結構
+```
+[target類型, 方式, 數量]
+```
+
+##### 1. 類型 (第一個元素)
+- `friend` → 指向 **味方**
+- `enemy` → 指向 **敵人**
+- `all` → 指向 **全體 (味方+敵人)**
+- `self` → 指向 **自身**
+
+##### 2. 方式 (第二個元素)
+- `individual` → 個別指定目標
+- `multi` → 隨機多目標 (可能重複)
+- `all` → 全體同時
+
+##### 3. 數量 (第三個元素)
+- 整數值，代表攻擊或作用次數
+  - `1` → 一次
+  - `3` → 三次
+  - `5` → 五次 …以此類推
+
+---
+
+#### 📖 範例對照表
+
+| 設定 | 說明 |
+|------|------|
+| `["enemy","individual",1]` | 敵人單體攻擊 1 次 |
+| `["enemy","individual",3]` | 敵人單體攻擊 3 次 |
+| `["enemy","multi",3]` | 隨機敵人 3 人各 1 次 (可能重複) |
+| `["enemy","all",1]` | 敵全體各 1 次 |
+| `["all","individual",5]` | 全體中隨機 1 人，連續 5 次 |
+| `["all","multi",5]` | 全體中隨機 5 人各 1 次 (可能重複) |
+| `["all","all",3]` | 全體所有人各 3 次 |
+| `["self","individual",1]` | 自身作用 1 次 |
+
+---
+
+#### 📌 套用範例：ChargeShot
+
+hof/trust_path/HOF/Resource/Skill/skill.2305.yml
+
+```yaml
+no: 2305
+name: ChargeShot
+img: item_042
+exp: 後衛化
+sp: '30'
+type: '0'
+learn: '6'
+target:
+  - enemy
+  - individual
+  - 1
+inf: dex
+pow: '100'
+charge:
+  - 30
+  - 0
+knockback: '100'
+limit:
+  Bow: true
+```
+
+👉 在這個例子中，`target` 設定為：
+
+- **enemy** → 目標是敵人
+- **individual** → 單體指定
+- **1** → 攻擊 1 次
+
+也就是「對敵人單體進行一次攻擊」。
+
+
 ## 技能編號範圍
 
 | 範圍 | 類型 |

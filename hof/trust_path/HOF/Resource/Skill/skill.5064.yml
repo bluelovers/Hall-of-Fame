@@ -1,7 +1,7 @@
 no: 5064
 name: BananaRocket
 img: banana
-exp: ''
+exp: 香蕉火箭，对单个敌人造成伤害
 sp: '50'
 type: '0'
 learn: '99'
