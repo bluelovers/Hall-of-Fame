@@ -62,8 +62,8 @@ define('DEBUG_LANDAPPEAR_ALL', 0);
 define('NEW_NAME_COST', 300000); //新しい名前に変更するのに必要なお金
 define('BBS_OUT', ''); //外部BBSがあればそのアドレス、無ければ空欄→''
 define('BBS_BOTTOM_TOGGLE', 0); // 下にあった一行掲示板(0=OFF)
-define('AUCTION_TOGGLE', 0); // オークションを機能させるか(0=OFF 1=ON)
-define('AUCTION_EXHIBIT_TOGGLE', 0); // オークションの出品を可能にするか(0=OFF 1=ON)
+define('AUCTION_TOGGLE', 1); // オークションを機能させるか(0=OFF 1=ON)
+define('AUCTION_EXHIBIT_TOGGLE', 1); // オークションの出品を可能にするか(0=OFF 1=ON)
 define('JUDGE_LIST_AUTO_LOAD', 0); //パターン判断のリストを 1=自動 0=手動追加(若干軽い)
 define('AUCTION_MAX', 100); //オークション同時に出品できる品数。
 
