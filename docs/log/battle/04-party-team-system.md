@@ -921,3 +921,11 @@ function ReturnMoney()
 | `HOF/Class/Battle.php` | `Process()`, `SaveCharacters()`, `ReturnMoney()`, `ReturnItemGet()` | 戰鬥主引擎 |
 | `HOF/Helper/Char.php` | `char_list_by_user()`, `char_file()`, `user_path()` | 角色檔案路徑管理 |
 | `HOF/Model/Char.php` | `newBaseChar()`, `newMon()`, `newUnion()` | 角色物件建立 |
+
+### 相關分析文件
+
+| 文件 | 內容 |
+|------|------|
+| [戰鬥機制與算法分析](02-battle-mechanism.md) | 戰鬥流程、Delay 系統、傷害/回復公式、防禦/守護、Buff/Debuff |
+| [角色與裝備系統分析](03-char-equipment-system.md) | 角色屬性、HP/SP 公式、裝備系統、升級、技能樹、怪物等級調整 |
+| [戰鬥細節系統分析](05-battle-details.md) | 常數實際數值、AI 判定完整列表、行為模式、pick() 概率機制 |

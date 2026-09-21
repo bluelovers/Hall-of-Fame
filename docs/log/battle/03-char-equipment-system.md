@@ -801,3 +801,11 @@ if ($strength) {
 | `HOF/Model/Char.php` | `newBaseChar()`, `newMon()`, `newMonSummon()`, `newUnion()` | 角色物件建立 |
 | `HOF/Helper/Char.php` | `char_file()`, `user_path()`, `char_is_allow_name()` | 角色輔助函式 |
 | `HOF/Class/Skill/Tree.php` | `skill_tree()` | 技能樹查詢 |
+
+### 相關分析文件
+
+| 文件 | 內容 |
+|------|------|
+| [戰鬥機制與算法分析](02-battle-mechanism.md) | 戰鬥流程、Delay 系統、傷害/回復公式、防禦/守護、Buff/Debuff |
+| [戰鬥細節系統分析](05-battle-details.md) | AI 判定完整列表、行為模式、暴擊、傷害波動、狀態持續、裝備職業限制 |
+| [隊伍系統分析](04-party-team-system.md) | 隊伍編成、敵方生成、時間系統、戰鬥後處理 |
