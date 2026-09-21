@@ -503,6 +503,8 @@ function EnemyParty($Amount, $MonsterList, $Specify = false)
            小幅調整，保持隨機性
 ```
 
+> **底層實作：** `level_fix()` 的詳細算法與屬性成長公式，參見 [角色與裝備系統 — 10. 怪物等級調整](03-char-equipment-system.md#10-怪物等級調整)。
+
 ---
 
 ## 7. 時間系統
