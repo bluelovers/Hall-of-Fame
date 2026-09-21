@@ -444,7 +444,7 @@ abstract class HOF_Class_Char_Abstract extends HOF_Class_Base_Extend_Root
 		$this->SP = round($sp);
 
 		$this->HP = min($this->HP, $this->MAXHP);
-		$this->SP = min($this->HP, $this->MAXHP);
+		$this->SP = min($this->SP, $this->MAXSP);
 
 		$this->STR = $this->str + $this->P_STR;
 		$this->INT = $this->int + $this->P_INT;
