@@ -755,5 +755,6 @@ if (($Not5 || $AliveNumDiff > 0) && $BattleMaxTurn < BATTLE_MAX_EXTENDS) {
 | 文件 | 內容 |
 |------|------|
 | [戰鬥細節系統分析](05-battle-details.md) | 常數實際數值、AI 判定完整列表、行為模式、傷害波動、狀態持續、回合結束處理 |
+| [戰鬥過程與結果系統分析](06-battle-process-result.md) | Process 迴圈、BattleResult 判定、View 顯示、獎勵系統、RecordLog、Delay 運作 |
 | [角色與裝備系統分析](03-char-equipment-system.md) | 角色屬性、HP/SP 公式、裝備系統、升級、技能樹 |
 | [隊伍系統分析](04-party-team-system.md) | 隊伍編成、敵方生成、時間系統、戰鬥後處理 |

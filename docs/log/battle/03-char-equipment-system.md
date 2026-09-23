@@ -808,4 +808,5 @@ if ($strength) {
 |------|------|
 | [戰鬥機制與算法分析](02-battle-mechanism.md) | 戰鬥流程、Delay 系統、傷害/回復公式、防禦/守護、Buff/Debuff |
 | [戰鬥細節系統分析](05-battle-details.md) | AI 判定完整列表、行為模式、暴擊、傷害波動、狀態持續、裝備職業限制 |
+| [戰鬥過程與結果系統分析](06-battle-process-result.md) | Process 迴圈、BattleResult 判定、View 顯示、獎勵系統、RecordLog |
 | [隊伍系統分析](04-party-team-system.md) | 隊伍編成、敵方生成、時間系統、戰鬥後處理 |

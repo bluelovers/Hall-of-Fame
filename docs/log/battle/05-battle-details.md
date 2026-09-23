@@ -963,3 +963,12 @@ public function pickList($amount = null, $pick_list = null)
 | `HOF/Class/Battle/Team.php` | `pick()`, `pickList()` | 敵人概率選擇 |
 | `HOF/Controller/Char.php` | `_equip_item()` | 裝備職業限制檢查 |
 | `HOF/Const/setting.dist.php` | — | 所有常數定義 |
+
+### 相關分析文件
+
+| 文件 | 內容 |
+|------|------|
+| [戰鬥機制與算法分析](02-battle-mechanism.md) | 戰鬥流程、Delay 系統、傷害/回復公式、防禦/守護、Buff/Debuff |
+| [角色與裝備系統分析](03-char-equipment-system.md) | 角色屬性、HP/SP 公式、裝備系統、升級、技能樹 |
+| [隊伍系統分析](04-party-team-system.md) | 隊伍編成、敵方生成、時間系統、戰鬥後處理 |
+| [戰鬥過程與結果系統分析](06-battle-process-result.md) | Process 迴圈、BattleResult 判定、View 顯示、獎勵系統、RecordLog |
