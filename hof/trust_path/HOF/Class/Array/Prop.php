@@ -79,6 +79,9 @@ class HOF_Class_Array_Prop extends ArrayObject
 
 		array_unshift($args, $arr);
 
+		// array_walk() 第一個參數需以傳參考傳入，改為參考元素以避免 Warning
+		$args[0] = &$arr;
+
 		$return = call_user_func_array(__FUNCTION__, $args);
 
 		$this->exchangeArray($arr);
@@ -93,6 +96,9 @@ class HOF_Class_Array_Prop extends ArrayObject
 		$arr = $this->getArrayCopy();
 
 		array_unshift($args, $arr);
+
+		// array_walk_recursive() 第一個參數需以傳參考傳入，改為參考元素以避免 Warning
+		$args[0] = &$arr;
 
 		$return = call_user_func_array(__FUNCTION__, $args);
 
@@ -206,6 +212,9 @@ class HOF_Class_Array_Prop extends ArrayObject
 		$arr = (array )$this->getArrayCopy();
 
 		array_unshift($argv, $arr);
+
+		// array_splice() 第一個參數需以傳參考傳入，改為參考元素以避免 Warning
+		$argv[0] = &$arr;
 
 		$return = call_user_func_array(__FUNCTION__, $argv);
 
