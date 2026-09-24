@@ -1263,3 +1263,4 @@ if ($this->ChangeDelay)
 | [角色與裝備系統分析](03-char-equipment-system.md) | 角色屬性、HP/SP 公式、裝備系統、升級 |
 | [隊伍系統分析](04-party-team-system.md) | 隊伍編成、敵方生成、時間系統 |
 | [戰鬥細節系統分析](05-battle-details.md) | 常數數值、AI 判定、行為模式、傷害波動 |
+| [戰鬥訊息格式分析](07-battle-message-format.md) | CSS 顯示類型、訊息格式模板、HP/SP 面板格式 |

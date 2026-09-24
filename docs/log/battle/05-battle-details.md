@@ -972,3 +972,4 @@ public function pickList($amount = null, $pick_list = null)
 | [角色與裝備系統分析](03-char-equipment-system.md) | 角色屬性、HP/SP 公式、裝備系統、升級、技能樹 |
 | [隊伍系統分析](04-party-team-system.md) | 隊伍編成、敵方生成、時間系統、戰鬥後處理 |
 | [戰鬥過程與結果系統分析](06-battle-process-result.md) | Process 迴圈、BattleResult 判定、View 顯示、獎勵系統、RecordLog |
+| [戰鬥訊息格式分析](07-battle-message-format.md) | CSS 顯示類型、訊息格式模板、色彩語意 |

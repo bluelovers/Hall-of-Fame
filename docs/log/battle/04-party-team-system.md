@@ -930,3 +930,4 @@ function ReturnMoney()
 | [角色與裝備系統分析](03-char-equipment-system.md) | 角色屬性、HP/SP 公式、裝備系統、升級、技能樹、怪物等級調整 |
 | [戰鬥細節系統分析](05-battle-details.md) | 常數實際數值、AI 判定完整列表、行為模式、pick() 概率機制 |
 | [戰鬥過程與結果系統分析](06-battle-process-result.md) | Process 迴圈、BattleResult 判定、View 顯示、獎勵系統、RecordLog |
+| [戰鬥訊息格式分析](07-battle-message-format.md) | CSS 顯示類型、訊息格式模板、色彩語意 |
