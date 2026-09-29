@@ -835,7 +835,7 @@ class HOF_Class_Skill_Effect
 		// 回復量増加系パッシブ
 
 		// 受ける側が回復量増加系のパッシブスキルを持っていたら増す
-		//if($char->special["?"])
+		//if($char->special["?"]) // ⚠️ 錯字 (typo)：正確應為 $char->SPECIAL（已註解停用）
 		//
 
 		return $heal;

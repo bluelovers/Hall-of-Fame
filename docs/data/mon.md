@@ -29,7 +29,7 @@ int: '3'                # 智力
 dex: '5'                # 敏捷
 spd: '5'                # 速度
 luk: '1'                # 幸運
-special: {  }           # 特殊能力
+special: {  }           # 特殊能力 ⚠️ 錯字 (typo)：正確鍵名為 SPECIAL
 atk:                     # 攻擊力 [物理, 魔法]
     - 20
     - 10
@@ -83,7 +83,7 @@ behavior:                 # 行為模式
 | `dex` | string | 敏捷 |
 | `spd` | string | 速度 |
 | `luk` | string | 幸運 |
-| `special` | object | 特殊能力 |
+| `special` | object | 特殊能力（⚠️ **錯字 (typo)**，正確鍵名為 `SPECIAL`，僅 `mon.1000.yml` 使用小寫） |
 | `atk` | array | 攻擊力 [物理, 魔法] |
 | `def` | array | 防禦力 [物理割合, 物理減免, 魔法割合, 魔法減免] |
 | `info.desc` | string | 怪物描述 |

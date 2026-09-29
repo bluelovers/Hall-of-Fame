@@ -11,6 +11,7 @@ int: '3'
 dex: '5'
 spd: '5'
 luk: '1'
+# ⚠️ 錯字 (typo)：正確鍵名應為 SPECIAL
 special: {  }
 atk:
     - 20
