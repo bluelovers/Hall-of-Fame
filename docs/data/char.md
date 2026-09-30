@@ -116,7 +116,7 @@ behavior:                # 行為模式
 4. 最終用於角色創建、顯示或其他遊戲邏輯
 
 ## 與其他資料類型的關聯性
-- **職業 (Job)**: 透過 `job` 欄位關聯到 `hof/trust_path/HOF/Resource/Job/job.{no}.yml`
+- **職業 (Job)**: 透過 `job` 欄位（職業編號）關聯到 `hof/trust_path/HOF/Resource/Job/job.{job}.yml`（即職業檔的 `no` 欄位，兩值目前恆等，詳見 `docs/data/job.md`）
 - **技能 (Skill)**: 透過 `skill` 陣列關聯到多個 `hof/trust_path/HOF/Resource/Skill/skill.{no}.yml`
 - **裝備 (Item)**: 透過 `equip` 物件關聯到 `hof/trust_path/HOF/Resource/Item/item.{no}.yml`
 - **行為模式**: 透過 `behavior.pattern` 關聯到判定 (Judge) 和動作 (Action) 資料

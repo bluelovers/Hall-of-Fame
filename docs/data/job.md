@@ -16,7 +16,7 @@ tags:
 ## 結構定義
 
 ```yaml
-no: '100'              # 職業編號
+no: '100'              # 檔名/設定標誌 (需與檔名 job.100.yml 一致)
 equip:                   # 可使用裝備類型
     - Sword
     - TwoHandSword
@@ -29,7 +29,7 @@ coe:                     # 屬性係數
     maxhp: 3
     maxsp: 0.5
 pattern: null          # 行為模式 (null=無AI)
-job: '100'             # 職業編號
+job: '100'             # 職業編號 (遊戲域語意鍵)
 img: mon_079           # 圖示代號
 job_name: Warrior      # 職業名稱
 gender:                # 性別差異
@@ -47,16 +47,29 @@ info:                  # 資訊
 
 | 欄位 | 類型 | 說明 |
 |------|------|------|
-| `no` | string | 職業編號 |
+| `no` | string | 檔名/設定標誌（需與檔名 `job.{no}.yml` 一致） |
 | `equip` | array | 可使用裝備類型列表 |
 | `coe` | object | 屬性係數 (maxhp, maxsp 等) |
 | `pattern` | mixed | 行為模式 (null=無AI) |
-| `job` | string | 職業編號 |
+| `job` | string | 職業編號（遊戲域語意鍵，用於識別職業本身） |
 | `img` | string | 圖示檔名 |
 | `job_name` | string | 職業名稱 |
 | `gender` | object | 性別差異設定 (1=男性, 2=女性) |
 | `info` | object | 職業資訊 |
 | `info.desc` | string | 職業描述 |
+
+### `no` 與 `job` 的關係
+
+| 項目 | 說明 |
+|------|------|
+| `no` | **檔名/設定標誌** — 與檔案路徑 `Resource/Job/job.{no}.yml` 對齊的技術性識別鍵 |
+| `job` | **職業編號** — 遊戲域中「職業」概念的語意鍵 |
+| 目前狀態 | **兩值恆等**（全部 17 檔皆相同） |
+| 保留雙欄位原因 | 原定計劃實作「職業變體」（可由玩家新增的、基於現有職業的新職業名稱），屆時 `no`（基礎職業檔）與 `job`（變體職業編號）將可分離；**本專案已無此更新計畫** |
+
+> **存取實務：** Runtime 的職業查詢一律以**檔名/呼叫端傳入的 `$no`** 為準
+> （`HOF_Class_Data::_filename()`、`_load()`、`getJobList()`），
+> YAML 內的 `no` 與 `job` 欄位目前皆不參與 runtime 判定。
 
 ## 職業編號範圍
 

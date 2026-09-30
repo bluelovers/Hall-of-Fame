@@ -58,7 +58,7 @@ tags:
 
 | 關係 | 說明 | 原始碼位置 |
 |------|------|-----------|
-| Char.job → Job.no | 角色的職業編號對應到職業定義 | `HOF_Class_Char_Type_Char::source()` (Char.php:113) |
+| Char.job → Job.job（= Job.no / 檔名 `job.{no}.yml`，兩值目前恆等） | 角色的職業編號對應到職業定義 | `HOF_Class_Char_Type_Char::source()` (Char.php:113) |
 | Job.equip → Item.type | 職業的可使用裝備決定角色可裝備的物品類型 | `HOF_Class_Char_Type_Char::setEquip()` (Char.php:371-410) |
 | Job.coe → Char 屬性 | 職業的屬性係數影響角色能力值計算 | `HOF_Model_Char::getBaseCharStatus()` (Char.php:72) |
 | JobConditions | 職業轉職條件 (job_from/job_to) | `HOF_Model_Data::getJobConditions()` (Data.php:586) |
