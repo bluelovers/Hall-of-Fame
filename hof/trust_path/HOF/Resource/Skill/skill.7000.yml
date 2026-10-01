@@ -4,4 +4,5 @@ img: acce_003c
 exp: HP+30
 learn: '2'
 passive: 1
+# ⚠️ 錯字 (typo)：正確鍵名應為 P_MAXHP
 p_maxhp: '30'

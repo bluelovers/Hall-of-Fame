@@ -119,6 +119,35 @@ DownDEF: '5'             # DEF -5 (目標)
 | `MagicCircleDelete` | mixed | — | 魔方陣消除。消除指定隊伍的魔方陣 |
 | `MagicCircleDeleteTeam` | mixed | — | 消費己方魔方陣。使用技能時消耗己方 N 個魔方陣（不足則技能失敗） |
 | `MagicCircleDeleteEnemy` | mixed | — | 消除敵方魔方陣。消除敵方隊伍 N 個魔方陣 |
+| `P_**` | number | — | **被動能力加成**（永久，於 `skill_passive()` 累加至角色屬性）。適用屬性：`MAXHP`、`MAXSP`、`STR`、`INT`、`DEX`、`SPD`、`LUK`。**鍵名必須全大寫**，詳見下方 ⚠️ 錯字說明 |
+| `HealBonus` | mixed | — | 治療加成。被動技能，累加至 `SPECIAL["HealBonus"]` |
+
+---
+
+### ⚠️ 鍵名錯字：`p_maxhp`（正確欄位為 `P_MAXHP`）
+
+> **✅ 正確欄位名稱：`P_MAXHP`** — 鍵名區分大小寫，必須全大寫。
+
+原始碼讀取處：
+
+```php
+// hof/trust_path/HOF/Class/Char/Type/Char.php — skill_passive()
+if ($skill["P_MAXHP"]) $this->P_MAXHP += $skill["P_MAXHP"];   // ← 大寫，小寫讀取不到
+```
+
+#### 受影響檔案
+
+| 檔案 | 技能名 | 說明 | 現況鍵名 | ✅ 正確鍵名 | 生效狀態 |
+|------|--------|------|---------|-----------|---------|
+| `skill.7000.yml` | LifeBoost | HP+30 | `p_maxhp: '30'` ❌ | **`P_MAXHP`** | ❌ 被動**不生效** |
+| `skill.7001.yml` | LifeFlood | HP+80 | `p_maxhp: '80'` ❌ | **`P_MAXHP`** | ❌ 被動**不生效** |
+| `skill.7002.yml` | LifeExceed | HP+200 | `P_MAXHP: '200'` ✅ | **`P_MAXHP`** | ✅ 正常 |
+| `skill.7003.yml` | LifeAssist1 | HP+30 | `P_MAXHP: '30'` ✅ | **`P_MAXHP`** | ✅ 正常 |
+| `skill.7004.yml` | LifeAssist2 | HP+70 | `P_MAXHP: '70'` ✅ | **`P_MAXHP`** | ✅ 正常 |
+| `skill.7005.yml` | LifeAssist3 | HP+150 | `P_MAXHP: '150'` ✅ | **`P_MAXHP`** | ✅ 正常 |
+
+> 📌 **處理狀態：** 已於 YAML 檔內加上 `# ⚠️ 錯字 (typo)：正確鍵名應為 P_MAXHP` 註解標記，
+> **暫不修正鍵名** — 直接改名會立即讓被動加成生效（遊戲數值變更），詳見 `docs/task/MAIN-TASKS.md` TASK-008。
 
 ---
 
